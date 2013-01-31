@@ -8,7 +8,7 @@
 <c:if test="${not empty alerts }">
 	<ul>
 		<c:forEach var="alert" items="${alerts }">
-			<li>${alert }</li>
+			<li><fmt:message key="${alert }"/></li>
 		</c:forEach>
 	</ul>
 </c:if>
