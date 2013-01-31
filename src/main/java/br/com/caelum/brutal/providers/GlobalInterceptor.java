@@ -1,4 +1,4 @@
-package br.com.caelum.gujstack.providers;
+package br.com.caelum.brutal.providers;
 
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
