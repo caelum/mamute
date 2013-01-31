@@ -15,10 +15,21 @@ public class Question {
     private Long id; 
     
     private String title;
+    
     @Type(type="text")
     private String description;
     
     @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
-    private final DateTime createdAt = new DateTime(); 
+    private final DateTime createdAt = new DateTime();
+
+    public Question(String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "Question [title=" + title + ", createdAt=" + createdAt + "]";
+    } 
     
 }
