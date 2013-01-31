@@ -16,6 +16,7 @@ public class User {
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
 	private final DateTime createdAt = new DateTime();
 
+	@Column(unique=true)
 	private String email;
 
 	@Id
@@ -23,6 +24,8 @@ public class User {
 	private Long id;
 
 	private String password = "";
+	
+	private String nome;
 
 	/**
 	 * @deprecated hibernate eyes only
@@ -34,12 +37,17 @@ public class User {
 	public User(String email, String password) {
 		super();
 		this.email = email;
+		this.nome = email;
 		this.password = Digester.encrypt(password);
 	}
 	
 	@Override
 	public String toString() {
 		return "[User " + email + "]";
+	}
+	
+	public String getPhoto() {
+		return "http://www.gravatar.com/avatar/" + Digester.md5(email);
 	}
 
 }

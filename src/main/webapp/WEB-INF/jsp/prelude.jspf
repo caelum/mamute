@@ -16,5 +16,6 @@
 <c:if test="${not empty currentUser }">
 Ola ${currentUser }, voce quer 
 <a href="<c:url value="/logout" />" />deslogar</a>?
+<img src="${currentUser.photo }" />
 </c:if>
 <hr />
