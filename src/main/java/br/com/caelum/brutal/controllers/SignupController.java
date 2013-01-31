@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.controllers;
 
+import java.util.Arrays;
+
 import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.Get;
@@ -29,7 +31,7 @@ public class SignupController {
 		User newUser = new User(name, email, password);
 		if(validator.validate(newUser)){
 			dao.save(newUser);
-			result.include("confirmation", "signup.confirmation");
+			result.include("confirmations", Arrays.asList("signup.confirmation"));
 			result.redirectTo(AuthController.class).root();
 		}
 		validator.onErrorRedirectTo(this).signupForm();

@@ -5,14 +5,21 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 
-<c:if test="${not empty alerts }">
+<c:if test="${not empty alerts}">
 	<ul>
-		<c:forEach var="alert" items="${alerts }">
-			<li><fmt:message key="${alert }"/></li>
+		<c:forEach var="alert" items="${alerts}">
+			<li><fmt:message key="${alert}"/></li>
 		</c:forEach>
 	</ul>
 </c:if>
-<c:if test="${!empty errors }">
+<c:if test="${not empty confirmations}">
+	<ul>
+		<c:forEach var="confirmation" items="${confirmations}">
+			<li><fmt:message key="${confirmation}"/></li>
+		</c:forEach>
+	</ul>
+</c:if>
+<c:if test="${not empty errors}">
 	<ul>
 		<c:forEach var="error" items="${errors}">
 			<li>${error.message}</li>
