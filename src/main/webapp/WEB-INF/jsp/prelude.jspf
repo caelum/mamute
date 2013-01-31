@@ -12,6 +12,13 @@
 		</c:forEach>
 	</ul>
 </c:if>
+<c:if test="${!empty errors }">
+	<ul>
+		<c:forEach var="error" items="${errors}">
+			<li>${error.message}</li>
+		</c:forEach>
+	</ul>
+</c:if>
 
 <c:if test="${not empty currentUser }">
 Ola ${currentUser }, voce quer 
