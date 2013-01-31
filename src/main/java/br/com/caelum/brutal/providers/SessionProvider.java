@@ -1,5 +1,8 @@
 package br.com.caelum.brutal.providers;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -10,17 +13,27 @@ import br.com.caelum.vraptor.ioc.ComponentFactory;
 public class SessionProvider implements ComponentFactory<Session>{
 
 	private final SessionFactory factory;
+    private org.hibernate.classic.Session session;
 	
-
 	public SessionProvider(SessionFactory factory) {
-		super();
 		this.factory = factory;
 	}
-
+	
+	@PostConstruct
+	public void create() {
+	    session = this.factory.openSession();
+	}
 
 	@Override
 	public Session getInstance() {
-		return this.factory.openSession();
+		return session; 
 	}
+	
+	@PreDestroy
+	public void destroy() {
+	    session.close();
+	}
+	
+	
 
 }
