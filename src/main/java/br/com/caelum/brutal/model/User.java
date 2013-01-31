@@ -23,25 +23,25 @@ public class User {
 
 	private String password = "";
 	
-	private String nome;
+	private String name;
 
 	/**
 	 * @deprecated hibernate eyes only
 	 */
 	protected User() {
-		this("", "786213675312678");
+		this("", "", "786213675312678");
 	}
 
-	public User(String email, String password) {
+	public User(String name, String email, String password) {
 		super();
 		this.email = email;
-		this.nome = email;
+		this.name = name;
 		this.password = Digester.encrypt(password);
 	}
 	
 	@Override
 	public String toString() {
-		return "[User " + email + "]";
+		return "[User " + email + ", "+ name +"]";
 	}
 	
 	public String getPhoto() {
