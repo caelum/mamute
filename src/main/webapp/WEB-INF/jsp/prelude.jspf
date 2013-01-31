@@ -5,7 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 
-<c:if test="${alerts }">
+<c:if test="${not empty alerts }">
 	<ul>
 		<c:forEach var="alert" items="${alerts }">
 			<li>${alert }</li>
@@ -13,8 +13,8 @@
 	</ul>
 </c:if>
 
-<c:if test="${currentUser }">
-Ola ${currentUser.email }, voce quer 
+<c:if test="${not empty currentUser }">
+Ola ${currentUser }, voce quer 
 <a href="<c:url value="/logout" />" />deslogar</a>?
 </c:if>
 <hr />

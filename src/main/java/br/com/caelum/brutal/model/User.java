@@ -2,6 +2,7 @@ package br.com.caelum.brutal.model;
 
 import javax.persistence.Embedded;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -21,7 +22,6 @@ public class User {
 	@GeneratedValue
 	private Long id;
 
-	@Embedded
 	private String password = "";
 
 	/**
@@ -35,6 +35,11 @@ public class User {
 		super();
 		this.email = email;
 		this.password = Digester.encrypt(password);
+	}
+	
+	@Override
+	public String toString() {
+		return "[User " + email + "]";
 	}
 
 }

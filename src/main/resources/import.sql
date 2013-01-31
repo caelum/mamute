@@ -1,0 +1,1 @@
+insert into User (createdAt, email, password) values ('20120101', 'guilherme.silveira@caelum.com.br', '2145a8274d61bd4377c8f98c2d8ab4c5ca93243a61ffddd03885fe990a740d57');

@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.providers;
 
+import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
 import br.com.caelum.vraptor.Result;
@@ -16,18 +17,18 @@ public class GlobalInterceptor implements Interceptor{
 	
 	private final Environment env;
 	private final Result result;
+	private final User currentUser;
 
-	public GlobalInterceptor(Environment env, Result result) {
+	public GlobalInterceptor(Environment env, Result result, User currentUser) {
 		this.env = env;
 		this.result = result;
+		this.currentUser = currentUser;
 	}
 
 	public void intercept(InterceptorStack stack, ResourceMethod method,
 			Object resourceInstance) throws InterceptionException {
-		// TODO pode remover com servlet 3.0 pois pode chamar na view
-		result.include("analyticsGnarus", env.get("analytics.gnarus"));
-		result.include("analyticsCaelumsite", env.get("analytics.caelumsite"));
 		result.include("env", env);
+		result.include("currentUser", currentUser);
 		stack.next(method, resourceInstance);
 	}
 

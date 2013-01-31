@@ -27,11 +27,13 @@ public class AuthController {
 	public void login(String email, String password) {
 		if(auth.authenticate(email, password)) {
 			result.redirectTo(ListController.class).home();
+			return;
 		}
 		result.include("alerts", Arrays.asList("impossivel_logar"));
 		result.forwardTo(this).root();
 	}
 	
+	@Get("/logout")
 	public void logout() {
 		auth.signout();
 		result.forwardTo(this).root();
