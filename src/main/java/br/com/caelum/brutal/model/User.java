@@ -1,7 +1,5 @@
 package br.com.caelum.brutal.model;
 
-import javax.persistence.Embedded;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
