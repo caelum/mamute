@@ -38,7 +38,7 @@ public class VRaptorServer {
 		context.setContextPath(getContext());
 		context.setDescriptor(webappDirLocation + "/WEB-INF/web.xml");
 		context.setResourceBase(webappDirLocation);
-		context.setParentLoaderPriority(false);
+		context.setParentLoaderPriority(true);
 		return context;
 	}
 

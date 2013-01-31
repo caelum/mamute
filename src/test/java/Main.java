@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.StandardWatchEventKinds;
 import java.nio.file.WatchEvent;
@@ -11,13 +10,13 @@ import java.util.Scanner;
 public class Main {
 	public static void main(String[] args) throws Exception {
 		String webappDirLocation = getWebAppDir();
-		WatchService service = FileSystems.getDefault().newWatchService();
+		//WatchService service = FileSystems.getDefault().newWatchService();
 
 		VRaptorServer vraptor = new VRaptorServer(webappDirLocation);
 		vraptor.start();
-		configureWatcher(vraptor, webappDirLocation, service);
+		//configureWatcher(vraptor, webappDirLocation, service);
 
-		watchForChanges(service, vraptor);
+		//watchForChanges(service, vraptor);
 		commandLine(vraptor);
 	}
 
