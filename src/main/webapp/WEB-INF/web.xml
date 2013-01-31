@@ -44,4 +44,11 @@
 		<location>/error500</location>
 	</error-page>
   
+	<jsp-config>
+		<jsp-property-group>
+			<display-name>views</display-name>
+			<url-pattern>*.jsp</url-pattern>
+			<include-prelude>/WEB-INF/jsp/prelude.jspf</include-prelude>
+		</jsp-property-group>
+	</jsp-config>
 </web-app>

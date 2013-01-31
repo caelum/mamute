@@ -1,46 +1,50 @@
 package br.com.caelum.pagpag.integracao.dao;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+import java.io.IOException;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
+
+import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.providers.SessionFactoryCreator;
+import br.com.caelum.vraptor.environment.DefaultEnvironment;
+import br.com.caelum.vraptor.environment.Environment;
 
 public abstract class DatabaseTestCase {
 
-	private static EntityManagerFactory emf;
-	protected EntityManager em;
-	protected Session session;
-	
-	@BeforeClass
-	public static void beforeAll() {
-		emf = new br.com.caelum.pagpag.integracao.util.EntityManagerFactory().getFactory();
-	}
-	
-	@AfterClass
-	public static void afterAll() {
-		emf.close();
+	private static final SessionFactory factory;
+
+	private static final SessionFactoryCreator creator;
+	static {
+		try {
+			Environment testing = new DefaultEnvironment("testing");
+			creator = new SessionFactoryCreator(testing);
+			factory = creator.getInstance();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
+
+	protected Session session;
+	protected User loggedUser;
+
 	@Before
-	public void criaEm() {
-		em = emf.createEntityManager();
-		session = (Session) em.getDelegate();
-		em.getTransaction().begin();
+	public void beforeDatabase() {
+		session = factory.openSession();
+		session.beginTransaction();
 	}
 
 	@After
-	public void fim() {
-		em.getTransaction().rollback();
+	public void afterDatabase() {
+		boolean wasActive = session.getTransaction().isActive();
+		if (wasActive) {
+			session.getTransaction().rollback();
+		}
+		session.close();
 	}
 
-	protected void flushAndClear() {
-		em.flush();
-		em.clear();
-	}
-	
 
 }
