@@ -36,7 +36,7 @@ public class AuthController {
 	@Get("/logout")
 	public void logout() {
 		auth.signout();
-		result.forwardTo(this).root();
+		result.redirectTo(this).root();
 	}
 
 }
