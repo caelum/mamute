@@ -20,7 +20,7 @@ public class UserDAOTest extends DatabaseTestCase {
 	
 	@Test
 	public void should_search_by_email_and_password() {
-		User guilherme = new User("guilherme.silveira@caelum.com.br", "654321");
+		User guilherme = new User("Guilherme Silveira", "guilherme.silveira@caelum.com.br", "654321");
 		users.save(guilherme);
 		
 		assertEquals(guilherme, users.findByMailAndPassword("guilherme.silveira@caelum.com.br", "654321"));
