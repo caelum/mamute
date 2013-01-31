@@ -1,4 +1,4 @@
-package br.com.caelum.pagpag.components;
+package br.com.caelum.brutal.components;
 
 import java.net.URI;
 import java.net.URISyntaxException;
