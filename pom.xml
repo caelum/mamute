@@ -20,26 +20,10 @@
 
 	<dependencies>
 
- 		<dependency>
-			<groupId>br.com.caelum.vraptor</groupId>
-			<artifactId>vraptor-quartzjob</artifactId>
-			<version>1.0.3</version>
-		</dependency>
- 		<dependency>
-			<groupId>org.quartz-scheduler</groupId>
-			<artifactId>quartz</artifactId>
-			<version>2.1.5</version>
-		</dependency>
-
 		<dependency>
 			<groupId>br.com.caelum.vraptor</groupId>
 			<artifactId>vraptor-environment</artifactId>
 			<version>1.1.2</version>
-		</dependency>
-		<dependency>
-			<groupId>br.com.caelum.vraptor</groupId>
-			<artifactId>vraptor-mauth</artifactId>
-			<version>1.2</version>
 		</dependency>
 		<dependency>
 			<groupId>postgresql</groupId>
