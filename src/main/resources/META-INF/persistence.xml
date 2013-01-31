@@ -6,14 +6,14 @@
 
 	<persistence-unit name="default">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<class>br.com.caelum.gujstack.modelo.dominio.Pagamento</class>
+		<class>br.com.caelum.brutal.model.User</class>
 
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/gujstack" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/brutal" />
 			<property name="javax.persistence.jdbc.user" value="root" />
 			<property name="javax.persistence.jdbc.password" value="" />
 		</properties>
@@ -22,7 +22,7 @@
 
 	<persistence-unit name="heroku">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<class>br.com.caelum.gujstack.modelo.dominio.User</class>
+		<class>br.com.caelum.brutal.model.User</class>
 
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
@@ -38,7 +38,7 @@
 
 	<persistence-unit name="test">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<class>br.com.caelum.gujstack.modelo.dominio.User</class>
+		<class>br.com.caelum.brutal.model.User</class>
 
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
@@ -47,7 +47,7 @@
 			<property name="hibernate.format_sql" value="true" />
 
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/gujstack_test" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/brutal_test" />
 			<property name="javax.persistence.jdbc.user" value="root" />
 			<property name="javax.persistence.jdbc.password" value="" />
 		</properties>
@@ -56,7 +56,7 @@
 
 	<persistence-unit name="development">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<class>br.com.caelum.gujstack.modelo.dominio.User</class>
+		<class>br.com.caelum.brutal.model.User</class>
 
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
@@ -65,7 +65,7 @@
 			<property name="hibernate.format_sql" value="true" />
 
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/gujstack_dev" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/brutal_dev" />
 			<property name="javax.persistence.jdbc.user" value="root" />
 			<property name="javax.persistence.jdbc.password" value="" />
 		</properties>

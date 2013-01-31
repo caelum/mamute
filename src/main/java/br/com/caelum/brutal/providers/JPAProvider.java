@@ -1,4 +1,4 @@
-package br.com.caelum.gujstack.providers;
+package br.com.caelum.brutal.providers;
 
 import br.com.caelum.pagpag.components.EntityManagerFactoryCreator;
 import br.com.caelum.vraptor.ComponentRegistry;
@@ -16,6 +16,8 @@ public class JPAProvider extends SpringProvider {
 	        EntityManagerFactoryCreator.class);
 	    registry.register(JPATransactionInterceptor.class, 
 	        JPATransactionInterceptor.class);
+	    registry.register(JPATransactionInterceptor.class, 
+		        SessionDelegatorCreator.class);
     }
 
 }
