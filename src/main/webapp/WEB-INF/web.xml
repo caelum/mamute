@@ -24,11 +24,6 @@
 		<param-name>javax.servlet.jsp.jstl.fmt.fallbackLocale</param-name>
 		<param-value>pt_BR</param-value>
 	</context-param>
-  
-  <context-param>
-    <param-name>br.com.caelum.vraptor.provider</param-name>
-    <param-value>br.com.caelum.gujstack.providers.JPAProvider</param-value>
-  </context-param>
 
 	<servlet>
 	<servlet-name>error</servlet-name>
