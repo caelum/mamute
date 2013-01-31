@@ -1,4 +1,4 @@
-package br.com.caelum.pagpag.providers;
+package br.com.caelum.gujstack.providers;
 
 import br.com.caelum.pagpag.components.EntityManagerFactoryCreator;
 import br.com.caelum.vraptor.ComponentRegistry;
