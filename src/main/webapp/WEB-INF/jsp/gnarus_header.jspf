@@ -1,0 +1,77 @@
+<%@ page language="java" pageEncoding="UTF-8"
+	contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Pagamento Online</title>
+<link rel="stylesheet" href="<c:url value="/css/reset.css"/>">
+<link rel="stylesheet" href="<c:url value="/css/gnarus.css"/>">
+<link rel="stylesheet" href="<c:url value="/css/pagpag.css"/>">
+<link rel="stylesheet" href="<c:url value="/css/balao.css"/>">
+<link rel="stylesheet" href="<c:url value="/css/carrinho.css"/>">
+<link rel="stylesheet" href="<c:url value="/css/showLoading.css"/>">
+<link rel="stylesheet" href="<c:url value="/css/finalizando.css"/>">
+<link rel="stylesheet"
+	href="<c:url value="/css/vraptor-validation.css"/>">
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push([ '_setAccount', '${analyticsGnarus}' ], [
+			'caelumsite._setAccount', '${analyticsCaelumsite}' ], [
+			'caelumsite._setDomainName', '.caelum.com.br' ]);
+
+	<c:if test="${abrindoPagina}">
+	_gaq.push([ '_trackPageview' ]);
+	_gaq.push([ 'caelumsite._trackPageview', '/pagamento/online/' ]);
+	_gaq.push([ 'caelumsite._trackEvent', 'Pagamento Online', 'Quero comprar',
+			'${pagamento.carrinho.itens[0].descricao}', undefined, true ]);
+	</c:if>
+
+	(
+			function() {
+				var ga = document.createElement('script');
+				ga.type = 'text/javascript';
+				ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl'
+						: 'http://www')
+						+ '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0];
+				s.parentNode.insertBefore(ga, s);
+			})();
+</script>
+</head>
+<body>
+	<header class="logo container clearfix">
+		<img src='<c:url value="/imgs/logo.png"/>' alt="Caelum Online">
+	</header>
+
+	<section class="body container">
+		<c:if test="${not empty pagamento}">
+
+			<hgroup class="alert balao carrinho">
+				<section class="description">
+					<section class="produto">
+						<h3>Você está comprando</h3>
+						<ul>
+							<c:forEach var="item" items="${pagamento.carrinho.itens}">
+								<li>${item.descricao}
+							</c:forEach>
+						</ul>
+					</section>
+					<section class="preco">
+						<span id="valorCarrinho"><fmt:formatNumber
+								value="${pagamento.carrinho.totalDeAnuncio}" type="currency" /> <c:if
+								test="${pagamento.contemAssinatura }">por ${pagamento.compra.meses } <c:choose>
+									<c:when test="${pagamento.compra.meses == 1 }">mês</c:when>
+									<c:otherwise>meses</c:otherwise>
+								</c:choose>
+							</c:if></span>
+					</section>
+				</section>
+			</hgroup>
+		</c:if>
+
+		<div id="corpo" class="courses">

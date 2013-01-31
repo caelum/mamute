@@ -1,0 +1,75 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+	 http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0">
+
+	<persistence-unit name="default">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<class>br.com.caelum.gujstack.modelo.dominio.Pagamento</class>
+
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/gujstack" />
+			<property name="javax.persistence.jdbc.user" value="root" />
+			<property name="javax.persistence.jdbc.password" value="" />
+		</properties>
+
+	</persistence-unit>
+
+	<persistence-unit name="heroku">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<class>br.com.caelum.gujstack.modelo.dominio.Pagamento</class>
+
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+
+			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+			<property name="javax.persistence.jdbc.url" value="${heroku_database}" />
+			<property name="javax.persistence.jdbc.user" value="${heroku_database_user}" />
+			<property name="javax.persistence.jdbc.password" value="${heroku_database_password}" />
+		</properties>
+
+	</persistence-unit>
+
+	<persistence-unit name="test">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<class>br.com.caelum.gujstack.modelo.dominio.Pagamento</class>
+
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
+			<property name="hibernate.show_sql" value="false" />
+			<property name="hibernate.format_sql" value="true" />
+
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/gujstack_test" />
+			<property name="javax.persistence.jdbc.user" value="root" />
+			<property name="javax.persistence.jdbc.password" value="" />
+		</properties>
+
+	</persistence-unit>
+
+	<persistence-unit name="development">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<class>br.com.caelum.gujstack.modelo.dominio.Pagamento</class>
+
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/gujstack_dev" />
+			<property name="javax.persistence.jdbc.user" value="root" />
+			<property name="javax.persistence.jdbc.password" value="" />
+		</properties>
+
+	</persistence-unit>
+
+</persistence>

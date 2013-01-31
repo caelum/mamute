@@ -1,0 +1,28 @@
+package br.com.caelum.pagpag.aceitacao.util;
+
+public class ServerInfo {
+
+	private static final String TEST_SERVER = "vraptor.server_host";
+	static final int PORT = 8080;
+
+	public interface TesteAceitacao {
+		static final ServerInfo SERVER = new ServerInfo();
+	}
+
+	public String urlFor(String path) {
+		return "http://" + ACTUAL_HOST + "/" + path;
+	}
+
+	private static final String ACTUAL_HOST = getHost();
+
+	private static String getHost() {
+		if (isRemoteRun())
+			return System.getProperty(TEST_SERVER);
+		return "localhost:" + PORT;
+	}
+
+	private static boolean isRemoteRun() {
+		String server = System.getProperty(TEST_SERVER);
+		return server != null && !server.isEmpty();
+	}
+}
