@@ -30,6 +30,7 @@ public class QuestionController {
     @Post("/question/ask")
     @Logged
     public void newQuestion(Question question) {
+        question.setAuthor(currentUser);
         questionDAO.save(question);
         result.redirectTo(ListController.class).home();
     }

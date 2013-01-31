@@ -36,4 +36,8 @@ public class Question {
         return "Question [title=" + title + ", createdAt=" + createdAt + "]";
     } 
     
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+    
 }
