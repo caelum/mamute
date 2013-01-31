@@ -29,7 +29,7 @@ public class AuthController {
 			result.redirectTo(ListController.class).home();
 			return;
 		}
-		result.include("alerts", Arrays.asList("impossivel_logar"));
+		result.include("alerts", Arrays.asList("auth.invalid.login"));
 		result.forwardTo(this).root();
 	}
 	
