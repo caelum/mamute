@@ -1,44 +1,76 @@
 package br.com.caelum.brutal.model;
 
+import static br.com.caelum.brutal.infra.NormalizerBrutal.toSlug;
+
+import java.text.Normalizer;
+import java.text.Normalizer.Form;
+import java.util.Locale;
+import java.util.regex.Pattern;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
+
+import br.com.caelum.brutal.infra.NormalizerBrutal;
 
 @Entity
 public class Question {
 
-    @Id
-    @GeneratedValue
-    private Long id; 
-    
-    @Type(type="text")
-    private String title;
-    
-    @Type(type="text")
-    private String description;
-    
-    @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
-    private final DateTime createdAt = new DateTime();
-    
-    @ManyToOne
-    private User author;
+	@Id
+	@GeneratedValue
+	private Long id;
 
-    public Question(String title, String description) {
-        this.title = title;
-        this.description = description;
-    }
+	@Type(type = "text")
+	@NotEmpty
+	private String title;
 
-    @Override
-    public String toString() {
-        return "Question [title=" + title + ", createdAt=" + createdAt + "]";
-    } 
-    
-    public void setAuthor(User author) {
-        this.author = author;
-    }
-    
+	@Type(type = "text")
+	@NotEmpty
+	private String description;
+
+	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+	private final DateTime createdAt = new DateTime();
+
+	@ManyToOne
+	private User author;
+
+	@Type(type = "text")
+	private String sluggedTitle;
+
+	/**
+	 * @deprecated hibernate eyes only
+	 */
+	public Question() {
+		this("", "");
+	}
+	
+	public Question(String title, String description) {
+		this.title = title;
+		this.sluggedTitle = toSlug(title);
+		this.description = description;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	@Override
+	public String toString() {
+		return "Question [title=" + title + ", createdAt=" + createdAt + "]";
+	}
+
+	public void setAuthor(User author) {
+		this.author = author;
+	}
+
+
 }

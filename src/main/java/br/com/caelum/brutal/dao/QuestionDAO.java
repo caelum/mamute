@@ -18,4 +18,8 @@ public class QuestionDAO {
         session.save(q);
     }
 
+	public Question getById(Long questionId) {
+		return (Question) session.load(Question.class, questionId);
+	}
+
 }
