@@ -71,6 +71,14 @@ public class Question {
 	public void setAuthor(User author) {
 		this.author = author;
 	}
+	
+	public Long getId() {
+		return id;
+	}
+
+	public String getSluggedTitle() {
+		return sluggedTitle;
+	}
 
 
 }

@@ -28,7 +28,7 @@ public class QuestionController {
     }
     
     @Get("/questions/{questionId}/{sluggedTitle}")
-    public void showQuestion(Long questionId){
+    public void showQuestion(Long questionId, String sluggedTitle){
     	Question question = questionDAO.getById(questionId);
     	result.include("question", question);
     }
@@ -38,7 +38,7 @@ public class QuestionController {
     public void newQuestion(Question question) {
         question.setAuthor(currentUser);
         questionDAO.save(question);
-        result.redirectTo(ListController.class).home();
+        result.redirectTo(this).showQuestion(question.getId(), question.getSluggedTitle());
     }
     
 }
