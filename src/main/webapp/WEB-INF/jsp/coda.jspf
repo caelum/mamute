@@ -13,5 +13,6 @@
 <script type="text/javascript"
 	src="<c:url value="/js/Markdown.Editor.js"/>"></script>
 <script src="<c:url value="/js/form-markdown.js"/>"></script>
+<script src="<c:url value="/js/up-down-vote.js"/>"></script>
 </body>
 </html>

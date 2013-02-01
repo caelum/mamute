@@ -1,3 +1,9 @@
+<div class="vote">
+	<a class="up-vote vote-option" data-type="question" data-id="${question.id}">up</a><br />
+	<a class="down-vote vote-option" data-type="question" data-id="${question.id}">down</a>
+</div>
+
+
 ${question.title}
 <br>
 ${question.markedDescription}
