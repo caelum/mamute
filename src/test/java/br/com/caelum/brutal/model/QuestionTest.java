@@ -16,9 +16,10 @@ public class QuestionTest {
 	@Test
 	public void can_be_marked_as_solved_by_the_an_answer_that_is_mine() {
 		Question shouldILiveForever = new Question();
-		Answer yes = new Answer();
-		yes.setQuestion(shouldILiveForever);
+		Answer yes = new Answer("my answer", shouldILiveForever, null);
+		
 		shouldILiveForever.markAsSolvedBy(yes);
+		
 		assertEquals(yes, shouldILiveForever.getSolution());
 	}
 
