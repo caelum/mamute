@@ -22,4 +22,8 @@ public class QuestionDAO {
 		return (Question) session.load(Question.class, questionId);
 	}
 
+	public Question load(Question question) {
+		return getById(question.getId());
+	}
+
 }
