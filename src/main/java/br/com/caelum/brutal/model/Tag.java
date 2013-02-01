@@ -25,21 +25,17 @@ public class Tag {
 	@ManyToOne
 	private Question question;
 	
-	@ManyToOne
-	private User author;
-
 	/**
 	 * @deprecated hibernate eyes only
 	 */
 	public Tag() {
-		this("", "", null, null);
+		this("", "", null);
 	}
 	
-	public Tag(String name, String description, Question question, User author) {
+	public Tag(String name, String description, Question question) {
 		this.name = name;
 		this.description = description;
 		this.question = question;
-		this.author = author;
 	}
 
 	public String getName() {
