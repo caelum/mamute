@@ -44,6 +44,7 @@
 			<display-name>views</display-name>
 			<url-pattern>*.jsp</url-pattern>
 			<include-prelude>/WEB-INF/jsp/prelude.jspf</include-prelude>
+			<include-coda>/WEB-INF/jsp/coda.jspf</include-coda>
 		</jsp-property-group>
 	</jsp-config>
 </web-app>

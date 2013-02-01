@@ -1,0 +1,3 @@
+$(function(){
+	$(".validated-form").validate();
+});
