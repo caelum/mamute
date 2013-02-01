@@ -33,7 +33,7 @@ public class SignupController {
 		if(validator.validate(newUser)){
 			dao.save(newUser);
 			result.include("confirmations", Arrays.asList("signup.confirmation"));
-			result.redirectTo(AuthController.class).root();
+			result.redirectTo(ListController.class).home();
 		}
 		validator.onErrorRedirectTo(this).signupForm();
 	}
