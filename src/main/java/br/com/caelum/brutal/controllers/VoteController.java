@@ -3,6 +3,7 @@ package br.com.caelum.brutal.controllers;
 import br.com.caelum.brutal.auth.Logged;
 import br.com.caelum.brutal.dao.AnswerDAO;
 import br.com.caelum.brutal.dao.QuestionDAO;
+import br.com.caelum.brutal.dao.VotableDAO;
 import br.com.caelum.brutal.dao.VoteDAO;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.Votable;
@@ -33,34 +34,30 @@ public class VoteController {
 	@Logged
 	@Post("/question/{id}/up")
 	public void voteQuestionUp(Long id) {
-	    tryToVoteQuestion(id, VoteType.UP);
+	    tryToVoteQuestion(id, VoteType.UP, questions);
 	}
 
 
 	@Logged
 	@Post("/question/{id}/down")
 	public void voteQuestionDown(Long id) {
-	    tryToVoteQuestion(id, VoteType.DOWN);
-	    addVote(questions.getById(id), VoteType.DOWN);
-	    result.use(Results.http()).setStatusCode(200);
+	    tryToVoteQuestion(id, VoteType.DOWN, questions);
 	}
 	
 	@Logged
 	@Post("/answer/{id}/up")
 	public void voteAnswerUp(Long id) {
-	    addVote(answers.getById(id), VoteType.UP);
-	    result.use(Results.http()).setStatusCode(200);
+	    tryToVoteQuestion(id, VoteType.UP, answers);
 	}
 	
 	@Logged
 	@Post("/answer/{id}/down")
 	public void voteAnswerDown(Long id) {
-	    addVote(answers.getById(id), VoteType.DOWN);
-	    result.use(Results.http()).setStatusCode(200);
+	    tryToVoteQuestion(id, VoteType.DOWN, answers);
 	}
 	
-	private void tryToVoteQuestion(Long id, VoteType type) {
-	    boolean alreadyVoted = questions.alreadyVoted(id, currentUser, type);
+	private void tryToVoteQuestion(Long id, VoteType type, VotableDAO votableDAO) {
+	    boolean alreadyVoted = votableDAO.alreadyVoted(id, currentUser, type);
 	    if (alreadyVoted) {
 	        result.use(Results.http()).setStatusCode(403);
 	    } else {

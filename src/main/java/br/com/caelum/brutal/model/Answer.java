@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -39,7 +40,7 @@ public class Answer implements Votable {
 	
 	@JoinTable(name="Answer_Votes")
     @OneToMany
-    private List<Vote> votes;
+    private List<Vote> votes = new ArrayList<>();
 
 	public Answer(String text, Question question, User author) {
         this.text = text;

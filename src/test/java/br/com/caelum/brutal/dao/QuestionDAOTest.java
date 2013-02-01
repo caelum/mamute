@@ -2,7 +2,6 @@ package br.com.caelum.brutal.dao;
 
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
@@ -93,9 +92,9 @@ public class QuestionDAOTest extends DatabaseTestCase {
 	    boolean haventVotedDownYet = questions.alreadyVoted(question.getId(), author, VoteType.DOWN);
 	    boolean haventVotedYet = questions.alreadyVoted(question.getId(), otherUser, VoteType.UP);
 	    
-	    assertEquals(true, alreadyVoted);
-	    assertEquals(false, haventVotedDownYet);
-	    assertEquals(false, haventVotedYet);
+	    assertTrue(alreadyVoted);
+	    assertFalse(haventVotedDownYet);
+	    assertFalse(haventVotedYet);
 	}
 	
 	

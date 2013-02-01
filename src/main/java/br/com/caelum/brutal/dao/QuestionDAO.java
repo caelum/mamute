@@ -13,7 +13,7 @@ import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 @SuppressWarnings("unchecked")
-public class QuestionDAO {
+public class QuestionDAO implements VotableDAO {
     
     private final Session session;
 
@@ -49,6 +49,7 @@ public class QuestionDAO {
 		return questions;
 	}
 	
+	@Override
     public boolean alreadyVoted(Long questionId, User author, VoteType type) {
         Query query = session.createQuery("select v from Question q " +
         		"join q.votes v " +
