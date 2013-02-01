@@ -117,11 +117,6 @@ public class Question {
 		return lastTouchedBy;
 	}
 	
-	public void touchedBy(User user) {
-		lastUpdatedAt = new DateTime();
-		lastTouchedBy = user;
-	}
-	
 	public List<Answer> getAnswers() {
 		return answers;
 	}

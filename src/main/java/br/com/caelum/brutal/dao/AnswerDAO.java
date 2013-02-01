@@ -1,7 +1,5 @@
 package br.com.caelum.brutal.dao;
 
-import java.util.List;
-
 import org.hibernate.Session;
 
 import br.com.caelum.brutal.model.Answer;
@@ -28,6 +26,8 @@ public class AnswerDAO {
 		
 		User authorLoaded = (User)session.load(User.class, author.getId());
 		answer.setAuthor(authorLoaded);
+		
+		
 		
 		save(answer);
 	}
