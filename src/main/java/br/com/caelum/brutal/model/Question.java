@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
@@ -19,15 +20,21 @@ public class Question {
 	private Long id;
 
 	@Type(type = "text")
-	@NotEmpty
+	@Length(min = 15)
 	private String title;
 
 	@Type(type = "text")
-	@NotEmpty
+	@Length(min = 30)
 	private String description;
 
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
 	private final DateTime createdAt = new DateTime();
+
+	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+	private final DateTime lastUpdatedAt = new DateTime();
+
+	@ManyToOne
+	private final User lastTouchedBy = null;
 
 	@ManyToOne
 	private User author;
@@ -35,13 +42,15 @@ public class Question {
 	@Type(type = "text")
 	private String sluggedTitle;
 
+	private long views = 0;
+
 	/**
 	 * @deprecated hibernate eyes only
 	 */
 	public Question() {
 		this("", "");
 	}
-	
+
 	public Question(String title, String description) {
 		this.title = title;
 		this.sluggedTitle = toSlug(title);
@@ -77,5 +86,24 @@ public class Question {
 		return sluggedTitle;
 	}
 
+	public long getViews() {
+		return views;
+	}
+
+	public void setViews(long views) {
+		this.views = views;
+	}
+
+	public DateTime getLastUpdatedAt() {
+		return lastUpdatedAt;
+	}
+
+	public User getLastTouchedBy() {
+		return lastTouchedBy;
+	}
+
+	public void ping() {
+		this.views++;
+	}
 
 }
