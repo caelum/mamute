@@ -1,9 +1,13 @@
 package br.com.caelum.brutal.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
@@ -11,7 +15,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
 @Entity
-public class Answer {
+public class Answer implements Votable {
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -32,6 +36,10 @@ public class Answer {
 
 	@Type(type="text")
     private String htmlText;
+	
+	@JoinTable(name="Answer_Votes")
+    @OneToMany
+    private List<Vote> votes;
 
 	public Answer(String text, Question question, User author) {
         this.text = text;
@@ -75,6 +83,11 @@ public class Answer {
 	}
 
 	@Override
+	public void addVote(Vote vote) {
+	    votes.add(vote);
+	}
+	
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -90,6 +103,7 @@ public class Answer {
 			return false;
 		return true;
 	}
+
 
 	
 	

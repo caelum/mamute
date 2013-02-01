@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -18,7 +19,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
 @Entity
-public class Question {
+public class Question implements Votable {
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -56,6 +57,10 @@ public class Question {
 	private final List<Answer> answers = new ArrayList<Answer>();
 
 	private long views = 0;
+	
+	@JoinTable(name="Question_Votes")
+	@OneToMany
+	private List<Vote> votes;
 
 	@Lob
 	private String markedDescription;
@@ -164,4 +169,10 @@ public class Question {
 	public boolean hasSolution() {
 		return solution != null;
 	}
+
+    @Override
+    public void addVote(Vote vote) {
+        votes.add(vote);
+    }
+
 }
