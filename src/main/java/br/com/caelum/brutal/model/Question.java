@@ -2,6 +2,7 @@ package br.com.caelum.brutal.model;
 
 import static br.com.caelum.brutal.infra.NormalizerBrutal.toSlug;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -52,7 +53,7 @@ public class Question {
 	private User author;
 	
 	@OneToMany(mappedBy="question")
-	private List<Answer> answers;
+	private final List<Answer> answers = new ArrayList<Answer>();
 
 	private long views = 0;
 
