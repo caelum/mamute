@@ -143,7 +143,7 @@ public class Question {
 		return markedDescription;
 	}
 
-	public void markAsSolvedBy(Answer answer) {
+	protected void markAsSolvedBy(Answer answer) {
 		if (!answer.getQuestion().equals(this))
 			throw new RuntimeException("Can not be solved by this answer");
 		this.solution = answer;
@@ -152,5 +152,9 @@ public class Question {
 
 	public Answer getSolution() {
 		return solution;
+	}
+
+	public boolean hasSolution() {
+		return solution != null;
 	}
 }

@@ -62,4 +62,35 @@ public class Answer {
         return htmlText;
     }
 	
+	public Long getId() {
+		return id;
+	}
+	
+	public void markAsSolution(){
+		this.question.markAsSolvedBy(this);
+	}
+	
+	public boolean isSolution() {
+		return (this.question.hasSolution() && this.question.getSolution().equals(this));
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Answer other = (Answer) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+
+	
+	
 }

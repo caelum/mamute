@@ -19,6 +19,10 @@ public class AnswerDAO {
         this.questionDAO = questionDAO;
         this.userDao = userDao;
 	}
+	
+	public Answer getById(Long id) {
+		return (Answer) session.load(Answer.class, id);
+	}
 
 	public void save(Answer answer) {
 		this.session.save(answer);

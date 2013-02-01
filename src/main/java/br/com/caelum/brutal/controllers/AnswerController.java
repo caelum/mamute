@@ -31,4 +31,11 @@ public class AnswerController {
         result.redirectTo(QuestionController.class).showQuestion(loadedQuestion.getId(),
                 loadedQuestion.getSluggedTitle());
 	}
+	
+	@Post("/question/answer/markAsSolution/{solutionId}")
+	public void markAsSolution(Long solutionId) {
+		Answer solution = dao.getById(solutionId);
+		solution.markAsSolution();
+		result.nothing();
+	}
 }

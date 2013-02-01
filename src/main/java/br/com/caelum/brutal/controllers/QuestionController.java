@@ -2,6 +2,7 @@ package br.com.caelum.brutal.controllers;
 
 import br.com.caelum.brutal.auth.Logged;
 import br.com.caelum.brutal.dao.QuestionDAO;
+import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.providers.RequiresTransaction;
@@ -50,5 +51,4 @@ public class QuestionController {
 		result.redirectTo(this).showQuestion(question.getId(),
 				question.getSluggedTitle());
 	}
-
 }
