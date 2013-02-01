@@ -47,5 +47,9 @@ public class User {
 	public String getPhoto() {
 		return "http://www.gravatar.com/avatar/" + Digester.md5(email);
 	}
+	
+	public String getName() {
+		return name;
+	}
 
 }

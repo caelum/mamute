@@ -9,7 +9,6 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
 @Entity
@@ -34,7 +33,7 @@ public class Question {
 	private final DateTime lastUpdatedAt = new DateTime();
 
 	@ManyToOne
-	private final User lastTouchedBy = null;
+	private User lastTouchedBy = null;
 
 	@ManyToOne
 	private User author;
@@ -71,7 +70,9 @@ public class Question {
 	}
 
 	public void setAuthor(User author) {
+		if(this.author!=null) return;
 		this.author = author;
+		this.lastTouchedBy = author;
 	}
 
 	public Long getId() {
