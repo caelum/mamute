@@ -1,9 +1,9 @@
-insert into User (createdAt, email, password) values ('20120101', 'guilherme.silveira@caelum.com.br', '2145a8274d61bd4377c8f98c2d8ab4c5ca93243a61ffddd03885fe990a740d57');
-insert into User (createdAt, email, password) values ('20120102', 'leonardo.wolter@caelum.com.br', '2145a8274d61bd4377c8f98c2d8ab4c5ca93243a61ffddd03885fe990a740d57');
-insert into User (createdAt, email, password) values ('20120103', 'francisco.sokol@caelum.com.br', '2145a8274d61bd4377c8f98c2d8ab4c5ca93243a61ffddd03885fe990a740d57');
-insert into User (createdAt, email, password) values ('20120104', 'artur.adam@caelum.com.br', '2145a8274d61bd4377c8f98c2d8ab4c5ca93243a61ffddd03885fe990a740d57');
-insert into User (createdAt, email, password) values ('20120104', 'ricardo.valeriano@caelum.com.br', '2145a8274d61bd4377c8f98c2d8ab4c5ca93243a61ffddd03885fe990a740d57');
-insert into User (createdAt, email, password) values ('20120104', 'felipe.torres@caelum.com.br', '2145a8274d61bd4377c8f98c2d8ab4c5ca93243a61ffddd03885fe990a740d57');
+insert into User (name, createdAt, email, password) values ('Gui', '20120101', 'guilherme.silveira@caelum.com.br', '2145a8274d61bd4377c8f98c2d8ab4c5ca93243a61ffddd03885fe990a740d57');
+insert into User (name, createdAt, email, password) values ('Leo', '20120102', 'leonardo.wolter@caelum.com.br', '2145a8274d61bd4377c8f98c2d8ab4c5ca93243a61ffddd03885fe990a740d57');
+insert into User (name, createdAt, email, password) values ('Chico', '20120103', 'francisco.sokol@caelum.com.br', '2145a8274d61bd4377c8f98c2d8ab4c5ca93243a61ffddd03885fe990a740d57');
+insert into User (name, createdAt, email, password) values ('Art', '20120104', 'artur.adam@caelum.com.br', '2145a8274d61bd4377c8f98c2d8ab4c5ca93243a61ffddd03885fe990a740d57');
+insert into User (name, createdAt, email, password) values ('Val', '20120104', 'ricardo.valeriano@caelum.com.br', '2145a8274d61bd4377c8f98c2d8ab4c5ca93243a61ffddd03885fe990a740d57');
+insert into User (name, createdAt, email, password) values ('Fe', '20120104', 'felipe.torres@caelum.com.br', '2145a8274d61bd4377c8f98c2d8ab4c5ca93243a61ffddd03885fe990a740d57');
 
 insert into Question (createdAt, description, sluggedTitle, title, author_id, views) values ('20130101', 'Como faz para dançar gangnam style? blablablablablablablablablabla', 'como-faz-para-danar-gangnam-style-blablablablablablablablablabla', 'OPPA? blablablablablablablablablablablabla', 1, 0);
 insert into Question (id,createdAt, description, sluggedTitle, title, author_id, views) values (2,'20130101', 'Como faz para assistir anime? blablablablablablablablablabla', 'como-faz-para-assistir-anime-blablablablablablablablablabla','Death Note é maneiro? blablablablablablablablablablablablablablablabla', 2, 0);

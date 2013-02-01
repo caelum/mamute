@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.infra.Digester;
@@ -23,8 +24,11 @@ public class User {
 	@GeneratedValue
 	private Long id;
 
+	@NotEmpty
 	private String password = "";
 	
+	@NotEmpty
+	@Type(type = "text")
 	private String name;
 
 	/**
