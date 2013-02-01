@@ -2,7 +2,7 @@
 	Bela lista de mensagens pra voce logado
 </c:if>
 <c:if test="${empty currentUser }">
-	<c:import url="/WEB-INF/jsp/auth/loginForm.jspf" />
+	<%@ include file="/WEB-INF/jsp/auth/loginForm.jsp" %>
 	Bela lista de mensagens 
 </c:if>
 

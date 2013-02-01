@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <form action="<c:url value="/login"/>" method="POST">
 <input name="email" />
 <input name="password" type="password" />
