@@ -1,4 +1,4 @@
-package br.com.caelum.brutal.controllers;
+package br.com.caelum.brutal.validators;
 
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.Validator;

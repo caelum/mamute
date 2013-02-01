@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.validators.UserValidator;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
