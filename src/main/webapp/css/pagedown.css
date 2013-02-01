@@ -118,3 +118,7 @@
 	font-size: 0.8em;
 	font-weight: bold;
 }
+
+.wmd-display-original {
+	display : none;
+}
