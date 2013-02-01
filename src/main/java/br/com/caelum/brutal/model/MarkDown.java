@@ -11,6 +11,7 @@ import javax.script.ScriptException;
 public class MarkDown {
 
 	public synchronized static String parse(String content) {
+		if(content == null || content.isEmpty()) return "";
 		ScriptEngine js = new ScriptEngineManager()
 				.getEngineByName("javascript");
 		Bindings bindings = js.getBindings(ScriptContext.ENGINE_SCOPE);
