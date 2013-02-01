@@ -17,5 +17,9 @@ public class TagDAO {
 	public void save(Tag tag) {
 	  session.save(tag);
     }
+
+	public Tag findById(Long tagId) {
+		return (Tag) session.load(Tag.class, tagId);
+	}
 	
 }

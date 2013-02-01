@@ -16,7 +16,7 @@
 		<tr>
 			<td>question.votes</td>
 			<td>${question.answersCount}</td>
-			<td>${question.views }</td>
+			<td>${question.views}</td>
 			<td><a
 				href="<c:url value="/questions/${question.id }/${question.sluggedTitle }" />">${question.title
 					}</a></td>

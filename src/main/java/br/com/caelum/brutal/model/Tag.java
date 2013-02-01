@@ -46,4 +46,8 @@ public class Tag {
 		return description;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
 }

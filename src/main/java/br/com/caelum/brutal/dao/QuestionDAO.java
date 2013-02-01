@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 
 import br.com.caelum.brutal.model.Question;
+import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
@@ -35,5 +36,13 @@ public class QuestionDAO {
 
 	public Question load(Question question) {
 		return getById(question.getId());
+	}
+
+	public List<Question> withTag(Tag tag) {
+		List<Question> questions = session.createQuery("select q from Question as q join q.tags t where (q.solution is null) and t = :tag order by q.lastUpdatedAt desc")
+				.setParameter("tag", tag)
+				.setMaxResults(50)
+				.list();
+		return questions;
 	}
 }
