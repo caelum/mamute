@@ -2,15 +2,16 @@ package br.com.caelum.brutal.model;
 
 import static br.com.caelum.brutal.infra.NormalizerBrutal.toSlug;
 
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
 @Entity
@@ -22,20 +23,11 @@ public class Question {
 
 	@Type(type = "text")
 	@Length(min = 15)
-	@NotEmpty
 	private String title;
 
 	@Type(type = "text")
-	@Length(min = 15)
-	@NotEmpty
-	private String sluggedTitle;
-
-	@Type(type = "text")
 	@Length(min = 30)
-	@NotEmpty
 	private String description;
-
-	private long views = 0;
 
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
 	private final DateTime createdAt = new DateTime();
@@ -51,6 +43,14 @@ public class Question {
 
 	@ManyToOne
 	private User author;
+
+	@Type(type = "text")
+	private String sluggedTitle;
+	
+	@OneToMany(mappedBy="question")
+	private List<Answer> answers;
+
+	private long views = 0;
 
 	@Lob
 	private String markedDescription;
@@ -90,10 +90,10 @@ public class Question {
 		if (this.author != null)
 			return;
 		this.author = author;
-		pingedBy(author);
+		touchedBy(author);
 	}
 
-	private void pingedBy(User author) {
+	public void touchedBy(User author) {
 		this.lastTouchedBy = author;
 		this.lastUpdatedAt = new DateTime();
 	}
@@ -125,6 +125,10 @@ public class Question {
 	public User getLastTouchedBy() {
 		return lastTouchedBy;
 	}
+	
+	public List<Answer> getAnswers() {
+		return answers;
+	}
 
 	public void ping() {
 		this.views++;
@@ -138,7 +142,7 @@ public class Question {
 		if (!answer.getQuestion().equals(this))
 			throw new RuntimeException("Can not be solved by this answer");
 		this.solution = answer;
-		pingedBy(answer.getAuthor());
+		touchedBy(answer.getAuthor());
 	}
 
 	public Answer getSolution() {
