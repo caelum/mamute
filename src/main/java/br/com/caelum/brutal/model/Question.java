@@ -22,14 +22,17 @@ public class Question {
 
 	@Type(type = "text")
 	@Length(min = 15)
+	@NotEmpty
 	private String title;
 
 	@Type(type = "text")
-	@Column(unique=true)
+	@Length(min = 15)
+	@NotEmpty
 	private String sluggedTitle;
 
 	@Type(type = "text")
 	@Length(min = 30)
+	@NotEmpty
 	private String description;
 
 	private long views = 0;
