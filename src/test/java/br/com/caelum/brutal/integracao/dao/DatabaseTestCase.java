@@ -1,4 +1,4 @@
-package br.com.caelum.pagpag.integracao.dao;
+package br.com.caelum.brutal.integracao.dao;
 
 import java.io.IOException;
 
