@@ -33,13 +33,14 @@ public class VoteController {
 	@Logged
 	@Post("/question/{id}/up")
 	public void voteQuestionUp(Long id) {
-	    addVote(questions.getById(id), VoteType.UP);
-		result.use(Results.http()).setStatusCode(200);
+	    tryToVoteQuestion(id, VoteType.UP);
 	}
+
 
 	@Logged
 	@Post("/question/{id}/down")
 	public void voteQuestionDown(Long id) {
+	    tryToVoteQuestion(id, VoteType.DOWN);
 	    addVote(questions.getById(id), VoteType.DOWN);
 	    result.use(Results.http()).setStatusCode(200);
 	}
@@ -56,6 +57,16 @@ public class VoteController {
 	public void voteAnswerDown(Long id) {
 	    addVote(answers.getById(id), VoteType.DOWN);
 	    result.use(Results.http()).setStatusCode(200);
+	}
+	
+	private void tryToVoteQuestion(Long id, VoteType type) {
+	    boolean alreadyVoted = questions.alreadyVoted(id, currentUser, type);
+	    if (alreadyVoted) {
+	        result.use(Results.http()).setStatusCode(403);
+	    } else {
+	        addVote(questions.getById(id), type);
+	        result.use(Results.http()).setStatusCode(200);
+	    }
 	}
 	
 	private void addVote(Votable votable, VoteType type) {

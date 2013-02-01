@@ -60,7 +60,7 @@ public class Question implements Votable {
 	
 	@JoinTable(name="Question_Votes")
 	@OneToMany
-	private List<Vote> votes;
+	private List<Vote> votes = new ArrayList<>();
 
 	@Lob
 	private String markedDescription;

@@ -2,6 +2,7 @@ package br.com.caelum.brutal.dao;
 
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
@@ -12,6 +13,9 @@ import org.junit.Test;
 
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
+import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.model.Vote;
+import br.com.caelum.brutal.model.VoteType;
 import br.com.caelum.pagpag.integracao.dao.DatabaseTestCase;
 
 public class QuestionDAOTest extends DatabaseTestCase {
@@ -70,4 +74,29 @@ public class QuestionDAOTest extends DatabaseTestCase {
 		
 		
 	}
+	
+	@Test
+	public void should_verify_that_a_user_already_voted_a_question() {
+	    Question question = new Question("Tiny title Tiny title Tiny title", "Description 1234567890123456789012345678901234567890");
+	    User author = new User("nome", "email", "123");
+	    User otherUser = new User("blabla", "blabla@gmail", "123");
+	    
+	    question.setAuthor(author);
+	    Vote vote = new Vote(author, VoteType.UP);
+	    session.save(otherUser);
+	    session.save(author);
+	    session.save(vote);
+	    question.addVote(vote);
+	    session.save(question);
+
+	    boolean alreadyVoted = questions.alreadyVoted(question.getId(), author, VoteType.UP);
+	    boolean haventVotedDownYet = questions.alreadyVoted(question.getId(), author, VoteType.DOWN);
+	    boolean haventVotedYet = questions.alreadyVoted(question.getId(), otherUser, VoteType.UP);
+	    
+	    assertEquals(true, alreadyVoted);
+	    assertEquals(false, haventVotedDownYet);
+	    assertEquals(false, haventVotedYet);
+	}
+	
+	
 }
