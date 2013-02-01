@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.Question;
+import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.ioc.ApplicationScoped;
@@ -34,6 +35,7 @@ public class SessionFactoryCreator implements ComponentFactory<SessionFactory> {
 		cfg.addAnnotatedClass(User.class);
 		cfg.addAnnotatedClass(Question.class);
 		cfg.addAnnotatedClass(Answer.class);
+		cfg.addAnnotatedClass(Tag.class);
 		
 		init();
 	}

@@ -19,7 +19,6 @@ import org.joda.time.DateTime;
 
 @Entity
 public class Question {
-
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -60,6 +59,9 @@ public class Question {
 
 	@Lob
 	private String markedDescription;
+	
+	@OneToMany(mappedBy = "question")
+	private List<Tag> tags = new ArrayList<Tag>();
 
 	/**
 	 * @deprecated hibernate eyes only
