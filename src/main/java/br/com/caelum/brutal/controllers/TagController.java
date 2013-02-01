@@ -1,8 +1,7 @@
 package br.com.caelum.brutal.controllers;
 
-import br.com.caelum.brutal.dao.TagDAO;
+import br.com.caelum.brutal.builders.TagBuilder;
 import br.com.caelum.brutal.model.Question;
-import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
@@ -10,15 +9,18 @@ import br.com.caelum.vraptor.Resource;
 @Resource
 public class TagController {
 	
-	private final TagDAO tagDao;
+	private final TagBuilder tagBuilder;
 
-	public TagController(TagDAO tagDao) {
-		this.tagDao = tagDao;
+	public TagController(TagBuilder tagBuilder) {
+		this.tagBuilder = tagBuilder;
 	}
 	
 	@Post("/question/tag/new")
 	public void newTag(String name, String description, Question question, User author){
-		Tag tag = new Tag(name, description, question, author);
-		tagDao.save(tag);
+		tagBuilder.withName(name)
+				  .withDescription(description)
+				  .withQuestion(question)
+				  .withAuthor(author)
+				  .persisted();
 	}
 }
