@@ -141,4 +141,7 @@ public class Question {
 		pingedBy(answer.getAuthor());
 	}
 
+	public Answer getSolution() {
+		return solution;
+	}
 }
