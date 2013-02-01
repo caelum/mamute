@@ -8,22 +8,29 @@ ${question.title}
 <br>
 ${question.markedDescription}
 
+
 <c:if test="${not empty currentUser}">
 	<%@ include file="/WEB-INF/jsp/answer/answerForm.jsp"%>
 </c:if>
 
 <tags:add-a-comment />
 
+<p>${answer.htmlText}</p>
+<ul>
 <c:forEach items="${question.answers}" var="answer">
-	<p>${answer.htmlText}</p>
-	<tags:add-a-comment />
 	<c:if test="${answer.solution}">
-		<fmt:message key="answer.isSolution" />
+		<li class="answer solution" data-id="${answer.id}">
+			<p>${answer.htmlText}</p>
+		</li>
 	</c:if>
 	<c:if test="${not answer.solution}">
-		<a class="link-ajax-post"
-			href="${linkTo[AnswerController].markAsSolution[answer.id]}"> <fmt:message
-				key="answer.markAsSolution" />
-		</a>
+		<li class="answer" data-id="${answer.id}">
+			<p>${answer.htmlText}</p>
+			<a class="mark-as-solution" href="${linkTo[AnswerController].markAsSolution}">
+				<fmt:message key="answer.markAsSolution" />
+			</a>
+			<tags:add-a-comment />
+		</li>
 	</c:if>
 </c:forEach>
+</ul>
