@@ -16,3 +16,4 @@ insert into Answer(createdAt,text,author_id,question_id) values (now(), 'Como to
 insert into Answer(createdAt,text,author_id,question_id) values (now(), 'Como toda bela coreana faz', 4, 1);
 insert into Answer(id, createdAt,text,author_id,question_id) values (3,now(), 'Como todo belo ocidental paga pau faz', 2, 2);
 update Question set solution_id=3 where id=2;
+update Answer set htmlText = text;

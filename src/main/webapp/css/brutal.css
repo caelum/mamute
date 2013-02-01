@@ -5,3 +5,7 @@
 .hidden {
 	display : none
 }
+
+.add-a-comment div {
+	display : none
+}
