@@ -5,6 +5,7 @@ import static br.com.caelum.brutal.infra.NormalizerBrutal.toSlug;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Type;
@@ -43,6 +44,9 @@ public class Question {
 
 	private long views = 0;
 
+	@Lob
+	private String markedDescription;
+
 	/**
 	 * @deprecated hibernate eyes only
 	 */
@@ -53,9 +57,14 @@ public class Question {
 	public Question(String title, String description) {
 		this.title = title;
 		this.sluggedTitle = toSlug(title);
-		this.description = description;
+		setDescription(description);
 	}
 
+	private void setDescription(String description) {
+		this.description = description;
+		this.markedDescription = MarkDown.parse(description);
+	}
+	
 	public String getTitle() {
 		return title;
 	}
@@ -101,6 +110,10 @@ public class Question {
 
 	public void ping() {
 		this.views++;
+	}
+	
+	public String getMarkedDescription() {
+		return markedDescription;
 	}
 
 }
