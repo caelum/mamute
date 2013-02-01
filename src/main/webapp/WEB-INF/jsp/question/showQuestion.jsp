@@ -21,6 +21,7 @@ ${question.markedDescription}
 	<c:if test="${answer.solution}">
 		<li class="answer solution" data-id="${answer.id}">
 			<p>${answer.htmlText}</p>
+			<tags:add-a-comment />
 		</li>
 	</c:if>
 	<c:if test="${not answer.solution}">
