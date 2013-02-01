@@ -20,7 +20,7 @@ public class ListController {
 		result.include("questions", questions.all());
 	}
 
-	public void unswered() {
+	public void unanswered() {
 		result.include("questions", questions.unanswered());
 		result.use(page()).of(ListController.class).home();
 	}

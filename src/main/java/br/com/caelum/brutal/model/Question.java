@@ -2,7 +2,9 @@ package br.com.caelum.brutal.model;
 
 import static br.com.caelum.brutal.infra.NormalizerBrutal.toSlug;
 
+import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -34,7 +36,7 @@ public class Question {
 
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
 	private DateTime lastUpdatedAt = new DateTime();
-
+	
 	@ManyToOne(optional = true)
 	private Answer solution;
 
@@ -48,7 +50,7 @@ public class Question {
 	private String sluggedTitle;
 	
 	@OneToMany(mappedBy="question")
-	private List<Answer> answers;
+	private final List<Answer> answers = new ArrayList<Answer>();
 
 	private long views = 0;
 
@@ -147,5 +149,9 @@ public class Question {
 
 	public Answer getSolution() {
 		return solution;
+	}
+	
+	public int getAnswersCount() {
+		return getAnswers().size();
 	}
 }
