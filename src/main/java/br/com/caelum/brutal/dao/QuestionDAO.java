@@ -8,6 +8,7 @@ import br.com.caelum.brutal.model.Question;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
+@SuppressWarnings("unchecked")
 public class QuestionDAO {
     
     private final Session session;
@@ -24,8 +25,11 @@ public class QuestionDAO {
 		return (Question) session.load(Question.class, questionId);
 	}
 	
-	@SuppressWarnings("unchecked")
 	public List<Question> all() {
-		return session.createQuery("from  Question order by lastUpdatedAt desc").setMaxResults(50).list();
+		return session.createQuery("from Question order by lastUpdatedAt desc").setMaxResults(50).list();
+	}
+
+	public List<Question> unanswered() {
+		return session.createQuery("from Question where solution is null order by lastUpdatedAt desc").setMaxResults(50).list();
 	}
 }

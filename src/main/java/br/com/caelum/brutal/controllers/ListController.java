@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.controllers;
 
+import static br.com.caelum.vraptor.view.Results.page;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
@@ -17,6 +18,11 @@ public class ListController {
 
 	public void home() {
 		result.include("questions", questions.all());
+	}
+
+	public void unswered() {
+		result.include("questions", questions.unanswered());
+		result.use(page()).of(ListController.class).home();
 	}
 
 }
