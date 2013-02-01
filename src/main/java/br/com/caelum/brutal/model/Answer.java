@@ -6,6 +6,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
 @Entity
@@ -18,6 +20,8 @@ public class Answer {
 	private final DateTime createdAt = new DateTime();
 
 	@Type(type="text")
+	@NotEmpty
+	@Length(min=15)
 	private String text;
 	
 	@ManyToOne

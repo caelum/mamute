@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
+import br.com.caelum.brutal.infra.Digester;
+
 @Entity
 public class User {
 
