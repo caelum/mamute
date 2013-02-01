@@ -2,7 +2,6 @@ package br.com.caelum.brutal.controllers;
 
 import br.com.caelum.brutal.auth.Logged;
 import br.com.caelum.brutal.dao.AnswerDAO;
-import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
@@ -24,10 +23,12 @@ public class AnswerController {
 
 	@Post("/question/answer/{question.id}")
 	@Logged
-	public void newAnswer(Question question, Answer answer) {
-		dao.create(answer, question, currentUser);
-        result.redirectTo(QuestionController.class).
-        			showQuestion(answer.getQuestion().getId(), 
-        						 answer.getQuestion().getSluggedTitle());
+	public void newAnswer(Question question, String answerText) {
+		Answer answer = dao.create(answerText, question, currentUser);
+		
+        Question loadedQuestion = answer.getQuestion();
+        
+        result.redirectTo(QuestionController.class).showQuestion(loadedQuestion.getId(),
+                loadedQuestion.getSluggedTitle());
 	}
 }

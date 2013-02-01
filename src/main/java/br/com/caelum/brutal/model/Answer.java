@@ -30,22 +30,20 @@ public class Answer {
 	@ManyToOne
 	private Question question;
 
-	public Question getQuestion() {
+	@Type(type="text")
+    private String htmlText;
+
+	public Answer(String text, Question question, User author) {
+        this.text = text;
+        this.htmlText = MarkDown.parse(text);
+        this.author = author;
+        this.question = question;
+    }
+
+    public Question getQuestion() {
 		return question;
 	}
 
-	public void setQuestion(Question question) {
-		this.question = question;
-	}
-
-	public void setAuthor(User author) {
-		this.author = author;
-	}
-	
-	public void setText(String text) {
-		this.text = text;
-	}
-	
 	public String getText() {
 		return text;
 	}
