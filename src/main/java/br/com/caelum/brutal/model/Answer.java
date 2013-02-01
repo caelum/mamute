@@ -40,6 +40,12 @@ public class Answer {
         this.question = question;
     }
 
+	/**
+     * @deprecated hibernate eyes only
+     */
+    public Answer() {
+    }
+
     public Question getQuestion() {
 		return question;
 	}
