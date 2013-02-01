@@ -10,6 +10,7 @@ import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.environment.Environment;
@@ -32,6 +33,7 @@ public class SessionFactoryCreator implements ComponentFactory<SessionFactory> {
 
 		cfg.addAnnotatedClass(User.class);
 		cfg.addAnnotatedClass(Question.class);
+		cfg.addAnnotatedClass(Answer.class);
 		
 		init();
 	}
