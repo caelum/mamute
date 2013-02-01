@@ -6,6 +6,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="<c:url value="/css/brutal.css"/>">
+<link rel="stylesheet" href="<c:url value="/css/pagedown.css"/>">
 </head>
 
 <c:if test="${not empty alerts}">

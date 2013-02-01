@@ -1,5 +1,9 @@
 package br.com.caelum.brutal.providers;
 
+import java.util.Locale;
+
+import org.ocpsoft.prettytime.PrettyTime;
+
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
@@ -29,6 +33,7 @@ public class GlobalInterceptor implements Interceptor{
 			Object resourceInstance) throws InterceptionException {
 		result.include("env", env);
 		result.include("currentUser", currentUser);
+		result.include("prettyTimeFormatter", new PrettyTime(new Locale("pt")));
 		stack.next(method, resourceInstance);
 	}
 

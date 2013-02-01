@@ -13,39 +13,42 @@ import br.com.caelum.vraptor.Result;
 @Resource
 public class QuestionController {
 
-    private final Result result;
-    private final QuestionDAO questionDAO;
-    private final User currentUser;
+	private final Result result;
+	private final QuestionDAO questionDAO;
+	private final User currentUser;
 
-    public QuestionController(Result result, QuestionDAO questionDAO, User currentUser) {
-        this.result = result;
-        this.questionDAO = questionDAO;
-        this.currentUser = currentUser;
-    }
-    
-    @Get("/question/ask")
-    @Logged
-    public void questionForm() {
-    }
-    
-    @Get("/questions/{questionId}/{sluggedTitle}")
-    @RequiresTransaction
-    public void showQuestion(Long questionId, String sluggedTitle){
-    	Question question = questionDAO.getById(questionId);
-    	if(!question.getSluggedTitle().equals(sluggedTitle)){
-    		result.redirectTo(this).showQuestion(question.getId(), question.getSluggedTitle());
-    		return;
-    	}
-    	question.ping();
-    	result.include("question", question);
-    }
-    
-    @Post("/question/ask")
-    @Logged
-    public void newQuestion(Question question) {
-        question.setAuthor(currentUser);
-        questionDAO.save(question);
-        result.redirectTo(this).showQuestion(question.getId(), question.getSluggedTitle());
-    }
-    
+	public QuestionController(Result result, QuestionDAO questionDAO,
+			User currentUser) {
+		this.result = result;
+		this.questionDAO = questionDAO;
+		this.currentUser = currentUser;
+	}
+
+	@Get("/question/ask")
+	@Logged
+	public void questionForm() {
+	}
+
+	@Get("/questions/{questionId}/{sluggedTitle}")
+	@RequiresTransaction
+	public void showQuestion(Long questionId, String sluggedTitle) {
+		Question question = questionDAO.getById(questionId);
+		if (!question.getSluggedTitle().equals(sluggedTitle)) {
+			result.redirectTo(this).showQuestion(question.getId(),
+					question.getSluggedTitle());
+			return;
+		}
+		question.ping();
+		result.include("question", question);
+	}
+
+	@Post("/question/ask")
+	@Logged
+	public void newQuestion(Question question) {
+		question.setAuthor(currentUser);
+		questionDAO.save(question);
+		result.redirectTo(this).showQuestion(question.getId(),
+				question.getSluggedTitle());
+	}
+
 }

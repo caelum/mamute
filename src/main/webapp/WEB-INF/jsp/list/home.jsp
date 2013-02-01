@@ -18,7 +18,7 @@
 			<td>${question.views }</td>
 			<td><a href="<c:url value="/questions/${question.id }/${question.sluggedTitle }" />">${question.title }</a></td>
 			<td>tags</td>
-			<td>${question.lastUpdatedAt }</td>
+			<td><tags:prettyTime time="${question.lastUpdatedAt }"/></td>
 			<td>${question.lastTouchedBy.name } reputacao</td>
 		</tr>
 	</c:forEach>

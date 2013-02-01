@@ -1,5 +1,5 @@
 ${question.title}
-${question.description}
+${question.markedDescription}
 
 <c:if test="${not empty currentUser}">
 	<c:import url="/WEB-INF/jsp/answer/answerForm.jsp" />

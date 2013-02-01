@@ -4,5 +4,12 @@
 <script src="<c:url value="/js/jquery.validate.min.js"/>"></script>
 <script src="<c:url value="/js/form-validation.js"/>"></script>
 <script src="<c:url value="/js/form-hints.js"/>"></script>
+<script type="text/javascript"
+	src="<c:url value="/js/Markdown.Converter.js"/>"></script>
+<script type="text/javascript"
+	src="<c:url value="/js/Markdown.Sanitizer.js"/>"></script>
+<script type="text/javascript"
+	src="<c:url value="/js/Markdown.Editor.js"/>"></script>
+<script src="<c:url value="/js/form-markdown.js"/>"></script>
 </body>
 </html>

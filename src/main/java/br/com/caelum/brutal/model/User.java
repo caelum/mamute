@@ -49,6 +49,10 @@ public class User {
 		return "http://www.gravatar.com/avatar/" + Digester.md5(email);
 	}
 	
+	public String getName() {
+		return name;
+	}
+
 	@Override
 	public String toString() {
 		return "[User " + email + ", "+ name +"]";
