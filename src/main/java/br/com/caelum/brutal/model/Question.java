@@ -2,21 +2,15 @@ package br.com.caelum.brutal.model;
 
 import static br.com.caelum.brutal.infra.NormalizerBrutal.toSlug;
 
-import java.text.Normalizer;
-import java.text.Normalizer.Form;
-import java.util.Locale;
-import java.util.regex.Pattern;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
-
-import br.com.caelum.brutal.infra.NormalizerBrutal;
 
 @Entity
 public class Question {
@@ -26,11 +20,11 @@ public class Question {
 	private Long id;
 
 	@Type(type = "text")
-	@NotEmpty
+	@Length(min=15)
 	private String title;
 
 	@Type(type = "text")
-	@NotEmpty
+	@Length(min=30)
 	private String description;
 
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")

@@ -3,5 +3,6 @@
 <script src="<c:url value="/js/jquery.js"/>"></script>
 <script src="<c:url value="/js/jquery.validate.min.js"/>"></script>
 <script src="<c:url value="/js/form-validation.js"/>"></script>
+<script src="<c:url value="/js/form-hints.js"/>"></script>
 </body>
 </html>

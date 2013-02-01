@@ -4,18 +4,21 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
+<head>
+<link rel="stylesheet" href="<c:url value="/css/brutal.css"/>">
+</head>
 
 <c:if test="${not empty alerts}">
 	<ul>
 		<c:forEach var="alert" items="${alerts}">
-			<li><fmt:message key="${alert}"/></li>
+			<li><fmt:message key="${alert}" /></li>
 		</c:forEach>
 	</ul>
 </c:if>
 <c:if test="${not empty confirmations}">
 	<ul>
 		<c:forEach var="confirmation" items="${confirmations}">
-			<li><fmt:message key="${confirmation}"/></li>
+			<li><fmt:message key="${confirmation}" /></li>
 		</c:forEach>
 	</ul>
 </c:if>
@@ -30,6 +33,6 @@
 <c:if test="${not empty currentUser }">
 Ola ${currentUser }, voce quer 
 <a href="<c:url value="/logout" />" />deslogar</a>?
-<img src="${currentUser.photo }" /> 
+<img src="${currentUser.photo }" />
 </c:if>
 <hr />
