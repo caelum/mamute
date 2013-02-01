@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 
 import br.com.caelum.brutal.model.Answer;

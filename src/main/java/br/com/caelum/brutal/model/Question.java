@@ -2,14 +2,17 @@ package br.com.caelum.brutal.model;
 
 import static br.com.caelum.brutal.infra.NormalizerBrutal.toSlug;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
 @Entity
@@ -31,16 +34,19 @@ public class Question {
 	private final DateTime createdAt = new DateTime();
 
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
-	private final DateTime lastUpdatedAt = new DateTime();
+	private DateTime lastUpdatedAt = new DateTime();
 
 	@ManyToOne
-	private final User lastTouchedBy = null;
+	private User lastTouchedBy = null;
 
 	@ManyToOne
 	private User author;
 
 	@Type(type = "text")
 	private String sluggedTitle;
+	
+	@OneToMany(mappedBy="question")
+	private List<Answer> answers;
 
 	private long views = 0;
 
@@ -100,6 +106,15 @@ public class Question {
 
 	public User getLastTouchedBy() {
 		return lastTouchedBy;
+	}
+	
+	public void touchedBy(User user) {
+		lastUpdatedAt = new DateTime();
+		lastTouchedBy = user;
+	}
+	
+	public List<Answer> getAnswers() {
+		return answers;
 	}
 
 	public void ping() {
