@@ -1,12 +1,5 @@
 $(function(){
-	$(".validated-form").validate();
-});
-
-$(".answerForm").validate({
-	rules: {
-		"answerText": {
-			required: true,
-			minlength: 15
-		}
-	}
+	$(".validated-form").each(function(i,f){
+		$(f).validate();
+	});
 });

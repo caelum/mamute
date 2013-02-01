@@ -3,7 +3,7 @@ ${question.title}
 ${question.markedDescription}
 
 <c:if test="${not empty currentUser}">
-	<%@ include file="/WEB-INF/jsp/answer/answerForm.jspf"%>
+	<%@ include file="/WEB-INF/jsp/answer/answerForm.jsp"%>
 </c:if>
 
 <tags:add-a-comment />

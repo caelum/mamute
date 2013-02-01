@@ -32,7 +32,7 @@
 </c:if>
 
 <hr/>
-<a href="<c:url value="/list/home"/>"><fmt:message key="menu.questions"/></a> | 
+<a href="<c:url value="/"/>"><fmt:message key="menu.questions"/></a> | 
 <a href="<c:url value="/list/unanswered"/>"><fmt:message key="menu.unanswered"/></a>
 <hr/>
 

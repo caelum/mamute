@@ -1,8 +1,16 @@
-<form action="${linkTo[AnswerController].newAnswer[question]}" method="post" class="answerForm" >
-	<label><fmt:message key="newanswer.answer"/>
-	<textarea name="answer.text" data-hint-id="newanswer-answer-hint" class="required hintable" minlength="15"></textarea>
-	</label>
+<form action="${linkTo[AnswerController].newAnswer[question]}"
+	method="post" class="validated-form">
+
+	<div class="wmd">
+		<div class="wmd-panel">
+			<div id="wmd-button-bar"></div>
+			<textarea class="required wmd-input" id="wmd-input"
+				minlength="30" name="answerText"></textarea>
+		</div>
+		<div id="wmd-preview" class="wmd-panel wmd-preview"></div>
+		
+	</div>
+
 	<input type="submit" />
 
-	<div id="newanswer-answer-hint" class="hint"><fmt:message key="newanswer.answer.hint" /></div>
 </form>

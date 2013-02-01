@@ -3,7 +3,7 @@
 <div class="add-a-comment">
 	<a href="#"><fmt:message key="add_comment" /></a>
 	<div>
-		<form action="<c:url value="/comments/add"/>" class="ajax">
+		<form action="<c:url value="/comments/add"/>" class="validated-form">
 			<textarea class="required " minlength="15" name="comment.text"></textarea>
 			<input type="submit"
 				value="<fmt:message key="comment.add_comment_submit"/>" />
