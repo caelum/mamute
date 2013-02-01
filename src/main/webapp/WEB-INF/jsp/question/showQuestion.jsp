@@ -28,7 +28,7 @@ ${question.markedDescription}
 		<li class="answer" data-id="${answer.id}">
 			<p>${answer.htmlText}</p>
 			<a class="mark-as-solution" href="${linkTo[AnswerController].markAsSolution}">
-				<fmt:message key="answer.markAsSolution" />
+				<fmt:message key="answer.mark_as_solution" />
 			</a>
 			<tags:add-a-comment />
 		</li>
