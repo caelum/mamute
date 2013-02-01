@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
 @Entity
@@ -25,11 +26,17 @@ public class Question {
 
 	@Type(type = "text")
 	@Length(min = 15)
+	@NotEmpty
 	private String title;
 
 	@Type(type = "text")
 	@Length(min = 30)
+	@NotEmpty
 	private String description;
+	
+	@Type(type = "text")
+	@NotEmpty
+	private String sluggedTitle;
 
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
 	private final DateTime createdAt = new DateTime();
@@ -45,9 +52,6 @@ public class Question {
 
 	@ManyToOne
 	private User author;
-
-	@Type(type = "text")
-	private String sluggedTitle;
 	
 	@OneToMany(mappedBy="question")
 	private final List<Answer> answers = new ArrayList<Answer>();
