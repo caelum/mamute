@@ -20,7 +20,7 @@ public class UserDAO {
 						"from User where email = :email and password = :password")
 				.setParameter("email", email)
 				.setParameter("password",
-						br.com.caelum.brutal.model.Digester.encrypt(pass))
+						br.com.caelum.brutal.infra.Digester.encrypt(pass))
 				.uniqueResult();
 	}
 
