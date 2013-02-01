@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
 @Entity
@@ -21,11 +22,20 @@ public class Question {
 
 	@Type(type = "text")
 	@Length(min = 15)
+	@NotEmpty
 	private String title;
 
 	@Type(type = "text")
+	@Length(min = 15)
+	@NotEmpty
+	private String sluggedTitle;
+
+	@Type(type = "text")
 	@Length(min = 30)
+	@NotEmpty
 	private String description;
+
+	private long views = 0;
 
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
 	private final DateTime createdAt = new DateTime();
@@ -39,10 +49,6 @@ public class Question {
 	@ManyToOne
 	private User author;
 
-	@Type(type = "text")
-	private String sluggedTitle;
-
-	private long views = 0;
 
 	@Lob
 	private String markedDescription;
@@ -83,7 +89,11 @@ public class Question {
 		this.author = author;
 		this.lastTouchedBy = author;
 	}
-
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	public Long getId() {
 		return id;
 	}

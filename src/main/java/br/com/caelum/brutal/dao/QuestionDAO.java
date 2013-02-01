@@ -23,10 +23,9 @@ public class QuestionDAO {
 	public Question getById(Long questionId) {
 		return (Question) session.load(Question.class, questionId);
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	public List<Question> all() {
 		return session.createQuery("from  Question order by lastUpdatedAt desc").setMaxResults(50).list();
 	}
-
 }

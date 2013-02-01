@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
+import br.com.caelum.brutal.infra.Digester;
+
 @Entity
 public class User {
 
@@ -39,9 +41,8 @@ public class User {
 		this.password = Digester.encrypt(password);
 	}
 	
-	@Override
-	public String toString() {
-		return "[User " + email + ", "+ name +"]";
+	public Long getId() {
+		return id;
 	}
 	
 	public String getPhoto() {
@@ -52,4 +53,8 @@ public class User {
 		return name;
 	}
 
+	@Override
+	public String toString() {
+		return "[User " + email + ", "+ name +"]";
+	}
 }
