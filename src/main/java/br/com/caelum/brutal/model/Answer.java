@@ -58,5 +58,8 @@ public class Answer {
 		return author;
 	}
 	
+	public String getHtmlText() {
+        return htmlText;
+    }
 	
 }

@@ -6,5 +6,5 @@ ${question.description}
 </c:if>
 
 <c:forEach items="${question.answers}" var="answer">
-	<p>${answer.text}</p>
+	<p>${answer.htmlText}</p>
 </c:forEach>
