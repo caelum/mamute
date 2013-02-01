@@ -1,5 +1,5 @@
 <form action="${linkTo[AnswerController].newAnswer[question]}"
-	method="post">
+	method="post" class="answerForm">
 
 	<div class="wmd">
 		<div class="wmd-panel">

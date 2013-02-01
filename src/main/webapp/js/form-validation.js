@@ -4,7 +4,7 @@ $(function(){
 
 $(".answerForm").validate({
 	rules: {
-		"answer.text": {
+		"answerText": {
 			required: true,
 			minlength: 15
 		}
