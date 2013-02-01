@@ -39,13 +39,16 @@ public class User {
 		this.password = Digester.encrypt(password);
 	}
 	
-	@Override
-	public String toString() {
-		return "[User " + email + ", "+ name +"]";
+	public Long getId() {
+		return id;
 	}
 	
 	public String getPhoto() {
 		return "http://www.gravatar.com/avatar/" + Digester.md5(email);
 	}
-
+	
+	@Override
+	public String toString() {
+		return "[User " + email + ", "+ name +"]";
+	}
 }
