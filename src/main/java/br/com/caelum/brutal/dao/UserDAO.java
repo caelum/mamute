@@ -32,4 +32,8 @@ public class UserDAO {
         return (User) session.load(User.class, id);
     }
 
+	public User load(User user) {
+		return findById(user.getId());
+	}
+
 }

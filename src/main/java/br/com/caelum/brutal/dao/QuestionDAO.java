@@ -32,4 +32,8 @@ public class QuestionDAO {
 	public List<Question> unanswered() {
 		return session.createQuery("from Question as  q where (q.solution is null) order by q.lastUpdatedAt desc").setMaxResults(50).list();
 	}
+
+	public Question load(Question question) {
+		return getById(question.getId());
+	}
 }
