@@ -9,3 +9,11 @@
 .add-a-comment div {
 	display : none
 }
+
+.vote .vote-option {
+	cursor: pointer;
+}
+
+.voted {
+	color: #FF0000;
+}
