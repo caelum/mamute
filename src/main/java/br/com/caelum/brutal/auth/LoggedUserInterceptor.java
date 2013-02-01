@@ -2,7 +2,7 @@ package br.com.caelum.brutal.auth;
 
 import java.util.Arrays;
 
-import br.com.caelum.brutal.controllers.AuthController;
+import br.com.caelum.brutal.controllers.ListController;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
@@ -32,7 +32,7 @@ public class LoggedUserInterceptor implements Interceptor {
             throws InterceptionException {
         if (currentUser == null) {
             result.include("alerts", Arrays.asList("auth.access.denied"));
-            result.redirectTo(AuthController.class).root();
+            result.redirectTo(ListController.class).home();
         } else {
             stack.next(method, instance);
         }

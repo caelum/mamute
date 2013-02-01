@@ -33,7 +33,7 @@ public class Question {
 	@Length(min = 30)
 	@NotEmpty
 	private String description;
-	
+
 	@Type(type = "text")
 	@NotEmpty
 	private String sluggedTitle;
@@ -43,7 +43,7 @@ public class Question {
 
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
 	private DateTime lastUpdatedAt = new DateTime();
-	
+
 	@ManyToOne(optional = true)
 	private Answer solution;
 
@@ -52,8 +52,8 @@ public class Question {
 
 	@ManyToOne
 	private User author;
-	
-	@OneToMany(mappedBy="question")
+
+	@OneToMany(mappedBy = "question")
 	private final List<Answer> answers = new ArrayList<Answer>();
 
 	private long views = 0;
@@ -131,7 +131,7 @@ public class Question {
 	public User getLastTouchedBy() {
 		return lastTouchedBy;
 	}
-	
+
 	public List<Answer> getAnswers() {
 		return answers;
 	}
@@ -144,7 +144,7 @@ public class Question {
 		return markedDescription;
 	}
 
-	public void markAsSolvedBy(Answer answer) {
+	protected void markAsSolvedBy(Answer answer) {
 		if (!answer.getQuestion().equals(this))
 			throw new RuntimeException("Can not be solved by this answer");
 		this.solution = answer;
@@ -154,8 +154,12 @@ public class Question {
 	public Answer getSolution() {
 		return solution;
 	}
-	
+
 	public int getAnswersCount() {
 		return getAnswers().size();
+	}
+
+	public boolean hasSolution() {
+		return solution != null;
 	}
 }

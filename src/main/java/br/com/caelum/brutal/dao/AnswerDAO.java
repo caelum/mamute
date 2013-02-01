@@ -11,24 +11,31 @@ import br.com.caelum.vraptor.ioc.Component;
 public class AnswerDAO {
 
 	private final Session session;
+    private final UserDAO userDao;
+    private final QuestionDAO questionDAO;
 
-	public AnswerDAO(Session session) {
+	public AnswerDAO(Session session, QuestionDAO questionDAO, UserDAO userDao) {
 		this.session = session;
+        this.questionDAO = questionDAO;
+        this.userDao = userDao;
+	}
+	
+	public Answer getById(Long id) {
+		return (Answer) session.load(Answer.class, id);
 	}
 
 	public void save(Answer answer) {
 		this.session.save(answer);
 	}
 
-	public void create(Answer answer, Question question, User author) {
-		Question questionLoaded = (Question)session.load(Question.class, question.getId());
-		answer.setQuestion(questionLoaded);
-		
-		User authorLoaded = (User)session.load(User.class, author.getId());
-		answer.setAuthor(authorLoaded);
+	public Answer create(String text, Question question, User author) {
+		Question questionLoaded = questionDAO.getById(question.getId());
+		User authorLoaded = userDao.findById(author.getId());
 		
 		questionLoaded.touchedBy(authorLoaded);
 		
+		Answer answer = new Answer(text, questionLoaded, authorLoaded);
 		save(answer);
+		return answer;
 	}
 }

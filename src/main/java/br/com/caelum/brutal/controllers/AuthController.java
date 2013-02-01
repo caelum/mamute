@@ -19,10 +19,6 @@ public class AuthController {
 		this.result = result;
 	}
 	
-	@Get("/")
-	public void root() {
-	}
-	
 	@Post("/login")
 	public void login(String email, String password) {
 		if(auth.authenticate(email, password)) {
@@ -30,14 +26,14 @@ public class AuthController {
 			return;
 		}
 		result.include("alerts", Arrays.asList("auth.invalid.login"));
-		result.forwardTo(this).root();
+		result.redirectTo(ListController.class).home();
 	}
 	
 	
 	@Get("/logout")
 	public void logout() {
 		auth.signout();
-		result.redirectTo(this).root();
+		result.redirectTo(ListController.class).home();
 	}
 
 }

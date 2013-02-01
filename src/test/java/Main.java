@@ -22,7 +22,6 @@ public class Main {
 
 	private static void commandLine(final VRaptorServer vraptor) {
 		new Thread(new Runnable() {
-
 			@Override
 			public void run() {
 				try (Scanner input = new Scanner(System.in)) {

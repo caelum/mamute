@@ -2,6 +2,7 @@ package br.com.caelum.brutal.controllers;
 
 import static br.com.caelum.vraptor.view.Results.page;
 import br.com.caelum.brutal.dao.QuestionDAO;
+import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 
@@ -16,6 +17,7 @@ public class ListController {
 		this.result = result;
 	}
 
+	@Get("/")
 	public void home() {
 		result.include("questions", questions.all());
 	}
