@@ -32,6 +32,10 @@ public class QuestionController {
     @RequiresTransaction
     public void showQuestion(Long questionId, String sluggedTitle){
     	Question question = questionDAO.getById(questionId);
+    	if(!question.getSluggedTitle().equals(sluggedTitle)){
+    		result.redirectTo(this).showQuestion(question.getId(), question.getSluggedTitle());
+    		return;
+    	}
     	question.ping();
     	result.include("question", question);
     }
