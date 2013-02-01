@@ -93,7 +93,7 @@ public class Question {
 		touchedBy(author);
 	}
 
-	private void touchedBy(User author) {
+	public void touchedBy(User author) {
 		this.lastTouchedBy = author;
 		this.lastUpdatedAt = new DateTime();
 	}

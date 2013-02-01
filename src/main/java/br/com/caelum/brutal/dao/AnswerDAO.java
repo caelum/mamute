@@ -27,7 +27,7 @@ public class AnswerDAO {
 		User authorLoaded = (User)session.load(User.class, author.getId());
 		answer.setAuthor(authorLoaded);
 		
-		
+		questionLoaded.touchedBy(authorLoaded);
 		
 		save(answer);
 	}
