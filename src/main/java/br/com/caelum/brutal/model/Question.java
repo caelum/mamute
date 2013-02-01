@@ -15,6 +15,7 @@ public class Question {
     @GeneratedValue
     private Long id; 
     
+    @Type(type="text")
     private String title;
     
     @Type(type="text")
