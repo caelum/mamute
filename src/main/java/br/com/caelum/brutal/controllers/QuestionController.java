@@ -27,6 +27,12 @@ public class QuestionController {
     public void questionForm() {
     }
     
+    @Get("/questions/{questionId}/{sluggedTitle}")
+    public void showQuestion(Long questionId){
+    	Question question = questionDAO.getById(questionId);
+    	result.include("question", question);
+    }
+    
     @Post("/question/ask")
     @Logged
     public void newQuestion(Question question) {
