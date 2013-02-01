@@ -2,6 +2,7 @@ package br.com.caelum.brutal.model;
 
 import static br.com.caelum.brutal.infra.NormalizerBrutal.toSlug;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -24,8 +25,14 @@ public class Question {
 	private String title;
 
 	@Type(type = "text")
+	@Column(unique=true)
+	private String sluggedTitle;
+
+	@Type(type = "text")
 	@Length(min = 30)
 	private String description;
+
+	private long views = 0;
 
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
 	private final DateTime createdAt = new DateTime();
@@ -39,10 +46,6 @@ public class Question {
 	@ManyToOne
 	private User author;
 
-	@Type(type = "text")
-	private String sluggedTitle;
-
-	private long views = 0;
 
 	/**
 	 * @deprecated hibernate eyes only
