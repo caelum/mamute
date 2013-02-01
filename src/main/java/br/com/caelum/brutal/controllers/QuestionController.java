@@ -4,6 +4,7 @@ import br.com.caelum.brutal.auth.Logged;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.providers.RequiresTransaction;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
@@ -28,8 +29,10 @@ public class QuestionController {
     }
     
     @Get("/questions/{questionId}/{sluggedTitle}")
+    @RequiresTransaction
     public void showQuestion(Long questionId, String sluggedTitle){
     	Question question = questionDAO.getById(questionId);
+    	question.ping();
     	result.include("question", question);
     }
     
