@@ -25,6 +25,9 @@ public class Vote {
     @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
     private final DateTime createdAt = new DateTime();
     
+    @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+    private DateTime lastUpdatedAt = new DateTime();
+    
     /**
      * @deprecated hibernate eyes
      */
@@ -35,5 +38,10 @@ public class Vote {
         this.author = author;
         this.type = type;
     }
+
+	public void switchTo(VoteType voteType) {
+		this.type = voteType;
+		this.lastUpdatedAt = new DateTime();
+	}
     
 }

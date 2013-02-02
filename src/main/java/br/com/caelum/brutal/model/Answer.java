@@ -83,10 +83,11 @@ public class Answer implements Votable {
 		return (this.question.hasSolution() && this.question.getSolution().equals(this));
 	}
 
-	@Override
-	public void addVote(Vote vote) {
-	    votes.add(vote);
-	}
+    @Override
+    public void substitute(Vote previous,Vote vote) {
+    	votes.remove(previous);
+        votes.add(vote);
+    }
 	
 	@Override
 	public boolean equals(Object obj) {

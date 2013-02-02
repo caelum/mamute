@@ -2,18 +2,15 @@ package br.com.caelum.brutal.dao;
 
 import java.util.List;
 
-import org.hibernate.Query;
 import org.hibernate.Session;
 
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
-import br.com.caelum.brutal.model.User;
-import br.com.caelum.brutal.model.VoteType;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 @SuppressWarnings("unchecked")
-public class QuestionDAO implements VotableDAO {
+public class QuestionDAO {
     
     private final Session session;
 
@@ -48,19 +45,5 @@ public class QuestionDAO implements VotableDAO {
 				.list();
 		return questions;
 	}
-	
-	@Override
-    public boolean alreadyVoted(Long questionId, User author, VoteType type) {
-        Query query = session.createQuery("select v from Question q " +
-        		"join q.votes v " +
-        		"where q.id=:questionId and v.author.id=:authorId and v.type=:type");
-        query.setParameter("type", type);
-        query.setParameter("authorId", author.getId());
-        query.setParameter("questionId", questionId);
-        boolean voted = !query.list().isEmpty();
-        return voted;
-    }
+
 }
-
-
-

@@ -176,7 +176,8 @@ public class Question implements Votable {
 	}
 
     @Override
-    public void addVote(Vote vote) {
+    public void substitute(Vote previous,Vote vote) {
+    	votes.remove(previous);
         votes.add(vote);
     }
 
