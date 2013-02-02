@@ -58,16 +58,18 @@ public class Question implements Votable {
 	private final List<Answer> answers = new ArrayList<Answer>();
 
 	private long views = 0;
-	
-	@JoinTable(name="Question_Votes")
+
+	@JoinTable(name = "Question_Votes")
 	@OneToMany
-	private List<Vote> votes = new ArrayList<>();
+	private final List<Vote> votes = new ArrayList<>();
 
 	@Lob
 	private String markedDescription;
-	
+
 	@ManyToMany
-	private List<Tag> tags = new ArrayList<Tag>();
+	private final List<Tag> tags = new ArrayList<>();
+
+	private long voteCount = 0l;
 
 	/**
 	 * @deprecated hibernate eyes only
@@ -87,10 +89,10 @@ public class Question implements Votable {
 		this.markedDescription = MarkDown.parse(description);
 	}
 
-	public void addTag(Tag tag){
+	public void addTag(Tag tag) {
 		this.tags.add(tag);
 	}
-	
+
 	public String getTitle() {
 		return title;
 	}
@@ -175,11 +177,14 @@ public class Question implements Votable {
 		return solution != null;
 	}
 
-    @Override
-    public void substitute(Vote previous,Vote vote) {
-    	votes.remove(previous);
-        votes.add(vote);
-    }
+	@Override
+	public void substitute(Vote previous, Vote vote) {
+		votes.remove(previous);
+		if (previous != null)
+			this.voteCount -= previous.getValue();
+		votes.add(vote);
+		this.voteCount += vote.getValue();
+	}
 
 	@Override
 	public int hashCode() {
@@ -238,6 +243,9 @@ public class Question implements Votable {
 			return false;
 		return true;
 	}
+	
+	public Long getVoteCount() {
+		return voteCount;
+	}
 
-    
 }

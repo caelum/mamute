@@ -14,7 +14,7 @@
 <table>
 	<c:forEach var="question" items="${questions }">
 		<tr>
-			<td>question.votes</td>
+			<td>${question.voteCount}</td>
 			<td>${question.answersCount}</td>
 			<td>${question.views}</td>
 			<td><a

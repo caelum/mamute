@@ -39,9 +39,8 @@ public class Vote {
         this.type = type;
     }
 
-	public void switchTo(VoteType voteType) {
-		this.type = voteType;
-		this.lastUpdatedAt = new DateTime();
+	public int getValue() {
+		return type.getValue();
 	}
     
 }
