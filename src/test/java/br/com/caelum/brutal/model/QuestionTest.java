@@ -22,5 +22,18 @@ public class QuestionTest {
 		
 		assertEquals(yes, shouldILiveForever.getSolution());
 	}
+	
+	@Test
+	public void should_be_touched_when_marked_as_solved() {
+		Question shouldILiveForever = new Question();
+		User leo = new User();
+		Answer yes = new Answer("my answer", shouldILiveForever, leo);
+		
+		assertEquals(null, shouldILiveForever.getLastTouchedBy());
+
+		shouldILiveForever.markAsSolvedBy(yes);
+		
+		assertEquals(leo, shouldILiveForever.getLastTouchedBy());
+	}
 
 }

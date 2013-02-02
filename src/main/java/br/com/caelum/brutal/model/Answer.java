@@ -104,8 +104,4 @@ public class Answer implements Votable {
 			return false;
 		return true;
 	}
-
-
-	
-	
 }
