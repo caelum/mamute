@@ -4,10 +4,13 @@ import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
+import java.util.Map;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.brutal.integracao.dao.DatabaseTestCase;
+import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.Vote;
@@ -61,6 +64,34 @@ public class VoteDAOTest extends DatabaseTestCase{
 
 		found = new VoteDAO(session).previousVoteFor(question.getId(), author, Question.class);
 		assertEquals(current, found);
+	}
+
+	
+	@Test
+	public void should_return_all_previous_votes_for_a_questions_answer() {
+		Answer firstAnswer = simpleAnswer();
+		Vote first = new Vote(author, VoteType.UP);
+		new VoteDAO(session).substitute(null, first);
+		firstAnswer.substitute(null,first);
+		session.save(firstAnswer);
+
+		Answer secondAnswer = simpleAnswer();
+		Vote second = new Vote(author, VoteType.UP);
+		new VoteDAO(session).substitute(null, second);
+		secondAnswer.substitute(null,second);
+		session.save(secondAnswer);
+
+		Answer thirdAnswer = simpleAnswer();
+		session.save(thirdAnswer);
+
+		Map<Answer, Vote> found = new VoteDAO(session).previousVotesForAnswers(question, author).getVotes();
+		assertEquals(first, found.get(firstAnswer));
+		assertEquals(second, found.get(secondAnswer));
+		assertEquals(null, found.get(thirdAnswer));
+	}
+
+	private Answer simpleAnswer() {
+		return new Answer("resposta basica de uma pergunta", question, author);
 	}
 
 }

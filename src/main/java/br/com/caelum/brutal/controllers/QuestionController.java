@@ -46,6 +46,7 @@ public class QuestionController {
 		}
 		question.ping();
 		result.include("currentVote", votes.previousVoteFor(questionId, currentUser, Question.class));
+		result.include("answers", votes.previousVotesForAnswers(question, currentUser));
 		result.include("question", question);
 	}
 

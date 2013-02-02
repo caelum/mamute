@@ -3,9 +3,11 @@ package br.com.caelum.brutal.dao;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.Votable;
 import br.com.caelum.brutal.model.Vote;
+import br.com.caelum.brutal.model.Votes;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
@@ -34,5 +36,13 @@ public class VoteDAO {
 		if (previous != null)
 			session.delete(previous);
 		session.save(current);
+	}
+
+	@SuppressWarnings("unchecked")
+	public Votes previousVotesForAnswers(Question question, User currentUser) {
+		Query query = session.createQuery("select a,v from Answer as a join a.votes as v where v.author = :author and a.question = :question");
+		query.setParameter("author", currentUser);
+		query.setParameter("question", question);
+		return new Votes(question.getAnswers(), query.list());
 	}
 }

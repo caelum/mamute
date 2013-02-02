@@ -17,7 +17,9 @@ ${question.markedDescription}
 
 <p>${answer.htmlText}</p>
 <ul>
-<c:forEach items="${question.answers}" var="answer">
+<c:forEach items="${answers.votes }" var="entry">
+	<c:set var="answer" value="${entry.key }" />
+	<c:set var="vote" value="${entry.value }" />
 	<c:if test="${answer.solution}">
 		<li class="answer solution" data-id="${answer.id}">
 			<p>${answer.htmlText}</p>
@@ -35,8 +37,8 @@ ${question.markedDescription}
 	</c:if>
 	(votes ${answer.voteCount})
 <div class="vote">
-	<a class="up-vote vote-option ${(not empty currentVote and currentVote.value==1) ? "voted" : "" }" data-value="up" data-type="answer" data-id="${answer.id}">up</a><br />
-	<a class="down-vote vote-option ${(not empty currentVote and currentVote.value==-1) ? "voted" : "" }"" data-value="down" data-type="answer" data-id="${answer.id}">down</a>
+	<a class="up-vote vote-option ${(not empty vote and vote.value==1) ? "voted" : "" }" data-value="up" data-type="answer" data-id="${answer.id}">up</a><br />
+	<a class="down-vote vote-option ${(not empty vote and vote.value==-1) ? "voted" : "" }"" data-value="down" data-type="answer" data-id="${answer.id}">down</a>
 </div>
 </c:forEach>
 </ul>
