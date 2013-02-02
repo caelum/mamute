@@ -1,12 +1,9 @@
-$(".up-vote").bind("click", function() {
-	vote("up", $(this));
+$(".vote-option").bind("click", function() {
+	vote($(this));
 });
 
-$(".down-vote").bind("click", function() {
-	vote("down", $(this));
-});
-
-function vote(vote, link) {
+function vote(link) {
+	var vote = link.data("value");
 	var type = link.data("type");
 	var id = link.data("id");
 	var params = "/"+ type +"/"+ id +"/"+ vote;

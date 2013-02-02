@@ -1,6 +1,6 @@
 <div class="vote">
-	<a class="up-vote vote-option" data-type="question" data-id="${question.id}">up</a><br />
-	<a class="down-vote vote-option" data-type="question" data-id="${question.id}">down</a>
+	<a class="up-vote vote-option ${(not empty currentVote and currentVote.value==1) ? "voted" : "" }" data-value="up" data-type="question" data-id="${question.id}">up</a><br />
+	<a class="down-vote vote-option ${(not empty currentVote and currentVote.value==-1) ? "voted" : "" }"" data-value="down" data-type="question" data-id="${question.id}">down</a>
 </div>
 
 
