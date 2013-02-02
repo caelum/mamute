@@ -243,5 +243,9 @@ public class Question implements Votable {
 	public long getVoteCount() {
 		return voteCount;
 	}
+	
+	public User getAuthor() {
+		return author;
+	}
 
 }

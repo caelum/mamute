@@ -55,7 +55,7 @@ public class VoteController {
 				
 		Votable votable = votes.loadVotedOnFor(type, id);
 		votable.substitute(previous, current);
-		votes.substitute(previous, current);
+		votes.substitute(previous, current, votable);
 		result.nothing();
 	}
 

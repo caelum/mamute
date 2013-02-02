@@ -19,79 +19,91 @@ import br.com.caelum.brutal.model.VoteType;
 public class VoteDAOTest extends DatabaseTestCase{
 	
     private Question question = new Question("Tiny title Tiny title Tiny title", "Description 1234567890123456789012345678901234567890");
-    private User author = new User("nome", "email", "123");
-    private User otherUser = new User("blabla", "blabla@gmail", "123");
+    private User guilherme = new User("nome", "email", "123");
+    private User ricardo = new User("blabla", "blabla@gmail", "123");
 
     @Before
 	public void before_testing() {
-	    session.save(otherUser);
-	    session.save(author);
+	    session.save(ricardo);
+	    session.save(guilherme);
+	    question.setAuthor(guilherme);
 	    session.save(question);
 	}
 
 	@Test
 	public void should_delete_previous_and_save_new() {
-		Vote current = new Vote(author, VoteType.UP);
-		new VoteDAO(session).substitute(null, current);
+		Vote current = new Vote(guilherme, VoteType.UP);
+		new VoteDAO(session).substitute(null, current, question);
 		assertTrue(session.contains(current));
 	}
+	
 	@Test
 	public void should_ignore_previous_null_and_save_new() {
-		Vote previous = new Vote(author, VoteType.UP);
-		new VoteDAO(session).substitute(null, previous);
+		Vote previous = new Vote(guilherme, VoteType.UP);
+		new VoteDAO(session).substitute(null, previous, question);
 		assertTrue(session.contains(previous));
 
-		Vote current = new Vote(author, VoteType.DOWN);
-		new VoteDAO(session).substitute(previous, current);
+		Vote current = new Vote(guilherme, VoteType.DOWN);
+		new VoteDAO(session).substitute(previous, current, question);
 		assertTrue(session.contains(current));
 		assertFalse(session.contains(previous));
 	}
 	
 	@Test
 	public void should_verify_that_a_user_already_voted_a_question() {
-		Vote previous = new Vote(author, VoteType.UP);
-		new VoteDAO(session).substitute(null, previous);
+		Vote previous = new Vote(guilherme, VoteType.UP);
+		new VoteDAO(session).substitute(null, previous, question);
 		question.substitute(null,previous);
 		session.save(question);
 		
-		Vote found = new VoteDAO(session).previousVoteFor(question.getId(), author, Question.class);
+		Vote found = new VoteDAO(session).previousVoteFor(question.getId(), guilherme, Question.class);
 		assertEquals(previous, found);
 
-		Vote current = new Vote(author, VoteType.DOWN);
-		new VoteDAO(session).substitute(previous, current);
+		Vote current = new Vote(guilherme, VoteType.DOWN);
+		new VoteDAO(session).substitute(previous, current, question);
 		question.substitute(previous,current);
 		session.save(question);
 
-		found = new VoteDAO(session).previousVoteFor(question.getId(), author, Question.class);
+		found = new VoteDAO(session).previousVoteFor(question.getId(), guilherme, Question.class);
 		assertEquals(current, found);
 	}
+	
+	@Test
+	public void should_be_allowed_to_substitute_and_update_karma() {
+		assertEquals(0,guilherme.getKarma());
+		Vote previous = new Vote(ricardo, VoteType.UP);
+		new VoteDAO(session).substitute(null, previous, question);
+		
+		assertEquals(1,reload(guilherme).getKarma());
+	}
+
 
 	
 	@Test
 	public void should_return_all_previous_votes_for_a_questions_answer() {
 		Answer firstAnswer = simpleAnswer();
-		Vote first = new Vote(author, VoteType.UP);
-		new VoteDAO(session).substitute(null, first);
+		Vote first = new Vote(guilherme, VoteType.UP);
+		new VoteDAO(session).substitute(null, first, firstAnswer);
 		firstAnswer.substitute(null,first);
 		session.save(firstAnswer);
 
 		Answer secondAnswer = simpleAnswer();
-		Vote second = new Vote(author, VoteType.UP);
-		new VoteDAO(session).substitute(null, second);
+		Vote second = new Vote(guilherme, VoteType.UP);
+		new VoteDAO(session).substitute(null, second, secondAnswer);
 		secondAnswer.substitute(null,second);
 		session.save(secondAnswer);
 
 		Answer thirdAnswer = simpleAnswer();
 		session.save(thirdAnswer);
 
-		Map<Answer, Vote> found = new VoteDAO(session).previousVotesForAnswers(question, author).getVotes();
+		Map<Answer, Vote> found = new VoteDAO(session).previousVotesForAnswers(question, guilherme).getVotes();
 		assertEquals(first, found.get(firstAnswer));
 		assertEquals(second, found.get(secondAnswer));
 		assertEquals(null, found.get(thirdAnswer));
 	}
 
 	private Answer simpleAnswer() {
-		return new Answer("resposta basica de uma pergunta", question, author);
+		return new Answer("resposta basica de uma pergunta", question, guilherme);
 	}
 
 }

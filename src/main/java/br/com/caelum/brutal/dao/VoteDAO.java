@@ -32,10 +32,14 @@ public class VoteDAO {
 		return (Votable) session.load(type, id);
 	}
 
-	public void substitute(Vote previous, Vote current) {
-		if (previous != null)
+	public void substitute(Vote previous, Vote current, Votable on) {
+		long delta = current.getValue();
+		if (previous != null) {
 			session.delete(previous);
+			delta += previous.getValue();
+		}
 		session.save(current);
+		session.createQuery("update User as u set u.karma = u.karma + :dif where u = :user").setParameter("dif", delta).setParameter("user", on.getAuthor()).executeUpdate();
 	}
 
 	@SuppressWarnings("unchecked")

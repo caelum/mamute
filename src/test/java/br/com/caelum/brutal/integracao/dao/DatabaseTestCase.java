@@ -12,6 +12,7 @@ import br.com.caelum.brutal.providers.SessionFactoryCreator;
 import br.com.caelum.vraptor.environment.DefaultEnvironment;
 import br.com.caelum.vraptor.environment.Environment;
 
+@SuppressWarnings("unchecked")
 public abstract class DatabaseTestCase {
 
 	private static final SessionFactory factory;
@@ -44,6 +45,11 @@ public abstract class DatabaseTestCase {
 			session.getTransaction().rollback();
 		}
 		session.close();
+	}
+	
+	public <T extends Identifiable> T reload(T obj) {
+		session.evict(obj);
+		return (T) session.load(obj.getClass(), obj.getId());
 	}
 
 

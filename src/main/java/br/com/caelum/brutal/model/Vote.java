@@ -19,10 +19,10 @@ public class Vote {
     private Long id;
     
     @Enumerated(EnumType.STRING)
-    private VoteType type;
+    private final VoteType type;
     
     @ManyToOne
-    private User author;
+    private final User author;
     
     @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
     private final DateTime createdAt = new DateTime();
@@ -34,6 +34,7 @@ public class Vote {
      * @deprecated hibernate eyes
      */
     Vote() {
+    	this(null, null);
     }
     
     public Vote(User author, VoteType type) {
@@ -51,6 +52,10 @@ public class Vote {
 		votes.add(this);
 		voteCount += getValue();
 		return voteCount;
+	}
+	
+	public User getAuthor() {
+		return author;
 	}
     
 }

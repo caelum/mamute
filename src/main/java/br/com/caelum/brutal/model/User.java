@@ -10,9 +10,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.infra.Digester;
+import br.com.caelum.brutal.integracao.dao.Identifiable;
 
 @Entity
-public class User {
+public class User implements Identifiable {
 
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
 	private final DateTime createdAt = new DateTime();
@@ -30,7 +31,9 @@ public class User {
 	@NotEmpty
 	@Type(type = "text")
 	private String name;
-
+	
+	private long karma = 0;
+	
 	/**
 	 * @deprecated hibernate eyes only
 	 */
@@ -60,5 +63,9 @@ public class User {
 	@Override
 	public String toString() {
 		return "[User " + email + ", "+ name +"]";
+	}
+	
+	public long getKarma() {
+		return karma;
 	}
 }
