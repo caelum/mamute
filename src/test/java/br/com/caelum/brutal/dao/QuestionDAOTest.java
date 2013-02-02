@@ -31,31 +31,31 @@ public class QuestionDAOTest extends DatabaseTestCase {
 	
 	
 	@Test(expected=ConstraintViolationException.class)
-	public void shouldThrowConstraintExceptionIfDescriptionIsNull() {
+	public void should_throw_constraint_exception_if_description_is_null() {
 		Question question = new Question("Title with more than 15 characters", null);
 		questions.save(question);
 	}
 	
 	@Test(expected=ConstraintViolationException.class)
-	public void shouldThrowConstraintExceptionIfDescriptionHasLessThan30Chars() {
+	public void should_throw_constraint_exception_if_description_has_less_than_30_chars() {
 		Question question = new Question("Title with more than 15 characters", "Tiny desc");
 		questions.save(question);
 	}
 	
 	@Test(expected=ConstraintViolationException.class)
-	public void shouldThrowConstraintExceptionIfTitleIsNull() {
+	public void should_throw_constraint_exception_if_title_is_null() {
 		Question question = new Question(null, "Description with more than 30 characters");
 		questions.save(question);
 	}
 	
 	@Test(expected=ConstraintViolationException.class)
-	public void shouldThrowConstraintExceptionIfTitleHasLessThan15Chars() {
+	public void should_throw_constraint_exception_if_title_has_less_than_15_chars() {
 		Question question = new Question("Tiny title", "Description with more than 30 characters");
 		questions.save(question);
 	}
 	
 	@Test
-	public void shouldReturnOnlyQuestionsWithTheProvidedTag() {
+	public void should_return_only_questions_with_the_provided_tag() {
 		Question salDaAzar = new Question("Por que pegar o sal da mal dos outros da azar?", "Alguem poderia me dizer o por que disso? Obrigado galera!");
 		Question beberFazMal = new Question("Por que dizem que beber demais faz mal?", "Alguem poderia me dizer o por que disso? Obrigado galera!");
 		Question androidRuim = new Question("Por que a api de android é tão ruim?", "Alguem poderia me dizer o por que disso? Obrigado galera!");
