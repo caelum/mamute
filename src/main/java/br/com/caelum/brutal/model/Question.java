@@ -244,7 +244,7 @@ public class Question implements Votable {
 		return true;
 	}
 	
-	public Long getVoteCount() {
+	public long getVoteCount() {
 		return voteCount;
 	}
 
