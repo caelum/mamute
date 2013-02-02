@@ -1,7 +1,4 @@
-<div class="vote">
-	<a class="up-vote vote-option ${(not empty currentVote and currentVote.value==1) ? "voted" : "" }" data-value="up" data-type="question" data-id="${question.id}">up</a><br />
-	<a class="down-vote vote-option ${(not empty currentVote and currentVote.value==-1) ? "voted" : "" }"" data-value="down" data-type="question" data-id="${question.id}">down</a>
-</div>
+<tags:voteFor item="${question }" type="question" vote="${currentVote }"/>
 
 
 ${question.title}
@@ -36,9 +33,6 @@ ${question.markedDescription}
 		</li>
 	</c:if>
 	(votes ${answer.voteCount})
-<div class="vote">
-	<a class="up-vote vote-option ${(not empty vote and vote.value==1) ? "voted" : "" }" data-value="up" data-type="answer" data-id="${answer.id}">up</a><br />
-	<a class="down-vote vote-option ${(not empty vote and vote.value==-1) ? "voted" : "" }"" data-value="down" data-type="answer" data-id="${answer.id}">down</a>
-</div>
+	<tags:voteFor item="${answer }" type="answer" vote="${vote}"/>
 </c:forEach>
 </ul>

@@ -1,6 +1,9 @@
 package br.com.caelum.brutal.model;
 
+import java.io.Serializable;
+
 public interface Votable {
 
-	public void substitute(Vote previous, Vote current);
+	void substitute(Vote previous, Vote current);
+	Serializable getId();
 }

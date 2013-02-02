@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -41,6 +43,14 @@ public class Vote {
 
 	public int getValue() {
 		return type.getValue();
+	}
+
+	public long substitute(Vote previous, List<Vote> votes, long voteCount) {
+		if(votes.remove(previous))
+			voteCount -= previous.getValue();
+		votes.add(this);
+		voteCount += getValue();
+		return voteCount;
 	}
     
 }

@@ -179,11 +179,7 @@ public class Question implements Votable {
 
 	@Override
 	public void substitute(Vote previous, Vote vote) {
-		votes.remove(previous);
-		if (previous != null)
-			this.voteCount -= previous.getValue();
-		votes.add(vote);
-		this.voteCount += vote.getValue();
+    	this.voteCount = vote.substitute(previous, votes, voteCount);
 	}
 
 	@Override
