@@ -1,7 +1,5 @@
 package br.com.caelum.brutal.controllers;
 
-import java.util.List;
-
 import br.com.caelum.brutal.auth.Logged;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.TagDAO;
@@ -49,11 +47,12 @@ public class QuestionController {
 
 	@Post("/question/ask")
 	@Logged
-	public void newQuestion(Question question, String tags) {
+	public void newQuestion(Question question, String tagNames) {
 		question.setAuthor(currentUser);
 		questionDAO.save(question);
-		for (String tag : tags.split(" ")) {
-			tagDAO.save(new Tag(tag, "", question));
+		for (String tagName : tagNames.split(" ")) {
+			Tag newTag = tagDAO.saveOrLoad(new Tag(tagName, "", currentUser));
+			question.addTag(newTag);
 		}
 		result.redirectTo(this).showQuestion(question.getId(),
 				question.getSluggedTitle());

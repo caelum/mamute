@@ -13,7 +13,7 @@
 		<div id="wmd-preview" class="wmd-panel wmd-preview"></div>
 	</div>
 	<label for="tags"><fmt:message key="newquestion.tags" /></label>
-	<input id="tags" type="text" name="tags"/>
+	<input id="tags" type="text" name="tagNames"/>
 	
 	<input type="submit" />
 	

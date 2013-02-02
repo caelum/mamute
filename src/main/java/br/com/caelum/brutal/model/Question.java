@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -65,7 +66,7 @@ public class Question implements Votable {
 	@Lob
 	private String markedDescription;
 	
-	@OneToMany(mappedBy = "question")
+	@ManyToMany
 	private List<Tag> tags = new ArrayList<Tag>();
 
 	/**
@@ -86,6 +87,10 @@ public class Question implements Votable {
 		this.markedDescription = MarkDown.parse(description);
 	}
 
+	public void addTag(Tag tag){
+		this.tags.add(tag);
+	}
+	
 	public String getTitle() {
 		return title;
 	}

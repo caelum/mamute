@@ -62,8 +62,10 @@ public class QuestionDAOTest extends DatabaseTestCase {
 		questions.save(salDaAzar);
 		questions.save(beberFazMal);
 		questions.save(androidRuim);
-		Tag sal = new Tag("sal", "", salDaAzar);
-		tags.save(sal);
+		
+		Tag sal = new Tag("sal", "", null);
+		tags.saveOrLoad(sal);
+		salDaAzar.addTag(sal);
 		
 		List<Question> perguntasComSal = questions.withTag(sal);
 

@@ -1,8 +1,13 @@
 package br.com.caelum.brutal.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Type;
@@ -15,6 +20,7 @@ public class Tag {
 	@GeneratedValue
 	private Long id;
 	
+	@Column(unique=true)
 	private String name;
 	
 	private String description;
@@ -23,7 +29,7 @@ public class Tag {
 	private final DateTime createdAt = new DateTime();
 	
 	@ManyToOne
-	private Question question;
+	private final User author;
 	
 	/**
 	 * @deprecated hibernate eyes only
@@ -32,10 +38,10 @@ public class Tag {
 		this("", "", null);
 	}
 	
-	public Tag(String name, String description, Question question) {
+	public Tag(String name, String description, User author) {
 		this.name = name;
 		this.description = description;
-		this.question = question;
+		this.author = author;
 	}
 
 	public String getName() {
