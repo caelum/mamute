@@ -2,6 +2,7 @@ package br.com.caelum.brutal.dao;
 
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
@@ -49,6 +50,22 @@ public class QuestionDAOTest extends DatabaseTestCase {
 	public void should_throw_constraint_exception_if_title_has_less_than_15_chars() {
 		Question question = new Question("Tiny title", "Description with more than 30 characters");
 		questions.save(question);
+	}
+	
+	
+	@Test
+	public void should_ignore_low_reputation_ones() {
+		Question salDaAzar = new Question("Por que pegar o sal da mal dos outros da azar?", "Alguem poderia me dizer o por que disso? Obrigado galera!");
+		questions.save(salDaAzar);
+		
+		assertTrue(questions.all().contains(salDaAzar));
+		
+		session.createQuery("update Question as q set q.voteCount = -9").executeUpdate();
+		assertTrue(questions.all().contains(salDaAzar));
+
+		session.createQuery("update Question as q set q.voteCount = -10").executeUpdate();
+		assertFalse(questions.all().contains(salDaAzar));
+
 	}
 	
 	@Test

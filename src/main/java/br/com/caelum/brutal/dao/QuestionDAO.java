@@ -11,6 +11,8 @@ import br.com.caelum.vraptor.ioc.Component;
 @Component
 @SuppressWarnings("unchecked")
 public class QuestionDAO {
+	
+	private final String FILTER_REPUTATION = "q.voteCount > -10";
     
     private final Session session;
 
@@ -27,11 +29,11 @@ public class QuestionDAO {
 	}
 	
 	public List<Question> all() {
-		return session.createQuery("from Question order by lastUpdatedAt desc").setMaxResults(50).list();
+		return session.createQuery("from Question as q where " + FILTER_REPUTATION + " order by lastUpdatedAt desc").setMaxResults(50).list();
 	}
 
 	public List<Question> unanswered() {
-		return session.createQuery("from Question as  q where (q.solution is null) order by q.lastUpdatedAt desc").setMaxResults(50).list();
+		return session.createQuery("from Question as  q where " + FILTER_REPUTATION + " and (q.solution is null) order by q.lastUpdatedAt desc").setMaxResults(50).list();
 	}
 
 	public Question load(Question question) {
@@ -39,7 +41,7 @@ public class QuestionDAO {
 	}
 
 	public List<Question> withTag(Tag tag) {
-		List<Question> questions = session.createQuery("select q from Question as q join q.tags t where (q.solution is null) and t = :tag order by q.lastUpdatedAt desc")
+		List<Question> questions = session.createQuery("select q from Question as q join q.tags t where " + FILTER_REPUTATION + " and (q.solution is null) and t = :tag order by q.lastUpdatedAt desc")
 				.setParameter("tag", tag)
 				.setMaxResults(50)
 				.list();
