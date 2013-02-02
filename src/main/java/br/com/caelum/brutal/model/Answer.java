@@ -42,6 +42,8 @@ public class Answer implements Votable {
     @OneToMany
     private List<Vote> votes = new ArrayList<>();
 
+	private long voteCount= 0;
+
 	public Answer(String text, Question question, User author) {
         this.text = text;
         this.htmlText = MarkDown.parse(text);
@@ -85,8 +87,11 @@ public class Answer implements Votable {
 
     @Override
     public void substitute(Vote previous,Vote vote) {
-    	votes.remove(previous);
-        votes.add(vote);
+		votes.remove(previous);
+		if (previous != null)
+			this.voteCount -= previous.getValue();
+		votes.add(vote);
+		this.voteCount += vote.getValue();
     }
 	
 	@Override
@@ -104,5 +109,9 @@ public class Answer implements Votable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+	
+	public long getVoteCount() {
+		return voteCount;
 	}
 }

@@ -12,8 +12,8 @@ insert into Question (voteCount, createdAt, description, sluggedTitle, title, au
 insert into Question (voteCount, createdAt, description, sluggedTitle, title, author_id, views) values (0,'20130101', 'Como faz para ter um humor um pouco melhor pelas manhãs? blablablablablablablablablablablabla', 'como-faz-para-ter-um-humor-um-pouco-melhor-pelas-manhas-blablablablablablablablablabla', '7 hora da manhã já pode estar puto? blablablablablablablablablablablabla', 5, 0);
 insert into Question (voteCount, createdAt, description, sluggedTitle, title, author_id, views) values (0,'20130101', 'Como faz para parar de usar android e linux? blablablablablablablablablablablabla', 'como-faz-para-parar-de-usar-android-e-linux-blablablablablablablablablablablabla', 'Usar celular e computador que funciona, pode? blablablablablablablablablablablabla', 6, 0);
 
-insert into Answer(createdAt,text, htmlText, author_id,question_id) values (now(), 'Como todo belo coreano faz', 'Como todo belo coreano faz', 3, 1);
-insert into Answer(createdAt,text, htmlText, author_id,question_id) values (now(), 'Como toda bela coreana faz', 'Como toda bela coreana faz', 4, 1);
-insert into Answer(id, createdAt,text, htmlText, author_id,question_id) values (3,now(), 'Como todo belo ocidental paga pau faz', 'Como todo belo ocidental paga pau faz', 2, 2);
+insert into Answer(voteCount, createdAt,text, htmlText, author_id,question_id) values (0,now(), 'Como todo belo coreano faz', 'Como todo belo coreano faz', 3, 1);
+insert into Answer(voteCount, createdAt,text, htmlText, author_id,question_id) values (0,now(), 'Como toda bela coreana faz', 'Como toda bela coreana faz', 4, 1);
+insert into Answer(voteCount, id, createdAt,text, htmlText, author_id,question_id) values (0,3,now(), 'Como todo belo ocidental paga pau faz', 'Como todo belo ocidental paga pau faz', 2, 2);
 update Question set solution_id=3 where id=2;
 update Answer set htmlText = text;
