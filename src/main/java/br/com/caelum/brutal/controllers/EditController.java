@@ -5,12 +5,13 @@ import br.com.caelum.brutal.auth.Logged;
 import br.com.caelum.brutal.dao.EditDAO;
 import br.com.caelum.brutal.model.MarkDown;
 import br.com.caelum.brutal.model.Updatable;
+import br.com.caelum.brutal.model.UpdateHistory;
+import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 
-@SuppressWarnings("unused")
 @Resource
 public class EditController {
 
@@ -34,8 +35,8 @@ public class EditController {
 		Updatable object = edits.load(type, id);
 		
 		if(!object.getAuthor().getId().equals(currentUser.getId())) {
-			// add to queue
-			result.use(http()).body(parsed);
+			createHistoryFor(value, type, field, UpdateStatus.PENDING);
+			result.use(http()).setStatusCode(201);
 			return;
 		}
 		
@@ -43,7 +44,15 @@ public class EditController {
 			result.use(http()).sendError(403);
 			return;
 		}
+		
+		createHistoryFor(value, type, field, UpdateStatus.NO_NEED_TO_APPROVE);
 		result.use(http()).body(parsed);
+	}
+
+	private void createHistoryFor(String value, Class<?> type, String field, UpdateStatus status) {
+		UpdateHistory history = new UpdateHistory(value, type, field, currentUser, status);
+		edits.save(history);
+
 	}
 
 }

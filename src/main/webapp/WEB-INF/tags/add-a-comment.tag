@@ -1,19 +1,26 @@
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@attribute name="item" type="br.com.caelum.brutal.model.Commentable" required="true" %>
 <ul>
 <c:forEach var="comment" items="${item.comments }">
-	<li>${comment.htmlComment } by ${comment.author.name }</li>
+	<li>
+	<span id="comment-${comment.id }">${comment.htmlComment }</span> by ${comment.author.name }
+	<tags:editFor item="${comment}" field="comment" value="${comment.comment }" ajaxResult="comment-${comment.id}" />
+	</li>
 </c:forEach>
 </ul>
-<div class="edit-via-ajax">
+
+<c:set var="ajaxResultName" value="new-comment-for-${item.typeName}-new-comment-${item.id}"/>
+<span id="${ajaxResultName }"></span>
+<span class="edit-via-ajax">
 	<a href="#"><fmt:message key="comment.add_comment" /></a>
-	<div>
-		<form action="<c:url value="/${item.typeName }/${item.id }/comment"/>" class="validated-form ajax">
+	<span>
+		<form action="<c:url value="/${item.typeName }/${item.id }/comment"/>" class="validated-form ajax" data-ajax-result="${ajaxResultName }">
 			<textarea class="required to-focus" minlength="15" name="message"></textarea>
 			<input type="submit"
 				value="<fmt:message key="comment.add_comment_submit"/>" />
 		</form>
-		<div><fmt:message key="comment.text.hint"/></div>
-	</div>
-</div>
+		<span><fmt:message key="comment.text.hint"/></span>
+	</span>
+</span>

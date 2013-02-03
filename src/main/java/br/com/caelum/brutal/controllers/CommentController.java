@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.controllers;
 
+import static br.com.caelum.vraptor.view.Results.http;
 import br.com.caelum.brutal.auth.Logged;
 import br.com.caelum.brutal.dao.CommentDAO;
 import br.com.caelum.brutal.model.Comment;
@@ -28,7 +29,7 @@ public class CommentController {
 		Class type = Class.forName("br.com.caelum.brutal.model." + onWhat);
 		Comment comment = comments.load(type, id).add(new Comment(currentUser, message));
 		comments.save(comment);
-		result.nothing();
+		result.use(http()).body(message);
 	}
 
 }

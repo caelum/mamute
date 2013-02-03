@@ -15,16 +15,23 @@ $(function() {
 			console.log("error");
 		};
 
-		var success = function(response) {
-			var el = self.parent(".edit-via-ajax");
-			console.log(el.html());
-			el.html(response);
+		var success = function(response, status, jqhr) {
+			console.log(jqhr);
+			var target = $("#" + self.data("ajax-result"));
+			if(jqhr.status==201) {
+				target.append("<span class='suggestion-accepted'>Sugest&atilde;o enviada!</span>");
+			} else {
+				target.html(response);
+			}
+			var formParent = self.closest(".edit-via-ajax");
+			formParent.children().toggle();
 		};
 
 		var uri = self.attr("action");
 		$.ajax(uri, {
 			success: success,
 			error: error,
+			dataType : 'html',
 			data : self.serialize(),
 			method: "POST"
 		});

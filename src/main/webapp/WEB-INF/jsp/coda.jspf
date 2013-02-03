@@ -4,7 +4,7 @@
 <script src="<c:url value="/js/jquery.validate.min.js"/>"></script>
 <script src="<c:url value="/js/form-validation.js"/>"></script>
 <script src="<c:url value="/js/form-hints.js"/>"></script>
-<script src="<c:url value="/js/comment.js"/>"></script>
+<script src="<c:url value="/js/ajax2.js"/>"></script>
 <script src="<c:url value="/js/ajax.js"/>"></script>
 <script type="text/javascript"
 	src="<c:url value="/js/Markdown.Converter.js"/>"></script>

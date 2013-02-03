@@ -12,7 +12,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
 @Entity
-public class Comment {
+public class Comment implements Updatable {
     
     @Id @GeneratedValue
     private Long id;
@@ -20,10 +20,10 @@ public class Comment {
     @Lob
     @NotEmpty
     @Length(min = 15)
-    private final String comment;
+    private String comment;
 
     @Lob
-    private final String htmlComment;
+    private String htmlComment;
 
     @ManyToOne(optional = false)
     private final User author;
@@ -43,9 +43,13 @@ public class Comment {
     
     public Comment(User author, String comment) {
 		this.author = author;
+		setComment(comment);
+    }
+
+	private void setComment(String comment) {
 		this.comment = comment;
         this.htmlComment = MarkDown.parse(comment);
-    }
+	}
     
     public User getAuthor() {
 		return author;
@@ -54,5 +58,27 @@ public class Comment {
     public String getHtmlComment() {
 		return htmlComment;
 	}
-    
+
+	@Override
+	public boolean update(String field, String value) {
+		if(field.equals("comment")) {
+			setComment(value);
+			return true;
+		}
+		return false;
+	}
+
+	public String getTypeName() {
+		return "Comment";
+	}
+	
+	public Long getId() {
+		return id;
+	}
+	
+	public String getComment() {
+		return comment;
+	}
+	
+
 }
