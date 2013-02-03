@@ -27,6 +27,11 @@ public abstract class DatabaseTestCase {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	protected <T> T save(T obj) {
+		session.save(obj);
+		return obj;
+	}
 
 
 	protected Session session;

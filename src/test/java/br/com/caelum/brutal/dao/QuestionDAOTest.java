@@ -12,16 +12,21 @@ import org.junit.Test;
 import br.com.caelum.brutal.integracao.dao.DatabaseTestCase;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
+import br.com.caelum.brutal.model.User;
 
 public class QuestionDAOTest extends DatabaseTestCase {
 
-	private QuestionDAO questions;
+	private QuestionDAO unmoderatedQuestions, moderatedQuestions, unloggedQuestions;
 	private TagDAO tags;
 
 
 	@Before
 	public void setup() {
-		this.questions = new QuestionDAO(session);
+		User guilherme = new User("","", "").asModerator();
+		User moderator = new User("","", "").asModerator();
+		this.unloggedQuestions = new QuestionDAO(session, null);
+		this.unmoderatedQuestions = new QuestionDAO(session, guilherme);
+		this.moderatedQuestions = new QuestionDAO(session, moderator);
 		this.tags = new TagDAO(session);
 	}
 	
@@ -29,40 +34,58 @@ public class QuestionDAOTest extends DatabaseTestCase {
 	@Test(expected=ConstraintViolationException.class)
 	public void should_throw_constraint_exception_if_description_is_null() {
 		Question question = new Question("Title with more than 15 characters", null);
-		questions.save(question);
+		unmoderatedQuestions.save(question);
 	}
 	
 	@Test(expected=ConstraintViolationException.class)
 	public void should_throw_constraint_exception_if_description_has_less_than_30_chars() {
 		Question question = new Question("Title with more than 15 characters", "Tiny desc");
-		questions.save(question);
+		unmoderatedQuestions.save(question);
 	}
 	
 	@Test(expected=ConstraintViolationException.class)
 	public void should_throw_constraint_exception_if_title_is_null() {
 		Question question = new Question(null, "Description with more than 30 characters");
-		questions.save(question);
+		unmoderatedQuestions.save(question);
 	}
 	
 	@Test(expected=ConstraintViolationException.class)
 	public void should_throw_constraint_exception_if_title_has_less_than_15_chars() {
 		Question question = new Question("Tiny title", "Description with more than 30 characters");
-		questions.save(question);
+		unmoderatedQuestions.save(question);
 	}
 	
 	
 	@Test
 	public void should_ignore_low_reputation_ones() {
 		Question salDaAzar = new Question("Por que pegar o sal da mal dos outros da azar?", "Alguem poderia me dizer o por que disso? Obrigado galera!");
-		questions.save(salDaAzar);
+		unmoderatedQuestions.save(salDaAzar);
 		
-		assertTrue(questions.all().contains(salDaAzar));
+		assertTrue(unmoderatedQuestions.all().contains(salDaAzar));
+		assertTrue(unloggedQuestions.all().contains(salDaAzar));
+		
+		session.createQuery("update Question as q set q.voteCount = -4").executeUpdate();
+		assertTrue(unmoderatedQuestions.all().contains(salDaAzar));
+		assertTrue(unloggedQuestions.all().contains(salDaAzar));
+
+		session.createQuery("update Question as q set q.voteCount = -5").executeUpdate();
+		assertFalse(unmoderatedQuestions.all().contains(salDaAzar));
+		assertFalse(unloggedQuestions.all().contains(salDaAzar));
+
+	}
+	
+	@Test
+	public void should_ignore_low_reputation_ones_for_moderators() {
+		Question salDaAzar = new Question("Por que pegar o sal da mal dos outros da azar?", "Alguem poderia me dizer o por que disso? Obrigado galera!");
+		unmoderatedQuestions.save(salDaAzar);
+		
+		assertTrue(moderatedQuestions.all().contains(salDaAzar));
 		
 		session.createQuery("update Question as q set q.voteCount = -9").executeUpdate();
-		assertTrue(questions.all().contains(salDaAzar));
+		assertTrue(moderatedQuestions.all().contains(salDaAzar));
 
 		session.createQuery("update Question as q set q.voteCount = -10").executeUpdate();
-		assertFalse(questions.all().contains(salDaAzar));
+		assertFalse(moderatedQuestions.all().contains(salDaAzar));
 
 	}
 	
@@ -71,15 +94,15 @@ public class QuestionDAOTest extends DatabaseTestCase {
 		Question salDaAzar = new Question("Por que pegar o sal da mal dos outros da azar?", "Alguem poderia me dizer o por que disso? Obrigado galera!");
 		Question beberFazMal = new Question("Por que dizem que beber demais faz mal?", "Alguem poderia me dizer o por que disso? Obrigado galera!");
 		Question androidRuim = new Question("Por que a api de android é tão ruim?", "Alguem poderia me dizer o por que disso? Obrigado galera!");
-		questions.save(salDaAzar);
-		questions.save(beberFazMal);
-		questions.save(androidRuim);
+		unmoderatedQuestions.save(salDaAzar);
+		unmoderatedQuestions.save(beberFazMal);
+		unmoderatedQuestions.save(androidRuim);
 		
 		Tag sal = new Tag("sal", "", null);
 		tags.saveOrLoad(sal);
 		salDaAzar.addTag(sal);
 		
-		List<Question> perguntasComSal = questions.withTag(sal);
+		List<Question> perguntasComSal = unmoderatedQuestions.withTag(sal);
 
 		assertTrue(perguntasComSal.contains(salDaAzar));
 		assertFalse(perguntasComSal.contains(beberFazMal));

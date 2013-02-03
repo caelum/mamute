@@ -34,6 +34,8 @@ public class User implements Identifiable {
 	
 	private long karma = 0;
 	
+	private boolean moderator = false;
+	
 	/**
 	 * @deprecated hibernate eyes only
 	 */
@@ -67,5 +69,14 @@ public class User implements Identifiable {
 	
 	public long getKarma() {
 		return karma;
+	}
+
+	public boolean isModerator() {
+		return moderator;
+	}
+
+	public User asModerator() {
+		this.moderator = true;
+		return this;
 	}
 }
