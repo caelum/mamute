@@ -9,10 +9,10 @@
 	<a href="#"><fmt:message key="${editKey }" /></a>
 	<span>
 		<form action="<c:url value="/${item.typeName }/${item.id }/edit/${field }"/>" class="validated-form ajax" data-ajax-result="${ajaxResult }">
-			<textarea class="required to-focus" minlength="15" name="value">${value }</textarea>
+			<textarea class="required to-focus hintable" minlength="15" name="value" data-hint-id="${ajaxResult }-hint">${value }</textarea>
 			<input type="submit"
 				value="<fmt:message key="${editKey }_submit"/>" />
 		</form>
-		<span><fmt:message key="${field}.hint"/></span>
+		<span id="${ajaxResult }-hint"><fmt:message key="${field}.hint"/></span>
 	</span>
 </span>

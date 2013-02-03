@@ -17,7 +17,7 @@
 	
 	<input type="submit" />
 	
-	<div id="newquestion-title-hint" class="hint"><fmt:message key="newquestion.title.hint" /></div>
-	<div id="newquestion-description-hint" class="hint"><fmt:message key="newquestion.description.hint" /></div>
+	<div id="newquestion-title-hint" class="hint"><fmt:message key="title.hint" /></div>
+	<div id="newquestion-description-hint" class="hint"><fmt:message key="description.hint" /></div>
 
 </form>
