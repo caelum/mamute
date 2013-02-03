@@ -3,6 +3,7 @@ package br.com.caelum.brutal.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,7 +17,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
 @Entity
-public class Answer implements Votable {
+public class Answer implements Votable, Commentable {
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -40,8 +41,12 @@ public class Answer implements Votable {
 	
 	@JoinTable(name="Answer_Votes")
     @OneToMany
-    private List<Vote> votes = new ArrayList<>();
+    private final List<Vote> votes = new ArrayList<>();
 
+	@JoinTable(name="Answer_Comments")
+	@OneToMany(cascade=CascadeType.ALL)
+    private final List<Comment> comments = new ArrayList<>();
+    
 	private long voteCount= 0;
 
 	public Answer(String text, Question question, User author) {
@@ -109,5 +114,20 @@ public class Answer implements Votable {
 	
 	public long getVoteCount() {
 		return voteCount;
+	}
+
+	@Override
+	public Comment add(Comment comment) {
+		this.comments.add(comment);
+		return comment;
+	}
+
+	public String getTypeName() {
+		return "Answer";
+	}
+	
+	@Override
+	public List<Comment> getComments() {
+		return comments;
 	}
 }

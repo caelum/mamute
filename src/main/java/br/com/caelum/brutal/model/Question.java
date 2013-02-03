@@ -5,6 +5,7 @@ import static br.com.caelum.brutal.infra.NormalizerBrutal.toSlug;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -20,7 +21,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
 @Entity
-public class Question implements Votable {
+public class Question implements Votable, Commentable {
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -55,7 +56,7 @@ public class Question implements Votable {
 	private User author;
 
 	@OneToMany(mappedBy = "question")
-	private final List<Answer> answers = new ArrayList<Answer>();
+	private final List<Answer> answers = new ArrayList<>();
 
 	private long views = 0;
 
@@ -70,6 +71,11 @@ public class Question implements Votable {
 	private final List<Tag> tags = new ArrayList<>();
 
 	private long voteCount = 0l;
+	
+	@JoinTable(name="Question_Comments")
+    @OneToMany(cascade=CascadeType.ALL)
+    private final List<Comment> comments = new ArrayList<>();
+
 
 	/**
 	 * @deprecated hibernate eyes only
@@ -248,4 +254,17 @@ public class Question implements Votable {
 		return author;
 	}
 
+	@Override
+	public Comment add(Comment comment) {
+		this.comments.add(comment);
+		return comment;
+	}
+	
+	public String getTypeName() {
+		return "Question";
+	}
+	
+	public List<Comment> getComments() {
+		return comments;
+	}
 }

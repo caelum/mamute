@@ -49,6 +49,7 @@ public class VoteController {
 		tryToVoteQuestion(id, VoteType.DOWN, Answer.class);
 	}
 
+	@SuppressWarnings("rawtypes")
 	private void tryToVoteQuestion(Long id, VoteType voteType, Class type) {
 		Vote previous = votes.previousVoteFor(id, currentUser, type);
 		Vote current = new Vote(currentUser, voteType);
