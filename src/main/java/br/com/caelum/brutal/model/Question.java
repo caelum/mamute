@@ -21,7 +21,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
 @Entity
-public class Question implements Votable, Commentable {
+public class Question implements Votable, Commentable, Updatable {
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -71,11 +71,10 @@ public class Question implements Votable, Commentable {
 	private final List<Tag> tags = new ArrayList<>();
 
 	private long voteCount = 0l;
-	
-	@JoinTable(name="Question_Comments")
-    @OneToMany(cascade=CascadeType.ALL)
-    private final List<Comment> comments = new ArrayList<>();
 
+	@JoinTable(name = "Question_Comments")
+	@OneToMany(cascade = CascadeType.ALL)
+	private final List<Comment> comments = new ArrayList<>();
 
 	/**
 	 * @deprecated hibernate eyes only
@@ -85,9 +84,13 @@ public class Question implements Votable, Commentable {
 	}
 
 	public Question(String title, String description) {
+		setTitle(title);
+		setDescription(description);
+	}
+
+	private void setTitle(String title) {
 		this.title = title;
 		this.sluggedTitle = toSlug(title);
-		setDescription(description);
 	}
 
 	private void setDescription(String description) {
@@ -185,7 +188,7 @@ public class Question implements Votable, Commentable {
 
 	@Override
 	public void substitute(Vote previous, Vote vote) {
-    	this.voteCount = vote.substitute(previous, votes, voteCount);
+		this.voteCount = vote.substitute(previous, votes, voteCount);
 	}
 
 	@Override
@@ -245,11 +248,11 @@ public class Question implements Votable, Commentable {
 			return false;
 		return true;
 	}
-	
+
 	public long getVoteCount() {
 		return voteCount;
 	}
-	
+
 	public User getAuthor() {
 		return author;
 	}
@@ -259,12 +262,24 @@ public class Question implements Votable, Commentable {
 		this.comments.add(comment);
 		return comment;
 	}
-	
+
 	public String getTypeName() {
 		return "Question";
 	}
-	
+
 	public List<Comment> getComments() {
 		return comments;
+	}
+
+	@Override
+	public boolean update(String field, String value) {
+		if (field.equals("description")) {
+			setDescription(value);
+			return true;
+		} else if (field.equals("title")) {
+			setTitle(value);
+			return true;
+		}
+		return false;
 	}
 }

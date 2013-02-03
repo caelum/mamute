@@ -1,9 +1,10 @@
 <tags:voteFor item="${question }" type="question" vote="${currentVote }"/>
 
 ${question.title}
+(<tags:editFor item="${question}" field="title" value="${question.title }" />)
 <br>
 ${question.markedDescription}
-
+(<tags:editFor item="${question}" field="description" value="${question.description }" />)
 
 <c:if test="${not empty currentUser}">
 	<%@ include file="/WEB-INF/jsp/answer/answerForm.jsp"%>
@@ -29,6 +30,7 @@ ${question.markedDescription}
 			</a>
 		</li>
 	</c:if>
+	(<tags:editFor item="${answer}" field="text" value="${answer.text }" />)
 	(votes ${answer.voteCount})
 	<tags:voteFor item="${answer }" type="answer" vote="${vote}"/>
 	<tags:add-a-comment item="${answer }"/>

@@ -2,8 +2,6 @@ package br.com.caelum.brutal.dao;
 
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
-import static org.junit.Assert.*;
-
 import java.util.List;
 
 import javax.validation.ConstraintViolationException;

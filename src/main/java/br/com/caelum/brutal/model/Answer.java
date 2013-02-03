@@ -17,7 +17,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
 @Entity
-public class Answer implements Votable, Commentable {
+public class Answer implements Votable, Commentable, Updatable {
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -50,11 +50,15 @@ public class Answer implements Votable, Commentable {
 	private long voteCount= 0;
 
 	public Answer(String text, Question question, User author) {
-        this.text = text;
-        this.htmlText = MarkDown.parse(text);
+        setText(text);
         this.author = author;
         this.question = question;
     }
+
+	private void setText(String text) {
+		this.text = text;
+        this.htmlText = MarkDown.parse(text);
+	}
 
 	/**
      * @deprecated hibernate eyes only
@@ -129,5 +133,14 @@ public class Answer implements Votable, Commentable {
 	@Override
 	public List<Comment> getComments() {
 		return comments;
+	}
+
+	@Override
+	public boolean update(String field, String value) {
+		if(field.equals("text")) {
+			setText(value);
+			return true;
+		}
+		return false;
 	}
 }

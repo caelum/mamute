@@ -6,11 +6,11 @@
 	<li>${comment.htmlComment } by ${comment.author.name }</li>
 </c:forEach>
 </ul>
-<div class="add-a-comment">
+<div class="edit-via-ajax">
 	<a href="#"><fmt:message key="comment.add_comment" /></a>
 	<div>
 		<form action="<c:url value="/${item.typeName }/${item.id }/comment"/>" class="validated-form ajax">
-			<textarea class="required" minlength="15" name="message"></textarea>
+			<textarea class="required to-focus" minlength="15" name="message"></textarea>
 			<input type="submit"
 				value="<fmt:message key="comment.add_comment_submit"/>" />
 		</form>

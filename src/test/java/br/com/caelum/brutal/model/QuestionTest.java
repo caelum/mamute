@@ -9,7 +9,7 @@ public class QuestionTest {
 	@Test(expected = RuntimeException.class)
 	public void can_not_be_marked_as_solved_by_the_an_answer_that_is_not_mine() {
 		Question shouldILiveForever = new Question("", "");
-		Answer yes = new Answer();
+		Answer yes = new Answer("", null, null);
 		shouldILiveForever.markAsSolvedBy(yes);
 	}
 
@@ -26,7 +26,7 @@ public class QuestionTest {
 	@Test
 	public void should_be_touched_when_marked_as_solved() {
 		Question shouldILiveForever = new Question("", "");
-		User leo = new User();
+		User leo = new User("", "", "");
 		Answer yes = new Answer("my answer", shouldILiveForever, leo);
 		
 		assertEquals(null, shouldILiveForever.getLastTouchedBy());

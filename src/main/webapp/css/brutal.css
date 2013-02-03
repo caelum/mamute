@@ -1,13 +1,16 @@
 .hint {
-	display: none
+	display: none;
 }
 
 .hidden {
-	display : none
+	display : none;
 }
 
-.add-a-comment div {
-	display : none
+.edit-via-ajax span {
+	display : none;
+}
+.edit div {
+	display : none;
 }
 
 .vote .vote-option {
