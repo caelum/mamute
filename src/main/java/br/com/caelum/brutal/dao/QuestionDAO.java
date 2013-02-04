@@ -31,12 +31,13 @@ public class QuestionDAO {
 	}
 	
 	public List<Question> all() {
-		return session.createQuery("from Question as q where " + spamFilter() + " order by lastUpdatedAt desc").setMaxResults(50).list();
+		String hql = "from Question as q where " + spamFilter() + " order by lastUpdatedAt desc";
+		return session.createQuery(hql).setMaxResults(50).list();
 	}
 
 	private String spamFilter() {
 		String content = "q.voteCount > ";
-		int value = (currentLoggedUser == null && currentLoggedUser.isModerator()) ? -5 : -10;
+		int value = (currentLoggedUser != null && currentLoggedUser.isModerator()) ? -10 : -5;
 		return content + value;
 	}
 

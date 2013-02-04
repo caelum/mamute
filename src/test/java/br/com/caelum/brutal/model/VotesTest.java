@@ -14,9 +14,11 @@ public class VotesTest {
 	
 	@Test
 	public void should_fill_in_only_empty_spaces_with_null() {
-		Object[] first = new Object[]{mock(Answer.class), mock(Vote.class)};
-		Object[] second = new Object[]{mock(Answer.class), mock(Vote.class)};
-		Answer third = mock(Answer.class);
+		Question q = new Question();
+		
+		Object[] first = new Object[]{answerFor(q,1 ), mock(Vote.class)};
+		Object[] second = new Object[]{answerFor(q,2), mock(Vote.class)};
+		Answer third = answerFor(q,3);
 
 		List<Object[]> voteList = new ArrayList<>();
 		voteList.add(first);
@@ -27,12 +29,16 @@ public class VotesTest {
 		answers.add((Answer) second[0]);
 		answers.add(third);
 		
-		Votes votes = new Votes(answers, voteList);
+		Votes votes = new Votes(q, answers, voteList);
 		Map<Answer, Vote> map = votes.getVotes();
 		assertEquals(first[1], map.get(first[0]));
 		assertEquals(second[1], map.get(second[0]));
 		assertEquals(null, map.get(third));
 		assertTrue(map.containsKey(third));
+	}
+
+	private Answer answerFor(Question q, long id) {
+		return new Answer("", q, null).setId(id);
 	}
 
 }

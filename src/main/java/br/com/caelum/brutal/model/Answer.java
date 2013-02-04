@@ -144,4 +144,10 @@ public class Answer implements Votable, Commentable, Updatable {
 		}
 		return false;
 	}
+	
+	public Answer setId(Long id) {
+		this.id = id;
+		return this;
+	}
+
 }

@@ -40,9 +40,10 @@ public class QuestionTest {
 	public void should_remove_vote_values_and_update_vote_count() {
 		Question question = new Question("", "");
 		assertEquals(0l, question.getVoteCount());
-		question.substitute(null, new Vote(null, VoteType.UP));
+		Vote firstVote = new Vote(null, VoteType.UP);
+		question.substitute(null, firstVote);
 		assertEquals(1l, question.getVoteCount());
-		question.substitute(new Vote(null, VoteType.UP), new Vote(null, VoteType.DOWN));
+		question.substitute(firstVote, new Vote(null, VoteType.DOWN));
 		assertEquals(-1l, question.getVoteCount());
 		question.substitute(null, new Vote(null, VoteType.DOWN));
 		assertEquals(-2l, question.getVoteCount());

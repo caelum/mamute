@@ -47,6 +47,6 @@ public class VoteDAO {
 		Query query = session.createQuery("select a,v from Answer as a join a.votes as v where v.author = :author and a.question = :question");
 		query.setParameter("author", currentUser);
 		query.setParameter("question", question);
-		return new Votes(question.getAnswers(), query.list());
+		return new Votes(question, question.getAnswers(), query.list());
 	}
 }

@@ -22,7 +22,7 @@ public class QuestionDAOTest extends DatabaseTestCase {
 
 	@Before
 	public void setup() {
-		User guilherme = new User("","", "").asModerator();
+		User guilherme = new User("","", "");
 		User moderator = new User("","", "").asModerator();
 		this.unloggedQuestions = new QuestionDAO(session, null);
 		this.unmoderatedQuestions = new QuestionDAO(session, guilherme);
@@ -69,8 +69,8 @@ public class QuestionDAOTest extends DatabaseTestCase {
 		assertTrue(unloggedQuestions.all().contains(salDaAzar));
 
 		session.createQuery("update Question as q set q.voteCount = -5").executeUpdate();
-		assertFalse(unmoderatedQuestions.all().contains(salDaAzar));
 		assertFalse(unloggedQuestions.all().contains(salDaAzar));
+		assertFalse(unmoderatedQuestions.all().contains(salDaAzar));
 
 	}
 	
