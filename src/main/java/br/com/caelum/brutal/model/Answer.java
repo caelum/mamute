@@ -1,7 +1,9 @@
 package br.com.caelum.brutal.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -18,7 +20,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
 @Entity
-public class Answer implements Votable, Commentable, Updatable {
+public class Answer implements Votable, Commentable, Updatable, Notifiable {
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -153,6 +155,20 @@ public class Answer implements Votable, Commentable, Updatable {
     @Override
     public Class<?> getType() {
         return Answer.class;
+    }
+
+    @Override
+    public Set<User> subscribed() {
+        List<Answer> answers = this.question.getAnswers();
+        Set<User> users = new HashSet<>();
+        for (Answer answer : answers) {
+            User author = answer.getAuthor();
+            if (!this.author.equals(author)) {
+                users.add(author);
+            }
+        }
+        users.add(question.getAuthor());
+        return users;
     }
 
 }

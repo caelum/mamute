@@ -6,10 +6,11 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.joda.time.DateTime;
 
+import br.com.caelum.brutal.model.Notifiable;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
-public class NotifiableDAO<T> {
+public class NotifiableDAO<T extends Notifiable> {
     private final Session session;
 
     public NotifiableDAO(Session session) {
@@ -17,7 +18,7 @@ public class NotifiableDAO<T> {
     }
 
     @SuppressWarnings("unchecked")
-    public List<T> recent(int hoursAgo, Class<T> clazz) {
+    public List<T> recent(int hoursAgo, Class<?> clazz) {
         Long milisecAgo = (long) (hoursAgo * (60 * 60 * 1000));  
         DateTime timeAgo = new DateTime(System.currentTimeMillis() - milisecAgo);
         Query query = session.createQuery("select a from " + clazz.getSimpleName() + " a where (a.createdAt) > :timeAgo");

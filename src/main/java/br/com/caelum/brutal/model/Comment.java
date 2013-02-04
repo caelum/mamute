@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.model;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,7 +14,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
 @Entity
-public class Comment implements Updatable {
+public class Comment implements Updatable, Notifiable {
     
     @Id @GeneratedValue
     private Long id;
@@ -83,6 +85,11 @@ public class Comment implements Updatable {
     @Override
     public Class<?> getType() {
         return Comment.class;
+    }
+
+    @Override
+    public Set<User> subscribed() {
+        return null;
     }
 	
 
