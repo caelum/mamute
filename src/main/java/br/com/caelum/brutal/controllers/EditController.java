@@ -34,9 +34,15 @@ public class EditController {
 		Class<?> type = Class.forName("br.com.caelum.brutal.model." + onWhat);
 		Updatable object = edits.load(type, id);
 		
-		if(!object.getAuthor().getId().equals(currentUser.getId())) {
-			createHistoryFor(value, type, field, UpdateStatus.PENDING);
-			result.use(http()).setStatusCode(201);
+		boolean isTheAuthor = object.getAuthor().getId().equals(currentUser.getId());
+		
+		if(!isTheAuthor) {
+			if(currentUser.isModerator() || currentUser.getKarma() > 10) {
+				createHistoryFor(value, type, field, UpdateStatus.PENDING);
+				result.use(http()).setStatusCode(201);
+			} else {
+				result.use(http()).sendError(403);
+			}
 			return;
 		}
 		
