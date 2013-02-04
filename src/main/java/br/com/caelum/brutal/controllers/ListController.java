@@ -32,7 +32,6 @@ public class ListController {
 	@Get("/")
 	public void home() {
 		result.include("questions", questions.all());
-		result.include("redirectUrl", req.getParameter("redirectUrl"));
 	}
 	
 	@Get("/list/unanswered")
