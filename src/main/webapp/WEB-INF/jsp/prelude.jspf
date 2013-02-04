@@ -9,6 +9,11 @@
 <link rel="stylesheet" href="<c:url value="/css/pagedown.css"/>">
 </head>
 
+<form action="<c:url value='/search' />" method="get">
+	<input name="query" type="text"/>
+	<input type="submit"/>
+</form>
+
 <c:if test="${not empty alerts}">
 	<ul>
 		<c:forEach var="alert" items="${alerts}">
