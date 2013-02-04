@@ -36,4 +36,18 @@ public class UserDAO {
 		return findById(user.getId());
 	}
 
+	public User loadByEmail(String email) {
+		return (User) session
+				.createQuery("from User where email = :email")
+				.setParameter("email", email)
+				.uniqueResult();
+	}
+
+	public User loadByIdAndToken(Long id, String token) {
+		return (User) session
+				.createQuery("from User where id = :id and forgotPasswordToken = :token")
+				.setParameter("id", id)
+				.setParameter("token", token)
+				.uniqueResult();
+	}
 }

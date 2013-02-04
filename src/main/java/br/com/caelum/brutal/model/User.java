@@ -35,6 +35,8 @@ public class User implements Identifiable {
 	private long karma = 0;
 	
 	private boolean moderator = false;
+
+	private String forgotPasswordToken = "";
 	
 	/**
 	 * @deprecated hibernate eyes only
@@ -49,7 +51,7 @@ public class User implements Identifiable {
 		this.name = name;
 		this.password = Digester.encrypt(password);
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -70,6 +72,10 @@ public class User implements Identifiable {
 	public long getKarma() {
 		return karma;
 	}
+	
+	public String getEmail() {
+		return email;
+	}
 
 	public boolean isModerator() {
 		return moderator;
@@ -78,5 +84,24 @@ public class User implements Identifiable {
 	public User asModerator() {
 		this.moderator = true;
 		return this;
+	}
+	
+	public String touchForgotPasswordToken () {
+		this.forgotPasswordToken = Double.toString(Math.random());
+		return this.forgotPasswordToken;
+	}
+
+	public boolean isValidForgotPasswordToken(String token) {
+		return this.forgotPasswordToken.equals(token);
+	}
+
+	public boolean updateForgottenPassword(String password,
+			String password_confirmation) {
+		if(password.equals(password_confirmation)) {
+			this.password = br.com.caelum.brutal.infra.Digester.encrypt(password);
+			touchForgotPasswordToken();
+			return true;
+		}
+		return false;
 	}
 }
