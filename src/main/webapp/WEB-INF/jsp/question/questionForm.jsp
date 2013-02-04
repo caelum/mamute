@@ -13,11 +13,12 @@
 		<div id="wmd-preview" class="wmd-panel wmd-preview"></div>
 	</div>
 	<label for="tags"><fmt:message key="newquestion.tags" /></label>
-	<input id="tags" type="text" name="tagNames"/>
+	<input id="tags" type="text" name="tagNames" class="hintable" data-hint-id="newquestion-tags-hint"/>
 	
 	<input type="submit" />
 	
 	<div id="newquestion-title-hint" class="hint"><fmt:message key="title.hint" /></div>
 	<div id="newquestion-description-hint" class="hint"><fmt:message key="description.hint" /></div>
+	<div id="newquestion-tags-hint" class="hint"><fmt:message key="tags.hint" /></div>
 
 </form>
