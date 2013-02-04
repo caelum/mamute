@@ -150,4 +150,9 @@ public class Answer implements Votable, Commentable, Updatable {
 		return this;
 	}
 
+    @Override
+    public Class<?> getType() {
+        return Answer.class;
+    }
+
 }

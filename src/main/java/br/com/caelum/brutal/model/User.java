@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -36,6 +37,9 @@ public class User implements Identifiable {
 	
 	private boolean moderator = false;
 	
+	@Transient
+	final static long MINIMUM_UPDATE_KARMA = 11;
+	
 	/**
 	 * @deprecated hibernate eyes only
 	 */
@@ -54,6 +58,10 @@ public class User implements Identifiable {
 		return id;
 	}
 	
+	void setId(Long id) {
+        this.id = id;
+    }
+	
 	public String getPhoto() {
 		return "http://www.gravatar.com/avatar/" + Digester.md5(email);
 	}
@@ -70,6 +78,10 @@ public class User implements Identifiable {
 	public long getKarma() {
 		return karma;
 	}
+	
+	void setKarma(long karma) {
+        this.karma = karma;
+    }
 
 	public boolean isModerator() {
 		return moderator;
@@ -79,4 +91,16 @@ public class User implements Identifiable {
 		this.moderator = true;
 		return this;
 	}
+
+    public UpdateStatus canUpdate(Updatable updatable) {
+        User author = updatable.getAuthor();
+        if (author.getId().equals(id) || this.isModerator()) {
+            return UpdateStatus.NO_NEED_TO_APPROVE;
+        }
+        if (this.getKarma() >= MINIMUM_UPDATE_KARMA) {
+            return UpdateStatus.PENDING;
+        }
+        return  UpdateStatus.REFUSED;
+    }
+
 }

@@ -79,6 +79,11 @@ public class Comment implements Updatable {
 	public String getComment() {
 		return comment;
 	}
+
+    @Override
+    public Class<?> getType() {
+        return Comment.class;
+    }
 	
 
 }
