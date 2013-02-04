@@ -18,7 +18,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
 @Entity
-public class Comment implements Updatable, Notifiable, Votable {
+public class Comment implements Updatable, Notifiable {
     
     @Id @GeneratedValue
     private Long id;
@@ -101,10 +101,5 @@ public class Comment implements Updatable, Notifiable, Votable {
     public Set<User> subscribed() {
         return null;
     }
-	
-	@Override
-	public void substitute(Vote previous, Vote current) {
-		this.voteCount = current.substitute(previous, votes, voteCount);
-	}
 	
 }
