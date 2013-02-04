@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.controllers;
 
+import java.util.Arrays;
+
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
 
@@ -10,7 +12,6 @@ import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.simplemail.Mailer;
 import br.com.caelum.vraptor.simplemail.template.TemplateMailer;
@@ -19,15 +20,13 @@ import br.com.caelum.vraptor.validator.I18nMessage;
 @Resource
 public class ForgotPasswordController {
 	
-	private final Validator validator;
 	private final Mailer mailer;
 	private final TemplateMailer templates;
 	private final Result result;
 	private final UserDAO users;
 	private final Environment env;
 
-	public ForgotPasswordController(Validator validator, Mailer mailer, TemplateMailer templates, Result result, UserDAO users, Environment env) {
-		this.validator = validator;
+	public ForgotPasswordController(Mailer mailer, TemplateMailer templates, Result result, UserDAO users, Environment env) {
 		this.mailer = mailer;
 		this.templates = templates;
 		this.result = result;
@@ -44,10 +43,17 @@ public class ForgotPasswordController {
 	}
 
 	@Post("/forgotpassword")
-	public void requestEmailWithToken(String email) {
-		User user = users.loadByEmail(email);
-		validator.validate(user);
-		String currentToken = user.touchForgotPasswordToken();
+	public void requestEmailWithToken(String email, User user, UserValidator validator) {
+		
+		user = users.loadByEmail(email);
+
+		if (!validator.validate(user)) {
+			result.include("alerts", Arrays.asList("forgot_password.invalid_email"));
+			result.redirectTo(this).forgotPasswordForm();
+		}
+		
+		user.touchForgotPasswordToken();
+		String currentToken = user.getForgotPasswordToken();
 
 		StringBuffer tokenUrl = new StringBuffer(env.get("host"));
 		tokenUrl.append("/newpassword/");
@@ -64,7 +70,7 @@ public class ForgotPasswordController {
 			result.include("user", user);
 			result.redirectTo(this).sentMail();
 		} catch (EmailException e) {
-			result.include("alerts", new I18nMessage("error", "forgot_password.send_mail.error"));
+			result.include("alerts", Arrays.asList("forgot_password.send_mail.error"));
 			result.redirectTo(this).forgotPasswordForm();
 		}
 		
@@ -98,6 +104,7 @@ public class ForgotPasswordController {
 		}
 		
 		users.save(user);
+		user.touchForgotPasswordToken();
 		// redirecionando para a autentição...
 		result.redirectTo(ListController.class).home();
 	}
