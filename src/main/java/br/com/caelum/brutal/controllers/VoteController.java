@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.controllers;
 
+import static br.com.caelum.vraptor.view.Results.http;
 import br.com.caelum.brutal.auth.Logged;
 import br.com.caelum.brutal.dao.VoteDAO;
 import br.com.caelum.brutal.model.Answer;
@@ -51,10 +52,15 @@ public class VoteController {
 
 	@SuppressWarnings("rawtypes")
 	private void tryToVoteQuestion(Long id, VoteType voteType, Class type) {
+		Votable votable = votes.loadVotedOnFor(type, id);
+		if(votable.getAuthor().getId().equals(currentUser.getId())) {
+			result.use(http()).sendError(403);
+			return;
+		}
+
 		Vote previous = votes.previousVoteFor(id, currentUser, type);
 		Vote current = new Vote(currentUser, voteType);
 
-		Votable votable = votes.loadVotedOnFor(type, id);
 		votable.substitute(previous, current);
 		votes.substitute(previous, current, votable);
 		result.nothing();
