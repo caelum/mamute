@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class Votes {
+public class AnswerAndVotes {
 	private final Map<Answer, Vote> votes;
 
-	public Votes(Question question, List<Answer> answers, List<Object[]> votes) {
+	public AnswerAndVotes(Question question, List<Answer> answers, List<Object[]> votes) {
 		AnswerComparator comparator = new AnswerComparator(question);
 		this.votes = new TreeMap<>(comparator);
 		for (Object[] objects : votes) {

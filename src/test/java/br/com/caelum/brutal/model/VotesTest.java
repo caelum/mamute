@@ -29,7 +29,7 @@ public class VotesTest {
 		answers.add((Answer) second[0]);
 		answers.add(third);
 		
-		Votes votes = new Votes(q, answers, voteList);
+		AnswerAndVotes votes = new AnswerAndVotes(q, answers, voteList);
 		Map<Answer, Vote> map = votes.getVotes();
 		assertEquals(first[1], map.get(first[0]));
 		assertEquals(second[1], map.get(second[0]));

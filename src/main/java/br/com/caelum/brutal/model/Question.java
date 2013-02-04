@@ -9,11 +9,13 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.OverridesAttribute;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
@@ -59,7 +61,7 @@ public class Question implements Votable, Commentable, Updatable {
 	private final List<Answer> answers = new ArrayList<>();
 
 	private long views = 0;
-
+	
 	@JoinTable(name = "Question_Votes")
 	@OneToMany
 	private final List<Vote> votes = new ArrayList<>();
@@ -240,4 +242,5 @@ public class Question implements Votable, Commentable, Updatable {
 		}
 		return false;
 	}
+
 }

@@ -34,6 +34,7 @@
 <hr/>
 <a href="<c:url value="/"/>"><fmt:message key="menu.questions"/></a> | 
 <a href="<c:url value="/list/unanswered"/>"><fmt:message key="menu.unanswered"/></a>
+<a href="<c:url value="/list/withTag/1/java"/>">java</a>
 <hr/>
 
 <c:if test="${not empty currentUser }">

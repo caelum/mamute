@@ -7,7 +7,7 @@ import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.Votable;
 import br.com.caelum.brutal.model.Vote;
-import br.com.caelum.brutal.model.Votes;
+import br.com.caelum.brutal.model.AnswerAndVotes;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
@@ -36,17 +36,17 @@ public class VoteDAO {
 		long delta = current.getValue();
 		if (previous != null) {
 			session.delete(previous);
-			delta += previous.getValue();
+			delta -= previous.getValue();
 		}
 		session.save(current);
 		session.createQuery("update User as u set u.karma = u.karma + :dif where u = :user").setParameter("dif", delta).setParameter("user", on.getAuthor()).executeUpdate();
 	}
 
 	@SuppressWarnings("unchecked")
-	public Votes previousVotesForAnswers(Question question, User currentUser) {
+	public AnswerAndVotes previousVotesForAnswers(Question question, User currentUser) {
 		Query query = session.createQuery("select a,v from Answer as a join a.votes as v where v.author = :author and a.question = :question");
 		query.setParameter("author", currentUser);
 		query.setParameter("question", question);
-		return new Votes(question, question.getAnswers(), query.list());
+		return new AnswerAndVotes(question, question.getAnswers(), query.list());
 	}
 }

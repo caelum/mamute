@@ -28,11 +28,13 @@ public class UserDAO {
 		session.save(user);
 	}
 
-    public User findById(Long id) {
-        return (User) session.load(User.class, id);
-    }
+	public User findById(Long id) {
+		return (User) session.load(User.class, id);
+	}
 
 	public User load(User user) {
+		if (user == null)
+			return null;
 		return findById(user.getId());
 	}
 

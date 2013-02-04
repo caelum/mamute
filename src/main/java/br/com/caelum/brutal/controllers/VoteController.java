@@ -53,7 +53,7 @@ public class VoteController {
 	private void tryToVoteQuestion(Long id, VoteType voteType, Class type) {
 		Vote previous = votes.previousVoteFor(id, currentUser, type);
 		Vote current = new Vote(currentUser, voteType);
-				
+
 		Votable votable = votes.loadVotedOnFor(type, id);
 		votable.substitute(previous, current);
 		votes.substitute(previous, current, votable);

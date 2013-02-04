@@ -43,16 +43,18 @@ public class UpdateHistory {
 
 	@Enumerated(EnumType.STRING)
 	private UpdateStatus status;
+	
+	private final long targetId;
 
 	/**
 	 * @deprecated hibernate eyes only
 	 */
 	protected UpdateHistory() {
-		this("", null, "", null, UpdateStatus.NO_NEED_TO_APPROVE);
+		this("", null, "", null, UpdateStatus.NO_NEED_TO_APPROVE, 0);
 	}
 
 	public UpdateHistory(String content, Class objectType, String fieldName,
-			User author, UpdateStatus status) {
+			User author, UpdateStatus status, long targetId) {
 		this.content = content;
 		this.htmlContent = MarkDown.parse(content);
 		if (objectType == null) {
@@ -63,6 +65,7 @@ public class UpdateHistory {
 		this.fieldName = fieldName;
 		this.author = author;
 		this.status = status;
+		this.targetId = targetId;
 	}
 
 	public void moderate(User moderator, UpdateStatus status) {
@@ -72,6 +75,10 @@ public class UpdateHistory {
 		this.status = status;
 		this.moderatedBy = moderator;
 		this.moderatedAt = new DateTime();
+	}
+
+	public long getTargetId() {
+		return targetId;
 	}
 
 }

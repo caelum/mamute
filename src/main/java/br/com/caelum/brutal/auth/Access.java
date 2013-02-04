@@ -12,8 +12,9 @@ public class Access implements ComponentFactory<User>{
 	
 	private User user; 
 
-	public void login(User user) {
+	public User login(User user) {
 		this.user = user;
+		return user;
 	}
 
 	@Override
