@@ -28,3 +28,7 @@
 .solution{
 	color: #00FF00;
 }
+
+.already-voted{
+	display:none;
+}

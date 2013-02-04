@@ -1,5 +1,8 @@
 $(".vote-option").bind("click", function() {
-	if($(this).hasClass("voted")) alert("Voce ja votou, manolo");
+	if($(this).hasClass("voted")){
+		$(this).closest(".vote").find(".already-voted").show();
+		return false;
+	}
 	vote($(this));
 });
 
