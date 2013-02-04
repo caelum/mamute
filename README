@@ -1,4 +1,4 @@
-PagPag
+BRUTAL
 --------------------------------------------------------------------------------
 
 Como colocar para rodar na sua maquina:
@@ -6,39 +6,9 @@ Como colocar para rodar na sua maquina:
 
 2- mvn eclipse:eclipse no terminal
 
-3-sh src/environment/build/create_database.sh
-
-4- Subir o Servidor: Rode a classe Main que fica no (default package)
-
-Para criar um carrinho:
-
-Acesse http://localhost:8080/teste/pagamento/
+3- Subir o Servidor: Rode a classe Main que fica no (default package)
 
 Como testar:
 
 # unit tests
 mvn test
-
-# integration tests, local
-mvn integration-test
-
-# integration tests, remote
-mvn -P remote-acceptance integration-test
-
-# jenkins
-xvfb-run -a mvn -P remote-acceptance integration-test
-
-# deploy pra acceptance
-git remote add heroku-acceptance git@heroku.com:caelum-pagpag-acceptance.git
-git push heroku-acceptance master
-
-# criar uma maquina de acceptance
-
-ruby src/environment/build/create_machine.rb caelum-pagpag-acceptance acceptance
-open http://caelum-pagpag-acceptance.herokuapp.com/teste/pagamento/
-
-# criar uma maquina para production 
-
-ruby src/environment/build/create_machine.rb caelum-pagpag production
-open http://online.caelum.com.br/enroll/FJ-23/payment
-
