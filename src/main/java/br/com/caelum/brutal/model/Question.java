@@ -134,6 +134,10 @@ public class Question implements Votable, Commentable, Updatable {
 	public Long getId() {
 		return id;
 	}
+	
+	public void add(Answer a) {
+	    answers.add(a);
+	}
 
 	public String getSluggedTitle() {
 		return sluggedTitle;
