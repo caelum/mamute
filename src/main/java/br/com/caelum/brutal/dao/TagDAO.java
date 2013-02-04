@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 
 import br.com.caelum.brutal.model.Tag;
@@ -14,10 +16,6 @@ public class TagDAO {
 		this.session = session;
 	}
 	
-	public Tag findById(Long tagId) {
-		return (Tag) session.load(Tag.class, tagId);
-	}
-	
 	public Tag saveOrLoad(Tag tag) {
 		Tag loadedTag = findByName(tag.getName());
 		if(loadedTag == null){
@@ -28,11 +26,16 @@ public class TagDAO {
 		}
 	}
 	
-	private Tag findByName(String name) {
+	public Tag findByName(String name) {
 		return (Tag) session.createQuery("from Tag t where t.name like :name").setString("name", name).uniqueResult();
 	}
 
 	private void save(Tag tag) {
 		session.save(tag);
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Tag> findTagsLike(String tagChunk) {
+		return (List<Tag>) session.createQuery("from Tag t where t.name like :name").setString("name", tagChunk+"%").list();
 	}
 }
