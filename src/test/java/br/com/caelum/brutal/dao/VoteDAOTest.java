@@ -75,6 +75,12 @@ public class VoteDAOTest extends DatabaseTestCase{
 		new VoteDAO(session).substitute(null, previous, question);
 		
 		assertEquals(1,reload(guilherme).getKarma());
+
+		Vote current = new Vote(ricardo, VoteType.DOWN);
+		new VoteDAO(session).substitute(previous, current, question);
+		session.clear();
+		
+		assertEquals(-1,reload(guilherme).getKarma());
 	}
 
 

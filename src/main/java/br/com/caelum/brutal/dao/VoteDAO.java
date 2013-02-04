@@ -39,7 +39,7 @@ public class VoteDAO {
 			delta -= previous.getValue();
 		}
 		session.save(current);
-		session.createQuery("update User as u set u.karma = u.karma + :dif where u = :user").setParameter("dif", delta).setParameter("user", on.getAuthor()).executeUpdate();
+		session.createQuery("update User as u set u.karma = u.karma + (:value) where u.id = :user").setParameter("value", delta).setParameter("user", on.getAuthor().getId()).executeUpdate();
 	}
 
 	@SuppressWarnings("unchecked")

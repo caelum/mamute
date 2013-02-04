@@ -13,7 +13,7 @@ import br.com.caelum.vraptor.ioc.ComponentFactory;
 public class SessionProvider implements ComponentFactory<Session>{
 
 	private final SessionFactory factory;
-    private org.hibernate.classic.Session session;
+    private Session session;
 	
 	public SessionProvider(SessionFactory factory) {
 		this.factory = factory;

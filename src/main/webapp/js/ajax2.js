@@ -21,7 +21,12 @@ $(function() {
 			if(jqhr.status==201) {
 				target.append("<span class='suggestion-accepted'>Sugest&atilde;o enviada!</span>");
 			} else {
-				target.html(response);
+				var action = self.data("ajax-on-callback") || "replace";
+				if(action == "replace") {
+					target.html(response);
+				} else if(action == "append") {
+					target.append(response);
+				}
 			}
 			var formParent = self.closest(".edit-via-ajax");
 			formParent.children().toggle();

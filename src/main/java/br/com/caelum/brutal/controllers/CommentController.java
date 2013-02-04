@@ -29,7 +29,7 @@ public class CommentController {
 		Class type = Class.forName("br.com.caelum.brutal.model." + onWhat);
 		Comment comment = comments.load(type, id).add(new Comment(currentUser, message));
 		comments.save(comment);
-		result.use(http()).body(message);
+		result.use(http()).body("<li>" + message + "</li>");
 	}
 
 }

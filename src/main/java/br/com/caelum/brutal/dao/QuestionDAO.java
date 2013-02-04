@@ -6,7 +6,6 @@ import org.hibernate.Session;
 
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
-import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
@@ -15,11 +14,8 @@ public class QuestionDAO {
 	
     private final Session session;
 
-	private final User currentLoggedUser;
-
-    public QuestionDAO(Session session, User currentLoggedUser) {
+    public QuestionDAO(Session session) {
         this.session = session;
-		this.currentLoggedUser = currentLoggedUser;
     }
     
     public void save(Question q) {
@@ -36,9 +32,7 @@ public class QuestionDAO {
 	}
 
 	private String spamFilter() {
-		String content = "q.voteCount > ";
-		int value = (currentLoggedUser != null && currentLoggedUser.isModerator()) ? -10 : -5;
-		return content + value;
+		return "q.voteCount > -5";
 	}
 
 	public List<Question> unanswered() {

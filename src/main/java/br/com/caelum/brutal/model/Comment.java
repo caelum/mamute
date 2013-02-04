@@ -1,10 +1,15 @@
 package br.com.caelum.brutal.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
@@ -12,7 +17,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
 @Entity
-public class Comment implements Updatable {
+public class Comment implements Updatable, Votable {
     
     @Id @GeneratedValue
     private Long id;
@@ -34,6 +39,12 @@ public class Comment implements Updatable {
     @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
     private DateTime lastUpdatedAt = new DateTime();
     
+	@JoinTable(name = "Question_Votes")
+	@OneToMany
+	private final List<Vote> votes = new ArrayList<>();
+	
+	private long voteCount = 0;
+
     /**
      * @deprecated hibernate eyes
      */
@@ -84,6 +95,10 @@ public class Comment implements Updatable {
     public Class<?> getType() {
         return Comment.class;
     }
-	
 
+	@Override
+	public void substitute(Vote previous, Vote current) {
+		this.voteCount = current.substitute(previous, votes, voteCount);
+	}
+	
 }
