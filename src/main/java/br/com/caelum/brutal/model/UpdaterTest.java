@@ -12,17 +12,17 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import br.com.caelum.brutal.controllers.Updater;
-import br.com.caelum.brutal.dao.EditDAO;
+import br.com.caelum.brutal.dao.HistoryDAO;
 
 public class UpdaterTest {
     
-    private EditDAO edits;
+    private HistoryDAO edits;
     private User author;
     private Question question;
 
     @Before
     public void before_test() {
-        edits = mock(EditDAO.class);
+        edits = mock(HistoryDAO.class);
         author = new User("author", "author@gmail", "1234");
         author.setId(1l);
         question = new Question("titel", "description");
