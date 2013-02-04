@@ -2,6 +2,7 @@ package br.com.caelum.brutal.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +18,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
 @Entity
-public class Comment implements Updatable, Votable {
+public class Comment implements Updatable, Notifiable, Votable {
     
     @Id @GeneratedValue
     private Long id;
@@ -96,6 +97,11 @@ public class Comment implements Updatable, Votable {
         return Comment.class;
     }
 
+    @Override
+    public Set<User> subscribed() {
+        return null;
+    }
+	
 	@Override
 	public void substitute(Vote previous, Vote current) {
 		this.voteCount = current.substitute(previous, votes, voteCount);

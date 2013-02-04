@@ -38,7 +38,7 @@ public class User implements Identifiable {
 	private boolean moderator = false;
 
 	private String forgotPasswordToken = "";
-	
+
 	@Transient
 	final static long MINIMUM_UPDATE_KARMA = 11;
 	
@@ -88,6 +88,10 @@ public class User implements Identifiable {
 	public String getEmail() {
 		return email;
 	}
+	
+	public String getForgotPasswordToken() {
+		return forgotPasswordToken;
+	}
 
 	public boolean isModerator() {
 		return moderator;
@@ -109,9 +113,8 @@ public class User implements Identifiable {
         return  UpdateStatus.REFUSED;
     }
 
-	public String touchForgotPasswordToken () {
-		this.forgotPasswordToken = Double.toString(Math.random());
-		return this.forgotPasswordToken;
+	public void touchForgotPasswordToken () {
+		this.forgotPasswordToken = Digester.encrypt(System.currentTimeMillis()+getEmail());
 	}
 
 	public boolean isValidForgotPasswordToken(String token) {

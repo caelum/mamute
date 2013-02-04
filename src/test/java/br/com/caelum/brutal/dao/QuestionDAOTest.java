@@ -2,6 +2,7 @@ package br.com.caelum.brutal.dao;
 
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
+
 import java.util.List;
 
 import javax.validation.ConstraintViolationException;
@@ -18,7 +19,6 @@ public class QuestionDAOTest extends DatabaseTestCase {
 
 	private QuestionDAO unmoderatedQuestions, moderatedQuestions, unloggedQuestions;
 	private TagDAO tags;
-
 
 	@Before
 	public void setup() {
