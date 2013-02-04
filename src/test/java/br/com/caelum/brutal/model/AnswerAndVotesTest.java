@@ -10,7 +10,7 @@ import java.util.Map;
 
 import org.junit.Test;
 
-public class VotesTest {
+public class AnswerAndVotesTest {
 	
 	@Test
 	public void should_fill_in_only_empty_spaces_with_null() {
