@@ -32,7 +32,11 @@
    <version>2.1.2.Final</version>
 </dependency>
 
-
+		<dependency>
+			<groupId>br.com.caelum.vraptor</groupId>
+			<artifactId>vraptor-simplemail</artifactId>
+			<version>1.2.3</version>
+		</dependency>
 		<dependency>
 			<groupId>br.com.caelum.vraptor</groupId>
 			<artifactId>vraptor-environment</artifactId>
