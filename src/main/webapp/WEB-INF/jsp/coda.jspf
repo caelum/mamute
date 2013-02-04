@@ -1,5 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<script type="text/javascript">
+// UI flags
+var LOGGED_IN = ${not empty currentUser};
+var KARMA = ${empty currentUser ? 0 : currentUser.karma};
+var MODERATOR = ${empty currentUser ? false : currentUser.moderator};
+</script>
 <script src="<c:url value="/js/jquery.js"/>"></script>
 <script src="<c:url value="/js/jquery.validate.min.js"/>"></script>
 <script src="<c:url value="/js/form-validation.js"/>"></script>
@@ -14,5 +20,6 @@
 	src="<c:url value="/js/Markdown.Editor.js"/>"></script>
 <script src="<c:url value="/js/form-markdown.js"/>"></script>
 <script src="<c:url value="/js/up-down-vote.js"/>"></script>
+<script src="<c:url value="/js/links-behaviour.js"/>"></script>
 </body>
 </html>

@@ -14,7 +14,7 @@
 <c:set var="ajaxResultName" value="new-comment-for-${item.typeName}-new-comment-${item.id}"/>
 <span id="${ajaxResultName }"></span>
 <span class="edit-via-ajax">
-	<a href="#"><fmt:message key="comment.add_comment" /></a>
+	<a href="#" class='requires-login'><fmt:message key="comment.add_comment" /></a>
 	<span>
 		<form action="<c:url value="/${item.typeName }/${item.id }/comment"/>" class="validated-form ajax" data-ajax-result="${ajaxResultName }">
 			<textarea class="required to-focus hintable" minlength="15" name="message" data-hint-id="${ajaxResultName }-hint"></textarea>
