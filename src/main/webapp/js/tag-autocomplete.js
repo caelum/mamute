@@ -8,6 +8,7 @@ $(".autocomplete").keyup(function(){
 });
 
 function suggestsAutoComplete(target, input){
+	if(input == undefined || input == " " || !input) return;
 	$.get("/tagsLike/"+input,function(suggestions){
 		var suggestionElements = "";
 		$(suggestions).each(function(index, suggestion){
