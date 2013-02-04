@@ -5,7 +5,6 @@ import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.ComponentFactory;
 import br.com.caelum.vraptor.ioc.SessionScoped;
 
-
 @Component
 @SessionScoped
 public class Access implements ComponentFactory<User>{

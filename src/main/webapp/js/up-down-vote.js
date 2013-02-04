@@ -1,4 +1,5 @@
 $(".vote-option").bind("click", function() {
+	if($(this).hasClass("voted")) alert("Voce ja votou, manolo");
 	vote($(this));
 });
 
