@@ -11,6 +11,7 @@ import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.simplemail.Mailer;
 import br.com.caelum.vraptor.simplemail.template.TemplateMailer;
 import br.com.caelum.vraptor.validator.I18nMessage;
@@ -23,13 +24,15 @@ public class ForgotPasswordController {
 	private final TemplateMailer templates;
 	private final Result result;
 	private final UserDAO users;
+	private final Environment env;
 
-	public ForgotPasswordController(Validator validator, Mailer mailer, TemplateMailer templates, Result result, UserDAO users) {
+	public ForgotPasswordController(Validator validator, Mailer mailer, TemplateMailer templates, Result result, UserDAO users, Environment env) {
 		this.validator = validator;
 		this.mailer = mailer;
 		this.templates = templates;
 		this.result = result;
 		this.users = users;
+		this.env = env;
 	}
 
 	@Get("/forgotpassword")
@@ -46,8 +49,8 @@ public class ForgotPasswordController {
 		validator.validate(user);
 		String currentToken = user.touchForgotPasswordToken();
 
-		// Descobrir como pegar a url marotamente (algum metodo do vraptor?)
-		StringBuffer tokenUrl = new StringBuffer("http://xxxx/");
+		StringBuffer tokenUrl = new StringBuffer(env.get("host"));
+		tokenUrl.append("/newpassword/");
 		tokenUrl.append(user.getId());
 		tokenUrl.append("/");
 		tokenUrl.append(currentToken);

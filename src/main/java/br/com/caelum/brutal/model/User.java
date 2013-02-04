@@ -110,7 +110,7 @@ public class User implements Identifiable {
     }
 
 	public String touchForgotPasswordToken () {
-		this.forgotPasswordToken = Double.toString(Math.random());
+		this.forgotPasswordToken = Digester.encrypt(System.currentTimeMillis()+getEmail());
 		return this.forgotPasswordToken;
 	}
 
