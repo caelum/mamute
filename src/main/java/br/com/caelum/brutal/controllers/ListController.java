@@ -40,9 +40,9 @@ public class ListController {
 		result.use(page()).of(ListController.class).home();
 	}
 	
-	@Get("/list/withTag/{tagId}/{tagName}")
-	public void withTag(Long tagId, String tagName) {
-		Tag tag = tags.findById(tagId);
+	@Get("/list/withTag/{tagName}")
+	public void withTag(String tagName) {
+		Tag tag = tags.findByName(tagName);
 		List<Question> questionsWithTag = questions.withTag(tag);
 		result.include("questions", questionsWithTag);
 		result.use(page()).of(ListController.class).home();

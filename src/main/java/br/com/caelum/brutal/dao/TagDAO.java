@@ -14,10 +14,6 @@ public class TagDAO {
 		this.session = session;
 	}
 	
-	public Tag findById(Long tagId) {
-		return (Tag) session.load(Tag.class, tagId);
-	}
-	
 	public Tag saveOrLoad(Tag tag) {
 		Tag loadedTag = findByName(tag.getName());
 		if(loadedTag == null){
@@ -28,7 +24,7 @@ public class TagDAO {
 		}
 	}
 	
-	private Tag findByName(String name) {
+	public Tag findByName(String name) {
 		return (Tag) session.createQuery("from Tag t where t.name like :name").setString("name", name).uniqueResult();
 	}
 
