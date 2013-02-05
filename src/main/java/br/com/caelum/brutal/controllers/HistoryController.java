@@ -2,7 +2,6 @@ package br.com.caelum.brutal.controllers;
 
 import static br.com.caelum.vraptor.view.Results.http;
 import br.com.caelum.brutal.auth.Logged;
-import br.com.caelum.brutal.dao.HistoryDAO;
 import br.com.caelum.brutal.dao.QuestionInformationDAO;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.Get;

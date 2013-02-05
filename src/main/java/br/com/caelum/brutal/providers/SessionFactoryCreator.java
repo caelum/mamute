@@ -11,10 +11,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import br.com.caelum.brutal.model.Answer;
+import br.com.caelum.brutal.model.AnswerInformation;
 import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.Question;
+import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.Tag;
-import br.com.caelum.brutal.model.UpdateHistory;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.Vote;
 import br.com.caelum.vraptor.environment.Environment;
@@ -41,7 +42,8 @@ public class SessionFactoryCreator implements ComponentFactory<SessionFactory> {
 		cfg.addAnnotatedClass(Tag.class);
 		cfg.addAnnotatedClass(Vote.class);
 		cfg.addAnnotatedClass(Comment.class);
-		cfg.addAnnotatedClass(UpdateHistory.class);
+		cfg.addAnnotatedClass(QuestionInformation.class);
+		cfg.addAnnotatedClass(AnswerInformation.class);
 
 		init();
 	}
