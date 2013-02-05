@@ -16,7 +16,7 @@ import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
 
 public class NotifiableDAOTest extends DatabaseTestCase {
-    private User author = new User("name", "email", "12345");
+    private User author = new User("name", "email@email", "12345");
     @Before
     public void before_test() {
         session.save(author);
@@ -25,7 +25,7 @@ public class NotifiableDAOTest extends DatabaseTestCase {
     @Test
     public void should_find_recent_answers() {
         NotifiableDAO<Answer> notifiableDAO = new NotifiableDAO<>(session);
-        Question question = new Question("title title title title", "description descriptions descriptions descriptions descriptions");
+        Question question = new Question("title title title title", "description descriptions descriptions descriptions descriptions", author);
         
         DateTimeUtils.setCurrentMillisFixed(new DateTime().minusHours(4).getMillis());
         Answer oldAnswer1 = new Answer("answer answer answer answer answer answer", question, author);

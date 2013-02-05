@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.model;
 
+import static org.hibernate.annotations.CascadeType.SAVE_UPDATE;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -13,6 +15,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
@@ -34,6 +37,7 @@ public class Answer implements Votable, Commentable, Updatable, Notifiable {
 	private Question question;
 
 	@ManyToOne(optional = false)
+	@Cascade(SAVE_UPDATE)
 	@NotNull
 	private AnswerInformation information = null;
 	

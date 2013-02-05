@@ -18,8 +18,7 @@ public class UpdaterTest {
     public void before_test() {
         author = new User("author", "author@gmail", "1234");
         author.setId(1l);
-        question = new Question("titel", "description");
-        question.setAuthor(author);
+        question = new Question("titel", "description", author);
     }
 
     @Test
@@ -39,7 +38,7 @@ public class UpdaterTest {
         Updater updater = new Updater();
         UpdateStatus update = updater.update(question, new QuestionInformation("new title", "new description", author));
         
-        assertEquals(update, UpdateStatus.REFUSED);
+        assertEquals(UpdateStatus.REFUSED, update);
         fail();
     }
     

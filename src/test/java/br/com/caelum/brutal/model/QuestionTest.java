@@ -8,14 +8,14 @@ public class QuestionTest {
 
 	@Test(expected = RuntimeException.class)
 	public void can_not_be_marked_as_solved_by_the_an_answer_that_is_not_mine() {
-		Question shouldILiveForever = new Question("", "");
+		Question shouldILiveForever = new Question("", "", null);
 		Answer yes = new Answer("", null, null);
 		shouldILiveForever.markAsSolvedBy(yes);
 	}
 
 	@Test
 	public void can_be_marked_as_solved_by_the_an_answer_that_is_mine() {
-		Question shouldILiveForever = new Question("", "");
+		Question shouldILiveForever = new Question("", "", null);
 		Answer yes = new Answer("my answer", shouldILiveForever, null);
 		
 		shouldILiveForever.markAsSolvedBy(yes);
@@ -25,7 +25,7 @@ public class QuestionTest {
 	
 	@Test
 	public void should_be_touched_when_marked_as_solved() {
-		Question shouldILiveForever = new Question("", "");
+		Question shouldILiveForever = new Question("", "", null);
 		User leo = new User("", "", "");
 		Answer yes = new Answer("my answer", shouldILiveForever, leo);
 		
@@ -38,7 +38,7 @@ public class QuestionTest {
 
 	@Test
 	public void should_remove_vote_values_and_update_vote_count() {
-		Question question = new Question("", "");
+		Question question = new Question("", "", null);
 		assertEquals(0l, question.getVoteCount());
 		Vote firstVote = new Vote(null, VoteType.UP);
 		question.substitute(null, firstVote);
