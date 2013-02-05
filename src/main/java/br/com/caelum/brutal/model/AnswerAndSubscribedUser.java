@@ -12,7 +12,7 @@ public class AnswerAndSubscribedUser {
 
     @Override
     public String toString() {
-        return "AnswerAndSubscribedUser [user=" + user + ", answer=" + answer + "]";
+        return "AnswerAndSubscribedUser [user=" + user + ", answer=" + answer + "]\n";
     }
     
     public User getUser() {

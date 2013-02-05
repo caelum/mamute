@@ -33,14 +33,16 @@ public class AnswerDAO {
         
         Query query = session.createQuery("select distinct new br.com.caelum.brutal.model.AnswerAndSubscribedUser(answer, author) from Answer answer " +
         		"join answer.question.answers ans " +
-        		"join ans.author author where (answer.createdAt) > :timeAgo");
+        		"join ans.author author where (answer.createdAt) > :timeAgo and author!=answer.author");
+        List<AnswerAndSubscribedUser> results = query.setParameter("timeAgo", timeAgo).list();
         
-        query.setParameter("timeAgo", timeAgo);
-        session.getTransaction().commit();
-        return query.list();
+        query = session.createQuery("select distinct new br.com.caelum.brutal.model.AnswerAndSubscribedUser(answer, author) from Answer answer " +
+        		"join answer.question.author author " +
+        		"where (answer.createdAt) > :timeAgo and author!=answer.author");
+        results.addAll(query.setParameter("timeAgo", timeAgo).list());
+        
+        return results;
 	}
-	
-
 }
 
 

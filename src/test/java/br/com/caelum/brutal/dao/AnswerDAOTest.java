@@ -18,11 +18,15 @@ import br.com.caelum.brutal.model.User;
 public class AnswerDAOTest extends DatabaseTestCase {
 
     private User questionAuthor = new User("name", "email", "12345");
-    private User answerAuthor = new User("name", "answer", "12345");
+    private User answerAuthor1 = new User("name", "answer2", "12345");
+    private User answerAuthor2 = new User("name", "answer1", "12345");
+    private User answerAuthor3 = new User("name", "answer3", "12345");
     @Before
     public void before_test() {
         session.save(questionAuthor);
-        session.save(answerAuthor);
+        session.save(answerAuthor2);
+        session.save(answerAuthor3);
+        session.save(answerAuthor1);
     }
 
     @Test
@@ -31,12 +35,12 @@ public class AnswerDAOTest extends DatabaseTestCase {
         Question question = new Question("title title title title", "description descriptions descriptions descriptions descriptions", questionAuthor);
         
         DateTimeUtils.setCurrentMillisFixed(new DateTime().minusHours(4).getMillis());
-        Answer oldAnswer1 = new Answer("answer answer answer answer answer answer", question, answerAuthor);
-        Answer oldAnswer2 = new Answer("answer answer answer answer answer answer", question, answerAuthor);
+        Answer oldAnswer1 = new Answer("answer answer answer answer answer answer", question, answerAuthor1);
+        Answer oldAnswer2 = new Answer("answer answer answer answer answer answer", question, answerAuthor1);
         
         DateTimeUtils.setCurrentMillisSystem();
-        Answer newAnswer1 = new Answer("answer answer answer answer answer answer", question, answerAuthor);
-        Answer newAnswer2 = new Answer("answer answer answer answer answer answer", question, answerAuthor);
+        Answer newAnswer1 = new Answer("answer answer answer answer answer answer", question, answerAuthor2);
+        Answer newAnswer2 = new Answer("answer answer answer answer answer answer", question, answerAuthor3);
         
         session.save(question);
         session.save(oldAnswer1);
@@ -44,13 +48,8 @@ public class AnswerDAOTest extends DatabaseTestCase {
         session.save(newAnswer1);
         session.save(newAnswer2);
         
-        
         List<AnswerAndSubscribedUser> recentAnswers = notifiableDAO.getRecentAnswersAndSubscribedUsers(3);
-        assertEquals(2, recentAnswers.size());
-        recentAnswers.get(0).getUser().getId().equals(questionAuthor.getId());
-        recentAnswers.get(1).getUser().getId().equals(questionAuthor.getId());
-        recentAnswers.get(0).getAnswer().getId().equals(newAnswer1.getId());
-        recentAnswers.get(1).getAnswer().getId().equals(newAnswer2.getId());
+        assertEquals(6, recentAnswers.size());
     }
     
 }
