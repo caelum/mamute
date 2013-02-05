@@ -31,7 +31,6 @@
 		</li>
 	</c:if>
 	(<tags:editFor item="${answer}" field="text" value="${answer.text}" ajaxResult="answer-${answer.id}" />)
-	(votes ${answer.voteCount})
 	<tags:voteFor item="${answer}" type="answer" vote="${vote}"/>
 	<tags:add-a-comment item="${answer}"/>
 </c:forEach>

@@ -32,7 +32,7 @@ public class VoteDAO {
 		return (Votable) session.load(type, id);
 	}
 
-	public void substitute(Vote previous, Vote current, Votable on) {
+	public long substitute(Vote previous, Vote current, Votable on) {
 		long delta = current.getValue();
 		if (previous != null) {
 			session.delete(previous);
@@ -40,6 +40,7 @@ public class VoteDAO {
 		}
 		session.save(current);
 		session.createQuery("update User as u set u.karma = u.karma + (:value) where u.id = :user").setParameter("value", delta).setParameter("user", on.getAuthor().getId()).executeUpdate();
+		return delta;
 	}
 
 	@SuppressWarnings("unchecked")

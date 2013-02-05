@@ -1,6 +1,7 @@
 package br.com.caelum.brutal.controllers;
 
 import static br.com.caelum.vraptor.view.Results.http;
+import static br.com.caelum.vraptor.view.Results.json;
 import br.com.caelum.brutal.auth.Logged;
 import br.com.caelum.brutal.dao.VoteDAO;
 import br.com.caelum.brutal.model.Answer;
@@ -12,6 +13,7 @@ import br.com.caelum.brutal.model.VoteType;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.view.Results;
 
 @Resource
 public class VoteController {
@@ -62,8 +64,7 @@ public class VoteController {
 		Vote current = new Vote(currentUser, voteType);
 
 		votable.substitute(previous, current);
-		votes.substitute(previous, current, votable);
-		result.nothing();
+		long delta = votes.substitute(previous, current, votable);
+		result.use(json()).withoutRoot().from(delta).serialize();
 	}
-
 }
