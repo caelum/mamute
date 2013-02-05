@@ -67,7 +67,7 @@ public class Question implements Votable, Commentable, Updatable {
 	 * @deprecated hibernate eyes only
 	 */
 	public Question() {
-		this("", "", null);
+		this.information = null;
 	}
 
 	public Question(String title, String description, User author) {
