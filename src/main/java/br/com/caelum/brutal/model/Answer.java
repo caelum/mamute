@@ -19,6 +19,8 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
+import com.sun.istack.internal.NotNull;
+
 @Entity
 public class Answer implements Votable, Commentable, Updatable, Notifiable {
 	@Id
@@ -28,19 +30,18 @@ public class Answer implements Votable, Commentable, Updatable, Notifiable {
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
 	private final DateTime createdAt = new DateTime();
 
-	@Lob
-	@NotEmpty
-	@Length(min=15)
-	private String text;
-	
 	@ManyToOne
 	private User author;
 	
 	@ManyToOne
 	private Question question;
 
-	@Lob
-    private String htmlText;
+	@ManyToOne(optional = false)
+	@NotNull
+	private AnswerInformation information = null;
+	
+	@OneToMany
+	private List<AnswerInformation> history= new ArrayList<>();
 	
 	@JoinTable(name="Answer_Votes")
     @OneToMany
@@ -52,16 +53,16 @@ public class Answer implements Votable, Commentable, Updatable, Notifiable {
     
 	private long voteCount= 0;
 
-	public Answer(String text, Question question, User author) {
-        setText(text);
-        this.author = author;
-        this.question = question;
-    }
-
-	private void setText(String text) {
-		this.text = text;
-        this.htmlText = MarkDown.parse(text);
+	public Answer(AnswerInformation information, Question question, User author) {
+		this.information = information;
+		this.question = question;
+		this.author = author;
+		this.history.add(information);
 	}
+
+	public Answer(String text, Question question, User author) {
+		this(new AnswerInformation(text, author), question, author);
+    }
 
 	/**
      * @deprecated hibernate eyes only
@@ -73,18 +74,20 @@ public class Answer implements Votable, Commentable, Updatable, Notifiable {
 		return question;
 	}
 
-	public String getText() {
-		return text;
-	}
 
 	public User getAuthor() {
 		return author;
 	}
 	
-	public String getHtmlText() {
-        return htmlText;
-    }
 	
+	public String getDescription() {
+		return information.getDescription();
+	}
+
+	public String getMarkedDescription() {
+		return information.getMarkedDescription();
+	}
+
 	public Long getId() {
 		return id;
 	}
