@@ -77,4 +77,12 @@ public class AnswerInformation {
 		return author;
 	}
 
+	public void setInitStatus(UpdateStatus status) {
+		if(this.status!=null) {
+			throw new IllegalStateException("Status can only be setted once. Afterwards it should BE MODERATED!");
+		}
+		this.status = status;
+	}
+
+
 }

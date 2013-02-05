@@ -8,12 +8,12 @@ import br.com.caelum.vraptor.ioc.Component;
 @Component
 public class Updater {
 
-	public UpdateStatus update(Question original, QuestionInformation question) {
-        UpdateStatus status = question.getAuthor().canUpdate(original);
+	public UpdateStatus update(Question original, QuestionInformation information) {
+        UpdateStatus status = information.getAuthor().canUpdate(original);
         if (status == UpdateStatus.REFUSED)
             return status;
         
-        original.enqueueChange(question, status);
+        original.enqueueChange(information, status);
         return status;
 	}
 

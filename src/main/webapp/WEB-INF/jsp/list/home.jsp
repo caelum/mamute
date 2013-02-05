@@ -11,19 +11,8 @@
 <br />
 <br />
 
-<table>
+<div class="question-list">
 	<c:forEach var="question" items="${questions }">
-		<tr>
-			<td>${question.voteCount}</td>
-			<td>${question.author.name } ${question.author.karma }</td>
-			<td>${question.answersCount}</td>
-			<td>${question.views}</td>
-			<td><a
-				href="<c:url value="/questions/${question.id }/${question.sluggedTitle }" />">${question.title
-					}</a></td>
-			<td>tags</td>
-			<td><tags:prettyTime time="${question.lastUpdatedAt }" /></td>
-			<td>${question.lastTouchedBy.name } ${question.lastTouchedBy.karma }</td>
-		</tr>
+		<tags:list-question-item question="${question}"/>
 	</c:forEach>
-</table>
+</div>

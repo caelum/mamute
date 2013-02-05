@@ -12,7 +12,6 @@
 
 <tags:add-a-comment item="${question}" />
 
-<p>${answer.markedDescription}</p>
 <ul>
 <c:forEach items="${answers.votes}" var="entry">
 	<c:set var="answer" value="${entry.key}" />
@@ -30,7 +29,7 @@
 			</a>
 		</li>
 	</c:if>
-	(<tags:editFor item="${answer}" field="text" value="${answer.description}" ajaxResult="answer-${answer.id}" />)
+	(<a href="<c:url value="/answer/edit/${answer.id }"/>"><fmt:message key="edit" /></a>)
 	<tags:voteFor item="${answer}" type="answer" vote="${vote}"/>
 	<tags:add-a-comment item="${answer}"/>
 </c:forEach>
