@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.model;
 
+import static org.hibernate.annotations.CascadeType.SAVE_UPDATE;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +13,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
@@ -23,6 +26,7 @@ public class Question implements Votable, Commentable, Updatable {
 	private Long id;
 
 	@ManyToOne(optional = false)
+	@Cascade(SAVE_UPDATE)
 	@NotNull
 	private QuestionInformation information = null;
 	
@@ -63,11 +67,12 @@ public class Question implements Votable, Commentable, Updatable {
 	 * @deprecated hibernate eyes only
 	 */
 	public Question() {
-		this("", "");
+		this("", "", null);
 	}
 
-	public Question(String title, String description) {
-		this(new QuestionInformation(title, description, null));
+	public Question(String title, String description, User author) {
+		this(new QuestionInformation(title, description, author));
+		this.author = author;
 	}
 
 	public Question(QuestionInformation questionInformation) {
@@ -212,6 +217,7 @@ public class Question implements Votable, Commentable, Updatable {
 	public String getTagsAsString() {
 		return information.getTagsAsString();
 	}
+	
 
 	public QuestionInformation getInformation() {
 		return information;
