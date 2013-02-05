@@ -5,14 +5,14 @@
 <form class="validated-form" action='<c:url value="${uri}"/>' method="post" >
 
 	<label for="question-title"><fmt:message key="newquestion.title" /></label>
-	<input id="question-title" type="text" class="required hintable" value="${question.title }" data-hint-id="newquestion-title-hint" minlength="15" name="question.information.title">
+	<input id="question-title" type="text" class="required hintable" value="${question.title }" data-hint-id="newquestion-title-hint" minlength="15" name="title">
 	<label for="wmd-input"><fmt:message key="newquestion.description" /></label>
 	<div class="wmd">
 		<div class="wmd-panel">
 			<div id="wmd-button-bar"></div>
 			<textarea class="required hintable wmd-input" id="wmd-input"
 				data-hint-id="newquestion-description-hint" minlength="30"
-				name="question.information.description">${question.description }</textarea>
+				name="description">${question.description }</textarea>
 		</div>
 		<div id="wmd-preview" class="wmd-panel wmd-preview"></div>
 	</div>
