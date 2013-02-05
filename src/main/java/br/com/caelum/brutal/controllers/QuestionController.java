@@ -53,7 +53,7 @@ public class QuestionController {
 
 
 		Question original = questions.getById(id);
-		UpdateStatus status = new Updater().update(original, information);
+		UpdateStatus status = original.updateWith(information);
 		result.include("status", status);
 	}
 	
@@ -74,12 +74,11 @@ public class QuestionController {
 
 	@Post("/question/ask")
 	@Logged
-	public void newQuestion(Question question, String title, String description, String tagNames) {
+	public void newQuestion(String title, String description, String tagNames) {
 		List<Tag> tags = this.tags.loadAll(tagNames, currentUser);
 		QuestionInformation information = new QuestionInformation(title, description, currentUser, tags);
-
-		question.enqueueChange(information, UpdateStatus.NO_NEED_TO_APPROVE);
-		question.setAuthor(currentUser);
+		Question question = new Question(information, currentUser);
+		
 		questions.save(question);
 		result.redirectTo(this).showQuestion(question.getId(),
 				question.getSluggedTitle());

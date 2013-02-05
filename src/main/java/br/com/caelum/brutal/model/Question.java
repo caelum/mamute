@@ -39,11 +39,11 @@ public class Question implements Votable, Commentable, Updatable {
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
 	private DateTime lastUpdatedAt = new DateTime();
 
-	@ManyToOne(optional = true)
-	private Answer solution;
-
 	@ManyToOne
 	private User lastTouchedBy = null;
+
+	@ManyToOne(optional = true)
+	private Answer solution;
 
 	@ManyToOne
 	private User author;
@@ -71,13 +71,13 @@ public class Question implements Votable, Commentable, Updatable {
 	}
 
 	public Question(String title, String description, User author) {
-		this(new QuestionInformation(title, description, author));
+		this(new QuestionInformation(title, description, author, new ArrayList<Tag>()), author);
 		this.author = author;
 	}
 
-	public Question(QuestionInformation questionInformation) {
-		this.information = questionInformation;
-		this.history.add(questionInformation);
+	public Question(QuestionInformation questionInformation, User author) {
+		this.author = author;
+		enqueueChange(questionInformation, UpdateStatus.NO_NEED_TO_APPROVE);
 	}
 
 	@Override
@@ -190,15 +190,6 @@ public class Question implements Votable, Commentable, Updatable {
 		return comments;
 	}
 
-	public void enqueueChange(QuestionInformation newInformation, UpdateStatus status) {
-		if(status.equals(UpdateStatus.NO_NEED_TO_APPROVE)) {
-			this.information = newInformation;
-		}
-        newInformation.setInitStatus(status);
-		this.history.add(newInformation);
-		this.touchedBy(newInformation.getAuthor());
-	}
-
 	public String getTitle() {
 		return information.getTitle();
 	}
@@ -221,6 +212,24 @@ public class Question implements Votable, Commentable, Updatable {
 	
 	public QuestionInformation getInformation() {
 		return information;
+	}
+
+	public UpdateStatus updateWith(QuestionInformation information) {
+        UpdateStatus status = information.getAuthor().canUpdate(this);
+        if (status == UpdateStatus.REFUSED)
+            return status;
+        
+        this.enqueueChange(information, status);
+        return status;
+	}
+
+	public void enqueueChange(QuestionInformation newInformation, UpdateStatus status) {
+		if(status.equals(UpdateStatus.NO_NEED_TO_APPROVE)) {
+			this.information = newInformation;
+		}
+        newInformation.setInitStatus(status);
+		this.history.add(newInformation);
+		this.touchedBy(newInformation.getAuthor());
 	}
 
     

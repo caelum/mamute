@@ -9,7 +9,7 @@
 			<div id="wmd-button-bar"></div>
 			<textarea class="required  hintable wmd-input" id="wmd-input"
 				minlength="30" name="answerText"
-				data-hint-id="newanswer-answer-hint"></textarea>
+				data-hint-id="newanswer-answer-hint">${answer.description }</textarea>
 		</div>
 		<div id="wmd-preview" class="wmd-panel wmd-preview"></div>
 

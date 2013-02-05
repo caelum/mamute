@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import br.com.caelum.brutal.integracao.dao.DatabaseTestCase;
 import br.com.caelum.brutal.model.Question;
+import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
 
@@ -73,16 +74,17 @@ public class QuestionDAOTest extends DatabaseTestCase {
 	
 	@Test
 	public void should_return_only_questions_with_the_provided_tag() {
-		Question salDaAzar = new Question("Por que pegar o sal da mal dos outros da azar?", "Alguem poderia me dizer o por que disso? Obrigado galera!", author);
+		Tag sal = new Tag("sal", "", null);
+		tags.saveOrLoad(sal);
+
+		QuestionInformation info = new QuestionInformation("Por que pegar o sal da mal dos outros da azar?", "Alguem poderia me dizer o por que disso? Obrigado galera!", author, Arrays.asList(sal));
+		Question salDaAzar = new Question(info, null);
+		
 		Question beberFazMal = new Question("Por que dizem que beber demais faz mal?", "Alguem poderia me dizer o por que disso? Obrigado galera!", author);
 		Question androidRuim = new Question("Por que a api de android é tão ruim?", "Alguem poderia me dizer o por que disso? Obrigado galera!", author);
 		questions.save(salDaAzar);
 		questions.save(beberFazMal);
 		questions.save(androidRuim);
-		
-		Tag sal = new Tag("sal", "", null);
-		tags.saveOrLoad(sal);
-		salDaAzar.getInformation().add(Arrays.asList(sal));
 		
 		List<Question> perguntasComSal = questions.withTag(sal);
 

@@ -41,6 +41,12 @@ public class Answer implements Votable, Commentable, Updatable, Notifiable {
 	@NotNull
 	private AnswerInformation information = null;
 	
+	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+	private DateTime lastUpdatedAt = new DateTime();
+
+	@ManyToOne
+	private User lastTouchedBy = null;
+
 	@OneToMany
 	private List<AnswerInformation> history= new ArrayList<>();
 	
@@ -55,10 +61,10 @@ public class Answer implements Votable, Commentable, Updatable, Notifiable {
 	private long voteCount= 0;
 
 	public Answer(AnswerInformation information, Question question, User author) {
-		this.information = information;
 		this.question = question;
 		this.author = author;
-		this.history.add(information);
+		touchedBy(author);
+		enqueueChange(information, UpdateStatus.NO_NEED_TO_APPROVE);
 	}
 
 	public Answer(String text, Question question, User author) {
@@ -160,5 +166,23 @@ public class Answer implements Votable, Commentable, Updatable, Notifiable {
         users.add(question.getAuthor());
         return users;
     }
+
+	public UpdateStatus updateWith(AnswerInformation information) {
+		return new Updater().update(this, information);
+	}
+
+	void enqueueChange(AnswerInformation newInformation, UpdateStatus status) {
+		if(status.equals(UpdateStatus.NO_NEED_TO_APPROVE)) {
+			this.information = newInformation;
+		}
+        newInformation.setInitStatus(status);
+		this.history.add(newInformation);
+		this.touchedBy(newInformation.getAuthor());
+	}
+
+	public void touchedBy(User author) {
+		this.lastTouchedBy = author;
+		this.lastUpdatedAt = new DateTime();
+	}
 
 }

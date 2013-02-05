@@ -54,7 +54,7 @@ public class QuestionInformation {
 	private String markedDescription;
 
 	private UpdateStatus status;
-	
+
 	/**
 	 * @deprecated hibernate only
 	 */
@@ -62,11 +62,16 @@ public class QuestionInformation {
 		this("", "", null, new ArrayList<Tag>());
 	}
 
-	public QuestionInformation(String title, String description, User author, List<Tag> tags) {
+	public QuestionInformation(String title, String description, User author,
+			List<Tag> tags) {
 		this.author = author;
 		setTitle(title);
 		setDescription(description);
 		this.tags = tags;
+	}
+
+	public QuestionInformation(String title, String description, User author) {
+		this(title, description, author, new ArrayList<Tag>());
 	}
 
 	public void moderate(User moderator, UpdateStatus status) {
@@ -117,8 +122,9 @@ public class QuestionInformation {
 	}
 
 	public void setInitStatus(UpdateStatus status) {
-		if(this.status!=null) {
-			throw new IllegalStateException("Status can only be setted once. Afterwards it should BE MODERATED!");
+		if (this.status != null) {
+			throw new IllegalStateException(
+					"Status can only be setted once. Afterwards it should BE MODERATED!");
 		}
 		this.status = status;
 	}
