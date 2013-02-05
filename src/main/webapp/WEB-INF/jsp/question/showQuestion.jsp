@@ -1,10 +1,10 @@
 <tags:voteFor item="${question }" type="question" vote="${currentVote }"/>
 
 <span id="question-${question.id }">${question.title}</span>
-(<tags:editFor item="${question}" field="title" value="${question.title}" ajaxResult="question-${question.id}"/>)
 <br>
 <span id="question-description-${question.id }">${question.markedDescription}</span>
-(<tags:editFor item="${question}" field="description" value="${question.description}" ajaxResult="question-description-${question.id}"/>)
+(<a href="<c:url value="/question/edit/${question.id }"/>"><fmt:message key="edit" /></a>)
+
 
 <c:if test="${not empty currentUser}">
 	<%@ include file="/WEB-INF/jsp/answer/answerForm.jsp"%>

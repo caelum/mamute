@@ -6,6 +6,7 @@ import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.dao.VoteDAO;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
+import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.providers.RequiresTransaction;
 import br.com.caelum.vraptor.Get;
@@ -35,6 +36,20 @@ public class QuestionController {
 	public void questionForm() {
 	}
 
+	@Get("/question/edit/{questionId}")
+	@Logged
+	public void questionEditForm(Long questionId) {
+		result.include("question",  questions.getById(questionId));
+	}
+
+	@Post("/question/edit/{question.id}")
+	@Logged
+	public void edit(Question question, String tagNames) {
+		Question original = questions.getById(question.getId());
+		UpdateStatus status = new Updater(currentUser).update(original, question);
+		result.include("status", status);
+	}
+	
 	@Get("/questions/{questionId}/{sluggedTitle}")
 	@RequiresTransaction
 	public void showQuestion(Long questionId, String sluggedTitle) {

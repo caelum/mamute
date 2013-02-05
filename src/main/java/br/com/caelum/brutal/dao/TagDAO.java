@@ -36,6 +36,6 @@ public class TagDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<Tag> findTagsLike(String tagChunk) {
-		return (List<Tag>) session.createQuery("from Tag t where t.name like :name").setString("name", "%"+tagChunk+"%").list();
+		return (List<Tag>) session.createQuery("from Tag t where t.name like :name").setString("name", "%"+tagChunk+"%").setMaxResults(10).list();
 	}
 }

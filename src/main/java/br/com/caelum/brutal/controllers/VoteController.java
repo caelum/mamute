@@ -13,7 +13,6 @@ import br.com.caelum.brutal.model.VoteType;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.view.Results;
 
 @Resource
 public class VoteController {

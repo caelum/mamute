@@ -1,7 +1,5 @@
 package br.com.caelum.brutal.model;
 
-import static br.com.caelum.brutal.infra.NormalizerBrutal.toSlug;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,15 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
-import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Type;
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
+
+import com.sun.istack.internal.NotNull;
 
 @Entity
 public class Question implements Votable, Commentable, Updatable {
@@ -26,20 +22,13 @@ public class Question implements Votable, Commentable, Updatable {
 	@GeneratedValue
 	private Long id;
 
-	@Type(type = "text")
-	@Length(min = 15)
-	@NotEmpty
-	private String title;
-
-	@Type(type = "text")
-	@Length(min = 30)
-	@NotEmpty
-	private String description;
-
-	@Type(type = "text")
-	@NotEmpty
-	private String sluggedTitle;
-
+	@ManyToOne(optional = false)
+	@NotNull
+	private QuestionInformation information = null;
+	
+	@OneToMany
+	private List<QuestionInformation> history= new ArrayList<>();
+	
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
 	private final DateTime createdAt = new DateTime();
 
@@ -64,12 +53,6 @@ public class Question implements Votable, Commentable, Updatable {
 	@OneToMany
 	private final List<Vote> votes = new ArrayList<>();
 
-	@Lob
-	private String markedDescription;
-
-	@ManyToMany
-	private final List<Tag> tags = new ArrayList<>();
-
 	private long voteCount = 0l;
 
 	@JoinTable(name = "Question_Comments")
@@ -84,35 +67,17 @@ public class Question implements Votable, Commentable, Updatable {
 	}
 
 	public Question(String title, String description) {
-		setTitle(title);
-		setDescription(description);
+		this(new QuestionInformation(title, description));
 	}
 
-	private void setTitle(String title) {
-		this.title = title;
-		this.sluggedTitle = toSlug(title);
-	}
-
-	private void setDescription(String description) {
-		this.description = description;
-		this.markedDescription = MarkDown.parse(description);
-	}
-
-	public void addTag(Tag tag) {
-		this.tags.add(tag);
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public String getDescription() {
-		return description;
+	public Question(QuestionInformation questionInformation) {
+		this.information = questionInformation;
+		this.history.add(questionInformation);
 	}
 
 	@Override
 	public String toString() {
-		return "Question [title=" + title + ", createdAt=" + createdAt + "]";
+		return "Question [title=" + information.getTitle() + ", createdAt=" + createdAt + "]";
 	}
 
 	public void setAuthor(User author) {
@@ -139,10 +104,6 @@ public class Question implements Votable, Commentable, Updatable {
 	    answers.add(a);
 	}
 
-	public String getSluggedTitle() {
-		return sluggedTitle;
-	}
-
 	public long getViews() {
 		return views;
 	}
@@ -165,10 +126,6 @@ public class Question implements Votable, Commentable, Updatable {
 
 	public void ping() {
 		this.views++;
-	}
-
-	public String getMarkedDescription() {
-		return markedDescription;
 	}
 
 	protected void markAsSolvedBy(Answer answer) {
@@ -202,12 +159,7 @@ public class Question implements Votable, Commentable, Updatable {
 		result = prime * result + ((author == null) ? 0 : author.hashCode());
 		result = prime * result
 				+ ((createdAt == null) ? 0 : createdAt.hashCode());
-		result = prime * result
-				+ ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result
-				+ ((sluggedTitle == null) ? 0 : sluggedTitle.hashCode());
-		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		return result;
 	}
 
@@ -233,20 +185,12 @@ public class Question implements Votable, Commentable, Updatable {
 		return comments;
 	}
 
-	@Override
-	public boolean update(String field, String value) {
-		if (field.equals("description")) {
-			setDescription(value);
-			return true;
-		} else if (field.equals("title")) {
-			setTitle(value);
-			return true;
+	public void enqueueChange(QuestionInformation newInformation, UpdateStatus status) {
+		if(status.equals(UpdateStatus.NO_NEED_TO_APPROVE)) {
+			this.information = newInformation;
 		}
-		return false;
+		this.history.add(newInformation);
+		this.touchedBy(newInformation.getAuthor());
 	}
-
-    @Override
-    public Class<?> getType() {
-        return Question.class;
-    }
+    
 }
