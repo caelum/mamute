@@ -1,5 +1,11 @@
 *{box-sizing:border-box;}
-
+body, a{
+	font-family: Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif;
+}
+a{
+	text-decoration:none;
+	color: rgb(0, 119, 204);
+}
 
 
 .hint {display: none;}
