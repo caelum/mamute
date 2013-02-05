@@ -67,7 +67,7 @@ public class Question implements Votable, Commentable, Updatable {
 	}
 
 	public Question(String title, String description) {
-		this(new QuestionInformation(title, description));
+		this(new QuestionInformation(title, description, null));
 	}
 
 	public Question(QuestionInformation questionInformation) {
@@ -192,5 +192,30 @@ public class Question implements Votable, Commentable, Updatable {
 		this.history.add(newInformation);
 		this.touchedBy(newInformation.getAuthor());
 	}
+
+	public String getTitle() {
+		return information.getTitle();
+	}
+
+	public String getDescription() {
+		return information.getDescription();
+	}
+
+	public String getSluggedTitle() {
+		return information.getSluggedTitle();
+	}
+
+	public String getMarkedDescription() {
+		return information.getMarkedDescription();
+	}
+
+	public String getTagsAsString() {
+		return information.getTagsAsString();
+	}
+
+	public QuestionInformation getInformation() {
+		return information;
+	}
+
     
 }

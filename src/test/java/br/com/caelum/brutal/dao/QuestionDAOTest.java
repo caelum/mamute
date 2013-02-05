@@ -77,7 +77,7 @@ public class QuestionDAOTest extends DatabaseTestCase {
 		
 		Tag sal = new Tag("sal", "", null);
 		tags.saveOrLoad(sal);
-		salDaAzar.addTag(sal);
+		salDaAzar.getInformation().addTag(sal);
 		
 		List<Question> perguntasComSal = questions.withTag(sal);
 

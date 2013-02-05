@@ -71,15 +71,6 @@ public class Comment implements Updatable, Notifiable {
 		return htmlComment;
 	}
 
-	@Override
-	public boolean update(String field, String value) {
-		if(field.equals("comment")) {
-			setComment(value);
-			return true;
-		}
-		return false;
-	}
-
 	public String getTypeName() {
 		return "Comment";
 	}
@@ -91,11 +82,6 @@ public class Comment implements Updatable, Notifiable {
 	public String getComment() {
 		return comment;
 	}
-
-    @Override
-    public Class<?> getType() {
-        return Comment.class;
-    }
 
     @Override
     public Set<User> subscribed() {

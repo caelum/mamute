@@ -1,9 +1,7 @@
 package br.com.caelum.brutal.controllers;
 
-import br.com.caelum.brutal.dao.HistoryDAO;
 import br.com.caelum.brutal.model.Question;
-import br.com.caelum.brutal.model.Updatable;
-import br.com.caelum.brutal.model.UpdateHistory;
+import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.ioc.Component;
@@ -17,7 +15,7 @@ public class Updater {
         this.currentUser = currentUser;
     }
 
-	public UpdateStatus update(Question original, Question question) {
+	public UpdateStatus update(Question original, QuestionInformation question) {
         UpdateStatus status = currentUser.canUpdate(original);
         if (status == UpdateStatus.REFUSED)
             return status;

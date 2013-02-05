@@ -138,24 +138,10 @@ public class Answer implements Votable, Commentable, Updatable, Notifiable {
 		return comments;
 	}
 
-	@Override
-	public boolean update(String field, String value) {
-		if(field.equals("text")) {
-			setText(value);
-			return true;
-		}
-		return false;
-	}
-	
 	public Answer setId(Long id) {
 		this.id = id;
 		return this;
 	}
-
-    @Override
-    public Class<?> getType() {
-        return Answer.class;
-    }
 
     @Override
     public Set<User> subscribed() {

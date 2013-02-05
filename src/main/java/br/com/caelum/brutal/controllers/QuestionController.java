@@ -5,6 +5,7 @@ import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.dao.VoteDAO;
 import br.com.caelum.brutal.model.Question;
+import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
@@ -42,10 +43,10 @@ public class QuestionController {
 		result.include("question",  questions.getById(questionId));
 	}
 
-	@Post("/question/edit/{question.id}")
+	@Post("/question/edit/{id}")
 	@Logged
-	public void edit(Question question, String tagNames) {
-		Question original = questions.getById(question.getId());
+	public void edit(QuestionInformation question, String tagNames, Long id) {
+		Question original = questions.getById(id);
 		UpdateStatus status = new Updater(currentUser).update(original, question);
 		result.include("status", status);
 	}
@@ -72,7 +73,7 @@ public class QuestionController {
 		questions.save(question);
 		for (String tagName : tagNames.split(" ")) {
 			Tag newTag = tags.saveOrLoad(new Tag(tagName, "", currentUser));
-			question.addTag(newTag);
+			question.getInformation().addTag(newTag);
 		}
 		result.redirectTo(this).showQuestion(question.getId(),
 				question.getSluggedTitle());
