@@ -41,16 +41,17 @@ public class AnswerController {
 
 		Answer original = answers.getById(id);
 		UpdateStatus status = original.updateWith(information);
+		answers.save(original);
 		result.include("status", status);
 	}
 	
 	@Post("/question/answer/{question.id}")
 	@Logged
-	public void newAnswer(Question question, String answerText) {
+	public void newAnswer(Question question, String description) {
         Question loadedQuestion = questions.getById(question.getId());
         loadedQuestion.touchedBy(currentUser);
 
-        AnswerInformation information = new AnswerInformation(answerText, currentUser);
+        AnswerInformation information = new AnswerInformation(description, currentUser);
 		Answer answer  = new Answer(information, question, currentUser);
 		answers.save(answer);
         

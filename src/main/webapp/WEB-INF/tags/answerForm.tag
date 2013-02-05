@@ -8,7 +8,7 @@
 		<div class="wmd-panel">
 			<div id="wmd-button-bar"></div>
 			<textarea class="required  hintable wmd-input" id="wmd-input"
-				minlength="30" name="answerText"
+				minlength="30" name="description"
 				data-hint-id="newanswer-answer-hint">${answer.description }</textarea>
 		</div>
 		<div id="wmd-preview" class="wmd-panel wmd-preview"></div>

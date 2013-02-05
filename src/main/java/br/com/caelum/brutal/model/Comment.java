@@ -17,7 +17,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
 @Entity
-public class Comment implements Updatable {
+public class Comment implements Updatable, Subscribable {
     
     @Id @GeneratedValue
     private Long id;

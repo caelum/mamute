@@ -4,7 +4,6 @@ import br.com.caelum.vraptor.quartzjob.CronTask;
 
 public class NotificationMailerJob implements CronTask {
     
-    
     public NotificationMailerJob() {
     }
 

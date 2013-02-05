@@ -20,7 +20,7 @@ import org.joda.time.DateTime;
 import com.sun.istack.internal.NotNull;
 
 @Entity
-public class Answer implements Votable, Commentable, Updatable {
+public class Answer implements Votable, Commentable, Updatable, Subscribable {
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -46,6 +46,7 @@ public class Answer implements Votable, Commentable, Updatable {
 	private User lastTouchedBy = null;
 
 	@OneToMany
+	@Cascade(SAVE_UPDATE)
 	private List<AnswerInformation> history= new ArrayList<>();
 	
 	@JoinTable(name="Answer_Votes")

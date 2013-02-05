@@ -31,6 +31,7 @@ public class Question implements Votable, Commentable, Updatable {
 	private QuestionInformation information = null;
 	
 	@OneToMany
+	@Cascade(SAVE_UPDATE)
 	private List<QuestionInformation> history = new ArrayList<>();
 	
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
