@@ -1,9 +1,10 @@
 $(".vote-option").bind("click", function() {
 	if($(this).hasClass("voted")){
 		$(this).closest(".vote").find(".already-voted").show();
-		return false;
+	}else{
+		$(this).closest(".vote").find(".already-voted").hide();
+		vote($(this));
 	}
-	vote($(this));
 });
 
 function vote(link) {
