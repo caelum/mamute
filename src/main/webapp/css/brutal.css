@@ -21,3 +21,53 @@ a{
 .suggestion-accepted {color: #FF0000;}
 .solution{color: #00FF00;}
 .already-voted{display:none;}
+
+/*HOME*/
+.info{
+	float: left;
+	font-size: 20px;
+	margin-right: 3px;	
+	padding: 5px;
+	text-align: center;
+}
+
+.answers {
+	color: #9A4444;
+}
+
+.votes {
+	color: #555;
+}
+
+.views {
+	color: #999;
+}
+
+.subtitle {
+	display: block;
+	font-size: 13px;
+}
+
+.question {
+	border-bottom: 1px solid #EAEAEA;
+	overflow: hidden;
+	padding: 11px 0;
+}
+
+.summary {
+	
+}
+
+.question-title a {
+	font-family: Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif;
+	font-size: 17px;
+	font-weight: bold;
+}
+
+.stats{
+	float: right;
+}
+
+.author{
+	font-size: 13px;
+}

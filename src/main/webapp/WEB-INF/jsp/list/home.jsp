@@ -11,8 +11,8 @@
 <br />
 <br />
 
-<div class="question-list">
+<ol class="question-list">
 	<c:forEach var="question" items="${questions }">
 		<tags:list-question-item question="${question}"/>
 	</c:forEach>
-</div>
+</ol>
