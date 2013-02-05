@@ -13,7 +13,6 @@
 	<input name="query" type="text"/>
 	<input type="submit"/>
 </form>
-
 <c:if test="${not empty alerts}">
 	<ul>
 		<c:forEach var="alert" items="${alerts}">

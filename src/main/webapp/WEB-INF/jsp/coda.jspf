@@ -22,5 +22,6 @@ var MODERATOR = ${empty currentUser ? false : currentUser.moderator};
 <script src="<c:url value="/js/up-down-vote.js"/>"></script>
 <script src="<c:url value="/js/links-behaviour.js"/>"></script>
 <script src="<c:url value="/js/tag-autocomplete.js"/>"></script>
+<script src="<c:url value="/js/forgot-password.js"/>"></script>
 </body>
 </html>

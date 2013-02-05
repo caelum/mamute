@@ -1,5 +1,5 @@
 <form action="${linkTo[ForgotPasswordController].requestEmailWithToken}" method="POST" class="validated-form">
 	<label for="email"><fmt:message key="forgot_password.type_mail" /></label>
-	<input type="text" name="email" />
+	<input type="text" name="email" class="required" />
 	<input type="submit" value="<fmt:message key="forgot_password.button" />" />
 </form>
