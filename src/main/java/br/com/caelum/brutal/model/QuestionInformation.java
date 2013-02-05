@@ -54,6 +54,13 @@ public class QuestionInformation {
 	private String markedDescription;
 
 	private UpdateStatus status;
+	
+	/**
+	 * @deprecated hibernate only
+	 */
+	QuestionInformation() {
+		this("", "", null);
+	}
 
 	public QuestionInformation(String title, String description, User author) {
 		this.author = author;

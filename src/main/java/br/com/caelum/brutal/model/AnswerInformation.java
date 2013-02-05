@@ -1,16 +1,10 @@
 package br.com.caelum.brutal.model;
 
-import static br.com.caelum.brutal.infra.NormalizerBrutal.toSlug;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Type;
@@ -45,6 +39,13 @@ public class AnswerInformation {
 
 	private UpdateStatus status;
 
+	/**
+	 * @deprecated hibernate only
+	 */
+	AnswerInformation(){
+		this("", null);
+	}
+	
 	public AnswerInformation(String description, User author) {
 		this.author = author;
 		setDescription(description);
