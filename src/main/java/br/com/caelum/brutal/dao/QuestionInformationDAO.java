@@ -6,7 +6,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import br.com.caelum.brutal.model.QuestionInformation;
-import br.com.caelum.brutal.model.UpdateHistory;
 import br.com.caelum.brutal.model.UpdateStatus;
 
 public class QuestionInformationDAO {
@@ -26,10 +25,11 @@ public class QuestionInformationDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<QuestionInformation> allSimilarTo(Long id) {
-		UpdateHistory history = (UpdateHistory) session.load(UpdateHistory.class, id);
-		String hql = "select qi from QuestionInformation qi where qi.status = :pending and q.id = :id and h.type = :type";
-		Query query = session.createQuery(hql);
-		return query.setParameter("pending", UpdateStatus.PENDING).setParameter("id", history.getTargetId()).list();
+	//	UpdateHistory history = (UpdateHistory) session.load(UpdateHistory.class, id);
+		//String hql = "select qi from QuestionInformation qi where qi.status = :pending and q.id = :id and h.type = :type";
+		//Query query = session.createQuery(hql);
+		//return query.setParameter("pending", UpdateStatus.PENDING).setParameter("id", history.getTargetId()).list();
+		return null;
 	}
 
 
