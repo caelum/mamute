@@ -2,7 +2,7 @@ $(".vote-option").bind("click", function() {
 	var alreadyVoted = $(this).closest(".vote").find(".already-voted");
 	if($(this).hasClass("voted")){
 		alreadyVoted.show();
-	}else{
+	} else {
 		alreadyVoted.hide();
 		vote($(this));
 	}

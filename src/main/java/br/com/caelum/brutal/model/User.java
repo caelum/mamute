@@ -89,7 +89,8 @@ public class User implements Identifiable {
 		return email;
 	}
 	
-	public String getForgotPasswordToken() {
+	public String getNewForgotPasswordToken() {
+		touchForgotPasswordToken();
 		return forgotPasswordToken;
 	}
 
@@ -114,7 +115,8 @@ public class User implements Identifiable {
     }
 
 	public void touchForgotPasswordToken () {
-		this.forgotPasswordToken = Digester.encrypt(System.currentTimeMillis()+getEmail());
+		String tokenSource = Math.random() + System.currentTimeMillis() + getEmail() + getId();
+		this.forgotPasswordToken = Digester.encrypt(tokenSource);
 	}
 
 	public boolean isValidForgotPasswordToken(String token) {
