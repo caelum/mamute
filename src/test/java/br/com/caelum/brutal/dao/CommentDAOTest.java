@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
+import org.joda.time.DateTime;
 import org.junit.Test;
 
 import br.com.caelum.brutal.integracao.dao.DatabaseTestCase;
@@ -43,7 +44,9 @@ public class CommentDAOTest extends DatabaseTestCase {
         session.save(otherQuestion);
         session.save(otherAnswer);
         
-        List<SubscribableAndUser> recentComments = comments.getRecentSubscribables(3);
+        Long milisecAgo = (long) (3 * (60 * 60 * 1000));
+        DateTime threeHoursAgo = new DateTime(System.currentTimeMillis() - milisecAgo);
+        List<SubscribableAndUser> recentComments = comments.getSubscribablesAfter(threeHoursAgo);
         
         assertEquals(2, recentComments.size());
         assertEquals(answerAuthor.getId(), recentComments.get(0).getUser().getId());
