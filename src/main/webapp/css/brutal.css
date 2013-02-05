@@ -98,15 +98,12 @@ a{
 .subtitle {
 	display: block;
 	font-size: 13px;
+	overflow: visible;
 }
 
 .question {
 	border-bottom: 1px solid #EAEAEA;
 	padding: 11px 0;
-}
-
-.summary {
-	
 }
 
 .question-title a {
@@ -128,4 +125,30 @@ a{
 	font-family: Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif;
 	font-size: 18px;
 	font-weight: bold;
+	padding-bottom: 10px;
+}
+
+#submenu h1 {
+	overflow: visible;
+}
+
+/*TAG*/
+.tags {
+	float: left;
+}
+.tag{
+	background-color: #e0eaf1;
+	border-bottom: 1px solid #3e6d8e;
+	border-right: 1px solid #7f9fb6;
+	color: #3e6d8e;
+	display: inline-block;
+	font-size: 12px;
+	margin: 3px 4px;
+	padding: 3px 4px;
+}
+.tag:hover{
+	background-color: #3e6d8e;
+	border-bottom: 1px solid #37607d;
+	border-right: 1px solid #37607d;
+	color: #e0eaf1;
 }

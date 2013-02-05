@@ -53,8 +53,6 @@
 	</ul>
 </c:if>
 
-<a href="<c:url value="/list/withTag/1/java"/>">java</a>
-
 <c:if test="${not empty currentUser }">
 	Ola ${currentUser }, voce quer 
 	<a href="<c:url value="/logout" />" />deslogar</a>?

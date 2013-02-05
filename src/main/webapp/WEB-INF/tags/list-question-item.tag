@@ -20,7 +20,10 @@
 					${question.title}
 			</a>
 		</h3>
-		<div>tags</div>
+		<div class="tags">
+			<a href="<c:url value="/list/withTag/1/java"/>" class="tag">java</a>
+		</div>
+		
 		<div class="stats">
 			<div><tags:prettyTime time="${question.lastUpdatedAt }" /></div>
 			<div>${question.lastTouchedBy.name } ${question.lastTouchedBy.karma }</div>
