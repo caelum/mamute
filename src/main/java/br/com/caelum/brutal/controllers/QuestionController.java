@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.controllers;
 
+import java.util.List;
+
 import br.com.caelum.brutal.auth.Logged;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.TagDAO;
@@ -46,8 +48,11 @@ public class QuestionController {
 	@Post("/question/edit/{id}")
 	@Logged
 	public void edit(QuestionInformation question, String tagNames, Long id) {
+		List<Tag> tags = this.tags.loadAll(tagNames, currentUser);
+		question.add(tags);
+
 		Question original = questions.getById(id);
-		UpdateStatus status = new Updater(currentUser).update(original, question);
+		UpdateStatus status = new Updater().update(original, question);
 		result.include("status", status);
 	}
 	
@@ -71,10 +76,8 @@ public class QuestionController {
 	public void newQuestion(Question question, String tagNames) {
 		question.setAuthor(currentUser);
 		questions.save(question);
-		for (String tagName : tagNames.split(" ")) {
-			Tag newTag = tags.saveOrLoad(new Tag(tagName, "", currentUser));
-			question.getInformation().addTag(newTag);
-		}
+		List<Tag> tags = this.tags.loadAll(tagNames, currentUser);
+		question.getInformation().add(tags);
 		result.redirectTo(this).showQuestion(question.getId(),
 				question.getSluggedTitle());
 	}

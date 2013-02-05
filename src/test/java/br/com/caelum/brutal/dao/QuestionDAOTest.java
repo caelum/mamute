@@ -3,6 +3,7 @@ package br.com.caelum.brutal.dao;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.ConstraintViolationException;
@@ -77,7 +78,7 @@ public class QuestionDAOTest extends DatabaseTestCase {
 		
 		Tag sal = new Tag("sal", "", null);
 		tags.saveOrLoad(sal);
-		salDaAzar.getInformation().addTag(sal);
+		salDaAzar.getInformation().add(Arrays.asList(sal));
 		
 		List<Question> perguntasComSal = questions.withTag(sal);
 

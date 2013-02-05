@@ -79,10 +79,6 @@ public class QuestionInformation {
 		this.markedDescription = MarkDown.parse(description);
 	}
 
-	public void addTag(Tag tag) {
-		this.tags.add(tag);
-	}
-
 	public String getTitle() {
 		return title;
 	}
@@ -110,6 +106,10 @@ public class QuestionInformation {
 
 	public User getAuthor() {
 		return author;
+	}
+
+	public void add(List<Tag> tags) {
+		this.tags.addAll(tags);
 	}
 
 }
