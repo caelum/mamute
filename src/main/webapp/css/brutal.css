@@ -1,34 +1,13 @@
-.hint {
-	display: none;
-}
+*{box-sizing:border-box;}
 
-.hidden {
-	display : none;
-}
 
-.edit-via-ajax span {
-	display : none;
-}
-.edit div {
-	display : none;
-}
 
-.vote .vote-option {
-	cursor: pointer;
-}
-
-.voted {
-	color: #FF0000;
-}
-
-.suggestion-accepted {
-	color: #FF0000;
-}
-
-.solution{
-	color: #00FF00;
-}
-
-.already-voted{
-	display:none;
-}
+.hint {display: none;}
+.hidden {display : none;}
+.edit-via-ajax span {display : none;}
+.edit div {display : none;}
+.vote .vote-option {cursor: pointer;}
+.voted {color: #FF0000;}
+.suggestion-accepted {color: #FF0000;}
+.solution{color: #00FF00;}
+.already-voted{display:none;}
