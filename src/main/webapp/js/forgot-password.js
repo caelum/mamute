@@ -25,6 +25,10 @@ $(".change-pass").on("submit", function(e) {
 	var forgot = new ForgotPassword(this);
 	if(!forgot.validate()) {
 		e.preventDefault();
-		console.log(forgot.error);
+		invalidForm();
 	}
 });
+
+function invalidForm() {
+	console.log(forgot.error);
+}
