@@ -25,12 +25,12 @@ public class QuestionInformation {
 	@GeneratedValue
 	private Long id;
 
-	@Type(type = "text")
+	@Lob
 	@Length(min = 15)
 	@NotEmpty
 	private String title;
 
-	@Type(type = "text")
+	@Lob
 	@Length(min = 30)
 	@NotEmpty
 	private String description;

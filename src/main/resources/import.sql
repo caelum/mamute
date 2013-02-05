@@ -19,8 +19,10 @@ insert into Question (voteCount, id,createdAt, author_id, views, information_id)
 insert into Question (voteCount, id,createdAt, author_id, views, information_id) values (0,5,'20130101', 5, 0,5);
 insert into Question (voteCount, id,createdAt, author_id, views, information_id) values (0,6,'20130101', 6, 0,6);
 
-insert into Answer(voteCount, createdAt,text, htmlText, author_id,question_id) values (0,now(), 'Como todo belo coreano faz', 'Como todo belo coreano faz', 3, 1);
-insert into Answer(voteCount, createdAt,text, htmlText, author_id,question_id) values (0,now(), 'Como toda bela coreana faz', 'Como toda bela coreana faz', 4, 1);
-insert into Answer(voteCount, id, createdAt,text, htmlText, author_id,question_id) values (0,3,now(), 'Como todo belo ocidental paga pau faz', 'Como todo belo ocidental paga pau faz', 2, 2);
+insert into AnswerInformation(id, createdAt,description, markedDescription, author_id) values (1,now(), 'Como todo belo coreano faz', 'Como todo belo coreano faz', 3);
+insert into AnswerInformation(id, createdAt,description, markedDescription, author_id) values (2,now(), 'Como toda bela coreana faz', 'Como toda bela coreana faz', 4);
+insert into AnswerInformation(id, createdAt,description, markedDescription, author_id) values (3,now(), 'Como todo belo ocidental paga pau faz', 'Como todo belo ocidental paga pau faz', 2);
+insert into Answer(voteCount, createdAt,author_id,question_id, information_id) values (0,now(),3, 1,1);
+insert into Answer(voteCount, createdAt,author_id,question_id, information_id) values (0,now(),4, 1,2);
+insert into Answer(voteCount, id, createdAt,author_id,question_id, information_id) values (0,3,now(),2, 2,3);
 update Question set solution_id=3 where id=2;
-update Answer set htmlText = text;
