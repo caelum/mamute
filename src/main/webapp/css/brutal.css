@@ -7,7 +7,7 @@ a{
 	color: rgb(0, 119, 204);
 }
 
-.container{
+.container, .content{
 	margin: 0 auto;
 	width: 960px;
 }
@@ -32,11 +32,15 @@ a{
 	padding:2px;
 	overflow: visible;
 }
-.logo{
+.logo, .login-form{
 	float:left;
 }
 .search-form{
 	float:right;
+}
+
+.content{
+	overflow: visible;
 }
 
 /*MENU*/
@@ -57,9 +61,17 @@ a{
 	padding: 0px 12px;
 }
 
+.selected {
+	background-color: #F90;
+}
+
 #ask {
 	margin-right: 0;
-	margin-left: 15px;
+	margin-left: 50px;
+}
+
+.clear{
+	clear: both;
 }
 
 /*HOME*/
@@ -109,4 +121,11 @@ a{
 
 .author{
 	font-size: 13px;
+}
+
+#submenu{
+	border-bottom: 1px solid #CCC;
+	font-family: Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif;
+	font-size: 18px;
+	font-weight: bold;
 }

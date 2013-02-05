@@ -11,13 +11,18 @@
 </head>
 <body>
 <header class="header">
-	<div class="container">
+	<div class="content">
+		<c:if test="${empty currentUser }">
+			<%@ include file="/WEB-INF/jsp/auth/loginForm.jsp" %>
+		</c:if>
 		<form class="search-form" action="<c:url value='/search' />" method="get">
 			<input name="query" placeholder="search" type="text"/>
 			<input type="submit"/>
 		</form>
-		<br style="clear: both"/>
-		<h1 class="logo">Brutal</h1>
+		
+		<br class="clear"/>
+	
+		<h1 class="logo">Logo do Brutal</h1>
 		<ul class="hmenu">
 			<li><a href="<c:url value="/"/>"><fmt:message key="menu.questions"/></a></li> 
 			<li><a href="<c:url value="/list/unanswered"/>"><fmt:message key="menu.unanswered"/></a></li>
@@ -25,6 +30,7 @@
 		</ul>
 	</div>
 </header>
+
 <c:if test="${not empty alerts}">
 	<ul>
 		<c:forEach var="alert" items="${alerts}">
