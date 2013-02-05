@@ -18,7 +18,6 @@ public class UpdaterTest {
 
     @Before
     public void before_test() {
-        edits = mock(HistoryDAO.class);
         author = new User("author", "author@gmail", "1234");
         author.setId(1l);
         question = new Question("titel", "description");
