@@ -27,10 +27,8 @@ public class AnswerDAO {
 		this.session.save(answer);
 	}
 	
-	public List<SubscribableAndUser> getRecentSubscribables(int hoursAgo) {
-	    Long milisecAgo = (long) (hoursAgo * (60 * 60 * 1000));  
-        DateTime timeAgo = new DateTime(System.currentTimeMillis() - milisecAgo);
-        
+	@SuppressWarnings("unchecked")
+    public List<SubscribableAndUser> getSubscribablesAfter(DateTime timeAgo) {
         Query query = session.createQuery("select distinct new br.com.caelum.brutal.model.SubscribableAndUser(answer, author) from Answer answer " +
         		"join answer.question.answers ans " +
         		"join ans.author author where (answer.createdAt) > :timeAgo and author!=answer.author");

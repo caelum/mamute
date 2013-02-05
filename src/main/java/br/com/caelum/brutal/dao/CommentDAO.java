@@ -30,10 +30,7 @@ public class CommentDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-    public List<SubscribableAndUser> getRecentSubscribables(int hoursAgo) {
-        Long milisecAgo = (long) (hoursAgo * (60 * 60 * 1000));  
-        DateTime timeAgo = new DateTime(System.currentTimeMillis() - milisecAgo);
-        
+    public List<SubscribableAndUser> getSubscribablesAfter(DateTime timeAgo) {
         Query query = session.createQuery("select distinct new br.com.caelum.brutal.model.SubscribableAndUser(comment, author) from Question question " +
                 "join question.comments comment " +
                 "join question.answers answer " +

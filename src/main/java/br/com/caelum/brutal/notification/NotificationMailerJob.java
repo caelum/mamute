@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
 import org.apache.log4j.Logger;
+import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.dao.AnswerDAO;
 import br.com.caelum.brutal.dao.CommentDAO;
@@ -38,8 +39,11 @@ public class NotificationMailerJob implements CronTask {
 
     @Override
     public void execute() {
-        List<SubscribableAndUser> recentSubscribables = answers.getRecentSubscribables(3);
-        recentSubscribables.addAll(comments.getRecentSubscribables(3));
+        int hoursAgo = 3;
+        Long milisecAgo = (long) (hoursAgo * (60 * 60 * 1000));
+        DateTime threeHoursAgo = new DateTime(System.currentTimeMillis() - milisecAgo);
+        List<SubscribableAndUser> recentSubscribables = answers.getSubscribablesAfter(threeHoursAgo);
+        recentSubscribables.addAll(comments.getSubscribablesAfter(threeHoursAgo));
         
         Map<String, List<Subscribable>> subscribablesByEmail = new HashMap<>(); 
         Map<String, String> usersNames = new HashMap<>(); 
@@ -68,7 +72,7 @@ public class NotificationMailerJob implements CronTask {
 
     @Override
     public String frequency() {
-        return "0 * * * * ?";
+        return "0 0 0/3 * * ?";
     }
 
 }
