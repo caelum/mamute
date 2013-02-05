@@ -2,14 +2,10 @@ package br.com.caelum.brutal.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import br.com.caelum.brutal.controllers.Updater;
 import br.com.caelum.brutal.dao.HistoryDAO;
@@ -34,8 +30,8 @@ public class UpdaterTest {
         User user = new User("chico", "chico@gmail.com", "1234");
         user.setId(2l);
         
-        Updater updater = new Updater(user, edits);
-        UpdateStatus update = updater.update(question, "description", "new desc");
+        Updater updater = new Updater();
+        UpdateStatus update = updater.update(question, new QuestionInformation( "title", "description", user));
         
         assertEquals(update, UpdateStatus.REFUSED);
         verify(edits, never()).save(Mockito.any(UpdateHistory.class));
@@ -43,8 +39,8 @@ public class UpdaterTest {
     
     @Test
     public void should_refuse_if_is_invalid_field() {
-        Updater updater = new Updater(author, edits);
-        UpdateStatus update = updater.update(question, "id", "new desc");
+        Updater updater = new Updater();
+        UpdateStatus update = updater.update(question, new QuestionInformation("new title", "new description", author));
         
         assertEquals(update, UpdateStatus.REFUSED);
         verify(edits, never()).save(Mockito.any(UpdateHistory.class));
@@ -56,8 +52,8 @@ public class UpdaterTest {
         User authorized = mock(User.class);
         when(authorized.canUpdate(question)).thenReturn(status);
         
-        Updater updater = new Updater(authorized, edits);
-        UpdateStatus update = updater.update(question, "description", "new desc");
+        Updater updater = new Updater();
+        UpdateStatus update = updater.update(question, new QuestionInformation("new Title", "new description", authorized));
         
         assertEquals(update, status);
         verify(edits, times(1)).save(Mockito.any(UpdateHistory.class));
