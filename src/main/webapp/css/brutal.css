@@ -1,4 +1,4 @@
-*{box-sizing:border-box;}
+*{box-sizing:border-box; overflow:hidden;}
 body, a{
 	font-family: Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif;
 }
@@ -21,6 +21,23 @@ a{
 .suggestion-accepted {color: #FF0000;}
 .solution{color: #00FF00;}
 .already-voted{display:none;}
+
+/*HEADER*/
+.header, .logo, .search-form{
+	height:31px;
+	line-height:31px;
+}
+.header{
+	background-color: #EEE;
+	padding:2px;
+}
+.logo{
+	float:left;
+}
+.search-form{
+	float:right;
+}
+
 
 /*HOME*/
 .info{
@@ -50,7 +67,6 @@ a{
 
 .question {
 	border-bottom: 1px solid #EAEAEA;
-	overflow: hidden;
 	padding: 11px 0;
 }
 

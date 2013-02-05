@@ -10,10 +10,15 @@
 <link rel="stylesheet" href="<c:url value="/css/pagedown.css"/>">
 </head>
 <body>
-<form action="<c:url value='/search' />" method="get">
-	<input name="query" type="text"/>
-	<input type="submit"/>
-</form>
+<header class="header">
+	<div class="container">
+		<h1 class="logo">Brutal</h1>
+		<form class="search-form" action="<c:url value='/search' />" method="get">
+			<input name="query" placeholder="search" type="text"/>
+			<input type="submit"/>
+		</form>
+	</div>
+</header>
 <c:if test="${not empty alerts}">
 	<ul>
 		<c:forEach var="alert" items="${alerts}">
@@ -35,18 +40,13 @@
 		</c:forEach>
 	</ul>
 </c:if>
-
-<hr/>
 <a href="<c:url value="/"/>"><fmt:message key="menu.questions"/></a> | 
 <a href="<c:url value="/list/unanswered"/>"><fmt:message key="menu.unanswered"/></a>
 <a href="<c:url value="/list/withTag/1/java"/>">java</a>
-<hr/>
 
 <c:if test="${not empty currentUser }">
-
-Ola ${currentUser }, voce quer 
-<a href="<c:url value="/logout" />" />deslogar</a>?
-<img src="${currentUser.photo }" />
+	Ola ${currentUser }, voce quer 
+	<a href="<c:url value="/logout" />" />deslogar</a>?
+	<img src="${currentUser.photo }" />
 </c:if>
-<hr />
 <section class="container">
