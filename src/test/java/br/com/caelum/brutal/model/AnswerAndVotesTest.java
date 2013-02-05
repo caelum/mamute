@@ -14,7 +14,7 @@ public class AnswerAndVotesTest {
 	
 	@Test
 	public void should_fill_in_only_empty_spaces_with_null() {
-		Question q = new Question("", "");
+		Question q = new Question("", "", null);
 		
 		Object[] first = new Object[]{answerFor(q,1 ), mock(Vote.class)};
 		Object[] second = new Object[]{answerFor(q,2), mock(Vote.class)};

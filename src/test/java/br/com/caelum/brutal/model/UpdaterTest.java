@@ -38,7 +38,7 @@ public class UpdaterTest {
         Updater updater = new Updater();
         UpdateStatus update = updater.update(question, new QuestionInformation("new title", "new description", author));
         
-        assertEquals(update, UpdateStatus.REFUSED);
+        assertEquals(UpdateStatus.REFUSED, update);
         fail();
     }
     

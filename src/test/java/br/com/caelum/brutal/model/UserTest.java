@@ -16,8 +16,7 @@ public class UserTest {
     public void before_test() {
         author = new User("name", "email", "12234");
         author.setId(1l);
-        Question question = new Question("title", "text");
-        question.setAuthor(author);
+        Question question = new Question("title", "text", author);
         
         otherUser = new User("other", "email", "1234");
         otherUser.setId(2l);

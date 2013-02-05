@@ -8,7 +8,7 @@ public class AnswerTest {
 
 	@Test
 	public void should_mark_question_as_solved() {
-		Question canILiveForever = new Question("", "");
+		Question canILiveForever = new Question("", "", null);
 		Answer yes = new Answer("Yes", canILiveForever, null);
 		
 		assertEquals(null, canILiveForever.getSolution());
@@ -20,7 +20,7 @@ public class AnswerTest {
 	
 	@Test
 	public void should_return_that_answer_is_solution_or_not() {
-		Question canILiveForever = new Question("", "");
+		Question canILiveForever = new Question("", "", null);
 		Answer yes = new Answer("Yes", canILiveForever, null);
 		
 		assertFalse(yes.isSolution());
