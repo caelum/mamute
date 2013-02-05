@@ -73,7 +73,9 @@ public class QuestionController {
 
 	@Post("/question/ask")
 	@Logged
-	public void newQuestion(Question question, String tagNames) {
+	public void newQuestion(Question question, String title, String description, String tagNames) {
+		QuestionInformation information = new QuestionInformation(title, description, currentUser);
+		question.enqueueChange(information, UpdateStatus.NO_NEED_TO_APPROVE);
 		question.setAuthor(currentUser);
 		questions.save(question);
 		List<Tag> tags = this.tags.loadAll(tagNames, currentUser);
