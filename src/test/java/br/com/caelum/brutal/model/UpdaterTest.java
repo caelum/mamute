@@ -18,8 +18,7 @@ public class UpdaterTest {
     public void before_test() {
         author = new User("author", "author@gmail", "1234");
         author.setId(1l);
-        question = new Question("titel", "description");
-        question.setAuthor(author);
+        question = new Question("titel", "description", author);
     }
 
     @Test
