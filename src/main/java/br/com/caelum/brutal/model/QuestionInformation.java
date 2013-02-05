@@ -49,7 +49,7 @@ public class QuestionInformation {
 	private Moderation moderation;
 
 	@ManyToMany
-	private final List<Tag> tags = new ArrayList<>();
+	private List<Tag> tags;
 	@Lob
 	private String markedDescription;
 
@@ -59,13 +59,14 @@ public class QuestionInformation {
 	 * @deprecated hibernate only
 	 */
 	QuestionInformation() {
-		this("", "", null);
+		this("", "", null, new ArrayList<Tag>());
 	}
 
-	public QuestionInformation(String title, String description, User author) {
+	public QuestionInformation(String title, String description, User author, List<Tag> tags) {
 		this.author = author;
 		setTitle(title);
 		setDescription(description);
+		this.tags = tags;
 	}
 
 	public void moderate(User moderator, UpdateStatus status) {
@@ -115,8 +116,11 @@ public class QuestionInformation {
 		return author;
 	}
 
-	public void add(List<Tag> tags) {
-		this.tags.addAll(tags);
+	public void setInitStatus(UpdateStatus status) {
+		if(this.status!=null) {
+			throw new IllegalStateException("Status can only be setted once. Afterwards it should BE MODERATED!");
+		}
+		this.status = status;
 	}
 
 }

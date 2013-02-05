@@ -48,10 +48,9 @@ public class QuestionController {
 	@Post("/question/edit/{id}")
 	@Logged
 	public void edit(String title, String description, String tagNames, Long id) {
-		QuestionInformation information = new QuestionInformation(title, description, currentUser);
-
 		List<Tag> tags = this.tags.loadAll(tagNames, currentUser);
-		information.add(tags);
+		QuestionInformation information = new QuestionInformation(title, description, currentUser, tags);
+
 
 		Question original = questions.getById(id);
 		UpdateStatus status = new Updater().update(original, information);
@@ -76,12 +75,12 @@ public class QuestionController {
 	@Post("/question/ask")
 	@Logged
 	public void newQuestion(Question question, String title, String description, String tagNames) {
-		QuestionInformation information = new QuestionInformation(title, description, currentUser);
+		List<Tag> tags = this.tags.loadAll(tagNames, currentUser);
+		QuestionInformation information = new QuestionInformation(title, description, currentUser, tags);
+
 		question.enqueueChange(information, UpdateStatus.NO_NEED_TO_APPROVE);
 		question.setAuthor(currentUser);
 		questions.save(question);
-		List<Tag> tags = this.tags.loadAll(tagNames, currentUser);
-		question.getInformation().add(tags);
 		result.redirectTo(this).showQuestion(question.getId(),
 				question.getSluggedTitle());
 	}

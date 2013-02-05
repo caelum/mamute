@@ -11,13 +11,9 @@ import br.com.caelum.vraptor.ioc.Component;
 public class AnswerDAO {
 
 	private final Session session;
-    private final UserDAO userDao;
-    private final QuestionDAO questionDAO;
 
-	public AnswerDAO(Session session, QuestionDAO questionDAO, UserDAO userDao) {
+	public AnswerDAO(Session session) {
 		this.session = session;
-        this.questionDAO = questionDAO;
-        this.userDao = userDao;
 	}
 	
 	public Answer getById(Long id) {
@@ -28,20 +24,4 @@ public class AnswerDAO {
 		this.session.save(answer);
 	}
 
-	public Answer create(String text, Question question, User author) {
-		Question questionLoaded = questionDAO.getById(question.getId());
-		User authorLoaded = userDao.findById(author.getId());
-		
-		questionLoaded.touchedBy(authorLoaded);
-		
-		Answer answer = new Answer(text, questionLoaded, authorLoaded);
-		save(answer);
-		return answer;
-	}
-	
-
 }
-
-
-
-

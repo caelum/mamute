@@ -194,6 +194,7 @@ public class Question implements Votable, Commentable, Updatable {
 		if(status.equals(UpdateStatus.NO_NEED_TO_APPROVE)) {
 			this.information = newInformation;
 		}
+        newInformation.setInitStatus(status);
 		this.history.add(newInformation);
 		this.touchedBy(newInformation.getAuthor());
 	}
