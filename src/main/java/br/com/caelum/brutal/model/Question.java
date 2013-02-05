@@ -218,7 +218,6 @@ public class Question implements Votable, Commentable, Updatable {
 		return information.getTagsAsString();
 	}
 	
-
 	public QuestionInformation getInformation() {
 		return information;
 	}

@@ -26,8 +26,7 @@ public class NotificationMailerJobTest {
         User responder1 = new User("chico", "chico@gmail.com", "12123123");
         User responder2 = new User("joviane", "joviane@gmail.com", "12123123");
         
-        Question question = new Question("title title title title", "description descriptions descriptions descriptions descriptions");
-        question.setAuthor(author);
+        Question question = new Question("title title title title", "description descriptions descriptions descriptions descriptions", author);
         
         Answer newAnswer1 = new Answer("answer answer answer answer answer answer", question, responder1);
         question.add(newAnswer1);
