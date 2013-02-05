@@ -137,7 +137,8 @@ public class Answer implements Votable, Commentable, Updatable, Subscribable {
 		this.comments.add(comment);
 		return comment;
 	}
-
+	
+	@Override
 	public String getTypeName() {
 		return "Answer";
 	}
@@ -178,5 +179,23 @@ public class Answer implements Votable, Commentable, Updatable, Subscribable {
 		this.lastTouchedBy = author;
 		this.lastUpdatedAt = new DateTime();
 	}
+
+    @Override
+    public String getTrimmedContent() {
+        String markedDescription = getMarkedDescription();
+        if (markedDescription.length() < 90)
+            return markedDescription;
+        return markedDescription.substring(0, 90) + "...";
+    }
+
+    @Override
+    public DateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    @Override
+    public String getTypeNameKey() {
+        return "answer.type_name";
+    }
 
 }

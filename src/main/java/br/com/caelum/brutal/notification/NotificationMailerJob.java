@@ -3,6 +3,7 @@ package br.com.caelum.brutal.notification;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -10,6 +11,8 @@ import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import br.com.caelum.brutal.dao.AnswerDAO;
 import br.com.caelum.brutal.dao.CommentDAO;
@@ -61,7 +64,12 @@ public class NotificationMailerJob implements CronTask {
         
         for (Entry<String, List<Subscribable>> entry : subscribablesByEmail.entrySet()) {
             String userEmail = entry.getKey();
-            Email email = templates.template("notifications_mail").with("subscribables", entry.getValue()).to(usersNames.get(userEmail), userEmail);
+            DateTimeFormatter dateFormat = DateTimeFormat.forPattern("MMM, dd").withLocale(new Locale("pt", "br"));
+            
+            Email email = templates.template("notifications_mail")
+                    .with("subscribables", entry.getValue())
+                    .with("dateFormat", dateFormat)
+                    .to(usersNames.get(userEmail), userEmail);
             try {
                 mailer.send(email);
             } catch (EmailException e) {
@@ -72,7 +80,8 @@ public class NotificationMailerJob implements CronTask {
 
     @Override
     public String frequency() {
-        return "0 0 0/3 * * ?";
+        //return "0 0 0/3 * * ?";
+        return "0 0/1 * * * ?";
     }
 
 }
