@@ -24,12 +24,10 @@ public class CommentDAOTest extends DatabaseTestCase {
         User answerAuthor = new User("answer author", "aauthor@gmail", "1234");
         User commentAuthor = new User("comment author", "cauthor@gmail", "1234");
         
-        Question question = new Question("question question question question", "description description description description description");
-        question.setAuthor(questionAuthor);
+        Question question = new Question("question question question question", "description description description description description", questionAuthor);
         Answer answer = new Answer("blablablablablablablablablabla", question, answerAuthor);
         
-        Question otherQuestion = new Question("question question question question", "description description description description description");
-        question.setAuthor(otherQuestionAuthor);
+        Question otherQuestion = new Question("question question question question", "description description description description description", otherQuestionAuthor);
         Answer otherAnswer = new Answer("blablablablablablablablablabla", otherQuestion, answerAuthor);
         
         Comment comment = new Comment(commentAuthor, "commentcommentcommentcommentcomment");
