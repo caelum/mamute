@@ -20,7 +20,7 @@ import org.joda.time.DateTime;
 import com.sun.istack.internal.NotNull;
 
 @Entity
-public class Answer implements Votable, Commentable, Updatable {
+public class Answer implements Votable, Commentable, Updatable, Subscribable {
 	@Id
 	@GeneratedValue
 	private Long id;

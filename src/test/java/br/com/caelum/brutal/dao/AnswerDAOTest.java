@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import br.com.caelum.brutal.integracao.dao.DatabaseTestCase;
 import br.com.caelum.brutal.model.Answer;
-import br.com.caelum.brutal.model.AnswerAndSubscribedUser;
+import br.com.caelum.brutal.model.SubscribableAndUser;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
 
@@ -48,7 +48,7 @@ public class AnswerDAOTest extends DatabaseTestCase {
         session.save(newAnswer1);
         session.save(newAnswer2);
         
-        List<AnswerAndSubscribedUser> recentAnswers = notifiableDAO.getRecentAnswersAndSubscribedUsers(3);
+        List<SubscribableAndUser> recentAnswers = notifiableDAO.getRecentSubscribables(3);
         assertEquals(6, recentAnswers.size());
     }
     

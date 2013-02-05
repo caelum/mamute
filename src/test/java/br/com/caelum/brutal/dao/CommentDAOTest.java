@@ -9,8 +9,8 @@ import org.junit.Test;
 import br.com.caelum.brutal.integracao.dao.DatabaseTestCase;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.Comment;
-import br.com.caelum.brutal.model.CommentAndSubscribedUser;
 import br.com.caelum.brutal.model.Question;
+import br.com.caelum.brutal.model.SubscribableAndUser;
 import br.com.caelum.brutal.model.User;
 
 public class CommentDAOTest extends DatabaseTestCase {
@@ -43,14 +43,14 @@ public class CommentDAOTest extends DatabaseTestCase {
         session.save(otherQuestion);
         session.save(otherAnswer);
         
-        List<CommentAndSubscribedUser> recentComments = comments.getRecentAnswersAndSubscribedUsers(3);
+        List<SubscribableAndUser> recentComments = comments.getRecentSubscribables(3);
         
         assertEquals(2, recentComments.size());
         assertEquals(answerAuthor.getId(), recentComments.get(0).getUser().getId());
-        assertEquals(comment.getId(), recentComments.get(0).getComment().getId());
+        assertEquals(comment.getId(), ((Comment) recentComments.get(0).getSubscribable()).getId());
         
         assertEquals(questionAuthor.getId(), recentComments.get(1).getUser().getId());
-        assertEquals(comment.getId(), recentComments.get(1).getComment().getId());
+        assertEquals(comment.getId(), ((Comment) recentComments.get(1).getSubscribable()).getId());
         
         
     }

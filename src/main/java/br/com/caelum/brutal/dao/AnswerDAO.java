@@ -7,7 +7,7 @@ import org.hibernate.Session;
 import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.model.Answer;
-import br.com.caelum.brutal.model.AnswerAndSubscribedUser;
+import br.com.caelum.brutal.model.SubscribableAndUser;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
@@ -27,16 +27,16 @@ public class AnswerDAO {
 		this.session.save(answer);
 	}
 	
-	public List<AnswerAndSubscribedUser> getRecentAnswersAndSubscribedUsers(int hoursAgo) {
+	public List<SubscribableAndUser> getRecentSubscribables(int hoursAgo) {
 	    Long milisecAgo = (long) (hoursAgo * (60 * 60 * 1000));  
         DateTime timeAgo = new DateTime(System.currentTimeMillis() - milisecAgo);
         
-        Query query = session.createQuery("select distinct new br.com.caelum.brutal.model.AnswerAndSubscribedUser(answer, author) from Answer answer " +
+        Query query = session.createQuery("select distinct new br.com.caelum.brutal.model.SubscribableAndUser(answer, author) from Answer answer " +
         		"join answer.question.answers ans " +
         		"join ans.author author where (answer.createdAt) > :timeAgo and author!=answer.author");
-        List<AnswerAndSubscribedUser> results = query.setParameter("timeAgo", timeAgo).list();
+        List<SubscribableAndUser> results = query.setParameter("timeAgo", timeAgo).list();
         
-        query = session.createQuery("select distinct new br.com.caelum.brutal.model.AnswerAndSubscribedUser(answer, author) from Answer answer " +
+        query = session.createQuery("select distinct new br.com.caelum.brutal.model.SubscribableAndUser(answer, author) from Answer answer " +
         		"join answer.question.author author " +
         		"where (answer.createdAt) > :timeAgo and author!=answer.author");
         results.addAll(query.setParameter("timeAgo", timeAgo).list());
