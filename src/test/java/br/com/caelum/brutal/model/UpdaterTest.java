@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.model;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -8,11 +9,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.brutal.controllers.Updater;
-import br.com.caelum.brutal.dao.HistoryDAO;
 
 public class UpdaterTest {
     
-    private HistoryDAO edits;
     private User author;
     private Question question;
 
@@ -33,7 +32,7 @@ public class UpdaterTest {
         UpdateStatus update = updater.update(question, new QuestionInformation( "title", "description", user));
         
         assertEquals(update, UpdateStatus.REFUSED);
-        verify(edits, never()).save(Mockito.any(UpdateHistory.class));
+        fail();
     }
     
     @Test
@@ -42,7 +41,7 @@ public class UpdaterTest {
         UpdateStatus update = updater.update(question, new QuestionInformation("new title", "new description", author));
         
         assertEquals(update, UpdateStatus.REFUSED);
-        verify(edits, never()).save(Mockito.any(UpdateHistory.class));
+        fail();
     }
     
     @Test
@@ -55,7 +54,7 @@ public class UpdaterTest {
         UpdateStatus update = updater.update(question, new QuestionInformation("new Title", "new description", authorized));
         
         assertEquals(update, status);
-        verify(edits, times(1)).save(Mockito.any(UpdateHistory.class));
+        fail();
     }
     
 

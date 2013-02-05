@@ -38,12 +38,12 @@ public class SessionFactoryCreator implements ComponentFactory<SessionFactory> {
 
 		cfg.addAnnotatedClass(User.class);
 		cfg.addAnnotatedClass(Question.class);
+		cfg.addAnnotatedClass(AnswerInformation.class);
 		cfg.addAnnotatedClass(Answer.class);
 		cfg.addAnnotatedClass(Tag.class);
 		cfg.addAnnotatedClass(Vote.class);
 		cfg.addAnnotatedClass(Comment.class);
 		cfg.addAnnotatedClass(QuestionInformation.class);
-		cfg.addAnnotatedClass(AnswerInformation.class);
 
 		init();
 	}
