@@ -76,15 +76,8 @@ public class QuestionController {
 	public void newQuestion(Question question, String tagNames) {
 		question.setAuthor(currentUser);
 		questions.save(question);
-<<<<<<< HEAD
 		List<Tag> tags = this.tags.loadAll(tagNames, currentUser);
 		question.getInformation().add(tags);
-=======
-		for (String tagName : tagNames.split(" ")) {
-			Tag newTag = tags.saveOrLoad(new Tag(tagName, "", currentUser));
-			question.addTag(newTag);
-		}
->>>>>>> 362150a6329f7e9366f35da1805d48c562c3db95
 		result.redirectTo(this).showQuestion(question.getId(),
 				question.getSluggedTitle());
 	}
