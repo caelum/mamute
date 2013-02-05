@@ -43,6 +43,7 @@ public class TagDAO {
 
 	public List<Tag> loadAll(String tagNames, User author) {
 		List<Tag> tags = new ArrayList<>();
+		if(tagNames==null || tagNames.isEmpty()) return tags;
 		for (String tagName : tagNames.split(" ")) {
 			Tag newTag = saveOrLoad(new Tag(tagName, "", author));
 			tags.add(newTag);

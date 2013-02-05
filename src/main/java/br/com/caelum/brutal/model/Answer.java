@@ -48,6 +48,7 @@ public class Answer implements Votable, Commentable, Updatable, Notifiable {
 	private User lastTouchedBy = null;
 
 	@OneToMany
+	@Cascade(SAVE_UPDATE)
 	private List<AnswerInformation> history= new ArrayList<>();
 	
 	@JoinTable(name="Answer_Votes")

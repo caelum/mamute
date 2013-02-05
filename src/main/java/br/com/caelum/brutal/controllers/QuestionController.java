@@ -54,6 +54,7 @@ public class QuestionController {
 
 		Question original = questions.getById(id);
 		UpdateStatus status = original.updateWith(information);
+		questions.save(original);
 		result.include("status", status);
 	}
 	
