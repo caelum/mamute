@@ -6,8 +6,6 @@
 	Bela lista de mensagens 
 </c:if>
 
-<a href='<c:url value="/question/ask" />'><fmt:message
-		key="question.ask" /></a>
 <br />
 <br />
 

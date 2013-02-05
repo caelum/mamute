@@ -30,6 +30,7 @@ a{
 .header{
 	background-color: #EEE;
 	padding:2px;
+	overflow: visible;
 }
 .logo{
 	float:left;
@@ -38,6 +39,28 @@ a{
 	float:right;
 }
 
+/*MENU*/
+.hmenu a{
+	color: white;
+	font-weight: bold;
+}
+
+.hmenu {
+	float: right;
+	margin-top: 20px;
+}
+
+.hmenu li{
+	background: #777;
+	float: left;
+	margin-right: 7px;
+	padding: 0px 12px;
+}
+
+#ask {
+	margin-right: 0;
+	margin-left: 15px;
+}
 
 /*HOME*/
 .info{
