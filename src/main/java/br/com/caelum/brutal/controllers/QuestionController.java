@@ -45,7 +45,7 @@ public class QuestionController {
 		result.include("question",  questions.getById(questionId));
 	}
 
-	@Post("/question/edit/{question.id}")
+	@Post("/question/edit/{id}")
 	@Logged
 	public void edit(QuestionInformation question, String tagNames, Long id) {
 		List<Tag> tags = this.tags.loadAll(tagNames, currentUser);
