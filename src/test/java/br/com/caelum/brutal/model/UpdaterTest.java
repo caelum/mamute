@@ -26,19 +26,11 @@ public class UpdaterTest {
         user.setId(2l);
         
         Updater updater = new Updater();
-        UpdateStatus update = updater.update(question, new QuestionInformation( "title", "description", user));
+        QuestionInformation newInformation = new QuestionInformation( "title", "description", user);
+		UpdateStatus update = updater.update(question, newInformation);
         
         assertEquals(update, UpdateStatus.REFUSED);
-        fail();
-    }
-    
-    @Test
-    public void should_refuse_if_is_invalid_field() {
-        Updater updater = new Updater();
-        UpdateStatus update = updater.update(question, new QuestionInformation("new title", "new description", author));
-        
-        assertEquals(UpdateStatus.REFUSED, update);
-        fail();
+        assertFalse(question.getHistory().contains(newInformation));
     }
     
     @Test
@@ -48,10 +40,11 @@ public class UpdaterTest {
         when(authorized.canUpdate(question)).thenReturn(status);
         
         Updater updater = new Updater();
-        UpdateStatus update = updater.update(question, new QuestionInformation("new Title", "new description", authorized));
+        QuestionInformation newInformation = new QuestionInformation("new Title", "new description", authorized);
+		UpdateStatus update = updater.update(question, newInformation);
         
-        assertEquals(update, status);
-        fail();
+        assertEquals(status, update);
+        assertTrue(question.getHistory().contains(newInformation));
     }
     
 

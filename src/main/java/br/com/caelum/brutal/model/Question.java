@@ -31,7 +31,7 @@ public class Question implements Votable, Commentable, Updatable {
 	private QuestionInformation information = null;
 	
 	@OneToMany
-	private List<QuestionInformation> history= new ArrayList<>();
+	private List<QuestionInformation> history = new ArrayList<>();
 	
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
 	private final DateTime createdAt = new DateTime();
@@ -232,5 +232,8 @@ public class Question implements Votable, Commentable, Updatable {
 		this.touchedBy(newInformation.getAuthor());
 	}
 
+	public List<QuestionInformation> getHistory() {
+		return history;
+	}
     
 }
