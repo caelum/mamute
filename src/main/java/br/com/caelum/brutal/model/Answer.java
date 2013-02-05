@@ -3,9 +3,7 @@ package br.com.caelum.brutal.model;
 import static org.hibernate.annotations.CascadeType.SAVE_UPDATE;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -22,7 +20,7 @@ import org.joda.time.DateTime;
 import com.sun.istack.internal.NotNull;
 
 @Entity
-public class Answer implements Votable, Commentable, Updatable, Notifiable {
+public class Answer implements Votable, Commentable, Updatable {
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -154,18 +152,13 @@ public class Answer implements Votable, Commentable, Updatable, Notifiable {
 		return this;
 	}
 
+    public Class<?> getType() {
+        return Answer.class;
+    }
+
     @Override
-    public Set<User> subscribed() {
-        List<Answer> answers = this.question.getAnswers();
-        Set<User> users = new HashSet<>();
-        for (Answer answer : answers) {
-            User author = answer.getAuthor();
-            if (!this.author.equals(author)) {
-                users.add(author);
-            }
-        }
-        users.add(question.getAuthor());
-        return users;
+    public String toString() {
+        return "Answer [id=" + id + "]";
     }
 
 	public UpdateStatus updateWith(AnswerInformation information) {

@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="<c:url value="/css/brutal.css"/>">
 <link rel="stylesheet" href="<c:url value="/css/pagedown.css"/>">
 </head>
-
+<body>
 <form action="<c:url value='/search' />" method="get">
 	<input name="query" type="text"/>
 	<input type="submit"/>
@@ -43,8 +43,10 @@
 <hr/>
 
 <c:if test="${not empty currentUser }">
+
 Ola ${currentUser }, voce quer 
 <a href="<c:url value="/logout" />" />deslogar</a>?
 <img src="${currentUser.photo }" />
 </c:if>
 <hr />
+<section class="container">

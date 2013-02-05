@@ -7,6 +7,10 @@ a{
 	color: rgb(0, 119, 204);
 }
 
+.container{
+	margin: 0 auto;
+	width: 960px;
+}
 
 .hint {display: none;}
 .hidden {display : none;}
