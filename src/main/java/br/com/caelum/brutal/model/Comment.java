@@ -70,6 +70,7 @@ public class Comment implements Updatable, Subscribable {
 		return htmlComment;
 	}
 
+    @Override
 	public String getTypeName() {
 		return "Comment";
 	}
@@ -84,5 +85,23 @@ public class Comment implements Updatable, Subscribable {
 
     public Class<?> getType() {
         return Comment.class;
+    }
+
+    @Override
+    public String getTrimmedContent() {
+        String comment = getHtmlComment();
+        if (comment.length() < 90)
+            return comment;
+        return comment.substring(0, 90) + "...";
+    }
+
+    @Override
+    public DateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    @Override
+    public String getTypeNameKey() {
+        return "comment.type_name";
     }
 }
