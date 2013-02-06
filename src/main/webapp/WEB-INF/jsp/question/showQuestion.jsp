@@ -1,7 +1,8 @@
+<h2 class="title page-title">${question.title}</h2>
+
+
 <tags:voteFor item="${question }" type="question" vote="${currentVote }"/>
 
-<span id="question-${question.id }">${question.title}</span>
-<br>
 <span id="question-description-${question.id }">${question.markedDescription}</span>
 (<a href="<c:url value="/question/edit/${question.id }"/>"><fmt:message key="edit" /></a>)
 
@@ -19,6 +20,9 @@
 	<c:if test="${answer.solution}">
 		<li class="answer solution" data-id="${answer.id}">
 			<p id="answer-${answer.id}">${answer.markedDescription}</p>
+			(<a href="<c:url value="/answer/edit/${answer.id }"/>"><fmt:message key="edit" /></a>)
+			<tags:voteFor item="${answer}" type="answer" vote="${vote}"/>
+			<tags:add-a-comment item="${answer}"/>
 		</li>
 	</c:if>
 	<c:if test="${not answer.solution}">
@@ -27,10 +31,10 @@
 			<a class="mark-as-solution" href="${linkTo[AnswerController].markAsSolution}">
 				<fmt:message key="answer.mark_as_solution" />
 			</a>
+			(<a href="<c:url value="/answer/edit/${answer.id }"/>"><fmt:message key="edit" /></a>)
+			<tags:voteFor item="${answer}" type="answer" vote="${vote}"/>
+			<tags:add-a-comment item="${answer}"/>
 		</li>
 	</c:if>
-	(<a href="<c:url value="/answer/edit/${answer.id }"/>"><fmt:message key="edit" /></a>)
-	<tags:voteFor item="${answer}" type="answer" vote="${vote}"/>
-	<tags:add-a-comment item="${answer}"/>
 </c:forEach>
 </ul>
