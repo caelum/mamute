@@ -5,7 +5,6 @@ import java.util.Arrays;
 import javax.servlet.http.HttpServletRequest;
 
 import br.com.caelum.brutal.controllers.AuthController;
-import br.com.caelum.brutal.controllers.ListController;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
