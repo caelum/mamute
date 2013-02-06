@@ -14,11 +14,7 @@
 					${question.title}
 			</a>
 		</h3>
-		<div class="tags">
-			<c:forEach items="${question.tags}" var="tag">
-				<a href="${linkTo[ListController].withTag[tag.name]}" class="tag">${tag.name}</a>
-			</c:forEach>
-		</div>
+		<tags:tagsFor question="${question}"/>
 		<div class="stats">
 			<div><tags:prettyTime time="${question.lastUpdatedAt }" /></div>
 			<div>${question.lastTouchedBy.name } ${question.lastTouchedBy.karma }</div>

@@ -174,3 +174,47 @@ input[type = "text"], input[type="search"], input[type="password"]{
 .solution .mark-as-solution{
 	display:none;
 }
+
+.post-area{
+	border-bottom: 1px solid #cccccc;
+	overflow:hidden;
+}
+
+.post-text{
+	float:right;
+	width:90%;
+}
+
+.vote-area{
+	width:10%;
+	float:left;
+}
+
+.vote-count{
+	font-size:24px;
+	color:#555;
+	text-align:center;
+	width:100%;
+	padding:6px;
+}
+
+.vote-option{
+	cursor:pointer;
+}
+
+.arrow{
+	width: 0;
+	height: 0;
+	line-height: 20px;
+	display: block;
+	text-indent: -9999px;
+	border: 13px solid transparent;
+}
+
+.down-arrow{
+	border-top-color: #818185;
+}
+
+.up-arrow{
+	border-bottom-color: #818185;
+}
