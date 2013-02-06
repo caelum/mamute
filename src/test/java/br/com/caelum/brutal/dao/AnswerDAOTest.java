@@ -12,7 +12,7 @@ import org.junit.Test;
 import br.com.caelum.brutal.integracao.dao.DatabaseTestCase;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.Question;
-import br.com.caelum.brutal.model.SubscribableAndUser;
+import br.com.caelum.brutal.model.SubscribableDTO;
 import br.com.caelum.brutal.model.User;
 
 public class AnswerDAOTest extends DatabaseTestCase {
@@ -50,8 +50,10 @@ public class AnswerDAOTest extends DatabaseTestCase {
         
         Long milisecAgo = (long) (3 * (60 * 60 * 1000));
         DateTime threeHoursAgo = new DateTime(System.currentTimeMillis() - milisecAgo);
-        List<SubscribableAndUser> recentAnswers = notifiableDAO.getSubscribablesAfter(threeHoursAgo);
+        List<SubscribableDTO> recentAnswers = notifiableDAO.getSubscribablesAfter(threeHoursAgo);
+        
         assertEquals(6, recentAnswers.size());
+        assertEquals(question.getId(), recentAnswers.get(0).getQuestion().getId());
     }
     
 }

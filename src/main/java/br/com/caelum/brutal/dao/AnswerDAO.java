@@ -7,7 +7,7 @@ import org.hibernate.Session;
 import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.model.Answer;
-import br.com.caelum.brutal.model.SubscribableAndUser;
+import br.com.caelum.brutal.model.SubscribableDTO;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
@@ -28,14 +28,16 @@ public class AnswerDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-    public List<SubscribableAndUser> getSubscribablesAfter(DateTime timeAgo) {
-        Query query = session.createQuery("select distinct new br.com.caelum.brutal.model.SubscribableAndUser(answer, author) from Answer answer " +
-        		"join answer.question.answers ans " +
+    public List<SubscribableDTO> getSubscribablesAfter(DateTime timeAgo) {
+        Query query = session.createQuery("select distinct new br.com.caelum.brutal.model.SubscribableDTO(answer, author, question) from Answer answer " +
+                "join answer.question question " +
+        		"join question.answers ans " +
         		"join ans.author author where (answer.createdAt) > :timeAgo and author!=answer.author");
-        List<SubscribableAndUser> results = query.setParameter("timeAgo", timeAgo).list();
+        List<SubscribableDTO> results = query.setParameter("timeAgo", timeAgo).list();
         
-        query = session.createQuery("select distinct new br.com.caelum.brutal.model.SubscribableAndUser(answer, author) from Answer answer " +
-        		"join answer.question.author author " +
+        query = session.createQuery("select distinct new br.com.caelum.brutal.model.SubscribableDTO(answer, author, question) from Answer answer " +
+                "join answer.question question " +
+        		"join question.author author " +
         		"where (answer.createdAt) > :timeAgo and author!=answer.author");
         results.addAll(query.setParameter("timeAgo", timeAgo).list());
         

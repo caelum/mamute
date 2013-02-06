@@ -11,7 +11,7 @@ import br.com.caelum.brutal.integracao.dao.DatabaseTestCase;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.Question;
-import br.com.caelum.brutal.model.SubscribableAndUser;
+import br.com.caelum.brutal.model.SubscribableDTO;
 import br.com.caelum.brutal.model.User;
 
 public class CommentDAOTest extends DatabaseTestCase {
@@ -46,7 +46,7 @@ public class CommentDAOTest extends DatabaseTestCase {
         
         Long milisecAgo = (long) (3 * (60 * 60 * 1000));
         DateTime threeHoursAgo = new DateTime(System.currentTimeMillis() - milisecAgo);
-        List<SubscribableAndUser> recentComments = comments.getSubscribablesAfter(threeHoursAgo);
+        List<SubscribableDTO> recentComments = comments.getSubscribablesAfter(threeHoursAgo);
         
         assertEquals(2, recentComments.size());
         assertEquals(answerAuthor.getId(), recentComments.get(0).getUser().getId());
@@ -54,6 +54,10 @@ public class CommentDAOTest extends DatabaseTestCase {
         
         assertEquals(questionAuthor.getId(), recentComments.get(1).getUser().getId());
         assertEquals(comment.getId(), ((Comment) recentComments.get(1).getSubscribable()).getId());
+        
+        assertEquals(question.getId(), recentComments.get(0).getQuestion().getId());
+        
+        
         
         
     }

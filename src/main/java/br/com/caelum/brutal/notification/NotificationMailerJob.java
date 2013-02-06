@@ -16,8 +16,7 @@ import org.joda.time.format.DateTimeFormatter;
 
 import br.com.caelum.brutal.dao.AnswerDAO;
 import br.com.caelum.brutal.dao.CommentDAO;
-import br.com.caelum.brutal.model.Subscribable;
-import br.com.caelum.brutal.model.SubscribableAndUser;
+import br.com.caelum.brutal.model.SubscribableDTO;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.quartzjob.CronTask;
@@ -45,35 +44,42 @@ public class NotificationMailerJob implements CronTask {
         int hoursAgo = 3;
         Long milisecAgo = (long) (hoursAgo * (60 * 60 * 1000));
         DateTime threeHoursAgo = new DateTime(System.currentTimeMillis() - milisecAgo);
-        List<SubscribableAndUser> recentSubscribables = answers.getSubscribablesAfter(threeHoursAgo);
+        
+        List<SubscribableDTO> recentSubscribables = answers.getSubscribablesAfter(threeHoursAgo);
         recentSubscribables.addAll(comments.getSubscribablesAfter(threeHoursAgo));
         
-        Map<String, List<Subscribable>> subscribablesByEmail = new HashMap<>(); 
-        Map<String, String> usersNames = new HashMap<>(); 
-        for (SubscribableAndUser subscribableAndUser : recentSubscribables) {
-            User user = subscribableAndUser.getUser();
+        Map<String, List<SubscribableDTO>> subscribablesByEmail = groupByUserEmail(recentSubscribables);
+        sendEmails(subscribablesByEmail);
+    }
+
+    private Map<String, List<SubscribableDTO>> groupByUserEmail(List<SubscribableDTO> recentSubscribables) {
+        Map<String, List<SubscribableDTO>> subscribablesByEmail = new HashMap<>(); 
+        for (SubscribableDTO subscribableDTO : recentSubscribables) {
+            User user = subscribableDTO.getUser();
             String userEmail = user.getEmail();
-            List<Subscribable> subscribables = subscribablesByEmail.get(userEmail);
-            if (subscribableAndUser != null) {
+            List<SubscribableDTO> subscribables = subscribablesByEmail.get(userEmail);
+            if (subscribableDTO != null) {
                 subscribables = new ArrayList<>();
             }
-            subscribables.add(subscribableAndUser.getSubscribable());
+            subscribables.add(subscribableDTO);
             subscribablesByEmail.put(userEmail, subscribables);
-            usersNames.put(userEmail, user.getName());
         }
-        
-        for (Entry<String, List<Subscribable>> entry : subscribablesByEmail.entrySet()) {
-            String userEmail = entry.getKey();
+        return subscribablesByEmail;
+    }
+
+    private void sendEmails(Map<String, List<SubscribableDTO>> subscribablesByEmail) {
+        for (Entry<String, List<SubscribableDTO>> entry : subscribablesByEmail.entrySet()) {
+            User user = entry.getValue().get(0).getUser();
             DateTimeFormatter dateFormat = DateTimeFormat.forPattern("MMM, dd").withLocale(new Locale("pt", "br"));
             
             Email email = templates.template("notifications_mail")
-                    .with("subscribables", entry.getValue())
+                    .with("subscribablesDTO", entry.getValue())
                     .with("dateFormat", dateFormat)
-                    .to(usersNames.get(userEmail), userEmail);
+                    .to(user.getName(), user.getEmail());
             try {
                 mailer.send(email);
             } catch (EmailException e) {
-                LOG.error("Could not send notifications mail to: " + userEmail);
+                LOG.error("Could not send notifications mail to: " + user.getEmail());
             }
         }
     }

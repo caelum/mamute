@@ -8,7 +8,7 @@ import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.Commentable;
-import br.com.caelum.brutal.model.SubscribableAndUser;
+import br.com.caelum.brutal.model.SubscribableDTO;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
@@ -30,15 +30,15 @@ public class CommentDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-    public List<SubscribableAndUser> getSubscribablesAfter(DateTime timeAgo) {
-        Query query = session.createQuery("select distinct new br.com.caelum.brutal.model.SubscribableAndUser(comment, author) from Question question " +
+    public List<SubscribableDTO> getSubscribablesAfter(DateTime timeAgo) {
+        Query query = session.createQuery("select distinct new br.com.caelum.brutal.model.SubscribableDTO(comment, author, question) from Question question " +
                 "join question.comments comment " +
                 "join question.answers answer " +
                 "join answer.author author " +
                 "where (comment.createdAt) > :timeAgo");
-        List<SubscribableAndUser> results = query.setParameter("timeAgo", timeAgo).list();
+        List<SubscribableDTO> results = query.setParameter("timeAgo", timeAgo).list();
         
-        query = session.createQuery("select distinct new br.com.caelum.brutal.model.SubscribableAndUser(comment, author) from Question question " +
+        query = session.createQuery("select distinct new br.com.caelum.brutal.model.SubscribableDTO(comment, author, question) from Question question " +
         		"join question.author author " +
         		"join question.comments comment " +
         		"join comment.author comment_author " +

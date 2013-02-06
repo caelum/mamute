@@ -1,13 +1,15 @@
 package br.com.caelum.brutal.model;
 
-public class SubscribableAndUser {
+public class SubscribableDTO {
 
     private final User user;
     private final Subscribable subscribable;
+    private final Question question;
 
-    public SubscribableAndUser(Subscribable subscribable, User user) {
+    public SubscribableDTO(Subscribable subscribable, User user, Question question) {
         this.user = user;
         this.subscribable = subscribable;
+        this.question = question;
     }
 
     @Override
@@ -21,6 +23,10 @@ public class SubscribableAndUser {
     
     public Subscribable getSubscribable() {
         return subscribable;
+    }
+    
+    public Question getQuestion() {
+        return question;
     }
 
 }
