@@ -44,7 +44,7 @@ public class QuestionDAO {
 	}
 
 	public List<Question> withTag(Tag tag) {
-		List<Question> questions = session.createQuery("select q from Question as q join q.information.tags t where " + spamFilter() + " and (q.solution is null) and t = :tag order by q.lastUpdatedAt desc")
+		List<Question> questions = session.createQuery("select q from Question as q join q.information.tags t where " + spamFilter() + " and t = :tag order by q.lastUpdatedAt desc")
 				.setParameter("tag", tag)
 				.setMaxResults(50)
 				.list();
