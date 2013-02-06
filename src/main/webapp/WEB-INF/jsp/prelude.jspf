@@ -13,7 +13,7 @@
 <header class="header">
 	<div class="content">
 		<c:if test="${empty currentUser }">
-			<%@ include file="/WEB-INF/jsp/auth/loginForm.jsp" %>
+			<a class="small" href="${linkTo[AuthController].loginForm}"><fmt:message key="auth.login_form_link"/></a>
 		</c:if>
 		<form class="search-form" action="<c:url value='/search' />" method="get">
 			<input name="query" placeholder="search" type="text"/>

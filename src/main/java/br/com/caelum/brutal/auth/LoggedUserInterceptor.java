@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import javax.servlet.http.HttpServletRequest;
 
+import br.com.caelum.brutal.controllers.AuthController;
 import br.com.caelum.brutal.controllers.ListController;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.InterceptionException;
@@ -37,7 +38,7 @@ public class LoggedUserInterceptor implements Interceptor {
         if (currentUser == null) {
             result.include("alerts", Arrays.asList("auth.access.denied"));
             result.include("redirectUrl", req.getRequestURL().toString());
-            result.redirectTo(ListController.class).home();
+            result.redirectTo(AuthController.class).loginForm();
         } else {
             stack.next(method, instance);
         }

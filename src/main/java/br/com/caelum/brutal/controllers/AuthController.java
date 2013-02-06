@@ -11,12 +11,15 @@ import br.com.caelum.vraptor.Result;
 @Resource
 public class AuthController {
 	
-	
 	private final DefaultAuthenticator auth;
 	private final Result result;
 	public AuthController(DefaultAuthenticator auth, Result result) {
 		this.auth = auth;
 		this.result = result;
+	}
+	
+	@Get("/login")
+	public void loginForm(){
 	}
 	
 	@Post("/login")
