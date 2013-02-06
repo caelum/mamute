@@ -28,13 +28,19 @@ public class SignupController {
 	}
 
 	@Post("/signup")
-	public void signup(String email, String password, String name) {
+	public void signup(String email, String password, String name, String passwordConfirmation) {
 		User newUser = new User(name, email, password);
-		if(validator.validate(newUser)){
-			dao.save(newUser);
-			result.include("confirmations", Arrays.asList("signup.confirmation"));
-			result.redirectTo(ListController.class).home();
-		}
+		
+		boolean valid = validator.validate(newUser, password, passwordConfirmation);
 		validator.onErrorRedirectTo(this).signupForm();
+		
+		if (valid) {
+		    dao.save(newUser);
+		    result.include("confirmations", Arrays.asList("signup.confirmation"));
+		    result.redirectTo(ListController.class).home();
+		} else {
+		    result.include("email", email);
+		    result.include("name", name);
+		}
 	}
 }

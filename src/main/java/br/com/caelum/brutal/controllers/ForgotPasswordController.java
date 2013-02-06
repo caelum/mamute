@@ -48,7 +48,7 @@ public class ForgotPasswordController {
 	public void requestEmailWithToken(String email, User user) {
 		user = users.loadByEmail(email);
 
-		if (!validator.validate(user)) {
+		if (user == null) {
 			result.include("errors", Arrays.asList("forgot_password.invalid_email"));
 			result.redirectTo(this).forgotPasswordForm();
 			return;
@@ -105,7 +105,7 @@ public class ForgotPasswordController {
 
 	private User validateTokenAndGetUser(Long id, String token) {
 		User user = users.loadByIdAndToken(id, token);
-		if (!validator.validate(user)) {
+		if (user == null) {
 			result.include("errors", Arrays.asList(new I18nMessage("error", "forgot_password.invalid_token")));
 			validator.onErrorRedirectTo(this).forgotPasswordForm();
 		}

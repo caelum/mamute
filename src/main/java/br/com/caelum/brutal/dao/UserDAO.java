@@ -52,4 +52,8 @@ public class UserDAO {
 				.setParameter("token", token)
 				.uniqueResult();
 	}
+
+    public boolean existsWithEmail(String email) {
+        return loadByEmail(email) != null;
+    }
 }
