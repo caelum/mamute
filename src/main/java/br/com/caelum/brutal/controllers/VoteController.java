@@ -63,7 +63,7 @@ public class VoteController {
 		Vote current = new Vote(currentUser, voteType);
 
 		votable.substitute(previous, current);
-		long delta = votes.substitute(previous, current, votable);
-		result.use(json()).withoutRoot().from(delta).serialize();
+		votes.substitute(previous, current, votable);
+		result.use(json()).withoutRoot().from(votable.getVoteCount()).serialize();
 	}
 }

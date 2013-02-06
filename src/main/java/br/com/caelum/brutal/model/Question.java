@@ -169,6 +169,7 @@ public class Question implements Votable, Commentable, Updatable {
 		return result;
 	}
 
+	@Override
 	public long getVoteCount() {
 		return voteCount;
 	}

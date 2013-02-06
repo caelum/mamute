@@ -3,11 +3,11 @@ package br.com.caelum.brutal.dao;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import br.com.caelum.brutal.model.AnswerAndVotes;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.Votable;
 import br.com.caelum.brutal.model.Vote;
-import br.com.caelum.brutal.model.AnswerAndVotes;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
@@ -32,15 +32,12 @@ public class VoteDAO {
 		return (Votable) session.load(type, id);
 	}
 
-	public long substitute(Vote previous, Vote current, Votable on) {
-		long delta = current.getValue();
-		if (previous != null) {
-			session.delete(previous);
-			delta -= previous.getValue();
-		}
+	public void substitute(Vote previous, Vote current, Votable on) {
 		session.save(current);
-		session.createQuery("update User as u set u.karma = u.karma + (:value) where u.id = :user").setParameter("value", delta).setParameter("user", on.getAuthor().getId()).executeUpdate();
-		return delta;
+		session.createQuery("update User as u set u.karma = u.karma + (:value) where u.id = :user")
+		    .setParameter("value", on.getVoteCount())
+		    .setParameter("user", on.getAuthor().getId())
+		    .executeUpdate();
 	}
 
 	@SuppressWarnings("unchecked")
