@@ -1,4 +1,4 @@
-<h2 class="title page-title">${question.title}</h2>
+<h2 class="title question-title">${question.title}</h2>
 
 <section class="post-area">
 	<div class="post-meta">

@@ -36,8 +36,9 @@ input[type = "text"], input[type="search"], input[type="password"]{
 	font-weight: bold;
 }
 
-.page-title{border-bottom: 1px solid #cccccc; margin-bottom:15px;}
+.page-title, .question-title{border-bottom: 1px solid #cccccc; margin-bottom:15px;}
 .page-title, .page-title a{font-size: 18px; line-height: 34px;}
+.question-title{font-size:23px; line-height: 34px;}
 .item-title, .item-title a{font-size: 17px; margin-bottom: 5px;}
 
 .hidden, 
@@ -196,7 +197,7 @@ input[type = "text"], input[type="search"], input[type="password"]{
 }
 
 .post-area{
-	border-bottom: 1px solid #cccccc;
+	border-bottom: 1px solid #aaa;
 	overflow:hidden;
 }
 
@@ -229,9 +230,7 @@ input[type = "text"], input[type="search"], input[type="password"]{
 	cursor:pointer;
 }
 
-
 /*Vote*/
-
 
 .post-meta, .post-container{
 	float:left
@@ -277,14 +276,14 @@ input[type = "text"], input[type="search"], input[type="password"]{
 	border-top:dotted 1px #aaa;
 }
 
-.comment-container:hover{
-	background-color: #FAFAFA;
-}
-
 .comment{
 	padding:8px 25px;
 	border-bottom: dotted 1px #ddd;
 	line-height:20px;
+}
+
+.comment:hover{
+	background-color: #FAFAFA;
 }
 
 .same-author{
@@ -314,10 +313,10 @@ input[type = "text"], input[type="search"], input[type="password"]{
 	padding-left:3px;
 }
 
-
 /*EDIT VIA AJAX*/
 .edit-via-ajax{
 	margin: 10px 0;
 }
 .edit-via-ajax span, 
 .edit div {display: none;}
+

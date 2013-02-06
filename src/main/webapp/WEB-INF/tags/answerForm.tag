@@ -3,8 +3,8 @@
 	name="uri" required="true" type="java.lang.String"%>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 
+<h2 class="title page-title"><fmt:message key="newanswer.answer.your_answer"/></h2>
 <form action="${uri }" method="post" class="validated-form">
-
 	<div class="wmd">
 		<div class="wmd-panel">
 			<div id="wmd-button-bar"></div>
