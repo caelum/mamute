@@ -88,11 +88,6 @@ public class User implements Identifiable {
 	public String getEmail() {
 		return email;
 	}
-	
-	public String getNewForgotPasswordToken() {
-		touchForgotPasswordToken();
-		return forgotPasswordToken;
-	}
 
 	public boolean isModerator() {
 		return moderator;
@@ -114,9 +109,10 @@ public class User implements Identifiable {
         return  UpdateStatus.REFUSED;
     }
 
-	public void touchForgotPasswordToken () {
+	public String touchForgotPasswordToken () {
 		String tokenSource = Math.random() + System.currentTimeMillis() + getEmail() + getId();
 		this.forgotPasswordToken = Digester.encrypt(tokenSource);
+		return forgotPasswordToken;
 	}
 
 	public boolean isValidForgotPasswordToken(String token) {

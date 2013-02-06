@@ -7,7 +7,6 @@ import org.apache.commons.mail.EmailException;
 
 import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.model.User;
-import br.com.caelum.brutal.validators.UserValidator;
 import br.com.caelum.brutal.vraptor.DefaultLinker;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
@@ -15,7 +14,7 @@ import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.simplemail.Mailer;
 import br.com.caelum.vraptor.simplemail.template.TemplateMailer;
-import br.com.caelum.vraptor.validator.I18nMessage;
+import br.com.caelum.vraptor.validator.ValidationMessage;
 
 @Resource
 public class ForgotPasswordController {
@@ -25,15 +24,13 @@ public class ForgotPasswordController {
 	private final Result result;
 	private final UserDAO users;
 	private final DefaultLinker linker;
-	private final UserValidator validator;
 
-	public ForgotPasswordController(Mailer mailer, TemplateMailer templates, Result result, UserDAO users, DefaultLinker linker, UserValidator userValidator) {
+	public ForgotPasswordController(Mailer mailer, TemplateMailer templates, Result result, UserDAO users, DefaultLinker linker) {
 		this.mailer = mailer;
 		this.templates = templates;
 		this.result = result;
 		this.users = users;
 		this.linker = linker;
-		this.validator = userValidator;
 	}
 
 	@Get("/forgotpassword")
@@ -45,8 +42,8 @@ public class ForgotPasswordController {
 	}
 
 	@Post("/forgotpassword")
-	public void requestEmailWithToken(String email, User user) {
-		user = users.loadByEmail(email);
+	public void requestEmailWithToken(String email) {
+		User user = users.loadByEmail(email);
 
 		if (user == null) {
 			result.include("errors", Arrays.asList("forgot_password.invalid_email"));
@@ -79,7 +76,7 @@ public class ForgotPasswordController {
 
 		boolean passwordUpdated = user.updateForgottenPassword(password, password_confirmation);
 		if(!passwordUpdated) {
-			result.include("errors", Arrays.asList(new I18nMessage("error", "forgot_password.password_doesnt_match")));
+			result.include("errors", Arrays.asList(new ValidationMessage("forgot_password.password_doesnt_match", "error")));
 			result.redirectTo(this).changePasswordForm(id, token);
 		}
 		
@@ -90,7 +87,7 @@ public class ForgotPasswordController {
 	}
 	
 	private String tokenUrlFor(User user) {
-		String token = user.getNewForgotPasswordToken();
+		String token = user.touchForgotPasswordToken();
 		linker.linkTo(this).changePasswordForm(user.getId(), token);
 		return linker.get();
 	}
@@ -106,8 +103,8 @@ public class ForgotPasswordController {
 	private User validateTokenAndGetUser(Long id, String token) {
 		User user = users.loadByIdAndToken(id, token);
 		if (user == null) {
-			result.include("errors", Arrays.asList(new I18nMessage("error", "forgot_password.invalid_token")));
-			validator.onErrorRedirectTo(this).forgotPasswordForm();
+			result.include("errors", Arrays.asList(new ValidationMessage("forgot_password.invalid_token", "error")));
+			result.redirectTo(this).forgotPasswordForm();
 		}
 		return user;
 	}
