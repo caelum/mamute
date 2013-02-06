@@ -1,6 +1,6 @@
 $(".vote-option").bind("click", function() {
 	var alreadyVoted = $(this).closest(".vote").find(".already-voted");
-	if($(this).hasClass("voted")){
+	if ($(this).hasClass("voted")){
 		alreadyVoted.show();
 	} else {
 		alreadyVoted.hide();
@@ -17,8 +17,10 @@ function vote(link) {
 		complete: function(jqXHR, textStatus) {
 			console.log(jqXHR.status);
 			if (jqXHR.status == "200") {
-				var count = jqXHR.responseText; 
+				var count = jqXHR.responseText;
 				voteSuccess(link, count);
+			} else if (jqXHR.status == "403") {
+				alert("you can't vote on your own question");
 			} else {
 				alert("you must login");
 			}
