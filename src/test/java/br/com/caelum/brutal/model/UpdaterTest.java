@@ -24,7 +24,7 @@ public class UpdaterTest extends TestCase{
     }
 
     @Test
-    public void should_refuse_if_cant_update() {
+    public void should_pend_if_cant_update() {
         User user = new User("chico", "chico@gmail.com", "1234");
         user.setId(2l);
         
@@ -32,8 +32,8 @@ public class UpdaterTest extends TestCase{
         QuestionInformation newInformation = new QuestionInformation( "title", "description", new CurrentUser(user, null));
 		UpdateStatus update = updater.update(question, newInformation);
         
-        assertEquals(update, UpdateStatus.REFUSED);
-        assertFalse(question.getHistory().contains(newInformation));
+        assertEquals(update, UpdateStatus.PENDING);
+        assertTrue(question.getHistory().contains(newInformation));
     }
     
     @Test

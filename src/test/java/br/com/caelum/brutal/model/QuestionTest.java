@@ -31,7 +31,7 @@ public class QuestionTest  extends TestCase{
 		User leo = new User("", "", "");
 		Answer yes = answer("my answer", shouldILiveForever, leo);
 		
-		assertEquals(null, shouldILiveForever.getLastTouchedBy());
+		assertEquals(User.GHOST, shouldILiveForever.getLastTouchedBy());
 
 		shouldILiveForever.markAsSolvedBy(yes);
 		

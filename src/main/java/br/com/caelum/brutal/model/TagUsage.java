@@ -1,8 +1,8 @@
 package br.com.caelum.brutal.model;
 
 public class TagUsage {
-	private Tag tag;
-	private Long usage;
+	private final Tag tag;
+	private final Long usage;
 
 	public TagUsage(Tag tag, Long usage) {
 		this.tag = tag;

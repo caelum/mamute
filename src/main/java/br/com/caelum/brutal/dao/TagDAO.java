@@ -55,7 +55,7 @@ public class TagDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<TagUsage> getRecentTagsUsageAfter(DateTime since) {
+	public List<TagUsage> getRecentTagsUsageSince(DateTime since) {
 		Query query = session.createQuery("select new br.com.caelum.brutal.model.TagUsage(tag, count(question)) from Question question " +
 				"join question.information info " +
 				"join info.tags tag " +

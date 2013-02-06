@@ -81,7 +81,7 @@ public class TagDAOTest extends DatabaseTestCase{
 		session.save(question3);
 		session.save(question4);
 		
-		List<TagUsage> recentTagsUsage = tags.getRecentTagsUsageAfter(new DateTime().minusMonths(2));
+		List<TagUsage> recentTagsUsage = tags.getRecentTagsUsageSince(new DateTime().minusMonths(2));
 		
 		assertEquals(2, recentTagsUsage.size());
 		assertEquals(2l, recentTagsUsage.get(0).getUsage().longValue());
