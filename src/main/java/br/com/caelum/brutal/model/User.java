@@ -4,7 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -38,9 +37,6 @@ public class User implements Identifiable {
 	private boolean moderator = false;
 
 	private String forgotPasswordToken = "";
-
-	@Transient
-	final static long MINIMUM_UPDATE_KARMA = 11;
 
 	static final User GHOST;
 	static {
@@ -109,13 +105,7 @@ public class User implements Identifiable {
         if (author.getId().equals(id) || this.isModerator()) {
             return UpdateStatus.NO_NEED_TO_APPROVE;
         }
-        if (this.getKarma() >= MINIMUM_UPDATE_KARMA) {
-            return UpdateStatus.PENDING;
-        }
-        if(this == GHOST) {
-            return UpdateStatus.PENDING;
-        }
-        return  UpdateStatus.REFUSED;
+        return UpdateStatus.PENDING;
     }
 
 	public String touchForgotPasswordToken () {

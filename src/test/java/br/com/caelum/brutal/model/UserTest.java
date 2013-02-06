@@ -37,9 +37,9 @@ public class UserTest extends TestCase{
     }
     
     @Test
-    public void non_author_should_not_be_authorized_to_update() {
+    public void non_author_update_should_be_pending() {
         UpdateStatus status = otherUser.canUpdate(updateble);
-        assertEquals(UpdateStatus.REFUSED, status);
+        assertEquals(UpdateStatus.PENDING, status);
     }
     
     @Test
@@ -48,13 +48,4 @@ public class UserTest extends TestCase{
         assertEquals(UpdateStatus.NO_NEED_TO_APPROVE, status);
     }
     
-    @Test
-    public void user_enough_karma_should_be_authorized_to_update() {
-        User karmaMan = new User("karma man", "karma@gmail.com", "1234");
-        karmaMan.setKarma(User.MINIMUM_UPDATE_KARMA);
-        karmaMan.setId(4l);
-        UpdateStatus status = karmaMan.canUpdate(updateble);
-        assertEquals(UpdateStatus.PENDING, status);
-    }
-
 }
