@@ -104,4 +104,8 @@ public class Comment implements Updatable, Subscribable {
     public String getTypeNameKey() {
         return "comment.type_name";
     }
+
+	public DateTime getLastUpdatedAt() {
+		return lastUpdatedAt;
+	}
 }
