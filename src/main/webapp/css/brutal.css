@@ -23,6 +23,8 @@ input[type = "text"], input[type="search"], input[type="password"]{
 	width:200px;
 }
 
+.logo{float:left;}
+
 .container, .content{
 	margin: 0 auto;
 	width: 960px;
@@ -48,7 +50,6 @@ input[type = "text"], input[type="search"], input[type="password"]{
 .already-voted{display:none;}
 
 /*HEADER*/
-
 .header, .logo, .search-form{
 	height:31px;
 	line-height:31px;
@@ -60,49 +61,57 @@ input[type = "text"], input[type="search"], input[type="password"]{
 	margin-bottom:50px;
 }
 
-.login-form{float:left;}
-.search-form{float:right;}
+.user-area{float:right; overflow:hidden;}
+.header .search-form, .header .nav{float:left}
 .search-form input[type="submit"]{display:none;}
 
 /*MENU*/
-.nav{
+
+.nav, .nav-items{
 	overflow:hidden;
+}
+
+.main-nav{
 	margin-bottom:20px;
 }
 
-.logo{
-	float:left;
+.main-nav .logo{
 	width: 25%
+}
+
+.main-nav .nav-items{
+	width:75%;
 }
 
 .nav-buttons {
 	float: right;
-	width:75%;
 }
 
-.nav-button, .nav-button a{
+.nav-item, .nav-item a{
 	height:28px;
 	line-height:28px;
 }
 
-.nav-button{
-	background: #777;
+.nav-item{
 	float: left;
 	margin-right: 7px;
 }
 
-.nav-button a{
+.ask {
+	float:right;
+}
+
+/*BUTTON*/
+
+.button{
+	background: #777;
 	padding:0 12px;
 	display:block;
 	color:#fff;
 }
 
-.nav-button a:hover{
+.button:hover{
 	background-color:#ff9900;
-}
-
-.nav-button.ask {
-	float:right;
 }
 
 /*HOME*/
@@ -135,9 +144,8 @@ input[type = "text"], input[type="search"], input[type="password"]{
 }
 
 /*TAG*/
-.tags {
-	float: left;
-}
+.tags {float: left;}
+
 .tag{
 	background-color: #e0eaf1;
 	border-bottom: 1px solid #3e6d8e;
