@@ -8,20 +8,17 @@ $(function(){
 		$.post($(this).attr("href")+id,function(){updateMarks(mark)});
 	};
 	
-	function updateMarks(mark){
-		var solution = $(mark).closest(".answer");
+	function updateMarks(markOfCurrentSolution){
+		var solution = $(markOfCurrentSolution).closest(".answer"),
+		otherAnswers = solution.siblings(),
+		newMark = markOfCurrentSolution.clone();
+		
+		$(markOfCurrentSolution).remove();
 		solution.addClass("solution");
-		$(mark).remove();
-		$(".answer").not(solution).each(function(){
-			console.log($(this));
-			if($(this).hasClass("solution")){
-				var newMark = mark.clone();
-				newMark.on('click', markAsSolution);
-				$(this).removeClass("solution")
-						.append(newMark);
-				
-			}
-		});
+		otherAnswers.removeClass("solution");
+		
+		newMark.appendTo(otherAnswers);
+		$(".mark-as-solution").on('click', markAsSolution);
 	}
 	
 });
