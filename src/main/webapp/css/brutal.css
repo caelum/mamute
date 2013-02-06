@@ -196,9 +196,15 @@ input[type = "text"], input[type="search"], input[type="password"]{
 	margin:10px 0;
 	overflow:hidden;
 }
+
 .post-container{
 	float:right;
 	width:90%;
+}
+
+/*Answer*/
+.answer{
+	padding:15px 0;
 }
 
 /*Vote*/
