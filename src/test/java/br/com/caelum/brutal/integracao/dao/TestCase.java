@@ -10,7 +10,7 @@ import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
 
-public class TestCase {
+public abstract class TestCase {
 
 	/**
 	 * This constructor should not exist. It is only for tests
