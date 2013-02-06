@@ -18,3 +18,14 @@ function suggestsAutoComplete(target, input){
 		$(target).html(suggestionElements);
 	});
 }
+
+$('#newquestion-tags-autocomplete').click(function() {
+	var input =$('input[name=tagNames]');
+    var inputValue = input.val();
+    var vetValue = inputValue.split(" ");
+    vetValue = vetValue.slice(0, vetValue.length - 1);
+    vetValue.push($(this).children(':first').text());
+    input.val(vetValue.join(' ')+" ");
+    input.focus();
+}
+);
