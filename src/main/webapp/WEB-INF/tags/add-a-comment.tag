@@ -20,8 +20,7 @@
 	<span>
 		<form action="<c:url value="/${item.typeName }/${item.id }/comment"/>" class="validated-form ajax" data-ajax-result="${ajaxResultName }" data-ajax-on-callback="append">
 			<textarea class="required to-focus hintable" minlength="15" name="message" data-hint-id="${ajaxResultName }-hint"></textarea>
-			<input type="submit"
-				value="<fmt:message key="comment.add_comment_submit"/>" />
+			<input type="submit" class="post-submit comment-submit" value="<fmt:message key="comment.add_comment"/>" />
 		</form>
 		<span class="hint" id="${ajaxResultName }-hint"><fmt:message key="comment.text.hint"/></span>
 	</span>

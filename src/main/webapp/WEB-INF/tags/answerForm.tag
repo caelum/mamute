@@ -13,7 +13,7 @@
 				data-hint-id="newanswer-answer-hint">${answer.description }</textarea>
 		</div>
 		<div id="wmd-preview" class="wmd-panel wmd-preview"></div>
-		<input class="newanswer-submit" value="<fmt:message key="newanswer.answer.submit"/>" type="submit" />
+		<input class="post-submit answer-submit" value="<fmt:message key="newanswer.answer.submit"/>" type="submit" />
 	</div>
 
 

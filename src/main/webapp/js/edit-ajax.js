@@ -16,7 +16,6 @@ $(function() {
 		};
 
 		var success = function(response, status, jqhr) {
-			console.log(jqhr);
 			var target = $("#" + self.data("ajax-result"));
 			if(jqhr.status==201) {
 				target.append("<span class='suggestion-accepted'>Sugest&atilde;o enviada!</span>");
@@ -28,6 +27,7 @@ $(function() {
 					target.append(response);
 				}
 			}
+			self.find("textarea").val("");
 			var formParent = self.closest(".edit-via-ajax");
 			formParent.children().toggle();
 		};

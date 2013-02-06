@@ -59,6 +59,13 @@ label.error{
 	padding:5px 0;
 	margin-top:10px;
 	color:#8e0000;
+	font-size:13px;
+}
+
+textarea{
+	border-color:#999;
+	width:100%;
+	resize:vertical;
 }
 
 /*ARROW*/
@@ -175,8 +182,11 @@ label.error{
 
 .reputation {
 	color: #444;
-	font-size: 13px;
 	padding-left: 2px;
+}
+
+.last-updated-at{
+	color: #999;
 }
 
 /*TAG*/
@@ -227,23 +237,32 @@ label.error{
 	width:90%;
 }
 
+.post-submit{
+	border-radius:4px;
+	box-shadow:0 2px 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+	background-color: #333;
+	border: 1px solid #000;
+	color:#FFF;
+	margin:10px 0;
+	cursor:pointer;
+	height:auto;
+}
+
 /*Answer*/
 .answer{
 	padding:15px 0;
 }
 
 /*Answer form*/
-.newanswer-submit{
+
+.answer-submit{
 	font-weight:bold;
 	font-size:17px;
-	color:#FFF;
-	border-radius:4px;
-	box-shadow:0 2px 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
-	background-color: #333;
-	border: 1px solid #000;
 	padding: 5px 10px;
-	height:auto;
-	cursor:pointer;
+}
+
+.comment-submit{
+	padding: 5px 10px;
 }
 
 /*Vote*/
