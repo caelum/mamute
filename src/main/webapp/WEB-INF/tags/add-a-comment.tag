@@ -7,8 +7,8 @@
 <ul id="${ajaxResultName }">
 <c:forEach var="comment" items="${item.comments }">
 	<li>
-	<span id="comment-${comment.id }">${comment.htmlComment }</span> by ${comment.author.name }
-	<tags:editFor item="${comment}" field="comment" value="${comment.comment }" ajaxResult="comment-${comment.id}" />
+		<span id="comment-${comment.id }">${comment.htmlComment }</span> by ${comment.author.name }
+		<tags:editFor item="${comment}" field="comment" value="${comment.comment }" ajaxResult="comment-${comment.id}" />
 	</li>
 </c:forEach>
 </ul>
