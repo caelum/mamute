@@ -146,3 +146,8 @@ input[type = "text"], input[type="search"], input[type="password"]{
 	border-right: 1px solid #37607d;
 	color: #e0eaf1;
 }
+
+/*SHOW QUESTION*/
+.solution .mark-as-solution{
+	display:none;
+}

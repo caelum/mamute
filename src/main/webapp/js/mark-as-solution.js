@@ -10,15 +10,13 @@ $(function(){
 	
 	function updateMarks(markOfCurrentSolution){
 		var solution = $(markOfCurrentSolution).closest(".answer"),
-		otherAnswers = solution.siblings(),
-		newMark = markOfCurrentSolution.clone();
+		otherAnswers = solution.siblings();
 		
-		$(markOfCurrentSolution).remove();
+//		$(markOfCurrentSolution).hide();
 		solution.addClass("solution");
-		otherAnswers.removeClass("solution");
 		
-		newMark.appendTo(otherAnswers);
-		$(".mark-as-solution").on('click', markAsSolution);
+		otherAnswers.removeClass("solution");
+//		otherAnswers.find(".mark-as-solution").show();		
 	}
 	
 });

@@ -2,6 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%><%@attribute
 	name="uri" required="true" type="java.lang.String"%>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
+
 <form action="${uri }" method="post" class="validated-form">
 
 	<div class="wmd">
