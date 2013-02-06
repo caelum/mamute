@@ -7,10 +7,12 @@
 				<td style="padding: 5px 0; border: 1px solid #e6e6e6;">
 					<img style="float:left;" src="http://localhost:8080/images/icone.png" />
 					<span style="display:block; padding-top:11px;">${dateFormat.print(subscribableDTO.getSubscribable().getCreatedAt())} 
-						<a href="#" style="color: #4E82C2; text-decoration:none;">${subscribableDTO.question.title}</a>
+						<a href="${linkerHelper.questionLink(subscribableDTO.getQuestion())}" style="color: #4E82C2; text-decoration:none;">
+							${subscribableDTO.question.title}
+						</a>
 					</span>
 					<span style="color: #aaa">
-						${subscribableDTO.subscribable.typeNameKey}
+						${localization.getMessage(subscribableDTO.getSubscribable().getTypeNameKey())}
 					</span>
 					${subscribableDTO.subscribable.trimmedContent}
 				</td>
