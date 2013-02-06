@@ -1,4 +1,5 @@
 insert into User (id, moderator,karma,name, createdAt, email, password) values (1, false,0,'Gui', '20120101', 'guilherme.silveira@caelum.com.br', '2145a8274d61bd4377c8f98c2d8ab4c5ca93243a61ffddd03885fe990a740d57');
+insert into User (id, moderator,karma,name, createdAt, email, password) values (1000, false,0,'Anonimo', '20120101', 'anonimo@anonimo.com', '2145a8274d61bd4377c8f98c2d8ab4c5ca93243a61ffddd03885fe990a740d51');
 insert into User (id, moderator,karma,name, createdAt, email, password) values (2, false,0,'Leo', '20120102', 'leonardo.wolter@caelum.com.br', '2145a8274d61bd4377c8f98c2d8ab4c5ca93243a61ffddd03885fe990a740d57');
 insert into User (id, moderator,karma,name, createdAt, email, password) values (3, false,0,'Chico', '20120103', 'francisco.sokol@caelum.com.br', '2145a8274d61bd4377c8f98c2d8ab4c5ca93243a61ffddd03885fe990a740d57');
 insert into User (id, moderator,karma,name, createdAt, email, password) values (4, false,0,'Art', '20120104', 'artur.adam@caelum.com.br', '2145a8274d61bd4377c8f98c2d8ab4c5ca93243a61ffddd03885fe990a740d57');

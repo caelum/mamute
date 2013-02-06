@@ -5,7 +5,9 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-public class UserTest {
+import br.com.caelum.brutal.integracao.dao.TestCase;
+
+public class UserTest extends TestCase{
     
     private User author;
     private Updatable updateble;
@@ -16,7 +18,7 @@ public class UserTest {
     public void before_test() {
         author = new User("name", "email", "12234");
         author.setId(1l);
-        Question question = new Question("title", "text", author);
+        Question question = question("title", "text", author);
         
         otherUser = new User("other", "email", "1234");
         otherUser.setId(2l);

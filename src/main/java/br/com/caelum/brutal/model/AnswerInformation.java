@@ -27,7 +27,6 @@ public class AnswerInformation {
 	@NotEmpty
 	private String description;
 
-
 	@ManyToOne(optional = false)
 	private final User author;
 
@@ -39,15 +38,23 @@ public class AnswerInformation {
 
 	private UpdateStatus status;
 
+	private String ip;
+
 	/**
 	 * @deprecated hibernate only
 	 */
-	AnswerInformation(){
+	AnswerInformation() {
 		this("", null);
 	}
-	
-	public AnswerInformation(String description, User author) {
-		this.author = author;
+
+	public AnswerInformation(String description, CurrentUser currentUser) {
+		if (currentUser == null) {
+			this.author = null;
+			this.ip = null;
+		} else {
+			this.author = currentUser.getCurrent();
+			this.ip = currentUser.getIp();
+		}
 		setDescription(description);
 	}
 
@@ -64,7 +71,6 @@ public class AnswerInformation {
 		this.markedDescription = MarkDown.parse(description);
 	}
 
-
 	public String getDescription() {
 		return description;
 	}
@@ -78,11 +84,11 @@ public class AnswerInformation {
 	}
 
 	public void setInitStatus(UpdateStatus status) {
-		if(this.status!=null) {
-			throw new IllegalStateException("Status can only be setted once. Afterwards it should BE MODERATED!");
+		if (this.status != null) {
+			throw new IllegalStateException(
+					"Status can only be setted once. Afterwards it should BE MODERATED!");
 		}
 		this.status = status;
 	}
-
 
 }

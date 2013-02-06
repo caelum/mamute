@@ -19,7 +19,7 @@ import br.com.caelum.brutal.model.VoteType;
 public class VoteDAOTest extends DatabaseTestCase{
 	
     private User guilherme = new User("nome", "email", "123");
-    private Question question = new Question("Tiny title Tiny title Tiny title", "Description 1234567890123456789012345678901234567890", guilherme);
+    private Question question = question("Tiny title Tiny title Tiny title", "Description 1234567890123456789012345678901234567890", guilherme);
     private User ricardo = new User("blabla", "blabla@gmail", "123");
 
     @Before
@@ -108,7 +108,7 @@ public class VoteDAOTest extends DatabaseTestCase{
 	}
 
 	private Answer simpleAnswer() {
-		return new Answer("resposta basica de uma pergunta", question, guilherme);
+		return answer("resposta basica de uma pergunta", question, guilherme);
 	}
 
 }

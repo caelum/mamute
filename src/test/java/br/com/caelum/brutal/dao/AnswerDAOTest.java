@@ -32,15 +32,15 @@ public class AnswerDAOTest extends DatabaseTestCase {
     @Test
     public void should_find_recent_answers() {
         AnswerDAO notifiableDAO = new AnswerDAO(session);
-        Question question = new Question("title title title title", "description descriptions descriptions descriptions descriptions", questionAuthor);
+        Question question = question("title title title title", "description descriptions descriptions descriptions descriptions", questionAuthor);
         
         DateTimeUtils.setCurrentMillisFixed(new DateTime().minusHours(4).getMillis());
-        Answer oldAnswer1 = new Answer("answer answer answer answer answer answer", question, answerAuthor1);
-        Answer oldAnswer2 = new Answer("answer answer answer answer answer answer", question, answerAuthor1);
+        Answer oldAnswer1 = answer("answer answer answer answer answer answer", question, answerAuthor1);
+        Answer oldAnswer2 = answer("answer answer answer answer answer answer", question, answerAuthor1);
         
         DateTimeUtils.setCurrentMillisSystem();
-        Answer newAnswer1 = new Answer("answer answer answer answer answer answer", question, answerAuthor2);
-        Answer newAnswer2 = new Answer("answer answer answer answer answer answer", question, answerAuthor3);
+        Answer newAnswer1 = answer("answer answer answer answer answer answer", question, answerAuthor2);
+        Answer newAnswer2 = answer("answer answer answer answer answer answer", question, answerAuthor3);
         
         session.save(question);
         session.save(oldAnswer1);
@@ -55,5 +55,5 @@ public class AnswerDAOTest extends DatabaseTestCase {
         assertEquals(6, recentAnswers.size());
         assertEquals(question.getId(), recentAnswers.get(0).getQuestion().getId());
     }
-    
+
 }

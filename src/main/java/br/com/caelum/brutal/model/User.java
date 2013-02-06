@@ -41,6 +41,12 @@ public class User implements Identifiable {
 
 	@Transient
 	final static long MINIMUM_UPDATE_KARMA = 11;
+
+	static final User GHOST;
+	static {
+		GHOST = new User("", "", "");
+		GHOST.setId(1000l);
+	}
 	
 	/**
 	 * @deprecated hibernate eyes only
@@ -106,6 +112,9 @@ public class User implements Identifiable {
         if (this.getKarma() >= MINIMUM_UPDATE_KARMA) {
             return UpdateStatus.PENDING;
         }
+        if(this == GHOST) {
+            return UpdateStatus.PENDING;
+        }
         return  UpdateStatus.REFUSED;
     }
 
@@ -128,4 +137,5 @@ public class User implements Identifiable {
 		}
 		return false;
 	}
+
 }

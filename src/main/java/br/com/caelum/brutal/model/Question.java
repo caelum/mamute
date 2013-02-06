@@ -71,11 +71,6 @@ public class Question implements Votable, Commentable, Updatable {
 		this.information = null;
 	}
 
-	public Question(String title, String description, User author) {
-		this(new QuestionInformation(title, description, author, new ArrayList<Tag>()), author);
-		this.author = author;
-	}
-
 	public Question(QuestionInformation questionInformation, User author) {
 		this.author = author;
 		enqueueChange(questionInformation, UpdateStatus.NO_NEED_TO_APPROVE);

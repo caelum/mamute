@@ -66,10 +66,6 @@ public class Answer implements Votable, Commentable, Updatable, Subscribable {
 		enqueueChange(information, UpdateStatus.NO_NEED_TO_APPROVE);
 	}
 
-	public Answer(String text, Question question, User author) {
-		this(new AnswerInformation(text, author), question, author);
-    }
-
 	/**
      * @deprecated hibernate eyes only
      */

@@ -10,11 +10,13 @@ import java.util.Map;
 
 import org.junit.Test;
 
-public class AnswerAndVotesTest {
+import br.com.caelum.brutal.integracao.dao.TestCase;
+
+public class AnswerAndVotesTest  extends TestCase{
 	
 	@Test
 	public void should_fill_in_only_empty_spaces_with_null() {
-		Question q = new Question("", "", null);
+		Question q = question("", "", null);
 		
 		Object[] first = new Object[]{answerFor(q,1 ), mock(Vote.class)};
 		Object[] second = new Object[]{answerFor(q,2), mock(Vote.class)};
@@ -38,7 +40,7 @@ public class AnswerAndVotesTest {
 	}
 
 	private Answer answerFor(Question q, long id) {
-		return new Answer("", q, null).setId(id);
+		return answer("", q, null).setId(id);
 	}
 
 }

@@ -9,7 +9,9 @@ import static org.mockito.Mockito.when;
 import org.junit.Before;
 import org.junit.Test;
 
-public class UpdaterTest {
+import br.com.caelum.brutal.integracao.dao.TestCase;
+
+public class UpdaterTest extends TestCase{
     
     private User author;
     private Question question;
@@ -18,7 +20,7 @@ public class UpdaterTest {
     public void before_test() {
         author = new User("author", "author@gmail", "1234");
         author.setId(1l);
-        question = new Question("titel", "description", author);
+        question = question("titel", "description", author);
     }
 
     @Test
@@ -27,7 +29,7 @@ public class UpdaterTest {
         user.setId(2l);
         
         Updater updater = new Updater();
-        QuestionInformation newInformation = new QuestionInformation( "title", "description", user);
+        QuestionInformation newInformation = new QuestionInformation( "title", "description", new CurrentUser(user, null));
 		UpdateStatus update = updater.update(question, newInformation);
         
         assertEquals(update, UpdateStatus.REFUSED);
@@ -41,7 +43,7 @@ public class UpdaterTest {
         when(authorized.canUpdate(question)).thenReturn(status);
         
         Updater updater = new Updater();
-        QuestionInformation newInformation = new QuestionInformation("new Title", "new description", authorized);
+        QuestionInformation newInformation = new QuestionInformation("new Title", "new description", new CurrentUser(authorized, null));
 		UpdateStatus update = updater.update(question, newInformation);
         
         assertEquals(status, update);

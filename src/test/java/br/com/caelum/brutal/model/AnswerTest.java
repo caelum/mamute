@@ -4,12 +4,14 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class AnswerTest {
+import br.com.caelum.brutal.integracao.dao.TestCase;
+
+public class AnswerTest  extends TestCase{
 
 	@Test
 	public void should_mark_question_as_solved() {
-		Question canILiveForever = new Question("", "", null);
-		Answer yes = new Answer("Yes", canILiveForever, null);
+		Question canILiveForever = question("", "", null);
+		Answer yes = answer("Yes", canILiveForever, null);
 		
 		assertEquals(null, canILiveForever.getSolution());
 		
@@ -20,8 +22,8 @@ public class AnswerTest {
 	
 	@Test
 	public void should_return_that_answer_is_solution_or_not() {
-		Question canILiveForever = new Question("", "", null);
-		Answer yes = new Answer("Yes", canILiveForever, null);
+		Question canILiveForever = question("", "", null);
+		Answer yes = answer("Yes", canILiveForever, null);
 		
 		assertFalse(yes.isSolution());
 		

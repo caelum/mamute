@@ -55,6 +55,8 @@ public class QuestionInformation {
 
 	private UpdateStatus status;
 
+	private String ip;
+
 	/**
 	 * @deprecated hibernate only
 	 */
@@ -62,15 +64,21 @@ public class QuestionInformation {
 		this("", "", null, new ArrayList<Tag>());
 	}
 
-	public QuestionInformation(String title, String description, User author,
+	public QuestionInformation(String title, String description, CurrentUser user,
 			List<Tag> tags) {
-		this.author = author;
+		if(user==null) {
+			this.author = null;
+			this.ip = null;
+		} else {
+		this.author = user.getCurrent();
+		this.ip = user.getIp();
+		}
 		setTitle(title);
 		setDescription(description);
 		this.tags = tags;
 	}
 
-	public QuestionInformation(String title, String description, User author) {
+	public QuestionInformation(String title, String description, CurrentUser author) {
 		this(title, description, author, new ArrayList<Tag>());
 	}
 
@@ -132,4 +140,5 @@ public class QuestionInformation {
 	public List<Tag> getTags() {
 		return tags;
 	}
+	
 }
