@@ -50,6 +50,23 @@ input[type = "text"], input[type="search"], input[type="password"]{
 .suggestion-accepted {color: #FF0000;}
 .solution{color: #00FF00;}
 
+/*LOGIN*/
+.login-form input[type = "text"], 
+.login-form input[type="password"]{
+	border: 2px inset #EEE;
+	display: block;
+	font-size: 17px;
+	height: 35px;
+	margin-bottom: 8px;
+	width: 300px; 
+}
+
+.login-form input[type = "submit"] {
+	font-size: 22px;
+	height: 35px;
+	width: 300px;
+}
+
 /*HEADER*/
 .header, .logo, .search-form{
 	height:31px;
