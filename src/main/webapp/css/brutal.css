@@ -2,6 +2,7 @@
 body, a{
 	font-family: Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif;
 }
+
 a{
 	text-decoration:none;
 	color: rgb(0, 119, 204);
@@ -11,14 +12,14 @@ a{
 	margin: 0 auto;
 	width: 960px;
 }
+
 .title, .title a{
 	font-family: Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif;	
 	font-weight: bold;
 }
-
-.page-title, .page-title a{font-size: 18px;}
+.page-title{border-bottom: 1px solid #cccccc; margin-bottom:15px}
+.page-title, .page-title a{font-size: 18px; line-height:34px}
 .item-title, .item-title a{font-size: 17px;}
-
 
 .hint {display: none;}
 .hidden {display : none;}
@@ -29,9 +30,6 @@ a{
 .suggestion-accepted {color: #FF0000;}
 .solution{color: #00FF00;}
 .already-voted{display:none;}
-
-
-
 
 /*HEADER*/
 .header, .logo, .search-form{
