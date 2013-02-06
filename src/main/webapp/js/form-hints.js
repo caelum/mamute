@@ -1,7 +1,7 @@
 $(function(){
 	var showHintFor = function(element) {
 		var hint = $("#" + $(element).data("hint-id"));
-		hint.show();
+		hint.fadeIn(500);
 	};
 	var hideHintFor = function(element) {
 		var hint = $("#" + $(element).data("hint-id"));
