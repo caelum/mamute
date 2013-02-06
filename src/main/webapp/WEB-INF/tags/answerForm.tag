@@ -16,7 +16,7 @@
 
 	</div>
 
-	<input type="submit" />
+	<input class="newanswer-submit" value="<fmt:message key="newanswer.answer.submit"/>" type="submit" />
 
 </form>
 
