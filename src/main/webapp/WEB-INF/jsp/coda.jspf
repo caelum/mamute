@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-</section>
+</coda>
 <script type="text/javascript">
 // UI flags
 var LOGGED_IN = ${not empty currentUser};

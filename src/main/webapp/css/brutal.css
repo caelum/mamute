@@ -11,6 +11,14 @@ a{
 	margin: 0 auto;
 	width: 960px;
 }
+.title, .title a{
+	font-family: Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif;	
+	font-weight: bold;
+}
+
+.page-title, .page-title a{font-size: 18px;}
+.item-title, .item-title a{font-size: 17px;}
+
 
 .hint {display: none;}
 .hidden {display : none;}
@@ -22,6 +30,9 @@ a{
 .solution{color: #00FF00;}
 .already-voted{display:none;}
 
+
+
+
 /*HEADER*/
 .header, .logo, .search-form{
 	height:31px;
@@ -30,9 +41,9 @@ a{
 .header{
 	background-color: #EEE;
 	padding:2px;
-	overflow: visible;
+	margin-bottom:50px;
 }
-.logo, .login-form{
+.login-form{
 	float:left;
 }
 .search-form{
@@ -44,34 +55,42 @@ a{
 }
 
 /*MENU*/
-.hmenu a{
-	color: white;
-	font-weight: bold;
+.nav{
+	margin-bottom:20px;
+}
+.logo{
+	float:left;
+	width: 25%
 }
 
-.hmenu {
+.nav-buttons {
 	float: right;
-	margin-top: 20px;
+	width:75%;
 }
 
-.hmenu li{
+.nav-button, .nav-button a{
+	height:28px;
+	line-height:28px;
+}
+
+.nav-button{
 	background: #777;
 	float: left;
 	margin-right: 7px;
-	padding: 0px 12px;
 }
 
-.selected {
-	background-color: #F90;
+.nav-button a{
+	padding:0 12px;
+	display:block;
+	color:#fff;
 }
 
-#ask {
-	margin-right: 0;
-	margin-left: 50px;
+.nav-button a:hover{
+	background-color:#ff9900;
 }
 
-.clear{
-	clear: both;
+.nav-button.ask {
+	float:right;
 }
 
 /*HOME*/
@@ -104,12 +123,6 @@ a{
 .question {
 	border-bottom: 1px solid #EAEAEA;
 	padding: 11px 0;
-}
-
-.question-title a {
-	font-family: Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif;
-	font-size: 17px;
-	font-weight: bold;
 }
 
 .stats{

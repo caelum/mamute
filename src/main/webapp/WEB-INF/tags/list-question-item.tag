@@ -15,7 +15,7 @@
 		<tags:subtitleFor key="question.list.view" count="${question.views}"/>
 	</div>
 	<div class="summary">
-		<h3 class="question-title">
+		<h3 class="title question-title">
 			<a href="<c:url value="/questions/${question.id }/${question.sluggedTitle }"/>">
 					${question.title}
 			</a>

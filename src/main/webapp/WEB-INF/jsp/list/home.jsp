@@ -1,9 +1,9 @@
-<div id="submenu">
+<div class="submenu">
 	<c:if test="${not empty currentUser }">
-		<h1>Bela lista de mensagens pra voce logado</h1>
+		<h2 class="title page-title">Bela lista de mensagens pra voce logado</h2>
 	</c:if>
 	<c:if test="${empty currentUser }">
-		<h1>Bela lista de mensagens</h1>
+		<h2 class="title page-title">Bela lista de mensagens</h2>
 	</c:if> 
 </div>
 

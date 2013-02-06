@@ -19,17 +19,17 @@
 			<input name="query" placeholder="search" type="text"/>
 			<input type="submit"/>
 		</form>
-		
-		<br class="clear"/>
-	
-		<h1 class="logo">Logo do Brutal</h1>
-		<ul class="hmenu">
-			<li><a href="<c:url value="/"/>"><fmt:message key="menu.questions"/></a></li> 
-			<li><a href="<c:url value="/list/unanswered"/>"><fmt:message key="menu.unanswered"/></a></li>
-			<li id="ask"><a href='<c:url value="/question/ask" />'><fmt:message key="question.ask" /></a></li>
-		</ul>
 	</div>
 </header>
+<div class="container">
+<nav class="nav">		
+		<h1 class="logo">Logo do Brutal</h1>
+		<ul class="nav-buttons">
+			<li class="nav-button"><a href="<c:url value="/"/>"><fmt:message key="menu.questions"/></a></li> 
+			<li class="nav-button"><a href="<c:url value="/list/unanswered"/>"><fmt:message key="menu.unanswered"/></a></li>
+			<li class="ask nav-button"><a href='<c:url value="/question/ask" />'><fmt:message key="question.ask" /></a></li>
+		</ul>
+</nav>
 
 <c:if test="${not empty alerts}">
 	<ul>
@@ -58,4 +58,3 @@
 	<a href="<c:url value="/logout" />" />deslogar</a>?
 	<img src="${currentUser.photo }" />
 </c:if>
-<section class="container">
