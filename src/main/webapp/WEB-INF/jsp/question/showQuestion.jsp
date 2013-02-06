@@ -1,7 +1,9 @@
 <h2 class="title page-title">${question.title}</h2>
 
 <section class="post-area">
-	<tags:voteFor item="${question}" type="question" vote="${currentVote }"/>
+	<div class="post-meta">
+		<tags:voteFor item="${question}" type="question" vote="${currentVote }"/>
+	</div>
 	<div class="post-container">
 		<p class="question-description" id="question-description-${question.id }">${question.markedDescription}</p>
 		<tags:tagsFor question="${question}"/>

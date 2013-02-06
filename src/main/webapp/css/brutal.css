@@ -43,7 +43,6 @@ input[type = "text"], input[type="search"], input[type="password"]{
 .hidden, 
 .hint{display:none}
 .suggestion-accepted {color: #FF0000;}
-.solution{color: #00FF00;}
 
 /*ARROW*/
 .arrow{
@@ -205,11 +204,11 @@ input[type = "text"], input[type="search"], input[type="password"]{
 /*Vote*/
 
 
-.vote-container, .post-container{
-	float:left;
+.post-meta, .post-container{
+	float:left
 }
 
-.vote-container{
+.post-meta{
 	width:10%;
 }
 
