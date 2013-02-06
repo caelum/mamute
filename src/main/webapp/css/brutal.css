@@ -24,6 +24,24 @@ input[type = "text"], input[type="search"], input[type="password"]{
 	padding:3px;
 }
 
+/*ARROW*/
+.arrow{
+	width: 0;
+	height: 0;
+	line-height: 20px;
+	display: block;
+	text-indent: -9999px;
+	border: 13px solid transparent;
+}
+
+.down-arrow{
+	border-top-color: #818185;
+}
+
+.up-arrow{
+	border-bottom-color: #818185;
+}
+
 .logo{float:left;}
 
 .container, .content{
@@ -98,7 +116,7 @@ input[type = "text"], input[type="search"], input[type="password"]{
 
 .nav-item, .nav-item a{height:28px;line-height:28px;}
 
-.nav-item{float: left;margin-right: 7px;}
+.nav-item{float: left;margin-right: 7px}
 
 .ask {float:right;}
 
@@ -151,7 +169,7 @@ input[type = "text"], input[type="search"], input[type="password"]{
 }
 
 /*TAG*/
-.tags {float: left;}
+.tags li{float: left;}
 
 .tag{
 	background-color: #e0eaf1;
@@ -180,41 +198,59 @@ input[type = "text"], input[type="search"], input[type="password"]{
 	overflow:hidden;
 }
 
+.post-area .tags{
+	margin:10px 0;
+	overflow:hidden;
+}
+
 .post-text{
 	float:right;
 	width:90%;
 }
 
-.vote-area{
-	width:10%;
+.vote-container, .post-container{
 	float:left;
 }
 
+.vote-container{
+	width:10%;
+}
+
 .vote-count{
+	display:block;
 	font-size:24px;
 	color:#555;
 	text-align:center;
-	width:100%;
-	padding:6px;
+	width:25%;
+	height:40px;
+	line-height:40px;
+	
 }
 
 .vote-option{
 	cursor:pointer;
 }
 
-.arrow{
-	width: 0;
-	height: 0;
-	line-height: 20px;
-	display: block;
-	text-indent: -9999px;
-	border: 13px solid transparent;
+.up-arrow.voted{
+	border-bottom-color:orange;
 }
 
-.down-arrow{
-	border-top-color: #818185;
+.down-arrow.voted{
+	border-top-color: orange;
 }
 
-.up-arrow{
-	border-bottom-color: #818185;
+.post-action{
+	color: #888;
+	padding-left:8px;
+	border-left: 2px solid #ccc;
+}
+
+.post-action:hover{
+	background-color: #777777;
+	color:#fff; 
+}
+
+.post-action-nav .nav-item:first-child .post-action{
+	padding: 2px 3px;
+	border: none;
 }
