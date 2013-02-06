@@ -8,7 +8,7 @@ a{
 	color: rgb(0, 119, 204);
 }
 
-a.small{font-size: 13px;}
+.small{font-size: 13px;}
 
 form, form *{margin:0;}
 
@@ -22,24 +22,6 @@ input[type = "text"], input[type="search"], input[type="password"]{
 	border-left: 1px solid #ccc;
 	width:200px;
 	padding:3px;
-}
-
-/*ARROW*/
-.arrow{
-	width: 0;
-	height: 0;
-	line-height: 20px;
-	display: block;
-	text-indent: -9999px;
-	border: 13px solid transparent;
-}
-
-.down-arrow{
-	border-top-color: #818185;
-}
-
-.up-arrow{
-	border-bottom-color: #818185;
 }
 
 .logo{float:left;}
@@ -59,14 +41,27 @@ input[type = "text"], input[type="search"], input[type="password"]{
 .item-title, .item-title a{font-size: 17px; margin-bottom: 5px;}
 
 .hidden, 
-.hint, 
-.edit-via-ajax span, 
-.edit div,
-.already-voted {display: none;}
-.vote .vote-option {cursor: pointer;}
-.voted {color: #FF0000;}
+.hint{display:none}
 .suggestion-accepted {color: #FF0000;}
 .solution{color: #00FF00;}
+
+/*ARROW*/
+.arrow{
+	width: 0;
+	height: 0;
+	line-height: 20px;
+	display: block;
+	text-indent: -9999px;
+	border: 13px solid transparent;
+}
+
+.down-arrow{
+	border-top-color: #818185;
+}
+
+.up-arrow{
+	border-bottom-color: #818185;
+}
 
 /*LOGIN*/
 .login-form input[type = "text"], 
@@ -202,11 +197,13 @@ input[type = "text"], input[type="search"], input[type="password"]{
 	margin:10px 0;
 	overflow:hidden;
 }
-
-.post-text{
+.post-container{
 	float:right;
 	width:90%;
 }
+
+/*Vote*/
+
 
 .vote-container, .post-container{
 	float:left;
@@ -215,6 +212,12 @@ input[type = "text"], input[type="search"], input[type="password"]{
 .vote-container{
 	width:10%;
 }
+
+.already-voted {display: none;}
+
+.vote .vote-option {cursor: pointer;}
+
+.voted {color: #FF0000;}
 
 .vote-count{
 	display:block;
@@ -239,10 +242,33 @@ input[type = "text"], input[type="search"], input[type="password"]{
 	border-top-color: orange;
 }
 
+/*Comments*/
+
+.comment-container{
+	color:#444;
+	border-top:dotted 1px #aaa;
+}
+
+.comment-container:hover{
+	background-color: #FAFAFA;
+}
+
+.comment{
+	padding:8px 25px;
+	border-bottom: dotted 1px #ddd;
+	line-height:20px;
+}
+
+.same-author{
+	background-color:#E0EAF1;
+	padding:2px 5px;
+}
+
+/*Post actions*/
+
 .post-action{
 	color: #888;
-	padding-left:8px;
-	border-left: 2px solid #ccc;
+	padding: 2px 3px;
 }
 
 .post-action:hover{
@@ -250,7 +276,20 @@ input[type = "text"], input[type="search"], input[type="password"]{
 	color:#fff; 
 }
 
-.post-action-nav .nav-item:first-child .post-action{
-	padding: 2px 3px;
-	border: none;
+.nav-item .post-action{
+	padding-left:8px;
+	border-left: 2px solid #ccc;
 }
+
+.post-action-nav .nav-item:first-child .post-action{
+	border: none;
+	padding-left:3px;
+}
+
+
+/*EDIT VIA AJAX*/
+.edit-via-ajax{
+	margin: 10px 0;
+}
+.edit-via-ajax span, 
+.edit div {display: none;}

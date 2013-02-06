@@ -1,17 +1,17 @@
 <h2 class="title page-title">${question.title}</h2>
 
 <section class="post-area">
-<tags:voteFor item="${question}" type="question" vote="${currentVote }"/>
-<div class="post-container">
-	<p class="question-description" id="question-description-${question.id }">${question.markedDescription}</p>
-	<tags:tagsFor question="${question}"/>
-	<ul class="post-action-nav nav">
-		<li class="nav-item">
-			<a class="post-action small" href="<c:url value="/question/edit/${question.id }"/>"><fmt:message key="edit" /></a>
-		</li>
-	</ul>
-	<tags:add-a-comment item="${question}" />
-</div>
+	<tags:voteFor item="${question}" type="question" vote="${currentVote }"/>
+	<div class="post-container">
+		<p class="question-description" id="question-description-${question.id }">${question.markedDescription}</p>
+		<tags:tagsFor question="${question}"/>
+		<ul class="post-action-nav nav">
+			<li class="nav-item">
+				<a class="post-action small" href="<c:url value="/question/edit/${question.id}"/>"><fmt:message key="edit" /></a>
+			</li>
+		</ul>
+		<tags:add-a-comment item="${question}" />
+	</div>
 </section>
 
 <c:if test="${not empty currentUser}">
