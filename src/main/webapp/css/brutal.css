@@ -36,9 +36,9 @@ input[type = "text"], input[type="search"], input[type="password"]{
 	font-weight: bold;
 }
 
-.page-title{border-bottom: 1px solid #cccccc; margin-bottom:15px}
-.page-title, .page-title a{font-size: 18px; line-height:34px}
-.item-title, .item-title a{font-size: 17px;}
+.page-title{border-bottom: 1px solid #cccccc; margin-bottom:15px;}
+.page-title, .page-title a{font-size: 18px; line-height: 34px;}
+.item-title, .item-title a{font-size: 17px; margin-bottom: 5px;}
 
 .hidden, 
 .hint, 
@@ -125,6 +125,12 @@ input[type = "text"], input[type="search"], input[type="password"]{
 
 .stats{
 	float: right;
+}
+
+.reputation {
+	color: #444;
+	font-size: 13px;
+	padding-left: 2px;
 }
 
 /*TAG*/
