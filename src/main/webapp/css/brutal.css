@@ -10,20 +10,6 @@ a{
 
 .small{font-size: 13px;}
 
-form, form *{margin:0;}
-
-input{
-	height: 22px;
-}
-
-input[type = "text"], input[type="search"], input[type="password"]{
-	border: none;
-	border-top: 1px solid #ccc;
-	border-left: 1px solid #ccc;
-	width:200px;
-	padding:3px;
-}
-
 .logo{float:left;}
 
 .container, .content{
@@ -51,6 +37,29 @@ input[type = "text"], input[type="search"], input[type="password"]{
 	float:left;
 }
 .suggestion-accepted {color: #FF0000;}
+
+/*Forms*/
+
+form, form *{margin:0;}
+
+input{
+	height: 22px;
+}
+
+input[type = "text"], input[type="search"], input[type="password"]{
+	border: none;
+	border-top: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+	width:200px;
+	padding:3px;
+}
+
+label.error{
+	display:block;
+	padding:5px 0;
+	margin-top:10px;
+	color:#8e0000;
+}
 
 /*ARROW*/
 .arrow{

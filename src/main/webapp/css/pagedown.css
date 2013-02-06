@@ -23,7 +23,8 @@
 }
 
 .wmd-preview {
-	background-color: #c0e0ff;
+	border:2px dotted #CCC;
+	padding:3px;
 }
 
 .wmd-button-row {
