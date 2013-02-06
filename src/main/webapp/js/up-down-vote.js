@@ -14,7 +14,16 @@ function vote(link) {
 	var id = link.data("id");
 	var params = "/"+ type +"/"+ id +"/"+ vote;
 	$.ajax(""+ params, {
-		success: function(count) { voteSuccess(link, count) },
+		complete: function(jqXHR, textStatus) {
+			console.log(jqXHR.status);
+			if (jqXHR.status == "200") {
+				var count = jqXHR.responseText; 
+				voteSuccess(link, count);
+			} else {
+				alert("you must login");
+			}
+		},
+		accepts: "application/json",
 		error: voteError,
 		method: "POST"
 	});
