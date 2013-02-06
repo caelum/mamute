@@ -42,7 +42,14 @@ input[type = "text"], input[type="search"], input[type="password"]{
 .item-title, .item-title a{font-size: 17px; margin-bottom: 5px;}
 
 .hidden, 
-.hint{display:none}
+.hint{
+	display:none;
+	background-color:#FEFAE2;
+	border:1px solid #F3EED5;
+	padding:10px 5px;
+	margin:10px 0;
+	float:left;
+}
 .suggestion-accepted {color: #FF0000;}
 
 /*ARROW*/

@@ -23,6 +23,6 @@
 			<input type="submit"
 				value="<fmt:message key="comment.add_comment_submit"/>" />
 		</form>
-		<span id="${ajaxResultName }-hint"><fmt:message key="comment.text.hint"/></span>
+		<span class="hint" id="${ajaxResultName }-hint"><fmt:message key="comment.text.hint"/></span>
 	</span>
 </div>

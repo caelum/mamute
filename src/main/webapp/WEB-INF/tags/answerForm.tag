@@ -13,13 +13,13 @@
 				data-hint-id="newanswer-answer-hint">${answer.description }</textarea>
 		</div>
 		<div id="wmd-preview" class="wmd-panel wmd-preview"></div>
-
+		<input class="newanswer-submit" value="<fmt:message key="newanswer.answer.submit"/>" type="submit" />
 	</div>
 
-	<input class="newanswer-submit" value="<fmt:message key="newanswer.answer.submit"/>" type="submit" />
 
 </form>
 
 <div id="newanswer-answer-hint" class="hint">
-	<fmt:message key="newanswer.answer.hint" />
+	<h2 class="title page-title"><fmt:message key="newanswer.answer.your_answer"/></h2>
+	<p class="small"><fmt:message key="newanswer.answer.hint" /></p>
 </div>
