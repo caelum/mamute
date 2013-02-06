@@ -6,8 +6,8 @@
 <c:if test="${item.author.id != currentUser.id}">
 <div class="vote">
 	<p>(votes <span class="vote-count">${item.voteCount}</span>)<p>
-	<a class="up-vote vote-option ${(not empty vote and vote.value==1) ? "voted" : "" }" data-value="up" data-type="${type}" data-id="${item.id}">up</a><br />
-	<a class="down-vote vote-option ${(not empty vote and vote.value==-1) ? "voted" : "" }"" data-value="down" data-type="${type}" data-id="${item.id}">down</a>
+	<a class="requires-login up-vote vote-option ${(not empty vote and vote.value==1) ? "voted" : "" }" data-value="up" data-type="${type}" data-id="${item.id}">up</a><br />
+	<a class="requires-login down-vote vote-option ${(not empty vote and vote.value==-1) ? "voted" : "" }"" data-value="down" data-type="${type}" data-id="${item.id}">down</a>
 	<p class="already-voted"><fmt:message key="vote.already_voted"/></p>
 </div>
 </c:if>
