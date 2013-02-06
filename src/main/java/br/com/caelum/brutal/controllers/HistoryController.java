@@ -23,7 +23,7 @@ public class HistoryController {
 
 	@Logged
 	@Get("/history")
-	public void list() {
+	public void unmoderated() {
 		if (!currentUser.isModerator()) {
 			result.use(http()).sendError(403);
 			return;

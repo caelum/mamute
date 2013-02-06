@@ -7,7 +7,9 @@ import org.hibernate.Session;
 
 import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.UpdateStatus;
+import br.com.caelum.vraptor.ioc.Component;
 
+@Component
 public class QuestionInformationDAO {
 	
 	private final Session session;
@@ -18,7 +20,7 @@ public class QuestionInformationDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<QuestionInformation> unmoderated() {
-		String hql = "qi from QuestionInformation qi where qi.status = :pending order by createdAt asc";
+		String hql = "select qi from QuestionInformation qi where qi.status = :pending order by createdAt asc";
 		Query query = session.createQuery(hql);
 		return query.setParameter("pending", UpdateStatus.PENDING).list();
 	}
