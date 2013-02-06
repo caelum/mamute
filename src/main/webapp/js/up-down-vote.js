@@ -36,7 +36,7 @@ function highlight(link) {
 }
 
 function updateCount(link, count) {
-	var voteCount = $(link).closest(".vote").find(".vote-count");
+	var voteCount = $(link).closest(".vote-container").find(".vote-count");
 	voteCount.text(count);
 }
 
