@@ -54,7 +54,7 @@ public class VoteController {
 	@SuppressWarnings("rawtypes")
 	private void tryToVoteQuestion(Long id, VoteType voteType, Class type) {
 		Votable votable = votes.loadVotedOnFor(type, id);
-		if(votable.getAuthor().getId().equals(currentUser.getId())) {
+		if (votable.getAuthor().getId().equals(currentUser.getId())) {
 			result.use(http()).sendError(403);
 			return;
 		}

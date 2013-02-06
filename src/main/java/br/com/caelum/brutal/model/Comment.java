@@ -39,7 +39,7 @@ public class Comment implements Updatable, Subscribable {
     @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
     private DateTime lastUpdatedAt = new DateTime();
     
-	@JoinTable(name = "Question_Votes")
+	@JoinTable(name = "Comment_Votes")
 	@OneToMany
 	private final List<Vote> votes = new ArrayList<>();
 	
