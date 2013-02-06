@@ -21,6 +21,7 @@ input[type = "text"], input[type="search"], input[type="password"]{
 	border-top: 1px solid #ccc;
 	border-left: 1px solid #ccc;
 	width:200px;
+	padding:3px;
 }
 
 .logo{float:left;}
@@ -39,15 +40,15 @@ input[type = "text"], input[type="search"], input[type="password"]{
 .page-title, .page-title a{font-size: 18px; line-height:34px}
 .item-title, .item-title a{font-size: 17px;}
 
-.hint {display: none;}
-.hidden {display : none;}
-.edit-via-ajax span {display : none;}
-.edit div {display : none;}
+.hidden, 
+.hint, 
+.edit-via-ajax span, 
+.edit div,
+.already-voted {display: none;}
 .vote .vote-option {cursor: pointer;}
 .voted {color: #FF0000;}
 .suggestion-accepted {color: #FF0000;}
 .solution{color: #00FF00;}
-.already-voted{display:none;}
 
 /*HEADER*/
 .header, .logo, .search-form{
@@ -62,44 +63,27 @@ input[type = "text"], input[type="search"], input[type="password"]{
 }
 
 .user-area{float:right; overflow:hidden;}
-.header .search-form, .header .nav{float:left}
+.search-form, .header .nav{float:left}
+.header .nav{margin-right:20px;}
 .search-form input[type="submit"]{display:none;}
 
 /*MENU*/
 
-.nav, .nav-items{
-	overflow:hidden;
-}
+.nav, .nav-items{overflow:hidden;}
 
-.main-nav{
-	margin-bottom:20px;
-}
+.main-nav{margin-bottom:20px;}
 
-.main-nav .logo{
-	width: 25%
-}
+.main-nav .logo{width: 25%}
 
-.main-nav .nav-items{
-	width:75%;
-}
+.main-nav .nav-items{width:75%;}
 
-.nav-buttons {
-	float: right;
-}
+.nav-buttons {float: right;}
 
-.nav-item, .nav-item a{
-	height:28px;
-	line-height:28px;
-}
+.nav-item, .nav-item a{height:28px;line-height:28px;}
 
-.nav-item{
-	float: left;
-	margin-right: 7px;
-}
+.nav-item{float: left;margin-right: 7px;}
 
-.ask {
-	float:right;
-}
+.ask {float:right;}
 
 /*BUTTON*/
 
