@@ -10,7 +10,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.infra.Digester;
-import br.com.caelum.brutal.integracao.dao.Identifiable;
 
 @Entity
 public class User implements Identifiable {

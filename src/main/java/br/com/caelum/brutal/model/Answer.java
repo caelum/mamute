@@ -12,12 +12,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
-
-import com.sun.istack.internal.NotNull;
 
 @Entity
 public class Answer implements Votable, Commentable, Updatable, Subscribable {

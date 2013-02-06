@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.junit.After;
 import org.junit.Before;
 
+import br.com.caelum.brutal.model.Identifiable;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.providers.SessionFactoryCreator;
 import br.com.caelum.vraptor.environment.DefaultEnvironment;
