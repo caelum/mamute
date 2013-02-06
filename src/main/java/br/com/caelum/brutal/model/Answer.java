@@ -128,6 +128,7 @@ public class Answer implements Votable, Commentable, Updatable, Subscribable {
 		return true;
 	}
 	
+	@Override
 	public long getVoteCount() {
 		return voteCount;
 	}
