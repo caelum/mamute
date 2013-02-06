@@ -187,6 +187,14 @@ input[type = "text"], input[type="search"], input[type="password"]{
 	display:none;
 }
 
+.solution-mark{
+	display:none;
+}
+
+.solution .solution-mark{
+	display:block
+}
+
 .post-area{
 	border-bottom: 1px solid #cccccc;
 	overflow:hidden;

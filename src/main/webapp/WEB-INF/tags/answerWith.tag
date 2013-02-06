@@ -7,9 +7,10 @@
 <li class="post-area answer ${answer.solution? 'solution' : ''}" data-id="${answer.id}">
 	<div class="post-meta">
 		<tags:voteFor item="${answer}" type="answer" vote="${vote}"/>
-		<c:if test="${answer.solution}">
-			<div>CERTO</div>
-		</c:if>
+		<span class="solution-mark">CERTO</span>
+		<a class="mark-as-solution" href="${linkTo[AnswerController].markAsSolution}">
+			<fmt:message key="answer.mark_as_solution" />
+		</a>
 	</div>
 	<div class="post-container">
 		<p class="post-text" id="answer-${answer.id }">${answer.markedDescription}</p>
@@ -18,9 +19,6 @@
 				<a class="post-action small" href="<c:url value="/question/edit/${question.id}"/>"><fmt:message key="edit" /></a>
 			</li>
 		</ul>
-		<a class="mark-as-solution" href="${linkTo[AnswerController].markAsSolution}">
-			<fmt:message key="answer.mark_as_solution" />
-		</a>
 		<tags:add-a-comment item="${answer}"/>
 	</div>
 </li>

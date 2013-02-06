@@ -12,11 +12,9 @@ $(function(){
 		var solution = $(markOfCurrentSolution).closest(".answer"),
 		otherAnswers = solution.siblings();
 		
-//		$(markOfCurrentSolution).hide();
 		solution.addClass("solution");
 		
 		otherAnswers.removeClass("solution");
-//		otherAnswers.find(".mark-as-solution").show();		
 	}
 	
 });
