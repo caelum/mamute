@@ -15,9 +15,10 @@
 			</a>
 		</h3>
 		<div class="tags">
-			<a href="<c:url value="/list/withTag/1/java"/>" class="tag">java</a>
+			<c:forEach items="${question.tags}" var="tag">
+				<a href="${linkTo[ListController].withTag[tag.name]}" class="tag">${tag.name}</a>
+			</c:forEach>
 		</div>
-		
 		<div class="stats">
 			<div><tags:prettyTime time="${question.lastUpdatedAt }" /></div>
 			<div>${question.lastTouchedBy.name } ${question.lastTouchedBy.karma }</div>

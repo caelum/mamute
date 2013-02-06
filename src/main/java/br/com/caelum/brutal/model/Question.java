@@ -214,6 +214,10 @@ public class Question implements Votable, Commentable, Updatable {
 	public QuestionInformation getInformation() {
 		return information;
 	}
+	
+	public List<Tag> getTags() {
+		return information.getTags();
+	}
 
 	public UpdateStatus updateWith(QuestionInformation information) {
         UpdateStatus status = information.getAuthor().canUpdate(this);

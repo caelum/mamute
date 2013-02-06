@@ -129,4 +129,7 @@ public class QuestionInformation {
 		this.status = status;
 	}
 
+	public List<Tag> getTags() {
+		return tags;
+	}
 }
