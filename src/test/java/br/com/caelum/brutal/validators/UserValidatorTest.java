@@ -1,6 +1,7 @@
 package br.com.caelum.brutal.validators;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -48,6 +49,15 @@ public class UserValidatorTest {
         boolean valid = userValidator.validate(null, "123", "1234");
         
         assertFalse(valid);
+    }
+    
+    @Test
+    public void should_valid_user() throws Exception {
+        when(users.existsWithEmail("used@gmail.com")).thenReturn(false);
+        User user = new User("nome", "used@gmail.com", "123");
+        boolean valid = userValidator.validate(user, "123", "123");
+        
+        assertTrue(valid);
     }
 
 }
