@@ -8,7 +8,7 @@ import br.com.caelum.vraptor.validator.I18nMessage;
 
 
 @Component
-public class UserValidator{
+public class UserValidator {
 	private final Validator validator;
     private final UserDAO users;
 
