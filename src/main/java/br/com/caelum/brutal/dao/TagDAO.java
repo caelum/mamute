@@ -3,9 +3,12 @@ package br.com.caelum.brutal.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
+import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.model.Tag;
+import br.com.caelum.brutal.model.TagUsage;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.ioc.Component;
 
@@ -49,5 +52,15 @@ public class TagDAO {
 			tags.add(newTag);
 		}
 		return tags;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<TagUsage> getRecentTagsUsageAfter(DateTime since) {
+		Query query = session.createQuery("select new br.com.caelum.brutal.model.TagUsage(tag, count(question)) from Question question " +
+				"join question.information info " +
+				"join info.tags tag " +
+				"where question.lastUpdatedAt > :since order by count(question) desc");
+		query.setParameter("since", since);
+		return query.list();
 	}
 }
