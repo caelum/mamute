@@ -1,11 +1,8 @@
 <table>
-	<c:forEach var="history" items="${histories }">
+	<c:forEach var="history" items="${histories}">
 		<tr>
-			<td>${history.objectType}</td>
-			<td>${history.fieldName}</td>
-			<td><fmt:formatDate value="${history.createdAt.time}"/></td>
-			<td><a class="iframe-load"
-				href="<c:url value="/history/${history.id }/similar" />">load</a></td>
+			<td><a href=>${history.title}</a></td>
+			<td><tags:jodaTime pattern="DD-MM-YYYY" time="${history.createdAt}"></tags:jodaTime></td>
 		</tr>
 	</c:forEach>
 </table>

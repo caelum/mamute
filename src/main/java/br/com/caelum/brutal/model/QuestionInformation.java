@@ -141,4 +141,8 @@ public class QuestionInformation {
 		return tags;
 	}
 	
+	public DateTime getCreatedAt() {
+        return createdAt;
+    }
+	
 }

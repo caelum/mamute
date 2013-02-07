@@ -86,6 +86,7 @@ public class TagDAOTest extends DatabaseTestCase{
 		assertEquals(2l, recentTagsUsage.get(0).getUsage().longValue());
 		assertEquals(1l, recentTagsUsage.get(1).getUsage().longValue());
 		assertEquals(tag.getId(), recentTagsUsage.get(0).getTag().getId());
+		assertEquals(otherTag.getId(), recentTagsUsage.get(1).getTag().getId());
 		
 	}
 	

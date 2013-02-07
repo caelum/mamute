@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import br.com.caelum.brutal.model.QuestionAndPendingHistory;
 import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.vraptor.ioc.Component;
@@ -19,10 +20,15 @@ public class QuestionInformationDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<QuestionInformation> unmoderated() {
-		String hql = "select qi from QuestionInformation qi where qi.status = :pending order by createdAt asc";
+	public QuestionAndPendingHistory pending() {
+		String hql = "select question, question_info from Question question " +
+				"join question.history question_info " +
+				"where question_info.status = :pending order by question_info.createdAt asc";
 		Query query = session.createQuery(hql);
-		return query.setParameter("pending", UpdateStatus.PENDING).list();
+		query.setParameter("pending", UpdateStatus.PENDING);
+		List<Object[]> results = query.list();
+		QuestionAndPendingHistory pending = new QuestionAndPendingHistory(results);
+		return pending;
 	}
 
 	@SuppressWarnings("unchecked")

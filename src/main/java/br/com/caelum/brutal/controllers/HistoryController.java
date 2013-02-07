@@ -28,7 +28,7 @@ public class HistoryController {
 			result.use(http()).sendError(403);
 			return;
 		}
-		result.include("histories", histories.unmoderated());
+		result.include("histories", histories.pending());
 	}
 
 

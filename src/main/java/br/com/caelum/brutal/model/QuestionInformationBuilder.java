@@ -9,6 +9,7 @@ public class QuestionInformationBuilder {
 	private String title = "default title default title";
 	private String description = "default description default description default description";
 	private List<Tag> tags = new ArrayList<>();
+    private UpdateStatus status;
 
 	public QuestionInformationBuilder withAuthor(User author) {
 		this.author = author;
@@ -16,12 +17,20 @@ public class QuestionInformationBuilder {
 	}
 
 	public QuestionInformation build() {
-		return new QuestionInformation(title, description, new CurrentUser(author, null), tags);
+		QuestionInformation questionInformation = new QuestionInformation(title, description, new CurrentUser(author, null), tags);
+		if (status != null)
+		    questionInformation.setInitStatus(status);
+        return questionInformation;
 	}
 
 	public QuestionInformationBuilder withTag(Tag tag) {
 		tags.add(tag);
 		return this;
 	}
+
+    public QuestionInformationBuilder withStatus(UpdateStatus status) {
+        this.status = status;
+        return this;
+    }
 
 }
