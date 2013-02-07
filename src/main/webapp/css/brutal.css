@@ -471,6 +471,23 @@ textarea {
 	padding: 2px 5px;
 }
 
+/*QUESTION*/
+.question-form{
+	float: left;
+	margin-right: 45px;
+	width: 650px;
+}
+
+.question-form label:first-child {
+	display: inline;
+}
+
+#question-title {
+	display: inline;
+	margin-left: 20px;
+	width: 580px;
+}
+
 /*Post actions*/
 .post-action {
 	color: #888;

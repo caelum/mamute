@@ -2,7 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%><%@attribute
 	name="uri" required="true" type="java.lang.String" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
-<form class="validated-form" action='<c:url value="${uri}"/>' method="post" >
+<form class="validated-form question-form" action='<c:url value="${uri}"/>' method="post" >
 
 	<label for="question-title"><fmt:message key="newquestion.title" /></label>
 	<input id="question-title" type="text" class="required hintable" value="${question.title }" data-hint-id="newquestion-title-hint" minlength="15" name="title">
@@ -20,11 +20,11 @@
 	<label for="tags"><fmt:message key="newquestion.tags"/></label>
 	<input id="tags" type="text" name="tagNames" class="hintable autocomplete" value="${question.tagsAsString }" data-hint-id="newquestion-tags-hint" data-autocomplete-id="newquestion-tags-autocomplete"/>
 	<dl id="newquestion-tags-autocomplete"></dl>
-	<div id="newquestion-title-hint" class="hint"><fmt:message key="title.hint" /></div>
-	<div id="newquestion-description-hint" class="hint"><fmt:message key="description.hint" /></div>
-	<div id="newquestion-tags-hint" class="hint"><fmt:message key="tags.hint" /></div>
 	
 	<input class="post-submit big-submit" type="submit" value="<fmt:message key="newquestion.submit"/>" />
 	
 
 </form>
+<div id="newquestion-title-hint" class="hint"><fmt:message key="title.hint" /></div>
+<div id="newquestion-description-hint" class="hint"><fmt:message key="description.hint" /></div>
+<div id="newquestion-tags-hint" class="hint"><fmt:message key="tags.hint" /></div>
