@@ -20,9 +20,9 @@ a {
 	float: left;
 }
 
-.container,.content {
+.container {
 	margin: 0 auto;
-	width: 960px;
+	width: 71%;
 }
 
 .title {

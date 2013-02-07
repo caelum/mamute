@@ -11,7 +11,7 @@
 </head>
 <body>
 <header class="header">
-	<div class="content">
+	<div class="container">
 		<h2 class="logo">Logo do Brutal Pequeno</h2>
 		<section class="user-area">
 			<nav class="nav">
