@@ -52,13 +52,13 @@ public class HerokuDatabaseInformation {
 	public Properties exportToProperties() {
 		Properties p = new Properties();
 		logger.info("Using " + url());
-		p.put("connection.url", url());
+		p.put("hibernate.connection.url", url());
 
 		String[] userInfo = userInfo();
 		logger.info("Using " + user(userInfo));
 		logger.info("Using " + password(userInfo));
-		p.put("connection.username", user(userInfo));
-		p.put("connection.password", password(userInfo));
+		p.put("hibernate.connection.username", user(userInfo));
+		p.put("hibernate.connection.password", password(userInfo));
 		return p;
 	}
 
