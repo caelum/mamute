@@ -1,6 +1,7 @@
 package br.com.caelum.brutal.providers;
 
 import java.net.URL;
+import java.util.Map;
 
 import javax.annotation.PreDestroy;
 
@@ -10,6 +11,7 @@ import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import br.com.caelum.brutal.components.HerokuDatabaseInformation;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.AnswerInformation;
 import br.com.caelum.brutal.model.Comment;
@@ -27,14 +29,25 @@ import br.com.caelum.vraptor.ioc.ComponentFactory;
 @ApplicationScoped
 public class SessionFactoryCreator implements ComponentFactory<SessionFactory> {
 
-	private static final Logger logger = LoggerFactory
+	private static final Logger LOGGER = LoggerFactory
 			.getLogger(SessionFactoryCreator.class);
 	private Configuration cfg;
 
 	public SessionFactoryCreator(Environment env) {
 		URL xml = env.getResource("/hibernate.cfg.xml");
-		logger.info("Loading hibernate xml from " + xml);
+		LOGGER.info("Loading hibernate xml from " + xml);
 		this.cfg = new Configuration().configure(xml);
+		
+		String databaseUrl = System.getenv("DATABASE_URL");
+		if (databaseUrl != null) {
+			LOGGER.info("ready to use heroku database");
+			HerokuDatabaseInformation info = new HerokuDatabaseInformation(
+					databaseUrl);
+			Map<String, String> heroku = info.exportToProperties();
+			for(String key : heroku.keySet()) {
+				cfg.setProperty(key, heroku.get(key));
+			}
+		}
 
 		cfg.addAnnotatedClass(User.class);
 		cfg.addAnnotatedClass(Question.class);

@@ -13,9 +13,9 @@
 	</properties>
 
 	<scm>
-		<url>http://github.com/caelum/gujstack</url>
-		<connection>scm:git:git://github.com/caelum/gujstack</connection>
-		<developerConnection>scm:git:git@github.com:caelum/gujstack.git</developerConnection>
+		<url>http://github.com/caelum/brutal</url>
+		<connection>scm:git:git://github.com/caelum/brutal</connection>
+		<developerConnection>scm:git:git@github.com:caelum/brutal.git</developerConnection>
 	</scm>
 
 	<dependencies>
@@ -455,7 +455,7 @@
 						<version>2.5</version>
 						<configuration>
 							<systemPropertyVariables>
-								<vraptor.server_host>caelum-gujstack-acceptance.herokuapp.com</vraptor.server_host>
+								<vraptor.server_host>caelum-brutal-acceptance.herokuapp.com</vraptor.server_host>
 							</systemPropertyVariables>
 						</configuration>
 					</plugin>

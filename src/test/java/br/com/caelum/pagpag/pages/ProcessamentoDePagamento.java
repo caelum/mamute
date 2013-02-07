@@ -8,7 +8,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ProcessamentoDePagamento extends PageObject{
 
-
 	public ProcessamentoDePagamento(WebDriver driver) {
 		super(driver);
 	}
