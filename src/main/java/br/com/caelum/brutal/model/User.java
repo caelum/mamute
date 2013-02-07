@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -28,7 +29,7 @@ public class User implements Identifiable {
 	private String password = "";
 	
 	@NotEmpty
-	@Type(type = "text")
+	@Lob
 	private String name;
 	
 	private long karma = 0;
