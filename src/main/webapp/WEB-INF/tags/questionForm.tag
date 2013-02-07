@@ -10,9 +10,9 @@
 			<div id="wmd-button-bar"></div>
 			<textarea class="required hintable wmd-input" id="wmd-input"
 				data-hint-id="newquestion-description-hint" minlength="30"
-				name="description">${question.description }</textarea>
+				name="description">${question.description}</textarea>
 		</div>
-		<div id="wmd-preview" class="wmd-panel wmd-preview"></div>
+		<div id="wmd-preview" class="wmd-panel wmd-preview hidden"></div>
 	</div>
 	
 	<label for="tags"><fmt:message key="newquestion.tags"/></label>
