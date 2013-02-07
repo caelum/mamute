@@ -313,14 +313,14 @@
 								<exclude>none</exclude>
 							</excludes>
 							<includes>
-								<include>**/cenario/**/*Test.java</include>
+								<include>**/scene/**/*Test.java</include>
 							</includes>
 						</configuration>
 					</execution>
 				</executions>
 				<configuration>
 					<excludes>
-						<exclude>**/cenario/**</exclude>
+						<exclude>**/scene/**</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
