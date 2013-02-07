@@ -416,10 +416,9 @@ textarea {
 	overflow: hidden;
 }
 
-.question-title + .post-area {
-	border-bottom: none;
+.question-area{
+	border:none;
 }
-
 .post-area .tags {
 	margin: 10px 0;
 	overflow: hidden;
