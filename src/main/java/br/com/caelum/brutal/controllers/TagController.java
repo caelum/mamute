@@ -24,6 +24,6 @@ public class TagController {
 	@Get("/tagsLike/{tagChunk}")
 	public void getTagsLike(String tagChunk){
 		List<TagUsage> suggestions = tags.findTagsUsageLike(tagChunk);
-		result.use(json()).withoutRoot().from(suggestions).serialize();
+		result.use(json()).withoutRoot().from(suggestions).include("tag").serialize();
 	}
 }
