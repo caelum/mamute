@@ -3,11 +3,12 @@
 	font-family: sans-serif;
 	float:left;
 	margin-right:10px;
+	width: 100%;
 }
 
 .wmd-panel {
 	margin: 20px 0;
-	width: 50%;
+	width: 100%;
 	min-width: 500px;
 }
 

@@ -130,7 +130,7 @@ input[type="text"]:focus, input[type="search"]:focus,input[type="password"]:focu
 
 label{
 	display: block;
-	margin: 10px 0 5px 0;
+	margin: 10px 0;
 	color:#333;
 	font-size:1.2em;
 	font-weight:bold;
