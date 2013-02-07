@@ -70,8 +70,13 @@ a {
 }
 
 /*Forms*/
-form,form * {
+form, form * {
 	margin: 0;
+	width:500px;
+}
+
+form *{
+	width:100%;
 }
 
 input {
@@ -82,14 +87,19 @@ input[type="text"],input[type="search"],input[type="password"] {
 	border: none;
 	border-top: 1px solid #ccc;
 	border-left: 1px solid #ccc;
-	width: 200px;
 	padding: 3px;
 }
 
-label.error {
+label{
 	display: block;
+	margin: 10px 0 5px 0;
+	color:#333;
+	font-size:1.2em;
+	font-weight:bold;
+}
+
+label.error {
 	padding: 5px 0;
-	margin-top: 10px;
 	color: #8e0000;
 	font-size: 13px;
 }
@@ -157,6 +167,10 @@ textarea {
 
 .header .nav {
 	margin-right: 20px;
+}
+
+.search-form{
+	width:200px;
 }
 
 .search-form input[type="submit"] {
