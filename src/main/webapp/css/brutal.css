@@ -16,6 +16,10 @@ a {
 	color: rgb(0, 119, 204);
 }
 
+h4 {
+	font-size: 20px;
+}
+
 .logo {
 	float: left;
 }
