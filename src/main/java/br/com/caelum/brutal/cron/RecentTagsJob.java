@@ -1,21 +1,21 @@
 package br.com.caelum.brutal.cron;
 
-import org.joda.time.DateTime;
-
-import br.com.caelum.brutal.components.RecentTags;
+import br.com.caelum.brutal.components.RecentTagsContainer;
+import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.quartzjob.CronTask;
 
+@Resource
 public class RecentTagsJob implements CronTask{
 	
-	private RecentTags recentTags;
+	private RecentTagsContainer recentTagsContainer;
 
-	public RecentTagsJob(RecentTags recentTags) {
-		this.recentTags = recentTags;
+	public RecentTagsJob(RecentTagsContainer recentTagsContainer) {
+		this.recentTagsContainer = recentTagsContainer;
 	}
 
 	@Override
 	public void execute() {
-		recentTags.updateRecentTags();
+		recentTagsContainer.updateRecentTagsUsage();
 	}
 
 	@Override

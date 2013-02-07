@@ -5,7 +5,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 import org.joda.time.DateTime;
@@ -17,29 +16,25 @@ import br.com.caelum.vraptor.ioc.Component;
 
 @ApplicationScoped
 @Component
-public class RecentTags {
+public class RecentTagsContainer {
 
-	private List<TagUsage> recentTagsSince;
+	private List<TagUsage> recentTagsUsage;
 	private final SessionFactory sf;
 	
-	public RecentTags(SessionFactory sf) {
+	public RecentTagsContainer(SessionFactory sf) {
 		this.sf = sf;
 	}
-	
 
-	public List<TagUsage> getRecentTagsSince() {
-		return recentTagsSince;
+	public List<TagUsage> getRecentTagsUsage() {
+		return recentTagsUsage;
 	}
 	
 	@PostConstruct
-	public void updateRecentTags() {
-		Logger logger = Logger.getLogger(getClass());
-		logger.warn("instanciando a bagaça");
+	public void updateRecentTagsUsage() {
 		Session session = sf.openSession();
 		TagDAO tags = new TagDAO(session);
-		this.recentTagsSince = tags.getRecentTagsUsageSince(DateTime.now().minusMonths(3));
+		this.recentTagsUsage = tags.getRecentTagsUsageSince(new DateTime().minusMonths(3));
 		session.close();
-	
 	}
 	
 	@PreDestroy
