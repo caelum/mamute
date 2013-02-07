@@ -37,7 +37,7 @@ public class SignupController {
 		if (valid) {
 		    dao.save(newUser);
 		    result.include("confirmations", Arrays.asList("signup.confirmation"));
-		    result.redirectTo(ListController.class).home();
+		    result.forwardTo(AuthController.class).login(email, password, "");
 		} else {
 		    result.include("email", email);
 		    result.include("name", name);

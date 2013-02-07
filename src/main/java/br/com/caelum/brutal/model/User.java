@@ -4,10 +4,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
@@ -28,9 +28,11 @@ public class User implements Identifiable {
 	private Long id;
 
 	@NotEmpty
+	@Length(min = 6)
 	private String password = "";
 	
 	@NotEmpty
+	@Length(min = 6)
 	private String name;
 	
 	private long karma = 0;
@@ -129,4 +131,7 @@ public class User implements Identifiable {
 		return false;
 	}
 
+	public String getPassword() {
+		return password;
+	}
 }

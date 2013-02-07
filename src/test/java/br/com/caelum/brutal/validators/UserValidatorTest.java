@@ -29,19 +29,44 @@ public class UserValidatorTest {
     @Test
     public void should_verify_email() {
         when(users.existsWithEmail("used@gmail.com")).thenReturn(true);
-        User user = new User("nome", "used@gmail.com", "123");
-        boolean valid = userValidator.validate(user, "123", "123");
+        User user = new User("nome muito grande ai meu deus", "used@gmail.com", "123456");
+        boolean valid = userValidator.validate(user, "123456", "123456");
         
         assertFalse(valid);
     }
     
     @Test
+    public void should_verify_email_without_domain() {
+    	User user = new User("nome muito grande ai meu deus", "usedgmail.com", "123456");
+    	boolean valid = userValidator.validate(user, "123456", "123456");
+    	assertFalse(valid);
+    }
+    
+    @Test
     public void should_verify_passwords() throws Exception {
         when(users.existsWithEmail("valid@gmail.com")).thenReturn(false);
-        User user = new User("nome", "valid@gmail.com", "123");
-        boolean valid = userValidator.validate(user, "123", "1234");
+        User user = new User("nome muito grande ai meu deus", "valid@gmail.com", "123456");
+        boolean valid = userValidator.validate(user, "123456", "1234567");
         
         assertFalse(valid);
+    }
+    
+    @Test
+    public void should_verify_tiny_password() throws Exception {
+    	when(users.existsWithEmail("valid@gmail.com")).thenReturn(false);
+    	User user = new User("nome muito grande ai meu deus", "valid@gmail.com", "123");
+    	boolean valid = userValidator.validate(user, "123", "123");
+    	
+    	assertFalse(valid);
+    }
+    
+    @Test
+    public void should_verify_tiny_name() throws Exception {
+    	when(users.existsWithEmail("valid@gmail.com")).thenReturn(false);
+    	User user = new User("nome", "valid@gmail.com", "123456");
+    	boolean valid = userValidator.validate(user, "123456", "123456");
+    	
+    	assertFalse(valid);
     }
     
     @Test
@@ -54,8 +79,8 @@ public class UserValidatorTest {
     @Test
     public void should_valid_user() throws Exception {
         when(users.existsWithEmail("used@gmail.com")).thenReturn(false);
-        User user = new User("nome", "used@gmail.com", "123");
-        boolean valid = userValidator.validate(user, "123", "123");
+        User user = new User("nome muito grande ai meu deus", "used@gmail.com", "123456");
+        boolean valid = userValidator.validate(user, "123456", "123456");
         
         assertTrue(valid);
     }
