@@ -11,7 +11,6 @@ import javax.validation.ConstraintViolationException;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.com.caelum.brutal.integracao.dao.DatabaseTestCase;
 import br.com.caelum.brutal.model.CurrentUser;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.QuestionInformation;

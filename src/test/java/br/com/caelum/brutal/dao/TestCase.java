@@ -1,4 +1,4 @@
-package br.com.caelum.brutal.integracao.dao;
+package br.com.caelum.brutal.dao;
 
 import java.util.ArrayList;
 

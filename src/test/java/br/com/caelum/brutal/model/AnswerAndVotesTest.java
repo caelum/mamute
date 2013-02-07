@@ -10,7 +10,7 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import br.com.caelum.brutal.integracao.dao.TestCase;
+import br.com.caelum.brutal.dao.TestCase;
 
 public class AnswerAndVotesTest  extends TestCase{
 	

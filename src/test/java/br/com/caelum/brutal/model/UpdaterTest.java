@@ -9,7 +9,7 @@ import static org.mockito.Mockito.when;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.com.caelum.brutal.integracao.dao.TestCase;
+import br.com.caelum.brutal.dao.TestCase;
 
 public class UpdaterTest extends TestCase{
     

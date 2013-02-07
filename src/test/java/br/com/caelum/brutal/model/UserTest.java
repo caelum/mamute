@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.com.caelum.brutal.integracao.dao.TestCase;
+import br.com.caelum.brutal.dao.TestCase;
 
 public class UserTest extends TestCase{
     

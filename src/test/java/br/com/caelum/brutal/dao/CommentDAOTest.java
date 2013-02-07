@@ -7,7 +7,6 @@ import java.util.List;
 import org.joda.time.DateTime;
 import org.junit.Test;
 
-import br.com.caelum.brutal.integracao.dao.DatabaseTestCase;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.Question;
