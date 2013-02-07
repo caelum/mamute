@@ -4,6 +4,8 @@ import static br.com.caelum.vraptor.view.Results.page;
 
 import java.util.List;
 
+import org.joda.time.DateTime;
+
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.model.Question;
@@ -28,11 +30,13 @@ public class ListController {
 	@Get("/")
 	public void home() {
 		result.include("questions", questions.all());
+		result.include("tagsUsage", tags.getRecentTagsUsageSince(new DateTime().minusMonths(3)));
 	}
 	
 	@Get("/list/unanswered")
 	public void unanswered() {
 		result.include("questions", questions.unanswered());
+		result.include("tagsUsage", tags.getRecentTagsUsageSince(new DateTime().minusMonths(3)));
 		result.use(page()).of(ListController.class).home();
 	}
 	
@@ -40,6 +44,7 @@ public class ListController {
 	public void withTag(String tagName) {
 		Tag tag = tags.findByName(tagName);
 		List<Question> questionsWithTag = questions.withTag(tag);
+		result.include("tagsUsage", tags.getRecentTagsUsageSince(new DateTime().minusMonths(3)));
 		result.include("questions", questionsWithTag);
 		result.use(page()).of(ListController.class).home();
 	}

@@ -10,7 +10,7 @@
 	<span>
 		<form action="<c:url value="/${item.typeName }/${item.id }/edit/${field }"/>" class="validated-form ajax" data-ajax-result="${ajaxResult }">
 			<textarea class="required to-focus hintable" minlength="15" name="value" data-hint-id="${ajaxResult }-hint">${value }</textarea>
-			<input type="submit"
+			<input class="post-submit" type="submit"
 				value="<fmt:message key="${editKey }_submit"/>" />
 		</form>
 		<span id="${ajaxResult }-hint"><fmt:message key="${field}.hint"/></span>

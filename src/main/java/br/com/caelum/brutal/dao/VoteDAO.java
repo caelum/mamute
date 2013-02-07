@@ -33,9 +33,14 @@ public class VoteDAO {
 	}
 
 	public void substitute(Vote previous, Vote current, Votable on) {
+	    long delta = current.getValue();
+	    if (previous != null) {
+	        delta -= previous.getValue();
+	        session.delete(previous);
+	    }
 		session.save(current);
 		session.createQuery("update User as u set u.karma = u.karma + (:value) where u.id = :user")
-		    .setParameter("value", on.getVoteCount())
+		    .setParameter("value", delta)
 		    .setParameter("user", on.getAuthor().getId())
 		    .executeUpdate();
 	}

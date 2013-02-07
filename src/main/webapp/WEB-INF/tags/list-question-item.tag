@@ -5,9 +5,11 @@
 <%@attribute name="question" type="br.com.caelum.brutal.model.Question" required="true" %>
 
 <li class="question">
-	<tags:questionInformation key="question.list.vote" count="${question.voteCount}" information="votes"/>
-	<tags:questionInformation key="question.list.answer" count="${question.answersCount}" information="answers"/>
-	<tags:questionInformation key="question.list.view" count="${question.views}" information="views"/>
+	<div class="question-information">
+		<tags:questionInformation key="question.list.vote" count="${question.voteCount}" information="votes"/>
+		<tags:questionInformation key="question.list.answer" count="${question.answersCount}" information="answers"/>
+		<tags:questionInformation key="question.list.view" count="${question.views}" information="views"/>
+	</div>
 	<div class="summary">
 		<h3 class="title item-title">
 			<a href="<c:url value="/questions/${question.id }/${question.sluggedTitle}"/>">
@@ -16,9 +18,9 @@
 		</h3>
 		<tags:tagsFor question="${question}"/>
 		<div class="stats">
-			<span class="small last-updated-at"><tags:prettyTime time="${question.lastUpdatedAt }" /></span>
-			<a class="small" href="#">${question.lastTouchedBy.name }</a> 
-			<span class="reputation small">${question.lastTouchedBy.karma }</span>
+			<span class="last-updated-at"><tags:prettyTime time="${question.lastUpdatedAt }" /></span>
+			<a href="#">${question.lastTouchedBy.name }</a> 
+			<span class="reputation">${question.lastTouchedBy.karma }</span>
 		</div>
 	</div>		
 </li>

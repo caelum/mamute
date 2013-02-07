@@ -1,21 +1,6 @@
 <h2 class="title question-title">${question.title}</h2>
 
-<section class="post-area">
-	<div class="post-meta">
-		<tags:voteFor item="${question}" type="question" vote="${currentVote }"/>
-	</div>
-	<div class="post-container">
-		<p class="question-description" id="question-description-${question.id }">${question.markedDescription}</p>
-		<tags:tagsFor question="${question}"/>
-		<ul class="post-action-nav nav">
-			<li class="nav-item">
-				<a class="post-action small" href="<c:url value="/question/edit/${question.id}"/>"><fmt:message key="edit" /></a>
-			</li>
-		</ul>
-		<tags:add-a-comment item="${question}" />
-	</div>
-</section>
-
+<tags:questionWith question="${question}"/>
 
 <h2 class="title page-title">
 	${question.answersCount} <fmt:message key="question.list.answer.${question.answersCount > 1 ? 'plural' : 'singular' }"/>
@@ -24,7 +9,9 @@
 	<c:forEach items="${answers.votes}" var="entry">
 		<c:set var="answer" value="${entry.key}" />
 		<c:set var="vote" value="${entry.value}" />
-		<tags:answerWith answer="${answer}" vote="${vote}"/>
+		<li class="answer ${answer.solution? 'solution' : ''}" data-id="${answer.id}">
+			<tags:answerWith answer="${answer}" vote="${vote}"/>
+		</li>
 	</c:forEach>
 </ul>
 <c:if test="${not empty currentUser}">
