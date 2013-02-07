@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 
+import br.com.caelum.brutal.components.RecentTags;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.model.Question;
@@ -20,11 +21,13 @@ public class ListController {
 	private final QuestionDAO questions;
 	private final Result result;
 	private final TagDAO tags;
+	private final RecentTags recentTags;
 
-	public ListController(QuestionDAO questions, TagDAO tags, Result result) {
+	public ListController(QuestionDAO questions, TagDAO tags, Result result, RecentTags recentTags) {
 		this.questions = questions;
 		this.tags = tags;
 		this.result = result;
+		this.recentTags = recentTags;
 	}
 
 	@Get("/")
