@@ -7,7 +7,5 @@
 <input type="submit" value="Login"/>
 </form>
 
-<c:if test="${invalid_login}">
-	<a href="${linkTo[ForgotPasswordController].forgotPasswordForm}"><fmt:message 
+<a href="${linkTo[ForgotPasswordController].forgotPasswordForm}"><fmt:message 
 		key="forgot_password.link.text" /></a>
-</c:if>
