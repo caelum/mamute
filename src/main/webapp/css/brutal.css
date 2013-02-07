@@ -58,6 +58,9 @@ a {
 
 .hidden,.hint {
 	display: none;
+}
+
+.hint{
 	background-color: #FEFAE2;
 	border: 1px solid #F3EED5;
 	padding: 10px 5px;
@@ -83,11 +86,17 @@ input {
 	height: 22px;
 }
 
-input[type="text"],input[type="search"],input[type="password"] {
-	border: none;
-	border-top: 1px solid #ccc;
-	border-left: 1px solid #ccc;
+input[type="submit"]{
+	margin:5px 0;
+}
+
+input[type="text"], input[type="search"],input[type="password"] {
 	padding: 3px;
+	border:1px solid #999;
+}
+
+input[type="text"]:focus, input[type="search"]:focus,input[type="password"]:focus{
+	border:0;
 }
 
 label{
@@ -171,6 +180,13 @@ textarea {
 
 .search-form{
 	width:200px;
+}
+
+.search-form input{
+	border: none;
+	border-top: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+	
 }
 
 .search-form input[type="submit"] {
@@ -323,6 +339,17 @@ textarea {
 	color: #e0eaf1;
 }
 
+.tags-autocomplete{
+	z-index:999;
+	position:absolute;
+	background-color:#FFF;
+	
+}
+
+.autocompleted-tag{
+	
+}
+
 /*SHOW QUESTION*/
 .solution .mark-as-solution {
 	display: none;
@@ -366,22 +393,18 @@ textarea {
 	margin: 10px 0;
 	cursor: pointer;
 	height: auto;
+	width: auto;
+	padding: 5px 10px;
+}
+
+.big-submit {
+	font-weight: bold;
+	font-size: 17px;
 }
 
 /*Answer*/
 .answer {
 	padding: 15px 0;
-}
-
-/*Answer form*/
-.answer-submit {
-	font-weight: bold;
-	font-size: 17px;
-	padding: 5px 10px;
-}
-
-.comment-submit {
-	padding: 5px 10px;
 }
 
 /*Vote*/
