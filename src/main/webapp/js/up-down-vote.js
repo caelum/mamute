@@ -15,7 +15,6 @@ function vote(link) {
 	var params = "/"+ type +"/"+ id +"/"+ vote;
 	$.ajax(""+ params, {
 		complete: function(jqXHR, textStatus) {
-			console.log(jqXHR.status);
 			if (jqXHR.status == "200") {
 				var count = jqXHR.responseText;
 				voteSuccess(link, count);
