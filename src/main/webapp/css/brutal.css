@@ -143,7 +143,7 @@ textarea {
 }
 
 /*LOGIN*/
-.login-form input[type="text"],.login-form input[type="password"] {
+.user-form input[type="text"],.user-form input[type="password"] {
 	border: 2px inset #EEE;
 	display: block;
 	font-size: 17px;
@@ -152,7 +152,7 @@ textarea {
 	width: 300px;
 }
 
-.login-form input[type="submit"] {
+.user-form input[type="submit"] {
 	font-size: 22px;
 	height: 35px;
 	width: 300px;
@@ -522,4 +522,8 @@ textarea {
 
 .edit-via-ajax span,.edit div {
 	display: none;
+}
+
+.pending-questions a {
+	font-size: 18px;
 }

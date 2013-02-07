@@ -1,7 +1,7 @@
 package br.com.caelum.brutal.controllers;
 
 import static br.com.caelum.vraptor.view.Results.http;
-import br.com.caelum.brutal.auth.Logged;
+import br.com.caelum.brutal.auth.LoggedAccess;
 import br.com.caelum.brutal.dao.CommentDAO;
 import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.User;
@@ -23,7 +23,7 @@ public class CommentController {
 	}
 
 	@SuppressWarnings("rawtypes")
-	@Logged
+	@LoggedAccess
 	@Post("/{onWhat}/{id}/comment")
 	public void comment(Long id, String onWhat, String message) throws ClassNotFoundException {
 		Class type = Class.forName("br.com.caelum.brutal.model." + onWhat);

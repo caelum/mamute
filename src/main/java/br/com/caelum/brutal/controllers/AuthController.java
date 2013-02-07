@@ -27,9 +27,8 @@ public class AuthController {
 		if (auth.authenticate(email, password)) {
 			redirectToRightUrl(redirectUrl);
 		} else {
-			result.include("invalid_login", true);
 			result.include("alerts", Arrays.asList("auth.invalid.login"));
-			result.redirectTo(ListController.class).home();
+			result.redirectTo(this).loginForm();
 		}
 	}
 	
