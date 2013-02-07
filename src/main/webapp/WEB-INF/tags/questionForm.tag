@@ -5,16 +5,9 @@
 <form class="validated-form question-form hinted-form" action='<c:url value="${uri}"/>' method="post" >
 	<label for="question-title"><fmt:message key="newquestion.title" /></label>
 	<input id="question-title" type="text" class="required hintable" value="${question.title }" data-hint-id="newquestion-title-hint" minlength="15" name="title">
-	<div class="wmd">
-		<div class="wmd-panel">
-			<div id="wmd-button-bar"></div>
-			<textarea class="required hintable wmd-input" id="wmd-input"
-				data-hint-id="newquestion-description-hint" minlength="30"
-				name="description">${question.description}</textarea>
-		</div>
-		<div id="wmd-preview" class="wmd-panel wmd-preview hidden"></div>
-	</div>
 	
+	<tags:markDown value="${question.description}" hintId="newquestion-description-hint" />
+
 	<label for="tags"><fmt:message key="newquestion.tags"/></label>
 	<input id="tags" type="text" name="tagNames" class="hintable autocomplete" value="${question.tagsAsString }" data-hint-id="newquestion-tags-hint" data-autocomplete-id="newquestion-tags-autocomplete"/>
 	<ul class="tags autocompleted-tags" id="newquestion-tags-autocomplete"></ul>
