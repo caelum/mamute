@@ -1,5 +1,6 @@
+<h2 class="title page-title"><fmt:message key="signup.form.title"/></h2>
 
-<form action="${linkTo[SignupController].signup}" method="POST" class="validated-form">
+<form action="${linkTo[SignupController].signup}" method="POST" class="validated-form user-form">
 	<label for="name"><fmt:message key="signup.form.username.label" /></label>
 	<input id="name" type="text" name="name" class="required" minlength="6" value="${name}"/>
 
