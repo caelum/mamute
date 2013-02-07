@@ -5,9 +5,11 @@
 <%@attribute name="question" type="br.com.caelum.brutal.model.Question" required="true" %>
 
 <li class="question">
-	<tags:questionInformation key="question.list.vote" count="${question.voteCount}" information="votes"/>
-	<tags:questionInformation key="question.list.answer" count="${question.answersCount}" information="answers"/>
-	<tags:questionInformation key="question.list.view" count="${question.views}" information="views"/>
+	<div class="question-information">
+		<tags:questionInformation key="question.list.vote" count="${question.voteCount}" information="votes"/>
+		<tags:questionInformation key="question.list.answer" count="${question.answersCount}" information="answers"/>
+		<tags:questionInformation key="question.list.view" count="${question.views}" information="views"/>
+	</div>
 	<div class="summary">
 		<h3 class="title item-title">
 			<a href="<c:url value="/questions/${question.id }/${question.sluggedTitle}"/>">

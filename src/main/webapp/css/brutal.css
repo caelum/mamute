@@ -34,12 +34,14 @@ a {
 	font-weight: bold;
 }
 
+
 .page-title,.question-title {
 	border-bottom: 1px solid #cccccc;
 	margin-bottom: 15px;
 }
 
-.page-title,.page-title a {
+.section-title, .section-title a,
+.page-title, .page-title a {
 	font-size: 18px;
 	line-height: 34px;
 }
@@ -196,13 +198,27 @@ textarea {
 	float: right;
 }
 
+/*Basic structure*/
+.first-content,.sidebar {
+	float: left;
+}
+
+.first-content {
+	width: 80%;
+}
+
+.sidebar {
+	width: 20%;
+	padding: 0 20px;
+}
+
 /*BUTTON*/
 .button {
 	background: #777;
 	padding: 0 12px;
 	display: block;
 	color: #fff;
-	font-size:16px;
+	font-size: 16px;
 }
 
 .button:hover {
@@ -210,12 +226,33 @@ textarea {
 }
 
 /*HOME*/
+.question,.question-information,.summary {
+	overflow: hidden;
+}
+
+.question-information,.summary {
+	float: left;
+}
+
+.question {
+	border-bottom: 1px solid #EAEAEA;
+	padding: 11px 0;
+}
+
+.summary {
+	width: 75%;
+}
+
+.question-information {
+	width: 25%;
+}
+
 .info {
 	float: left;
 	font-size: 20px;
-	margin-right: 3px;
 	padding: 5px;
 	text-align: center;
+	width: 33%;
 }
 
 .answers {
@@ -236,12 +273,6 @@ textarea {
 	overflow: visible;
 }
 
-.question {
-	border-bottom: 1px solid #EAEAEA;
-	padding: 11px 0;
-	overflow: hidden;
-}
-
 .stats {
 	float: right;
 }
@@ -256,7 +287,7 @@ textarea {
 }
 
 /*TAG*/
-.tags li {
+.tags .tag {
 	float: left;
 }
 
@@ -306,9 +337,9 @@ textarea {
 	width: 90%;
 }
 
-.post-text{
-	font-size:14px;
-	color:#000;
+.post-text {
+	font-size: 14px;
+	color: #000;
 }
 
 .post-submit {
