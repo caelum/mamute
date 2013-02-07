@@ -10,12 +10,12 @@ import br.com.caelum.vraptor.validator.I18nMessage;
 
 
 @Component
-public class UserValidator {
+public class SignupValidator {
 	private static final int MIN_LENGHT = 6;
 	private final Validator validator;
     private final UserDAO users;
 
-	public UserValidator(Validator validator, UserDAO users) {
+	public SignupValidator(Validator validator, UserDAO users) {
 		this.validator = validator;
         this.users = users;
 	}

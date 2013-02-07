@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.model.User;
-import br.com.caelum.brutal.validators.UserValidator;
+import br.com.caelum.brutal.validators.SignupValidator;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
@@ -13,11 +13,11 @@ import br.com.caelum.vraptor.Result;
 @Resource
 public class SignupController {
 
-	private final UserValidator validator;
+	private final SignupValidator validator;
 	private final UserDAO dao;
 	private final Result result;
 
-	public SignupController(UserValidator validator, UserDAO dao, Result result) {
+	public SignupController(SignupValidator validator, UserDAO dao, Result result) {
 		this.validator = validator;
 		this.dao = dao;
 		this.result = result;

@@ -13,17 +13,17 @@ import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.util.test.JSR303MockValidator;
 
-public class UserValidatorTest {
+public class SignupValidatorTest {
 
     private UserDAO users;
     private Validator validator;
-    private UserValidator userValidator;
+    private SignupValidator userValidator;
     
     @Before
     public void setup() {
         users = mock(UserDAO.class);
         validator = new JSR303MockValidator();
-        userValidator = new UserValidator(validator, users);
+        userValidator = new SignupValidator(validator, users);
     }
 
     @Test
