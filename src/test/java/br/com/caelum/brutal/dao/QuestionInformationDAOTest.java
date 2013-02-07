@@ -18,7 +18,7 @@ public class QuestionInformationDAOTest extends DatabaseTestCase {
     @Test
     public void should_get_pending_history() {
         QuestionInformationDAO questionInformations = new QuestionInformationDAO(session);
-        User author = new User("chico", "chico@chico", "12345");
+        User author = new User("francisco", "chico@chico", "123456");
         
         QuestionInformation info1 = new QuestionInformationBuilder().withAuthor(author).build();
         Question question1 = new Question(info1, author);

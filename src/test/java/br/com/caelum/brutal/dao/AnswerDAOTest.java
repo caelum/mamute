@@ -16,10 +16,11 @@ import br.com.caelum.brutal.model.User;
 
 public class AnswerDAOTest extends DatabaseTestCase {
 
-    private User questionAuthor = new User("name", "email", "12345");
-    private User answerAuthor1 = new User("name", "answer2", "12345");
-    private User answerAuthor2 = new User("name", "answer1", "12345");
-    private User answerAuthor3 = new User("name", "answer3", "12345");
+    private User questionAuthor = new User("guilherme", "email@email.com", "123456");
+    private User answerAuthor1 = new User("leonardo", "answer2@email.com", "123456");
+    private User answerAuthor2 = new User("francisco", "answer1@email.com", "123456");
+    private User answerAuthor3 = new User("felipe", "answer3@email.com", "123456");
+    
     @Before
     public void before_test() {
         session.save(questionAuthor);

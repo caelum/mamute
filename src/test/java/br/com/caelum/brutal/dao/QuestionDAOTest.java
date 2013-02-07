@@ -25,7 +25,7 @@ public class QuestionDAOTest extends DatabaseTestCase {
 
 	@Before
 	public void setup() {
-		author = new User("Léo", "leo@leo", "123");
+		author = new User("Leonardo", "leo@leo", "123456");
 		session.save(author);
 		this.questions = new QuestionDAO(session);
 		this.tags = new TagDAO(session);
