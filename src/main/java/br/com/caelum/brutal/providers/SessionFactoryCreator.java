@@ -39,6 +39,7 @@ public class SessionFactoryCreator implements ComponentFactory<SessionFactory> {
 		this.cfg = new Configuration().configure(xml);
 		
 		String databaseUrl = System.getenv("DATABASE_URL");
+		LOGGER.info("env got " + databaseUrl);
 		if (databaseUrl != null) {
 			LOGGER.info("ready to use heroku database");
 			HerokuDatabaseInformation info = new HerokuDatabaseInformation(
