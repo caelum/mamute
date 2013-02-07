@@ -92,12 +92,12 @@ public class QuestionInformation {
 
 	private void setTitle(String title) {
 		this.title = title;
-		this.sluggedTitle = toSlug(title);
+		this.sluggedTitle = title == null ? null : toSlug(title);
 	}
 
 	private void setDescription(String description) {
 		this.description = description;
-		this.markedDescription = MarkDown.parse(description);
+		this.markedDescription = description == null ? null : MarkDown.parse(description);
 	}
 
 	public String getTitle() {
