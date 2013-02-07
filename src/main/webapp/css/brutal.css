@@ -20,9 +20,9 @@ a {
 	float: left;
 }
 
-.container,.content {
+.container {
 	margin: 0 auto;
-	width: 960px;
+	width: 71%;
 }
 
 .title {
@@ -64,7 +64,7 @@ a {
 	background-color: #FEFAE2;
 	border: 1px solid #F3EED5;
 	padding: 10px 5px;
-	margin: 10px 0;
+	margin: 10px 0 10px 20px;
 	float: left;
 }
 
@@ -72,13 +72,38 @@ a {
 	color: #FF0000;
 }
 
+/*Validations*/
+.error {
+	padding: 5px 0;
+	color: #8e0000;
+	font-size: 13px;
+}
+
+.validation-error{
+	background-color:#ad0000;
+	font-weight:bold;
+	color:#fff;
+	border: 1px solid #8e0000;
+	border-radius:3px;
+	cursor:pointer;
+}
+
+.popup{
+	position:absolute;
+	padding:20px;
+	margin-top:5px;	
+}
+
 /*Forms*/
 form, form * {
 	margin: 0;
+}
+
+form{
 	width:500px;
 }
 
-form *{
+input, label, textarea{
 	width:100%;
 }
 
@@ -90,7 +115,7 @@ input[type="submit"]{
 	margin:5px 0;
 }
 
-input[type="text"], input[type="search"],input[type="password"] {
+input[type="text"], input[type="search"],input[type="password"], textarea {
 	padding: 3px;
 	border:1px solid #999;
 }
@@ -101,22 +126,18 @@ input[type="text"]:focus, input[type="search"]:focus,input[type="password"]:focu
 
 label{
 	display: block;
-	margin: 10px 0 5px 0;
+	margin: 10px 0;
 	color:#333;
 	font-size:1.2em;
 	font-weight:bold;
 }
 
-label.error {
-	padding: 5px 0;
-	color: #8e0000;
-	font-size: 13px;
+textarea {
+	resize: vertical;
 }
 
-textarea {
-	border-color: #999;
-	width: 100%;
-	resize: vertical;
+.hinted-form{
+	float:left;
 }
 
 /*ARROW*/
@@ -138,7 +159,7 @@ textarea {
 }
 
 /*LOGIN*/
-.login-form input[type="text"],.login-form input[type="password"] {
+.user-form input[type="text"],.user-form input[type="password"] {
 	border: 2px inset #EEE;
 	display: block;
 	font-size: 17px;
@@ -147,7 +168,7 @@ textarea {
 	width: 300px;
 }
 
-.login-form input[type="submit"] {
+.user-form input[type="submit"] {
 	font-size: 22px;
 	height: 35px;
 	width: 300px;
@@ -317,7 +338,7 @@ textarea {
 }
 
 /*TAG*/
-.tags .tag {
+.tags li {
 	float: left;
 }
 
@@ -339,15 +360,33 @@ textarea {
 	color: #e0eaf1;
 }
 
-.tags-autocomplete{
-	z-index:999;
-	position:absolute;
-	background-color:#FFF;
-	
+.tag-description{
+	color:#000;
 }
 
-.autocompleted-tag{
-	
+.autocompleted-tags{
+	display:none;
+}
+
+.autocompleted-tags.active{
+	border:1px solid #000;
+	z-index:999;
+	display:block;
+	position:absolute;
+	margin-top:30px;
+	background-color:#FFF;
+	padding:10px;
+	width:500px;
+}
+
+.autocompleted-tags li{
+	width:33%;
+	padding:10px;
+	cursor:pointer;
+}
+
+.autocompleted-tags li:hover{
+	background-color: #ffe6bf;
 }
 
 /*SHOW QUESTION*/
@@ -471,23 +510,6 @@ textarea {
 	padding: 2px 5px;
 }
 
-/*QUESTION*/
-.question-form{
-	float: left;
-	margin-right: 45px;
-	width: 650px;
-}
-
-.question-form label:first-child {
-	display: inline;
-}
-
-#question-title {
-	display: inline;
-	margin-left: 20px;
-	width: 580px;
-}
-
 /*Post actions*/
 .post-action {
 	color: #888;
@@ -516,4 +538,8 @@ textarea {
 
 .edit-via-ajax span,.edit div {
 	display: none;
+}
+
+.pending-questions a {
+	font-size: 18px;
 }

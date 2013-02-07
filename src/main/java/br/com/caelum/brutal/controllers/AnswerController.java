@@ -1,8 +1,12 @@
 package br.com.caelum.brutal.controllers;
 
+import static java.util.Arrays.asList;
+
+import java.util.Arrays;
+
 import javax.servlet.http.HttpServletRequest;
 
-import br.com.caelum.brutal.auth.Logged;
+import br.com.caelum.brutal.auth.LoggedAccess;
 import br.com.caelum.brutal.dao.AnswerDAO;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.model.Answer;
@@ -48,7 +52,7 @@ public class AnswerController {
 	}
 	
 	@Post("/question/answer/{question.id}")
-	@Logged
+	@LoggedAccess
 	public void newAnswer(Question question, String description) {
         Question loadedQuestion = questions.getById(question.getId());
         loadedQuestion.touchedBy(currentUser.getCurrent());
@@ -64,7 +68,19 @@ public class AnswerController {
 	@Post("/question/answer/markAsSolution/{solutionId}")
 	public void markAsSolution(Long solutionId) {
 		Answer solution = answers.getById(solutionId);
-		solution.markAsSolution();
-		result.nothing();
+		if(isTheAuthorOf(solution)){
+			solution.markAsSolution();
+			result.nothing();
+		}else{
+			Question question = solution.getQuestion();
+			result.include("errors", asList("answer.error.not_autor"));
+			result.redirectTo(QuestionController.class).showQuestion(question.getId(),
+	                question.getSluggedTitle());
+		}
+	}
+
+
+	private boolean isTheAuthorOf(Answer solution) {
+		return currentUser.getCurrent().getId() == solution.getAuthor().getId();
 	}
 }

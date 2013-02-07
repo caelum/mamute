@@ -2,6 +2,8 @@ package br.com.caelum.brutal.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.TreeMap;
 
 public class QuestionAndPendingHistory {
@@ -26,6 +28,10 @@ public class QuestionAndPendingHistory {
     
     public List<Question> questions() {
         return new ArrayList<Question>(informationsByQuestion.keySet());
+    }
+    
+    public Set<Entry<Question, List<QuestionInformation>>> questionsEntrySet() {
+        return informationsByQuestion.entrySet();
     }
 
     public List<QuestionInformation> pendingInfoFor(Question question) {
