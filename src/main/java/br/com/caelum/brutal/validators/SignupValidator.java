@@ -46,7 +46,7 @@ public class SignupValidator {
 
 	private boolean isEmail(String email) {
 		if(email == null) return false;
-		Pattern containsDomain = Pattern.compile("(.*?)@(.*?)\\.com");
+		Pattern containsDomain = Pattern.compile("(.*?)@(.*?)\\.com(\\.br)?");
 		return containsDomain.matcher(email).find();
 	}
 
