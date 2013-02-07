@@ -10,7 +10,9 @@
 		<span id="comment-${comment.id}">${comment.htmlComment}</span> &#8212;
 		<a class="${comment.author.id eq currentUser.id ? 'same-author' : ''}" href="#">${comment.author.name }</a>
 		<tags:prettyTime time="${comment.lastUpdatedAt}"/>
-		<tags:editFor item="${comment}" field="comment" value="${comment.comment}" ajaxResult="comment-${comment.id}" />
+		<c:if test="${comment.author.id == currentUser.id }">
+			<tags:editFor item="${comment}" field="comment" value="${comment.comment}" ajaxResult="comment-${comment.id}" />
+		</c:if>
 	</li>
 </c:forEach>
 </ul>

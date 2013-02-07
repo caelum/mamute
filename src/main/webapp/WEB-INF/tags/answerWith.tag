@@ -8,15 +8,17 @@
 	<div class="post-meta">
 		<tags:voteFor item="${answer}" type="answer" vote="${vote}"/>
 		<span class="solution-mark">CERTO</span>
-		<a class="mark-as-solution" href="${linkTo[AnswerController].markAsSolution}">
-			<fmt:message key="answer.mark_as_solution" />
-		</a>
+		<c:if test="${answer.author.id == currentUser.id}">
+			<a class="mark-as-solution requires-login" href="${linkTo[AnswerController].markAsSolution}">
+				<fmt:message key="answer.mark_as_solution" />
+			</a>
+		</c:if>
 	</div>
 	<div class="post-container">
 		<div class="post-text" id="answer-${answer.id }">${answer.markedDescription}</div>
 		<ul class="post-action-nav nav">
 			<li class="nav-item">
-				<a class="post-action" href="<c:url value="/question/edit/${question.id}"/>"><fmt:message key="edit" /></a>
+				<a class="post-action" href="<c:url value="/answer/edit/${answer.id}"/>"><fmt:message key="edit" /></a>
 			</li>
 		</ul>
 		<tags:add-a-comment item="${answer}"/>
