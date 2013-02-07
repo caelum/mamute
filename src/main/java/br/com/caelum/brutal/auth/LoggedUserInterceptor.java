@@ -28,7 +28,7 @@ public class LoggedUserInterceptor implements Interceptor {
 
     @Override
     public boolean accepts(ResourceMethod method) {
-        return method.containsAnnotation(Logged.class);
+        return method.containsAnnotation(LoggedAccess.class);
     }
 
     @Override

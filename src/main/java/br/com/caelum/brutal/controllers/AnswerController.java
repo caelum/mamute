@@ -2,7 +2,7 @@ package br.com.caelum.brutal.controllers;
 
 import javax.servlet.http.HttpServletRequest;
 
-import br.com.caelum.brutal.auth.Logged;
+import br.com.caelum.brutal.auth.LoggedAccess;
 import br.com.caelum.brutal.dao.AnswerDAO;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.model.Answer;
@@ -48,7 +48,7 @@ public class AnswerController {
 	}
 	
 	@Post("/question/answer/{question.id}")
-	@Logged
+	@LoggedAccess
 	public void newAnswer(Question question, String description) {
         Question loadedQuestion = questions.getById(question.getId());
         loadedQuestion.touchedBy(currentUser.getCurrent());
