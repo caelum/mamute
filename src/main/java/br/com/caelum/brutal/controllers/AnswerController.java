@@ -1,5 +1,9 @@
 package br.com.caelum.brutal.controllers;
 
+import static java.util.Arrays.asList;
+
+import java.util.Arrays;
+
 import javax.servlet.http.HttpServletRequest;
 
 import br.com.caelum.brutal.auth.LoggedAccess;
@@ -64,7 +68,19 @@ public class AnswerController {
 	@Post("/question/answer/markAsSolution/{solutionId}")
 	public void markAsSolution(Long solutionId) {
 		Answer solution = answers.getById(solutionId);
-		solution.markAsSolution();
-		result.nothing();
+		if(isTheAuthorOf(solution)){
+			solution.markAsSolution();
+			result.nothing();
+		}else{
+			Question question = solution.getQuestion();
+			result.include("errors", asList("answer.error.not_autor"));
+			result.redirectTo(QuestionController.class).showQuestion(question.getId(),
+	                question.getSluggedTitle());
+		}
+	}
+
+
+	private boolean isTheAuthorOf(Answer solution) {
+		return currentUser.getCurrent().getId() == solution.getAuthor().getId();
 	}
 }

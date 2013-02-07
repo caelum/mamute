@@ -47,10 +47,8 @@ public class QuestionController {
 
 	@Post("/question/edit/{id}")
 	public void edit(String title, String description, String tagNames, Long id) {
-		
 		List<Tag> tags = this.tags.loadAll(tagNames, currentUser.getCurrent());
 		QuestionInformation information = new QuestionInformation(title, description, this.currentUser, tags);
-
 
 		Question original = questions.getById(id);
 		UpdateStatus status = original.updateWith(information);
