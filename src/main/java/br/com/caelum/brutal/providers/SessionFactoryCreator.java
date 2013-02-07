@@ -1,7 +1,7 @@
 package br.com.caelum.brutal.providers;
 
 import java.net.URL;
-import java.util.Map;
+import java.util.Properties;
 
 import javax.annotation.PreDestroy;
 
@@ -44,12 +44,9 @@ public class SessionFactoryCreator implements ComponentFactory<SessionFactory> {
 			LOGGER.info("ready to use heroku database");
 			HerokuDatabaseInformation info = new HerokuDatabaseInformation(
 					databaseUrl);
-			Map<String, String> heroku = info.exportToProperties();
-			for(String key : heroku.keySet()) {
-				String value = heroku.get(key);
-				LOGGER.info(key + "=" + value);
-				cfg.setProperty(key, value);
-			}
+			Properties heroku = info.exportToProperties();
+			LOGGER.info(heroku.toString());
+			cfg.addProperties(heroku);
 		}
 
 		cfg.addAnnotatedClass(User.class);

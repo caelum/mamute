@@ -2,8 +2,7 @@ package br.com.caelum.brutal.components;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,8 +49,8 @@ public class HerokuDatabaseInformation {
 		return "jdbc:postgresql://" + database.getHost() + ":" + database.getPort() + database.getPath();
 	}
 
-	public Map<String, String> exportToProperties() {
-		Map<String, String> p = new HashMap<>();
+	public Properties exportToProperties() {
+		Properties p = new Properties();
 		logger.info("Using " + url());
 		p.put("connection.url", url());
 
