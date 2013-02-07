@@ -27,12 +27,12 @@ public class QuestionController {
 	private final VoteDAO votes;
 	private final CurrentUser currentUser;
 
-	public QuestionController(Result result, QuestionDAO questionDAO, TagDAO tagDAO, VoteDAO votes, CurrentUser user) {
+	public QuestionController(Result result, QuestionDAO questionDAO, TagDAO tagDAO, VoteDAO votes, CurrentUser currentUser) {
 		this.result = result;
 		this.questions = questionDAO;
 		this.tags = tagDAO;
 		this.votes = votes;
-		this.currentUser = user;
+		this.currentUser = currentUser;
 	}
 
 	@Get("/question/ask")
