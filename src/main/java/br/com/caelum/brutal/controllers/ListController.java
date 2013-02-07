@@ -36,6 +36,7 @@ public class ListController {
 	@Get("/list/unanswered")
 	public void unanswered() {
 		result.include("questions", questions.unanswered());
+		result.include("tagsUsage", tags.getRecentTagsUsageSince(new DateTime().minusMonths(3)));
 		result.use(page()).of(ListController.class).home();
 	}
 	
@@ -43,6 +44,7 @@ public class ListController {
 	public void withTag(String tagName) {
 		Tag tag = tags.findByName(tagName);
 		List<Question> questionsWithTag = questions.withTag(tag);
+		result.include("tagsUsage", tags.getRecentTagsUsageSince(new DateTime().minusMonths(3)));
 		result.include("questions", questionsWithTag);
 		result.use(page()).of(ListController.class).home();
 	}
