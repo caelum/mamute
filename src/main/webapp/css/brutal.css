@@ -72,6 +72,28 @@ a {
 	color: #FF0000;
 }
 
+/*Validations*/
+.error {
+	padding: 5px 0;
+	color: #8e0000;
+	font-size: 13px;
+}
+
+.validation-error{
+	background-color:#ad0000;
+	font-weight:bold;
+	color:#fff;
+	border: 1px solid #8e0000;
+	border-radius:3px;
+	cursor:pointer;
+}
+
+.popup{
+	position:absolute;
+	padding:20px;
+	margin-top:5px;	
+}
+
 /*Forms*/
 form, form * {
 	margin: 0;
@@ -108,12 +130,6 @@ label{
 	color:#333;
 	font-size:1.2em;
 	font-weight:bold;
-}
-
-label.error {
-	padding: 5px 0;
-	color: #8e0000;
-	font-size: 13px;
 }
 
 textarea {
