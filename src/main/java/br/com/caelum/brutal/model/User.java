@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -12,6 +13,7 @@ import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.infra.Digester;
 
+@Table(name="Users")
 @Entity
 public class User implements Identifiable {
 
