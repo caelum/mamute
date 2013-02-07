@@ -16,9 +16,9 @@
 		</h3>
 		<tags:tagsFor question="${question}"/>
 		<div class="stats">
-			<span class="small last-updated-at"><tags:prettyTime time="${question.lastUpdatedAt }" /></span>
-			<a class="small" href="#">${question.lastTouchedBy.name }</a> 
-			<span class="reputation small">${question.lastTouchedBy.karma }</span>
+			<span class="last-updated-at"><tags:prettyTime time="${question.lastUpdatedAt }" /></span>
+			<a href="#">${question.lastTouchedBy.name }</a> 
+			<span class="reputation">${question.lastTouchedBy.karma }</span>
 		</div>
 	</div>		
 </li>

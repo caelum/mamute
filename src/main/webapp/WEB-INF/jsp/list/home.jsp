@@ -12,3 +12,4 @@
 		<tags:list-question-item question="${question}"/>
 	</c:forEach>
 </ol>
+<tags:tagsUsage tagsUsage="${tagsUsage}"/>

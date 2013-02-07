@@ -16,7 +16,7 @@
 		<p class="post-text" id="answer-${answer.id }">${answer.markedDescription}</p>
 		<ul class="post-action-nav nav">
 			<li class="nav-item">
-				<a class="post-action small" href="<c:url value="/question/edit/${question.id}"/>"><fmt:message key="edit" /></a>
+				<a class="post-action" href="<c:url value="/question/edit/${question.id}"/>"><fmt:message key="edit" /></a>
 			</li>
 		</ul>
 		<tags:add-a-comment item="${answer}"/>
