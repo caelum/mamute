@@ -75,10 +75,13 @@ a {
 /*Forms*/
 form, form * {
 	margin: 0;
+}
+
+form{
 	width:500px;
 }
 
-form *{
+input, label{
 	width:100%;
 }
 
@@ -317,7 +320,7 @@ textarea {
 }
 
 /*TAG*/
-.tags .tag {
+.tags li {
 	float: left;
 }
 
@@ -339,15 +342,33 @@ textarea {
 	color: #e0eaf1;
 }
 
-.tags-autocomplete{
-	z-index:999;
-	position:absolute;
-	background-color:#FFF;
-	
+.tag-description{
+	color:#000;
 }
 
-.autocompleted-tag{
-	
+.autocompleted-tags{
+	display:none;
+}
+
+.autocompleted-tags.active{
+	border:1px solid #000;
+	z-index:999;
+	display:block;
+	position:absolute;
+	margin-top:30px;
+	background-color:#FFF;
+	padding:10px;
+	width:500px;
+}
+
+.autocompleted-tags li{
+	width:33%;
+	padding:10px;
+	cursor:pointer;
+}
+
+.autocompleted-tags li:hover{
+	background-color: #ffe6bf;
 }
 
 /*SHOW QUESTION*/

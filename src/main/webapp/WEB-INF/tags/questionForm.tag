@@ -19,7 +19,7 @@
 	
 	<label for="tags"><fmt:message key="newquestion.tags"/></label>
 	<input id="tags" type="text" name="tagNames" class="hintable autocomplete" value="${question.tagsAsString }" data-hint-id="newquestion-tags-hint" data-autocomplete-id="newquestion-tags-autocomplete"/>
-	<dl id="newquestion-tags-autocomplete"></dl>
+	<ul class="tags autocompleted-tags" id="newquestion-tags-autocomplete"></ul>
 	<div id="newquestion-title-hint" class="hint"><fmt:message key="title.hint" /></div>
 	<div id="newquestion-description-hint" class="hint"><fmt:message key="description.hint" /></div>
 	<div id="newquestion-tags-hint" class="hint"><fmt:message key="tags.hint" /></div>
