@@ -32,12 +32,12 @@ public class QuestionInformationDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<QuestionInformation> allSimilarTo(Long id) {
-	//	UpdateHistory history = (UpdateHistory) session.load(UpdateHistory.class, id);
-		//String hql = "select qi from QuestionInformation qi where qi.status = :pending and q.id = :id and h.type = :type";
-		//Query query = session.createQuery(hql);
-		//return query.setParameter("pending", UpdateStatus.PENDING).setParameter("id", history.getTargetId()).list();
-		return null;
+	public List<QuestionInformation> from(Long questionId) {
+	    String hql = "select question_info from Question " +
+	    		"question join question.history question_info " +
+	    		"where question.id=:id";
+	    
+	    return session.createQuery(hql).setParameter("id", questionId).list();
 	}
 
 
