@@ -29,7 +29,7 @@ public class AuthController {
 		} else {
 			result.include("invalid_login", true);
 			result.include("alerts", Arrays.asList("auth.invalid.login"));
-			result.redirectTo(ListController.class).home();
+			result.redirectTo(this).loginForm();
 		}
 	}
 	
