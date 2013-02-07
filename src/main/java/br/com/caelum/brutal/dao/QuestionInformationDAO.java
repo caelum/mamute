@@ -18,6 +18,10 @@ public class QuestionInformationDAO {
 	public QuestionInformationDAO(Session session) {
 		this.session = session;
 	}
+	
+	public QuestionInformation getById(Long id) {
+	    return (QuestionInformation) session.load(QuestionInformation.class, id);
+	}
 
 	@SuppressWarnings("unchecked")
 	public QuestionAndPendingHistory pending() {

@@ -29,7 +29,7 @@ public class Question implements Votable, Commentable, Updatable {
 	@NotNull
 	private QuestionInformation information = null;
 	
-	@OneToMany
+	@OneToMany(mappedBy="question")
 	@Cascade(SAVE_UPDATE)
 	private List<QuestionInformation> history = new ArrayList<>();
 	
@@ -231,9 +231,22 @@ public class Question implements Votable, Commentable, Updatable {
 		this.history.add(newInformation);
 		this.touchedBy(newInformation.getAuthor());
 	}
+	
+	public UpdateStatus aprove(QuestionInformation choosenVersion, User moderator) {
+	    UpdateStatus status = information.getAuthor().canUpdate(this);
+	    if (status == UpdateStatus.REFUSED)
+            return status;
+	    choosenVersion.moderate(moderator, UpdateStatus.APPROVED);
+	    setInformation(choosenVersion);
+	    return UpdateStatus.APPROVED;
+	}
 
 	public List<QuestionInformation> getHistory() {
 		return history;
 	}
+	
+	private void setInformation(QuestionInformation information) {
+        this.information = information;
+    }
     
 }
