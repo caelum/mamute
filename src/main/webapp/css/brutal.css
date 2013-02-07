@@ -64,7 +64,7 @@ a {
 	background-color: #FEFAE2;
 	border: 1px solid #F3EED5;
 	padding: 10px 5px;
-	margin: 10px 0;
+	margin: 10px 0 10px 20px;
 	float: left;
 }
 
@@ -81,7 +81,7 @@ form{
 	width:500px;
 }
 
-input, label{
+input, label, textarea{
 	width:100%;
 }
 
@@ -93,7 +93,7 @@ input[type="submit"]{
 	margin:5px 0;
 }
 
-input[type="text"], input[type="search"],input[type="password"] {
+input[type="text"], input[type="search"],input[type="password"], textarea {
 	padding: 3px;
 	border:1px solid #999;
 }
@@ -117,9 +117,11 @@ label.error {
 }
 
 textarea {
-	border-color: #999;
-	width: 100%;
 	resize: vertical;
+}
+
+.hinted-form{
+	float:left;
 }
 
 /*ARROW*/

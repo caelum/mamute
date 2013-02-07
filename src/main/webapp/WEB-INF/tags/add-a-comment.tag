@@ -20,7 +20,7 @@
 <div class="edit-via-ajax">
 	<a href="#" class="requires-login post-action"><fmt:message key="comment.add_comment" /></a>
 	<span>
-		<form action="<c:url value="/${item.typeName }/${item.id }/comment"/>" class="validated-form ajax" data-ajax-result="${ajaxResultName }" data-ajax-on-callback="append">
+		<form action="<c:url value="/${item.typeName }/${item.id }/comment"/>" class="validated-form ajax hinted-form" data-ajax-result="${ajaxResultName }" data-ajax-on-callback="append">
 			<textarea class="required to-focus hintable" minlength="15" name="message" data-hint-id="${ajaxResultName }-hint"></textarea>
 			<input type="submit" class="post-submit comment-submit" value="<fmt:message key="comment.add_comment"/>" />
 		</form>
