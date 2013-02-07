@@ -40,8 +40,12 @@ public class TagDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Tag> findTagsLike(String tagChunk) {
-		return (List<Tag>) session.createQuery("from Tag t where t.name like :name").setString("name", "%"+tagChunk+"%").setMaxResults(10).list();
+	public List<TagUsage> findTagsUsageLike(String tagChunk) {
+		Query query = session.createQuery("select new br.com.caelum.brutal.model.TagUsage(tag, count(question)) from Question question " +
+				"join question.information.tags tag " +
+				"where tag.name like :tagChunk group by tag order by count(question) desc");
+		query.setString("tagChunk", "%"+tagChunk+"%");
+		return query.list();
 	}
 
 	public List<Tag> loadAll(String tagNames, User author) {

@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import br.com.caelum.brutal.integracao.dao.DatabaseTestCase;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.QuestionAndPendingHistory;
 import br.com.caelum.brutal.model.QuestionInformation;

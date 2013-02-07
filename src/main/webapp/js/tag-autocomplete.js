@@ -12,8 +12,8 @@ function suggestsAutoComplete(target, input){
 	$.get("/tagsLike/"+input,function(suggestions){
 		var suggestionElements = "";
 		$(suggestions).each(function(index, suggestion){
-			suggestionElements += "<dt>"+suggestion.name+"</dt>";
-			suggestionElements += "<dd>"+suggestion.description+"</dd>";
+			suggestionElements += "<li class='tag'>"+suggestion.tag.name+" x "+ suggestion.usage;
+			suggestionElements += suggestion.tag.description+"</li>";
 		});
 		$(target).html(suggestionElements);
 	});
