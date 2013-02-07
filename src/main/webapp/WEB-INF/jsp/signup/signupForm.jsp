@@ -2,11 +2,11 @@
 <form action="${linkTo[SignupController].signup}" method="POST" class="validated-form">
 	<label>
 		<fmt:message key="signup.form.username.label" />
-		<input name="name" class="required" value="${name}"/>
+		<input type="text" name="name" class="required" value="${name}"/>
 	</label>
 	<label>
 		<fmt:message key="signup.form.email.label" />
-		<input name="email" class="required" value="${email}" />
+		<input type="text" name="email" class="required" value="${email}" />
 	</label>
 	<label>
 		<fmt:message key="signup.form.password.label" />
