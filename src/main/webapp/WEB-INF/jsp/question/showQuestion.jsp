@@ -5,7 +5,7 @@
 		<tags:voteFor item="${question}" type="question" vote="${currentVote }"/>
 	</div>
 	<div class="post-container">
-		<p class="question-description" id="question-description-${question.id }">${question.markedDescription}</p>
+		<div class="post-text" id="question-description-${question.id }">${question.markedDescription}</div>
 		<tags:tagsFor question="${question}"/>
 		<ul class="post-action-nav nav">
 			<li class="nav-item">

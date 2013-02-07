@@ -202,6 +202,7 @@ textarea {
 	padding: 0 12px;
 	display: block;
 	color: #fff;
+	font-size:16px;
 }
 
 .button:hover {
@@ -303,6 +304,11 @@ textarea {
 .post-container {
 	float: right;
 	width: 90%;
+}
+
+.post-text{
+	font-size:14px;
+	color:#000;
 }
 
 .post-submit {
