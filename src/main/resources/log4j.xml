@@ -54,7 +54,7 @@
         <appender-ref ref="errorFile"/>
     </category>
 
-    <category name="br.com.caelum.pagpag">
+    <category name="br.com.caelum.brutal">
         <priority value="INFO"/>
         <appender-ref ref="main"/>
     </category>

@@ -74,12 +74,14 @@ public class SessionFactoryCreator implements ComponentFactory<SessionFactory> {
 
 	@PreDestroy
 	void destroy() {
+		if(!factory.isClosed()) {
 		factory.close();
+		}
+		factory = null;
 	}
 
 	public void dropAndCreate() {
-		factory.close();
-		factory = null;
+		destroy();
 		new SchemaExport(cfg).drop(true, true);
 		new SchemaExport(cfg).create(true, true);
 		init();
