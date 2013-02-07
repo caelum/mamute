@@ -70,7 +70,7 @@
 <c:if test="${not empty errors}">
 	<ul>
 		<c:forEach var="error" items="${errors}">
-			<li><fmt:message key="${error.message}" /></li>
+			<li><fmt:message key="${error}" /></li>
 		</c:forEach>
 	</ul>
 </c:if>

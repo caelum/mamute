@@ -46,7 +46,7 @@ public class ForgotPasswordController {
 		User user = users.loadByEmail(email);
 
 		if (user == null) {
-			result.include("errors", Arrays.asList("forgot_password.invalid_email"));
+			result.include("errors", Arrays.asList(new ValidationMessage("forgot_password.invalid_email", "error").getMessage()));
 			result.redirectTo(this).forgotPasswordForm();
 			return;
 		}
@@ -76,7 +76,7 @@ public class ForgotPasswordController {
 
 		boolean passwordUpdated = user.updateForgottenPassword(password, password_confirmation);
 		if(!passwordUpdated) {
-			result.include("errors", Arrays.asList(new ValidationMessage("forgot_password.password_doesnt_match", "error")));
+			result.include("errors", Arrays.asList(new ValidationMessage("forgot_password.password_doesnt_match", "error").getMessage()));
 			result.redirectTo(this).changePasswordForm(id, token);
 		}
 		
@@ -103,7 +103,7 @@ public class ForgotPasswordController {
 	private User validateTokenAndGetUser(Long id, String token) {
 		User user = users.loadByIdAndToken(id, token);
 		if (user == null) {
-			result.include("errors", Arrays.asList(new ValidationMessage("forgot_password.invalid_token", "error")));
+			result.include("errors", Arrays.asList(new ValidationMessage("forgot_password.invalid_token", "error").getMessage()));
 			result.redirectTo(this).forgotPasswordForm();
 		}
 		return user;
