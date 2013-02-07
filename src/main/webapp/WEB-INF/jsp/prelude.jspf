@@ -22,6 +22,9 @@
 							<fmt:message key="auth.login_form_link"/>
 						</a>
 					</li>
+					<li class="nav-item">
+						<a href="${linkTo[SignupController].signupForm}"><fmt:message key="signup.link"/></a>
+					</li>
 				</c:if>
 				<c:if test="${not empty currentUser }">
 					<li class="nav-item">
