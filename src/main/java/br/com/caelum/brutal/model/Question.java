@@ -143,7 +143,7 @@ public class Question implements Votable, Commentable, Updatable {
 		return getAnswers().size();
 	}
 
-	public boolean hasSolution() {
+	public boolean isSolved() {
 		return solution != null;
 	}
 

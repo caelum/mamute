@@ -318,6 +318,11 @@ textarea {
 	color: #9A4444;
 }
 
+.answers.solved{
+	border-bottom: 5px solid #75845C;
+}
+
+
 .votes {
 	color: #555;
 }
