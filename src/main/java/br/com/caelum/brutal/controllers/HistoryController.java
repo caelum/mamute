@@ -3,6 +3,7 @@ package br.com.caelum.brutal.controllers;
 import static br.com.caelum.vraptor.view.Results.http;
 import br.com.caelum.brutal.auth.Logged;
 import br.com.caelum.brutal.dao.QuestionInformationDAO;
+import br.com.caelum.brutal.model.QuestionAndPendingHistory;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Resource;
@@ -28,13 +29,14 @@ public class HistoryController {
 			result.use(http()).sendError(403);
 			return;
 		}
-		result.include("histories", histories.pending());
+		QuestionAndPendingHistory pending = histories.pending();
+		result.include("pendingQuestionsEntrySet", pending.questionsEntrySet());
 	}
 
 
 	@Logged
-	@Get("/history/${id}/similar")
-	public void similar(long id) {
+	@Get("/history/{id}/similar")
+	public void similar(Long id) {
 		if (!currentUser.isModerator()) {
 			result.use(http()).sendError(403);
 			return;

@@ -523,3 +523,7 @@ textarea {
 .edit-via-ajax span,.edit div {
 	display: none;
 }
+
+.pending-questions a {
+	font-size: 18px;
+}
