@@ -46,7 +46,9 @@ public class SessionFactoryCreator implements ComponentFactory<SessionFactory> {
 					databaseUrl);
 			Map<String, String> heroku = info.exportToProperties();
 			for(String key : heroku.keySet()) {
-				cfg.setProperty(key, heroku.get(key));
+				String value = heroku.get(key);
+				LOGGER.info(key + "=" + value);
+				cfg.setProperty(key, value);
 			}
 		}
 
