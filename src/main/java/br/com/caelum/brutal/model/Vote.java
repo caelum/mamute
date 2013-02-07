@@ -46,12 +46,13 @@ public class Vote {
 		return type.getValue();
 	}
 
-	public long substitute(Vote previous, List<Vote> votes, long voteCount) {
+	public long substitute(Vote previous, List<Vote> votes) {
+		long delta = 0;
 		if(votes.remove(previous))
-			voteCount -= previous.getValue();
+			delta -= previous.getValue();
 		votes.add(this);
-		voteCount += getValue();
-		return voteCount;
+		delta += getValue();
+		return delta;
 	}
 	
 	public User getAuthor() {

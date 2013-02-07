@@ -103,7 +103,7 @@ public class Answer implements Votable, Commentable, Updatable, Subscribable {
 
     @Override
     public void substitute(Vote previous,Vote vote) {
-    	this.voteCount = vote.substitute(previous, votes, voteCount);
+    	this.voteCount += vote.substitute(previous, votes);
     }
 	
 	@Override

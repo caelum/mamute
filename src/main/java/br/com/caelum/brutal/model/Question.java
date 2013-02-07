@@ -149,7 +149,7 @@ public class Question implements Votable, Commentable, Updatable {
 
 	@Override
 	public void substitute(Vote previous, Vote vote) {
-		this.voteCount = vote.substitute(previous, votes, voteCount);
+		this.voteCount+= vote.substitute(previous, votes);
 	}
 
 	@Override
