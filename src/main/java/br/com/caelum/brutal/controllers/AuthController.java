@@ -28,6 +28,7 @@ public class AuthController {
 			redirectToRightUrl(redirectUrl);
 		} else {
 			result.include("alerts", Arrays.asList("auth.invalid.login"));
+			result.include("redirectUrl", redirectUrl);
 			result.redirectTo(this).loginForm();
 		}
 	}
