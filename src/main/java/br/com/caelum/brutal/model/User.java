@@ -29,7 +29,6 @@ public class User implements Identifiable {
 	private String password = "";
 	
 	@NotEmpty
-	@Lob
 	private String name;
 	
 	private long karma = 0;
