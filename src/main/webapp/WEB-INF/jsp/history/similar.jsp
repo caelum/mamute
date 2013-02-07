@@ -11,7 +11,7 @@
 
 <c:forEach items="${histories}" var="information">
 
-	<form method="post" class="hidden">
+	<form method="post" class="hidden history-form">
 		<h4>
 			${information.author.name} às
 			<tags:jodaTime pattern="DD-MM-YYYY HH:mm"
