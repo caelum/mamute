@@ -28,7 +28,7 @@ $(function() {
 		var errorDiv = $("<div class='validation-error popup'>"+text+"</div>");
 		errorDiv.appendTo($(self).parent());
 		$(errorDiv).click(function(){
-			$(this).hide();
+			$(this).remove();
 		});
 	}
 });
