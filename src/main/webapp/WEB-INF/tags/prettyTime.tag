@@ -10,7 +10,7 @@
 				.getAttribute("prettyTimeFormatter");
 			out.write(formatter.format(time.toDate()));
 		}else{
-			org.joda.time.format.DateTimeFormatter formatter = org.joda.time.format.DateTimeFormat.forPattern("dd/MM/yyyy");
+			org.joda.time.format.DateTimeFormatter formatter = org.joda.time.format.DateTimeFormat.forPattern("dd/MM/yyyy HH:mm");
 			out.write(formatter.print(time));
 		}
 	}
