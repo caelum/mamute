@@ -159,4 +159,8 @@ public class QuestionInformation {
 	void setQuestion(Question question) {
         this.question = question;
     }
+
+    public boolean isPending() {
+        return status == UpdateStatus.PENDING;
+    }
 }

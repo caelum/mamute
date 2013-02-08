@@ -1,16 +1,20 @@
 package br.com.caelum.brutal.controllers;
 
+import java.util.Arrays;
+
 import br.com.caelum.brutal.auth.ModeratorAccess;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.QuestionInformationDAO;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.QuestionAndPendingHistory;
 import br.com.caelum.brutal.model.QuestionInformation;
+import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.view.Results;
 
 @Resource
 public class HistoryController {
@@ -35,9 +39,9 @@ public class HistoryController {
 	}
 
 	@ModeratorAccess
-	@Get("/history/{id}/similar")
-	public void similar(Long id) {
-		result.include("histories", histories.from(id));
+	@Get("/history/{questionId}/similar")
+	public void similar(Long questionId) {
+		result.include("histories", histories.pendingFrom(questionId));
 	}
 	
 	@ModeratorAccess
@@ -47,6 +51,19 @@ public class HistoryController {
 	    Question question = questions.getById(questionId);
 	    question.aprove(approvedEdit, currentUser);
 	    result.redirectTo(QuestionController.class).showQuestion(question.getId(), question.getSluggedTitle());
+	}
+	
+	@ModeratorAccess
+	@Post("/history/{historyId}")
+	public void refuse(Long historyId) {
+	    QuestionInformation refusedEdit = histories.getById(historyId);
+	    if (!refusedEdit.isPending()) {
+	        result.use(Results.http()).sendError(403);
+	        return;
+	    } 
+	    refusedEdit.moderate(currentUser, UpdateStatus.REFUSED);
+	    result.include("confirmations", Arrays.asList("history.refused.successfully"));
+	    result.redirectTo(this).similar(refusedEdit.getQuestion().getId());
 	}
 
 }

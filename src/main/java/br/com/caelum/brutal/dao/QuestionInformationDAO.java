@@ -38,11 +38,22 @@ public class QuestionInformationDAO {
 	@SuppressWarnings("unchecked")
 	public List<QuestionInformation> from(Long questionId) {
 	    String hql = "select question_info from Question " +
-	    		"question join question.history question_info " +
+	    		"question join fetch question.history question_info " +
 	    		"where question.id=:id";
 	    
 	    return session.createQuery(hql).setParameter("id", questionId).list();
 	}
+
+    @SuppressWarnings("unchecked")
+    public List<QuestionInformation> pendingFrom(Long id) {
+        String hql = "select question_info from Question " +
+                "question join question.history question_info " +
+                "where question.id=:id and question_info.status=:pending";
+        return session.createQuery(hql)
+                .setParameter("id", id)
+                .setParameter("pending", UpdateStatus.PENDING)
+                .list();
+    }
 
 
 }

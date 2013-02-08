@@ -1,1 +1,0 @@
-<fmt:message key="successfuly_edited" />: ${status}
