@@ -18,9 +18,9 @@
 	</c:if>
 	<c:if test="${empty currentUser}">
 		<div class="login-or-signup">
-			<a class="login" href="${linkTo[AuthController].loginForm}">
-				<fmt:message key="auth.login_form_link"/>
-			</a>
+			<div class="login">
+				<tags:loginForm />
+			</div>
 			<div class="signup">
 				<tags:signupForm />
 			</div>

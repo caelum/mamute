@@ -578,32 +578,26 @@ textarea {
 	overflow:hidden;
 }
 
-.login-or-signup .signup label{
+.login-or-signup .user-form{
+	width:100%;
+}
+
+.login-or-signup label{
 	margin:5px 0 8px 0;
 }
 
 .login-or-signup .login, .login-or-signup .signup{
 	padding:0 40px;
 	float:left;
+	width:50%;
 }
 
-.login-or-signup .signup .user-form{
-	width:70%;
-}
-
-.login-or-signup .signup .text-input{
+.login-or-signup .text-input{
 	margin:0;
-}
-
-.login-or-signup .login{
-	font-size:26px;
-	margin-top:18%;
-	width:25%;
 }
 
 .login-or-signup .signup{
 	border-left:1px solid #999;
-	width:75%;	
 }
 
 /*Comments*/
