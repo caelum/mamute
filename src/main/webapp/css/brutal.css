@@ -469,6 +469,7 @@ textarea {
 
 .post-interactions{
 	overflow:hidden;
+	margin-bottom:5px;
 }
 
 .post-touchs{
