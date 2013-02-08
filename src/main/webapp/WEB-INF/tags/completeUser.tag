@@ -6,7 +6,7 @@
 	<div class="when"><tags:prettyTime time="${date}"/></div>
 	<img class="user-image" src="${user.photo}?s=32"/>
 	<div class="user-info">
-		<a class="user-name" href="#">${user.name}</a>
+		<a class="user-name ellipsis" href="#">${user.name}</a>
 		<div class="user-karma">${user.karma}</div>
 	</div>
 </div>

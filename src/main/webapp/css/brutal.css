@@ -103,7 +103,13 @@ code{
 p{
 	margin-bottom:1em;
 }
-
+/* Ellipsis */
+.ellipsis{
+	display: block;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
 
 /*Clearfix*/
 
@@ -210,6 +216,10 @@ textarea {
 .complete-user .when{
 	width:100%;
 	margin-bottom:5px;
+}
+
+.complete-user .user-name{
+	width:120px;
 }
 
 .complete-user .user-info{
