@@ -14,12 +14,12 @@ insert into QuestionInformation (id,createdAt, description, markedDescription, s
 insert into QuestionInformation (id,createdAt, description, markedDescription, sluggedTitle, title, author_id) values (5,'20130101', 'Como faz para ter um humor um pouco melhor pelas manhãs? blablablablablablablablablablablabla', 'Como faz para ter um humor um pouco melhor pelas manhãs? blablablablablablablablablablablabla', 'como-faz-para-ter-um-humor-um-pouco-melhor-pelas-manhas-blablablablablablablablablabla', '7 hora da manhã já pode estar puto? blablablablablablablablablablablabla', 5);
 insert into QuestionInformation (id,createdAt, description, markedDescription, sluggedTitle, title, author_id) values (6,'20130101', 'Como faz para parar de usar android e linux? blablablablablablablablablablablabla', 'Como faz para parar de usar android e linux? blablablablablablablablablablablabla', 'como-faz-para-parar-de-usar-android-e-linux-blablablablablablablablablablablabla', 'Usar celular e computador que funciona, pode? blablablablablablablablablablablabla', 6);
 
-insert into Question (voteCount, id,createdAt, author_id, views, information_id) values (0,1,'20130101',  1, 0,1);
-insert into Question (voteCount, id,createdAt, author_id, views, information_id) values (0,2,'20130101',  2, 0,2);
-insert into Question (voteCount, id,createdAt, author_id, views, information_id) values (0,3,'20130101', 3, 0,3);
-insert into Question (voteCount, id,createdAt, author_id, views, information_id) values (0,4,'20130101', 4, 0,4);
-insert into Question (voteCount, id,createdAt, author_id, views, information_id) values (0,5,'20130101', 5, 0,5);
-insert into Question (voteCount, id,createdAt, author_id, views, information_id) values (0,6,'20130101', 6, 0,6);
+insert into Question (voteCount, id, lastTouchedBy, lastUpdatedAt, createdAt, author_id, views, information_id) values (0,1, 1, '20130121', '20130101',  1, 0,1);
+insert into Question (voteCount, id, lastTouchedBy, lastUpdatedAt, createdAt, author_id, views, information_id) values (0,1, 2, '20130121', '20130101',  2, 0,2);
+insert into Question (voteCount, id, lastTouchedBy, lastUpdatedAt, createdAt, author_id, views, information_id) values (0,1, 3, '20130121', '20130101', 3, 0,3);
+insert into Question (voteCount, id, lastTouchedBy, lastUpdatedAt, createdAt, author_id, views, information_id) values (0,1, 4, '20130121', '20130101', 4, 0,4);
+insert into Question (voteCount, id, lastTouchedBy, lastUpdatedAt, createdAt, author_id, views, information_id) values (0,1, 5, '20130121', '20130101', 5, 0,5);
+insert into Question (voteCount, id, lastTouchedBy, lastUpdatedAt, createdAt, author_id, views, information_id) values (0,1, 6, '20130121', '20130101', 6, 0,6);
 
 insert into Tag (id, createdAt, description, name, author_id) values (1, '20130101', 'Para questions relacionadas à dança koreana', 'danca-koreana', 1);
 insert into Tag (id, createdAt, description, name, author_id) values (2, '20130101', 'Para questions relacionadas à anime', 'anime', 2);
@@ -38,7 +38,7 @@ insert into QuestionInformation_Tag (QuestionInformation_id, tags_id) values (6,
 insert into AnswerInformation(id, createdAt,description, markedDescription, author_id) values (1,now(), 'Como todo belo coreano faz', 'Como todo belo coreano faz', 3);
 insert into AnswerInformation(id, createdAt,description, markedDescription, author_id) values (2,now(), 'Como toda bela coreana faz', 'Como toda bela coreana faz', 4);
 insert into AnswerInformation(id, createdAt,description, markedDescription, author_id) values (3,now(), 'Como todo belo ocidental paga pau faz', 'Como todo belo ocidental paga pau faz', 2);
-insert into Answer(voteCount, createdAt,author_id,question_id, information_id) values (0,now(),3, 1,1);
-insert into Answer(voteCount, createdAt,author_id,question_id, information_id) values (0,now(),4, 1,2);
-insert into Answer(voteCount, id, createdAt,author_id,question_id, information_id) values (0,3,now(),2, 2,3);
+insert into Answer(voteCount, lastUpdatedAt, lastTouchedBy createdAt,author_id,question_id, information_id) values (0, '20130121', 2,now(),3, 1,1);
+insert into Answer(voteCount, lastUpdatedAt, lastTouchedBy, createdAt,author_id,question_id, information_id) values (0, '20130121', 2,now(),4, 1,2);
+insert into Answer(voteCount, lastUpdatedAt, lastTouchedBy, id, createdAt,author_id,question_id, information_id) values (0, '20130121',2,3,now(),2, 2,3);
 update Question set solution_id=3 where id=2;
