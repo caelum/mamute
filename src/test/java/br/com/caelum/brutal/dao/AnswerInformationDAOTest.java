@@ -1,5 +1,9 @@
 package br.com.caelum.brutal.dao;
 
+import static org.junit.Assert.assertEquals;
+
+import java.util.List;
+
 import org.junit.Test;
 
 import br.com.caelum.brutal.model.Answer;
@@ -8,6 +12,7 @@ import br.com.caelum.brutal.model.CurrentUser;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.QuestionInformationBuilder;
+import br.com.caelum.brutal.model.UpdatableInformation;
 import br.com.caelum.brutal.model.UpdatablesAndPendingHistory;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
@@ -26,7 +31,6 @@ public class AnswerInformationDAOTest extends DatabaseTestCase {
         AnswerInformation info1 = new AnswerInformation("info1 info1 info1 info1 info1 info1 info1 ", currentAuthor);
         Answer answer1 = new Answer(info1, question, author);
         
-        
         AnswerInformation edit1 = new AnswerInformation("info2 info2 info2 info2 info2 info2 info2 ", currentAuthor, answer1);
         edit1.setInitStatus(UpdateStatus.PENDING);
         AnswerInformation edit2 = new AnswerInformation("info3 info3 info3 info3 info3 info3 info3 ", currentAuthor, answer1);
@@ -41,6 +45,9 @@ public class AnswerInformationDAOTest extends DatabaseTestCase {
         session.save(edit2);
         
         UpdatablesAndPendingHistory pendingByUpdatables = answerInformations.pendingByUpdatables();
+        
+        List<UpdatableInformation> pendingInfoForAnswer1 = pendingByUpdatables.pendingInfoFor(answer1);
+        assertEquals(2, pendingInfoForAnswer1.size());
     }
 
 }
