@@ -35,7 +35,7 @@ public class HistoryController {
 	@ModeratorAccess
 	@Get("/history")
 	public void unmoderated() {
-		UpdatablesAndPendingHistory pending = histories.pending();
+		UpdatablesAndPendingHistory pending = histories.pendingByUpdatables();
 		result.include("pendingQuestionsEntrySet", pending.questionsEntrySet());
 	}
 

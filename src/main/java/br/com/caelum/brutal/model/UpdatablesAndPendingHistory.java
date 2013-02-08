@@ -8,16 +8,16 @@ import java.util.TreeMap;
 
 public class UpdatablesAndPendingHistory {
 
-    private TreeMap<Question, List<QuestionInformation>> informationsByUpdatable;
+    private TreeMap<Updatable, List<UpdatableInformation>> informationsByUpdatable;
 
     public UpdatablesAndPendingHistory(List<Object[]> questionAndInformations) {
         QuestionComparator comparator = new QuestionComparator();
         informationsByUpdatable = new TreeMap<>(comparator);
         for (Object[] questionAndInformation : questionAndInformations) {
-            Question question = (Question) questionAndInformation[0]; 
-            QuestionInformation questionInformation = (QuestionInformation) questionAndInformation[1];
+            Updatable question = (Updatable) questionAndInformation[0]; 
+            UpdatableInformation questionInformation = (UpdatableInformation) questionAndInformation[1];
             
-            List<QuestionInformation> informations = informationsByUpdatable.get(question);
+            List<UpdatableInformation> informations = informationsByUpdatable.get(question);
             if (informations == null) {
                 informations = new ArrayList<>();
             }
@@ -26,15 +26,15 @@ public class UpdatablesAndPendingHistory {
         }
     }
     
-    public List<Question> questions() {
-        return new ArrayList<Question>(informationsByUpdatable.keySet());
+    public List<Updatable> questions() {
+        return new ArrayList<Updatable>(informationsByUpdatable.keySet());
     }
     
-    public Set<Entry<Question, List<QuestionInformation>>> questionsEntrySet() {
+    public Set<Entry<Updatable, List<UpdatableInformation>>> questionsEntrySet() {
         return informationsByUpdatable.entrySet();
     }
 
-    public List<QuestionInformation> pendingInfoFor(Question question) {
+    public List<UpdatableInformation> pendingInfoFor(Updatable question) {
         return informationsByUpdatable.get(question);
     }
 

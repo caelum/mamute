@@ -3,7 +3,7 @@ package br.com.caelum.brutal.model;
 import java.io.Serializable;
 
 
-public interface Updatable {
+public interface Updatable extends Identifiable {
 
     User getAuthor();
 

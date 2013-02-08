@@ -13,7 +13,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
 @Entity
-public class AnswerInformation {
+public class AnswerInformation implements UpdatableInformation {
 
 	@Id
 	@GeneratedValue
@@ -59,6 +59,11 @@ public class AnswerInformation {
 			this.ip = currentUser.getIp();
 		}
 		setDescription(description);
+	}
+	
+	public AnswerInformation(String description, CurrentUser currentUser, Answer existentAnswer) {
+	    this(description, currentUser);
+	    setAnswer(existentAnswer);
 	}
 
 	public void moderate(User moderator, UpdateStatus status) {

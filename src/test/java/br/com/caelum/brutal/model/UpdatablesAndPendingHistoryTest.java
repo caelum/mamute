@@ -32,16 +32,16 @@ public class UpdatablesAndPendingHistoryTest {
         
         UpdatablesAndPendingHistory updatablesAndPendingHistory = new UpdatablesAndPendingHistory(updatableAndInformations);
         
-        List<QuestionInformation> pendingInfoForQ1 = updatablesAndPendingHistory.pendingInfoFor(question1);
-        List<QuestionInformation> pendingInfoForQ2 = updatablesAndPendingHistory.pendingInfoFor(question2);
+        List<UpdatableInformation> pendingInfoForQ1 = updatablesAndPendingHistory.pendingInfoFor(question1);
+        List<UpdatableInformation> pendingInfoForQ2 = updatablesAndPendingHistory.pendingInfoFor(question2);
         
         assertEquals(2, pendingInfoForQ1.size());
-        assertEquals("title1", pendingInfoForQ1.get(0).getTitle());
-        assertEquals("title2", pendingInfoForQ1.get(1).getTitle());
+        assertEquals("title1", ((QuestionInformation) pendingInfoForQ1.get(0)).getTitle());
+        assertEquals("title2", ((QuestionInformation) pendingInfoForQ1.get(1)).getTitle());
         
         assertEquals(2, pendingInfoForQ2.size());
-        assertEquals("title3", pendingInfoForQ2.get(0).getTitle());
-        assertEquals("title4", pendingInfoForQ2.get(1).getTitle());
+        assertEquals("title3", ((QuestionInformation) pendingInfoForQ2.get(0)).getTitle());
+        assertEquals("title4", ((QuestionInformation) pendingInfoForQ2.get(1)).getTitle());
     }
 
 }

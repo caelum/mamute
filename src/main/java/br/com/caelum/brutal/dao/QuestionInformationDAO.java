@@ -24,7 +24,7 @@ public class QuestionInformationDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public UpdatablesAndPendingHistory pending() {
+	public UpdatablesAndPendingHistory pendingByUpdatables() {
 		String hql = "select question, question_info from Question question " +
 				"join question.history question_info " +
 				"where question_info.status = :pending order by question_info.createdAt asc";
