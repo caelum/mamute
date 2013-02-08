@@ -164,9 +164,10 @@ public class Answer implements Votable, Commentable, Updatable, Subscribable, To
 	}
 
 	void enqueueChange(AnswerInformation newInformation, UpdateStatus status) {
-		if(status.equals(UpdateStatus.NO_NEED_TO_APPROVE)) {
+		if (status.equals(UpdateStatus.NO_NEED_TO_APPROVE)) {
 			this.information = newInformation;
 		}
+		newInformation.setAnswer(this);
         newInformation.setInitStatus(status);
 		this.history.add(newInformation);
 		this.touchedBy(newInformation.getAuthor());

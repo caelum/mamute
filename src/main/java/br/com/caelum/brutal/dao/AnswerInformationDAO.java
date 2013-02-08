@@ -7,7 +7,9 @@ import org.hibernate.Session;
 
 import br.com.caelum.brutal.model.UpdatablesAndPendingHistory;
 import br.com.caelum.brutal.model.UpdateStatus;
+import br.com.caelum.vraptor.ioc.Component;
 
+@Component
 public class AnswerInformationDAO {
 
     private final Session session;

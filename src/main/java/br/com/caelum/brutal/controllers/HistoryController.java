@@ -4,11 +4,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import br.com.caelum.brutal.auth.ModeratorAccess;
+import br.com.caelum.brutal.dao.AnswerInformationDAO;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.QuestionInformationDAO;
 import br.com.caelum.brutal.model.Question;
-import br.com.caelum.brutal.model.UpdatablesAndPendingHistory;
 import br.com.caelum.brutal.model.QuestionInformation;
+import br.com.caelum.brutal.model.UpdatablesAndPendingHistory;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.Get;
@@ -21,41 +22,45 @@ import br.com.caelum.vraptor.view.Results;
 public class HistoryController {
 
 	private final Result result;
-	private final QuestionInformationDAO histories;
+	private final QuestionInformationDAO questionEdits;
     private final QuestionDAO questions;
     private final User currentUser;
+    private final AnswerInformationDAO answerEdits;
 
-	public HistoryController(Result result, QuestionInformationDAO edits, QuestionDAO questions, User currentUser) {
+	public HistoryController(Result result, QuestionInformationDAO edits, QuestionDAO questions, User currentUser, AnswerInformationDAO answerEdits) {
 		this.result = result;
-		this.histories = edits;
+		this.questionEdits = edits;
         this.questions = questions;
         this.currentUser = currentUser;
+        this.answerEdits = answerEdits;
 	}
 
 	@ModeratorAccess
 	@Get("/history")
 	public void unmoderated() {
-		UpdatablesAndPendingHistory pending = histories.pendingByUpdatables();
-		result.include("pendingQuestionsEntrySet", pending.questionsEntrySet());
+		UpdatablesAndPendingHistory pendingQuestions = questionEdits.pendingByUpdatables();
+		UpdatablesAndPendingHistory pendingAnswers = answerEdits.pendingByUpdatables();
+		result.include("pendingQuestionsEntrySet", pendingQuestions.questionsEntrySet());
+		result.include("pendingAnswersEntrySet", pendingAnswers.questionsEntrySet());
 	}
 
 	@ModeratorAccess
 	@Get("/history/{questionId}/similar")
 	public void similar(Long questionId) {
-		result.include("histories", histories.pendingFrom(questionId));
+		result.include("histories", questionEdits.pendingFrom(questionId));
 	}
 
     @ModeratorAccess
     @Post("/history/{questionId}/{aprovedHistoryId}")
     public void publish(Long questionId, Long aprovedHistoryId) {
-        QuestionInformation approvedEdit = histories.getById(aprovedHistoryId);
+        QuestionInformation approvedEdit = questionEdits.getById(aprovedHistoryId);
         if (!approvedEdit.isPending()) {
             result.use(Results.http()).sendError(403);
             return;
         }
 
         Question question = questions.getById(questionId);
-        List<QuestionInformation> pending = histories.pendingFrom(questionId);
+        List<QuestionInformation> pending = questionEdits.pendingFrom(questionId);
         refusePending(aprovedHistoryId, pending);
         question.aprove(approvedEdit, currentUser);
 
@@ -74,7 +79,7 @@ public class HistoryController {
 	@ModeratorAccess
 	@Post("/history/{historyId}")
 	public void refuse(Long historyId) {
-	    QuestionInformation refusedEdit = histories.getById(historyId);
+	    QuestionInformation refusedEdit = questionEdits.getById(historyId);
 	    if (!refusedEdit.isPending()) {
 	        result.use(Results.http()).sendError(403);
 	        return;
