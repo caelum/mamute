@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.controllers;
 
+import java.util.Arrays;
 import java.util.List;
 
 import br.com.caelum.brutal.auth.LoggedAccess;
@@ -53,7 +54,8 @@ public class QuestionController {
 		Question original = questions.getById(id);
 		UpdateStatus status = original.updateWith(information);
 		questions.save(original);
-		result.include("status", status);
+		result.include("confirmations", Arrays.asList(status));
+		result.redirectTo(this).showQuestion(id, original.getSluggedTitle());
 	}
 	
 	@Get("/questions/{questionId}/{sluggedTitle}")
