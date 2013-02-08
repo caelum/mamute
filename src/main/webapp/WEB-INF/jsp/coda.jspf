@@ -29,5 +29,6 @@ var MODERATOR = ${empty currentUser ? false : currentUser.moderator};
 <script src="<c:url value="/js/tag-autocomplete.js"/>"></script>
 <script src="<c:url value="/js/forgot-password.js"/>"></script>
 <script src="<c:url value="/js/question-history-select.js"/>"></script>
+<script src="<c:url value="/js/submenu.js"/>"></script>
 </body>
 </html>
