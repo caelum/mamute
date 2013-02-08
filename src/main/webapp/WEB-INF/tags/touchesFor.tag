@@ -7,7 +7,7 @@
 	<li class="touch author-touch">
 		<tags:completeUser user="${touchable.author}" date="${touchable.createdAt}"/>
 	</li>
-	<c:if test="${not empty touchable.lastTouchedBy}">
+	<c:if test="${(not empty touchable.lastTouchedBy) and (touchable.lastTouchedBy.id != touchable.author.id)}">
 		<li class="touch">
 			<tags:completeUser user="${touchable.lastTouchedBy}" date="${touchable.lastUpdatedAt}"/>
 		</li>

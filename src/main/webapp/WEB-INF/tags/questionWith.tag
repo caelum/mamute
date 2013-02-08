@@ -5,7 +5,7 @@
 <%@attribute name="question" type="br.com.caelum.brutal.model.Question" required="true" %>
 <section class="post-area question-area">
 	<div class="post-meta">
-		<tags:voteFor item="${question}" type="question" vote="${currentVote }"/>
+		<tags:voteFor item="${question}" type="question" vote="${currentVote}"/>
 	</div>
 	<div class="post-container">
 		<div class="post-text" id="question-description-${question.id }">${question.markedDescription}</div>
