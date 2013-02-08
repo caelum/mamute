@@ -16,10 +16,6 @@ a {
 	color: rgb(0, 119, 204);
 }
 
-h4 {
-	font-size: 20px;
-}
-
 .logo {
 	float: left;
 }
@@ -518,12 +514,16 @@ textarea {
 	color: #FF0000;
 }
 
+.vote-container{
+	width:35%;
+}
+
 .vote-count {
 	display: block;
 	font-size: 24px;
 	color: #555;
 	text-align: center;
-	width: 25%;
+	width: 100%;
 	height: 40px;
 	line-height: 40px;
 }
