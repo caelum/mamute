@@ -1,5 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-</coda>
+</div>
+<footer class="footer">
+	<div class="container">
+		marotagens do footer
+	</div>
+</footer>
 <script type="text/javascript">
 // UI flags
 var LOGGED_IN = ${not empty currentUser};

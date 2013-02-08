@@ -25,8 +25,10 @@ h4 {
 }
 
 .container {
-	margin: 0 auto;
+	margin-left: auto;
+	margin-right: auto;
 	width: 71%;
+	overflow:hidden;
 }
 
 .title {
@@ -490,7 +492,6 @@ textarea {
 	width:75%;	
 }
 
-
 /*Answer*/
 .answer {
 	padding: 15px 0;
@@ -592,4 +593,12 @@ textarea {
 
 .pending-questions a {
 	font-size: 18px;
+}
+
+/*Footer*/
+.footer{
+	margin-top:50px;
+	border-top:8px solid #000000;
+	background-color:#777777;
+	height:300px;
 }
