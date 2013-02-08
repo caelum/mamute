@@ -69,6 +69,7 @@ a {
 	padding: 10px 5px;
 	margin: 35px 0 10px 20px;
 	float: left;
+	width:32%;
 }
 
 .post-container .hint{
@@ -185,6 +186,7 @@ textarea {
 
 .hinted-form{
 	float:left;
+	width:65%;
 }
 
 /*ARROW*/
