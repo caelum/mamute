@@ -7,7 +7,7 @@ import java.util.List;
 import org.junit.Test;
 
 import br.com.caelum.brutal.model.Question;
-import br.com.caelum.brutal.model.QuestionAndPendingHistory;
+import br.com.caelum.brutal.model.UpdatablesAndPendingHistory;
 import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.QuestionInformationBuilder;
 import br.com.caelum.brutal.model.UpdateStatus;
@@ -20,21 +20,21 @@ public class QuestionInformationDAOTest extends DatabaseTestCase {
         QuestionInformationDAO questionInformations = new QuestionInformationDAO(session);
         User author = new User("francisco", "chico@chico", "123456");
         
-        QuestionInformation info1 = new QuestionInformationBuilder().withAuthor(author).build();
+        QuestionInformation info1 = new QuestionInformationBuilder().with(author).build();
         Question question1 = new Question(info1, author);
         
-        QuestionInformation info2 = new QuestionInformationBuilder().withAuthor(author).build();
+        QuestionInformation info2 = new QuestionInformationBuilder().with(author).build();
         Question question2 = new Question(info2, author);
-        QuestionInformation pendingInfo1 = new QuestionInformationBuilder().withAuthor(author).build();
-        QuestionInformation pendingInfo2 = new QuestionInformationBuilder().withAuthor(author).build();
+        QuestionInformation pendingInfo1 = new QuestionInformationBuilder().with(author).build();
+        QuestionInformation pendingInfo2 = new QuestionInformationBuilder().with(author).build();
         question2.enqueueChange(pendingInfo1, UpdateStatus.PENDING);
         question2.enqueueChange(pendingInfo2, UpdateStatus.PENDING);
         
-        QuestionInformation info3 = new QuestionInformationBuilder().withAuthor(author).build();
+        QuestionInformation info3 = new QuestionInformationBuilder().with(author).build();
         Question question3 = new Question(info3, author);
-        QuestionInformation pendingInfo3 = new QuestionInformationBuilder().withAuthor(author).build();
-        QuestionInformation pendingInfo4 = new QuestionInformationBuilder().withAuthor(author).build();
-        QuestionInformation pendingInfo5 = new QuestionInformationBuilder().withAuthor(author).build();
+        QuestionInformation pendingInfo3 = new QuestionInformationBuilder().with(author).build();
+        QuestionInformation pendingInfo4 = new QuestionInformationBuilder().with(author).build();
+        QuestionInformation pendingInfo5 = new QuestionInformationBuilder().with(author).build();
         question3.enqueueChange(pendingInfo3, UpdateStatus.PENDING);
         question3.enqueueChange(pendingInfo4, UpdateStatus.PENDING);
         question3.enqueueChange(pendingInfo5, UpdateStatus.PENDING);
@@ -44,7 +44,7 @@ public class QuestionInformationDAOTest extends DatabaseTestCase {
         session.save(question2);
         session.save(question3);
         
-        QuestionAndPendingHistory pending = questionInformations.pending();
+        UpdatablesAndPendingHistory pending = questionInformations.pending();
         List<Question> questions = pending.questions();
         
         assertEquals(2, questions.size());

@@ -89,7 +89,7 @@ public class TagDAOTest extends DatabaseTestCase{
 
 	private Question questionWith(Tag tag) {
 		QuestionInformation questionInfo = new QuestionInformationBuilder()
-			.withAuthor(leo).withTag(tag).build();
+			.with(leo).withTag(tag).build();
 		Question question = new Question(questionInfo, leo);
 		session.save(question);
 		return question;

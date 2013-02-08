@@ -92,7 +92,7 @@ public class Question implements Votable, Commentable, Updatable, Touchable {
 		this.lastUpdatedAt = new DateTime();
 	}
 
-	public void setId(Long id) {
+	void setId(Long id) {
 		this.id = id;
 	}
 

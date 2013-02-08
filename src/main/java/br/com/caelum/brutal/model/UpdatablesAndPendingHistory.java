@@ -6,36 +6,36 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 
-public class QuestionAndPendingHistory {
+public class UpdatablesAndPendingHistory {
 
-    private TreeMap<Question, List<QuestionInformation>> informationsByQuestion;
+    private TreeMap<Question, List<QuestionInformation>> informationsByUpdatable;
 
-    public QuestionAndPendingHistory(List<Object[]> questionAndInformations) {
+    public UpdatablesAndPendingHistory(List<Object[]> questionAndInformations) {
         QuestionComparator comparator = new QuestionComparator();
-        informationsByQuestion = new TreeMap<>(comparator);
+        informationsByUpdatable = new TreeMap<>(comparator);
         for (Object[] questionAndInformation : questionAndInformations) {
             Question question = (Question) questionAndInformation[0]; 
             QuestionInformation questionInformation = (QuestionInformation) questionAndInformation[1];
             
-            List<QuestionInformation> informations = informationsByQuestion.get(question);
+            List<QuestionInformation> informations = informationsByUpdatable.get(question);
             if (informations == null) {
                 informations = new ArrayList<>();
             }
             informations.add(questionInformation);
-            informationsByQuestion.put(question, informations);
+            informationsByUpdatable.put(question, informations);
         }
     }
     
     public List<Question> questions() {
-        return new ArrayList<Question>(informationsByQuestion.keySet());
+        return new ArrayList<Question>(informationsByUpdatable.keySet());
     }
     
     public Set<Entry<Question, List<QuestionInformation>>> questionsEntrySet() {
-        return informationsByQuestion.entrySet();
+        return informationsByUpdatable.entrySet();
     }
 
     public List<QuestionInformation> pendingInfoFor(Question question) {
-        return informationsByQuestion.get(question);
+        return informationsByUpdatable.get(question);
     }
 
 }

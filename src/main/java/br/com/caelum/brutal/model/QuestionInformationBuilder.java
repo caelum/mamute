@@ -11,7 +11,7 @@ public class QuestionInformationBuilder {
 	private List<Tag> tags = new ArrayList<>();
     private UpdateStatus status;
 
-	public QuestionInformationBuilder withAuthor(User author) {
+	public QuestionInformationBuilder with(User author) {
 		this.author = author;
 		return this;
 	}
@@ -26,6 +26,11 @@ public class QuestionInformationBuilder {
 	public QuestionInformationBuilder withTag(Tag tag) {
 		tags.add(tag);
 		return this;
+	}
+	
+	public QuestionInformationBuilder withTitle(String title) {
+	    this.title = title;
+	    return this;
 	}
 
     public QuestionInformationBuilder withStatus(UpdateStatus status) {

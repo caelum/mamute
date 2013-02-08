@@ -7,7 +7,7 @@ import br.com.caelum.brutal.auth.ModeratorAccess;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.QuestionInformationDAO;
 import br.com.caelum.brutal.model.Question;
-import br.com.caelum.brutal.model.QuestionAndPendingHistory;
+import br.com.caelum.brutal.model.UpdatablesAndPendingHistory;
 import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
@@ -35,7 +35,7 @@ public class HistoryController {
 	@ModeratorAccess
 	@Get("/history")
 	public void unmoderated() {
-		QuestionAndPendingHistory pending = histories.pending();
+		UpdatablesAndPendingHistory pending = histories.pending();
 		result.include("pendingQuestionsEntrySet", pending.questionsEntrySet());
 	}
 
