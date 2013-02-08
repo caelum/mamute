@@ -80,6 +80,8 @@ a {
 	color: #FF0000;
 }
 
+.active{display:block;}
+
 
 /*Markdown*/
 pre{
@@ -141,10 +143,19 @@ p{
 	cursor:pointer;
 }
 
+/*Popup*/
+
 .popup{
+	display:none;
 	position:absolute;
 	padding:20px;
-	margin-top:5px;	
+	margin-top:5px;
+}
+
+.popup.share{
+	background-color:#EAEAEA;	
+	border:1px solid #999;
+	width:235px;
 }
 
 /*Forms*/
@@ -459,7 +470,6 @@ textarea {
 .autocompleted-tags.active{
 	border:1px solid #000;
 	z-index:999;
-	display:block;
 	position:absolute;
 	margin-top:30px;
 	background-color:#FFF;

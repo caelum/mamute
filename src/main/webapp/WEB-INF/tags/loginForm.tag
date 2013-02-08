@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@attribute name="redirectUrl" type="java.lang.String" required="false" %>
 
-<form class="user-form" action="<c:url value="/login"/>" method="POST">
+<form class="validated-form user-form" action="<c:url value="/login"/>" method="POST">
 	<label for="email"><fmt:message key="signup.form.email.label" /></label>
 	<input type="text" name="email" class="email required text-input" placeholder="nome@exemplo.com"/>
 	<label for="password"><fmt:message key="signup.form.password.label" /></label>

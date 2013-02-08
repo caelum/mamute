@@ -15,6 +15,15 @@
 				<li class="nav-item">
 					<a class="post-action" href="<c:url value="/question/edit/${question.id}"/>"><fmt:message key="edit" /></a>
 				</li>
+				<li class="nav-item">
+					<a class="post-action show-popup" href="#">
+						<fmt:message key="share"/>
+					</a>
+					<form class="popup share validated-form">
+						<label for="share-url"><fmt:message key="share.text"/></label>
+						<input type="text" class="text-input required" id="share-url" value=""/>
+					</form>
+				</li>
 			</ul>
 			<tags:touchesFor touchable="${question}" />
 		</div>
