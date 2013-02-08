@@ -40,7 +40,6 @@ $(function() {
 			data : self.serialize(),
 			method: "POST"
 		});
-		
 		return false;
 	});
 });
