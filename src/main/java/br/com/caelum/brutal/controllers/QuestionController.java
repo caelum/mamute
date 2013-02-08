@@ -2,7 +2,7 @@ package br.com.caelum.brutal.controllers;
 
 import java.util.List;
 
-import br.com.caelum.brutal.auth.Logged;
+import br.com.caelum.brutal.auth.LoggedAccess;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.dao.VoteDAO;
@@ -36,7 +36,7 @@ public class QuestionController {
 	}
 
 	@Get("/question/ask")
-	@Logged
+	@LoggedAccess
 	public void questionForm() {
 	}
 
@@ -47,12 +47,11 @@ public class QuestionController {
 
 	@Post("/question/edit/{id}")
 	public void edit(String title, String description, String tagNames, Long id) {
-		
 		List<Tag> tags = this.tags.loadAll(tagNames, currentUser.getCurrent());
 		QuestionInformation information = new QuestionInformation(title, description, this.currentUser, tags);
 
-
 		Question original = questions.getById(id);
+		information.setQuestion(original);
 		UpdateStatus status = original.updateWith(information);
 		questions.save(original);
 		result.include("status", status);
@@ -75,11 +74,12 @@ public class QuestionController {
 	}
 
 	@Post("/question/ask")
-	@Logged
+	@LoggedAccess
 	public void newQuestion(String title, String description, String tagNames) {
 		List<Tag> tags = this.tags.loadAll(tagNames, currentUser.getCurrent());
 		QuestionInformation information = new QuestionInformation(title, description, currentUser, tags);
 		Question question = new Question(information, currentUser.getCurrent());
+		information.setQuestion(question);
 		
 		questions.save(question);
 		result.redirectTo(this).showQuestion(question.getId(),

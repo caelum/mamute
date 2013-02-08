@@ -23,5 +23,9 @@ public class CurrentUser {
 		return request == null ? null : request.getRemoteAddr();
 	}
 	
+	public boolean isModerator() {
+	    return user == null ? false : user.isModerator();
+	}
+	
 
 }

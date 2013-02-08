@@ -98,7 +98,7 @@ public class Answer implements Votable, Commentable, Updatable, Subscribable {
 	}
 	
 	public boolean isSolution() {
-		return (this.question.hasSolution() && this.question.getSolution().equals(this));
+		return (this.question.isSolved() && this.question.getSolution().equals(this));
 	}
 
     @Override

@@ -56,6 +56,9 @@ public class QuestionInformation {
 	private UpdateStatus status;
 
 	private String ip;
+	
+	@ManyToOne
+	private Question question;
 
 	/**
 	 * @deprecated hibernate only
@@ -66,12 +69,12 @@ public class QuestionInformation {
 
 	public QuestionInformation(String title, String description, CurrentUser user,
 			List<Tag> tags) {
-		if(user==null) {
+        if (user == null) {
 			this.author = null;
 			this.ip = null;
 		} else {
-		this.author = user.getCurrent();
-		this.ip = user.getIp();
+    		this.author = user.getCurrent();
+    		this.ip = user.getIp();
 		}
 		setTitle(title);
 		setDescription(description);
@@ -145,4 +148,15 @@ public class QuestionInformation {
         return createdAt;
     }
 	
+	public Long getId() {
+        return id;
+    }
+	
+	public Question getQuestion() {
+        return question;
+    }
+	
+	public void setQuestion(Question question) {
+        this.question = question;
+    }
 }

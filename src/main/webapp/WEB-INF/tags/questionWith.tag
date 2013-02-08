@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@attribute name="question" type="br.com.caelum.brutal.model.Question" required="true" %>
-<section class="post-area">
+<section class="post-area question-area">
 	<div class="post-meta">
 		<tags:voteFor item="${question}" type="question" vote="${currentVote }"/>
 	</div>

@@ -7,7 +7,7 @@
 <li class="question">
 	<div class="question-information">
 		<tags:questionInformation key="question.list.vote" count="${question.voteCount}" information="votes"/>
-		<tags:questionInformation key="question.list.answer" count="${question.answersCount}" information="answers"/>
+		<tags:questionInformation key="question.list.answer" count="${question.answersCount}" information="answers ${question.solved ? 'solved' : ''}"/>
 		<tags:questionInformation key="question.list.view" count="${question.views}" information="views"/>
 	</div>
 	<div class="summary">

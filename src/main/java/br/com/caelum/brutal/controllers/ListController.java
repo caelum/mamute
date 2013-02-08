@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 
+import br.com.caelum.brutal.components.RecentTagsContainer;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.model.Question;
@@ -20,17 +21,19 @@ public class ListController {
 	private final QuestionDAO questions;
 	private final Result result;
 	private final TagDAO tags;
+	private final RecentTagsContainer recentTagsContainer;
 
-	public ListController(QuestionDAO questions, TagDAO tags, Result result) {
+	public ListController(QuestionDAO questions, TagDAO tags, Result result, RecentTagsContainer recentTagsContainer) {
 		this.questions = questions;
 		this.tags = tags;
 		this.result = result;
+		this.recentTagsContainer = recentTagsContainer;
 	}
 
 	@Get("/")
 	public void home() {
 		result.include("questions", questions.all());
-		result.include("tagsUsage", tags.getRecentTagsUsageSince(new DateTime().minusMonths(3)));
+		result.include("tagsUsage", tags.getRecentTagsUsageSince(new DateTime().minusHours(3)));
 	}
 	
 	@Get("/list/unanswered")

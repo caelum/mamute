@@ -16,6 +16,10 @@ a {
 	color: rgb(0, 119, 204);
 }
 
+h4 {
+	font-size: 20px;
+}
+
 .logo {
 	float: left;
 }
@@ -64,12 +68,38 @@ a {
 	background-color: #FEFAE2;
 	border: 1px solid #F3EED5;
 	padding: 10px 5px;
-	margin: 10px 0 10px 20px;
+	margin: 35px 0 10px 20px;
 	float: left;
+}
+
+.post-container .hint{
+	margin-top: 0px;
 }
 
 .suggestion-accepted {
 	color: #FF0000;
+}
+
+/*Validations*/
+.error {
+	padding: 5px 0;
+	color: #8e0000;
+	font-size: 13px;
+}
+
+.validation-error{
+	background-color:#ad0000;
+	font-weight:bold;
+	color:#fff;
+	border: 1px solid #8e0000;
+	border-radius:3px;
+	cursor:pointer;
+}
+
+.popup{
+	position:absolute;
+	padding:20px;
+	margin-top:5px;	
 }
 
 /*Forms*/
@@ -104,16 +134,10 @@ input[type="text"]:focus, input[type="search"]:focus,input[type="password"]:focu
 
 label{
 	display: block;
-	margin: 10px 0 5px 0;
+	margin: 10px 0;
 	color:#333;
 	font-size:1.2em;
 	font-weight:bold;
-}
-
-label.error {
-	padding: 5px 0;
-	color: #8e0000;
-	font-size: 13px;
 }
 
 textarea {
@@ -143,7 +167,7 @@ textarea {
 }
 
 /*LOGIN*/
-.login-form input[type="text"],.login-form input[type="password"] {
+.user-form input[type="text"],.user-form input[type="password"] {
 	border: 2px inset #EEE;
 	display: block;
 	font-size: 17px;
@@ -152,7 +176,7 @@ textarea {
 	width: 300px;
 }
 
-.login-form input[type="submit"] {
+.user-form input[type="submit"] {
 	font-size: 22px;
 	height: 35px;
 	width: 300px;
@@ -294,6 +318,11 @@ textarea {
 	color: #9A4444;
 }
 
+.answers.solved{
+	border-bottom: 5px solid #75845C;
+}
+
+
 .votes {
 	color: #555;
 }
@@ -346,6 +375,7 @@ textarea {
 
 .tag-description{
 	color:#000;
+	font-size:12px;
 }
 
 .autocompleted-tags{
@@ -391,6 +421,9 @@ textarea {
 	overflow: hidden;
 }
 
+.question-area{
+	border:none;
+}
 .post-area .tags {
 	margin: 10px 0;
 	overflow: hidden;
@@ -522,4 +555,8 @@ textarea {
 
 .edit-via-ajax span,.edit div {
 	display: none;
+}
+
+.pending-questions a {
+	font-size: 18px;
 }
