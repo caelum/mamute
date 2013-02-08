@@ -44,7 +44,7 @@ public class Answer implements Votable, Commentable, Updatable, Subscribable, To
 	@ManyToOne
 	private User lastTouchedBy = null;
 
-	@OneToMany
+	@OneToMany(mappedBy="answer")
 	@Cascade(SAVE_UPDATE)
 	private List<AnswerInformation> history= new ArrayList<>();
 	
@@ -63,6 +63,7 @@ public class Answer implements Votable, Commentable, Updatable, Subscribable, To
 		this.author = author;
 		touchedBy(author);
 		enqueueChange(information, UpdateStatus.NO_NEED_TO_APPROVE);
+		information.setAnswer(this);
 	}
 
 	/**

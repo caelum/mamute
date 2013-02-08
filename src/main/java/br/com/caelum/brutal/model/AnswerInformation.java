@@ -40,6 +40,9 @@ public class AnswerInformation {
 
 	private String ip;
 
+	@ManyToOne
+    private Answer answer;
+	
 	/**
 	 * @deprecated hibernate only
 	 */
@@ -90,5 +93,9 @@ public class AnswerInformation {
 		}
 		this.status = status;
 	}
+
+    void setAnswer(Answer answer) {
+        this.answer = answer;
+    }
 
 }
