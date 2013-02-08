@@ -25,10 +25,12 @@ $(function() {
 	});
 	
 	function errorDiv(text, self){
-		var errorDiv = $("<div class='validation-error popup'>"+text+"</div>");
-		errorDiv.appendTo($(self).parent());
-		$(errorDiv).click(function(){
-			$(this).remove();
-		});
+		if($(".validation-error.popup").length == 0){
+			var errorDiv = $("<div class='validation-error popup'>"+text+"</div>");
+			errorDiv.appendTo($(self).parent()).show();
+			$(errorDiv).click(function(){
+				$(this).remove();
+			});
+		}
 	}
 });

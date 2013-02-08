@@ -15,4 +15,9 @@
 				</c:forEach>
 			</ul>		
 	</c:forEach>
+	
+	<c:forEach var="answerEntry" items="${pendingAnswersEntrySet}">
+		${answerEntry}
+	</c:forEach>
+	
 </ul>

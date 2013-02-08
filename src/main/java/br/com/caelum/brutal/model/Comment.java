@@ -57,7 +57,7 @@ public class Comment implements Updatable, Subscribable {
 		setComment(comment);
     }
 
-	private void setComment(String comment) {
+	public void setComment(String comment) {
 		this.comment = comment;
         this.htmlComment = MarkDown.parse(comment);
 	}

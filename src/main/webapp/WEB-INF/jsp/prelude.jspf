@@ -18,7 +18,7 @@
 				<ul class="nav-items">
 				<c:if test="${empty currentUser }">
 					<li class="nav-item">
-						<a href="${linkTo[AuthController].loginForm}">
+						<a class="login" href="${linkTo[AuthController].loginForm}">
 							<fmt:message key="auth.login_form_link"/>
 						</a>
 					</li>

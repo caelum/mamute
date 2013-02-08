@@ -50,9 +50,7 @@ public class NotificationMailerJob implements CronTask {
 
     @Override
     public void execute() {
-        int hoursAgo = 3;
-        Long milisecAgo = (long) (hoursAgo * (60 * 60 * 1000));
-        DateTime threeHoursAgo = new DateTime(System.currentTimeMillis() - milisecAgo);
+        DateTime threeHoursAgo = new DateTime().minusHours(3);
         
         List<SubscribableDTO> recentSubscribables = answers.getSubscribablesAfter(threeHoursAgo);
         recentSubscribables.addAll(comments.getSubscribablesAfter(threeHoursAgo));
