@@ -19,7 +19,7 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 @Entity
-public class Answer implements Votable, Commentable, Updatable, Subscribable {
+public class Answer implements Votable, Commentable, Updatable, Subscribable, Touchable {
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -193,5 +193,15 @@ public class Answer implements Votable, Commentable, Updatable, Subscribable {
     public String getTypeNameKey() {
         return "answer.type_name";
     }
+
+    @Override
+    public DateTime getLastUpdatedAt() {
+    	return lastUpdatedAt;
+    }
+    
+    @Override
+    public User getLastTouchedBy() {
+		return lastTouchedBy;
+	}
 
 }

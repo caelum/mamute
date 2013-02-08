@@ -16,11 +16,14 @@
 	</div>
 	<div class="post-container">
 		<div class="post-text" id="answer-${answer.id }">${answer.markedDescription}</div>
-		<ul class="post-action-nav nav">
-			<li class="nav-item">
-				<a class="post-action" href="<c:url value="/answer/edit/${answer.id}"/>"><fmt:message key="edit" /></a>
-			</li>
-		</ul>
+		<div class="post-interactions">
+			<ul class="post-action-nav nav">
+				<li class="nav-item">
+					<a class="post-action" href="<c:url value="/answer/edit/${answer.id}"/>"><fmt:message key="edit" /></a>
+				</li>
+			</ul>
+			<tags:touchesFor touchable="${answer}" />
+		</div>
 		<tags:add-a-comment item="${answer}"/>
 	</div>
 </section>

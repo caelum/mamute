@@ -19,7 +19,7 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 @Entity
-public class Question implements Votable, Commentable, Updatable {
+public class Question implements Votable, Commentable, Updatable, Touchable {
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -248,5 +248,9 @@ public class Question implements Votable, Commentable, Updatable {
 	private void setInformation(QuestionInformation information) {
         this.information = information;
     }
+	
+	public DateTime getCreatedAt() {
+		return createdAt;
+	}
     
 }
