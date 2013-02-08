@@ -1,6 +1,7 @@
 package br.com.caelum.brutal.controllers;
 
 import java.util.Arrays;
+import java.util.List;
 
 import br.com.caelum.brutal.auth.ModeratorAccess;
 import br.com.caelum.brutal.dao.QuestionDAO;
@@ -45,13 +46,26 @@ public class HistoryController {
 	}
 	
 	@ModeratorAccess
-	@Post("/history/{questionId}/{historyId}")
-	public void publish(Long questionId, Long historyId) {
-	    QuestionInformation approvedEdit = histories.getById(historyId);
+	@Post("/history/{questionId}/{aprovedHistoryId}")
+	public void publish(Long questionId, Long aprovedHistoryId) {
+	    QuestionInformation approvedEdit = histories.getById(aprovedHistoryId);
 	    Question question = questions.getById(questionId);
+	    
+	    List<QuestionInformation> pending = histories.pendingFrom(questionId);
+	    refusePending(aprovedHistoryId, pending);
+	    
 	    question.aprove(approvedEdit, currentUser);
-	    result.redirectTo(QuestionController.class).showQuestion(question.getId(), question.getSluggedTitle());
+	    
+	    result.redirectTo(this).unmoderated();
 	}
+
+    private void refusePending(Long aprovedHistoryId, List<QuestionInformation> pending) {
+        for (QuestionInformation refused : pending) {
+	        if (!refused.getId().equals(aprovedHistoryId)) {
+	            refused.moderate(currentUser, UpdateStatus.REFUSED);
+	        }
+        }
+    }
 	
 	@ModeratorAccess
 	@Post("/history/{historyId}")
