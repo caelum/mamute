@@ -156,7 +156,7 @@ public class QuestionInformation {
         return question;
     }
 	
-	public void setQuestion(Question question) {
+	void setQuestion(Question question) {
         this.question = question;
     }
 }

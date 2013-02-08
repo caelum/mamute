@@ -47,7 +47,7 @@ public class QuestionInformationDAOTest extends DatabaseTestCase {
         QuestionAndPendingHistory pending = questionInformations.pending();
         List<Question> questions = pending.questions();
         
-        assertEquals(questions.size(), 2);
+        assertEquals(2, questions.size());
         assertEquals(question2.getId(), questions.get(0).getId());
         
         List<QuestionInformation> pendingQuestion2 = pending.pendingInfoFor(questions.get(0));

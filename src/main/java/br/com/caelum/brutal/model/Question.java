@@ -227,6 +227,7 @@ public class Question implements Votable, Commentable, Updatable, Touchable {
 		if(status.equals(UpdateStatus.NO_NEED_TO_APPROVE)) {
 			this.information = newInformation;
 		}
+		newInformation.setQuestion(this);
         newInformation.setInitStatus(status);
 		this.history.add(newInformation);
 		this.touchedBy(newInformation.getAuthor());
@@ -240,7 +241,7 @@ public class Question implements Votable, Commentable, Updatable, Touchable {
 	    setInformation(choosenVersion);
 	    return UpdateStatus.APPROVED;
 	}
-
+	
 	public List<QuestionInformation> getHistory() {
 		return history;
 	}
