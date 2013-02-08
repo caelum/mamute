@@ -5,7 +5,7 @@
 		org.joda.time.base.AbstractInstant time = (org.joda.time.base.AbstractInstant) jspContext
 				.getAttribute("time");
 		
-		if(time.toDateTime().isAfter(new org.joda.time.DateTime().minusMonths(1))){
+		if(time.toDateTime().isAfter(new org.joda.time.DateTime().minusMonths(3))){
 			org.ocpsoft.prettytime.PrettyTime formatter = (org.ocpsoft.prettytime.PrettyTime) request
 				.getAttribute("prettyTimeFormatter");
 			out.write(formatter.format(time.toDate()));
