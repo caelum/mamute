@@ -699,8 +699,18 @@ textarea {
 
 /*Footer*/
 .footer{
-	margin-top:50px;
 	border-top:8px solid #000000;
 	background-color:#777777;
 	height:300px;
+	margin-top:50px;
+	text-align: center;
+	padding-top: 30px;
+}
+
+.footer p {
+	color: #444;
+	margin-top: 10px;
+}
+.footer p a {
+	color: #999;
 }

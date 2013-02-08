@@ -1,8 +1,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 </div>
 <footer class="footer">
 	<div class="container">
-		marotagens do footer
+		<a class="tag" href="/list/withTag/java">java</a>
+		<a class="tag" href="/list/withTag/html">HTML</a>
+		<a class="tag" href="/list/withTag/javascript">javascript</a>
+		<a class="tag" href="/list/withTag/net">.net</a>
+		<a class="tag" href="/list/withTag/arquitetura">arquitetura</a>
+		<a class="tag" href="/list/withTag/rails">rails</a>
+		<a class="tag" href="/list/withTag/android">android</a>
+		<a class="tag" href="/list/withTag/ios">ios</a>
+		
+		<p><fmt:message key="footer.powered_by"/></p>		
+		<p><a href="http://www.casadocodigo.com.br"><fmt:message key="footer.casa_do_codigo"/></a></p>		
 	</div>
 </footer>
 <script type="text/javascript">
