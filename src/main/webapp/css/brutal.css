@@ -421,13 +421,14 @@ textarea {
 	border:none;
 }
 .post-area .tags {
-	margin: 10px 0;
+	margin-top: 10px;
 	overflow: hidden;
 }
 
 .post-container {
 	float: right;
 	width: 90%;
+	padding-top:10px;
 }
 
 .post-text {
@@ -490,7 +491,7 @@ textarea {
 
 /*Answer*/
 .answer {
-	padding: 15px 0;
+	padding-bottom: 15px;
 }
 
 /*Vote*/
@@ -562,6 +563,9 @@ textarea {
 }
 
 /*Post actions*/
+.post-action-nav{
+	margin-top:10px;
+}
 .post-action {
 	color: #888;
 	padding: 2px 3px;
