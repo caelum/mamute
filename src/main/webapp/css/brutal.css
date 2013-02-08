@@ -313,9 +313,12 @@ textarea {
 .answers {
 	color: #9A4444;
 }
+.answers.answered{
+	border-bottom: 5px solid #75845C;
+}
 
 .answers.solved{
-	border-bottom: 5px solid #75845C;
+	color:#008e43;
 }
 
 
