@@ -225,18 +225,19 @@ public class Question implements Votable, Commentable, Updatable, Touchable {
 
 	public void enqueueChange(QuestionInformation newInformation, UpdateStatus status) {
 		if(status.equals(UpdateStatus.NO_NEED_TO_APPROVE)) {
+			this.touchedBy(newInformation.getAuthor());
 			this.information = newInformation;
 		}
 		newInformation.setQuestion(this);
         newInformation.setInitStatus(status);
 		this.history.add(newInformation);
-		this.touchedBy(newInformation.getAuthor());
 	}
 	
 	public UpdateStatus aprove(QuestionInformation choosenVersion, User moderator) {
-	    UpdateStatus status = information.getAuthor().canUpdate(this);
+	    UpdateStatus status = moderator.canUpdate(this);
 	    if (status == UpdateStatus.REFUSED)
             return status;
+		this.touchedBy(choosenVersion.getAuthor());
 	    choosenVersion.moderate(moderator, UpdateStatus.APPROVED);
 	    setInformation(choosenVersion);
 	    return UpdateStatus.APPROVED;

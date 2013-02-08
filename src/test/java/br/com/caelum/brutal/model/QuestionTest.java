@@ -50,5 +50,33 @@ public class QuestionTest  extends TestCase{
 		question.substitute(null, new Vote(null, VoteType.DOWN));
 		assertEquals(-2l, question.getVoteCount());
 	}
+	
+	@Test
+	public void should_be_touched_by_original_author_after_edit() throws Exception {
+		User artur = new User("artur", "artur@x.com", "");
+		artur.setId(1l);
+		Question comoFaz = question("titulo", "descricao", artur);
+		User leo = new User("leo", "leo@x.com", "");
+		leo.setId(2l);
+		comoFaz.updateWith(new QuestionInformationBuilder().with(leo).build());
+		assertEquals(comoFaz.getLastTouchedBy().getId(), artur.getId());
+	}
+	
+	@Test
+	public void shoul_be_touched_by_approved_edit_author() throws Exception {
+		User artur = new User("artur", "artur@x.com", "");
+		artur.setId(1l);
+		User leo = new User("leo", "leo@x.com", "");
+		leo.setId(2l);
+		User moderator = new User("", "", "").asModerator();
+		
+		Question comoFaz = question("titulo", "descricao", artur);
+		QuestionInformation comoFazEditedInformation = new QuestionInformationBuilder().with(leo).build();
+		comoFaz.updateWith(comoFazEditedInformation);
+		comoFaz.aprove(comoFazEditedInformation, moderator);
+		
+		assertEquals(comoFaz.getLastTouchedBy().getId(), leo.getId());
+	}
 
+	
 }
