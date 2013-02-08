@@ -16,6 +16,16 @@
 	<c:if test="${not empty currentUser}">
 		<%@ include file="/WEB-INF/jsp/answer/answerForm.jsp"%>
 	</c:if>
+	<c:if test="${empty currentUser}">
+		<div class="login-or-signup">
+			<a class="login" href="${linkTo[AuthController].loginForm}">
+				<fmt:message key="auth.login_form_link"/>
+			</a>
+			<div class="signup">
+				<tags:signupForm />
+			</div>
+		</div>
+	</c:if>
 </section>
 <aside class="sidebar">
 	<h3 class="title section-title"><fmt:message key="question.tags"/></h3>

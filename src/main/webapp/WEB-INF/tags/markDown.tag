@@ -5,7 +5,7 @@
 <div class="wmd">
 	<div class="wmd-panel">
 		<div id="wmd-button-bar"></div>
-		<textarea class="required hintable wmd-input" id="wmd-input"
+		<textarea class="required hintable wmd-input text-input" id="wmd-input"
 			data-hint-id="${hintId}" minlength="30"
 			name="description">${value}</textarea>
 	</div>

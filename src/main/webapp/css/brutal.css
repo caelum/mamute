@@ -123,12 +123,12 @@ input[type="submit"]{
 	margin:5px 0;
 }
 
-input[type="text"], input[type="search"],input[type="password"], textarea {
+.text-input{
 	padding: 3px;
 	border:1px solid #999;
 }
 
-input[type="text"]:focus, input[type="search"]:focus,input[type="password"]:focus{
+.text-input:focus{
 	border:0;
 }
 
@@ -167,19 +167,17 @@ textarea {
 }
 
 /*LOGIN*/
-.user-form input[type="text"],.user-form input[type="password"] {
-	border: 2px inset #EEE;
-	display: block;
-	font-size: 17px;
-	height: 35px;
+
+.user-form{
+	width:35%;
+}
+
+.user-form .text-input {
 	margin-bottom: 8px;
-	width: 300px;
 }
 
 .user-form input[type="submit"] {
-	font-size: 22px;
-	height: 35px;
-	width: 300px;
+	height:32px;
 }
 
 /*HEADER*/
@@ -457,6 +455,41 @@ textarea {
 	font-weight: bold;
 	font-size: 17px;
 }
+
+.login-or-signup{
+	width:80%;
+	overflow:hidden;
+}
+
+.login-or-signup .signup label{
+	margin:5px 0 8px 0;
+}
+
+.login-or-signup .login, .login-or-signup .signup{
+	padding:0 40px;
+	float:left;
+}
+
+.login-or-signup .signup .user-form{
+	width:70%;
+}
+
+.login-or-signup .signup .text-input{
+	margin:0;
+}
+
+.login-or-signup .login{
+	font-size:26px;
+	color:#4A6B82;
+	margin-top:18%;
+	width:25%;
+}
+
+.login-or-signup .signup{
+	border-left:1px solid #999;
+	width:75%;	
+}
+
 
 /*Answer*/
 .answer {
