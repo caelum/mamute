@@ -44,20 +44,24 @@ public class HistoryController {
 	public void similar(Long questionId) {
 		result.include("histories", histories.pendingFrom(questionId));
 	}
-	
-	@ModeratorAccess
-	@Post("/history/{questionId}/{aprovedHistoryId}")
-	public void publish(Long questionId, Long aprovedHistoryId) {
-	    QuestionInformation approvedEdit = histories.getById(aprovedHistoryId);
-	    Question question = questions.getById(questionId);
-	    
-	    List<QuestionInformation> pending = histories.pendingFrom(questionId);
-	    refusePending(aprovedHistoryId, pending);
-	    
-	    question.aprove(approvedEdit, currentUser);
-	    
-	    result.redirectTo(this).unmoderated();
-	}
+
+    @ModeratorAccess
+    @Post("/history/{questionId}/{aprovedHistoryId}")
+    public void publish(Long questionId, Long aprovedHistoryId) {
+        QuestionInformation approvedEdit = histories.getById(aprovedHistoryId);
+        if (!approvedEdit.isPending()) {
+            result.use(Results.http()).sendError(403);
+            return;
+        }
+
+        Question question = questions.getById(questionId);
+        List<QuestionInformation> pending = histories.pendingFrom(questionId);
+        refusePending(aprovedHistoryId, pending);
+        question.aprove(approvedEdit, currentUser);
+
+        result.redirectTo(this).unmoderated();
+    }
+
 
     private void refusePending(Long aprovedHistoryId, List<QuestionInformation> pending) {
         for (QuestionInformation refused : pending) {
