@@ -114,18 +114,9 @@ p {
 	overflow: hidden;
 }
 
-/*Clearfix*/
-.clearfix {
-	zoom: 1;
-}
-
-.clearfix:before,.clearfix:after {
-	content: "";
-	display: table
-}
-
-.clearfix:after {
-	clear: both
+/*Clear*/
+.clear {
+	clear: both;
 }
 
 /*Validations*/
@@ -460,6 +451,12 @@ textarea {
 
 .question-history-select {
 	margin-bottom: 20px;
+}
+
+.notices {
+	color: #DB0000;
+	font-size: 15px;
+	padding-bottom: 15px;
 }
 
 /*TAG*/

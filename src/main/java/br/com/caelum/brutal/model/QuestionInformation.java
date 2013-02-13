@@ -38,6 +38,9 @@ public class QuestionInformation implements Information {
 	@Type(type = "text")
 	@NotEmpty
 	private String sluggedTitle;
+	
+	@Type(type = "text")
+	private String comment;
 
 	@ManyToOne(optional = false)
 	private final User author;
@@ -64,11 +67,11 @@ public class QuestionInformation implements Information {
 	 * @deprecated hibernate only
 	 */
 	QuestionInformation() {
-		this("", "", null, new ArrayList<Tag>());
+		this("", "", null, new ArrayList<Tag>(), "");
 	}
 
 	public QuestionInformation(String title, String description, LoggedUser user,
-			List<Tag> tags) {
+			List<Tag> tags, String comment) {
         if (user == null) {
 			this.author = null;
 			this.ip = null;
@@ -78,11 +81,12 @@ public class QuestionInformation implements Information {
 		}
 		setTitle(title);
 		setDescription(description);
+		this.comment = comment;
 		this.tags = tags;
 	}
 
 	public QuestionInformation(String title, String description, LoggedUser author) {
-		this(title, description, author, new ArrayList<Tag>());
+		this(title, description, author, new ArrayList<Tag>(), "");
 	}
 
 	public void moderate(User moderator, UpdateStatus status) {
@@ -171,5 +175,9 @@ public class QuestionInformation implements Information {
 
     public boolean isPending() {
         return status == UpdateStatus.PENDING;
+    }
+    
+    public String getComment() {
+        return comment;
     }
 }

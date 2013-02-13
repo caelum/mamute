@@ -17,7 +17,7 @@ public class QuestionInformationBuilder {
 	}
 
 	public QuestionInformation build() {
-		QuestionInformation questionInformation = new QuestionInformation(title, description, new LoggedUser(author, null), tags);
+		QuestionInformation questionInformation = new QuestionInformation(title, description, new LoggedUser(author, null), tags, "comment");
 		if (status != null)
 		    questionInformation.setInitStatus(status);
         return questionInformation;

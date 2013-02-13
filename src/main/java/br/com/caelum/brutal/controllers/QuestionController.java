@@ -47,14 +47,14 @@ public class QuestionController {
 	}
 
 	@Post("/question/edit/{id}")
-	public void edit(String title, String description, String tagNames, Long id) {
+	public void edit(String title, String description, String tagNames, Long id, String comment) {
 		List<Tag> tags = this.tags.loadAll(tagNames, currentUser.getCurrent());
-		QuestionInformation information = new QuestionInformation(title, description, this.currentUser, tags);
+		QuestionInformation information = new QuestionInformation(title, description, this.currentUser, tags, comment);
 
 		Question original = questions.getById(id);
 		UpdateStatus status = original.updateWith(information);
 		questions.save(original);
-		result.include("confirmations", Arrays.asList(status));
+		result.include("confirmations", Arrays.asList(status.getMessage()));
 		result.redirectTo(this).showQuestion(id, original.getSluggedTitle());
 	}
 	
@@ -79,7 +79,7 @@ public class QuestionController {
 	@LoggedAccess
 	public void newQuestion(String title, String description, String tagNames) {
 		List<Tag> tags = this.tags.loadAll(tagNames, currentUser.getCurrent());
-		QuestionInformation information = new QuestionInformation(title, description, currentUser, tags);
+		QuestionInformation information = new QuestionInformation(title, description, currentUser, tags, "new");
 		Question question = new Question(information, currentUser.getCurrent());
 
 		questions.save(question);

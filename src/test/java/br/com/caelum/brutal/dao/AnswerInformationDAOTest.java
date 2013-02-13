@@ -8,11 +8,11 @@ import org.junit.Test;
 
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.AnswerInformation;
+import br.com.caelum.brutal.model.Information;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.QuestionInformationBuilder;
-import br.com.caelum.brutal.model.Information;
 import br.com.caelum.brutal.model.UpdatablesAndPendingHistory;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
@@ -28,12 +28,12 @@ public class AnswerInformationDAOTest extends DatabaseTestCase {
         
         QuestionInformation qinfo1 = new QuestionInformationBuilder().with(author).build();
         Question question = new Question(qinfo1, author);
-        AnswerInformation info1 = new AnswerInformation("info1 info1 info1 info1 info1 info1 info1 ", currentAuthor);
+        AnswerInformation info1 = new AnswerInformation("info1 info1 info1 info1 info1 info1 info1 ", currentAuthor, "");
         Answer answer1 = new Answer(info1, question, author);
         
-        AnswerInformation edit1 = new AnswerInformation("info2 info2 info2 info2 info2 info2 info2 ", currentAuthor, answer1);
+        AnswerInformation edit1 = new AnswerInformation("info2 info2 info2 info2 info2 info2 info2 ", currentAuthor, answer1, "");
         edit1.setInitStatus(UpdateStatus.PENDING);
-        AnswerInformation edit2 = new AnswerInformation("info3 info3 info3 info3 info3 info3 info3 ", currentAuthor, answer1);
+        AnswerInformation edit2 = new AnswerInformation("info3 info3 info3 info3 info3 info3 info3 ", currentAuthor, answer1, "");
         edit2.setInitStatus(UpdateStatus.PENDING);
         
         session.save(author);

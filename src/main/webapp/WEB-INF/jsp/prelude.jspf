@@ -61,7 +61,7 @@
 	</ul>
 </c:if>
 <c:if test="${not empty confirmations}">
-	<ul>
+	<ul class="notices">
 		<c:forEach var="confirmation" items="${confirmations}">
 			<li><fmt:message key="${confirmation}" /></li>
 		</c:forEach>
