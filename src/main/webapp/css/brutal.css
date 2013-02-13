@@ -166,7 +166,7 @@ p {
 }
 
 /*Forms*/
-form,form * {
+form {
 	margin: 0;
 }
 
@@ -360,7 +360,7 @@ textarea {
 	float: left;
 }
 
-.first-content {
+.first-content, .history-form {
 	width: 80%;
 }
 
@@ -449,6 +449,17 @@ textarea {
 
 .last-updated-at {
 	color: #999;
+}
+
+/*MODERACAO*/
+.history-title {
+	color: black;	
+	display: inline;
+	margin-right: 10px;
+}
+
+.question-history-select {
+	margin-bottom: 20px;
 }
 
 /*TAG*/
@@ -546,11 +557,14 @@ textarea {
 }
 
 .touch {
-	overflow: hidden;
-	width: 50%;
-	height: 100%;
-	padding: 5px;
+	color: #999;
 	float: right;
+	font-size: 13px;	
+	height: 100%;
+	line-height: 13px;
+	overflow: hidden;
+	padding: 5px;
+	width: 50%;
 }
 
 .post-action-nav {
