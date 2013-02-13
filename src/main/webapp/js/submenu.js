@@ -3,7 +3,7 @@ $(function(){
 	
 	$($('.nav-item').find('.button').get().reverse()).each(function(i, item){
 		if(url.indexOf(item) >= 0) {
-			$(item).css("background-color", "#F90");
+			$(item).addClass("current");
 			$('.replace').text($(item).text());		
 			return false;
 		}
