@@ -11,7 +11,7 @@ import br.com.caelum.brutal.dao.AnswerDAO;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.AnswerInformation;
-import br.com.caelum.brutal.model.CurrentUser;
+import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
@@ -26,9 +26,9 @@ public class AnswerController {
 	private final Result result;
 	private final AnswerDAO answers;
 	private final QuestionDAO questions;
-	private final CurrentUser currentUser;
+	private final LoggedUser currentUser;
 
-	public AnswerController(Result result, AnswerDAO dao, User currentUser, QuestionDAO questions, CurrentUser user) {
+	public AnswerController(Result result, AnswerDAO dao, User currentUser, QuestionDAO questions, LoggedUser user) {
 		this.result = result;
 		this.answers = dao;
 		this.currentUser = user;

@@ -29,7 +29,7 @@ public class UpdaterTest extends TestCase{
         user.setId(2l);
         
         Updater updater = new Updater();
-        QuestionInformation newInformation = new QuestionInformation( "title", "description", new CurrentUser(user, null));
+        QuestionInformation newInformation = new QuestionInformation( "title", "description", new LoggedUser(user, null));
 		UpdateStatus update = updater.update(question, newInformation);
         
         assertEquals(update, UpdateStatus.PENDING);
@@ -43,7 +43,7 @@ public class UpdaterTest extends TestCase{
         when(authorized.canUpdate(question)).thenReturn(status);
         
         Updater updater = new Updater();
-        QuestionInformation newInformation = new QuestionInformation("new Title", "new description", new CurrentUser(authorized, null));
+        QuestionInformation newInformation = new QuestionInformation("new Title", "new description", new LoggedUser(authorized, null));
 		UpdateStatus update = updater.update(question, newInformation);
         
         assertEquals(status, update);

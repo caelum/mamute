@@ -7,7 +7,7 @@ import br.com.caelum.brutal.auth.LoggedAccess;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.dao.VoteDAO;
-import br.com.caelum.brutal.model.CurrentUser;
+import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.Tag;
@@ -26,9 +26,9 @@ public class QuestionController {
 	private final QuestionDAO questions;
 	private final TagDAO tags;
 	private final VoteDAO votes;
-	private final CurrentUser currentUser;
+	private final LoggedUser currentUser;
 
-	public QuestionController(Result result, QuestionDAO questionDAO, TagDAO tagDAO, VoteDAO votes, CurrentUser currentUser) {
+	public QuestionController(Result result, QuestionDAO questionDAO, TagDAO tagDAO, VoteDAO votes, LoggedUser currentUser) {
 		this.result = result;
 		this.questions = questionDAO;
 		this.tags = tagDAO;

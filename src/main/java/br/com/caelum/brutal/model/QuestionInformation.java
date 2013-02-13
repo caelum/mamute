@@ -67,7 +67,7 @@ public class QuestionInformation implements Information {
 		this("", "", null, new ArrayList<Tag>());
 	}
 
-	public QuestionInformation(String title, String description, CurrentUser user,
+	public QuestionInformation(String title, String description, LoggedUser user,
 			List<Tag> tags) {
         if (user == null) {
 			this.author = null;
@@ -81,7 +81,7 @@ public class QuestionInformation implements Information {
 		this.tags = tags;
 	}
 
-	public QuestionInformation(String title, String description, CurrentUser author) {
+	public QuestionInformation(String title, String description, LoggedUser author) {
 		this(title, description, author, new ArrayList<Tag>());
 	}
 

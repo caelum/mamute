@@ -5,12 +5,12 @@ import javax.servlet.http.HttpServletRequest;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
-public class CurrentUser {
+public class LoggedUser {
 	
 	private final User user;
 	private final HttpServletRequest request;
 
-	public CurrentUser(User user, HttpServletRequest request) {
+	public LoggedUser(User user, HttpServletRequest request) {
 		this.user = user;
 		this.request = request;
 	}

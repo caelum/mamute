@@ -50,7 +50,7 @@ public class AnswerInformation implements Information {
 		this("", null);
 	}
 
-	public AnswerInformation(String description, CurrentUser currentUser) {
+	public AnswerInformation(String description, LoggedUser currentUser) {
 		if (currentUser == null) {
 			this.author = null;
 			this.ip = null;
@@ -61,7 +61,7 @@ public class AnswerInformation implements Information {
 		setDescription(description);
 	}
 	
-	public AnswerInformation(String description, CurrentUser currentUser, Answer existentAnswer) {
+	public AnswerInformation(String description, LoggedUser currentUser, Answer existentAnswer) {
 	    this(description, currentUser);
 	    setAnswer(existentAnswer);
 	}

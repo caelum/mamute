@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.AnswerInformation;
-import br.com.caelum.brutal.model.CurrentUser;
+import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.QuestionInformationBuilder;
@@ -24,7 +24,7 @@ public class AnswerInformationDAOTest extends DatabaseTestCase {
         AnswerInformationDAO answerInformations = new AnswerInformationDAO(session);
         
         User author = new User("namename", "email@gmail.com", "123456");
-        CurrentUser currentAuthor = new CurrentUser(author, null);
+        LoggedUser currentAuthor = new LoggedUser(author, null);
         
         QuestionInformation qinfo1 = new QuestionInformationBuilder().with(author).build();
         Question question = new Question(qinfo1, author);

@@ -11,7 +11,7 @@ import javax.validation.ConstraintViolationException;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.com.caelum.brutal.model.CurrentUser;
+import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.Tag;
@@ -77,7 +77,7 @@ public class QuestionDAOTest extends DatabaseTestCase {
 		Tag sal = new Tag("sal", "", null);
 		tags.saveOrLoad(sal);
 
-		QuestionInformation info = new QuestionInformation("Por que pegar o sal da mal dos outros da azar?", "Alguem poderia me dizer o por que disso? Obrigado galera!", new CurrentUser(author, null), Arrays.asList(sal));
+		QuestionInformation info = new QuestionInformation("Por que pegar o sal da mal dos outros da azar?", "Alguem poderia me dizer o por que disso? Obrigado galera!", new LoggedUser(author, null), Arrays.asList(sal));
 		Question salDaAzar = new Question(info, null);
 		
 		Question beberFazMal = question("Por que dizem que beber demais faz mal?", "Alguem poderia me dizer o por que disso? Obrigado galera!", author);
