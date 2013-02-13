@@ -151,9 +151,16 @@ p {
 	margin-top: 5px;
 }
 
-.popup.share {
+.close-popup{
+	cursor:pointer;
+}
+
+.popup.share{
 	background-color: #EAEAEA;
 	border: 1px solid #999;
+}
+
+.popup.share form {
 	width: 235px;
 }
 
@@ -549,9 +556,9 @@ textarea {
 	color: #fff;
 }
 
-.post-action-nav .nav-item{
+.post-action-nav .nav-item {
 	border-left: 2px solid #ccc;
-	padding:0px 5px;
+	padding: 0px 5px;
 	margin: 0px;
 }
 

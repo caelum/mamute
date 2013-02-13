@@ -19,10 +19,13 @@
 					<a class="post-action show-popup" href="#">
 						<fmt:message key="share"/>
 					</a>
-					<form class="popup share validated-form">
-						<label for="share-url"><fmt:message key="share.text"/></label>
-						<input type="text" class="text-input required" id="share-url" value=""/>
-					</form>
+					<div class="popup share">
+						<span class="close-popup">Fechar</span>
+						<form class="validated-form">
+							<label for="share-url"><fmt:message key="share.text"/></label>
+							<input type="text" class="text-input required" id="share-url" value=""/>
+						</form>
+					</div>
 				</li>
 			</ul>
 			<tags:touchesFor touchable="${question}" />

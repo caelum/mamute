@@ -3,7 +3,8 @@ $(function(){
 		$(this).parent().find(".popup").show();
 	});
 	
-	$(".popup").click(function(){
-		$(this).hide();
+	$(".close-popup").click(function(e){
+		e.preventDefault();
+		$(this).closest(".popup").hide();
 	});
 });
