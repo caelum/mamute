@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.dao;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 import br.com.caelum.brutal.model.Answer;
@@ -27,6 +28,21 @@ public abstract class TestCase {
 	protected Answer answer(String description, Question question, User author) {
 		Answer q = new Answer(new AnswerInformation(description, new CurrentUser(author, null)), question, author);
 		return q;
+	}
+	
+	/**
+	 * This constructor should not exist. It is only for tests
+	 */
+	protected User user(String name, String email, Long id) {
+	    User user = new User(name, email, "123456");
+        try {
+            Field idField = User.class.getDeclaredField("id");
+            idField.setAccessible(true);
+            idField.set(user, id);
+        } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
+            throw new RuntimeException(e);
+        }
+	    return user;
 	}
     
 }

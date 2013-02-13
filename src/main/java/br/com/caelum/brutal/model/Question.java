@@ -239,7 +239,7 @@ public class Question implements Votable, Commentable, Updatable, Touchable {
         }
 	    QuestionInformation approvedQuestion = (QuestionInformation) choosenVersion;
 	    UpdateStatus status = moderator.canUpdate(this);
-	    if (status == UpdateStatus.REFUSED)
+	    if (status != UpdateStatus.NO_NEED_TO_APPROVE)
             return status;
 		this.touchedBy(approvedQuestion.getAuthor());
 	    choosenVersion.moderate(moderator, UpdateStatus.APPROVED);
