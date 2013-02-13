@@ -30,7 +30,7 @@ public class UpdatablesAndPendingHistory {
         return new ArrayList<Updatable>(informationsByUpdatable.keySet());
     }
     
-    public Set<Entry<Updatable, List<UpdatableInformation>>> questionsEntrySet() {
+    public Set<Entry<Updatable, List<UpdatableInformation>>> getEntrySet() {
         return informationsByUpdatable.entrySet();
     }
 

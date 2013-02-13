@@ -102,5 +102,9 @@ public class AnswerInformation implements UpdatableInformation {
     void setAnswer(Answer answer) {
         this.answer = answer;
     }
+    
+    public DateTime getCreatedAt() {
+        return createdAt;
+    }
 
 }

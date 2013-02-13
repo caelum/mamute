@@ -2,6 +2,7 @@ package br.com.caelum.brutal.dao;
 
 import static junit.framework.Assert.assertEquals;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -57,12 +58,12 @@ public class TagDAOTest extends DatabaseTestCase{
 	@Test
 	public void should_load_recent_tags_used() throws Exception {
         DateTimeUtils.setCurrentMillisFixed(new DateTime().minusMonths(3).getMillis());
-        questionWith(java);
+        questionWith(Arrays.asList(java));
         DateTimeUtils.setCurrentMillisSystem();
         
-        questionWith(java);
-        questionWith(java);
-        questionWith(ruby);
+        questionWith(Arrays.asList(java));
+        questionWith(Arrays.asList(java));
+        questionWith(Arrays.asList(ruby));
 
 		List<TagUsage> recentTagsUsage = tags.getRecentTagsUsageSince(new DateTime().minusMonths(2));
 		
@@ -76,20 +77,35 @@ public class TagDAOTest extends DatabaseTestCase{
 	
 	@Test
 	public void should_load_tags_with_usage_with_provided_name() throws Exception {
-		questionWith(java);
-		questionWith(java);
-		questionWith(java);
-		questionWith(ruby);
+		questionWith(Arrays.asList(java));
+		questionWith(Arrays.asList(java));
+		questionWith(Arrays.asList(java));
+		questionWith(Arrays.asList(ruby));
 		List<TagUsage> tagsUsageLike = tags.findTagsUsageLike("ja");
 		
 		assertEquals(1, tagsUsageLike.size());
 		assertEquals(3l, tagsUsageLike.get(0).getUsage().longValue());
 		assertEquals(java.getId(), tagsUsageLike.get(0).getTag().getId());
 	}
+	
+	@Test
+	public void should_load_tags_with_usage_with_provided_question() throws Exception {
+		Question programming = questionWith(Arrays.asList(java, ruby));
+		questionWith(Arrays.asList(java));
+		questionWith(Arrays.asList(java));
+		questionWith(Arrays.asList(ruby));
 
-	private Question questionWith(Tag tag) {
+		List<TagUsage> tagsUsageOfQuestion = tags.findTagsUsageOf(programming);
+		assertEquals(2, tagsUsageOfQuestion.size());
+		assertEquals(3l, tagsUsageOfQuestion.get(0).getUsage().longValue());
+		assertEquals(java.getId(), tagsUsageOfQuestion.get(0).getTag().getId());
+		assertEquals(2l, tagsUsageOfQuestion.get(1).getUsage().longValue());
+		assertEquals(ruby.getId(), tagsUsageOfQuestion.get(1).getTag().getId());
+	}
+
+	private Question questionWith(List<Tag> tags) {
 		QuestionInformation questionInfo = new QuestionInformationBuilder()
-			.with(leo).withTag(tag).build();
+			.with(leo).withTags(tags).build();
 		Question question = new Question(questionInfo, leo);
 		session.save(question);
 		return question;

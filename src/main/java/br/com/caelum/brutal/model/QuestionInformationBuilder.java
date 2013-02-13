@@ -38,4 +38,9 @@ public class QuestionInformationBuilder {
         return this;
     }
 
+	public QuestionInformationBuilder withTags(List<Tag> tags) {
+		this.tags.addAll(tags);
+		return this;
+	}
+
 }

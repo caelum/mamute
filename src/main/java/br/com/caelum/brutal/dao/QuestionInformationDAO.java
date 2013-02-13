@@ -45,7 +45,7 @@ public class QuestionInformationDAO {
 	}
 
     @SuppressWarnings("unchecked")
-    public List<QuestionInformation> pendingFrom(Long questionId) {
+    public List<QuestionInformation> pendingFor(Long questionId) {
         String hql = "select question_info from Question " +
                 "question join question.history question_info " +
                 "where question.id=:id and question_info.status=:pending";
