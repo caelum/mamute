@@ -40,6 +40,9 @@ public class AnswerInformation implements Information {
 
 	private String ip;
 
+	@Type(type = "text")
+	private String comment;
+
 	@ManyToOne
     private Answer answer;
 	
@@ -47,22 +50,23 @@ public class AnswerInformation implements Information {
 	 * @deprecated hibernate only
 	 */
 	AnswerInformation() {
-		this("", null);
+		this("", null, "");
 	}
 
-	public AnswerInformation(String description, CurrentUser currentUser) {
-		if (currentUser == null) {
+	public AnswerInformation(String description, CurrentUser currentUser, String comment) {
+        if (currentUser == null) {
 			this.author = null;
 			this.ip = null;
 		} else {
 			this.author = currentUser.getCurrent();
 			this.ip = currentUser.getIp();
 		}
+        this.comment = comment;
 		setDescription(description);
 	}
 	
-	public AnswerInformation(String description, CurrentUser currentUser, Answer existentAnswer) {
-	    this(description, currentUser);
+	public AnswerInformation(String description, CurrentUser currentUser, Answer existentAnswer, String comment) {
+	    this(description, currentUser, comment);
 	    setAnswer(existentAnswer);
 	}
 
@@ -118,6 +122,10 @@ public class AnswerInformation implements Information {
 
     public boolean isPending() {
         return status.equals(UpdateStatus.PENDING);
+    }
+    
+    public String getComment() {
+        return comment;
     }
 
 }

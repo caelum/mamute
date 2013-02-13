@@ -1,11 +1,6 @@
 package br.com.caelum.brutal.controllers;
 
 import static java.util.Arrays.asList;
-
-import java.util.Arrays;
-
-import javax.servlet.http.HttpServletRequest;
-
 import br.com.caelum.brutal.auth.LoggedAccess;
 import br.com.caelum.brutal.dao.AnswerDAO;
 import br.com.caelum.brutal.dao.QuestionDAO;
@@ -20,7 +15,6 @@ import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 
-@SuppressWarnings("unused")
 @Resource
 public class AnswerController {
 	private final Result result;
@@ -42,8 +36,8 @@ public class AnswerController {
 	}
 
 	@Post("/answer/edit/{id}")
-	public void edit(String description, Long id) {
-		AnswerInformation information = new AnswerInformation(description, currentUser);
+	public void edit(String description, Long id, String comment) {
+		AnswerInformation information = new AnswerInformation(description, currentUser, comment);
 
 		Answer original = answers.getById(id);
 		UpdateStatus status = original.updateWith(information);
@@ -57,7 +51,7 @@ public class AnswerController {
         Question loadedQuestion = questions.getById(question.getId());
         loadedQuestion.touchedBy(currentUser.getCurrent());
 
-        AnswerInformation information = new AnswerInformation(description, currentUser);
+        AnswerInformation information = new AnswerInformation(description, currentUser, "new");
 		Answer answer  = new Answer(information, question, currentUser.getCurrent());
 		answers.save(answer);
         
