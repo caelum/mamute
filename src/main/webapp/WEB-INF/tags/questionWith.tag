@@ -13,9 +13,6 @@
 		<div class="post-interactions">
 			<ul class="post-action-nav nav">
 				<li class="nav-item">
-					<a class="post-action" href="<c:url value="/question/edit/${question.id}"/>"><fmt:message key="edit" /></a>
-				</li>
-				<li class="nav-item">
 					<a class="post-action show-popup" href="#">
 						<fmt:message key="share"/>
 					</a>
@@ -26,6 +23,9 @@
 						</form>
 						<a class="close-popup"><fmt:message key="popup.close"/></a>
 					</div>
+				</li>
+				<li class="nav-item">
+					<a class="post-action" href="<c:url value="/question/edit/${question.id}"/>"><fmt:message key="edit" /></a>
 				</li>
 			</ul>
 			<tags:touchesFor touchable="${question}" />
