@@ -5,7 +5,6 @@ import java.util.Locale;
 import org.ocpsoft.prettytime.PrettyTime;
 
 import br.com.caelum.brutal.auth.Access;
-import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
 import br.com.caelum.vraptor.Result;
@@ -23,19 +22,16 @@ public class GlobalInterceptor implements Interceptor{
 	private final Environment env;
 	private final Result result;
 	private final Access access;
-	private final UserDAO users;
 
-	public GlobalInterceptor(Environment env, Result result, Access access, UserDAO users) {
+	public GlobalInterceptor(Environment env, Result result, Access access) {
 		this.env = env;
 		this.result = result;
 		this.access = access;
-		this.users = users;
 	}
 
 	public void intercept(InterceptorStack stack, ResourceMethod method,
 			Object resourceInstance) throws InterceptionException {
 		result.include("env", env);
-//		result.include("currentUser", access.login(users.load(access.getInstance())));
 		result.include("currentUser", access.getInstance());
 		result.include("prettyTimeFormatter", new PrettyTime(new Locale("pt")));
 		stack.next(method, resourceInstance);
