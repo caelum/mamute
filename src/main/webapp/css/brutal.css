@@ -443,6 +443,11 @@ textarea {
 }
 
 /*MODERACAO*/
+.history-form {
+	border: 2px dotted #999;
+	padding: 5px;	
+}
+
 .history-title {
 	color: black;	
 	display: inline;

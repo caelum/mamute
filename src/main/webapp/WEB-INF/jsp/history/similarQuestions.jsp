@@ -1,9 +1,5 @@
 <div class="history-original-question">
-	<h2 class="title question-title">${question.title}</h2>
-	<div class="post-text question-description" id="question-description-${question.id }">
-		${question.markedDescription}
-	</div>
-	<tags:tagsFor taggable="${question}"/>
+	<tags:question taggable="${question}"/>
 </div>
 
 <h2 class="history-title"><fmt:message key="moderation.version"/>:</h2>
@@ -28,15 +24,8 @@
 				${information.comment}
 			</p>
 		</c:if>
-		
-		<h2 class="title question-title">
-			${information.title}
-		</h2>
-		<div class="post-text question-description">
-			${information.markedDescription}
-		</div>
-		
-		<tags:tagsFor taggable="${information}"/>
+	
+		<tags:question taggable="${question}"/>	
 		
 		<ul class="post-touchs">
 			<li class="touch author-touch">
