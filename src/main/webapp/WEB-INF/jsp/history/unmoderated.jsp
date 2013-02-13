@@ -4,7 +4,7 @@
 			<a href="${linkTo[QuestionController].showQuestion[entry.key.id][entry.key.sluggedTitle]}">
 				${entry.key.title}
 			</a>
-			- <a href="${linkTo[HistoryController].similar[entry.key.id]}">Moderar</a>
+			- <a href="${linkTo[HistoryController].similarQuestions[entry.key.id]}">Moderar</a>
 		</li>
 			<ul>
 				<c:forEach var="information" items="${entry.value}">

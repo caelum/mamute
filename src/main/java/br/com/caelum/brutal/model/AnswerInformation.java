@@ -111,4 +111,9 @@ public class AnswerInformation implements UpdatableInformation {
         return answer;
     }
 
+    @Override
+    public Long getId() {
+        return id;
+    }
+
 }

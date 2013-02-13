@@ -1,15 +1,16 @@
 package br.com.caelum.brutal.controllers;
 
-import java.util.Arrays;
 import java.util.List;
 
 import br.com.caelum.brutal.auth.ModeratorAccess;
 import br.com.caelum.brutal.dao.AnswerInformationDAO;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.QuestionInformationDAO;
-import br.com.caelum.brutal.model.AnswerInformation;
+import br.com.caelum.brutal.dao.UpdatableInformationDAO;
+import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.QuestionInformation;
+import br.com.caelum.brutal.model.UpdatableInformation;
 import br.com.caelum.brutal.model.UpdatablesAndPendingHistory;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
@@ -27,13 +28,16 @@ public class HistoryController {
     private final QuestionDAO questions;
     private final User currentUser;
     private final AnswerInformationDAO answerEdits;
+    private final UpdatableInformationDAO updatables;
 
-	public HistoryController(Result result, QuestionInformationDAO edits, QuestionDAO questions, User currentUser, AnswerInformationDAO answerEdits) {
+	public HistoryController(Result result, QuestionInformationDAO edits, QuestionDAO questions, 
+	        User currentUser, AnswerInformationDAO answerEdits, UpdatableInformationDAO updatables) {
 		this.result = result;
 		this.questionEdits = edits;
         this.questions = questions;
         this.currentUser = currentUser;
         this.answerEdits = answerEdits;
+        this.updatables = updatables;
 	}
 
 	@ModeratorAccess
@@ -46,16 +50,15 @@ public class HistoryController {
 	}
 
 	@ModeratorAccess
-	@Get("/history/{questionId}/similar")
-	public void similar(Long questionId) {
-		result.include("histories", questionEdits.pendingFor(questionId));
+	@Get("/questions/history/{questionId}/similar")
+	public void similarQuestions(Long questionId) {
+		result.include("histories", updatables.pendingFor(questionId, Question.class));
 	}
 	
 	@ModeratorAccess
-	@Get("/history/answers/{answerId}/similar")
+	@Get("/answers/history/{answerId}/similar")
 	public void similarAnswers(Long answerId) {
-	    List<AnswerInformation> pending = answerEdits.pendingFor(answerId);
-	    result.include("histories", pending);
+	    result.include("histories", updatables.pendingFor(answerId, Answer.class));
 	}
 
     @ModeratorAccess
@@ -68,33 +71,19 @@ public class HistoryController {
         }
 
         Question question = questions.getById(questionId);
-        List<QuestionInformation> pending = questionEdits.pendingFor(questionId);
+        List<UpdatableInformation> pending = updatables.pendingFor(questionId, Question.class);
         refusePending(aprovedHistoryId, pending);
         question.aprove(approvedEdit, currentUser);
 
         result.redirectTo(this).unmoderated();
     }
 
-
-    private void refusePending(Long aprovedHistoryId, List<QuestionInformation> pending) {
-        for (QuestionInformation refused : pending) {
+    private void refusePending(Long aprovedHistoryId, List<UpdatableInformation> pending) {
+        for (UpdatableInformation refused : pending) {
 	        if (!refused.getId().equals(aprovedHistoryId)) {
 	            refused.moderate(currentUser, UpdateStatus.REFUSED);
 	        }
         }
     }
 	
-	@ModeratorAccess
-	@Post("/history/{historyId}")
-	public void refuse(Long historyId) {
-	    QuestionInformation refusedEdit = questionEdits.getById(historyId);
-	    if (!refusedEdit.isPending()) {
-	        result.use(Results.http()).sendError(403);
-	        return;
-	    } 
-	    refusedEdit.moderate(currentUser, UpdateStatus.REFUSED);
-	    result.include("confirmations", Arrays.asList("history.refused.successfully"));
-	    result.redirectTo(this).similar(refusedEdit.getQuestion().getId());
-	}
-
 }
