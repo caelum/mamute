@@ -12,7 +12,7 @@
 <c:forEach items="${histories}" var="information">
 
 	<div class="forms hidden">
-		<form method="post" class="moderate-form" action="">
+		<form method="post" class="moderate-form" action="${linkTo[HistoryController].publishAnswer[information.answer.id][information.id]}">
 			<h2>
 				${information.author.name} às
 				<tags:jodaTime pattern="DD-MM-YYYY HH:mm"

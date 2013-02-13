@@ -3,11 +3,13 @@ package br.com.caelum.brutal.controllers;
 import java.util.List;
 
 import br.com.caelum.brutal.auth.ModeratorAccess;
+import br.com.caelum.brutal.dao.AnswerDAO;
 import br.com.caelum.brutal.dao.AnswerInformationDAO;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.QuestionInformationDAO;
 import br.com.caelum.brutal.dao.UpdatableInformationDAO;
 import br.com.caelum.brutal.model.Answer;
+import br.com.caelum.brutal.model.AnswerInformation;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.UpdatableInformation;
@@ -29,15 +31,17 @@ public class HistoryController {
     private final User currentUser;
     private final AnswerInformationDAO answerEdits;
     private final UpdatableInformationDAO updatables;
+    private final AnswerDAO answers;
 
 	public HistoryController(Result result, QuestionInformationDAO edits, QuestionDAO questions, 
-	        User currentUser, AnswerInformationDAO answerEdits, UpdatableInformationDAO updatables) {
+	        User currentUser, AnswerInformationDAO answerEdits, UpdatableInformationDAO updatables, AnswerDAO answers) {
 		this.result = result;
 		this.questionEdits = edits;
         this.questions = questions;
         this.currentUser = currentUser;
         this.answerEdits = answerEdits;
         this.updatables = updatables;
+        this.answers = answers;
 	}
 
 	@ModeratorAccess
@@ -62,8 +66,8 @@ public class HistoryController {
 	}
 
     @ModeratorAccess
-    @Post("/history/{questionId}/{aprovedHistoryId}")
-    public void publish(Long questionId, Long aprovedHistoryId) {
+    @Post("/questions/published/{questionId}/{aprovedHistoryId}")
+    public void publishQuestion(Long questionId, Long aprovedHistoryId) {
         QuestionInformation approvedEdit = questionEdits.getById(aprovedHistoryId);
         if (!approvedEdit.isPending()) {
             result.use(Results.http()).sendError(403);
@@ -77,7 +81,24 @@ public class HistoryController {
 
         result.redirectTo(this).unmoderated();
     }
-
+    
+    @ModeratorAccess
+    @Post("/answers/published/{answerId}/{aprovedHistoryId}")
+    public void publishAnswer(Long answerId, Long aprovedHistoryId) {
+        AnswerInformation approved = answerEdits.getById(aprovedHistoryId);
+        if (!approved.isPending()) {
+            result.use(Results.http()).sendError(403);
+            return;
+        }
+        
+        Answer answer = answers.getById(answerId);
+        List<UpdatableInformation> pending = updatables.pendingFor(answerId, Answer.class);
+        refusePending(aprovedHistoryId, pending);
+        answer.aprove(approved, currentUser);
+        
+        result.redirectTo(this).unmoderated();
+    }
+    
     private void refusePending(Long aprovedHistoryId, List<UpdatableInformation> pending) {
         for (UpdatableInformation refused : pending) {
 	        if (!refused.getId().equals(aprovedHistoryId)) {

@@ -116,4 +116,8 @@ public class AnswerInformation implements UpdatableInformation {
         return id;
     }
 
+    public boolean isPending() {
+        return status.equals(UpdateStatus.PENDING);
+    }
+
 }

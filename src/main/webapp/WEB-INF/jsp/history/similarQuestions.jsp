@@ -12,7 +12,7 @@
 
 <c:forEach items="${histories}" var="information">
 
-	<form method="post" class="history-form post-text hidden moderate-form" action="${linkTo[HistoryController].publish[information.question.id][information.id]}">
+	<form method="post" class="moderate-form" action="${linkTo[HistoryController].publishQuestion[information.question.id][information.id]}">
 		
 		<h2 class="title question-title">
 			${information.title}

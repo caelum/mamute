@@ -206,4 +206,18 @@ public class Answer implements Votable, Commentable, Updatable, Subscribable, To
 		return lastTouchedBy;
 	}
 
+    public UpdateStatus aprove(AnswerInformation approved, User moderator) {
+        UpdateStatus status = moderator.canUpdate(this);
+        if (status == UpdateStatus.REFUSED)
+            return status;
+        this.touchedBy(approved.getAuthor());
+        approved.moderate(moderator, UpdateStatus.APPROVED);
+        setInformation(approved);
+        return UpdateStatus.APPROVED;
+    }
+
+    private void setInformation(AnswerInformation approved) {
+        this.information = approved;
+    }
+
 }
