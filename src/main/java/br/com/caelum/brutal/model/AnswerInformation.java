@@ -106,5 +106,9 @@ public class AnswerInformation implements UpdatableInformation {
     public DateTime getCreatedAt() {
         return createdAt;
     }
+    
+    public Answer getAnswer() {
+        return answer;
+    }
 
 }

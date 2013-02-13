@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import br.com.caelum.brutal.model.AnswerInformation;
 import br.com.caelum.brutal.model.UpdatablesAndPendingHistory;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.vraptor.ioc.Component;
@@ -28,6 +29,17 @@ public class AnswerInformationDAO {
         List<Object[]> results = query.list();
         UpdatablesAndPendingHistory pending = new UpdatablesAndPendingHistory(results);
         return pending;
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<AnswerInformation> pendingFor(Long answerId) {
+        String hql = "select answer_info from AnswerInformation answer_info " +
+        		"join answer_info.answer answer " +
+        		"where answer.id=:id and answer_info.status=:pending";
+        Query query = session.createQuery(hql);
+        return query.setParameter("id", answerId)
+            .setParameter("pending", UpdateStatus.PENDING)
+            .list();
     }
 
 }

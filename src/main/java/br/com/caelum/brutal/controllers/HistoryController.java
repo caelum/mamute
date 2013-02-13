@@ -7,6 +7,7 @@ import br.com.caelum.brutal.auth.ModeratorAccess;
 import br.com.caelum.brutal.dao.AnswerInformationDAO;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.QuestionInformationDAO;
+import br.com.caelum.brutal.model.AnswerInformation;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.UpdatablesAndPendingHistory;
@@ -53,7 +54,8 @@ public class HistoryController {
 	@ModeratorAccess
 	@Get("/history/answers/{answerId}/similar")
 	public void similarAnswers(Long answerId) {
-	    result.nothing();
+	    List<AnswerInformation> pending = answerEdits.pendingFor(answerId);
+	    result.include("histories", pending);
 	}
 
     @ModeratorAccess
