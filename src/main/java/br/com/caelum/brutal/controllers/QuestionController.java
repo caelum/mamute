@@ -54,7 +54,7 @@ public class QuestionController {
 		Question original = questions.getById(id);
 		UpdateStatus status = original.updateWith(information);
 		questions.save(original);
-		result.include("confirmations", Arrays.asList(status));
+		result.include("confirmations", Arrays.asList(status.getMessage()));
 		result.redirectTo(this).showQuestion(id, original.getSluggedTitle());
 	}
 	

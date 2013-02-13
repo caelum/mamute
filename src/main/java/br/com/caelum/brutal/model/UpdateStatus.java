@@ -34,4 +34,8 @@ public enum UpdateStatus {
     };
     
     public abstract int getHttpStatusCode();
+    
+    public String getMessage() {
+    	return "status." + this.name().toLowerCase();
+    }
 }
