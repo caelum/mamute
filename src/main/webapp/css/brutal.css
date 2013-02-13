@@ -453,6 +453,12 @@ textarea {
 	margin-bottom: 20px;
 }
 
+.history-original-question {
+	margin-bottom: 30px;
+	overflow: hidden;
+	width: 80%;
+}
+
 .notices {
 	color: #DB0000;
 	font-size: 15px;

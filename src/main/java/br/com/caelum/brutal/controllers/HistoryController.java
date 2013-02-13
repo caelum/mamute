@@ -10,10 +10,10 @@ import br.com.caelum.brutal.dao.QuestionInformationDAO;
 import br.com.caelum.brutal.dao.UpdatableInformationDAO;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.AnswerInformation;
+import br.com.caelum.brutal.model.Information;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.Updatable;
-import br.com.caelum.brutal.model.Information;
 import br.com.caelum.brutal.model.UpdatablesAndPendingHistory;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
@@ -58,6 +58,7 @@ public class HistoryController {
 	@Get("/questions/history/{questionId}/similar")
 	public void similarQuestions(Long questionId) {
 		result.include("histories", updatables.pendingFor(questionId, Question.class));
+		result.include("question", questions.getById(questionId));
 	}
 	
 	@ModeratorAccess
