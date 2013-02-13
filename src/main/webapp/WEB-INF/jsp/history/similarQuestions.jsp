@@ -3,7 +3,7 @@
 	<div class="post-text question-description" id="question-description-${question.id }">
 		${question.markedDescription}
 	</div>
-	<tags:tagsFor question="${question}"/>
+	<tags:tagsFor taggable="${question}"/>
 </div>
 
 <h2 class="history-title"><fmt:message key="moderation.version"/>:</h2>
@@ -36,12 +36,8 @@
 			${information.markedDescription}
 		</div>
 		
-		<ul>
-			<c:forEach var="tag" items="${information.tags}">
-				<li class="tag">${tag.name}</li>
-			</c:forEach>
-		</ul>
-
+		<tags:tagsFor taggable="${information}"/>
+		
 		<ul class="post-touchs">
 			<li class="touch author-touch">
 				<tags:completeUser user="${information.author}" date="${information.createdAt}"/>

@@ -19,7 +19,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
 @Entity
-public class QuestionInformation implements Information {
+public class QuestionInformation implements Information, Taggable {
 
 	@Id
 	@GeneratedValue

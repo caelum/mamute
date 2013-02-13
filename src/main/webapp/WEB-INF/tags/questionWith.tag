@@ -9,7 +9,7 @@
 	</div>
 	<div class="post-container">
 		<div class="post-text question-description" id="question-description-${question.id }">${question.markedDescription}</div>
-		<tags:tagsFor question="${question}"/>
+		<tags:tagsFor taggable="${question}"/>
 		<div class="post-interactions">
 			<ul class="post-action-nav nav">
 				<li class="nav-item">

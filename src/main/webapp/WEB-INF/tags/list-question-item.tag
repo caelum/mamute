@@ -16,7 +16,7 @@
 					${question.title}
 			</a>
 		</h3>
-		<tags:tagsFor question="${question}"/>
+		<tags:tagsFor taggable="${question}"/>
 		<div class="stats">
 			<span class="last-updated-at"><tags:prettyTime time="${question.lastUpdatedAt }" /></span>
 			<a href="#">${question.lastTouchedBy.name }</a> 
