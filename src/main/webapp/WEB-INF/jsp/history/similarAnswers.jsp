@@ -11,7 +11,7 @@
 
 <c:forEach items="${histories}" var="information">
 
-	<div class="forms hidden">
+	<div class="history-form hidden">
 		<form method="post" class="moderate-form" action="${linkTo[HistoryController].publishAnswer[information.answer.id][information.id]}">
 			<h2>
 				${information.author.name} às
@@ -24,6 +24,10 @@
 			</p>
 			<p>
 				${information.markedDescription}
+			</p>
+			
+			<p>
+				${information.comment}
 			</p>
 			
 			<input type="submit" value='<fmt:message key="moderation.accept" />' />

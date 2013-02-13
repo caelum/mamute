@@ -26,7 +26,7 @@ public abstract class TestCase {
 	 * This constructor should not exist. It is only for tests
 	 */
 	protected Answer answer(String description, Question question, User author) {
-		Answer q = new Answer(new AnswerInformation(description, new CurrentUser(author, null)), question, author);
+		Answer q = new Answer(new AnswerInformation(description, new CurrentUser(author, null), ""), question, author);
 		return q;
 	}
 	
