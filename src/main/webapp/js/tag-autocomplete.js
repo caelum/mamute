@@ -20,7 +20,7 @@ function suggestsAutoComplete(target, input){
 				suggestionElements += "<li><a class='tag autocompleted-tag'>"+suggestion.tag.name+"</a> x "+ suggestion.usage;
 				suggestionElements += "<div class='tag-description'>"+suggestion.tag.description+"</div></li>";
 			});
-			$(target).html(suggestionElements).addClass("active");
+			$(target).html(suggestionElements).removeClass("hidden");
 			$('.autocompleted-tags li').click(function(){insertTagIntoTextArea($(this).find(".tag").text())});
 		}
 	});

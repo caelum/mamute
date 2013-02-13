@@ -8,7 +8,7 @@
 	<tags:markDown value="${question.description}" hintId="newquestion-description-hint" />
 	<label for="tags"><fmt:message key="newquestion.tags"/></label>
 	<input id="tags" type="text" name="tagNames" class="hintable autocomplete  text-input" value="${question.tagsAsString }" data-hint-id="newquestion-tags-hint" data-autocomplete-id="newquestion-tags-autocomplete"/>
-	<ul class="tags autocompleted-tags" id="newquestion-tags-autocomplete"></ul>
+	<ul class="tags autocompleted-tags hidden" id="newquestion-tags-autocomplete"></ul>
 	<input class="post-submit big-submit" type="submit" value="<fmt:message key="newquestion.submit"/>" />
 </form>
 

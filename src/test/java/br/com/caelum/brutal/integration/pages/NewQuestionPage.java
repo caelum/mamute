@@ -3,6 +3,7 @@ package br.com.caelum.brutal.integration.pages;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -32,6 +33,7 @@ public class NewQuestionPage extends PageObject {
 		waitForElement(By.className("autocompleted-tag"));
 		List<WebElement> autoCompletedTags = allByClassName("autocompleted-tag");
 		for (WebElement autoCompletedTag : autoCompletedTags) {
+			String mydivText = (String) ((JavascriptExecutor)driver).executeScript("return arguments[0].innerText;", autoCompletedTag);
 			if(autoCompletedTag.getText().equals(tag)) return true;
 		}
 		return false;
