@@ -20,6 +20,12 @@ public enum UpdateStatus {
             return 200;
         }
     },
+    EDITED {
+		@Override
+		public int getHttpStatusCode() {
+			return 200;
+		}
+    },
     REFUSED {
         @Override
         public int getHttpStatusCode() {

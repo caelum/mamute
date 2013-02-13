@@ -63,10 +63,10 @@ public class QuestionTest  extends TestCase{
 	}
 	
 	@Test
-	public void shoul_be_touched_by_approved_edit_author() throws Exception {
-		User artur = new User("artur", "artur@x.com", "");
+	public void should_update_information_status_and_last_touched_by() throws Exception {
+		User artur = new User("", "", "");
+		User leo = new User("", "", "");
 		artur.setId(1l);
-		User leo = new User("leo", "leo@x.com", "");
 		leo.setId(2l);
 		User moderator = new User("", "", "").asModerator();
 		
@@ -76,7 +76,7 @@ public class QuestionTest  extends TestCase{
 		comoFaz.aprove(comoFazEditedInformation, moderator);
 		
 		assertEquals(comoFaz.getLastTouchedBy().getId(), leo.getId());
+		assertEquals(UpdateStatus.EDITED, comoFaz.getHistory().get(0).getStatus());
 	}
-
 	
 }

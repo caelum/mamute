@@ -86,6 +86,11 @@ public class QuestionInformation implements UpdatableInformation {
 	}
 
 	public void moderate(User moderator, UpdateStatus status) {
+		if(status == UpdateStatus.EDITED){
+			this.status = status;
+			return;
+		}
+		
 		if (this.moderation != null) {
 			throw new IllegalStateException("Already moderated");
 		}
@@ -155,6 +160,10 @@ public class QuestionInformation implements UpdatableInformation {
 	public Question getQuestion() {
         return question;
     }
+	
+	public UpdateStatus getStatus() {
+		return status;
+	}
 	
 	void setQuestion(Question question) {
         this.question = question;
