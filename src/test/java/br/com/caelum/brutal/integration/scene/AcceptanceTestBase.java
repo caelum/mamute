@@ -1,7 +1,5 @@
 package br.com.caelum.brutal.integration.scene;
 
-import java.util.concurrent.TimeUnit;
-
 import org.apache.commons.httpclient.HttpClient;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -48,7 +46,7 @@ public abstract class AcceptanceTestBase implements ServerInfo.TesteAceitacao {
 
 	@Before
 	public void setUpEnv() {
-		driver.manage().timeouts().implicitlyWait(25, TimeUnit.SECONDS);
+//		waitForFirstBodyPresence();
 		client = new HttpClient();
 	}
 	
