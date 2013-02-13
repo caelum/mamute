@@ -14,13 +14,13 @@ public class Home extends PageObject {
 	}
 	
 	public LoginPage toLoginPage(){
-		driver.findElement(By.className("login")).click();
+		allByClassName("login").get(0).click();
 		LoginPage loginPage = new LoginPage(driver);
 		return loginPage;
 	}
 
 	public boolean isLoggedIn() {
-		return !driver.findElement(By.linkText("/login")).isDisplayed();
+		return allByClassName("login").isEmpty();
 	}
 
 }

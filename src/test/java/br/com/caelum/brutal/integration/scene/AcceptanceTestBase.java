@@ -15,6 +15,8 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.gargoylesoftware.htmlunit.BrowserVersion;
+
 import br.com.caelum.brutal.integration.pages.Home;
 import br.com.caelum.pagpag.aceitacao.util.ServerInfo;
 
@@ -31,7 +33,7 @@ public abstract class AcceptanceTestBase implements ServerInfo.TesteAceitacao {
 	}
 
 	private static WebDriver htmlUnitDriver() {
-		HtmlUnitDriver driver = new HtmlUnitDriver();
+		HtmlUnitDriver driver = new HtmlUnitDriver(BrowserVersion.FIREFOX_3_6);
 		driver.setJavascriptEnabled(true);
 		return driver;
 	}
