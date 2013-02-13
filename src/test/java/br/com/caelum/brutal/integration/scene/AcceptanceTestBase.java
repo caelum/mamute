@@ -73,5 +73,5 @@ public abstract class AcceptanceTestBase implements ServerInfo.TesteAceitacao {
 		};
 		new WebDriverWait(driver, 40).until(homeAppear);
 	}
-
+	
 }

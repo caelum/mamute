@@ -2,22 +2,14 @@ package br.com.caelum.brutal.integration.scene;
 
 import static junit.framework.Assert.assertTrue;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.com.caelum.brutal.integration.pages.QuestionPage;
-
-public class QuestionTest extends AcceptanceTestBase{
+public class QuestionTest extends AuthTestBase{
 	
 	@Before
 	public void set_up(){
 		home().toLoginPage().login("leonardo.wolter@caelum.com.br", "123456");
-	}
-	
-	@After
-	public void tear_down(){
-		home().logOut();
 	}
 	
 	@Test
@@ -42,7 +34,15 @@ public class QuestionTest extends AcceptanceTestBase{
 				.edit(title, description, tags)
 				.hasInformation(title, description, tags);
 		assertTrue(hasInformation);
-		
+	}
+	
+	@Test
+	public void should_suggest_auto_complete() throws InterruptedException{
+		boolean hasAutoCompleteSuggestion = home()
+				.toNewQuestionPage()
+				.typeTags("ja")
+				.hasAutoCompleteSuggestion("java");
+		assertTrue(hasAutoCompleteSuggestion);
 	}
 
 }
