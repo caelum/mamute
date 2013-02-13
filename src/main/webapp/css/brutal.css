@@ -134,20 +134,21 @@ p {
 	color: #8e0000;
 }
 
-.validation-error {
+.popup.validation-error {
 	background-color: #ad0000;
 	font-weight: bold;
 	color: #fff;
 	border: 1px solid #8e0000;
 	border-radius: 3px;
 	cursor: pointer;
+	padding:20px;
 }
 
 /*Popup*/
 .popup {
 	display: none;
 	position: absolute;
-	padding: 20px;
+	padding: 0px 20px;
 	margin-top: 5px;
 }
 
@@ -198,8 +199,15 @@ label {
 	display: block;
 	margin: 10px 0;
 	color: #333;
+}
+
+.big, .big a{
 	font-size: 1.2em;
 	font-weight: bold;
+}
+
+.small, .small a{
+	font-size: 0.9em;
 }
 
 textarea {

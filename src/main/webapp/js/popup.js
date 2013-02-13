@@ -1,6 +1,6 @@
 $(function(){
 	$(".show-popup").click(function(){
-		$(this).parent().find(".popup").show();
+		$(this).parent().find(".popup").toggle();
 	});
 	
 	$(".close-popup").click(function(e){

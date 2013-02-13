@@ -19,12 +19,12 @@
 					<a class="post-action show-popup" href="#">
 						<fmt:message key="share"/>
 					</a>
-					<div class="popup share">
-						<span class="close-popup">Fechar</span>
+					<div class="popup share small">
 						<form class="validated-form">
-							<label for="share-url"><fmt:message key="share.text"/></label>
+							<labelfor="share-url"><fmt:message key="share.text"/></label>
 							<input type="text" class="text-input required" id="share-url" value=""/>
 						</form>
+						<a class="close-popup"><fmt:message key="popup.close"/></a>
 					</div>
 				</li>
 			</ul>
