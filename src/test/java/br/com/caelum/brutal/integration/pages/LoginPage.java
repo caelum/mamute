@@ -11,7 +11,7 @@ public class LoginPage extends PageObject{
 	}
 
 	public Home login(String email, String password) {
-		WebElement loginForm = allByClassName("user-form").get(0);
+		WebElement loginForm = byClassName("user-form");
 		loginForm.findElement(By.name("email")).sendKeys(email);
 		loginForm.findElement(By.name("password")).sendKeys(password);
 		loginForm.submit();

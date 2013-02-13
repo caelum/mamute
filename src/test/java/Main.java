@@ -14,7 +14,7 @@ public class Main {
 
 		VRaptorServer vraptor = new VRaptorServer(webappDirLocation);
 		vraptor.start();
-		//configureWatcher(vraptor, webappDirLocation, service);
+		//configureWatcher(vraptor,	 webappDirLocation, service);
 
 		//watchForChanges(service, vraptor);
 		commandLine(vraptor);

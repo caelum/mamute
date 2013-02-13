@@ -15,10 +15,10 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.gargoylesoftware.htmlunit.BrowserVersion;
-
 import br.com.caelum.brutal.integration.pages.Home;
 import br.com.caelum.pagpag.aceitacao.util.ServerInfo;
+
+import com.gargoylesoftware.htmlunit.BrowserVersion;
 
 public abstract class AcceptanceTestBase implements ServerInfo.TesteAceitacao {
 
@@ -42,16 +42,16 @@ public abstract class AcceptanceTestBase implements ServerInfo.TesteAceitacao {
 		return driver.navigate();
 	}
 	
-	protected Home brutal() {
+	protected Home home() {
 		return new Home(driver);
 	}
 
 	@Before
 	public void setUpEnv() {
-
 		driver.manage().timeouts().implicitlyWait(25, TimeUnit.SECONDS);
 		client = new HttpClient();
 	}
+	
 
 	@BeforeClass
 	public static void getDriver() {

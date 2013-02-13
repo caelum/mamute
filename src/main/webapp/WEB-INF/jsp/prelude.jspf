@@ -23,15 +23,15 @@
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="${linkTo[SignupController].signupForm}"><fmt:message key="signup.link"/></a>
+						<a class="signup" href="${linkTo[SignupController].signupForm}"><fmt:message key="signup.link"/></a>
 					</li>
 				</c:if>
 				<c:if test="${not empty currentUser }">
 					<li class="nav-item">
-						<a class=""  href="#">${currentUser.name}</a>
+						<a class="user-name"  href="#">${currentUser.name}</a>
 					</li>
 					<li class="nav-item">
-						<a href="${linkTo[AuthController].logout}"><fmt:message key="auth.logout_link"/></a>
+						<a class="logout" href="${linkTo[AuthController].logout}"><fmt:message key="auth.logout_link"/></a>
 					</li>
 				</c:if>
 				</ul>
@@ -49,7 +49,7 @@
 		<ul class="nav-items">
 			<li class="nav-item"><a class="button" href="<c:url value="/"/>"><fmt:message key="menu.questions"/></a></li> 
 			<li class="nav-item"><a class="button" href="<c:url value="/list/unanswered"/>"><fmt:message key="menu.unanswered"/></a></li>
-			<li class="ask nav-item"><a class="button" href='<c:url value="/question/ask" />'><fmt:message key="question.ask" /></a></li>
+			<li class="ask nav-item"><a class="button ask-a-question" href='<c:url value="/question/ask" />'><fmt:message key="question.ask" /></a></li>
 		</ul>
 </nav>
 
