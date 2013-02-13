@@ -2,6 +2,7 @@ package br.com.caelum.brutal.integration.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class LoginPage extends PageObject{
 
@@ -10,9 +11,10 @@ public class LoginPage extends PageObject{
 	}
 
 	public Home login(String email, String password) {
-		driver.findElement(By.name("email")).sendKeys(email);
-		driver.findElement(By.name("password")).sendKeys(password);
-		driver.findElement(By.tagName("form")).submit();
+		WebElement loginForm = byClassName("user-form");
+		loginForm.findElement(By.name("email")).sendKeys(email);
+		loginForm.findElement(By.name("password")).sendKeys(password);
+		loginForm.submit();
 		return new Home(driver);
 	}
 	

@@ -18,6 +18,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import br.com.caelum.brutal.integration.pages.Home;
 import br.com.caelum.pagpag.aceitacao.util.ServerInfo;
 
+import com.gargoylesoftware.htmlunit.BrowserVersion;
+
 public abstract class AcceptanceTestBase implements ServerInfo.TesteAceitacao {
 
 	protected static WebDriver driver;
@@ -31,7 +33,7 @@ public abstract class AcceptanceTestBase implements ServerInfo.TesteAceitacao {
 	}
 
 	private static WebDriver htmlUnitDriver() {
-		HtmlUnitDriver driver = new HtmlUnitDriver();
+		HtmlUnitDriver driver = new HtmlUnitDriver(BrowserVersion.FIREFOX_3_6);
 		driver.setJavascriptEnabled(true);
 		return driver;
 	}
@@ -40,16 +42,16 @@ public abstract class AcceptanceTestBase implements ServerInfo.TesteAceitacao {
 		return driver.navigate();
 	}
 	
-	protected Home brutal() {
+	protected Home home() {
 		return new Home(driver);
 	}
 
 	@Before
 	public void setUpEnv() {
-
 		driver.manage().timeouts().implicitlyWait(25, TimeUnit.SECONDS);
 		client = new HttpClient();
 	}
+	
 
 	@BeforeClass
 	public static void getDriver() {

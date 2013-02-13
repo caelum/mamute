@@ -13,7 +13,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
 @Entity
-public class AnswerInformation implements UpdatableInformation {
+public class AnswerInformation implements Information {
 
 	@Id
 	@GeneratedValue
@@ -105,6 +105,19 @@ public class AnswerInformation implements UpdatableInformation {
     
     public DateTime getCreatedAt() {
         return createdAt;
+    }
+    
+    public Answer getAnswer() {
+        return answer;
+    }
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    public boolean isPending() {
+        return status.equals(UpdateStatus.PENDING);
     }
 
 }

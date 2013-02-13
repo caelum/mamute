@@ -206,4 +206,26 @@ public class Answer implements Votable, Commentable, Updatable, Subscribable, To
 		return lastTouchedBy;
 	}
 
+    public UpdateStatus approve(Information approved, User moderator) {
+        if (!approved.getClass().getSimpleName().startsWith("AnswerInformation")) {
+            throw new IllegalArgumentException("an answer can only approve an answer information");
+        }
+        AnswerInformation approvedAnswer = (AnswerInformation) approved;
+        UpdateStatus status = moderator.canUpdate(this);
+        if (status != UpdateStatus.NO_NEED_TO_APPROVE)
+            return status;
+        this.touchedBy(approvedAnswer.getAuthor());
+        approved.moderate(moderator, UpdateStatus.APPROVED);
+        setInformation(approvedAnswer);
+        return UpdateStatus.APPROVED;
+    }
+
+    private void setInformation(AnswerInformation approved) {
+        this.information = approved;
+    }
+    
+    public AnswerInformation getInformation() {
+        return information;
+    }
+
 }

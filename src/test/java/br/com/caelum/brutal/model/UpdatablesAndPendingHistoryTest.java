@@ -32,8 +32,8 @@ public class UpdatablesAndPendingHistoryTest {
         
         UpdatablesAndPendingHistory updatablesAndPendingHistory = new UpdatablesAndPendingHistory(updatableAndInformations);
         
-        List<UpdatableInformation> pendingInfoForQ1 = updatablesAndPendingHistory.pendingInfoFor(question1);
-        List<UpdatableInformation> pendingInfoForQ2 = updatablesAndPendingHistory.pendingInfoFor(question2);
+        List<Information> pendingInfoForQ1 = updatablesAndPendingHistory.pendingInfoFor(question1);
+        List<Information> pendingInfoForQ2 = updatablesAndPendingHistory.pendingInfoFor(question2);
         
         assertEquals(2, pendingInfoForQ1.size());
         assertEquals("title1", ((QuestionInformation) pendingInfoForQ1.get(0)).getTitle());

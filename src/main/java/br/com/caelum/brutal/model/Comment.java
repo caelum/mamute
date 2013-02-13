@@ -108,4 +108,9 @@ public class Comment implements Updatable, Subscribable {
 	public DateTime getLastUpdatedAt() {
 		return lastUpdatedAt;
 	}
+
+    @Override
+    public UpdateStatus approve(Information approved, User currentUser) {
+        return null;
+    }
 }

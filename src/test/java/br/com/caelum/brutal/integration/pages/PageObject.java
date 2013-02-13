@@ -25,4 +25,8 @@ public abstract class PageObject {
 	protected List<WebElement> allByClassName(String name) {
 		return driver.findElements(By.className(name));
 	}
+	
+	protected WebElement byClassName(String name) {
+		return driver.findElement(By.className(name));
+	}
 }
