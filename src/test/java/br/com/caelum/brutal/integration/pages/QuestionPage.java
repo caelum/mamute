@@ -19,15 +19,19 @@ public class QuestionPage extends PageObject{
 		return new EditQuestionPage(driver);
 	}
 
-	public boolean hasTitle(String questionTitle) {
-		return questionTitle.equals(byClassName("question-title").getText());
+	public boolean hasInformation(String title, String description, String tags) {
+		return hasTitle(title) && hasDescription(description) && hasTags(tags);
 	}
 
-	public boolean hasDescription(String questionDescription) {
+	private boolean hasTitle(String questionTitle) {
+		return questionTitle.equals(byClassName("question-title").getText());
+	}
+	
+	private boolean hasDescription(String questionDescription) {
 		return questionDescription.equals(byClassName("question-description").getText());
 	}
 	
-	public boolean hasTags(String tags) {
+	private boolean hasTags(String tags) {
 		WebElement question = byClassName("question-area");
 		List<String> tagNames = asList(tags.split(" "));
 		List<WebElement> tagsElements = question.findElements(By.className("tag"));

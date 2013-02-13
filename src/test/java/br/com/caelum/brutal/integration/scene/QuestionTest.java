@@ -22,11 +22,13 @@ public class QuestionTest extends AcceptanceTestBase{
 	
 	@Test
 	public void should_make_a_question(){
-		String questionTitle = "My new question about java";
+		String title = "My new question about java";
+		String description = "just a question that i have about java hahahhaha";
+		String tags = "java";
 		boolean isTheQuestion = home()
 			.toNewQuestionPage()
-			.newQuestion(questionTitle, "just a question that i have about java hahahhaha", "java")
-			.hasTitle(questionTitle);
+			.newQuestion(title, description, tags)
+			.hasInformation(title, description, tags);
 		assertTrue(isTheQuestion);
 	}
 	
@@ -35,12 +37,12 @@ public class QuestionTest extends AcceptanceTestBase{
 		String title = "New Question Title";
 		String description = "New Question Description about java";
 		String tags = "java new";
-		QuestionPage questionPage = home().toFirstQuestionPage()
+		boolean hasInformation = home().toFirstQuestionPage()
 				.toEditQuestionPage()
-				.edit(title, description, tags);
-		assertTrue(questionPage.hasTitle(title));
-		assertTrue(questionPage.hasDescription(description));
-		assertTrue(questionPage.hasTags(tags));
+				.edit(title, description, tags)
+				.hasInformation(title, description, tags);
+		assertTrue(hasInformation);
+		
 	}
 
 }
