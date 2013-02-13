@@ -16,7 +16,6 @@ a {
 	color: rgb(0, 119, 204);
 }
 
-
 .logo {
 	float: left;
 }
@@ -25,7 +24,7 @@ a {
 	margin-left: auto;
 	margin-right: auto;
 	width: 71%;
-	overflow:hidden;
+	overflow: hidden;
 }
 
 .title {
@@ -37,14 +36,12 @@ a {
 	font-weight: bold;
 }
 
-
 .page-title,.question-title {
 	border-bottom: 1px solid #cccccc;
 	margin-bottom: 15px;
 }
 
-.section-title, .section-title a,
-.page-title, .page-title a {
+.section-title,.section-title a,.page-title,.page-title a {
 	font-size: 18px;
 	line-height: 34px;
 }
@@ -63,16 +60,16 @@ a {
 	display: none;
 }
 
-.hint{
+.hint {
 	background-color: #FEFAE2;
 	border: 1px solid #F3EED5;
 	padding: 10px 5px;
 	margin: 35px 0 10px 20px;
 	float: left;
-	width:32%;
+	width: 32%;
 }
 
-.post-container .hint{
+.post-container .hint {
 	margin-top: 0px;
 }
 
@@ -80,33 +77,37 @@ a {
 	color: #FF0000;
 }
 
-.active{display:block;}
-
+.active {
+	display: block;
+}
 
 /*Markdown*/
-pre{
+pre {
 	padding: 5px;
-	font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+	font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono,
+		DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace,
+		serif;
 	margin-bottom: 10px;
 	background-color: #eeeeee;
 	overflow: auto;
 	width: auto;
-	width: 650px !ie7;
-	padding-bottom: 20px !ie7;
+	width: 650px!ie7;
+	padding-bottom: 20px!ie7;
 	max-height: 600px;
 }
 
-code{
-	font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+code {
+	font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono,
+		DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace,
+		serif;
 	background-color: #eeeeee;
 }
 
-
-p{
-	margin-bottom:1em;
+p {
+	margin-bottom: 1em;
 }
 /* Ellipsis */
-.ellipsis{
+.ellipsis {
 	display: block;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -114,18 +115,17 @@ p{
 }
 
 /*Clearfix*/
-
 .clearfix {
-	zoom:1;
+	zoom: 1;
 }
 
-.clearfix:before, .clearfix:after {
-	content:"";
-	display:table
+.clearfix:before,.clearfix:after {
+	content: "";
+	display: table
 }
 
 .clearfix:after {
-	clear:both
+	clear: both
 }
 
 /*Validations*/
@@ -134,75 +134,74 @@ p{
 	color: #8e0000;
 }
 
-.validation-error{
-	background-color:#ad0000;
-	font-weight:bold;
-	color:#fff;
+.validation-error {
+	background-color: #ad0000;
+	font-weight: bold;
+	color: #fff;
 	border: 1px solid #8e0000;
-	border-radius:3px;
-	cursor:pointer;
+	border-radius: 3px;
+	cursor: pointer;
 }
 
 /*Popup*/
-
-.popup{
-	display:none;
-	position:absolute;
-	padding:20px;
-	margin-top:5px;
+.popup {
+	display: none;
+	position: absolute;
+	padding: 20px;
+	margin-top: 5px;
 }
 
-.popup.share{
-	background-color:#EAEAEA;	
-	border:1px solid #999;
-	width:235px;
+.popup.share {
+	background-color: #EAEAEA;
+	border: 1px solid #999;
+	width: 235px;
 }
 
 /*Forms*/
-form, form * {
+form,form * {
 	margin: 0;
 }
 
-form{
-	width:500px;
+form {
+	width: 500px;
 }
 
-input, label, textarea{
-	width:100%;
+input,label,textarea {
+	width: 100%;
 }
 
 input {
 	height: 22px;
 }
 
-input[type="submit"]{
-	margin:5px 0;
+input[type="submit"] {
+	margin: 5px 0;
 }
 
-.text-input{
+.text-input {
 	padding: 3px;
-	border:1px solid #999;
+	border: 1px solid #999;
 }
 
-.text-input:focus{
-	border:0;
+.text-input:focus {
+	border: 0;
 }
 
-label{
+label {
 	display: block;
 	margin: 10px 0;
-	color:#333;
-	font-size:1.2em;
-	font-weight:bold;
+	color: #333;
+	font-size: 1.2em;
+	font-weight: bold;
 }
 
 textarea {
 	resize: vertical;
 }
 
-.hinted-form{
-	float:left;
-	width:65%;
+.hinted-form {
+	float: left;
+	width: 65%;
 }
 
 /*ARROW*/
@@ -224,37 +223,35 @@ textarea {
 }
 
 /*Complete User*/
-.complete-user .when{
-	width:100%;
-	margin-bottom:5px;
+.complete-user .when {
+	width: 100%;
+	margin-bottom: 5px;
 }
 
-.complete-user .user-name{
-	width:120px;
+.complete-user .user-name {
+	width: 120px;
 }
 
-.complete-user .user-info{
-	height:32px;
+.complete-user .user-info {
+	height: 32px;
 }
 
-.complete-user .user-info *{
-	height:50%;
-	display:block;
+.complete-user .user-info * {
+	height: 50%;
+	display: block;
 }
 
-.complete-user .user-image{
-	margin-right:5px;
+.complete-user .user-image {
+	margin-right: 5px;
 }
 
-.complete-user .user-image, .complete-user .user-info{
-	float:left;
+.complete-user .user-image,.complete-user .user-info {
+	float: left;
 }
-
 
 /*LOGIN*/
-
-.user-form{
-	width:35%;
+.user-form {
+	width: 35%;
 }
 
 .user-form .text-input {
@@ -262,7 +259,7 @@ textarea {
 }
 
 .user-form input[type="submit"] {
-	height:32px;
+	height: 32px;
 }
 
 /*HEADER*/
@@ -290,15 +287,14 @@ textarea {
 	margin-right: 20px;
 }
 
-.search-form{
-	width:200px;
+.search-form {
+	width: 200px;
 }
 
-.search-form input{
+.search-form input {
 	border: none;
 	border-top: 1px solid #ccc;
 	border-left: 1px solid #ccc;
-	
 }
 
 .search-form input[type="submit"] {
@@ -400,12 +396,13 @@ textarea {
 .answers {
 	color: #9A4444;
 }
-.answers.answered{
+
+.answers.answered {
 	border-bottom: 5px solid #75845C;
 }
 
-.answers.solved{
-	color:#008e43;
+.answers.solved {
+	color: #008e43;
 }
 
 .votes {
@@ -458,32 +455,32 @@ textarea {
 	color: #e0eaf1;
 }
 
-.tag-description{
-	color:#000;
-	font-size:12px;
+.tag-description {
+	color: #000;
+	font-size: 12px;
 }
 
-.autocompleted-tags{
-	display:none;
+.autocompleted-tags {
+	display: none;
 }
 
-.autocompleted-tags.active{
-	border:1px solid #000;
-	z-index:999;
-	position:absolute;
-	margin-top:30px;
-	background-color:#FFF;
-	padding:10px;
-	width:500px;
+.autocompleted-tags.active {
+	border: 1px solid #000;
+	z-index: 999;
+	position: absolute;
+	margin-top: 30px;
+	background-color: #FFF;
+	padding: 10px;
+	width: 500px;
 }
 
-.autocompleted-tags li{
-	width:33%;
-	padding:10px;
-	cursor:pointer;
+.autocompleted-tags li {
+	width: 33%;
+	padding: 10px;
+	cursor: pointer;
 }
 
-.autocompleted-tags li:hover{
+.autocompleted-tags li:hover {
 	background-color: #ffe6bf;
 }
 
@@ -505,8 +502,8 @@ textarea {
 	overflow: hidden;
 }
 
-.question-area{
-	border:none;
+.question-area {
+	border: none;
 }
 
 .post-area .tags {
@@ -514,32 +511,32 @@ textarea {
 	overflow: hidden;
 }
 
-.post-interactions{
-	overflow:hidden;
-	margin-bottom:5px;
+.post-interactions {
+	overflow: hidden;
+	margin-bottom: 5px;
 }
 
-.post-touchs{
-	float:right;
-	height:60px;
-	width:50%;	
+.post-touchs {
+	float: right;
+	height: 60px;
+	width: 50%;
 }
 
-.author-touch{
-	background-color:#E0EAF1;
+.author-touch {
+	background-color: #E0EAF1;
 }
 
-.touch{
-	overflow:hidden;
-	width:50%;
-	height:100%;
-	padding:5px;
-	float:right;
+.touch {
+	overflow: hidden;
+	width: 50%;
+	height: 100%;
+	padding: 5px;
+	float: right;
 }
 
-.post-action-nav{
-	margin-top:10px;
-	float:left
+.post-action-nav {
+	margin-top: 10px;
+	float: left
 }
 
 .post-action {
@@ -552,25 +549,25 @@ textarea {
 	color: #fff;
 }
 
-.nav-item .post-action {
-	padding-left: 8px;
+.post-action-nav .nav-item{
 	border-left: 2px solid #ccc;
+	padding:0px 5px;
+	margin: 0px;
 }
 
-.post-action-nav .nav-item:first-child .post-action {
+.post-action-nav .nav-item:first-child {
 	border: none;
-	padding-left: 3px;
 }
 
 .post-container {
 	float: right;
 	width: 90%;
-	padding-top:10px;
+	padding-top: 10px;
 }
 
 .post-text {
 	font-size: 14px;
-	line-height:17px;
+	line-height: 17px;
 	color: #000;
 }
 
@@ -593,31 +590,31 @@ textarea {
 	font-size: 17px;
 }
 
-.login-or-signup{
-	width:80%;
-	overflow:hidden;
+.login-or-signup {
+	width: 80%;
+	overflow: hidden;
 }
 
-.login-or-signup .user-form{
-	width:100%;
+.login-or-signup .user-form {
+	width: 100%;
 }
 
-.login-or-signup label{
-	margin:5px 0 8px 0;
+.login-or-signup label {
+	margin: 5px 0 8px 0;
 }
 
-.login-or-signup .login, .login-or-signup .signup{
-	padding:0 40px;
-	float:left;
-	width:50%;
+.login-or-signup .login,.login-or-signup .signup {
+	padding: 0 40px;
+	float: left;
+	width: 50%;
 }
 
-.login-or-signup .text-input{
-	margin:0;
+.login-or-signup .text-input {
+	margin: 0;
 }
 
-.login-or-signup .signup{
-	border-left:1px solid #999;
+.login-or-signup .signup {
+	border-left: 1px solid #999;
 }
 
 /*Comments*/
@@ -640,7 +637,6 @@ textarea {
 	background-color: #E0EAF1;
 	padding: 2px 5px;
 }
-
 
 /*Answer*/
 .answer {
@@ -669,8 +665,8 @@ textarea {
 	color: #FF0000;
 }
 
-.vote-container{
-	width:35%;
+.vote-container {
+	width: 35%;
 }
 
 .vote-count {
@@ -709,11 +705,11 @@ textarea {
 }
 
 /*Footer*/
-.footer{
-	border-top:8px solid #000000;
-	background-color:#777777;
-	height:300px;
-	margin-top:50px;
+.footer {
+	border-top: 8px solid #000000;
+	background-color: #777777;
+	height: 300px;
+	margin-top: 50px;
 	text-align: center;
 	padding-top: 30px;
 }
@@ -722,6 +718,7 @@ textarea {
 	color: #444;
 	margin-top: 10px;
 }
+
 .footer p a {
 	color: #999;
 }
