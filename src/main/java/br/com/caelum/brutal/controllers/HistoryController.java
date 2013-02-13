@@ -40,14 +40,20 @@ public class HistoryController {
 	public void unmoderated() {
 		UpdatablesAndPendingHistory pendingQuestions = questionEdits.pendingByUpdatables();
 		UpdatablesAndPendingHistory pendingAnswers = answerEdits.pendingByUpdatables();
-		result.include("pendingQuestionsEntrySet", pendingQuestions.questionsEntrySet());
-		result.include("pendingAnswersEntrySet", pendingAnswers.questionsEntrySet());
+		result.include("pendingQuestions", pendingQuestions);
+		result.include("pendingAnswers", pendingAnswers);
 	}
 
 	@ModeratorAccess
 	@Get("/history/{questionId}/similar")
 	public void similar(Long questionId) {
-		result.include("histories", questionEdits.pendingFrom(questionId));
+		result.include("histories", questionEdits.pendingFor(questionId));
+	}
+	
+	@ModeratorAccess
+	@Get("/history/answers/{answerId}/similar")
+	public void similarAnswers(Long answerId) {
+	    result.nothing();
 	}
 
     @ModeratorAccess
@@ -60,7 +66,7 @@ public class HistoryController {
         }
 
         Question question = questions.getById(questionId);
-        List<QuestionInformation> pending = questionEdits.pendingFrom(questionId);
+        List<QuestionInformation> pending = questionEdits.pendingFor(questionId);
         refusePending(aprovedHistoryId, pending);
         question.aprove(approvedEdit, currentUser);
 
