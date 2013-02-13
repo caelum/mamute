@@ -176,4 +176,8 @@ public class QuestionInformation implements Information {
     public boolean isPending() {
         return status == UpdateStatus.PENDING;
     }
+    
+    public String getComment() {
+        return comment;
+    }
 }

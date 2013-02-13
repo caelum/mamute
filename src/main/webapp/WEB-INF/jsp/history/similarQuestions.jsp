@@ -21,6 +21,10 @@
 			${information.markedDescription}
 		</p>
 		
+		<p>
+			${information.comment}
+		</p>
+		
 		<ul>
 			<li class="tag">${information.tagsAsString}</li>
 		</ul>
