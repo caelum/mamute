@@ -18,8 +18,8 @@
 					</a>
 					<div class="popup share small">
 						<form class="validated-form">
-							<labelfor="share-url"><fmt:message key="share.text"/></label>
-							<input type="text" class="text-input required" id="share-url" value=""/>
+							<label for="share-url"><fmt:message key="share.text"/></label>
+							<input type="text" class="text-input required" id="share-url" value="${currentUrl}"/>
 						</form>
 						<a class="close-popup"><fmt:message key="popup.close"/></a>
 					</div>
