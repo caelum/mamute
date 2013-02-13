@@ -6,4 +6,6 @@ public interface UpdatableInformation {
 
     Object getId();
 
+    boolean isPending();
+
 }

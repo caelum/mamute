@@ -233,13 +233,17 @@ public class Question implements Votable, Commentable, Updatable, Touchable {
 		this.history.add(newInformation);
 	}
 	
-	public UpdateStatus aprove(QuestionInformation choosenVersion, User moderator) {
+	public UpdateStatus aprove(UpdatableInformation choosenVersion, User moderator) {
+	    if (!choosenVersion.getClass().getSimpleName().startsWith("QuestionInformation")) {
+            throw new IllegalArgumentException("an question can only approve an question information");
+        }
+	    QuestionInformation approvedQuestion = (QuestionInformation) choosenVersion;
 	    UpdateStatus status = moderator.canUpdate(this);
 	    if (status == UpdateStatus.REFUSED)
             return status;
-		this.touchedBy(choosenVersion.getAuthor());
+		this.touchedBy(approvedQuestion.getAuthor());
 	    choosenVersion.moderate(moderator, UpdateStatus.APPROVED);
-	    setInformation(choosenVersion);
+	    setInformation(approvedQuestion);
 	    return UpdateStatus.APPROVED;
 	}
 	
@@ -254,5 +258,6 @@ public class Question implements Votable, Commentable, Updatable, Touchable {
 	public DateTime getCreatedAt() {
 		return createdAt;
 	}
+
     
 }

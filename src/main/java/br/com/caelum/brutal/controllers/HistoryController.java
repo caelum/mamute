@@ -12,6 +12,7 @@ import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.AnswerInformation;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.QuestionInformation;
+import br.com.caelum.brutal.model.Updatable;
 import br.com.caelum.brutal.model.UpdatableInformation;
 import br.com.caelum.brutal.model.UpdatablesAndPendingHistory;
 import br.com.caelum.brutal.model.UpdateStatus;
@@ -68,33 +69,32 @@ public class HistoryController {
     @ModeratorAccess
     @Post("/questions/published/{questionId}/{aprovedHistoryId}")
     public void publishQuestion(Long questionId, Long aprovedHistoryId) {
-        QuestionInformation approvedEdit = questionEdits.getById(aprovedHistoryId);
-        if (!approvedEdit.isPending()) {
-            result.use(Results.http()).sendError(403);
-            return;
-        }
-
-        Question question = questions.getById(questionId);
+        UpdatableInformation approved = updatables.getUpdatableInfoById(aprovedHistoryId, QuestionInformation.class);
+        Updatable updatable = updatables.getUpdatableById(questionId, Question.class);
         List<UpdatableInformation> pending = updatables.pendingFor(questionId, Question.class);
-        refusePending(aprovedHistoryId, pending);
-        question.aprove(approvedEdit, currentUser);
-
-        result.redirectTo(this).unmoderated();
+        
+        approve(aprovedHistoryId, approved, updatable, pending);
     }
     
     @ModeratorAccess
     @Post("/answers/published/{answerId}/{aprovedHistoryId}")
     public void publishAnswer(Long answerId, Long aprovedHistoryId) {
-        AnswerInformation approved = answerEdits.getById(aprovedHistoryId);
+        UpdatableInformation approved = updatables.getUpdatableInfoById(aprovedHistoryId, AnswerInformation.class);
+        Updatable updatable = updatables.getUpdatableById(answerId, Answer.class);
+        List<UpdatableInformation> pending = updatables.pendingFor(answerId, Answer.class);
+        
+        approve(aprovedHistoryId, approved, updatable, pending);
+    }
+
+    private void approve(Long aprovedHistoryId, UpdatableInformation approved, Updatable updatable,
+            List<UpdatableInformation> pending) {
         if (!approved.isPending()) {
             result.use(Results.http()).sendError(403);
             return;
         }
         
-        Answer answer = answers.getById(answerId);
-        List<UpdatableInformation> pending = updatables.pendingFor(answerId, Answer.class);
         refusePending(aprovedHistoryId, pending);
-        answer.aprove(approved, currentUser);
+        updatable.aprove(approved, currentUser);
         
         result.redirectTo(this).unmoderated();
     }
