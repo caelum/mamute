@@ -7,6 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.joda.time.DateTime;
 
+import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.TagUsage;
 import br.com.caelum.brutal.model.User;
@@ -45,6 +46,15 @@ public class TagDAO {
 				"join question.information.tags tag " +
 				"where tag.name like :tagChunk group by tag order by count(question) desc");
 		query.setString("tagChunk", "%"+tagChunk+"%");
+		return query.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<TagUsage> findTagsUsageOf(Question question) {
+		Query query = session.createQuery("select new br.com.caelum.brutal.model.TagUsage(tag, count(question)) from Question question " +
+				"join question.information.tags tag " +
+				"where tag in (:questionTags) group by tag order by count(question) desc");
+		query.setParameterList("questionTags", question.getTags());
 		return query.list();
 	}
 
