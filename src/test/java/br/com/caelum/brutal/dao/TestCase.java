@@ -17,7 +17,7 @@ public abstract class TestCase {
 	 * This constructor should not exist. It is only for tests
 	 */
 	public Question question(String title,String description, User author) {
-		Question q = new Question(new QuestionInformation(title, description, new CurrentUser(author, null), new ArrayList<Tag>()), author);
+		Question q = new Question(new QuestionInformation(title, description, new CurrentUser(author, null), new ArrayList<Tag>(), ""), author);
 		return q;
 	}
 
