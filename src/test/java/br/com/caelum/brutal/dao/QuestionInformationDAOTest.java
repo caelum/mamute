@@ -6,11 +6,11 @@ import java.util.List;
 
 import org.junit.Test;
 
+import br.com.caelum.brutal.model.Information;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.QuestionInformationBuilder;
 import br.com.caelum.brutal.model.Updatable;
-import br.com.caelum.brutal.model.UpdatableInformation;
 import br.com.caelum.brutal.model.UpdatablesAndPendingHistory;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
@@ -52,10 +52,10 @@ public class QuestionInformationDAOTest extends DatabaseTestCase {
         assertEquals(2, questions.size());
         assertEquals(question2.getId(), questions.get(0).getId());
         
-        List<UpdatableInformation> pendingQuestion2 = pending.pendingInfoFor(questions.get(0));
+        List<Information> pendingQuestion2 = pending.pendingInfoFor(questions.get(0));
         assertEquals(2, pendingQuestion2.size());
         
-        List<UpdatableInformation> pendingQuestion3 = pending.pendingInfoFor(questions.get(1));
+        List<Information> pendingQuestion3 = pending.pendingInfoFor(questions.get(1));
         assertEquals(3, pendingQuestion3.size());
     }
 
