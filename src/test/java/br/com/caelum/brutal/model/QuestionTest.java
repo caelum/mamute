@@ -73,7 +73,7 @@ public class QuestionTest  extends TestCase{
 		Question comoFaz = question("titulo", "descricao", artur);
 		QuestionInformation comoFazEditedInformation = new QuestionInformationBuilder().with(leo).build();
 		comoFaz.updateWith(comoFazEditedInformation);
-		comoFaz.aprove(comoFazEditedInformation, moderator);
+		comoFaz.approve(comoFazEditedInformation, moderator);
 		
 		assertEquals(comoFaz.getLastTouchedBy().getId(), leo.getId());
 	}

@@ -206,7 +206,7 @@ public class Answer implements Votable, Commentable, Updatable, Subscribable, To
 		return lastTouchedBy;
 	}
 
-    public UpdateStatus aprove(UpdatableInformation approved, User moderator) {
+    public UpdateStatus approve(UpdatableInformation approved, User moderator) {
         if (!approved.getClass().getSimpleName().startsWith("AnswerInformation")) {
             throw new IllegalArgumentException("an answer can only approve an answer information");
         }
