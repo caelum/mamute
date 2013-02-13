@@ -12,7 +12,7 @@ import br.com.caelum.brutal.model.CurrentUser;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.QuestionInformationBuilder;
-import br.com.caelum.brutal.model.UpdatableInformation;
+import br.com.caelum.brutal.model.Information;
 import br.com.caelum.brutal.model.UpdatablesAndPendingHistory;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
@@ -46,7 +46,7 @@ public class AnswerInformationDAOTest extends DatabaseTestCase {
         
         UpdatablesAndPendingHistory pendingByUpdatables = answerInformations.pendingByUpdatables();
         
-        List<UpdatableInformation> pendingInfoForAnswer1 = pendingByUpdatables.pendingInfoFor(answer1);
+        List<Information> pendingInfoForAnswer1 = pendingByUpdatables.pendingInfoFor(answer1);
         assertEquals(2, pendingInfoForAnswer1.size());
     }
 

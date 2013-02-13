@@ -233,7 +233,7 @@ public class Question implements Votable, Commentable, Updatable, Touchable {
 		this.history.add(newInformation);
 	}
 	
-	public UpdateStatus approve(UpdatableInformation choosenVersion, User moderator) {
+	public UpdateStatus approve(Information choosenVersion, User moderator) {
 	    if (!choosenVersion.getClass().getSimpleName().startsWith("QuestionInformation")) {
             throw new IllegalArgumentException("an question can only approve an question information");
         }

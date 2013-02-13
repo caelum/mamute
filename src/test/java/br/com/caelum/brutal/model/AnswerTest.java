@@ -42,7 +42,7 @@ public class AnswerTest extends TestCase {
         Question question = question("question title", "description", author);
         Answer answer = answer("blablablab", question, author);
         
-        UpdatableInformation approved = new AnswerInformation("blablabalblab", new CurrentUser(editUser, null), answer);
+        Information approved = new AnswerInformation("blablabalblab", new CurrentUser(editUser, null), answer);
         answer.approve(approved, moderator);
         
         assertEquals(approved, answer.getInformation());
@@ -56,7 +56,7 @@ public class AnswerTest extends TestCase {
 	    AnswerInformation original = answer.getInformation();
 	    User nonModerator = user("nonmoderator", "nonmoderator", 4l);
 	    
-	    UpdatableInformation approved = new AnswerInformation("blablabalblab", new CurrentUser(editUser, null), answer);
+	    Information approved = new AnswerInformation("blablabalblab", new CurrentUser(editUser, null), answer);
         answer.approve(approved, nonModerator);
         
 	    assertEquals(original, answer.getInformation());

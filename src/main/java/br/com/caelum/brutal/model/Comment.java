@@ -110,7 +110,7 @@ public class Comment implements Updatable, Subscribable {
 	}
 
     @Override
-    public UpdateStatus approve(UpdatableInformation approved, User currentUser) {
+    public UpdateStatus approve(Information approved, User currentUser) {
         return null;
     }
 }

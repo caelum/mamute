@@ -1,6 +1,6 @@
 package br.com.caelum.brutal.model;
 
-public interface UpdatableInformation {
+public interface Information {
 
     void moderate(User currentUser, UpdateStatus refused);
 

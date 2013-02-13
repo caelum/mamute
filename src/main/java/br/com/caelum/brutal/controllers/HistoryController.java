@@ -13,7 +13,7 @@ import br.com.caelum.brutal.model.AnswerInformation;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.Updatable;
-import br.com.caelum.brutal.model.UpdatableInformation;
+import br.com.caelum.brutal.model.Information;
 import br.com.caelum.brutal.model.UpdatablesAndPendingHistory;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
@@ -69,9 +69,9 @@ public class HistoryController {
     @ModeratorAccess
     @Post("/questions/published/{questionId}/{aprovedHistoryId}")
     public void publishQuestion(Long questionId, Long aprovedHistoryId) {
-        UpdatableInformation approved = updatables.getUpdatableInfoById(aprovedHistoryId, QuestionInformation.class);
+        Information approved = updatables.getUpdatableInfoById(aprovedHistoryId, QuestionInformation.class);
         Updatable updatable = updatables.getUpdatableById(questionId, Question.class);
-        List<UpdatableInformation> pending = updatables.pendingFor(questionId, Question.class);
+        List<Information> pending = updatables.pendingFor(questionId, Question.class);
         
         approve(aprovedHistoryId, approved, updatable, pending);
     }
@@ -79,15 +79,15 @@ public class HistoryController {
     @ModeratorAccess
     @Post("/answers/published/{answerId}/{aprovedHistoryId}")
     public void publishAnswer(Long answerId, Long aprovedHistoryId) {
-        UpdatableInformation approved = updatables.getUpdatableInfoById(aprovedHistoryId, AnswerInformation.class);
+        Information approved = updatables.getUpdatableInfoById(aprovedHistoryId, AnswerInformation.class);
         Updatable updatable = updatables.getUpdatableById(answerId, Answer.class);
-        List<UpdatableInformation> pending = updatables.pendingFor(answerId, Answer.class);
+        List<Information> pending = updatables.pendingFor(answerId, Answer.class);
         
         approve(aprovedHistoryId, approved, updatable, pending);
     }
 
-    private void approve(Long aprovedHistoryId, UpdatableInformation approved, Updatable updatable,
-            List<UpdatableInformation> pending) {
+    private void approve(Long aprovedHistoryId, Information approved, Updatable updatable,
+            List<Information> pending) {
         if (!approved.isPending()) {
             result.use(Results.http()).sendError(403);
             return;
@@ -99,8 +99,8 @@ public class HistoryController {
         result.redirectTo(this).unmoderated();
     }
     
-    private void refusePending(Long aprovedHistoryId, List<UpdatableInformation> pending) {
-        for (UpdatableInformation refused : pending) {
+    private void refusePending(Long aprovedHistoryId, List<Information> pending) {
+        for (Information refused : pending) {
 	        if (!refused.getId().equals(aprovedHistoryId)) {
 	            refused.moderate(currentUser, UpdateStatus.REFUSED);
 	        }

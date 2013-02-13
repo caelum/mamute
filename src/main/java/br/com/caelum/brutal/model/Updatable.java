@@ -11,6 +11,6 @@ public interface Updatable extends Identifiable {
 
     Serializable getId();
 
-    UpdateStatus approve(UpdatableInformation approved, User currentUser);
+    UpdateStatus approve(Information approved, User currentUser);
 
 }
