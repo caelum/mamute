@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.integration.pages;
 
+import static org.openqa.selenium.By.tagName;
+
 import org.openqa.selenium.WebDriver;
 
 public class Home extends PageObject {
@@ -41,6 +43,11 @@ public class Home extends PageObject {
 	public NewQuestionPage toNewQuestionPage() {
 		byClassName("ask-a-question").click();
 		return new NewQuestionPage(driver);
+	}
+
+	public QuestionPage toFirstQuestionPage() {
+		byClassName("item-title").findElement(tagName("a")).click();
+		return new QuestionPage(driver);
 	}
 
 

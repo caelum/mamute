@@ -13,7 +13,6 @@ public class AuthTest extends AuthTestBase{
 		.login("leo@leo.com.br","123456")
 		.isLoggedInAs("leonardo");
 		assertTrue(loggedIn);
-		logOut();
 	}
 	
 	@Test

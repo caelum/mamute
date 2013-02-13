@@ -15,7 +15,6 @@ public class SignupTest extends AuthTestBase{
 				.signUp("leonardo", "leo"+new Random().nextLong()+"@leo.com.br", "123456", "123456")
 				.isLoggedInAs("leonardo");
 		assertTrue(loggedIn);
-		logOut();
 	}
 	
 	@Test

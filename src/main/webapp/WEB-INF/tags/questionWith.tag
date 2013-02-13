@@ -8,7 +8,7 @@
 		<tags:voteFor item="${question}" type="question" vote="${currentVote}"/>
 	</div>
 	<div class="post-container">
-		<div class="post-text" id="question-description-${question.id }">${question.markedDescription}</div>
+		<div class="post-text question-description" id="question-description-${question.id }">${question.markedDescription}</div>
 		<tags:tagsFor question="${question}"/>
 		<div class="post-interactions">
 			<ul class="post-action-nav nav">
@@ -25,7 +25,7 @@
 					</div>
 				</li>
 				<li class="nav-item">
-					<a class="post-action" href="<c:url value="/question/edit/${question.id}"/>"><fmt:message key="edit" /></a>
+					<a class="post-action edit-question" href="<c:url value="/question/edit/${question.id}"/>"><fmt:message key="edit" /></a>
 				</li>
 			</ul>
 			<tags:touchesFor touchable="${question}" />
