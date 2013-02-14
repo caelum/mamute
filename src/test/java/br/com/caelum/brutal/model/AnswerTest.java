@@ -43,10 +43,12 @@ public class AnswerTest extends TestCase {
         Answer answer = answer("blablablab", question, author);
         
         Information approved = new AnswerInformation("blablabalblab", new LoggedUser(editUser, null), answer, "");
+        AnswerInformation old = answer.getInformation();
         answer.approve(approved, moderator);
         
         assertEquals(approved, answer.getInformation());
         assertEquals(editUser, answer.getLastTouchedBy());
+        assertTrue(old.isEdited());
     }
 	
 	@Test

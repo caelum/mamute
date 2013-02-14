@@ -212,10 +212,13 @@ public class Answer implements Votable, Commentable, Updatable, Subscribable, To
         }
         AnswerInformation approvedAnswer = (AnswerInformation) approved;
         UpdateStatus status = moderator.canUpdate(this);
+        
         if (status != UpdateStatus.NO_NEED_TO_APPROVE)
             return status;
+        
         this.touchedBy(approvedAnswer.getAuthor());
-        approved.moderate(moderator, UpdateStatus.APPROVED);
+        approvedAnswer.moderate(moderator, UpdateStatus.APPROVED);
+        this.information.moderate(moderator, UpdateStatus.EDITED);
         setInformation(approvedAnswer);
         return UpdateStatus.APPROVED;
     }
@@ -227,5 +230,6 @@ public class Answer implements Votable, Commentable, Updatable, Subscribable, To
     public AnswerInformation getInformation() {
         return information;
     }
+    
 
 }

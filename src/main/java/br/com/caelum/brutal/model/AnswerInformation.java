@@ -124,6 +124,10 @@ public class AnswerInformation implements Information {
         return status.equals(UpdateStatus.PENDING);
     }
     
+    public boolean isEdited() {
+        return status.equals(UpdateStatus.EDITED);
+    }
+    
     public String getComment() {
         return comment;
     }

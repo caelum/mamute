@@ -244,7 +244,7 @@ public class Question implements Votable, Commentable, Updatable, Touchable, Tag
             return status;
 	    
 		this.touchedBy(approvedQuestion.getAuthor());
-	    choosenVersion.moderate(moderator, UpdateStatus.APPROVED);
+		approvedQuestion.moderate(moderator, UpdateStatus.APPROVED);
 	    this.information.moderate(moderator, UpdateStatus.EDITED);
 	    setInformation(approvedQuestion);
 	    return UpdateStatus.APPROVED;
