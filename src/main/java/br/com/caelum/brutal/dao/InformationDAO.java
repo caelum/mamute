@@ -6,20 +6,20 @@ import org.hibernate.Session;
 
 import br.com.caelum.brutal.model.Information;
 import br.com.caelum.brutal.model.UpdateStatus;
-import br.com.caelum.brutal.model.interfaces.Updatable;
+import br.com.caelum.brutal.model.interfaces.Moderatable;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
-public class UpdatableInformationDAO {
+public class InformationDAO {
 
     private final Session session;
 
-    public UpdatableInformationDAO(Session session) {
+    public InformationDAO(Session session) {
         this.session = session;
     }
 
     @SuppressWarnings("unchecked")
-    public List<Information> pendingFor(Long questionId, Class<?> clazz) {
+    public List<Information> pendingFor(Long questionId, Class<? extends Moderatable> clazz) {
         String hql = "select info from " + clazz.getSimpleName() + " updatable " +
                 "join updatable.history info " +
                 "where updatable.id=:id and info.status=:pending";
@@ -29,13 +29,8 @@ public class UpdatableInformationDAO {
                 .list();
     }
 
-    public Information getUpdatableInfoById(Long id, Class<?> clazz) {
+    public Information getById(Long id, Class<? extends Information> clazz) {
         return (Information) session.load(clazz, id);
     }
-
-    public Updatable getUpdatableById(Long id, Class<?> clazz) {
-        return (Updatable) session.load(clazz, id);
-    }
-
 
 }

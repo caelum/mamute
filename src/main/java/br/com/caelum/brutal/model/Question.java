@@ -19,13 +19,14 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.model.interfaces.Commentable;
+import br.com.caelum.brutal.model.interfaces.Moderatable;
 import br.com.caelum.brutal.model.interfaces.Taggable;
 import br.com.caelum.brutal.model.interfaces.Touchable;
 import br.com.caelum.brutal.model.interfaces.Updatable;
 import br.com.caelum.brutal.model.interfaces.Votable;
 
 @Entity
-public class Question implements Votable, Commentable, Updatable, Touchable, Taggable {
+public class Question extends Moderatable implements Votable, Commentable, Updatable, Touchable, Taggable {
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -260,6 +261,13 @@ public class Question implements Votable, Commentable, Updatable, Touchable, Tag
 	
 	public DateTime getCreatedAt() {
 		return createdAt;
+	}
+
+	@Override
+	protected void updateWith(Information approved) {
+		QuestionInformation approvedQuestion = (QuestionInformation) approved;
+		this.touchedBy(approvedQuestion.getAuthor());
+		this.information = approvedQuestion;		
 	}
 
 }
