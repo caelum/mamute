@@ -16,8 +16,37 @@ a {
 	color: rgb(0, 119, 204);
 }
 
-.logo {
+.sprite{
+	background-image: url('/images/sprites.png');
+	background-repeat: no-repeat;
+	overflow: hidden;
+}
+
+
+.logo{
+	overflow: hidden;
 	float: left;
+}
+
+.small-logo{
+	margin-top:5px;
+}
+
+.small-logo a{
+	background-position: -55px -66px;
+	width: 120px;
+	height: 18px;
+}
+
+.big-logo a{
+	background-position: 0px 0px;
+	width: 250px;
+	height: 61px;
+}
+
+.logo a{
+	display: block;
+	text-indent: -999999em;
 }
 
 .container {
@@ -137,7 +166,7 @@ p {
 	border: 1px solid #8e0000;
 	border-radius: 3px;
 	cursor: pointer;
-	padding:20px;
+	padding: 20px;
 }
 
 /*Popup*/
@@ -148,11 +177,11 @@ p {
 	margin-top: 5px;
 }
 
-.close-popup{
-	cursor:pointer;
+.close-popup {
+	cursor: pointer;
 }
 
-.popup.share{
+.popup.share {
 	background-color: #EAEAEA;
 	border: 1px solid #999;
 }
@@ -197,12 +226,12 @@ label {
 	color: #333;
 }
 
-.big, .big a{
+.big,.big a {
 	font-size: 1.2em;
 	font-weight: bold;
 }
 
-.small, .small a{
+.small,.small a {
 	font-size: 0.9em;
 }
 
@@ -274,7 +303,7 @@ textarea {
 }
 
 /*HEADER*/
-.header,.logo,.search-form {
+.header,.search-form {
 	height: 31px;
 	line-height: 31px;
 }
@@ -321,20 +350,17 @@ textarea {
 	margin-bottom: 20px;
 }
 
-.main-nav .logo {
-	width: 25%
-}
-
 .main-nav .nav-items {
-	width: 75%;
+	margin-top: 32px;
+	width: 73%;
 }
 
 .nav-buttons {
 	float: right;
 }
 
-.nav-item .current{
-	background-color:#F90;
+.nav-item .current {
+	background-color: #F90;
 }
 
 .nav-item,.nav-item a {
@@ -356,7 +382,7 @@ textarea {
 	float: left;
 }
 
-.first-content, .history-form {
+.first-content,.history-form {
 	width: 80%;
 }
 
@@ -450,11 +476,11 @@ textarea {
 /*MODERACAO*/
 .history-form {
 	border: 2px dotted #999;
-	padding: 5px;	
+	padding: 5px;
 }
 
 .history-title {
-	color: black;	
+	color: black;
 	display: inline;
 	margin-right: 10px;
 }
@@ -568,7 +594,7 @@ textarea {
 .touch {
 	color: #999;
 	float: right;
-	font-size: 13px;	
+	font-size: 13px;
 	height: 100%;
 	line-height: 13px;
 	overflow: hidden;
@@ -641,10 +667,44 @@ textarea {
 	width: 100%;
 }
 
-.login-or-signup label:not(.error) {
-	margin: 5px 0 8px 0;
-}
+.login-or-signup
 
+ 
+
+label
+
+
+:not
+
+ 
+
+(
+.error
+
+ 
+
+)
+{
+margin
+
+
+:
+
+ 
+
+5
+px
+
+ 
+
+0
+8
+px
+
+ 
+
+0;
+}
 .login-or-signup .login,.login-or-signup .signup {
 	padding: 0 40px;
 	float: left;

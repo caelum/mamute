@@ -12,7 +12,7 @@
 <body>
 <header class="header">
 	<div class="container">
-		<h2 class="logo">Logo do Brutal Pequeno</h2>
+		<h2 class="small-logo logo"><a class="sprite" href="/">Logo do Brutal Pequeno</a></h2>
 		<section class="user-area">
 			<nav class="nav">
 				<ul class="nav-items">
@@ -45,7 +45,7 @@
 </header>
 <div class="container">
 <nav class="nav main-nav">		
-		<h1 class="logo"><a href="<c:url value="/"/>">Logo do Brutal</a></h1>
+		<h1 class="logo big-logo"><a class="sprite" href="<c:url value="/"/>">Logo do Brutal</a></h1>
 		<ul class="nav-items">
 			<li class="nav-item"><a class="button" href="<c:url value="/"/>"><fmt:message key="menu.questions"/></a></li> 
 			<li class="nav-item"><a class="button unsolved" href="<c:url value="/list/unsolved"/>"><fmt:message key="menu.unsolved"/></a></li>
