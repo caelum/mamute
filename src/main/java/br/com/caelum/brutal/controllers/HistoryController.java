@@ -21,6 +21,7 @@ import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.view.Results;
 
 @Resource
@@ -33,9 +34,10 @@ public class HistoryController {
     private final AnswerInformationDAO answerEdits;
     private final UpdatableInformationDAO updatables;
     private final AnswerDAO answers;
+    private final Validator validator;
 
 	public HistoryController(Result result, QuestionInformationDAO edits, QuestionDAO questions, 
-	        User currentUser, AnswerInformationDAO answerEdits, UpdatableInformationDAO updatables, AnswerDAO answers) {
+	        User currentUser, AnswerInformationDAO answerEdits, UpdatableInformationDAO updatables, AnswerDAO answers, Validator validator) {
 		this.result = result;
 		this.questionEdits = edits;
         this.questions = questions;
@@ -43,6 +45,7 @@ public class HistoryController {
         this.answerEdits = answerEdits;
         this.updatables = updatables;
         this.answers = answers;
+        this.validator = validator;
 	}
 
 	@ModeratorAccess
@@ -74,7 +77,9 @@ public class HistoryController {
         Updatable updatable = updatables.getUpdatableById(questionId, Question.class);
         List<Information> pending = updatables.pendingFor(questionId, Question.class);
         
+        
         approve(aprovedHistoryId, approved, updatable, pending);
+        result.redirectTo(this).unmoderated();
     }
     
     @ModeratorAccess
@@ -84,7 +89,9 @@ public class HistoryController {
         Updatable updatable = updatables.getUpdatableById(answerId, Answer.class);
         List<Information> pending = updatables.pendingFor(answerId, Answer.class);
         
+        
         approve(aprovedHistoryId, approved, updatable, pending);
+        result.redirectTo(this).unmoderated();
     }
 
     private void approve(Long aprovedHistoryId, Information approved, Updatable updatable,
@@ -97,7 +104,6 @@ public class HistoryController {
         refusePending(aprovedHistoryId, pending);
         currentUser.approve(updatable, approved);
         
-        result.redirectTo(this).unmoderated();
     }
     
     private void refusePending(Long aprovedHistoryId, List<Information> pending) {
