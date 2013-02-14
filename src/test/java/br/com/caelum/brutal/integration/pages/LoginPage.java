@@ -17,5 +17,9 @@ public class LoginPage extends PageObject{
 		loginForm.submit();
 		return new Home(driver);
 	}
+
+	public boolean hasRedirectUrl(String url) {
+		return byName("redirectUrl").getAttribute("value").contains(url);
+	}
 	
 }

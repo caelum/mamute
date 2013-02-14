@@ -2,8 +2,11 @@ package br.com.caelum.brutal.integration.pages;
 
 import static org.openqa.selenium.By.tagName;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class Home extends PageObject {
 
@@ -54,6 +57,22 @@ public class Home extends PageObject {
 	public UnsolvedListPage toUnsolvedList() {
 		byClassName("main-nav").findElement(By.className("unsolved")).click();
 		return new UnsolvedListPage(driver);
+	}
+
+	public LoginPage toNewQuestionPageWhileNotLogged() {
+		byClassName("ask-a-question").click();
+		return new LoginPage(driver);
+	}
+
+	public WithTagList toWithTagList(String tag) {
+		List<WebElement> tags = allByClassName("tag");
+		for (WebElement currentTag : tags) {
+			if(currentTag.getText().equals(tag)){
+				currentTag.click();
+				return new WithTagList(driver);
+			}
+		}
+		throw new RuntimeException("Tag not found: "+tag);
 	}
 
 

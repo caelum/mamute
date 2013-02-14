@@ -15,4 +15,14 @@ public class ListTest extends AcceptanceTestBase{
 		assertTrue(hasOnlyUnsolvedQuestions);
 	}
 
+	@Test
+	public void should_list_by_tag() {
+		String tag = "java";
+		boolean hasOnlyQuestionsWithTheTag = 
+				home()
+				.toWithTagList(tag)
+				.hasOnlyQuestionsWithTag(tag);
+		assertTrue(hasOnlyQuestionsWithTheTag);
+	}
+
 }

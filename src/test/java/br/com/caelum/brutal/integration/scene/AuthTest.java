@@ -5,6 +5,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import br.com.caelum.brutal.integration.pages.NewQuestionPage;
+
 public class AuthTest extends AuthTestBase{
 
 	@Test
@@ -21,6 +23,13 @@ public class AuthTest extends AuthTestBase{
 				.login("invalid@invalid.com.br","123456")
 				.isLoggedIn();
 		assertFalse(loggedIn);
+	}
+	
+	@Test
+	public void should_save_url_when_redirected_to_login(){
+		boolean hasRedirectUrl = home().toNewQuestionPageWhileNotLogged()
+				.hasRedirectUrl(NewQuestionPage.URL);
+		assertTrue(hasRedirectUrl);
 	}
 	
 }
