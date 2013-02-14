@@ -1,7 +1,7 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@attribute name="item" type="br.com.caelum.brutal.model.Commentable" required="true" %>
+<%@attribute name="item" type="br.com.caelum.brutal.model.interfaces.Commentable" required="true" %>
 <c:set var="ajaxResultName" value="new-comment-for-${item.typeName}-new-comment-${item.id}"/>
 <c:if test="${not empty item.comments}">
 	<ul class="comment-container" id="${ajaxResultName }">
