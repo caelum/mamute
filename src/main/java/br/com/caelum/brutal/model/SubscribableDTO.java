@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.model;
 
+import br.com.caelum.brutal.model.interfaces.Subscribable;
+
 public class SubscribableDTO {
 
     private final User user;

@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import br.com.caelum.brutal.model.Updatable;
 import br.com.caelum.brutal.model.Information;
 import br.com.caelum.brutal.model.UpdateStatus;
+import br.com.caelum.brutal.model.interfaces.Updatable;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component

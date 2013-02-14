@@ -1,4 +1,4 @@
-package br.com.caelum.brutal.model;
+package br.com.caelum.brutal.model.interfaces;
 
 import org.joda.time.DateTime;
 

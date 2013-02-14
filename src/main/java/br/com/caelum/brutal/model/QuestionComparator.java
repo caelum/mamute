@@ -2,6 +2,8 @@ package br.com.caelum.brutal.model;
 
 import java.util.Comparator;
 
+import br.com.caelum.brutal.model.interfaces.Updatable;
+
 public class QuestionComparator implements Comparator<Updatable> {
 
     @Override

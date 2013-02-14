@@ -18,6 +18,12 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
+import br.com.caelum.brutal.model.interfaces.Commentable;
+import br.com.caelum.brutal.model.interfaces.Subscribable;
+import br.com.caelum.brutal.model.interfaces.Touchable;
+import br.com.caelum.brutal.model.interfaces.Updatable;
+import br.com.caelum.brutal.model.interfaces.Votable;
+
 @Entity
 public class Answer implements Votable, Commentable, Updatable, Subscribable, Touchable {
 	@Id

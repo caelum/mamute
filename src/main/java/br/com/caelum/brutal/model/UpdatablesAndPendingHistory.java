@@ -6,6 +6,8 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 
+import br.com.caelum.brutal.model.interfaces.Updatable;
+
 public class UpdatablesAndPendingHistory {
 
     private TreeMap<Updatable, List<Information>> informationsByUpdatable;

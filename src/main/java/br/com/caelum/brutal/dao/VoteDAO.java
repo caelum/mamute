@@ -6,8 +6,8 @@ import org.hibernate.Session;
 import br.com.caelum.brutal.model.AnswerAndVotes;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
-import br.com.caelum.brutal.model.Votable;
 import br.com.caelum.brutal.model.Vote;
+import br.com.caelum.brutal.model.interfaces.Votable;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component

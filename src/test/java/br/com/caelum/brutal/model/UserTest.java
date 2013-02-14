@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.brutal.dao.TestCase;
+import br.com.caelum.brutal.model.interfaces.Updatable;
 
 public class UserTest extends TestCase{
     

@@ -12,6 +12,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.infra.Digester;
+import br.com.caelum.brutal.model.interfaces.Identifiable;
+import br.com.caelum.brutal.model.interfaces.Updatable;
 
 @Table(name="Users")
 @Entity

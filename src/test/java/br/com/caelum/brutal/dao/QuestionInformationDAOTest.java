@@ -10,10 +10,10 @@ import br.com.caelum.brutal.model.Information;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.QuestionInformationBuilder;
-import br.com.caelum.brutal.model.Updatable;
 import br.com.caelum.brutal.model.UpdatablesAndPendingHistory;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.model.interfaces.Updatable;
 
 public class QuestionInformationDAOTest extends DatabaseTestCase {
 

@@ -18,6 +18,8 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
+import br.com.caelum.brutal.model.interfaces.Taggable;
+
 @Entity
 public class QuestionInformation implements Information, Taggable {
 

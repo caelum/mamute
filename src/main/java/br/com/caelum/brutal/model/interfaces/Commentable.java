@@ -1,7 +1,10 @@
-package br.com.caelum.brutal.model;
+package br.com.caelum.brutal.model.interfaces;
 
 import java.io.Serializable;
 import java.util.List;
+
+import br.com.caelum.brutal.model.Comment;
+
 
 public interface Commentable {
 
