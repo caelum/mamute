@@ -1,7 +1,5 @@
 package br.com.caelum.brutal.providers;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.hibernate.Session;
 
 import br.com.caelum.vraptor.Intercepts;
@@ -12,16 +10,17 @@ import br.com.caelum.vraptor.util.hibernate.HibernateTransactionInterceptor;
 @Intercepts
 public class TransactionInterceptor extends HibernateTransactionInterceptor {
 
-    private final HttpServletRequest request;
 
-	public TransactionInterceptor(Session session, Validator validator, HttpServletRequest request) {
+	public TransactionInterceptor(Session session, Validator validator) {
         super(session, validator);
-        this.request = request;
     }
-    
+
+	/**
+	 * to avoid misterious bugs, every transaction should be inside a transaction, either get or post
+	 */
     @Override
     public boolean accepts(ResourceMethod method) {
-    	return request.getMethod().equals("POST") || method.containsAnnotation(RequiresTransaction.class);
+    	return true;
     }
     
 }

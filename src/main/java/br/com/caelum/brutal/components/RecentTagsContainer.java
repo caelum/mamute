@@ -5,8 +5,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.classic.Session;
 import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.dao.TagDAO;
@@ -23,6 +23,7 @@ public class RecentTagsContainer {
 	
 	public RecentTagsContainer(SessionFactory sf) {
 		this.sf = sf;
+		
 	}
 
 	public List<TagUsage> getRecentTagsUsage() {
@@ -30,11 +31,18 @@ public class RecentTagsContainer {
 	}
 	
 	@PostConstruct
-	public void updateRecentTagsUsage() {
-		Session session = sf.openSession();
-		TagDAO tags = new TagDAO(session);
-		this.recentTagsUsage = tags.getRecentTagsSince(new DateTime().minusMonths(3));
-		session.close();
+	public void init() {
+	    // we need to do this anyway, sorry
+	    Session session = sf.openSession();
+	    session.beginTransaction();
+	    update(session);
+	    session.getTransaction().commit();
+	    session.close();
+	}
+	
+	public void update(Session session) {
+	    TagDAO tags = new TagDAO(session);
+	    this.recentTagsUsage = tags.getRecentTagsSince(new DateTime().minusMonths(3));
 	}
 	
 	@PreDestroy

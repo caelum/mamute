@@ -33,7 +33,7 @@ public class ListController {
 	@Get("/")
 	public void home() {
 		result.include("questions", questions.all());
-		result.include("recentTags", tags.getRecentTagsSince(new DateTime().minusMonths(3)));
+		result.include("tagsUsage", recentTagsContainer.getRecentTagsUsage());
 	}
 	
 	@Get("/list/unsolved")
