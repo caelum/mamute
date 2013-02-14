@@ -121,8 +121,13 @@ p {
 
 /*Validations*/
 .error {
-	padding: 5px 0;
 	color: #8e0000;
+	margin: -13px 0 0 0;
+	padding: 0;
+}
+
+.required {
+	margin: 0 0 16px 0;
 }
 
 .popup.validation-error {
@@ -261,7 +266,7 @@ textarea {
 }
 
 .user-form .text-input {
-	margin-bottom: 8px;
+	margin: 0 0 16px 0;
 }
 
 .user-form input[type="submit"] {
@@ -636,7 +641,7 @@ textarea {
 	width: 100%;
 }
 
-.login-or-signup label {
+.login-or-signup label:not(.error) {
 	margin: 5px 0 8px 0;
 }
 
@@ -647,7 +652,7 @@ textarea {
 }
 
 .login-or-signup .text-input {
-	margin: 0;
+	margin: 0 0 16px 0;
 }
 
 .login-or-signup .signup {
