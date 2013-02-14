@@ -8,7 +8,7 @@ $(".autocomplete").keyup(function(){
 });
 
 $("*:not(.autocomplete)").click(function(){
-	$(".autocompleted-tags").removeClass("active");
+	$(".autocompleted-tags").addClass("hidden");
 });
 
 function suggestsAutoComplete(target, input){

@@ -503,7 +503,7 @@ textarea {
 	font-size: 12px;
 }
 
-.autocompleted-tags.active {
+.autocompleted-tags {
 	border: 1px solid #000;
 	z-index: 999;
 	position: absolute;
