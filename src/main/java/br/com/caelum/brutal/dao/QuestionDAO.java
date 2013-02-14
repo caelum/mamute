@@ -35,7 +35,7 @@ public class QuestionDAO {
 		return "q.voteCount > -5";
 	}
 
-	public List<Question> unanswered() {
+	public List<Question> unsolved() {
 		return session.createQuery("from Question as  q where " + spamFilter() + " and (q.solution is null) order by q.lastUpdatedAt desc").setMaxResults(50).list();
 	}
 

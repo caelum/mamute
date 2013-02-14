@@ -36,9 +36,9 @@ public class ListController {
 		result.include("tagsUsage", tags.getRecentTagsUsageSince(new DateTime().minusHours(3)));
 	}
 	
-	@Get("/list/unanswered")
-	public void unanswered() {
-		result.include("questions", questions.unanswered());
+	@Get("/list/unsolved")
+	public void unsolved() {
+		result.include("questions", questions.unsolved());
 		result.include("tagsUsage", tags.getRecentTagsUsageSince(new DateTime().minusMonths(3)));
 		result.use(page()).of(ListController.class).home();
 	}

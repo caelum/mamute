@@ -48,7 +48,7 @@
 		<h1 class="logo"><a href="<c:url value="/"/>">Logo do Brutal</a></h1>
 		<ul class="nav-items">
 			<li class="nav-item"><a class="button" href="<c:url value="/"/>"><fmt:message key="menu.questions"/></a></li> 
-			<li class="nav-item"><a class="button unsolved" href="<c:url value="/list/unanswered"/>"><fmt:message key="menu.unanswered"/></a></li>
+			<li class="nav-item"><a class="button unsolved" href="<c:url value="/list/unsolved"/>"><fmt:message key="menu.unsolved"/></a></li>
 			<li class="ask nav-item"><a class="button ask-a-question" href='<c:url value="/question/ask" />'><fmt:message key="question.ask" /></a></li>
 		</ul>
 </nav>
