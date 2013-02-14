@@ -2,6 +2,7 @@ package br.com.caelum.brutal.integration.pages;
 
 import static org.openqa.selenium.By.tagName;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class Home extends PageObject {
@@ -48,6 +49,11 @@ public class Home extends PageObject {
 	public QuestionPage toFirstQuestionPage() {
 		byClassName("item-title").findElement(tagName("a")).click();
 		return new QuestionPage(driver);
+	}
+
+	public UnsolvedListPage toUnsolvedList() {
+		byClassName("main-nav").findElement(By.className("unsolved")).click();
+		return new UnsolvedListPage(driver);
 	}
 
 
