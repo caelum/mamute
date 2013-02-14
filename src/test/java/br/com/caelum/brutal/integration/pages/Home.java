@@ -64,12 +64,12 @@ public class Home extends PageObject {
 		return new LoginPage(driver);
 	}
 
-	public WithTagList toWithTagList(String tag) {
+	public WithTagListPage toWithTagList(String tag) {
 		List<WebElement> tags = allByClassName("tag");
 		for (WebElement currentTag : tags) {
 			if(currentTag.getText().equals(tag)){
 				currentTag.click();
-				return new WithTagList(driver);
+				return new WithTagListPage(driver);
 			}
 		}
 		throw new RuntimeException("Tag not found: "+tag);

@@ -7,9 +7,9 @@ import java.util.List;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class WithTagList extends PageObject{
+public class WithTagListPage extends PageObject{
 
-	public WithTagList(WebDriver driver) {
+	public WithTagListPage(WebDriver driver) {
 		super(driver);
 	}
 
