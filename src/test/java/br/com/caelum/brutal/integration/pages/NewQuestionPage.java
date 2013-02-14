@@ -3,7 +3,6 @@ package br.com.caelum.brutal.integration.pages;
 import java.util.List;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -30,13 +29,30 @@ public class NewQuestionPage extends PageObject {
 	}
 
 	public boolean hasAutoCompleteSuggestion(String tag) throws InterruptedException {
-		waitForElement(By.className("autocompleted-tag"));
-		List<WebElement> autoCompletedTags = allByClassName("autocompleted-tag");
-		for (WebElement autoCompletedTag : autoCompletedTags) {
-			String mydivText = (String) ((JavascriptExecutor)driver).executeScript("return arguments[0].innerText;", autoCompletedTag);
-			if(autoCompletedTag.getText().equals(tag)) return true;
-		}
-		return false;
+		WebElement autoCompletedTag = findAutoCompletedTag(tag);
+		return autoCompletedTag != null;
 	}
 
+
+	public NewQuestionPage selectAutoCompleteSuggestion(String tag) {
+		WebElement autoCompletedTag = findAutoCompletedTag(tag);
+		autoCompletedTag.click();
+		return this;
+	}
+
+	private WebElement findAutoCompletedTag(String tag) {
+		waitForElement(By.className("autocompleted-tag"));
+		List<WebElement> autoCompletedTags = allByClassName("autocompleted-tag");
+		WebElement rightAutoCompletedTag = null;
+		for (WebElement autoCompletedTag : autoCompletedTags) {
+			if(autoCompletedTag.getText().equals(tag)){
+				rightAutoCompletedTag = autoCompletedTag;
+			}
+		}
+		return rightAutoCompletedTag;
+	}
+
+	public boolean hasTag(String tag) {
+		return byName("tagNames").getAttribute("value").contains(tag);
+	}
 }

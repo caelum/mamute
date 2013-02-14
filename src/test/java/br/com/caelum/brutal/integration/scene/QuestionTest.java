@@ -44,5 +44,17 @@ public class QuestionTest extends AuthTestBase{
 				.hasAutoCompleteSuggestion("java");
 		assertTrue(hasAutoCompleteSuggestion);
 	}
+	
+	@Test
+	public void should_auto_complete_when_click() throws InterruptedException{
+		String completedTag = "java";
+		String tagChunk = "ja";
+		boolean autoCompleted = home()
+				.toNewQuestionPage()
+				.typeTags(tagChunk)
+				.selectAutoCompleteSuggestion(completedTag)
+				.hasTag(completedTag);
+		assertTrue(autoCompleted);
+	}
 
 }
