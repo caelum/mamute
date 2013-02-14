@@ -44,6 +44,10 @@ public abstract class TestCase {
         }
 	    return user;
 	}
-    
+
+    protected AnswerInformation answerInformation(String string, User otherUser, Answer answer) {
+        return new AnswerInformation(string, new LoggedUser(otherUser, null), answer, "comment");
+    }
+
 }
 

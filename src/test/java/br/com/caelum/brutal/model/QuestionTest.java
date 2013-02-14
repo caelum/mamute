@@ -73,10 +73,9 @@ public class QuestionTest  extends TestCase{
 		Question comoFaz = question("titulo", "descricao", artur);
 		QuestionInformation comoFazEditedInformation = new QuestionInformationBuilder().with(leo).build();
 		comoFaz.updateWith(comoFazEditedInformation);
-		comoFaz.approve(comoFazEditedInformation, moderator);
+		comoFaz.approve(comoFazEditedInformation);
 		
 		assertEquals(comoFaz.getLastTouchedBy().getId(), leo.getId());
-		assertEquals(UpdateStatus.EDITED, comoFaz.getHistory().get(0).getStatus());
 	}
 	
 }

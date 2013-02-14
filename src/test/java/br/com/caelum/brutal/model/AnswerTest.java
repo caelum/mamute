@@ -43,25 +43,10 @@ public class AnswerTest extends TestCase {
         Answer answer = answer("blablablab", question, author);
         
         Information approved = new AnswerInformation("blablabalblab", new LoggedUser(editUser, null), answer, "");
-        AnswerInformation old = answer.getInformation();
-        answer.approve(approved, moderator);
+        answer.approve(approved);
         
         assertEquals(approved, answer.getInformation());
         assertEquals(editUser, answer.getLastTouchedBy());
-        assertTrue(old.isEdited());
     }
 	
-	@Test
-	public void should_not_update_approve_from_non_moderator() throws Exception {
-	    Question question = question("question title", "description", author);
-	    Answer answer = answer("blablablab", question, author);
-	    AnswerInformation original = answer.getInformation();
-	    User nonModerator = user("nonmoderator", "nonmoderator", 4l);
-	    
-	    Information approved = new AnswerInformation("blablabalblab", new LoggedUser(editUser, null), answer, "");
-        answer.approve(approved, nonModerator);
-        
-	    assertEquals(original, answer.getInformation());
-	    assertEquals(author, answer.getLastTouchedBy());
-	}
 }

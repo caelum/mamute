@@ -132,4 +132,8 @@ public class AnswerInformation implements Information {
         return comment;
     }
 
+    public boolean isModerated() {
+        return moderation != null;
+    }
+
 }

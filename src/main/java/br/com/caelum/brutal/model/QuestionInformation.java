@@ -90,7 +90,7 @@ public class QuestionInformation implements Information, Taggable {
 	}
 
 	public void moderate(User moderator, UpdateStatus status) {
-		if(status == UpdateStatus.EDITED){
+		if (status == UpdateStatus.EDITED) {
 			this.status = status;
 			return;
 		}
@@ -100,6 +100,10 @@ public class QuestionInformation implements Information, Taggable {
 		}
 		this.status = status;
 		this.moderation = new Moderation(moderator);
+	}
+	
+	boolean isModerated() {
+	    return moderation != null;
 	}
 
 	private void setTitle(String title) {

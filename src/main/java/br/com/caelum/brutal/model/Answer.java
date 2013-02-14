@@ -206,19 +206,13 @@ public class Answer implements Votable, Commentable, Updatable, Subscribable, To
 		return lastTouchedBy;
 	}
 
-    public UpdateStatus approve(Information approved, User moderator) {
+    public UpdateStatus approve(Information approved) {
         if (!approved.getClass().getSimpleName().startsWith("AnswerInformation")) {
             throw new IllegalArgumentException("an answer can only approve an answer information");
         }
         AnswerInformation approvedAnswer = (AnswerInformation) approved;
-        UpdateStatus status = moderator.canUpdate(this);
-        
-        if (status != UpdateStatus.NO_NEED_TO_APPROVE)
-            return status;
         
         this.touchedBy(approvedAnswer.getAuthor());
-        approvedAnswer.moderate(moderator, UpdateStatus.APPROVED);
-        this.information.moderate(moderator, UpdateStatus.EDITED);
         setInformation(approvedAnswer);
         return UpdateStatus.APPROVED;
     }
@@ -229,6 +223,11 @@ public class Answer implements Votable, Commentable, Updatable, Subscribable, To
     
     public AnswerInformation getInformation() {
         return information;
+    }
+
+    @Override
+    public void moderateCurrentInformation(User moderator, UpdateStatus status) {
+        this.information.moderate(moderator, status);
     }
     
 

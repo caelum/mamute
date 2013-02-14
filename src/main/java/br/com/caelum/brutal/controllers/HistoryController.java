@@ -95,7 +95,7 @@ public class HistoryController {
         }
         
         refusePending(aprovedHistoryId, pending);
-        updatable.approve(approved, currentUser);
+        currentUser.approve(updatable, approved);
         
         result.redirectTo(this).unmoderated();
     }
