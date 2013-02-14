@@ -33,13 +33,13 @@ public class ListController {
 	@Get("/")
 	public void home() {
 		result.include("questions", questions.all());
-		result.include("tagsUsage", tags.getRecentTagsUsageSince(new DateTime().minusHours(3)));
+		result.include("recentTags", tags.getRecentTagsSince(new DateTime().minusMonths(3)));
 	}
 	
 	@Get("/list/unsolved")
 	public void unsolved() {
 		result.include("questions", questions.unsolved());
-		result.include("tagsUsage", tags.getRecentTagsUsageSince(new DateTime().minusMonths(3)));
+		result.include("recentTags", tags.getRecentTagsSince(new DateTime().minusMonths(3)));
 		result.use(page()).of(ListController.class).home();
 	}
 	
@@ -47,7 +47,7 @@ public class ListController {
 	public void withTag(String tagName) {
 		Tag tag = tags.findByName(tagName);
 		List<Question> questionsWithTag = questions.withTag(tag);
-		result.include("tagsUsage", tags.getRecentTagsUsageSince(new DateTime().minusMonths(3)));
+		result.include("recentTags", tags.getRecentTagsSince(new DateTime().minusMonths(3)));
 		result.include("questions", questionsWithTag);
 		result.use(page()).of(ListController.class).home();
 	}

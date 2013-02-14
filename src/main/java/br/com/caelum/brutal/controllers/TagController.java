@@ -5,6 +5,7 @@ import static br.com.caelum.vraptor.view.Results.json;
 import java.util.List;
 
 import br.com.caelum.brutal.dao.TagDAO;
+import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.TagUsage;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Resource;
@@ -23,7 +24,7 @@ public class TagController {
 	
 	@Get("/tagsLike/{tagChunk}")
 	public void getTagsLike(String tagChunk){
-		List<TagUsage> suggestions = tags.findTagsUsageLike(tagChunk);
-		result.use(json()).withoutRoot().from(suggestions).include("tag").serialize();
+		List<Tag> suggestions = tags.findTagsLike(tagChunk);
+		result.use(json()).withoutRoot().from(suggestions).serialize();
 	}
 }

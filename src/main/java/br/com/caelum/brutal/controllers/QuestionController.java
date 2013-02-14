@@ -71,7 +71,7 @@ public class QuestionController {
 		User author = currentUser.getCurrent();
 		result.include("currentVote", votes.previousVoteFor(questionId, author, Question.class));
 		result.include("answers", votes.previousVotesForAnswers(question, author));
-		result.include("questionTagsUsages", tags.findTagsUsageOf(question));
+		result.include("questionTags", question.getInformation().getTags());
 		result.include("question", question);
 	}
 

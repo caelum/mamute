@@ -28,6 +28,7 @@ public class TagDAO {
 			save(tag);
 			return tag;
 		}else{
+			save(loadedTag);
 			return loadedTag;
 		}
 	}
@@ -41,20 +42,11 @@ public class TagDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<TagUsage> findTagsUsageLike(String tagChunk) {
-		Query query = session.createQuery("select new br.com.caelum.brutal.model.TagUsage(tag, count(question)) from Question question " +
+	public List<Tag> findTagsLike(String tagChunk) {
+		Query query = session.createQuery("select tag from Question question " +
 				"join question.information.tags tag " +
-				"where tag.name like :tagChunk group by tag order by count(question) desc");
+				"where tag.name like :tagChunk group by tag order by tag.usageCount desc");
 		query.setString("tagChunk", "%"+tagChunk+"%");
-		return query.list();
-	}
-	
-	@SuppressWarnings("unchecked")
-	public List<TagUsage> findTagsUsageOf(Question question) {
-		Query query = session.createQuery("select new br.com.caelum.brutal.model.TagUsage(tag, count(question)) from Question question " +
-				"join question.information.tags tag " +
-				"where tag in (:questionTags) group by tag order by count(question) desc");
-		query.setParameterList("questionTags", question.getTags());
 		return query.list();
 	}
 
@@ -69,7 +61,7 @@ public class TagDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<TagUsage> getRecentTagsUsageSince(DateTime since) {
+	public List<TagUsage> getRecentTagsSince(DateTime since) {
 		Query query = session.createQuery("select new br.com.caelum.brutal.model.TagUsage(tag, count(question)) from Question question " +
 				"join question.information.tags tag " +
 				"where question.lastUpdatedAt > :since  group by tag order by count(question) desc");

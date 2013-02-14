@@ -233,7 +233,7 @@ public class Question extends Moderatable implements Votable, Commentable, Updat
 	public void enqueueChange(QuestionInformation newInformation, UpdateStatus status) {
 		if(status.equals(UpdateStatus.NO_NEED_TO_APPROVE)) {
 			this.touchedBy(newInformation.getAuthor());
-			this.information = newInformation;
+			setInformation(newInformation);
 		}
 		newInformation.setQuestion(this);
         newInformation.setInitStatus(status);
@@ -256,6 +256,14 @@ public class Question extends Moderatable implements Votable, Commentable, Updat
 	}
 	
 	private void setInformation(QuestionInformation information) {
+		if(this.information != null){
+			for (Tag tag : this.information.getTags()) {
+				tag.decrementUsage();
+			}
+		}
+		for (Tag tag : information.getTags()) {
+			tag.incrementUsage();
+		}
         this.information = information;
     }
 	

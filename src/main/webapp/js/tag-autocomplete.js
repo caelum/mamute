@@ -17,8 +17,8 @@ function suggestsAutoComplete(target, input){
 		if(suggestions.length > 0){
 			var suggestionElements = "";
 			$(suggestions).each(function(index, suggestion){
-				suggestionElements += "<li><a class='tag autocompleted-tag'>"+suggestion.tag.name+"</a> x "+ suggestion.usage;
-				suggestionElements += "<div class='tag-description'>"+suggestion.tag.description+"</div></li>";
+				suggestionElements += "<li><a class='tag autocompleted-tag'>"+suggestion.name+"</a> x "+ suggestion.usageCount;
+				suggestionElements += "<div class='tag-description'>"+suggestion.description+"</div></li>";
 			});
 			$(target).html(suggestionElements).removeClass("hidden");
 			$('.autocompleted-tags li').click(function(){insertTagIntoTextArea($(this).find(".tag").text())});
