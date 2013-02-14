@@ -10,8 +10,6 @@ import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.validator.I18nMessage;
-import br.com.caelum.vraptor.view.Results;
 
 @Resource
 public class CommentController {
