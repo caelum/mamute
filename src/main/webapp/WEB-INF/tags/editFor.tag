@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@attribute name="item" type="br.com.caelum.brutal.model.Updatable" required="true" %>
+<%@attribute name="item" type="br.com.caelum.brutal.model.interfaces.Updatable" required="true" %>
 <%@attribute name="field" type="java.lang.String" required="true" %>
 <%@attribute name="value" required="true" %>
 <%@attribute name="ajaxResult" required="true" %>
