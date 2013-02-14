@@ -9,10 +9,8 @@ import br.com.caelum.brutal.dao.ModeratableDao;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.QuestionInformationDAO;
 import br.com.caelum.brutal.model.Answer;
-import br.com.caelum.brutal.model.AnswerInformation;
 import br.com.caelum.brutal.model.Information;
 import br.com.caelum.brutal.model.Question;
-import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.UpdatablesAndPendingHistory;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
@@ -69,26 +67,17 @@ public class HistoryController {
 	}
 
     @ModeratorAccess
-    @Post("/questions/published/{questionId}/{aprovedHistoryId}")
-    public void publishQuestion(Long questionId, Long aprovedHistoryId) {
-        Information approved = informations.getById(aprovedHistoryId, QuestionInformation.class);
-        Moderatable moderatable = moderatables.getById(questionId, Question.class);
-        List<Information> pending = informations.pendingFor(questionId, Question.class);
-        
-        
-        approve(aprovedHistoryId, approved, moderatable, pending);
-        result.redirectTo(this).unmoderated();
-    }
-    
-    @ModeratorAccess
-    @Post("/answers/published/{answerId}/{aprovedHistoryId}")
-    public void publishAnswer(Long answerId, Long aprovedHistoryId) {
-        Information approved = informations.getById(aprovedHistoryId, AnswerInformation.class);
-        Moderatable moderatable = moderatables.getById(answerId, Answer.class);
-        List<Information> pending = informations.pendingFor(answerId, Answer.class);
-        
-        approve(aprovedHistoryId, approved, moderatable, pending);
-        result.redirectTo(this).unmoderated();
+    @Post("/publish/{moderatableType}")
+    public void publish(Long moderatableId, String moderatableType, Long aprovedInformationId,  String aprovedInformationType) throws ClassNotFoundException {
+    	Class<?> moderatableClazz = Class.forName("br.com.caelum.brutal.model." + moderatableType);
+		Class<?> aprovedInformationClazz = Class.forName("br.com.caelum.brutal.model." + aprovedInformationType);
+    	
+    	Information approved = informations.getById(aprovedInformationId, aprovedInformationClazz);
+    	Moderatable moderatable = moderatables.getById(moderatableId, moderatableClazz);
+    	List<Information> pending = informations.pendingFor(moderatableId, moderatableClazz);
+    	
+    	approve(aprovedInformationId, approved, moderatable, pending);
+    	result.redirectTo(this).unmoderated();
     }
 
     private void approve(Long aprovedHistoryId, Information approved, Moderatable moderatable,

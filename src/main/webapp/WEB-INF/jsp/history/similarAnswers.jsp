@@ -12,7 +12,7 @@
 <c:forEach items="${histories}" var="information">
 
 	<div class="history-form hidden">
-		<form method="post" class="moderate-form" action="${linkTo[HistoryController].publishAnswer[information.answer.id][information.id]}">
+		<form method="post" class="moderate-form" action="${linkTo[HistoryController].publish}${information.answer.typeName}">
 			<h2>
 				${information.author.name} às
 				<tags:jodaTime pattern="DD-MM-YYYY HH:mm"
@@ -29,7 +29,12 @@
 			<p>
 				${information.comment}
 			</p>
+				
 			
+			<input type="hidden" name="moderatableId" value="${information.answer.id}"/>
+			<input type="hidden" name="aprovedInformationId" value="${information.id}"/>
+			<input type="hidden" name="aprovedInformationType" value="AnswerInformation"/>			
+
 			<input type="submit" value='<fmt:message key="moderation.accept" />' />
 	
 		</form>
