@@ -68,6 +68,7 @@ public class HistoryController {
 	@Get("/answers/history/{answerId}/similar")
 	public void similarAnswers(Long answerId) {
 	    result.include("histories", updatables.pendingFor(answerId, Answer.class));
+	    result.include("answer", answers.getById(answerId));
 	}
 
     @ModeratorAccess

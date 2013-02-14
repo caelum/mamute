@@ -1,4 +1,4 @@
-<div class="history-original-question">
+<div class="history-original">
 	<tags:question taggable="${question}"/>
 </div>
 

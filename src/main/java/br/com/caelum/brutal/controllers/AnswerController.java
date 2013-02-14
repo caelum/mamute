@@ -42,7 +42,7 @@ public class AnswerController {
 		Answer original = answers.getById(id);
 		UpdateStatus status = original.updateWith(information);
 		answers.save(original);
-		result.include("status", status);
+		result.include("status", status.getMessage());
 	}
 	
 	@Post("/question/answer/{question.id}")

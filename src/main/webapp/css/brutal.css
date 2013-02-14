@@ -463,10 +463,28 @@ textarea {
 	margin-bottom: 20px;
 }
 
-.history-original-question {
+.history-original {
 	margin-bottom: 30px;
 	overflow: hidden;
 	width: 80%;
+}
+
+.original-answer {
+	background-color: #FCF8E3; 
+	color: #C09853;
+	font-size: 14px;
+	line-height: 17px;
+	padding: 17px 10px;
+}
+
+.original-answer p {
+	margin: 0;
+}
+
+.original-answer div {
+	font-size: 11px;
+	font-weight: bold;
+	margin-bottom: 10px;
 }
 
 .notices {

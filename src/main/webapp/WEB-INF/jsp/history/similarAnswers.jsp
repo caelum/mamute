@@ -1,5 +1,15 @@
+<div class="history-original">
+	<tags:question taggable="${answer.question}"/>
+</div>
+
+<div class="history-original original-answer">
+	<div><fmt:message key="moderation.original_answer"/></div>
+	${answer.markedDescription}
+</div>
+
+<h2 class="history-title"><fmt:message key="moderation.version"/>:</h2>
 <select class="question-history-select">
-	<option>selecione a versão</option>
+	<option><fmt:message key="moderation.select_version"/></option>
 	<c:forEach items="${histories}" var="information" varStatus="status">
 		<option value="${status.index}">
 			${information.author.name} às
@@ -11,27 +21,25 @@
 
 <c:forEach items="${histories}" var="information">
 
-	<div class="history-form hidden">
-		<form method="post" class="moderate-form" action="${linkTo[HistoryController].publishAnswer[information.answer.id][information.id]}">
-			<h2>
-				${information.author.name} às
-				<tags:jodaTime pattern="DD-MM-YYYY HH:mm"
-					time="${information.createdAt}"></tags:jodaTime>
-			</h2>
-			<p>
-				<fmt:message key="newquestion.title"/>:
-				${information.answer.question.title}
-			</p>
-			<p>
-				${information.markedDescription}
-			</p>
-			
-			<p>
+	<form method="post" class="history-form moderate-form hidden" action="${linkTo[HistoryController].publishAnswer[information.answer.id][information.id]}">
+	
+		<c:if test="${not empty information.comment}">
+			<h2 class="history-title page-title"><fmt:message key="moderation.comment"/></h2>
+			<p class="post-text">
 				${information.comment}
 			</p>
-			
-			<input type="submit" value='<fmt:message key="moderation.accept" />' />
+		</c:if>
 	
-		</form>
-	</div>
+		<ul class="post-touchs">
+			<li class="touch author-touch">
+				<tags:completeUser user="${information.author}" date="${information.createdAt}"/>
+			</li>
+		</ul>
+		
+		<div class="post-text">
+			${information.markedDescription}
+		</div>
+		
+		<input type="submit" class="post-submit big-submit" value='<fmt:message key="moderation.accept" />' />
+	</form>
 </c:forEach>
