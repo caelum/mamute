@@ -8,5 +8,5 @@
 </section>
 <aside class="sidebar">
 	<h3 class="title section-title"><fmt:message key="tags.recent"/></h3>
-	<tags:tagsUsage tagsUsage="${tagsUsage}"/>
+	<tags:recentTagsUsage tagsUsage="${recentTags}"/>
 </aside>

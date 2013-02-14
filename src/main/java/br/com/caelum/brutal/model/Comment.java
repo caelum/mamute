@@ -112,9 +112,4 @@ public class Comment implements Updatable, Subscribable {
 		return lastUpdatedAt;
 	}
 
-    @Override
-    public UpdateStatus approve(Information approved) {
-        throw new UnsupportedOperationException();
-    }
-
 }

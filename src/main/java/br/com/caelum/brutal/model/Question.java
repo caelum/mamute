@@ -19,13 +19,14 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.model.interfaces.Commentable;
+import br.com.caelum.brutal.model.interfaces.Moderatable;
 import br.com.caelum.brutal.model.interfaces.Taggable;
 import br.com.caelum.brutal.model.interfaces.Touchable;
 import br.com.caelum.brutal.model.interfaces.Updatable;
 import br.com.caelum.brutal.model.interfaces.Votable;
 
 @Entity
-public class Question implements Votable, Commentable, Updatable, Touchable, Taggable {
+public class Question extends Moderatable implements Votable, Commentable, Updatable, Touchable, Taggable {
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -232,7 +233,7 @@ public class Question implements Votable, Commentable, Updatable, Touchable, Tag
 	public void enqueueChange(QuestionInformation newInformation, UpdateStatus status) {
 		if(status.equals(UpdateStatus.NO_NEED_TO_APPROVE)) {
 			this.touchedBy(newInformation.getAuthor());
-			this.information = newInformation;
+			setInformation(newInformation);
 		}
 		newInformation.setQuestion(this);
         newInformation.setInitStatus(status);
@@ -255,11 +256,26 @@ public class Question implements Votable, Commentable, Updatable, Touchable, Tag
 	}
 	
 	private void setInformation(QuestionInformation information) {
+		if(this.information != null){
+			for (Tag tag : this.information.getTags()) {
+				tag.decrementUsage();
+			}
+		}
+		for (Tag tag : information.getTags()) {
+			tag.incrementUsage();
+		}
         this.information = information;
     }
 	
 	public DateTime getCreatedAt() {
 		return createdAt;
+	}
+
+	@Override
+	protected void updateWith(Information approved) {
+		QuestionInformation approvedQuestion = (QuestionInformation) approved;
+		this.touchedBy(approvedQuestion.getAuthor());
+		this.information = approvedQuestion;		
 	}
 
 }

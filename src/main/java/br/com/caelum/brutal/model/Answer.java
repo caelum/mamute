@@ -19,13 +19,14 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.model.interfaces.Commentable;
+import br.com.caelum.brutal.model.interfaces.Moderatable;
 import br.com.caelum.brutal.model.interfaces.Subscribable;
 import br.com.caelum.brutal.model.interfaces.Touchable;
 import br.com.caelum.brutal.model.interfaces.Updatable;
 import br.com.caelum.brutal.model.interfaces.Votable;
 
 @Entity
-public class Answer implements Votable, Commentable, Updatable, Subscribable, Touchable {
+public class Answer extends Moderatable implements Votable, Commentable, Updatable, Subscribable, Touchable{
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -212,24 +213,15 @@ public class Answer implements Votable, Commentable, Updatable, Subscribable, To
 		return lastTouchedBy;
 	}
 
-    public UpdateStatus approve(Information approved) {
-        if (!approved.getClass().getSimpleName().startsWith("AnswerInformation")) {
-            throw new IllegalArgumentException("an answer can only approve an answer information");
-        }
-        AnswerInformation approvedAnswer = (AnswerInformation) approved;
-        
-        this.touchedBy(approvedAnswer.getAuthor());
-        setInformation(approvedAnswer);
-        return UpdateStatus.APPROVED;
-    }
-
-    private void setInformation(AnswerInformation approved) {
-        this.information = approved;
-    }
-    
     public AnswerInformation getInformation() {
         return information;
     }
 
+	@Override
+	protected void updateWith(Information approved) {
+		AnswerInformation approvedAnswer = (AnswerInformation)approved;
+		this.touchedBy(approvedAnswer.getAuthor());
+		this.information = approvedAnswer;
+	}
 
 }

@@ -13,6 +13,7 @@ import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.infra.Digester;
 import br.com.caelum.brutal.model.interfaces.Identifiable;
+import br.com.caelum.brutal.model.interfaces.Moderatable;
 import br.com.caelum.brutal.model.interfaces.Updatable;
 
 @Table(name="Users")
@@ -137,9 +138,9 @@ public class User implements Identifiable {
 		return password;
 	}
 	
-	public UpdateStatus approve(Updatable updatable, Information approvedInfo) {
-	    if (this.canUpdate(updatable) == UpdateStatus.NO_NEED_TO_APPROVE) {
-	        updatable.approve(approvedInfo);
+	public UpdateStatus approve(Moderatable moderatable, Information approvedInfo) {
+	    if (this.isModerator()) {
+	        moderatable.approve(approvedInfo);
 	        approvedInfo.moderate(this, UpdateStatus.APPROVED);
 	    }
         return UpdateStatus.REFUSED;

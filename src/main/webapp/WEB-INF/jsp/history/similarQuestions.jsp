@@ -16,7 +16,7 @@
 
 <c:forEach items="${histories}" var="information">
 
-	<form method="post" class="history-form moderate-form hidden" action="${linkTo[HistoryController].publishQuestion[information.question.id][information.id]}">
+	<form method="post" class="history-form moderate-form hidden" action="${linkTo[HistoryController].publish}${information.question.typeName}">
 		
 		<c:if test="${not empty information.comment}">
 			<h2 class="history-title page-title"><fmt:message key="moderation.comment"/></h2>
@@ -32,8 +32,11 @@
 				<tags:completeUser user="${information.author}" date="${information.createdAt}"/>
 			</li>
 		</ul>
+
 		<br class="clear"/>
-		
+		<input type="hidden" name="moderatableId" value="${information.question.id}"/>
+		<input type="hidden" name="aprovedInformationId" value="${information.id}"/>
+		<input type="hidden" name="aprovedInformationType" value="QuestionInformation"/>
 		<input type="submit" class="post-submit big-submit" value='<fmt:message key="moderation.accept" />' />
 	</form>
 	

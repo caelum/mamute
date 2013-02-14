@@ -2,19 +2,20 @@ package br.com.caelum.brutal.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 import br.com.caelum.brutal.model.Information;
+import br.com.caelum.brutal.model.UpdatablesAndPendingHistory;
 import br.com.caelum.brutal.model.UpdateStatus;
-import br.com.caelum.brutal.model.interfaces.Updatable;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
-public class UpdatableInformationDAO {
+public class InformationDAO {
 
     private final Session session;
 
-    public UpdatableInformationDAO(Session session) {
+    public InformationDAO(Session session) {
         this.session = session;
     }
 
@@ -29,13 +30,20 @@ public class UpdatableInformationDAO {
                 .list();
     }
 
-    public Information getUpdatableInfoById(Long id, Class<?> clazz) {
+	@SuppressWarnings("unchecked")
+	public UpdatablesAndPendingHistory pendingByUpdatables(Class<?> clazz) {
+		String hql = "select updatable, info from "+ clazz.getSimpleName() +" updatable " +
+				"join updatable.history info " +
+				"where info.status = :pending order by info.createdAt asc";
+		Query query = session.createQuery(hql);
+		query.setParameter("pending", UpdateStatus.PENDING);
+		List<Object[]> results = query.list();
+		UpdatablesAndPendingHistory pending = new UpdatablesAndPendingHistory(results);
+		return pending;
+	}
+	
+    public Information getById(Long id, Class<?> clazz) {
         return (Information) session.load(clazz, id);
     }
-
-    public Updatable getUpdatableById(Long id, Class<?> clazz) {
-        return (Updatable) session.load(clazz, id);
-    }
-
 
 }

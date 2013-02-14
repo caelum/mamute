@@ -29,5 +29,5 @@
 </section>
 <aside class="sidebar">
 	<h3 class="title section-title"><fmt:message key="question.tags"/></h3>
-	<tags:tagsUsage tagsUsage="${questionTagsUsages}"/>
+	<tags:tagsUsage tags="${questionTags}"/>
 </aside>

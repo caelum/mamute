@@ -21,12 +21,12 @@ insert into Question (voteCount, id, lastTouchedBy_id, lastUpdatedAt, createdAt,
 insert into Question (voteCount, id, lastTouchedBy_id, lastUpdatedAt, createdAt, author_id, views, information_id) values (0, 5, 1, '20130121', '20130101', 5, 0,5);
 insert into Question (voteCount, id, lastTouchedBy_id, lastUpdatedAt, createdAt, author_id, views, information_id) values (0, 6, 1, '20130121', '20130101', 6, 0,6);
 
-insert into Tag (id, createdAt, description, name, author_id) values (1, '20130101', 'Para questions relacionadas à dança koreana', 'danca-koreana', 1);
-insert into Tag (id, createdAt, description, name, author_id) values (2, '20130101', 'Para questions relacionadas à anime', 'anime', 2);
-insert into Tag (id, createdAt, description, name, author_id) values (3, '20130101', 'Para questions relacionadas ao temor de pegar o saleiro da mão dos outros', 'saleiro', 3);
-insert into Tag (id, createdAt, description, name, author_id) values (4, '20130101', 'Para questions relacionadas à alcoolismo', 'alcoolismo', 4);
-insert into Tag (id, createdAt, description, name, author_id) values (5, '20130101', 'Para questions relacionadas à pessoas mal-humoradas', 'mal-humor', 5);
-insert into Tag (id, createdAt, description, name, author_id) values (6, '20130101', 'Para questions relacionadas à sistemas marotos', 'sistemas-marotos', 6);
+insert into Tag (id, usageCount, createdAt, description, name, author_id) values (1, 2, '20130101', 'Para questions relacionadas à dança koreana', 'danca-koreana', 1);
+insert into Tag (id, usageCount, createdAt, description, name, author_id) values (2, 6, '20130101', 'Para questions relacionadas à anime', 'anime', 2);
+insert into Tag (id, usageCount, createdAt, description, name, author_id) values (3, 0, '20130101', 'Para questions relacionadas ao temor de pegar o saleiro da mão dos outros', 'saleiro', 3);
+insert into Tag (id, usageCount, createdAt, description, name, author_id) values (4, 3, '20130101', 'Para questions relacionadas à alcoolismo', 'alcoolismo', 4);
+insert into Tag (id, usageCount, createdAt, description, name, author_id) values (5, 4, '20130101', 'Para questions relacionadas à pessoas mal-humoradas', 'mal-humor', 5);
+insert into Tag (id, usageCount, createdAt, description, name, author_id) values (6, 0, '20130101', 'Para questions relacionadas à sistemas marotos', 'sistemas-marotos', 6);
 
 insert into QuestionInformation_Tag (QuestionInformation_id, tags_id) values (1,1);
 insert into QuestionInformation_Tag (QuestionInformation_id, tags_id) values (2,2);

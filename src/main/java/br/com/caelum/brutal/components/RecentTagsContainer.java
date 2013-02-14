@@ -33,7 +33,7 @@ public class RecentTagsContainer {
 	public void updateRecentTagsUsage() {
 		Session session = sf.openSession();
 		TagDAO tags = new TagDAO(session);
-		this.recentTagsUsage = tags.getRecentTagsUsageSince(new DateTime().minusMonths(3));
+		this.recentTagsUsage = tags.getRecentTagsSince(new DateTime().minusMonths(3));
 		session.close();
 	}
 	
