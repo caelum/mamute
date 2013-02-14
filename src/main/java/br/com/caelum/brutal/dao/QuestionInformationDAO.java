@@ -23,17 +23,6 @@ public class QuestionInformationDAO {
 	    return (QuestionInformation) session.load(QuestionInformation.class, id);
 	}
 
-	@SuppressWarnings("unchecked")
-	public UpdatablesAndPendingHistory pendingByUpdatables() {
-		String hql = "select question, question_info from Question question " +
-				"join question.history question_info " +
-				"where question_info.status = :pending order by question_info.createdAt asc";
-		Query query = session.createQuery(hql);
-		query.setParameter("pending", UpdateStatus.PENDING);
-		List<Object[]> results = query.list();
-		UpdatablesAndPendingHistory pending = new UpdatablesAndPendingHistory(results);
-		return pending;
-	}
 
 	@SuppressWarnings("unchecked")
 	public List<QuestionInformation> from(Long questionId) {

@@ -17,17 +17,5 @@ public class AnswerInformationDAO {
     public AnswerInformationDAO(Session session) {
         this.session = session;
     }
-    
-    @SuppressWarnings("unchecked")
-    public UpdatablesAndPendingHistory pendingByUpdatables() {
-        String hql = "select answer, answer_info from Answer answer " +
-                "join answer.history answer_info " +
-                "where answer_info.status = :pending order by answer_info.createdAt asc";
-        Query query = session.createQuery(hql);
-        query.setParameter("pending", UpdateStatus.PENDING);
-        List<Object[]> results = query.list();
-        UpdatablesAndPendingHistory pending = new UpdatablesAndPendingHistory(results);
-        return pending;
-    }
 
 }

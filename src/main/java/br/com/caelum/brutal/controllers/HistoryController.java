@@ -3,11 +3,9 @@ package br.com.caelum.brutal.controllers;
 import java.util.List;
 
 import br.com.caelum.brutal.auth.ModeratorAccess;
-import br.com.caelum.brutal.dao.AnswerInformationDAO;
 import br.com.caelum.brutal.dao.InformationDAO;
 import br.com.caelum.brutal.dao.ModeratableDao;
 import br.com.caelum.brutal.dao.QuestionDAO;
-import br.com.caelum.brutal.dao.QuestionInformationDAO;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.Information;
 import br.com.caelum.brutal.model.Question;
@@ -25,21 +23,16 @@ import br.com.caelum.vraptor.view.Results;
 public class HistoryController {
 
 	private final Result result;
-	private final QuestionInformationDAO questionEdits;
     private final QuestionDAO questions;
     private final User currentUser;
-    private final AnswerInformationDAO answerEdits;
     private final InformationDAO informations;
 	private final ModeratableDao moderatables;
 
-	public HistoryController(Result result, QuestionInformationDAO edits, QuestionDAO questions, 
-	        User currentUser, AnswerInformationDAO answerEdits, InformationDAO informations,
-	        ModeratableDao moderatables) {
+	public HistoryController(Result result, QuestionDAO questions, User currentUser,
+			InformationDAO informations, ModeratableDao moderatables) {
 		this.result = result;
-		this.questionEdits = edits;
         this.questions = questions;
         this.currentUser = currentUser;
-        this.answerEdits = answerEdits;
         this.informations = informations;
 		this.moderatables = moderatables;
 	}
@@ -47,8 +40,8 @@ public class HistoryController {
 	@ModeratorAccess
 	@Get("/history")
 	public void unmoderated() {
-		UpdatablesAndPendingHistory pendingQuestions = questionEdits.pendingByUpdatables();
-		UpdatablesAndPendingHistory pendingAnswers = answerEdits.pendingByUpdatables();
+		UpdatablesAndPendingHistory pendingQuestions = informations.pendingByUpdatables(Question.class);
+		UpdatablesAndPendingHistory pendingAnswers = informations.pendingByUpdatables(Answer.class);
 		result.include("pendingQuestions", pendingQuestions);
 		result.include("pendingAnswers", pendingAnswers);
 	}
