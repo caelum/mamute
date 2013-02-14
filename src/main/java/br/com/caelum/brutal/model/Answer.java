@@ -231,10 +231,5 @@ public class Answer implements Votable, Commentable, Updatable, Subscribable, To
         return information;
     }
 
-    @Override
-    public void moderateCurrentInformation(User moderator, UpdateStatus status) {
-        this.information.moderate(moderator, status);
-    }
-    
 
 }

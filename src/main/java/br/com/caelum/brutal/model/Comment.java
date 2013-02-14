@@ -117,8 +117,4 @@ public class Comment implements Updatable, Subscribable {
         throw new UnsupportedOperationException();
     }
 
-    @Override
-    public void moderateCurrentInformation(User user, UpdateStatus edited) {
-        throw new UnsupportedOperationException();
-    }
 }

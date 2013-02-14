@@ -12,6 +12,4 @@ public interface Updatable extends Identifiable {
 
     UpdateStatus approve(Information approved);
 
-    void moderateCurrentInformation(User user, UpdateStatus edited);
-
 }

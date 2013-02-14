@@ -244,7 +244,7 @@ public class Question implements Votable, Commentable, Updatable, Touchable, Tag
             throw new IllegalArgumentException("an question can only approve an question information");
         }
 	    QuestionInformation approvedQuestion = (QuestionInformation) choosenVersion;
-	    
+
 		this.touchedBy(approvedQuestion.getAuthor());
 	    setInformation(approvedQuestion);
 	    return UpdateStatus.APPROVED;
@@ -262,10 +262,4 @@ public class Question implements Votable, Commentable, Updatable, Touchable, Tag
 		return createdAt;
 	}
 
-    @Override
-    public void moderateCurrentInformation(User moderator, UpdateStatus edited) {
-        this.information.moderate(moderator, edited);
-    }
-
-    
 }

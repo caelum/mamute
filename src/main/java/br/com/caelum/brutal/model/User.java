@@ -139,7 +139,6 @@ public class User implements Identifiable {
 	
 	public UpdateStatus approve(Updatable updatable, Information approvedInfo) {
 	    if (this.canUpdate(updatable) == UpdateStatus.NO_NEED_TO_APPROVE) {
-	        updatable.moderateCurrentInformation(this, UpdateStatus.EDITED);
 	        updatable.approve(approvedInfo);
 	        approvedInfo.moderate(this, UpdateStatus.APPROVED);
 	    }
