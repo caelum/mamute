@@ -35,9 +35,9 @@ insert into QuestionInformation_Tag (QuestionInformation_id, tags_id) values (4,
 insert into QuestionInformation_Tag (QuestionInformation_id, tags_id) values (5,5);
 insert into QuestionInformation_Tag (QuestionInformation_id, tags_id) values (6,6);
 
-insert into AnswerInformation(id, createdAt,description, markedDescription, author_id) values (1,now(), 'Como todo belo coreano faz', 'Como todo belo coreano faz', 3);
-insert into AnswerInformation(id, createdAt,description, markedDescription, author_id) values (2,now(), 'Como toda bela coreana faz', 'Como toda bela coreana faz', 4);
-insert into AnswerInformation(id, createdAt,description, markedDescription, author_id) values (3,now(), 'Como todo belo ocidental paga pau faz', 'Como todo belo ocidental paga pau faz', 2);
+insert into AnswerInformation(id, createdAt,description, markedDescription, author_id) values (1,now(), 'Como todo belo coreano faz blablablablablablablablablablablabla', 'Como todo belo coreano faz blablablablablablablablablablablabla', 3);
+insert into AnswerInformation(id, createdAt,description, markedDescription, author_id) values (2,now(), 'Como toda bela coreana faz blablablablablablablablablablablabla', 'Como toda bela coreana faz blablablablablablablablablablablabla', 4);
+insert into AnswerInformation(id, createdAt,description, markedDescription, author_id) values (3,now(), 'Como todo belo ocidental paga pau faz blablablablablablablablablablablabla', 'Como todo belo ocidental paga pau faz blablablablablablablablablablablabla', 2);
 insert into Answer(voteCount, lastUpdatedAt, lastTouchedBy_id, createdAt,author_id,question_id, information_id) values (0, '20130121', 2,now(),3, 1,1);
 insert into Answer(voteCount, lastUpdatedAt, lastTouchedBy_id, createdAt,author_id,question_id, information_id) values (0, '20130121', 2,now(),4, 1,2);
 insert into Answer(voteCount, lastUpdatedAt, lastTouchedBy_id, id, createdAt,author_id,question_id, information_id) values (0, '20130121',2,3,now(),2, 2,3);
