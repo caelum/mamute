@@ -6,7 +6,6 @@ import java.util.List;
 
 import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.model.Tag;
-import br.com.caelum.brutal.model.TagUsage;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
