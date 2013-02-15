@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class LoginPage extends PageObject{
+public class LoginPage extends PageObject {
 
 	public LoginPage(WebDriver driver) {
 		super(driver);
@@ -21,5 +21,11 @@ public class LoginPage extends PageObject{
 	public boolean hasRedirectUrl(String url) {
 		return byName("redirectUrl").getAttribute("value").contains(url);
 	}
+
+    public ForgotPasswordPage toForgotPasswordPage() {
+        byCSS(".first-content a").click();
+        ForgotPasswordPage forgotPasswordPage = new ForgotPasswordPage(driver);
+        return forgotPasswordPage;
+    }
 	
 }

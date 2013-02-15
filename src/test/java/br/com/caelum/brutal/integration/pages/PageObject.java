@@ -3,6 +3,7 @@ package br.com.caelum.brutal.integration.pages;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -29,7 +30,15 @@ public abstract class PageObject {
 	}
 	
 	protected WebElement byClassName(String name) {
-		return driver.findElement(By.className(name));
+	    try {
+	        return driver.findElement(By.className(name));
+	    } catch (NoSuchElementException e) {
+	        return null;
+        }
+	}
+	
+	protected WebElement byCSS(String selector) {
+	    return driver.findElement(By.cssSelector(selector));
 	}
 	
 	protected void waitForElement(final By by) {
