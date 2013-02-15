@@ -21,6 +21,7 @@
 @media only screen and (max-width: 620px) {
 	.main-nav .nav-items{
 		margin-top:10px;
+		padding-left:10px;
 	}
 	
 	.main-nav .nav-item, .nav-item.ask{
