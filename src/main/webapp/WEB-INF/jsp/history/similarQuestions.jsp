@@ -24,8 +24,8 @@
 				${information.comment}
 			</p>
 		</c:if>
-	
-		<tags:question taggable="${question}"/>	
+
+		<tags:question taggable="${information}"/>	
 		
 		<ul class="post-touchs">
 			<li class="touch author-touch">
