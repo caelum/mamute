@@ -1,4 +1,3 @@
-@CHARSET "UTF-8";
 @media only screen and (max-width: 1220px) {
 	.first-content{
 		width:100%;
@@ -38,7 +37,7 @@
 	}
 	
 	.main-nav .nav-items, .first-header{
-		margin:0px;
+		margin:0;
 	}
 	
 	.main-nav .nav-item, .nav-item.ask{

@@ -59,24 +59,6 @@
 	</section>
 </header>
 <div class="container">
-<c:if test="${not empty alerts}">
-	<ul>
-		<c:forEach var="alert" items="${alerts}">
-			<li><fmt:message key="${alert}" /></li>
-		</c:forEach>
-	</ul>
-</c:if>
-<c:if test="${not empty confirmations}">
-	<ul class="notices">
-		<c:forEach var="confirmation" items="${confirmations}">
-			<li><fmt:message key="${confirmation}" /></li>
-		</c:forEach>
-	</ul>
-</c:if>
-<c:if test="${not empty errors}">
-	<ul>
-		<c:forEach var="error" items="${errors}">
-			<li><fmt:message key="${error}" /></li>
-		</c:forEach>
-	</ul>
-</c:if>
+	<tags:messages type="alert" messages="${alerts}" />
+	<tags:messages type="confirmation" messages="${confirmations}" />
+	<tags:messages type="error" messages="${errors}" />
