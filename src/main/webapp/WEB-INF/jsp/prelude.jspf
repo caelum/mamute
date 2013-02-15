@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="<c:url value="/css/reset.css"/>">
 <link rel="stylesheet" href="<c:url value="/css/pagedown.css"/>">
 <link rel="stylesheet" href="<c:url value="/css/brutal.css"/>">
+<link rel="stylesheet" href="<c:url value="/css/responsive-brutal.css"/>">
 </head>
 <body>
 <header class="header">
@@ -44,8 +45,8 @@
 	</div>
 </header>
 <div class="container">
+<h1 class="logo big-logo"><a class="sprite" href="<c:url value="/"/>">Logo do Brutal</a></h1>
 <nav class="nav main-nav">		
-		<h1 class="logo big-logo"><a class="sprite" href="<c:url value="/"/>">Logo do Brutal</a></h1>
 		<ul class="nav-items">
 			<li class="nav-item"><a class="button" href="<c:url value="/"/>"><fmt:message key="menu.questions"/></a></li> 
 			<li class="nav-item"><a class="button unsolved" href="<c:url value="/list/unsolved"/>"><fmt:message key="menu.unsolved"/></a></li>

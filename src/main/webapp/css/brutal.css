@@ -51,7 +51,7 @@ a {
 .container {
 	margin-left: auto;
 	margin-right: auto;
-	width: 71%;
+	max-width: 70%;
 	overflow: hidden;
 }
 
@@ -348,7 +348,8 @@ textarea {
 
 .main-nav .nav-items {
 	margin-top: 35px;
-	width: 73%;
+	width: 100%;
+	float:right;
 }
 
 .nav-buttons {

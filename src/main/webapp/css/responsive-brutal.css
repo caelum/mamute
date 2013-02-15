@@ -1,0 +1,39 @@
+@CHARSET "UTF-8";
+@media only screen and (max-width: 1220px) {
+	.first-content{
+		width:100%;
+	}
+	.sidebar{
+		display:none;
+	}
+	.container{
+		max-width:90%;
+	}
+}
+@media only screen and (max-width: 800px) {
+	.info.votes, .info.views{
+		display:none;
+	}
+	.info.answers{
+		width:100%;
+	}
+}
+@media only screen and (max-width: 620px) {
+	.main-nav .nav-items{
+		margin-top:10px;
+	}
+	
+	.main-nav .nav-item, .nav-item.ask{
+		float:none;	
+		text-align:center;
+	}
+	
+	.main-nav .button{
+		border-bottom:1px solid #333;
+	}
+	
+	.header{
+		margin-bottom:20px;
+	}
+	
+}
