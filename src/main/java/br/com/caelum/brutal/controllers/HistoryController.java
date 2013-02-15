@@ -63,29 +63,24 @@ public class HistoryController {
     @ModeratorAccess
     @Post("/publish/{moderatableType}")
     public void publish(Long moderatableId, String moderatableType, Long aprovedInformationId,  String aprovedInformationType) throws ClassNotFoundException {
-    	Class<?> moderatableClazz = Class.forName("br.com.caelum.brutal.model." + moderatableType);
-		Class<?> aprovedInformationClazz = Class.forName("br.com.caelum.brutal.model." + aprovedInformationType);
+    	Class<?> moderatableClass = Class.forName("br.com.caelum.brutal.model." + moderatableType);
+		Class<?> aprovedInformationClass = Class.forName("br.com.caelum.brutal.model." + aprovedInformationType);
     	
-    	Information approved = informations.getById(aprovedInformationId, aprovedInformationClazz);
-    	Moderatable moderatable = moderatables.getById(moderatableId, moderatableClazz);
-    	List<Information> pending = informations.pendingFor(moderatableId, moderatableClazz);
+    	Information approved = informations.getById(aprovedInformationId, aprovedInformationClass);
+    	Moderatable moderatable = moderatables.getById(moderatableId, moderatableClass);
+    	List<Information> pending = informations.pendingFor(moderatableId, moderatableClass);
     	
-    	approve(aprovedInformationId, approved, moderatable, pending);
+    	if (!approved.isPending()) {
+    	    result.use(Results.http()).sendError(403);
+    	    return;
+    	}
+    	
+    	refusePending(aprovedInformationId, pending);
+    	currentUser.approve(moderatable, approved);
+    	
     	result.redirectTo(this).unmoderated();
     }
 
-    private void approve(Long aprovedHistoryId, Information approved, Moderatable moderatable,
-            List<Information> pending) {
-        if (!approved.isPending()) {
-            result.use(Results.http()).sendError(403);
-            return;
-        }
-        
-        refusePending(aprovedHistoryId, pending);
-        currentUser.approve(moderatable, approved);
-        
-    }
-    
     private void refusePending(Long aprovedHistoryId, List<Information> pending) {
         for (Information refused : pending) {
 	        if (!refused.getId().equals(aprovedHistoryId)) {
