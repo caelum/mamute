@@ -351,7 +351,7 @@ textarea {
 }
 
 .main-nav .nav-items {
-	margin-top: 32px;
+	margin-top: 35px;
 	width: 73%;
 }
 
@@ -682,44 +682,10 @@ textarea {
 	width: 100%;
 }
 
-.login-or-signup
-
- 
-
-label
-
-
-:not
-
- 
-
-(
-.error
-
- 
-
-)
-{
-margin
-
-
-:
-
- 
-
-5
-px
-
- 
-
-0
-8
-px
-
- 
-
-0;
+.login-or-signup label:not(.error){
+	margin: 5px 8px 0;
 }
+
 .login-or-signup .login,.login-or-signup .signup {
 	padding: 0 40px;
 	float: left;
