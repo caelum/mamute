@@ -20,8 +20,8 @@ a {
 	background-image: url('/images/sprites.png');
 	background-repeat: no-repeat;
 	overflow: hidden;
+	text-indent: -999999em;
 }
-
 
 .logo{
 	overflow: hidden;
@@ -46,7 +46,6 @@ a {
 
 .logo a{
 	display: block;
-	text-indent: -999999em;
 }
 
 .container {
@@ -574,6 +573,9 @@ textarea {
 
 .solution-mark {
 	display: none;
+	background-position: 0px -460px;
+	width: 39px;
+	height: 40px;
 }
 
 .solution .solution-mark {
@@ -787,6 +789,7 @@ px
 
 .vote-container {
 	width: 35%;
+	height:80px;
 }
 
 .vote-count {
