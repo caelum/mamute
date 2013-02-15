@@ -267,12 +267,9 @@ textarea {
 	margin-bottom: 5px;
 }
 
-.complete-user .user-name {
-	width:70%;
-}
-
 .complete-user .user-info {
 	height: 32px;
+	width:70%;
 }
 
 .complete-user .user-info * {
@@ -282,7 +279,6 @@ textarea {
 
 .complete-user .user-image {
 	margin-right: 5px;
-	width:30%;
 }
 
 .complete-user .user-image,.complete-user .user-info {
@@ -487,6 +483,10 @@ textarea {
 .history-original {
 	margin-bottom: 30px;
 	padding-right:20px;
+}
+
+.history-comparison .user-info{
+	width:50%;
 }
 
 .original-answer {
