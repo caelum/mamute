@@ -11,49 +11,54 @@
 <link rel="stylesheet" href="<c:url value="/css/responsive-brutal.css"/>">
 </head>
 <body>
-<header class="header">
-	<div class="container">
-		<h2 class="small-logo logo"><a class="sprite" href="/">Logo do Brutal Pequeno</a></h2>
-		<section class="user-area">
-			<nav class="nav">
-				<ul class="nav-items">
-				<c:if test="${empty currentUser }">
-					<li class="nav-item">
-						<a class="login" href="${linkTo[AuthController].loginForm}">
-							<fmt:message key="auth.login_form_link"/>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="signup" href="${linkTo[SignupController].signupForm}"><fmt:message key="signup.link"/></a>
-					</li>
-				</c:if>
-				<c:if test="${not empty currentUser }">
-					<li class="nav-item">
-						<a class="user-name"  href="#">${currentUser.name}</a>
-					</li>
-					<li class="nav-item">
-						<a class="logout" href="${linkTo[AuthController].logout}"><fmt:message key="auth.logout_link"/></a>
-					</li>
-				</c:if>
-				</ul>
+<header class="header clear">
+	<section  class="first-header">
+		<div class="container">
+			<h2 class="small-logo logo"><a class="sprite" href="/">Logo do Brutal Pequeno</a></h2>
+			<section class="user-area">
+				<nav class="nav">
+					<ul class="nav-items">
+					<c:if test="${empty currentUser }">
+						<li class="nav-item">
+							<a class="login" href="${linkTo[AuthController].loginForm}">
+								<fmt:message key="auth.login_form_link"/>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="signup" href="${linkTo[SignupController].signupForm}"><fmt:message key="signup.link"/></a>
+						</li>
+					</c:if>
+					<c:if test="${not empty currentUser }">
+						<li class="nav-item">
+							<a class="user-name"  href="#">${currentUser.name}</a>
+						</li>
+						<li class="nav-item">
+							<a class="logout" href="${linkTo[AuthController].logout}"><fmt:message key="auth.logout_link"/></a>
+						</li>
+					</c:if>
+					</ul>
+				</nav>
+				<form class="search-form" action="<c:url value='/search' />" method="get">
+					<input name="query" placeholder="search" type="text"/>
+					<input type="submit"/>
+				</form>
+			</section>
+		</div>
+	</section>
+	<section class="second-header">
+		<div class="container">
+			<h1 class="logo big-logo"><a class="sprite" href="<c:url value="/"/>">Logo do Brutal</a></h1>
+			<nav class="nav main-nav">		
+					<ul class="nav-items">
+						<li class="nav-item"><a class="button" href="<c:url value="/"/>"><fmt:message key="menu.questions"/></a></li> 
+						<li class="nav-item"><a class="button unsolved" href="<c:url value="/list/unsolved"/>"><fmt:message key="menu.unsolved"/></a></li>
+						<li class="ask nav-item"><a class="button ask-a-question" href='<c:url value="/question/ask" />'><fmt:message key="question.ask" /></a></li>
+					</ul>
 			</nav>
-			<form class="search-form" action="<c:url value='/search' />" method="get">
-				<input name="query" placeholder="search" type="text"/>
-				<input type="submit"/>
-			</form>
-		</section>
-	</div>
+		</div>
+	</section>
 </header>
 <div class="container">
-<h1 class="logo big-logo"><a class="sprite" href="<c:url value="/"/>">Logo do Brutal</a></h1>
-<nav class="nav main-nav">		
-		<ul class="nav-items">
-			<li class="nav-item"><a class="button" href="<c:url value="/"/>"><fmt:message key="menu.questions"/></a></li> 
-			<li class="nav-item"><a class="button unsolved" href="<c:url value="/list/unsolved"/>"><fmt:message key="menu.unsolved"/></a></li>
-			<li class="ask nav-item"><a class="button ask-a-question" href='<c:url value="/question/ask" />'><fmt:message key="question.ask" /></a></li>
-		</ul>
-</nav>
-
 <c:if test="${not empty alerts}">
 	<ul>
 		<c:forEach var="alert" items="${alerts}">

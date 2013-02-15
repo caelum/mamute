@@ -299,15 +299,19 @@ textarea {
 }
 
 /*HEADER*/
-.header,.search-form {
+.header{
+	margin-bottom: 20px;
+}
+
+.first-header, .search-form {
 	height: 31px;
 	line-height: 31px;
 }
 
-.header {
+.first-header {
+	margin-bottom: 50px;
 	background-color: #EEE;
 	padding: 2px;
-	margin-bottom: 50px;
 }
 
 .user-area {
@@ -315,11 +319,11 @@ textarea {
 	overflow: hidden;
 }
 
-.search-form,.header .nav {
+.search-form,.first-header .nav {
 	float: left
 }
 
-.header .nav {
+.first-header .nav {
 	margin-right: 20px;
 }
 
@@ -331,6 +335,8 @@ textarea {
 	border: none;
 	border-top: 1px solid #ccc;
 	border-left: 1px solid #ccc;
+	padding: 3px;
+	margin-top: 2px;
 }
 
 .search-form input[type="submit"] {
@@ -340,10 +346,6 @@ textarea {
 /*MENU*/
 .nav,.nav-items {
 	overflow: hidden;
-}
-
-.main-nav {
-	margin-bottom: 20px;
 }
 
 .main-nav .nav-items {

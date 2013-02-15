@@ -20,23 +20,34 @@
 		width:50%;
 	}
 }
-@media only screen and (max-width: 620px) {
-	.main-nav .nav-items{
-		margin-top:10px;
-		padding-left:10px;
+@media only screen and (max-width: 700px) {
+	.big-logo, .search-form{
+		display: none;
+	}
+		
+	.first-header{
+		background-color:#03005b;
+	}
+	
+	.first-header a{
+		color:#fff;
+	}
+
+	.second-header{
+		background-color:#dedede;
+	}
+	
+	.main-nav .nav-items, .first-header{
+		margin:0px;
 	}
 	
 	.main-nav .nav-item, .nav-item.ask{
-		float:none;	
-		text-align:center;
+		float:left;
 	}
 	
 	.main-nav .button{
-		border-bottom:1px solid #333;
+		background-color:inherit;
+		color: #555;
+		font-size:13px;
 	}
-	
-	.header{
-		margin-bottom:20px;
-	}
-	
 }
