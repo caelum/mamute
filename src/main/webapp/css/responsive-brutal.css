@@ -2,23 +2,28 @@
 	.first-content{
 		width:100%;
 	}
+	
 	.sidebar{
 		display:none;
 	}
+	
 	.container{
 		max-width:90%;
 	}
 }
+
 @media only screen and (max-width: 800px) {
 	.info.votes, .info.views{
 		display:none;
 	}
+	
 	.info.answers{
 		margin-left:25%;
 		margin-right:25%;
 		width:50%;
 	}
 }
+
 @media only screen and (max-width: 700px) {
 	.big-logo, .search-form{
 		display: none;
