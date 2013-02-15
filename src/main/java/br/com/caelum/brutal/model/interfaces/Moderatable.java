@@ -7,13 +7,13 @@ public abstract class Moderatable {
 
     protected abstract Information getInformation();
     
-    protected abstract void updateWith(Information approved);
+    protected abstract void updateApproved(Information approved);
     
     public UpdateStatus approve(Information approved) {
         if (!canBeUptadedWith(approved)) {
             throw new IllegalArgumentException("an answer can only approve an answer information");
         }
-        updateWith(approved);
+        updateApproved(approved);
         return UpdateStatus.APPROVED;
     }
     

@@ -213,12 +213,13 @@ public class Answer extends Moderatable implements Votable, Commentable, Updatab
 		return lastTouchedBy;
 	}
 
+    @Override
     public AnswerInformation getInformation() {
         return information;
     }
 
 	@Override
-	protected void updateWith(Information approved) {
+	protected void updateApproved(Information approved) {
 		AnswerInformation approvedAnswer = (AnswerInformation)approved;
 		this.touchedBy(approvedAnswer.getAuthor());
 		this.information = approvedAnswer;

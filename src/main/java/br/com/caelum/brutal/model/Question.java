@@ -213,6 +213,7 @@ public class Question extends Moderatable implements Votable, Commentable, Updat
 		return information.getTagsAsString();
 	}
 	
+	@Override
 	public QuestionInformation getInformation() {
 		return information;
 	}
@@ -272,7 +273,7 @@ public class Question extends Moderatable implements Votable, Commentable, Updat
 	}
 
 	@Override
-	protected void updateWith(Information approved) {
+	protected void updateApproved(Information approved) {
 		QuestionInformation approvedQuestion = (QuestionInformation) approved;
 		this.touchedBy(approvedQuestion.getAuthor());
 		this.information = approvedQuestion;		
