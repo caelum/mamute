@@ -15,7 +15,9 @@
 		display:none;
 	}
 	.info.answers{
-		width:100%;
+		margin-left:25%;
+		margin-right:25%;
+		width:50%;
 	}
 }
 @media only screen and (max-width: 620px) {
