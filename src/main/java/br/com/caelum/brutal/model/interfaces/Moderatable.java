@@ -2,11 +2,8 @@ package br.com.caelum.brutal.model.interfaces;
 
 import br.com.caelum.brutal.model.Information;
 import br.com.caelum.brutal.model.UpdateStatus;
-import br.com.caelum.brutal.model.User;
 
-public abstract class Moderatable{
-
-    public abstract User getAuthor();
+public abstract class Moderatable {
 
     protected abstract Information getInformation();
     
@@ -21,11 +18,8 @@ public abstract class Moderatable{
     }
     
 	private boolean canBeUptadedWith(Information approved) {
-		return this.getInformation().getClass().isAssignableFrom(approved.getClass());
+		boolean isTheSameImplementation = this.getInformation().getClass().isAssignableFrom(approved.getClass());
+        return isTheSameImplementation;
 	}
-
-
-
-
 
 }
