@@ -23,6 +23,8 @@ public abstract class AcceptanceTestBase implements ServerInfo.TesteAceitacao {
 	protected static WebDriver driver;
 
 	protected HttpClient client;
+	
+	protected static String HOMOLOG_ENV = "development";
 
 	@AfterClass
 	public static void close() {
