@@ -39,6 +39,9 @@ public class UserDAO {
 	}
 
 	public User loadByEmail(String email) {
+	    if (email == null) {
+	        throw new IllegalArgumentException("impossible to search for a null email");
+	    }
 		return (User) session
 				.createQuery("from User where email = :email")
 				.setParameter("email", email)
