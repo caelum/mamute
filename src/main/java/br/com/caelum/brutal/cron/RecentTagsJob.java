@@ -24,7 +24,7 @@ public class RecentTagsJob implements CronTask{
 
 	@Override
 	public String frequency() {
-		return "0/30 * * * * ?";
+		return "0 0 0/1 * * ?";
 	}
 
 }
