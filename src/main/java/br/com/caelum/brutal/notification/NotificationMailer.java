@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.commons.mail.Email;
-import org.apache.commons.mail.EmailException;
 import org.apache.log4j.Logger;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -62,9 +61,9 @@ public class NotificationMailer {
     private void sendEmails(Map<String, List<SubscribableDTO>> subscribablesByEmail) {
         for (Entry<String, List<SubscribableDTO>> entry : subscribablesByEmail.entrySet()) {
             User user = entry.getValue().get(0).getUser();
-            DateTimeFormatter dateFormat = DateTimeFormat.forPattern("MMM, dd").withLocale(new Locale("pt", "br"));
-            
             try {
+                DateTimeFormatter dateFormat = DateTimeFormat.forPattern("MMM, dd").withLocale(new Locale("pt", "br"));
+            
                 Email email = templates.template("notifications_mail")
                         .with("subscribablesDTO", entry.getValue())
                         .with("dateFormat", dateFormat)
@@ -72,7 +71,7 @@ public class NotificationMailer {
                         .with("linkerHelper", new LinkToHelper(linker))
                         .to(user.getName(), user.getEmail());
                 mailer.send(email);
-            } catch (EmailException e) {
+            } catch (Exception e) {
                 LOG.error("Could not send notifications mail to: " + user.getEmail());
             }
         }
