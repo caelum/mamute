@@ -36,7 +36,7 @@ public class SignupTest extends AuthTestBase{
 	@Test
 	public void should_not_sign_up_with_an_existent_email(){
 		boolean loggedIn = home().toSignUpPage()
-				.signUp("leonardo", "leo@leo.com.br", "123456", "123456")
+				.signUp("leonardo", "leonardo.wolter@caelum.com.br", "123456", "123456")
 				.isLoggedIn();
 		assertFalse(loggedIn);
 	}

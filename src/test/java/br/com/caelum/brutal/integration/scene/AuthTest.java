@@ -12,8 +12,8 @@ public class AuthTest extends AuthTestBase{
 	@Test
 	public void should_log_in(){
 		boolean loggedIn = home().toLoginPage()
-		.login("leo@leo.com.br","123456")
-		.isLoggedInAs("leonardo");
+		.login("leonardo.wolter@caelum.com.br","123456")
+		.isLoggedInAs("Leonardo");
 		assertTrue(loggedIn);
 	}
 	
