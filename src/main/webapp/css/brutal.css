@@ -268,7 +268,7 @@ textarea {
 }
 
 .complete-user .user-name {
-	width: 120px;
+	width:70%;
 }
 
 .complete-user .user-info {
@@ -282,6 +282,7 @@ textarea {
 
 .complete-user .user-image {
 	margin-right: 5px;
+	width:30%;
 }
 
 .complete-user .user-image,.complete-user .user-info {
@@ -381,7 +382,7 @@ textarea {
 	float: left;
 }
 
-.first-content,.history-form {
+.first-content{
 	width: 80%;
 }
 
@@ -473,25 +474,19 @@ textarea {
 }
 
 /*MODERACAO*/
-.history-form {
-	border: 2px dotted #999;
-	padding: 5px;
+.history-comparison > *{
+	width:50%;
+	float:left;
 }
 
 .history-title {
-	color: black;
-	display: inline;
+	display:inline;
 	margin-right: 10px;
-}
-
-.question-history-select {
-	margin-bottom: 20px;
 }
 
 .history-original {
 	margin-bottom: 30px;
-	overflow: hidden;
-	width: 80%;
+	padding-right:20px;
 }
 
 .original-answer {
