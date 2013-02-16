@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.model;
 
+import static br.com.caelum.brutal.infra.NormalizerBrutal.toSlug;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +12,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
+import org.openqa.selenium.internal.seleniumemulation.SetNextConfirmationState;
 
 import br.com.caelum.brutal.infra.Digester;
 import br.com.caelum.brutal.model.interfaces.Identifiable;
@@ -44,6 +47,10 @@ public class User implements Identifiable {
 
 	private String forgotPasswordToken = "";
 
+	@Type(type = "text")
+	@NotEmpty
+	private String sluggedName;
+
 	static final User GHOST;
 	static {
 		GHOST = new User("", "", "");
@@ -60,8 +67,13 @@ public class User implements Identifiable {
 	public User(String name, String email, String password) {
 		super();
 		this.email = email;
-		this.name = name;
+		setName(name);
 		this.password = Digester.encrypt(password);
+	}
+
+	private void setName(String name) {
+		this.name = name;
+		this.sluggedName = toSlug(name);
 	}
 
 	public Long getId() {
@@ -136,6 +148,10 @@ public class User implements Identifiable {
 
 	public String getPassword() {
 		return password;
+	}
+	
+	public String getSluggedName() {
+		return sluggedName;
 	}
 	
 	public UpdateStatus approve(Moderatable moderatable, Information approvedInfo) {

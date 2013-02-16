@@ -1,0 +1,1 @@
+<h1 class="title profile-title">${selectedUser.name}</h1>

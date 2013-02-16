@@ -30,7 +30,7 @@
 					</c:if>
 					<c:if test="${not empty currentUser }">
 						<li class="nav-item">
-							<a class="user-name"  href="#">${currentUser.name}</a>
+							<a class="user-name"  href="<c:url value="/users/${currentUser.id}/${currentUser.sluggedName}"/>">${currentUser.name}</a>
 						</li>
 						<li class="nav-item">
 							<a class="logout" href="${linkTo[AuthController].logout}"><fmt:message key="auth.logout_link"/></a>
