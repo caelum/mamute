@@ -192,10 +192,6 @@ p {
 	border: 1px solid #999;
 }
 
-.popup.share form {
-	width: 235px;
-}
-
 /*Forms*/
 form {
 	margin: 0;
@@ -324,10 +320,6 @@ textarea {
 
 .first-header .nav {
 	margin-right: 20px;
-}
-
-.search-form {
-	width: 200px;
 }
 
 .search-form input {
@@ -544,7 +536,7 @@ textarea {
 	margin-top: 30px;
 	background-color: #FFF;
 	padding: 10px;
-	width: 500px;
+	width: 45%;
 }
 
 .autocompleted-tags li {
