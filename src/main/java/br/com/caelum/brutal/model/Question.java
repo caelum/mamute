@@ -230,17 +230,6 @@ public class Question extends Moderatable implements Votable, Commentable, Updat
 		this.history.add(newInformation);
 	}
 	
-	public UpdateStatus approve(Information choosenVersion) {
-	    if (!choosenVersion.getClass().getSimpleName().startsWith("QuestionInformation")) {
-            throw new IllegalArgumentException("an question can only approve an question information");
-        }
-	    QuestionInformation approvedQuestion = (QuestionInformation) choosenVersion;
-
-		this.touchedBy(approvedQuestion.getAuthor());
-	    setInformation(approvedQuestion);
-	    return UpdateStatus.APPROVED;
-	}
-	
 	public List<QuestionInformation> getHistory() {
 		return history;
 	}
