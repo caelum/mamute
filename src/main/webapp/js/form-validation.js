@@ -6,10 +6,12 @@ $(function(){
 	    minlength: jQuery.validator.format("Por favor, insira ao menos {0} caracteres."),
 	});
 	
+	$.validator.setDefaults({onkeyup : false});
+	
 	$(".validated-form").each(function(i,f){
 		$(f).validate({
 			rules:{
-				"passwordConfirmation":{equalTo:"#password"}
+				"passwordConfirmation":{equalTo:"#password"},
 			}
 		});
 	});
