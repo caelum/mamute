@@ -25,11 +25,11 @@
 	.question-information{
 		margin-left:auto;
 		margin-right:auto;
-		width:13%;
+		width:20%;
 	}
 	
 	.summary{
-		width:87%;
+		width:80%;
 	}
 	
 	.info.answers, .info.votes{
@@ -94,7 +94,6 @@
 		width:100%;
 		padding:0;
 	}
-	
 	/*Show question*/
 	
 	.post-action-nav, .post-touchs{
