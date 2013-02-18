@@ -43,7 +43,7 @@
 		font-size:10px;
 	}
 
-.container{
+	.container{
 		max-width:94%;
 	}
 	
@@ -90,5 +90,16 @@
 		width:100%;
 		padding:0;
 	}
+	
+	/*Login Or Signup (showQuestion)*/
+	
+	.login-or-signup{
+		width:100%;
+	}
+	
+	.login-or-signup .login, .login-or-signup .signup{
+		padding: 0 10px;
+	} 
+
 }
 
