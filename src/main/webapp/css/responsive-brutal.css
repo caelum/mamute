@@ -39,7 +39,11 @@
 
 @media only screen and (max-width: 700px) {
 	/*Basic Structure*/
-	.container{
+	body, a{
+		font-size:10px;
+	}
+
+.container{
 		max-width:94%;
 	}
 	
@@ -87,14 +91,4 @@
 		padding:0;
 	}
 }
-
-@media only screen and (max-width: 340px) {
-	body, a{
-		font-size:11px;
-	}
-}
-
-
-
-
 
