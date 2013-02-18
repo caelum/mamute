@@ -1,7 +1,8 @@
 package br.com.caelum.brutal.dao;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.AnswerInformation;
@@ -16,8 +17,9 @@ public abstract class TestCase {
 	/**
 	 * This constructor should not exist. It is only for tests
 	 */
-	public Question question(String title,String description, User author) {
-		Question q = new Question(new QuestionInformation(title, description, new LoggedUser(author, null), new ArrayList<Tag>(), ""), author);
+	public Question question(String title,String description, User author, Tag... tags) {
+	    List<Tag> tagList = Arrays.asList(tags);
+		Question q = new Question(new QuestionInformation(title, description, new LoggedUser(author, null), tagList, ""), author);
 		return q;
 	}
 
@@ -33,8 +35,16 @@ public abstract class TestCase {
 	/**
 	 * This constructor should not exist. It is only for tests
 	 */
-	protected User user(String name, String email, Long id) {
+	protected User user(String name, String email) {
 	    User user = new User(name, email, "123456");
+	    return user;
+	}
+	
+	/**
+	 * This constructor should not exist. It is only for tests
+	 */
+	protected User user(String name, String email, Long id) {
+	    User user = user(name, email);
         try {
             Field idField = User.class.getDeclaredField("id");
             idField.setAccessible(true);
