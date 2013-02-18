@@ -17,13 +17,15 @@
 		<p><a href="http://www.casadocodigo.com.br"><fmt:message key="footer.casa_do_codigo"/></a></p>		
 	</div>
 </footer>
+<script src="<c:url value="/js/jquery.js"/>"></script>
 <script type="text/javascript">
 // UI flags
 var LOGGED_IN = ${not empty currentUser};
-var KARMA = ${empty currentUser ? 0 : currentUser.karma};
 var MODERATOR = ${empty currentUser ? false : currentUser.moderator};
+var KARMA = ${empty currentUser ? 0 : currentUser.karma};
+$(function(){prettyPrint()});
 </script>
-<script src="<c:url value="/js/jquery.js"/>"></script>
+<script src="<c:url value="/js/prettify.js"/>"></script>
 <script src="<c:url value="/js/jquery.validate.min.js"/>"></script>
 <script src="<c:url value="/js/form-validation.js"/>"></script>
 <script src="<c:url value="/js/form-hints.js"/>"></script>
