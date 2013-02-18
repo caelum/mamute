@@ -36,14 +36,23 @@
 						<li class="nav-item">
 							<a class="logout" href="${linkTo[AuthController].logout}"><fmt:message key="auth.logout_link"/></a>
 						</li>
+						<li class="nav-item">
+							<a href="#" class="search-dropdown dropdown-trigger" data-target-id="dropdown-search-form">Procurar</a>	
+						</li>
 					</c:if>
 					</ul>
 				</nav>
 				<form class="search-form" action="<c:url value='/search' />" method="get">
-					<input name="query" placeholder="search" type="text"/>
+					<input class="text-input" name="query" placeholder="search" type="text"/>
 					<input type="submit"/>
 				</form>
 			</section>
+		</div>
+		<div class="container dropdown-target" id="dropdown-search-form">
+			<form class="dropdown-search-form search-form" action="<c:url value='/search' />" method="get">
+				<input class="text-input" name="query" placeholder="search" type="text"/>
+				<input type="submit"/>
+			</form>
 		</div>
 	</section>
 	<section class="second-header">

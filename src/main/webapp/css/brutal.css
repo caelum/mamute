@@ -299,7 +299,6 @@ textarea {
 }
 
 .first-header, .search-form {
-	height: 31px;
 	line-height: 31px;
 }
 
@@ -322,16 +321,27 @@ textarea {
 	margin-right: 20px;
 }
 
-.search-form input {
+.search-form input{
+	float:left;
+	margin:0;
+}
+
+.search-form .text-input {
 	border: none;
 	border-top: 1px solid #ccc;
 	border-left: 1px solid #ccc;
 	padding: 3px;
-	margin-top: 2px;
+	width:70%;
+	
 }
 
 .search-form input[type="submit"] {
 	display: none;
+	width:30%;
+}
+
+.dropdown-target{
+	display:none;
 }
 
 /*MENU*/

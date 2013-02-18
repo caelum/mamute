@@ -55,7 +55,13 @@
 	.big-logo, .search-form{
 		display: none;
 	}
-		
+
+	.dropdown-search-form,
+	.dropdown-search-form input[type="submit"]{
+		display:block;
+	}
+
+	
 	.first-header{
 		background-color:#03005b;
 	}
