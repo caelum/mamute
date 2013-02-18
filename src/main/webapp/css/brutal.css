@@ -534,8 +534,7 @@ textarea {
 }
 
 .tag-description {
-	color: #000;
-	font-size: 1em;
+	font-size: .9em;
 }
 
 .autocompleted-tags{
@@ -550,9 +549,11 @@ textarea {
 
 .autocompleted-tags .complete-tag{
 	width: 33%;
+	color: #000;
 }
 
 .complete-tag {
+	border-bottom: 1px dotted #E0E0E0;
 	padding: 10px;
 	cursor: pointer;
 	float:left;

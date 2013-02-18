@@ -17,7 +17,7 @@ function suggestsAutoComplete(target, input){
 		if(suggestions.length > 0){
 			var suggestionElements = "";
 			$(suggestions).each(function(index, suggestion){
-				suggestionElements += "<li><a class='tag complete-tag'>"+suggestion.name+"</a> x "+ suggestion.usageCount;
+				suggestionElements += "<li class='complete-tag'><a class='tag'>"+suggestion.name+"</a> x "+ suggestion.usageCount;
 				suggestionElements += "<div class='tag-description'>"+suggestion.description+"</div></li>";
 			});
 			$(target).html(suggestionElements).removeClass("hidden");
