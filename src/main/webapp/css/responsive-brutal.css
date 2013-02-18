@@ -38,9 +38,12 @@
 }
 
 @media only screen and (max-width: 700px) {
+	/*Basic Structure*/
 	.container{
 		max-width:94%;
 	}
+	
+	/*Header*/
 	.big-logo, .search-form{
 		display: none;
 	}
@@ -57,6 +60,7 @@
 		background-color:#dedede;
 	}
 	
+	/*Menu*/
 	.main-nav .nav-items, .first-header{
 		margin:0;
 	}
@@ -75,4 +79,18 @@
 		height:44px;
 		line-height:44px;
 	}
+	
+	/*Histories*/
+	
+	.history-comparison > *{
+		width:100%;
+		padding:0;
+	}
 }
+
+
+
+
+
+
+
