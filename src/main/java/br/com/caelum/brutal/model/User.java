@@ -160,4 +160,8 @@ public class User implements Identifiable {
 	    }
         return UpdateStatus.REFUSED;
 	}
+	
+	public boolean isAuthorOf(Question question){
+		return this.id == question.getAuthor().getId();  
+	}
 }

@@ -8,7 +8,7 @@
 	<div class="post-meta">
 		<tags:voteFor item="${answer}" type="answer" vote="${vote}"/>
 		<span class="solution-mark sprite container">CERTO</span>
-		<c:if test="${answer.author.id == currentUser.id}">
+		<c:if test="${answer.question.author.id == currentUser.id}">
 			<a class="mark-as-solution requires-login" href="${linkTo[AnswerController].markAsSolution}">
 				<fmt:message key="answer.mark_as_solution" />
 			</a>

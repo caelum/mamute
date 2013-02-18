@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.model;
 
+import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -76,4 +77,11 @@ public class UserTest extends TestCase{
         assertTrue(answer.getInformation().isModerated());
     }
     
+    @Test
+    public void should_verify_if_its_author_of_the_question(){
+    	Question question = question("question title", "question description", author);
+    	Question otherQuestion = question("question title", "question description", otherUser);
+    	assertTrue(author.isAuthorOf(question));
+    	assertFalse(author.isAuthorOf(otherQuestion));
+    }
 }

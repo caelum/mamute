@@ -1,6 +1,5 @@
 package br.com.caelum.brutal.controllers;
 
-import static java.util.Arrays.asList;
 import br.com.caelum.brutal.auth.LoggedAccess;
 import br.com.caelum.brutal.dao.AnswerDAO;
 import br.com.caelum.brutal.dao.QuestionDAO;
@@ -14,6 +13,8 @@ import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.core.Localization;
+import br.com.caelum.vraptor.view.Results;
 
 @Resource
 public class AnswerController {
@@ -21,12 +22,14 @@ public class AnswerController {
 	private final AnswerDAO answers;
 	private final QuestionDAO questions;
 	private final LoggedUser currentUser;
+	private final Localization localization;
 
-	public AnswerController(Result result, AnswerDAO dao, User currentUser, QuestionDAO questions, LoggedUser user) {
+	public AnswerController(Result result, AnswerDAO dao, User currentUser, QuestionDAO questions, LoggedUser user, Localization localization) {
 		this.result = result;
 		this.answers = dao;
 		this.currentUser = user;
 		this.questions = questions;
+		this.localization = localization;
 	}
 
 
@@ -62,19 +65,16 @@ public class AnswerController {
 	@Post("/question/answer/markAsSolution/{solutionId}")
 	public void markAsSolution(Long solutionId) {
 		Answer solution = answers.getById(solutionId);
-		if(isTheAuthorOf(solution)){
+		if(currentUser.getCurrent().isAuthorOf(solution.getQuestion())){
 			solution.markAsSolution();
 			result.nothing();
 		}else{
 			Question question = solution.getQuestion();
-			result.include("errors", asList("answer.error.not_autor"));
+			result.use(Results.status()).forbidden(localization.getMessage("answer.error.not_autor"));
 			result.redirectTo(QuestionController.class).showQuestion(question.getId(),
 	                question.getSluggedTitle());
 		}
 	}
 
 
-	private boolean isTheAuthorOf(Answer solution) {
-		return currentUser.getCurrent().getId() == solution.getAuthor().getId();
-	}
 }
