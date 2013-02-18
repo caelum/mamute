@@ -13,14 +13,14 @@
 }
 
 @media only screen and (max-width: 800px) {
-	.info.votes, .info.views{
+	.info.views{
 		display:none;
 	}
 	
-	.info.answers{
-		margin-left:25%;
-		margin-right:25%;
-		width:50%;
+	.info.answers, .info.votes{
+		margin-left:auto;
+		margin-right:auto;
+		width:100%;
 	}
 }
 
