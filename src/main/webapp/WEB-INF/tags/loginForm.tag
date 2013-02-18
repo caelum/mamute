@@ -5,7 +5,7 @@
 
 <form class="validated-form user-form" action="<c:url value="/login"/>" method="POST">
 	<label for="email"><fmt:message key="signup.form.email.label" /></label>
-	<input type="text" name="email" class="email required text-input" placeholder="nome@exemplo.com"/>
+	<input type="email" name="email" class="email required text-input" placeholder="nome@exemplo.com"/>
 	<label for="password"><fmt:message key="signup.form.password.label" /></label>
 	<input name="password" type="password" class="required text-input" placeholder="Senha"/>
 	<input name="redirectUrl" value="${redirectUrl}" type="hidden" />
