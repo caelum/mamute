@@ -26,4 +26,5 @@ public class TagController {
 		List<Tag> suggestions = tags.findTagsLike(tagChunk);
 		result.use(json()).withoutRoot().from(suggestions).serialize();
 	}
+	
 }

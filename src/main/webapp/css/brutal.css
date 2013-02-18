@@ -538,7 +538,7 @@ textarea {
 	font-size: 1em;
 }
 
-.autocompleted-tags {
+.autocompleted-tags{
 	border: 1px solid #000;
 	z-index: 999;
 	position: absolute;
@@ -548,13 +548,19 @@ textarea {
 	width: 45%;
 }
 
-.autocompleted-tags li {
+.autocompleted-tags .complete-tag{
 	width: 33%;
-	padding: 10px;
-	cursor: pointer;
 }
 
-.autocompleted-tags li:hover {
+.complete-tag {
+	padding: 10px;
+	cursor: pointer;
+	float:left;
+	min-height:160px;
+	width:20%;
+}
+
+.complete-tags li:hover {
 	background-color: #ffe6bf;
 }
 
