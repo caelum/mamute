@@ -1,7 +1,6 @@
 package br.com.caelum.brutal.controllers;
 
 import br.com.caelum.brutal.dao.UserDAO;
-import br.com.caelum.brutal.infra.NormalizerBrutal;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.Get;
