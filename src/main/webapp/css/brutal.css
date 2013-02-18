@@ -89,13 +89,18 @@ a {
 	display: none;
 }
 
+.form-hints{
+	width: 35%;
+	margin-top: 32px;
+	float: left;
+}
+
 .hint {
 	background-color: #FEFAE2;
 	border: 1px solid #F3EED5;
 	padding: 10px 5px;
-	margin: 35px 0 10px 20px;
-	float: left;
-	width: 32%;
+	width:95%;
+	float: right;
 }
 
 .post-container .hint {
