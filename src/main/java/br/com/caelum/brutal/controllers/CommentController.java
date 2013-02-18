@@ -1,7 +1,6 @@
 package br.com.caelum.brutal.controllers;
 
 import static br.com.caelum.vraptor.view.Results.http;
-import static br.com.caelum.vraptor.view.Results.json;
 import static br.com.caelum.vraptor.view.Results.status;
 import br.com.caelum.brutal.auth.LoggedAccess;
 import br.com.caelum.brutal.dao.CommentDAO;
@@ -44,7 +43,7 @@ public class CommentController {
 		}
 		original.setComment(comment);
 		comments.save(original);
-		result.use(json()).withoutRoot().from(comment).serialize();
+		result.use(http()).body("<p>"+comment+"</p>");
 	}
 
 
