@@ -3,8 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@attribute name="item" type="br.com.caelum.brutal.model.interfaces.Commentable" required="true" %>
 <c:set var="ajaxResultName" value="new-comment-for-${item.typeName}-new-comment-${item.id}"/>
-<c:if test="${not empty item.comments}">
-	<ul class="comment-container" id="${ajaxResultName }">
+<ul class="comment-container ${empty item.comments ? 'hidden' : ''}" id="${ajaxResultName }">
 	<c:forEach var="comment" items="${item.comments }">
 		<li class="comment">
 			<span id="comment-${comment.id}">${comment.htmlComment}</span> &#8212;
@@ -15,16 +14,18 @@
 			</c:if>
 		</li>
 	</c:forEach>
-	</ul>
-</c:if>
+</ul>
 
 <div class="edit-via-ajax">
 	<a href="#" class="requires-login post-action"><fmt:message key="comment.add_comment" /></a>
 	<span>
 		<form action="<c:url value="/${item.typeName}/${item.id}/comment"/>" class="validated-form ajax hinted-form" data-ajax-result="${ajaxResultName}" data-ajax-on-callback="append">
-			<textarea class="required to-focus hintable" minlength="15" name="message" data-hint-id="${ajaxResultName}-hint"></textarea>
+			<label for="comment"><fmt:message key="comment.add_comment" /></label>
+			<textarea id="comment" class="required to-focus hintable" minlength="15" name="message" data-hint-id="${ajaxResultName}-hint"></textarea>
 			<input type="submit" class="post-submit comment-submit" value="<fmt:message key="comment.add_comment"/>" />
 		</form>
-		<span class="hint" id="${ajaxResultName}-hint"><fmt:message key="comment.text.hint"/></span>
+		<div class="form-hints">
+			<span class="hint" id="${ajaxResultName}-hint"><fmt:message key="comment.text.hint"/></span>
+		</div>
 	</span>
 </div>

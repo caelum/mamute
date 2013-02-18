@@ -26,6 +26,7 @@ $(function() {
 				} else if(action == "append") {
 					target.append(response);
 				}
+				target.removeClass("hidden");
 			}
 			self.find("textarea").val("");
 			var formParent = self.closest(".edit-via-ajax");
