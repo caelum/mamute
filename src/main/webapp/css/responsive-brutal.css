@@ -12,6 +12,13 @@
 	}
 }
 
+@media only screen and (max-width: 840px) {
+	.complete-tag{
+		width:25%;
+	}
+}
+
+	
 @media only screen and (max-width: 800px) {
 	.info.views{
 		display:none;
@@ -51,6 +58,11 @@
 		width:100%;
 	}
 	
+	/*Tag list*/
+	.complete-tag{
+		font-size:1.2em;
+	}
+	
 	/*Header*/
 	.big-logo, .search-form{
 		display: none;
@@ -87,6 +99,7 @@
 		background-color:inherit;
 		color: #555;
 		font-size:1em;
+		padding:0 7px;
 	}
 	
 	.main-nav .nav-item, .main-nav .nav-item a{
@@ -122,3 +135,14 @@
 
 }
 
+@media only screen and (max-width: 550px) {
+	.complete-tag{
+		width:33%;
+	}
+}
+
+@media only screen and (max-width: 400px) {
+	.complete-tag{
+		width:50%;
+	}
+}

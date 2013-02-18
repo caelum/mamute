@@ -550,18 +550,18 @@ textarea {
 .autocompleted-tags .complete-tag{
 	width: 33%;
 	color: #000;
+	cursor: pointer;
 }
 
 .complete-tag {
 	border-bottom: 1px dotted #E0E0E0;
 	padding: 10px;
-	cursor: pointer;
 	float:left;
-	min-height:160px;
+	height:160px;
 	width:20%;
 }
 
-.complete-tags li:hover {
+.autocompleted-tags .complete-tag:hover {
 	background-color: #ffe6bf;
 }
 

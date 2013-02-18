@@ -21,7 +21,7 @@ function suggestsAutoComplete(target, input){
 				suggestionElements += "<div class='tag-description'>"+suggestion.description+"</div></li>";
 			});
 			$(target).html(suggestionElements).removeClass("hidden");
-			$('.autocompleted-tags li').click(function(){insertTagIntoTextArea($(this).find(".tag").text())});
+			$('.autocompleted-tags .complete-tag').click(function(){insertTagIntoTextArea($(this).find(".tag").text())});
 		}
 	});
 }
