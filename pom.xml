@@ -246,9 +246,6 @@
 			<version>2.2.2</version>
 		</dependency>
 
-
-
-
 		<dependency>
 			<scope>test</scope>
 			<groupId>org.hamcrest</groupId>
@@ -401,6 +398,18 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.1.1</version>
 			</plugin>
+			<plugin>
+		        <groupId>org.codehaus.mojo</groupId>
+		        <artifactId>exec-maven-plugin</artifactId>
+		        <version>1.2.1</version>
+		        <executions>
+		          <execution>
+		            <goals>
+		              <goal>java</goal>
+		            </goals>
+		          </execution>
+		        </executions>
+		      </plugin>
 		</plugins>
 	</build>
 	<reporting>
