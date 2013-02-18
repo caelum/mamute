@@ -4,7 +4,7 @@
 
 <div class="history-original original-answer">
 	<div><fmt:message key="moderation.original_answer"/></div>
-	${answer.markedDescription}
+	<p>${answer.markedDescription}</p>
 </div>
 
 <h2 class="history-title"><fmt:message key="moderation.version"/>:</h2>
