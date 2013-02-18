@@ -139,6 +139,7 @@ code {
 
 p {
 	margin-bottom: 1em;
+	word-wrap:break-word;
 }
 /* Ellipsis */
 .ellipsis {
