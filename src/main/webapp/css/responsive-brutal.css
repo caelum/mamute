@@ -17,14 +17,30 @@
 		display:none;
 	}
 	
-	.info.answers, .info.votes{
+	.info{
+		padding-top:0;
+		padding-bottom:10px;
+	}
+	
+	.question-information{
 		margin-left:auto;
 		margin-right:auto;
+		width:20%;
+	}
+	
+	.summary{
+		width:80%;
+	}
+	
+	.info.answers, .info.votes{
 		width:100%;
 	}
 }
 
 @media only screen and (max-width: 700px) {
+	.container{
+		max-width:94%;
+	}
 	.big-logo, .search-form{
 		display: none;
 	}
@@ -52,6 +68,11 @@
 	.main-nav .button{
 		background-color:inherit;
 		color: #555;
-		font-size:13px;
+		font-size:1em;
+	}
+	
+	.main-nav .nav-item, .main-nav .nav-item a{
+		height:44px;
+		line-height:44px;
 	}
 }
