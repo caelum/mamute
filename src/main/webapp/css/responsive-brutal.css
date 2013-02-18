@@ -47,6 +47,10 @@
 		max-width:94%;
 	}
 	
+	.user-form{
+		width:100%;
+	}
+	
 	/*Header*/
 	.big-logo, .search-form{
 		display: none;
@@ -89,6 +93,15 @@
 	.history-comparison > *{
 		width:100%;
 		padding:0;
+	}
+	/*Show question*/
+	
+	.post-action-nav, .post-touchs{
+		width:100%;
+	}
+	
+	.arrow{
+		border-width: 9px;
 	}
 	
 	/*Login Or Signup (showQuestion)*/

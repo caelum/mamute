@@ -200,10 +200,6 @@ form {
 	margin: 0;
 }
 
-form {
-	width: 500px;
-}
-
 input,label,textarea {
 	width: 100%;
 }
