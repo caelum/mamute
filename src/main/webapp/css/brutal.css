@@ -216,10 +216,6 @@ input[type="submit"] {
 	border: 1px solid #999;
 }
 
-.text-input:focus {
-	border: 0;
-}
-
 label {
 	display: block;
 	margin: 10px 0;
