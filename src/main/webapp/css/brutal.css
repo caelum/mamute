@@ -71,17 +71,17 @@ a {
 }
 
 .section-title,.section-title a,.page-title,.page-title a {
-	font-size: 18px;
+	font-size: 1.4em;
 	line-height: 34px;
 }
 
 .question-title {
-	font-size: 23px;
+	font-size: 1.65em;
 	line-height: 34px;
 }
 
 .item-title,.item-title a {
-	font-size: 17px;
+	font-size: 1.15em;
 	margin-bottom: 5px;
 }
 
@@ -397,7 +397,7 @@ textarea {
 	padding: 0 12px;
 	display: block;
 	color: #fff;
-	font-size: 16px;
+	font-size: 1.23em;
 }
 
 .button:hover {
@@ -428,7 +428,7 @@ textarea {
 
 .info {
 	float: left;
-	font-size: 20px;
+	font-size: 1.6em;
 	padding: 5px;
 	text-align: center;
 	width: 33%;
@@ -456,7 +456,7 @@ textarea {
 
 .subtitle {
 	display: block;
-	font-size: 13px;
+	font-size: .63em;
 	overflow: visible;
 }
 
@@ -522,7 +522,7 @@ textarea {
 	border-right: 1px solid #7f9fb6;
 	color: #3e6d8e;
 	display: inline-block;
-	font-size: 12px;
+	font-size: .9em;
 	margin: 3px 4px;
 	padding: 3px 4px;
 }
@@ -536,7 +536,7 @@ textarea {
 
 .tag-description {
 	color: #000;
-	font-size: 12px;
+	font-size: 1em;
 }
 
 .autocompleted-tags {
@@ -607,7 +607,6 @@ textarea {
 .touch {
 	color: #999;
 	float: right;
-	font-size: 13px;
 	height: 100%;
 	line-height: 13px;
 	overflow: hidden;
@@ -647,7 +646,7 @@ textarea {
 }
 
 .post-text {
-	font-size: 14px;
+	font-size: 1.1em;
 	line-height: 17px;
 	color: #000;
 }
@@ -668,7 +667,7 @@ textarea {
 
 .big-submit {
 	font-weight: bold;
-	font-size: 17px;
+	font-size: 1.3em;
 }
 
 .login-or-signup {
@@ -753,7 +752,7 @@ textarea {
 
 .vote-count {
 	display: block;
-	font-size: 24px;
+	font-size: 1.85em;
 	color: #555;
 	text-align: center;
 	width: 100%;
