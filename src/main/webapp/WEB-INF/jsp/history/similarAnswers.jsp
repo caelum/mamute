@@ -32,7 +32,7 @@
 
 		<ul class="post-touchs">
 			<li class="touch author-touch">
-				<tags:completeUser user="${information.author}" date="${information.createdAt}"/>
+				<tags:completeUser touchText="touch.edited" user="${information.author}" date="${information.createdAt}"/>
 			</li>
 		</ul>
 		
