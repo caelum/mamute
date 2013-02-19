@@ -12,7 +12,7 @@ public class MinimumKarmaRule<T> implements PermissionRule<T> {
 
     @Override
     public boolean isAllowed(User u, T item) {
-        return minimum < u.getKarma();
+        return minimum <= u.getKarma();
     }
 
 }
