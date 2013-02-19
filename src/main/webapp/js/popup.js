@@ -1,5 +1,6 @@
 $(function(){
-	$(".show-popup").click(function(){
+	$(".show-popup").click(function(e){
+		e.preventDefault();
 		$(this).parent().find(".popup").toggle();
 	});
 	

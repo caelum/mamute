@@ -18,6 +18,7 @@ a {
 }
 
 .sprite{
+	display:block;
 	background-image: url('/images/sprites.png');
 	background-repeat: no-repeat;
 	overflow: hidden;
@@ -189,7 +190,35 @@ p {
 
 .popup.share {
 	background-color: #EAEAEA;
-	border: 1px solid #999;
+ 	-webkit-box-shadow: 2px 2px 4px #999;
+	box-shadow: 2px 2px 4px #999;
+	width: 350px;
+	padding: 5px 10px;	
+}
+
+.popup.share label {
+	margin: 0;
+}
+
+a.share-button {
+	width: 24px;
+	height: 20px;
+	float:left;
+}
+
+.share .close-popup {
+	float:right;
+}
+
+.google-plus-icon {
+	background-position: -150px -959px;
+}
+
+.facebook-icon {
+	background-position: -150px -999px;
+}
+.twitter-icon {
+	background-position: -150px -1039px;
 }
 
 /*Forms*/
@@ -724,7 +753,6 @@ textarea {
 	padding: 2px 5px;
 }
 
-/*Answer*/
 .answer {
 	padding-bottom: 15px;
 }
