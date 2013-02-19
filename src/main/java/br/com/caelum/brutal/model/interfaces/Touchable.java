@@ -9,4 +9,5 @@ public interface Touchable {
 	User getLastTouchedBy();
 	DateTime getCreatedAt();
 	User getAuthor();
+	boolean isEdited();
 }

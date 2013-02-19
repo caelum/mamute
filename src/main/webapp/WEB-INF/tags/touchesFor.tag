@@ -7,18 +7,20 @@
 	<li class="touch author-touch">
 		<tags:completeUser touchText="touch.created" user="${touchable.author}" date="${touchable.createdAt}"/>
 	</li>
-	<c:choose>
-		<c:when test="${(not empty touchable.lastTouchedBy) and (touchable.lastTouchedBy.id != touchable.author.id)}">
-			<li class="touch">
-				<tags:completeUser touchText="touch.edited" user="${touchable.lastTouchedBy}" date="${touchable.lastUpdatedAt}"/>
-			</li>
-		</c:when>
-		<c:otherwise>
-			<li class="touch">
-				<div class="complete-user">
-					<div class="when"><fmt:message key='touch.edited'/> <tags:prettyTime time="${touchable.lastUpdatedAt}"/></div>
-				</div>
-			</li>
-		</c:otherwise>
-	</c:choose>
+	<c:if test="${touchable.edited}">
+		<c:choose>
+			<c:when test="${(touchable.lastTouchedBy.id == touchable.author.id)}">
+				<li class="touch">
+					<div class="complete-user">
+						<div class="when"><fmt:message key='touch.edited'/> <tags:prettyTime time="${touchable.lastUpdatedAt}"/></div>
+					</div>
+				</li>
+			</c:when>
+			<c:otherwise>
+				<li class="touch">
+					<tags:completeUser touchText="touch.edited" user="${touchable.lastTouchedBy}" date="${touchable.lastUpdatedAt}"/>
+				</li>
+			</c:otherwise>
+		</c:choose>
+	</c:if>
 </ul>
