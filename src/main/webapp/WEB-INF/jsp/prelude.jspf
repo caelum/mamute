@@ -8,9 +8,9 @@
  <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="<c:url value="/css/reset.css"/>">
 <link rel="stylesheet" href="<c:url value="/css/pagedown.css"/>">
+<link rel="stylesheet" href="<c:url value="/css/prettify.css"/>">
 <link rel="stylesheet" href="<c:url value="/css/brutal.css"/>">
 <link rel="stylesheet" href="<c:url value="/css/responsive-brutal.css"/>">
-<link rel="stylesheet" href="<c:url value="/css/prettify.css"/>">
 </head>
 <body>
 <header class="header clear">
