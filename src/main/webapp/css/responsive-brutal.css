@@ -12,6 +12,13 @@
 	}
 }
 
+@media only screen and (max-width: 840px) {
+	.complete-tag{
+		width:25%;
+	}
+}
+
+	
 @media only screen and (max-width: 800px) {
 	.info.views{
 		display:none;
@@ -19,17 +26,17 @@
 	
 	.info{
 		padding-top:0;
-		padding-bottom:10px;
+		padding-bottom:.65em;
 	}
 	
 	.question-information{
 		margin-left:auto;
 		margin-right:auto;
-		width:13%;
+		width:20%;
 	}
 	
 	.summary{
-		width:87%;
+		width:80%;
 	}
 	
 	.info.answers, .info.votes{
@@ -47,15 +54,26 @@
 		max-width:94%;
 	}
 	
-	.user-form{
+	.autocompleted-tags, .user-form, .question-form {
 		width:100%;
+	}
+	
+	/*Tag list*/
+	.complete-tag{
+		font-size:1.2em;
 	}
 	
 	/*Header*/
 	.big-logo, .search-form{
 		display: none;
 	}
-		
+
+	.dropdown-search-form,
+	.dropdown-search-form input[type="submit"]{
+		display:block;
+	}
+
+	
 	.first-header{
 		background-color:#03005b;
 	}
@@ -94,7 +112,6 @@
 		width:100%;
 		padding:0;
 	}
-	
 	/*Show question*/
 	
 	.post-action-nav, .post-touchs{
@@ -111,9 +128,16 @@
 		width:100%;
 	}
 	
-	.login-or-signup .login, .login-or-signup .signup{
-		padding: 0 10px;
-	} 
-
 }
 
+@media only screen and (max-width: 550px) {
+	.complete-tag{
+		width:33%;
+	}
+}
+
+@media only screen and (max-width: 400px) {
+	.complete-tag{
+		width:50%;
+	}
+}

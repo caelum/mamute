@@ -41,7 +41,11 @@ public abstract class PageObject {
 	    return driver.findElement(By.cssSelector(selector));
 	}
 	
-	protected void waitForElement(final By by) {
-		new WebDriverWait(driver, 40).until(ExpectedConditions.visibilityOfElementLocated(by));
+	protected List<WebElement> allByCSS(String selector) {
+	    return driver.findElements(By.cssSelector(selector));
+	}
+	
+	protected void waitForElement(final By by, int time) {
+		new WebDriverWait(driver, time).until(ExpectedConditions.visibilityOfElementLocated(by));
 	}
 }

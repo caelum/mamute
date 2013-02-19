@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@attribute name="user" type="br.com.caelum.brutal.model.User" required="true" %>
 <%@attribute name="date" type="org.joda.time.DateTime" required="true" %>
-<%@attribute name="touchText" type="java.lang.String" required="false" %>
+<%@attribute name="touchText" type="java.lang.String" required="true" %>
 
 <div class="complete-user">
 	<div class="when"><fmt:message key='${touchText}'/> <tags:prettyTime time="${date}"/></div>

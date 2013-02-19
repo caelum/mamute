@@ -160,17 +160,6 @@ public class Question extends Moderatable implements Votable, Commentable, Updat
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((author == null) ? 0 : author.hashCode());
-		result = prime * result
-				+ ((createdAt == null) ? 0 : createdAt.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
-
-	@Override
 	public long getVoteCount() {
 		return voteCount;
 	}
@@ -241,17 +230,6 @@ public class Question extends Moderatable implements Votable, Commentable, Updat
 		this.history.add(newInformation);
 	}
 	
-	public UpdateStatus approve(Information choosenVersion) {
-	    if (!choosenVersion.getClass().getSimpleName().startsWith("QuestionInformation")) {
-            throw new IllegalArgumentException("an question can only approve an question information");
-        }
-	    QuestionInformation approvedQuestion = (QuestionInformation) choosenVersion;
-
-		this.touchedBy(approvedQuestion.getAuthor());
-	    setInformation(approvedQuestion);
-	    return UpdateStatus.APPROVED;
-	}
-	
 	public List<QuestionInformation> getHistory() {
 		return history;
 	}
@@ -277,6 +255,11 @@ public class Question extends Moderatable implements Votable, Commentable, Updat
 		QuestionInformation approvedQuestion = (QuestionInformation) approved;
 		this.touchedBy(approvedQuestion.getAuthor());
 		this.information = approvedQuestion;		
+	}
+
+	@Override
+	public boolean isEdited() {
+		return history.size() > 1;
 	}
 
 }

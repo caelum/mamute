@@ -1,9 +1,9 @@
 package br.com.caelum.brutal.dao;
 
-import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
 
+import net.vidageek.mirror.dsl.Mirror;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.AnswerInformation;
 import br.com.caelum.brutal.model.LoggedUser;
@@ -45,13 +45,7 @@ public abstract class TestCase {
 	 */
 	protected User user(String name, String email, Long id) {
 	    User user = user(name, email);
-        try {
-            Field idField = User.class.getDeclaredField("id");
-            idField.setAccessible(true);
-            idField.set(user, id);
-        } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
-            throw new RuntimeException(e);
-        }
+	    new Mirror().on(user).set().field("id").withValue(id);
 	    return user;
 	}
 

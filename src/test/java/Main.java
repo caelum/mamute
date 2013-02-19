@@ -26,12 +26,14 @@ public class Main {
 			public void run() {
 				try (Scanner input = new Scanner(System.in)) {
 					while (true) {
-						String line = input.nextLine();
-						if (line.equals("restart")) {
-							vraptor.restartContexts();
-						} else {
-							System.err.println("I did not understand: " + line);
-						}
+					    if (input.hasNext()) {
+    						String line = input.nextLine();
+    						if (line.equals("restart")) {
+    							vraptor.restartContexts();
+    						} else {
+    							System.err.println("I did not understand: " + line);
+    						}
+					    }
 					}
 				}
 			}

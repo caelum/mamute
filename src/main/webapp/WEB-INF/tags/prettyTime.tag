@@ -10,8 +10,8 @@
 				.getAttribute("prettyTimeFormatter");
 			out.write(formatter.format(time.toDate()));
 		}else{
-			org.joda.time.format.DateTimeFormatter formatter = org.joda.time.format.DateTimeFormat.forPattern("dd/MM/yyyy HH:mm");
-			out.write(formatter.print(time));
+			org.joda.time.format.DateTimeFormatter literalFormatter = (org.joda.time.format.DateTimeFormatter) request.getAttribute("literalFormatter");
+			out.write(literalFormatter.print(time));
 		}
 	}
 %>

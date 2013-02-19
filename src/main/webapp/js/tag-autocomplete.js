@@ -17,11 +17,11 @@ function suggestsAutoComplete(target, input){
 		if(suggestions.length > 0){
 			var suggestionElements = "";
 			$(suggestions).each(function(index, suggestion){
-				suggestionElements += "<li><a class='tag autocompleted-tag'>"+suggestion.name+"</a> x "+ suggestion.usageCount;
+				suggestionElements += "<li class='complete-tag'><a class='tag'>"+suggestion.name+"</a> x "+ suggestion.usageCount;
 				suggestionElements += "<div class='tag-description'>"+suggestion.description+"</div></li>";
 			});
 			$(target).html(suggestionElements).removeClass("hidden");
-			$('.autocompleted-tags li').click(function(){insertTagIntoTextArea($(this).find(".tag").text())});
+			$('.autocompleted-tags .complete-tag').click(function(){insertTagIntoTextArea($(this).find(".tag").text())});
 		}
 	});
 }

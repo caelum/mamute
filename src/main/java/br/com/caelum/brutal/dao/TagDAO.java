@@ -67,4 +67,11 @@ public class TagDAO {
 		query.setParameter("since", since);
 		return query.list();
 	}
+
+	public List<TagUsage> all() {
+		Query query = session.createQuery("select new br.com.caelum.brutal.model.TagUsage(tag, count(question)) from Question question " +
+				"join question.information.tags tag " +
+				"group by tag order by count(question) desc");
+		return query.list();
+	}
 }

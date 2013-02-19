@@ -51,5 +51,11 @@ public class ListController {
 		result.include("questions", questionsWithTag);
 		result.use(page()).of(ListController.class).home();
 	}
+	
+	@Get("/list/tags")
+	public void listTags(){
+		result.include("tagsUsage", tags.all());
+	}
+
 
 }

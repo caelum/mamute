@@ -225,4 +225,8 @@ public class Answer extends Moderatable implements Votable, Commentable, Updatab
 		this.information = approvedAnswer;
 	}
 
+	@Override
+	public boolean isEdited() {
+		return history.size() > 1;
+	}
 }

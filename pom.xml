@@ -246,9 +246,6 @@
 			<version>2.2.2</version>
 		</dependency>
 
-
-
-
 		<dependency>
 			<scope>test</scope>
 			<groupId>org.hamcrest</groupId>
@@ -298,6 +295,21 @@
 	<build>
 		<outputDirectory>src/main/webapp/WEB-INF/classes/</outputDirectory>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+				  <additionalConfig>
+				    <file>
+				      <name>.settings/org.eclipse.core.resources.prefs</name>
+				      <content>
+				        <![CDATA[eclipse.preferences.version=1${line.separator}encoding/<project>=${project.build.sourceEncoding}${line.separator}]]>
+				      </content>
+				    </file>
+				  </additionalConfig>
+				</configuration>
+			</plugin>
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.5</version>
@@ -401,6 +413,18 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.1.1</version>
 			</plugin>
+			<plugin>
+		        <groupId>org.codehaus.mojo</groupId>
+		        <artifactId>exec-maven-plugin</artifactId>
+		        <version>1.2.1</version>
+		        <executions>
+		          <execution>
+		            <goals>
+		              <goal>java</goal>
+		            </goals>
+		          </execution>
+		        </executions>
+		      </plugin>
 		</plugins>
 	</build>
 	<reporting>

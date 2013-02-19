@@ -6,9 +6,10 @@
 <!DOCTYPE html>
 <html>
 <head>
- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="<c:url value="/css/reset.css"/>">
 <link rel="stylesheet" href="<c:url value="/css/pagedown.css"/>">
+<link rel="stylesheet" href="<c:url value="/css/prettify.css"/>">
 <link rel="stylesheet" href="<c:url value="/css/brutal.css"/>">
 <link rel="stylesheet" href="<c:url value="/css/responsive-brutal.css"/>">
 </head>
@@ -37,14 +38,23 @@
 						<li class="nav-item">
 							<a class="logout" href="${linkTo[AuthController].logout}"><fmt:message key="auth.logout_link"/></a>
 						</li>
+						<li class="nav-item">
+							<a href="#" class="search-dropdown dropdown-trigger" data-target-id="dropdown-search-form">Procurar</a>	
+						</li>
 					</c:if>
 					</ul>
 				</nav>
 				<form class="search-form" action="<c:url value='/search' />" method="get">
-					<input name="query" placeholder="search" type="text"/>
+					<input class="text-input" name="query" placeholder="search" type="text"/>
 					<input type="submit"/>
 				</form>
 			</section>
+		</div>
+		<div class="container dropdown-target" id="dropdown-search-form">
+			<form class="dropdown-search-form search-form" action="<c:url value='/search' />" method="get">
+				<input class="text-input" name="query" placeholder="search" type="text"/>
+				<input type="submit"/>
+			</form>
 		</div>
 	</section>
 	<section class="second-header">
@@ -53,6 +63,7 @@
 			<nav class="nav main-nav">		
 					<ul class="nav-items">
 						<li class="nav-item"><a class="button" href="<c:url value="/"/>"><fmt:message key="menu.questions"/></a></li> 
+						<li class="nav-item"><a class="button" href="${linkTo[ListController].listTags}"><fmt:message key="menu.tags"/></a></li> 
 						<li class="nav-item"><a class="button unsolved" href="<c:url value="/list/unsolved"/>"><fmt:message key="menu.unsolved"/></a></li>
 						<li class="ask nav-item"><a class="button ask-a-question" href='<c:url value="/question/ask" />'><fmt:message key="question.ask" /></a></li>
 					</ul>

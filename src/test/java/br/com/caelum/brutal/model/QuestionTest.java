@@ -68,7 +68,6 @@ public class QuestionTest  extends TestCase{
 		User leo = new User("", "", "");
 		artur.setId(1l);
 		leo.setId(2l);
-		User moderator = new User("", "", "").asModerator();
 		
 		Question comoFaz = question("titulo", "descricao", artur);
 		QuestionInformation comoFazEditedInformation = new QuestionInformationBuilder().with(leo).build();

@@ -8,7 +8,7 @@
 </div>
 
 <h2 class="history-title"><fmt:message key="moderation.version"/>:</h2>
-<select class="question-history-select">
+<select class="history-select-version">
 	<option><fmt:message key="moderation.select_version"/></option>
 	<c:forEach items="${histories}" var="information" varStatus="status">
 		<option value="${status.index}">
@@ -32,7 +32,7 @@
 
 		<ul class="post-touchs">
 			<li class="touch author-touch">
-				<tags:completeUser user="${information.author}" date="${information.createdAt}"/>
+				<tags:completeUser touchText="touch.edited" user="${information.author}" date="${information.createdAt}"/>
 			</li>
 		</ul>
 		
