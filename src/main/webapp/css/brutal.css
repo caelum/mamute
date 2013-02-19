@@ -99,7 +99,7 @@ a {
 .hint {
 	background-color: #FEFAE2;
 	border: 1px solid #F3EED5;
-	padding: 10px 5px;
+	padding: .3em;
 	width:95%;
 	float: right;
 }
@@ -118,7 +118,6 @@ a {
 
 /*Markdown*/
 pre {
-	padding: 5px;
 	font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono,
 		DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace,
 		serif;
@@ -173,14 +172,14 @@ p {
 	border: 1px solid #8e0000;
 	border-radius: 3px;
 	cursor: pointer;
-	padding: 20px;
+	padding: 1.3em;
 }
 
 /*Popup*/
 .popup {
 	display: none;
 	position: absolute;
-	padding: 0px 20px;
+	padding: 0 1.3em;
 	margin-top: 5px;
 }
 
@@ -239,7 +238,7 @@ input[type="submit"] {
 }
 
 .text-input {
-	padding: 3px;
+	padding: 0.25em;
 	border: 1px solid #999;
 }
 
@@ -334,7 +333,7 @@ textarea {
 .first-header {
 	margin-bottom: 50px;
 	background-color: #EEE;
-	padding: 2px;
+	padding: .15em;
 }
 
 .user-area {
@@ -359,7 +358,6 @@ textarea {
 	border: none;
 	border-top: 1px solid #ccc;
 	border-left: 1px solid #ccc;
-	padding: 3px;
 	width:70%;
 }
 
@@ -416,13 +414,13 @@ textarea {
 
 .sidebar {
 	width: 20%;
-	padding: 0 20px;
+	padding: 0 1.5em;
 }
 
 /*BUTTON*/
 .button {
 	background: #777;
-	padding: 0 12px;
+	padding: 0 .8em;
 	display: block;
 	color: #fff;
 	font-size: 1.23em;
@@ -433,17 +431,17 @@ textarea {
 }
 
 /*HOME*/
-.question,.question-information,.summary {
+.question-item, .question-information, .summary {
 	overflow: hidden;
 }
 
-.question-information,.summary {
+.question-information, .summary {
 	float: left;
 }
 
-.question {
+.question-item {
 	border-bottom: 1px solid #EAEAEA;
-	padding: 11px 0;
+	padding: .8em 0;
 }
 
 .summary {
@@ -457,7 +455,7 @@ textarea {
 .info {
 	float: left;
 	font-size: 1.6em;
-	padding: 5px;
+	padding: .25em;
 	text-align: center;
 	width: 33%;
 }
@@ -492,9 +490,8 @@ textarea {
 	float: right;
 }
 
-.reputation {
+.stats .reputation {
 	color: #444;
-	padding-left: 2px;
 }
 
 .last-updated-at {
@@ -514,18 +511,22 @@ textarea {
 
 .history-original {
 	margin-bottom: 30px;
-	padding-right:20px;
+	padding-right:2em;
 }
 
 .history-comparison .user-info{
 	width:50%;
 }
 
+.history-comparison .touch{
+	width:100%;
+}
+
 .original-answer {
 	background-color: #FCF8E3; 
 	color: #C09853;
 	line-height: 17px;
-	padding: 17px 10px;
+	padding: 1em .8em;
 }
 
 .original-answer p {
@@ -552,7 +553,7 @@ textarea {
 	display: inline-block;
 	font-size: .9em;
 	margin: 3px 4px;
-	padding: 3px 4px;
+	padding: .25em .3em;
 }
 
 .tag:hover {
@@ -572,7 +573,7 @@ textarea {
 	position: absolute;
 	margin-top: 30px;
 	background-color: #FFF;
-	padding: 10px;
+	padding: .6em;
 	width: 45%;
 }
 
@@ -584,7 +585,7 @@ textarea {
 
 .complete-tag {
 	border-bottom: 1px dotted #E0E0E0;
-	padding: 10px;
+	padding: .8em;
 	float:left;
 	height:160px;
 	width:20%;
@@ -645,7 +646,7 @@ textarea {
 	height: 100%;
 	line-height: 13px;
 	overflow: hidden;
-	padding: 5px;
+	padding: .4em;
 	width: 50%;
 }
 
@@ -656,7 +657,7 @@ textarea {
 
 .post-action {
 	color: #888;
-	padding: 2px 3px;
+	padding: .15em .25em;
 }
 
 .post-action:hover {
@@ -666,7 +667,7 @@ textarea {
 
 .post-action-nav .nav-item {
 	border-left: 2px solid #ccc;
-	padding: 0px 5px;
+	padding: 0 .25em;
 	margin: 0px;
 }
 
@@ -677,7 +678,7 @@ textarea {
 .post-container {
 	float: right;
 	width: 90%;
-	padding-top: 10px;
+	padding-top: .5em;
 }
 
 .post-text {
@@ -697,17 +698,12 @@ textarea {
 	cursor: pointer;
 	height: auto;
 	width: auto;
-	padding: 5px 10px;
+	padding: .3em .5em;
 }
 
 .big-submit {
 	font-weight: bold;
 	font-size: 1.3em;
-}
-
-.login-or-signup {
-	width: 85%;
-	overflow: hidden;
 }
 
 .login-or-signup .user-form {
@@ -719,7 +715,7 @@ textarea {
 }
 
 .login-or-signup .login,.login-or-signup .signup {
-	padding: 0 40px;
+	padding: 0 1.2em;
 	float: left;
 	width: 50%;
 }
@@ -739,7 +735,7 @@ textarea {
 }
 
 .comment {
-	padding: 8px 25px;
+	padding: .4em 2em;
 	border-bottom: dotted 1px #ddd;
 	line-height: 20px;
 }
@@ -750,11 +746,11 @@ textarea {
 
 .same-author {
 	background-color: #E0EAF1;
-	padding: 2px 5px;
+	padding: .2em .35em;
 }
 
 .answer {
-	padding-bottom: 15px;
+	padding-bottom: 1em;
 }
 
 /*Vote*/
@@ -826,7 +822,7 @@ textarea {
 	height: 300px;
 	margin-top: 50px;
 	text-align: center;
-	padding-top: 30px;
+	padding-top: 2em;
 }
 
 .footer p {

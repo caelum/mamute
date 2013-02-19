@@ -26,7 +26,7 @@
 	
 	.info{
 		padding-top:0;
-		padding-bottom:10px;
+		padding-bottom:.65em;
 	}
 	
 	.question-information{
@@ -99,7 +99,6 @@
 		background-color:inherit;
 		color: #555;
 		font-size:1em;
-		padding:0 7px;
 	}
 	
 	.main-nav .nav-item, .main-nav .nav-item a{
@@ -129,10 +128,6 @@
 		width:100%;
 	}
 	
-	.login-or-signup .login, .login-or-signup .signup{
-		padding: 0 10px;
-	} 
-
 }
 
 @media only screen and (max-width: 550px) {
