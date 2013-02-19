@@ -42,11 +42,12 @@ public class NewQuestionPage extends PageObject {
 	}
 
 	private WebElement findAutoCompletedTag(String tag) {
-		waitForElement(By.className("autocompleted-tag"));
-		List<WebElement> autoCompletedTags = allByClassName("autocompleted-tag");
+		String tagSelector = ".complete-tag .tag";
+        waitForElement(By.cssSelector(tagSelector), 10);
+		List<WebElement> autoCompletedTags = allByCSS(tagSelector);
 		WebElement rightAutoCompletedTag = null;
 		for (WebElement autoCompletedTag : autoCompletedTags) {
-			if(autoCompletedTag.getText().equals(tag)){
+			if (autoCompletedTag.getText().equals(tag)){
 				rightAutoCompletedTag = autoCompletedTag;
 			}
 		}
