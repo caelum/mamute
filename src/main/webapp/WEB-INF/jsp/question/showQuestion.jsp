@@ -1,9 +1,11 @@
-<h2 class="title question-title">${question.title}</h2>
+<h2 class="title subheader question-title">${question.title}</h2>
 <section class="first-content">
 	<tags:questionWith question="${question}"/>
-	<h2 class="title page-title">
-		${question.answersCount} <fmt:message key="question.list.answer.${question.answersCount > 1 ? 'plural' : 'singular' }"/>
-	</h2>
+	<div class="subheader">
+		<h2 class="title page-title">
+			${question.answersCount} <fmt:message key="question.list.answer.${question.answersCount > 1 ? 'plural' : 'singular' }"/>
+		</h2>
+	</div>
 	<ul>
 		<c:forEach items="${answers.votes}" var="entry">
 			<c:set var="answer" value="${entry.key}" />

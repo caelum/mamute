@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.controllers;
 
+import br.com.caelum.brutal.auth.Access;
 import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.User;
@@ -33,6 +34,17 @@ public class UserProfileController {
 		
 		result.include("isCurrentUser", currentUser.getCurrent().getId().equals(id));
 		result.include("selectedUser", selectedUser);
+	}
+	
+	@Get("/users/edit/{id}")
+	public void editProfile(Long id) {
+		User user = users.findById(id);
 		
+		if (!user.getId().equals(currentUser.getCurrent().getId())){
+			result.redirectTo(ListController.class).home();
+			return;
+		}
+		
+		result.include("user", user);
 	}
 }

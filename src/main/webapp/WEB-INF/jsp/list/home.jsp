@@ -1,5 +1,7 @@
 <section class="first-content">
-	<h2 class="title page-title replace"></h2>
+	<div class="subheader">
+		<h2 class="title page-title replace"></h2>
+	</div>
 	<ol class="question-list">
 		<c:forEach var="question" items="${questions }">
 			<tags:list-question-item question="${question}"/>

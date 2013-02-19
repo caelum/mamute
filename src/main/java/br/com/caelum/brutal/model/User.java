@@ -12,6 +12,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
+import org.joda.time.Years;
 
 import br.com.caelum.brutal.infra.Digester;
 import br.com.caelum.brutal.model.interfaces.Identifiable;
@@ -39,6 +40,18 @@ public class User implements Identifiable {
 	@NotEmpty
 	@Length(min = 6)
 	private String name;
+	
+
+
+	private String website;
+	
+	private String location;
+	
+	private String about;
+	
+	private String markedAbout;
+	
+	private DateTime birthDate;
 	
 	private long karma = 0;
 	
@@ -153,6 +166,10 @@ public class User implements Identifiable {
 		return sluggedName;
 	}
 	
+	public DateTime getCreatedAt() {
+		return createdAt;
+	}
+	
 	public UpdateStatus approve(Moderatable moderatable, Information approvedInfo) {
 	    if (this.isModerator()) {
 	        moderatable.approve(approvedInfo);
@@ -163,5 +180,42 @@ public class User implements Identifiable {
 	
 	public boolean isAuthorOf(Question question){
 		return this.id == question.getAuthor().getId();  
+	}
+	
+	public String getWebsite() {
+		return website;
+	}
+	
+	public void setWebsite(String website) {
+		this.website = website;
+	}
+	
+	public String getLocation() {
+		return location;
+	}
+	
+	public void setLocation(String location) {
+		this.location = location;
+	}
+	
+	public int getAge() {
+		DateTime now = new DateTime();
+		if (birthDate == null){
+			return 0;
+		}
+		return Years.yearsBetween(birthDate, now).getYears();
+	}
+	
+	public void setBirthDate(DateTime birthDate) {
+		this.birthDate = birthDate;
+	}
+	
+	public void setAbout(String content) {
+		this.about = content;
+		this.markedAbout = MarkDown.parse(content);
+	}
+	
+	public String getMarkedAbout() {
+		return markedAbout;
 	}
 }
