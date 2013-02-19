@@ -711,7 +711,7 @@ textarea {
 }
 
 .login-or-signup label:not(.error){
-	margin: 5px 8px 0;
+	margin: 5px 8px 0 0;
 }
 
 .login-or-signup .login,.login-or-signup .signup {
