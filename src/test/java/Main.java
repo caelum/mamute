@@ -23,7 +23,7 @@ public class Main {
 	}
 
     private static String getWebXmlLocation(String webappDirLocation) {
-        String webxml = System.getenv("vraptor.webxml");
+        String webxml = System.getenv("VRAPTOR_WEBXML");
 		webxml = webxml == null ? webappDirLocation + "/WEB-INF/web.xml" : webxml;
 		return webxml;
     }
