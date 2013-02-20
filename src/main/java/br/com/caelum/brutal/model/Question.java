@@ -156,7 +156,7 @@ public class Question extends Moderatable implements Votable, Commentable, Updat
 
 	@Override
 	public void substitute(Vote previous, Vote vote) {
-		this.voteCount+= vote.substitute(previous, votes);
+		this.voteCount += vote.substitute(previous, votes);
 	}
 
 	@Override

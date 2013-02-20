@@ -54,7 +54,9 @@
 	<section class="user-questions advanced-data-section">
 		<h3 class="title section-title subheader"><fmt:message key="user_profile.questions" /></h3>
 		<ul>
-			<li>marota</li>
+			<c:forEach var="question" items="${questionsByVotes}">
+				<li>${question.title} - ${question.voteCount}</li>
+			</c:forEach>
 		</ul>
 	</section>	
 	

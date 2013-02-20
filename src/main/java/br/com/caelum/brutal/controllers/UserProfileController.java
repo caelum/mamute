@@ -2,11 +2,10 @@ package br.com.caelum.brutal.controllers;
 
 import java.util.Locale;
 
-import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import br.com.caelum.brutal.auth.Access;
+import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.User;
@@ -21,13 +20,15 @@ public class UserProfileController {
 	private Result result;
 	private UserDAO users;
 	private LoggedUser currentUser;
+	private final QuestionDAO questions;
 	
 	public UserProfileController(Result result, UserDAO users,
-			LoggedUser currentUser) {
+			LoggedUser currentUser, QuestionDAO questions) {
 		super();
 		this.result = result;
 		this.users = users;
 		this.currentUser = currentUser;
+		this.questions = questions;
 	}
 	
 	@Get("/users/{id}/{sluggedName}")
@@ -40,6 +41,7 @@ public class UserProfileController {
 		}
 		
 		result.include("isCurrentUser", currentUser.getCurrent().getId().equals(id));
+		result.include("questionsByVotes", questions.withAuthorByVotes(selectedUser));
 		result.include("selectedUser", selectedUser);
 	}
 	

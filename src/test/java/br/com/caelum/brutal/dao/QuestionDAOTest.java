@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.dao;
 
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
@@ -16,12 +17,15 @@ import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.model.Vote;
+import br.com.caelum.brutal.model.VoteType;
 
 public class QuestionDAOTest extends DatabaseTestCase {
 
 	private QuestionDAO questions;
 	private TagDAO tags;
 	private User author;
+	private VoteDAO votes;
 
 	@Before
 	public void setup() {
@@ -29,6 +33,7 @@ public class QuestionDAOTest extends DatabaseTestCase {
 		session.save(author);
 		this.questions = new QuestionDAO(session);
 		this.tags = new TagDAO(session);
+		this.votes = new VoteDAO(session);
 	}
 	
 	
@@ -77,13 +82,15 @@ public class QuestionDAOTest extends DatabaseTestCase {
 		Tag sal = new Tag("sal", "", null);
 		tags.saveOrLoad(sal);
 
-		QuestionInformation info = new QuestionInformation("Por que pegar o sal da mal dos outros da azar?",
+		Question salDaAzar =  question("Por que pegar o sal da mal dos outros da azar?",
+				"Alguem poderia me dizer o por que disso? Obrigado galera!", 
+				author, sal);
+		Question beberFazMal = question("Por que dizem que beber demais faz mal?",
 				"Alguem poderia me dizer o por que disso? Obrigado galera!",
-				new LoggedUser (author, null), Arrays.asList(sal), "");
-		Question salDaAzar = new Question(info, null);
-		
-		Question beberFazMal = question("Por que dizem que beber demais faz mal?", "Alguem poderia me dizer o por que disso? Obrigado galera!", author);
-		Question androidRuim = question("Por que a api de android é tão ruim?", "Alguem poderia me dizer o por que disso? Obrigado galera!", author);
+				author);
+		Question androidRuim = question("Por que a api de android é tão ruim?",
+				"Alguem poderia me dizer o por que disso? Obrigado galera!",
+				author);
 		questions.save(salDaAzar);
 		questions.save(beberFazMal);
 		questions.save(androidRuim);
@@ -93,5 +100,30 @@ public class QuestionDAOTest extends DatabaseTestCase {
 		assertTrue(perguntasComSal.contains(salDaAzar));
 		assertFalse(perguntasComSal.contains(beberFazMal));
 		assertFalse(perguntasComSal.contains(androidRuim));
+	}
+	
+	@Test
+	public void should_return_only_questions_with_the_provided_user_ordered_by_vote_count() {
+		Question beberFazMal = question("Por que dizem que beber demais faz mal?", "Alguem poderia me dizer o por que disso? Obrigado galera!", author);
+		beberFazMal.substitute(null, new Vote(author, VoteType.UP));
+		beberFazMal.substitute(null, new Vote(author, VoteType.UP));
+		
+		Question androidRuim = question("Por que a api de android é tão ruim?", "Alguem poderia me dizer o por que disso? Obrigado galera!", author);
+		androidRuim.substitute(null, new Vote(author, VoteType.UP));
+
+		Question salDaAzar =  question("Por que pegar o sal da mal dos outros da azar?", "Alguem poderia me dizer o por que disso? Obrigado galera!", author);
+		
+		questions.save(salDaAzar);
+		questions.save(beberFazMal);
+		questions.save(androidRuim);
+		
+		List<Question> perguntasDoAuthor = questions.withAuthorByVotes(author);
+
+		assertTrue(perguntasDoAuthor.contains(salDaAzar));
+		assertTrue(perguntasDoAuthor.contains(beberFazMal));
+		assertTrue(perguntasDoAuthor.contains(androidRuim));
+		assertEquals(perguntasDoAuthor.get(0), beberFazMal);
+		assertEquals(perguntasDoAuthor.get(1), androidRuim);
+		assertEquals(perguntasDoAuthor.get(2), salDaAzar);
 	}
 }
