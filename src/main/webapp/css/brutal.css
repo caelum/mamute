@@ -891,14 +891,6 @@ textarea {
 	margin-right: 5%;
 }
 
-
-.data-list li{
-	display: inline-block;
-	width: 100%;
-	margin-bottom: 2%;
-	line-height: 1.5em;
-}
-
 .data-section-title {
 	float: left;
 	font-style: italic;
@@ -915,6 +907,7 @@ textarea {
 .data-section .data-title, .data-section .data-description {
 	float: left;
 	display: block;
+	line-height: 1.5em;
 }
 
 .data-line {
