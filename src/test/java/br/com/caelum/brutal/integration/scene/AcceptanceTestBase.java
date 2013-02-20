@@ -1,6 +1,10 @@
 package br.com.caelum.brutal.integration.scene;
 
+import java.io.IOException;
+
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.methods.GetMethod;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -22,7 +26,7 @@ public abstract class AcceptanceTestBase implements ServerInfo.TesteAceitacao {
 
 	protected static WebDriver driver;
 
-	protected HttpClient client;
+	protected static HttpClient client;
 	
 	protected static String HOMOLOG_ENV = "development";
 
@@ -62,8 +66,28 @@ public abstract class AcceptanceTestBase implements ServerInfo.TesteAceitacao {
 		}
 		waitForFirstBodyPresence();
 	}
+	
+	@BeforeClass
+	public static void getHttpClient() {
+	    client = new HttpClient();
+	    getHome();
+	}
 
-	private static void waitForFirstBodyPresence() {
+	private static void getHome() {
+	    String homeUri = SERVER.urlFor("");
+        try {
+            HttpMethod method = new GetMethod(homeUri);
+            int status = client.executeMethod(method);
+            int digit = status % 100;
+            if (digit == 5 || digit == 4) {
+                throw new RuntimeException("server responded with "+ status + " status for a GET request to uri: " + homeUri + ", is the server ok?");
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("could not execute GET to: " + homeUri + ", is the server up?", e);
+        }
+    }
+
+    private static void waitForFirstBodyPresence() {
 		driver.get(SERVER.urlFor(""));
 		ExpectedCondition<WebElement> homeAppear = new ExpectedCondition<WebElement>() {
 			@Override
