@@ -206,15 +206,16 @@ public class User implements Identifiable {
 		this.markedAbout = MarkDown.parse(content);
 	}
 	
+	
+	public String getMarkedAbout() {
+		return markedAbout;
+	}
+	
 	public void setPersonalInformation(String email, String name, String website, String location, DateTime birthDate) {
 		this.email = email;
 		this.birthDate = birthDate;
 		this.name = name;
 		this.website = website;
 		
-	}
-	
-	public String getMarkedAbout() {
-		return markedAbout;
 	}
 }

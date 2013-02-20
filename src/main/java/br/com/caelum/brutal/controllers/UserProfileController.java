@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.controllers;
 
+import java.util.Arrays;
 import java.util.Locale;
 
 import org.joda.time.LocalDate;
@@ -62,6 +63,12 @@ public class UserProfileController {
 		
 		if (!user.getId().equals(currentUser.getCurrent().getId())){
 			result.redirectTo(ListController.class).home();
+			return;
+		}
+		
+		if (birthDate == null) {
+			result.include("errors", Arrays.asList("user_profile.edit.validation.invalid_birth_date"));
+			result.redirectTo(this).editProfile(id);
 			return;
 		}
 		
