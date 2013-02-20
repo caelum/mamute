@@ -911,9 +911,8 @@ textarea {
 }
 
 .data-line {
-	display:inline-block;
-	width:100%;
-	line-height: 1.5em;
+	overflow:hidden;
+	margin-bottom: 3%;
 }
 
 .data-line *{

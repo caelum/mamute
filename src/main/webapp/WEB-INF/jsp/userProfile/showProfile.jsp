@@ -6,7 +6,7 @@
 		</ul>
 	</c:if>
 </div>
-
+	
 <div class="image-and-information">
 	<img class="profile-image" src="${selectedUser.photo}?s=128"/>
 	<span class="karma">${selectedUser.karma}</span>
@@ -14,7 +14,7 @@
 </div>
 
 <ul class="data-list">
-	<li>
+	<li class="data-line">
 		<h5 class="data-section-title">bio</h5>
 		<dl class="data-section">
 			<dt class="data-title ellipsis"><fmt:message key="user_profile.website"/></dt>
@@ -31,7 +31,7 @@
 			<dd class="data-description ellipsis">${selectedUser.age}</dd>
 		</dl>
 	</li>
-	<li>
+	<li class="data-line">
 		<h5 class="data-section-title">stats</h5>
 		<dl class="data-section">
 			<dt class="data-title ellipsis"><fmt:message key="user_profile.created_at"/></dt>
@@ -47,3 +47,8 @@
 	</c:if>
 	${selectedUser.markedAbout}
 </div>
+
+
+
+
+
