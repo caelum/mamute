@@ -915,6 +915,7 @@ textarea {
 .data-section .data-title, .data-section .data-description {
 	float: left;
 	display: block;
+}
 
 .data-line {
 	display:inline-block;
@@ -925,6 +926,7 @@ textarea {
 .data-line *{
 	font-size:13px;
 	float: left;
+}
 
 .data-section .data-title{
 	width: 35%;	
