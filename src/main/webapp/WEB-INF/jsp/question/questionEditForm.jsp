@@ -5,7 +5,7 @@
 	<input id="question-title" type="text" class="required hintable text-input" value="${question.title }" data-hint-id="newquestion-title-hint" minlength="15" name="title">
 	<tags:markDown value="${question.description}" hintId="newquestion-description-hint" />
 	<label for="tags"><fmt:message key="newquestion.tags"/></label>
-	<input id="tags" type="text" name="tagNames" class="hintable autocomplete  text-input" value="${question.tagsAsString }" data-hint-id="newquestion-tags-hint" data-autocomplete-id="newquestion-tags-autocomplete"/>
+	<input id="tags" type="text" name="tagNames" autocomplete="off" class="hintable autocomplete  text-input" value="${question.tagsAsString }" data-hint-id="newquestion-tags-hint" data-autocomplete-id="newquestion-tags-autocomplete"/>
 	<ul class="tags autocompleted-tags" id="newquestion-tags-autocomplete"></ul>
 	
 	<label for="comment"><fmt:message key="question.edit_form.comment" /></label>
@@ -13,8 +13,9 @@
 	
 	<input class="post-submit big-submit" type="submit" value="<fmt:message key="newquestion.submit"/>" />
 </form>
-
-<div id="newquestion-title-hint" class="hint"><fmt:message key="title.hint" /></div>
-<div id="newquestion-description-hint" class="hint"><fmt:message key="description.hint" /></div>
-<div id="newquestion-tags-hint" class="hint"><fmt:message key="tags.hint" /></div>
-<div id="newquestion-comment-hint" class="hint"><fmt:message key="question.edit_form.comment.hint" /></div>
+<div class="form-hints">
+	<div id="newquestion-title-hint" class="hint"><fmt:message key="title.hint" /></div>
+	<div id="newquestion-description-hint" class="hint"><fmt:message key="description.hint" /></div>
+	<div id="newquestion-tags-hint" class="hint"><fmt:message key="tags.hint" /></div>
+	<div id="newquestion-comment-hint" class="hint"><fmt:message key="question.edit_form.comment.hint" /></div>
+</div>
