@@ -204,8 +204,8 @@ p {
 	background-color: #EAEAEA;
  	-webkit-box-shadow: 2px 2px 4px #999;
 	box-shadow: 2px 2px 4px #999;
-	width: 350px;
-	padding: 5px 10px;	
+	width: 25%;
+	padding: .4em .8em;	
 }
 
 .popup.share label {
