@@ -1,6 +1,5 @@
 package br.com.caelum.brutal.controllers;
 
-import java.util.Arrays;
 import java.util.Locale;
 
 import org.joda.time.LocalDate;
@@ -14,6 +13,8 @@ import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.validator.I18nMessage;
 
 @Resource
 public class UserProfileController {
@@ -21,13 +22,15 @@ public class UserProfileController {
 	private Result result;
 	private UserDAO users;
 	private LoggedUser currentUser;
+	private Validator validator;
 	
 	public UserProfileController(Result result, UserDAO users,
-			LoggedUser currentUser) {
+			LoggedUser currentUser,  Validator validator) {
 		super();
 		this.result = result;
 		this.users = users;
 		this.currentUser = currentUser;
+		this.validator = validator;
 	}
 	
 	@Get("/users/{id}/{sluggedName}")
@@ -67,8 +70,8 @@ public class UserProfileController {
 		}
 		
 		if (birthDate == null) {
-			result.include("errors", Arrays.asList("user_profile.edit.validation.invalid_birth_date"));
-			result.redirectTo(this).editProfile(id);
+			validator.add(new I18nMessage("error", "user_profile.edit.validation.invalid_birth_date"));
+			validator.onErrorRedirectTo(this).editProfile(id);
 			return;
 		}
 		

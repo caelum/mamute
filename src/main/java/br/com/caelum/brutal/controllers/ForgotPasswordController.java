@@ -12,9 +12,10 @@ import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.simplemail.Mailer;
 import br.com.caelum.vraptor.simplemail.template.TemplateMailer;
-import br.com.caelum.vraptor.validator.ValidationMessage;
+import br.com.caelum.vraptor.validator.I18nMessage;
 
 @Resource
 public class ForgotPasswordController {
@@ -24,13 +25,15 @@ public class ForgotPasswordController {
 	private final Result result;
 	private final UserDAO users;
 	private final DefaultLinker linker;
+	private Validator validator;
 
-	public ForgotPasswordController(Mailer mailer, TemplateMailer templates, Result result, UserDAO users, DefaultLinker linker) {
+	public ForgotPasswordController(Mailer mailer, TemplateMailer templates, Result result, UserDAO users, DefaultLinker linker, Validator validator) {
 		this.mailer = mailer;
 		this.templates = templates;
 		this.result = result;
 		this.users = users;
 		this.linker = linker;
+		this.validator = validator;
 	}
 
 	@Get("/forgotpassword")
@@ -46,8 +49,8 @@ public class ForgotPasswordController {
 		User user = users.loadByEmail(email);
 
 		if (user == null) {
-			result.include("errors", Arrays.asList(new ValidationMessage("forgot_password.invalid_email", "error").getMessage()));
-			result.redirectTo(this).forgotPasswordForm();
+			validator.add(new I18nMessage("error", "forgot_password.invalid_email"));
+			validator.onErrorRedirectTo(this).forgotPasswordForm();
 			return;
 		}
 
@@ -57,8 +60,8 @@ public class ForgotPasswordController {
 			result.include("user", user);
 			result.redirectTo(this).sentMail();
 		} catch (EmailException e) {
-			result.include("errors", Arrays.asList("forgot_password.send_mail.error"));
-			result.redirectTo(this).forgotPasswordForm();
+			validator.add(new I18nMessage("error", "forgot_password.send_mail.error"));
+			validator.onErrorRedirectTo(this).forgotPasswordForm();
 		}	
 	}
 
@@ -76,8 +79,8 @@ public class ForgotPasswordController {
 
 		boolean passwordUpdated = user.updateForgottenPassword(password, password_confirmation);
 		if(!passwordUpdated) {
-			result.include("errors", Arrays.asList(new ValidationMessage("forgot_password.password_doesnt_match", "error").getMessage()));
-			result.redirectTo(this).changePasswordForm(id, token);
+			validator.add(new I18nMessage("error", "forgot_password.password_doesnt_match"));
+			validator.onErrorRedirectTo(this).forgotPasswordForm();
 		}
 		
 		user.touchForgotPasswordToken();
@@ -103,8 +106,8 @@ public class ForgotPasswordController {
 	private User validateTokenAndGetUser(Long id, String token) {
 		User user = users.loadByIdAndToken(id, token);
 		if (user == null) {
-			result.include("errors", Arrays.asList(new ValidationMessage("forgot_password.invalid_token", "error").getMessage()));
-			result.redirectTo(this).forgotPasswordForm();
+			validator.add(new I18nMessage("error", "forgot_password.invalid_token"));
+			validator.onErrorRedirectTo(this).forgotPasswordForm();
 		}
 		return user;
 	}
