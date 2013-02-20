@@ -8,7 +8,7 @@
 	<input id="question-title" type="text" class="required hintable text-input" value="${question.title }" data-hint-id="newquestion-title-hint" minlength="15" name="title">
 	<tags:markDown value="${question.description}" hintId="newquestion-description-hint" />
 	<label for="tags"><fmt:message key="newquestion.tags"/></label>
-	<input id="tags" type="text" name="tagNames" class="hintable autocomplete  text-input" value="${question.tagsAsString }" data-hint-id="newquestion-tags-hint" data-autocomplete-id="newquestion-tags-autocomplete"/>
+	<input id="tags" type="text" autocomplete="off" name="tagNames" class="hintable autocomplete  text-input" value="${question.tagsAsString }" data-hint-id="newquestion-tags-hint" data-autocomplete-id="newquestion-tags-autocomplete"/>
 	<ul class="tags autocompleted-tags complete-tags hidden" id="newquestion-tags-autocomplete"></ul>
 	<input class="post-submit big-submit" type="submit" value="<fmt:message key="newquestion.submit"/>" />
 </form>

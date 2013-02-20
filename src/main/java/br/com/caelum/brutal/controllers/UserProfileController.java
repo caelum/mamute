@@ -6,6 +6,7 @@ import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.User;
@@ -23,14 +24,17 @@ public class UserProfileController {
 	private UserDAO users;
 	private LoggedUser currentUser;
 	private Validator validator;
+	private final QuestionDAO questions;
 	
 	public UserProfileController(Result result, UserDAO users,
-			LoggedUser currentUser,  Validator validator) {
+			LoggedUser currentUser, QuestionDAO questions, Validator validator) {
+
 		super();
 		this.result = result;
 		this.users = users;
 		this.currentUser = currentUser;
 		this.validator = validator;
+		this.questions = questions;
 	}
 	
 	@Get("/users/{id}/{sluggedName}")
@@ -43,6 +47,7 @@ public class UserProfileController {
 		}
 		
 		result.include("isCurrentUser", currentUser.getCurrent().getId().equals(id));
+		result.include("questionsByVotes", questions.withAuthorByVotes(selectedUser));
 		result.include("selectedUser", selectedUser);
 	}
 	

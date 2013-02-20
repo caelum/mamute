@@ -5,9 +5,16 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Random;
 
+import org.junit.After;
 import org.junit.Test;
 
-public class SignupTest extends AuthTestBase{
+public class SignupTest extends AcceptanceTestBase {
+    
+    @After
+    public void logout(){
+        if (home().isLoggedIn())
+            home().logOut();
+    }
 
 	@Test
 	public void should_sign_up(){

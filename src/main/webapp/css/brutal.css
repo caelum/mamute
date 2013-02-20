@@ -64,6 +64,7 @@ a {
 .title,.title a {
 	font-family: Trebuchet MS, Liberation Sans, DejaVu Sans, sans-serif;
 	font-weight: bold;
+	line-height: 34px;
 }
 
 .subheader {
@@ -84,14 +85,16 @@ a {
 	float: right;
 }
 
-.section-title,.section-title a,.page-title,.page-title a {
+.page-title,.page-title a {
 	font-size: 1.4em;
-	line-height: 34px;
 }
 
-.question-title {
+.section-title,.section-title a{
+	font-size: 1.2em;
+}
+
+.question-title, .question-title a {
 	font-size: 1.65em;
-	line-height: 34px;
 }
 
 .item-title,.item-title a {
@@ -889,31 +892,29 @@ textarea {
 	float: left;
 	width: 34%;
 	margin-right: 5%;
+	line-height: 1.5em;
 }
 
 .data-section-title {
 	float: left;
 	font-style: italic;
-	width: 10%;
-	margin-right: 3%;
+	width: 15%;
 }
 
 .data-list .data-section {
 	float:left;
 	color: #000;
-	width: 87%;
+	width: 85%;
 }
 
 .data-section .data-title, .data-section .data-description {
 	float: left;
 	display: block;
-	line-height: 1.5em;
 }
 
 .data-line {
-	display:inline-block;
-	width:100%;
-	line-height: 1.5em;
+	overflow:hidden;
+	margin-bottom: 3%;
 }
 
 .data-line *{
@@ -928,6 +929,10 @@ textarea {
 
  .data-section .data-description{
 	width: 65%;	
+}
+
+.advanced-data-section{
+	width:50%;
 }
 
 .data-line label {

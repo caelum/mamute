@@ -6,6 +6,7 @@ import org.hibernate.Session;
 
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
+import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
@@ -47,6 +48,14 @@ public class QuestionDAO {
 		List<Question> questions = session.createQuery("select q from Question as q join q.information.tags t where " + spamFilter() + " and t = :tag order by q.lastUpdatedAt desc")
 				.setParameter("tag", tag)
 				.setMaxResults(50)
+				.list();
+		return questions;
+	}
+	
+	public List<Question> withAuthorByVotes(User user) {
+		List<Question> questions = session.createQuery("select q from Question as q join q.author a where a = :user order by q.voteCount desc")
+				.setParameter("user", user)
+				.setMaxResults(5)
 				.list();
 		return questions;
 	}

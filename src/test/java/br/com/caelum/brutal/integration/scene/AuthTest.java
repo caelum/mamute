@@ -3,11 +3,18 @@ package br.com.caelum.brutal.integration.scene;
 import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.After;
 import org.junit.Test;
 
 import br.com.caelum.brutal.integration.pages.NewQuestionPage;
 
-public class AuthTest extends AuthTestBase{
+public class AuthTest extends AcceptanceTestBase {
+    
+    @After
+    public void logout() {
+        if (home().isLoggedIn())
+            home().logOut();
+    }
 
 	@Test
 	public void should_log_in(){
