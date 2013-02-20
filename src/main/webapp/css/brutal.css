@@ -886,32 +886,30 @@ textarea {
 	line-height: 1.7em;
 }
 
-.data-title {
+.data-section-title {
 	float: left;
 	font-style: italic;
 	width: 10%;
 	margin-right: 3%;
 }
 
-.data-list dl {
+.data-list .data-section {
 	float:left;
 	color: #000;
 	width: 87%;
 }
 
-.data-line dt, .data-line dd {
+.data-section .data-title, .data-section .data-description {
 	float: left;
 	display: block;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	overflow: hidden;
 }
 
-.data-line dt {
+.data-section .data-title{
 	width: 35%;	
+	clear:left;
 }
 
-.data-line dd {
+ .data-section .data-description{
 	width: 65%;	
 }
 

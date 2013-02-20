@@ -15,21 +15,27 @@
 
 <ul class="data-list">
 	<li>
-		<span class="data-title">bio</span>
-		<dl>
-			<span class="data-line ellipsis"><dt><fmt:message key="user_profile.website"/></dt><dd>${selectedUser.website}</dd></span>
-			<span class="data-line ellipsis"><dt><fmt:message key="user_profile.location"/></dt><dd>${selectedUser.location}</dd></span>
+		<h5 class="data-section-title">bio</h5>
+		<dl class="data-section">
+			<dt class="data-title ellipsis"><fmt:message key="user_profile.website"/></dt>
+			<dd class="data-description ellipsis">${selectedUser.website}</dd>
+			<dt class="data-title ellipsis"><fmt:message key="user_profile.location"/></dt>
+			<dd class="data-description ellipsis">${selectedUser.location}</dd>
 			<c:if test="${isCurrentUser}">
-				<span class="data-line ellipsis"><dt><fmt:message key="user_profile.email"/></dt><dd>${selectedUser.email}</dd></span>
-				<span class="data-line ellipsis"><dt><fmt:message key="user_profile.name"/></dt><dd>${selectedUser.name}</dd></span>
+				<dt class="data-title ellipsis"><fmt:message key="user_profile.email"/></dt>
+				<dd class="data-description ellipsis">${selectedUser.email}</dd>
+				<dt class="data-title ellipsis"><fmt:message key="user_profile.name"/></dt>
+				<dd class="data-description ellipsis">${selectedUser.name}</dd>
 			</c:if>
-			<span class="data-line ellipsis"><dt><fmt:message key="user_profile.age"/></dt><dd>${selectedUser.age}</dd></span>
+			<dt class="data-title ellipsis"><fmt:message key="user_profile.age"/></dt>
+			<dd class="data-description ellipsis">${selectedUser.age}</dd>
 		</dl>
 	</li>
 	<li>
-		<span class="data-title">stats</span>
-		<dl>
-			<span class="data-line"><dt><fmt:message key="user_profile.created_at"/></dt> <dd><tags:prettyTime time="${selectedUser.createdAt}"/></dd></span>
+		<h5 class="data-section-title">stats</h5>
+		<dl class="data-section">
+			<dt class="data-title ellipsis"><fmt:message key="user_profile.created_at"/></dt>
+			<dd class="data-description ellipsis"><tags:prettyTime time="${selectedUser.createdAt}"/></dd>
 		</dl>
 	</li>
 </ul>
