@@ -3,6 +3,7 @@ package br.com.caelum.brutal.integration.pages;
 import static org.openqa.selenium.By.tagName;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -74,6 +75,19 @@ public class Home extends PageObject {
 		}
 		throw new RuntimeException("Tag not found: "+tag);
 	}
+
+    public QuestionPage toFirstQuestionWithAnswerPage() {
+        List<WebElement> questionItems = allByCSS(".question-item");
+        for (WebElement question : questionItems) {
+            String countText = question.findElement(By.className("answers")).getText();
+            Integer answersCount = Integer.parseInt(countText.split("\\s+")[0].trim());
+            if (answersCount > 0) {
+                question.findElement(By.cssSelector(".title a")).click();
+                return new QuestionPage(driver);
+            }
+        }
+        throw new NoSuchElementException("could not find any question with at least one answer");
+    }
 
 
 }
