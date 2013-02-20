@@ -44,20 +44,34 @@ public class QuestionPage extends PageObject{
 	}
 
     public QuestionPage voteQuestion(VoteType type) {
-        int voteCount = getQuestionVoteCount();
-        String typeClass = type.name().toLowerCase() + "-vote";
-        byCSS(".question-area ." + typeClass).click();
+        int voteCount = questionVoteCount();
+        String voteTypeClass = type.name().toLowerCase() + "-vote";
+        byCSS(".question-area ." + voteTypeClass).click();
         Integer finalVoteCount = voteCount + type.getValue();
-        waitForTextInElement(By.cssSelector(voteCountSelector()), finalVoteCount.toString(), 10);
+        waitForTextInElement(By.cssSelector(questionVoteCountSelector()), finalVoteCount.toString(), 10);
         return this;
     }
 
-    public int getQuestionVoteCount() {
-        return Integer.parseInt(byCSS(voteCountSelector()).getText());
+    public int questionVoteCount() {
+        return Integer.parseInt(byCSS(questionVoteCountSelector()).getText());
     }
 
-    private String voteCountSelector() {
+    private String questionVoteCountSelector() {
         return ".question-area .vote-count";
+    }
+
+    public QuestionPage voteFirstAnswer(VoteType type) {
+        int initialVoteCount = firstAnswerVoteCount();
+        String voteTypeClass = type.name().toLowerCase() + "-vote";
+        byCSS(".answer ." + voteTypeClass).click();
+        Integer finalVoteCount = initialVoteCount + type.getValue();
+        waitForTextInElement(By.cssSelector(".answer .vote-count"), finalVoteCount.toString(), 10);
+        return this;
+    }
+
+    public int firstAnswerVoteCount() {
+        String text = byClassName("answer").findElement(By.className("vote-count")).getText();
+        return Integer.parseInt(text);
     }
 
 	

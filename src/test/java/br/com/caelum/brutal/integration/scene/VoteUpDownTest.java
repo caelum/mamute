@@ -13,12 +13,14 @@ import br.com.caelum.brutal.model.VoteType;
 
 public class VoteUpDownTest extends AcceptanceTestBase {
     
-    private int initialVoteCount;
+    private QuestionPage questionPage;
 
     @Before
     public void setup() {
         loginRandomly();
+        questionPage = home().toFirstQuestionPage();
     }
+    
     @After
     public void logout() {
         home().logOut();
@@ -26,52 +28,50 @@ public class VoteUpDownTest extends AcceptanceTestBase {
     
     @Test
     public void should_vote_question_up() throws Exception {
-        QuestionPage questionPage = home()
-                .toFirstQuestionPage();
-        
-        initialVoteCount = questionPage
-                .getQuestionVoteCount();
-        
+        int initialQuestionVoteCount = questionPage.questionVoteCount();
         int countAfter = questionPage
             .voteQuestion(VoteType.UP)
-            .getQuestionVoteCount();
+            .questionVoteCount();
         
-        assertEquals(initialVoteCount + 1, countAfter);
+        assertEquals(initialQuestionVoteCount + 1, countAfter);
     }
     
     @Test
     public void should_vote_question_down() throws Exception {
-        QuestionPage questionPage = home()
-                .toFirstQuestionPage();
-        
-        int countBefore = questionPage
-                .getQuestionVoteCount();
-        
+        int initialQuestionVoteCount = questionPage.questionVoteCount();
         int countAfter = questionPage
                 .voteQuestion(VoteType.DOWN)
-                .getQuestionVoteCount();
+                .questionVoteCount();
         
-        assertEquals(countBefore - 1, countAfter);
+        assertEquals(initialQuestionVoteCount - 1, countAfter);
     }
     
     @Test
     public void should_vote_answer_up() throws Exception {
-        QuestionPage questionPage = home()
-                .toFirstQuestionPage();
-        
-        int countBefore = questionPage
-                .getQuestionVoteCount();
-        
+        int firstAnswerVoteCount = questionPage.firstAnswerVoteCount();
         int countAfter = questionPage
-                .voteQuestion(VoteType.DOWN)
-                .getQuestionVoteCount();
+                .voteFirstAnswer(VoteType.UP)
+                .firstAnswerVoteCount();
         
-        assertEquals(countBefore - 1, countAfter);
+        assertEquals(firstAnswerVoteCount + 1, countAfter);
     }
+    
+    @Test
+    public void should_vote_answer_down() throws Exception {
+        int firstAnswerVoteCount = questionPage.firstAnswerVoteCount();
+        int countAfter = questionPage
+                .voteFirstAnswer(VoteType.DOWN)
+                .firstAnswerVoteCount();
+        
+        assertEquals(firstAnswerVoteCount - 1, countAfter);
+    }
+    
 
     private void loginRandomly() {
         home().toSignUpPage()
-                .signUp("chico sokol", "chico"+new Random().nextLong()+"@brutal.com", "123456", "123456");
+                .signUp("chico sokol", 
+                        "chico"+new Random().nextLong()+"@brutal.com", 
+                        "123456", "123456");
     }
     
 }
