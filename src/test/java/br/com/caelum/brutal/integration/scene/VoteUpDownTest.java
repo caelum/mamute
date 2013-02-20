@@ -11,6 +11,12 @@ import br.com.caelum.brutal.model.VoteType;
 public class VoteUpDownTest extends AuthenticatedAcceptanceTest {
     
     private QuestionPage questionPage;
+    
+    @Override
+    @Before
+    public void login() {
+        loginRandomly();
+    }
 
     @Before
     public void setup() {
