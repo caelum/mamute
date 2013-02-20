@@ -40,8 +40,6 @@ public class User implements Identifiable {
 	@NotEmpty
 	@Length(min = 6)
 	private String name;
-	
-
 
 	private String website;
 	
@@ -51,6 +49,7 @@ public class User implements Identifiable {
 	
 	private String markedAbout;
 	
+	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
 	private DateTime birthDate;
 	
 	private long karma = 0;
