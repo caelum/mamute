@@ -2,11 +2,10 @@ package br.com.caelum.brutal.controllers;
 
 import java.util.Locale;
 
-import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import br.com.caelum.brutal.auth.Access;
 import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.User;
@@ -58,7 +57,7 @@ public class UserProfileController {
 	}
 	
 	@Post("/users/edit/{id}")
-	public void editProfile(Long id, String name, String email, String website, String location, String birthDate) {
+	public void editProfile(Long id, String name, String email, String website, String location, LocalDate birthDate) {
 		User user = users.findById(id);
 		
 		if (!user.getId().equals(currentUser.getCurrent().getId())){
@@ -66,11 +65,7 @@ public class UserProfileController {
 			return;
 		}
 		
-		user.setName(name);
-		user.setWebsite(website);
-//		user.setBirthDate(birthDate);
-		user.setLocation(location);
-		
+		user.setPersonalInformation(email, name, website, location, birthDate.toDateTimeAtStartOfDay());
 		result.redirectTo(this).showProfile(id, user.getSluggedName());
 	}
 }

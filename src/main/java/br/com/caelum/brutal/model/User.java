@@ -185,16 +185,8 @@ public class User implements Identifiable {
 		return website;
 	}
 	
-	public void setWebsite(String website) {
-		this.website = website;
-	}
-	
 	public String getLocation() {
 		return location;
-	}
-	
-	public void setLocation(String location) {
-		this.location = location;
 	}
 	
 	public DateTime getBirthDate() {
@@ -209,13 +201,17 @@ public class User implements Identifiable {
 		return Years.yearsBetween(birthDate, now).getYears();
 	}
 	
-	public void setBirthDate(DateTime birthDate) {
-		this.birthDate = birthDate;
-	}
-	
 	public void setAbout(String content) {
 		this.about = content;
 		this.markedAbout = MarkDown.parse(content);
+	}
+	
+	public void setPersonalInformation(String email, String name, String website, String location, DateTime birthDate) {
+		this.email = email;
+		this.birthDate = birthDate;
+		this.name = name;
+		this.website = website;
+		
 	}
 	
 	public String getMarkedAbout() {
