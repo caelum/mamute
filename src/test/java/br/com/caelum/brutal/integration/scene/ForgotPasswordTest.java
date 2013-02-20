@@ -1,12 +1,9 @@
 package br.com.caelum.brutal.integration.scene;
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
-import java.net.URL;
+import java.io.IOException;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
@@ -17,7 +14,6 @@ import org.junit.Test;
 import br.com.caelum.brutal.integration.pages.ResetPasswordPage;
 import br.com.caelum.brutal.providers.SessionFactoryCreator;
 import br.com.caelum.pagpag.aceitacao.util.ServerInfo;
-import br.com.caelum.vraptor.environment.Environment;
 
 public class ForgotPasswordTest extends AcceptanceTestBase implements ServerInfo.TesteAceitacao  {
     
@@ -25,12 +21,7 @@ public class ForgotPasswordTest extends AcceptanceTestBase implements ServerInfo
     private String validEmail = "francisco.sokol@caelum.com.br";
 
     @BeforeClass
-    public static void setup() {
-        Environment env = mock(Environment.class);
-        URL xml = ForgotPasswordTest.class.getClassLoader().getResource(HOMOLOG_ENV + "/hibernate.cfg.xml");
-        assertNotNull(xml);
-        when(env.getResource("/hibernate.cfg.xml")).thenReturn(xml);
-        
+    public static void setup() throws IOException {
         SessionFactoryCreator sessionFactoryCreator = new SessionFactoryCreator(env);
         SessionFactory sf = sessionFactoryCreator.getInstance();
         Session session = sf.openSession();

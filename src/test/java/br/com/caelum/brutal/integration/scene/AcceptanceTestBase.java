@@ -19,6 +19,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import br.com.caelum.brutal.integration.pages.Home;
 import br.com.caelum.pagpag.aceitacao.util.ServerInfo;
+import br.com.caelum.vraptor.environment.DefaultEnvironment;
+import br.com.caelum.vraptor.environment.Environment;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 
@@ -28,7 +30,7 @@ public abstract class AcceptanceTestBase implements ServerInfo.TesteAceitacao {
 
 	protected static HttpClient client;
 	
-	protected static String HOMOLOG_ENV = "development";
+	protected static Environment env;
 
 	@AfterClass
 	public static void close() {
@@ -71,6 +73,15 @@ public abstract class AcceptanceTestBase implements ServerInfo.TesteAceitacao {
 	public static void getHttpClient() {
 	    client = new HttpClient();
 	    getHome();
+	}
+	
+	@BeforeClass
+	public static void getEnv() throws IOException {
+	    String homologEnv = System.getenv("ACCEPTANCE_ENV");
+        if (homologEnv == null) {
+            homologEnv = "development";
+        }
+        env = new DefaultEnvironment(homologEnv);
 	}
 
 	private static void getHome() {
