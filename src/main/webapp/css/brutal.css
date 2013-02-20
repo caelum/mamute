@@ -889,6 +889,7 @@ textarea {
 	float: left;
 	width: 34%;
 	margin-right: 5%;
+	line-height: 1.5em;
 }
 
 .data-section-title {
@@ -907,7 +908,6 @@ textarea {
 .data-section .data-title, .data-section .data-description {
 	float: left;
 	display: block;
-	line-height: 1.5em;
 }
 
 .data-line {
