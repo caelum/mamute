@@ -33,12 +33,16 @@ public abstract class PageObject {
 	    try {
 	        return driver.findElement(By.className(name));
 	    } catch (NoSuchElementException e) {
-	        return null;
+	        throw new NoSuchElementException("could not find element by class: " + name);
         }
 	}
 	
 	protected WebElement byCSS(String selector) {
-	    return driver.findElement(By.cssSelector(selector));
+	    try {
+	        return driver.findElement(By.cssSelector(selector));
+	    } catch (NoSuchElementException e) {
+	        throw new NoSuchElementException("could not find element for selector: " + selector);
+        }
 	}
 	
 	protected List<WebElement> allByCSS(String selector) {
@@ -47,5 +51,9 @@ public abstract class PageObject {
 	
 	protected void waitForElement(final By by, int time) {
 		new WebDriverWait(driver, time).until(ExpectedConditions.visibilityOfElementLocated(by));
+	}
+	
+	protected void waitForTextInElement(final By by, String text, int time) {
+	    new WebDriverWait(driver, time).until(ExpectedConditions.textToBePresentInElement(by, text));
 	}
 }

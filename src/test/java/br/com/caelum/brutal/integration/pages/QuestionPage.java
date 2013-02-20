@@ -8,6 +8,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import br.com.caelum.brutal.model.VoteType;
+
 public class QuestionPage extends PageObject{
 
 	public QuestionPage(WebDriver driver) {
@@ -40,6 +42,23 @@ public class QuestionPage extends PageObject{
 		}
 		return true;
 	}
+
+    public QuestionPage voteQuestion(VoteType type) {
+        int voteCount = getQuestionVoteCount();
+        String typeClass = type.name().toLowerCase() + "-vote";
+        byCSS(".question-area ." + typeClass).click();
+        Integer finalVoteCount = voteCount + type.getValue();
+        waitForTextInElement(By.cssSelector(voteCountSelector()), finalVoteCount.toString(), 10);
+        return this;
+    }
+
+    public int getQuestionVoteCount() {
+        return Integer.parseInt(byCSS(voteCountSelector()).getText());
+    }
+
+    private String voteCountSelector() {
+        return ".question-area .vote-count";
+    }
 
 	
 }

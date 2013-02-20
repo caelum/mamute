@@ -54,7 +54,6 @@ public abstract class AcceptanceTestBase implements ServerInfo.TesteAceitacao {
 
 	@Before
 	public void setUpEnv() {
-//		waitForFirstBodyPresence();
 		client = new HttpClient();
 	}
 	
@@ -72,7 +71,17 @@ public abstract class AcceptanceTestBase implements ServerInfo.TesteAceitacao {
 	@BeforeClass
 	public static void getHttpClient() {
 	    client = new HttpClient();
-	    getHome();
+	    String homeUri = SERVER.urlFor("");
+	    try {
+	        HttpMethod method = new GetMethod(homeUri);
+	        int status = client.executeMethod(method);
+	        int digit = status % 100;
+	        if (digit == 5 || digit == 4) {
+	            throw new RuntimeException("server responded with "+ status + " status for a GET request to uri: " + homeUri + ", is the server ok?");
+	        }
+	    } catch (IOException e) {
+	        throw new RuntimeException("could not execute GET to: " + homeUri + ", is the server up?", e);
+	    }
 	}
 	
 	@BeforeClass
@@ -83,20 +92,6 @@ public abstract class AcceptanceTestBase implements ServerInfo.TesteAceitacao {
         }
         env = new DefaultEnvironment(homologEnv);
 	}
-
-	private static void getHome() {
-	    String homeUri = SERVER.urlFor("");
-        try {
-            HttpMethod method = new GetMethod(homeUri);
-            int status = client.executeMethod(method);
-            int digit = status % 100;
-            if (digit == 5 || digit == 4) {
-                throw new RuntimeException("server responded with "+ status + " status for a GET request to uri: " + homeUri + ", is the server ok?");
-            }
-        } catch (IOException e) {
-            throw new RuntimeException("could not execute GET to: " + homeUri + ", is the server up?", e);
-        }
-    }
 
     private static void waitForFirstBodyPresence() {
 		driver.get(SERVER.urlFor(""));
