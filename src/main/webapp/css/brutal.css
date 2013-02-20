@@ -363,9 +363,6 @@ textarea {
 	margin:0;
 }
 
-.dropdown-search-form  .text-input{
-	width:70%;
-}
 
 .search-form .text-input {
 	border: none;
@@ -379,9 +376,21 @@ textarea {
 	width:30%;
 }
 
+.dropdown-search-form  .text-input{
+	width:70%;
+}
+
+.search-dropdown{
+	display:none;
+}
+
+/*Dropdown*/
+
 .dropdown-target{
 	display:none;
 }
+
+
 
 /*MENU*/
 .nav,.nav-items {

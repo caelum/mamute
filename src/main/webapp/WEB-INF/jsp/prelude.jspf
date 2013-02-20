@@ -21,27 +21,27 @@
 			<section class="user-area">
 				<nav class="nav">
 					<ul class="nav-items">
-					<c:if test="${empty currentUser }">
-						<li class="nav-item">
-							<a class="login" href="${linkTo[AuthController].loginForm}">
-								<fmt:message key="auth.login_form_link"/>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a class="signup" href="${linkTo[SignupController].signupForm}"><fmt:message key="signup.link"/></a>
-						</li>
-					</c:if>
-					<c:if test="${not empty currentUser }">
-						<li class="nav-item">
-							<tags:userProfileLink user="${currentUser}" htmlClass="user-name"/>
-						</li>
-						<li class="nav-item">
-							<a class="logout" href="${linkTo[AuthController].logout}"><fmt:message key="auth.logout_link"/></a>
-						</li>
+						<c:if test="${empty currentUser }">
+							<li class="nav-item">
+								<a class="login" href="${linkTo[AuthController].loginForm}">
+									<fmt:message key="auth.login_form_link"/>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="signup" href="${linkTo[SignupController].signupForm}"><fmt:message key="signup.link"/></a>
+							</li>
+						</c:if>
+						<c:if test="${not empty currentUser }">
+							<li class="nav-item">
+								<tags:userProfileLink user="${currentUser}" htmlClass="user-name"/>
+							</li>
+							<li class="nav-item">
+								<a class="logout" href="${linkTo[AuthController].logout}"><fmt:message key="auth.logout_link"/></a>
+							</li>
+						</c:if>
 						<li class="nav-item">
 							<a href="#" class="search-dropdown dropdown-trigger" data-target-id="dropdown-search-form">Procurar</a>	
 						</li>
-					</c:if>
 					</ul>
 				</nav>
 				<form class="search-form" action="<c:url value='/search' />" method="get">

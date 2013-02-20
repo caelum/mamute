@@ -69,7 +69,8 @@
 	}
 	
 	.dropdown-search-form,
-	.dropdown-search-form input[type="submit"]{
+	.dropdown-search-form input[type="submit"],
+	.search-dropdown{
 		display:block;
 	}
 	
