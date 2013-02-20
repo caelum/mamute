@@ -314,7 +314,7 @@ textarea {
 }
 
 .complete-user .user-image {
-	margin-right: 5px;
+	margin-right: 3%;
 }
 
 .complete-user .user-image,.complete-user .user-info {
@@ -354,12 +354,8 @@ textarea {
 	overflow: hidden;
 }
 
-.search-form,.first-header .nav {
-	float: left
-}
-
-.first-header .nav {
-	margin-right: 20px;
+.search-form,.user-area .nav {
+	float: left;
 }
 
 .search-form input{
@@ -367,11 +363,15 @@ textarea {
 	margin:0;
 }
 
+.dropdown-search-form  .text-input{
+	width:70%;
+}
+
 .search-form .text-input {
 	border: none;
 	border-top: 1px solid #ccc;
 	border-left: 1px solid #ccc;
-	width:70%;
+	width:100%;
 }
 
 .search-form input[type="submit"] {
@@ -409,7 +409,7 @@ textarea {
 
 .nav-item {
 	float: left;
-	margin-right: 7px
+	padding-right: .8em;
 }
 
 .ask {
@@ -519,7 +519,7 @@ textarea {
 
 .history-title {
 	display:inline;
-	margin-right: 10px;
+	margin-right: 2%;
 }
 
 .history-original {
@@ -554,8 +554,13 @@ textarea {
 }
 
 /*TAG*/
-.tags li {
+
+.tags .tags-item{
 	float: left;
+}
+
+.tags-item{
+	padding: .2em .3em;
 }
 
 .tag {
@@ -565,7 +570,6 @@ textarea {
 	color: #3e6d8e;
 	display: inline-block;
 	font-size: .9em;
-	margin: 3px 4px;
 	padding: .25em .3em;
 }
 
@@ -724,7 +728,7 @@ textarea {
 }
 
 .login-or-signup label:not(.error){
-	margin: 5px 8px 0 0;
+	margin-bottom: 2px;
 }
 
 .login-or-signup .login,.login-or-signup .signup {
@@ -734,7 +738,7 @@ textarea {
 }
 
 .login-or-signup .text-input {
-	margin: 0 0 16px 0;
+	margin-bottom: 13px;
 }
 
 .login-or-signup .signup {

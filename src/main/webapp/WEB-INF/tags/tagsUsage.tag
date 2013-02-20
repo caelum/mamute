@@ -4,6 +4,6 @@
 <%@attribute name="tags" type="java.util.List" required="true" %>
 <ol class="tags-usage">
 	<c:forEach items="${tags}" var="tag">
-		<li><tags:tag tag="${tag}"/> x ${tag.usageCount}</li>
+		<li class="tags-item"><tags:tag tag="${tag}"/> x ${tag.usageCount}</li>
 	</c:forEach>
 </ol>

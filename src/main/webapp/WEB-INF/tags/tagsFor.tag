@@ -4,6 +4,6 @@
 <%@attribute name="taggable" type="br.com.caelum.brutal.model.interfaces.Taggable" required="true" %>
 <ul class="tags">
 	<c:forEach items="${taggable.tags}" var="tag">
-		<li><tags:tag tag="${tag}"/></li>
+		<li class="tags-item"><tags:tag tag="${tag}"/></li>
 	</c:forEach>
 </ul>
