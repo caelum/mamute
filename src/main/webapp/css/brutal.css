@@ -867,6 +867,7 @@ textarea {
 	float: left;
 	color: #000;
 	text-align: center;
+	margin-right: 2%;
 }
 
 .image-and-information span {
@@ -887,7 +888,6 @@ textarea {
 .data-list {
 	float: left;
 	width: 34%;
-	margin-left: 2%;
 	margin-right: 5%;
 }
 
@@ -896,7 +896,7 @@ textarea {
 	display: inline-block;
 	width: 100%;
 	margin-bottom: 2%;
-	line-height: 1.7em;
+	line-height: 1.5em;
 }
 
 .data-section-title {
@@ -915,7 +915,16 @@ textarea {
 .data-section .data-title, .data-section .data-description {
 	float: left;
 	display: block;
+
+.data-line {
+	display:inline-block;
+	width:100%;
+	line-height: 1.5em;
 }
+
+.data-line *{
+	font-size:13px;
+	float: left;
 
 .data-section .data-title{
 	width: 35%;	
@@ -926,6 +935,15 @@ textarea {
 	width: 65%;	
 }
 
+.data-line label {
+	width: 20%;
+}
+
+.data-line input {
+	width: 80%;	
+	margin: 10px 0;
+}
+
 .about-me {
 	float: left;
 	width: 45%;
@@ -933,4 +951,9 @@ textarea {
 	min-height: 247px;
 	padding: 0.7em;
 	background-color: #f8f8f8
+}
+
+.profile-edit-form {
+	float:left;
+	width: 85%;
 }

@@ -82,7 +82,7 @@ public class User implements Identifiable {
 		this.password = Digester.encrypt(password);
 	}
 
-	private void setName(String name) {
+	public void setName(String name) {
 		this.name = name;
 		this.sluggedName = toSlug(name);
 	}
@@ -195,6 +195,10 @@ public class User implements Identifiable {
 	
 	public void setLocation(String location) {
 		this.location = location;
+	}
+	
+	public DateTime getBirthDate() {
+		return birthDate;
 	}
 	
 	public int getAge() {

@@ -1,5 +1,5 @@
 <div class="subheader">
-	<tags:userProfileLink user="${selectedUser}" htmlClass="title page-title"></tags:userProfileLink>
+	<tags:userProfileLink user="${selectedUser}" htmlClass="title page-title" />
 	<c:if test="${isCurrentUser}">
 		<ul class="subheader-menu">
 			<a href="${linkTo[UserProfileController].editProfile[selectedUser.id]}">edit</a>
