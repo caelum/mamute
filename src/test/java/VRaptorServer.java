@@ -17,14 +17,14 @@ public class VRaptorServer {
 	private final Server server;
 	private final ContextHandlerCollection contexts;
 
-	public VRaptorServer(String webappDirLocation) {
+	public VRaptorServer(String webappDirLocation, String webXmlLocation) {
 		this.server = createServer();
 		this.contexts = new ContextHandlerCollection();
-		reloadContexts(webappDirLocation);
+		reloadContexts(webappDirLocation, webXmlLocation);
 	}
 
-	private void reloadContexts(String webappDirLocation) {
-		WebAppContext context = loadContext(webappDirLocation);
+	private void reloadContexts(String webappDirLocation, String webXmlLocation) {
+		WebAppContext context = loadContext(webappDirLocation, webXmlLocation);
 		contexts.setHandlers(new Handler[] { context, systemRestart() });
 	}
 
@@ -33,10 +33,10 @@ public class VRaptorServer {
 		server.start();
 	}
 
-	private static WebAppContext loadContext(String webappDirLocation) {
+	private static WebAppContext loadContext(String webappDirLocation, String webXmlLocation) {
 		WebAppContext context = new WebAppContext();
 		context.setContextPath(getContext());
-		context.setDescriptor(webappDirLocation + "/WEB-INF/web.xml");
+		context.setDescriptor(webXmlLocation);
 		context.setResourceBase(webappDirLocation);
 		context.setParentLoaderPriority(true);
 		return context;

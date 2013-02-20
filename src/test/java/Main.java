@@ -11,14 +11,22 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		String webappDirLocation = getWebAppDir();
 		//WatchService service = FileSystems.getDefault().newWatchService();
+		
+		String webXmlLocation = getWebXmlLocation(webappDirLocation);
 
-		VRaptorServer vraptor = new VRaptorServer(webappDirLocation);
+		VRaptorServer vraptor = new VRaptorServer(webappDirLocation, webXmlLocation);
 		vraptor.start();
 		//configureWatcher(vraptor,	 webappDirLocation, service);
 
 		//watchForChanges(service, vraptor);
 		commandLine(vraptor);
 	}
+
+    private static String getWebXmlLocation(String webappDirLocation) {
+        String webxml = System.getenv("vraptor.webxml");
+		webxml = webxml == null ? webappDirLocation + "/WEB-INF/web.xml" : webxml;
+		return webxml;
+    }
 
 	private static void commandLine(final VRaptorServer vraptor) {
 		new Thread(new Runnable() {
