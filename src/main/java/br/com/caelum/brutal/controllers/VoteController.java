@@ -60,6 +60,7 @@ public class VoteController {
 		    Votable votable = votes.loadVotedOnFor(votableType, id);
 		    Vote current = new Vote(currentUser, voteType);
 		    votingMachine.register(votable, current, votableType);
+		    votes.save(current);
 		    result.use(json()).withoutRoot().from(votable.getVoteCount()).serialize();
 		} catch (IllegalArgumentException e) {
 		    result.use(http()).sendError(403);

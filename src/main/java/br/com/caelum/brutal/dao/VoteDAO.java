@@ -54,4 +54,8 @@ public class VoteDAO {
 		query.setParameter("question", question);
 		return new AnswerAndVotes(question, question.getAnswers(), query.list());
 	}
+
+    public void save(Vote vote) {
+        session.save(vote);
+    }
 }

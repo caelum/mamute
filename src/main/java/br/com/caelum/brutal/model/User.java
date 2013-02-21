@@ -217,4 +217,12 @@ public class User implements Identifiable {
 		this.website = website;
 		setAbout(about);
 	}
+
+    public void descreaseKarma(int value) {
+        this.karma -= value;
+    }
+
+    public void increaseKarma(int value) {
+        this.karma += value;
+    }
 }

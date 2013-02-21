@@ -48,7 +48,7 @@ public class Vote {
 
 	public long substitute(Vote previous, List<Vote> votes) {
 		long delta = 0;
-		if(votes.remove(previous))
+		if (votes.remove(previous))
 			delta -= previous.getValue();
 		votes.add(this);
 		delta += getValue();
