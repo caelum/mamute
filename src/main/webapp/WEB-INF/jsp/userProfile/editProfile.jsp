@@ -32,9 +32,10 @@
 		<label for="location"><fmt:message key="user_profile.edit.form.location.label" /></label>
 		<input type="text" name="location" class="text-input" value="${user.location}"/>
 	</span>
-	
-	<label for="description">Sobre</label>
-	<tags:markDown value="${user.about}" hintId="user-about-hint" />
+	<span class="data-line">
+		<label for="description"><fmt:message key="user_profile.edit.form.about.label" /></label>
+		<tags:markDown value="${user.about}" hintId="user-about-hint" />
+	</span>
 		
-	<input type="submit" value="<fmt:message key="user_profile.edit.form.submit" />"/>
+	<input type="submit" class="post-submit big-submit" value="<fmt:message key="user_profile.edit.form.submit" />"/>
 </form>

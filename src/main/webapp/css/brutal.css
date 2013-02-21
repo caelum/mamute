@@ -915,11 +915,12 @@ textarea {
 .data-line {
 	overflow:hidden;
 	margin-bottom: 3%;
+	display: block;
 }
 
 .data-line *{
 	font-size:13px;
-	float: left;
+	display: inline-block;
 }
 
 .data-section .data-title{
@@ -936,12 +937,14 @@ textarea {
 }
 
 .data-line label {
-	width: 20%;
+	width: 17%;
 }
 
-.data-line input {
-	width: 80%;	
-	margin: 10px 0;
+.data-line .wmd, .data-line input{
+	float:none;
+	width: 82%;
+	margin: 0;
+	vertical-align: middle;
 }
 
 .about-me {
