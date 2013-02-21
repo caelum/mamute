@@ -1,6 +1,6 @@
 package br.com.caelum.brutal.model;
 
-import br.com.caelum.brutal.model.interfaces.Updatable;
+import br.com.caelum.brutal.model.interfaces.Moderatable;
 
 public class Updater {
 
@@ -24,7 +24,7 @@ public class Updater {
 		return status;
 	}
 
-	private UpdateStatus canUpdate(Updatable answer, Information newInformation) {
+	private UpdateStatus canUpdate(Moderatable answer, Information newInformation) {
 	    User informationAuthor = newInformation.getAuthor();
 	    User author = answer.getAuthor();
 	    if (author.getId().equals(informationAuthor.getId()) || informationAuthor.isModerator()) {

@@ -17,10 +17,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.model.interfaces.Subscribable;
-import br.com.caelum.brutal.model.interfaces.Updatable;
 
 @Entity
-public class Comment implements Updatable, Subscribable {
+public class Comment implements Subscribable {
     
     @Id @GeneratedValue
     private Long id;
@@ -73,9 +72,8 @@ public class Comment implements Updatable, Subscribable {
 		return htmlComment;
 	}
 
-    @Override
 	public String getTypeName() {
-		return "Comment";
+		return Comment.class.getSimpleName();
 	}
 	
 	public Long getId() {
