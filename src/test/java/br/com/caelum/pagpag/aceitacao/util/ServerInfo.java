@@ -5,12 +5,16 @@ public class ServerInfo {
 	private static final String TEST_SERVER = "vraptor.server_host";
 	static final int PORT = 8080;
 
-	public interface TesteAceitacao {
+	public interface AcceptanceTest {
 		static final ServerInfo SERVER = new ServerInfo();
 	}
 
 	public String urlFor(String path) {
-		return "http://" + ACTUAL_HOST + "/" + path;
+		return getRoot() + path;
+	}
+	
+	public String getRoot() {
+		return "http://" + ACTUAL_HOST + "/" ;
 	}
 
 	private static final String ACTUAL_HOST = getHost();

@@ -6,37 +6,37 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 
-import br.com.caelum.brutal.model.interfaces.Updatable;
+import br.com.caelum.brutal.model.interfaces.Moderatable;
 
 public class UpdatablesAndPendingHistory {
 
-    private TreeMap<Updatable, List<Information>> informationsByUpdatable;
+    private TreeMap<Moderatable, List<Information>> informationsByUpdatable;
 
     public UpdatablesAndPendingHistory(List<Object[]> questionAndInformations) {
-        QuestionComparator comparator = new QuestionComparator();
+        ModeratableComparator comparator = new ModeratableComparator();
         informationsByUpdatable = new TreeMap<>(comparator);
-        for (Object[] questionAndInformation : questionAndInformations) {
-            Updatable question = (Updatable) questionAndInformation[0]; 
-            Information questionInformation = (Information) questionAndInformation[1];
+        for (Object[] moderatableAndInformation : questionAndInformations) {
+            Moderatable moderatable = (Moderatable) moderatableAndInformation[0]; 
+            Information questionInformation = (Information) moderatableAndInformation[1];
             
-            List<Information> informations = informationsByUpdatable.get(question);
+            List<Information> informations = informationsByUpdatable.get(moderatable);
             if (informations == null) {
                 informations = new ArrayList<>();
             }
             informations.add(questionInformation);
-            informationsByUpdatable.put(question, informations);
+            informationsByUpdatable.put(moderatable, informations);
         }
     }
     
-    public List<Updatable> questions() {
-        return new ArrayList<Updatable>(informationsByUpdatable.keySet());
+    public List<Moderatable> moderatables() {
+        return new ArrayList<Moderatable>(informationsByUpdatable.keySet());
     }
     
-    public Set<Entry<Updatable, List<Information>>> getEntrySet() {
+    public Set<Entry<Moderatable, List<Information>>> getEntrySet() {
         return informationsByUpdatable.entrySet();
     }
 
-    public List<Information> pendingInfoFor(Updatable question) {
+    public List<Information> pendingInfoFor(Moderatable question) {
         return informationsByUpdatable.get(question);
     }
 

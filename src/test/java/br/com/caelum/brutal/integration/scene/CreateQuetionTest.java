@@ -2,10 +2,16 @@ package br.com.caelum.brutal.integration.scene;
 
 import static junit.framework.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class CreateQuetionTest extends AuthenticatedAcceptanceTest {
-	
+
+	@Before
+	public void setup(){
+		login();
+	}
+
 	@Test
 	public void should_make_a_question() {
 		String title = "My new question about java";

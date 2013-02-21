@@ -3,7 +3,7 @@ package br.com.caelum.brutal.model.interfaces;
 import br.com.caelum.brutal.model.Information;
 import br.com.caelum.brutal.model.UpdateStatus;
 
-public abstract class Moderatable {
+public abstract class Moderatable implements Identifiable {
 
     protected abstract Information getInformation();
     

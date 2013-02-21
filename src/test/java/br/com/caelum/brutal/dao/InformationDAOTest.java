@@ -16,7 +16,7 @@ import br.com.caelum.brutal.model.QuestionInformationBuilder;
 import br.com.caelum.brutal.model.UpdatablesAndPendingHistory;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
-import br.com.caelum.brutal.model.interfaces.Updatable;
+import br.com.caelum.brutal.model.interfaces.Moderatable;
 
 public class InformationDAOTest extends DatabaseTestCase {
 
@@ -81,7 +81,7 @@ public class InformationDAOTest extends DatabaseTestCase {
         session.save(question3);
         
         UpdatablesAndPendingHistory pending = informations.pendingByUpdatables(Question.class);
-        List<Updatable> questions = pending.questions();
+        List<Moderatable> questions = pending.moderatables();
         
         assertEquals(2, questions.size());
         assertEquals(question2.getId(), questions.get(0).getId());
