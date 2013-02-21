@@ -22,11 +22,10 @@ import br.com.caelum.brutal.model.interfaces.Commentable;
 import br.com.caelum.brutal.model.interfaces.Moderatable;
 import br.com.caelum.brutal.model.interfaces.Subscribable;
 import br.com.caelum.brutal.model.interfaces.Touchable;
-import br.com.caelum.brutal.model.interfaces.Updatable;
 import br.com.caelum.brutal.model.interfaces.Votable;
 
 @Entity
-public class Answer extends Moderatable implements Votable, Commentable, Updatable, Subscribable, Touchable{
+public class Answer extends Moderatable implements Votable, Commentable, Subscribable, Touchable{
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -143,11 +142,6 @@ public class Answer extends Moderatable implements Votable, Commentable, Updatab
 	}
 	
 	@Override
-	public String getTypeName() {
-		return "Answer";
-	}
-	
-	@Override
 	public List<Comment> getComments() {
 		return comments;
 	}
@@ -228,5 +222,9 @@ public class Answer extends Moderatable implements Votable, Commentable, Updatab
 	@Override
 	public boolean isEdited() {
 		return history.size() > 1;
+	}
+	
+	public String getTypeName() {
+	    return Answer.class.getSimpleName();
 	}
 }
