@@ -59,7 +59,7 @@
 	</section>
 	<section class="second-header">
 		<div class="container">
-			<h1 class="logo big-logo"><a  href="<c:url value="/"/>"><img src="images/guj-logo.png"/></a></h1>
+			<h1 class="logo big-logo"><a  href="<c:url value="/"/>"><img src="<c:url value="/images/guj-logo.png"/>"/></a></h1>
 			<nav class="nav main-nav">		
 					<ul class="nav-items">
 						<li class="nav-item"><a class="button" href="<c:url value="/"/>"><fmt:message key="menu.questions"/></a></li> 
