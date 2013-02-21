@@ -52,9 +52,15 @@
 <section class="advanced-user-data">
 	<h2 class="title page-title subheader"><fmt:message key="user_profile.summary" /></h2>
 	<section class="user-questions advanced-data-section">
-		<h3 class="title section-title subheader"><fmt:message key="user_profile.questions" /></h3>
+		<h3 class="title section-title subheader"><fmt:message key="user_profile.questions" /> por votos</h3>
 		<ul>
 			<c:forEach var="question" items="${questionsByVotes}">
+				<li><span>${question.voteCount}</span> <tags:questionLinkFor question="${question}"/></li>
+			</c:forEach>
+		</ul>
+		<h3 class="title section-title subheader"><fmt:message key="user_profile.questions" /> por data</h3>
+		<ul>
+			<c:forEach var="question" items="${questionsByDate}">
 				<li><span>${question.voteCount}</span> <tags:questionLinkFor question="${question}"/></li>
 			</c:forEach>
 		</ul>

@@ -23,8 +23,6 @@ public class UserProfileController {
 	
 	public UserProfileController(Result result, UserDAO users,
 			LoggedUser currentUser, QuestionDAO questions, UserValidator userValidator) {
-
-		super();
 		this.result = result;
 		this.users = users;
 		this.currentUser = currentUser;
@@ -43,6 +41,7 @@ public class UserProfileController {
 		
 		result.include("isCurrentUser", currentUser.getCurrent().getId().equals(id));
 		result.include("questionsByVotes", questions.withAuthorByVotes(selectedUser));
+		result.include("questionsByDate", questions.withAuthorByDate(selectedUser));
 		result.include("selectedUser", selectedUser);
 	}
 	

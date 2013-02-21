@@ -53,10 +53,22 @@ public class QuestionDAO {
 	}
 	
 	public List<Question> withAuthorByVotes(User user) {
-		List<Question> questions = session.createQuery("select q from Question as q join q.author a where a = :user order by q.voteCount desc")
+		List<Question> questions = session.createQuery(questionOfUser()+" order by q.voteCount desc")
 				.setParameter("user", user)
 				.setMaxResults(5)
 				.list();
 		return questions;
+	}
+	
+	public List<Question> withAuthorByDate(User user) {
+		List<Question> questions = session.createQuery(questionOfUser()+" order by q.createdAt desc")
+				.setParameter("user", user)
+				.setMaxResults(5)
+				.list();
+		return questions;
+	}
+	
+	private String questionOfUser(){
+		return "select q from Question as q join q.author a where a = :user";
 	}
 }
