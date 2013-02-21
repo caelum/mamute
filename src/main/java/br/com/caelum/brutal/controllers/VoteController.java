@@ -9,6 +9,7 @@ import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.Vote;
 import br.com.caelum.brutal.model.VoteType;
+import br.com.caelum.brutal.model.VotingMachine;
 import br.com.caelum.brutal.model.interfaces.Votable;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
@@ -20,11 +21,13 @@ public class VoteController {
 	private final Result result;
 	private final User currentUser;
 	private final VoteDAO votes;
+	private final VotingMachine votingMachine;
 
-	public VoteController(Result result, User currentUser, VoteDAO voteDAO) {
+	public VoteController(Result result, User currentUser, VoteDAO voteDAO, VotingMachine votingMachine) {
 		this.result = result;
 		this.currentUser = currentUser;
 		this.votes = voteDAO;
+        this.votingMachine = votingMachine;
 	}
 
 	@LoggedAccess
@@ -52,18 +55,15 @@ public class VoteController {
 	}
 
 	@SuppressWarnings("rawtypes")
-	private void tryToVoteQuestion(Long id, VoteType voteType, Class type) {
-		Votable votable = votes.loadVotedOnFor(type, id);
-		if (votable.getAuthor().getId().equals(currentUser.getId())) {
-			result.use(http()).sendError(403);
-			return;
-		}
-
-		Vote previous = votes.previousVoteFor(id, currentUser, type);
-		Vote current = new Vote(currentUser, voteType);
-
-		votable.substitute(previous, current);
-		votes.substitute(previous, current, votable);
-		result.use(json()).withoutRoot().from(votable.getVoteCount()).serialize();
+	private void tryToVoteQuestion(Long id, VoteType voteType, Class votableType) {
+		try {
+		    Votable votable = votes.loadVotedOnFor(votableType, id);
+		    Vote current = new Vote(currentUser, voteType);
+		    votingMachine.register(votable, current, votableType);
+		    result.use(json()).withoutRoot().from(votable.getVoteCount()).serialize();
+		} catch (IllegalArgumentException e) {
+		    result.use(http()).sendError(403);
+		    return;
+        }
 	}
 }

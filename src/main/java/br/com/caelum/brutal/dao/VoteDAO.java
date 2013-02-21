@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.dao;
 
+import java.io.Serializable;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -19,7 +21,7 @@ public class VoteDAO {
 		this.session = session;
 	}
 
-	public Vote previousVoteFor(Long id, User currentUser, Class type) {
+	public Vote previousVoteFor(Serializable id, User currentUser, Class type) {
 		String hql = "select v from "
 				+ type.getSimpleName()
 				+ " q join q.votes as v where v.author = :author and q.id = :votable";

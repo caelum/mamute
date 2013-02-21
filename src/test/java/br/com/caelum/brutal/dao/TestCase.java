@@ -11,6 +11,8 @@ import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.model.Vote;
+import br.com.caelum.brutal.model.VoteType;
 
 public abstract class TestCase {
 
@@ -21,6 +23,16 @@ public abstract class TestCase {
 	    List<Tag> tagList = Arrays.asList(tags);
 		Question q = new Question(new QuestionInformation(title, description, new LoggedUser(author, null), tagList, ""), author);
 		return q;
+	}
+	
+	/**
+	 * This constructor should not exist. It is only for tests
+	 */
+	public Question question(String title,String description, User author, Long id, Tag... tags) {
+	    List<Tag> tagList = Arrays.asList(tags);
+	    Question q = new Question(new QuestionInformation(title, description, new LoggedUser(author, null), tagList, ""), author);
+	    setId(q, id);
+	    return q;
 	}
 
 
@@ -43,14 +55,27 @@ public abstract class TestCase {
 	/**
 	 * This constructor should not exist. It is only for tests
 	 */
+	protected Vote vote(User author, VoteType type, Long id) {
+	    Vote v = new Vote(author, type);
+	    setId(v, id);
+	    return v;
+	}
+	
+	/**
+	 * This constructor should not exist. It is only for tests
+	 */
 	protected User user(String name, String email, Long id) {
 	    User user = user(name, email);
-	    new Mirror().on(user).set().field("id").withValue(id);
+	    setId(user, id);
 	    return user;
 	}
 
     protected AnswerInformation answerInformation(String string, User otherUser, Answer answer) {
         return new AnswerInformation(string, new LoggedUser(otherUser, null), answer, "comment");
+    }
+    
+    private void setId(Object o, Long id) {
+        new Mirror().on(o).set().field("id").withValue(id);
     }
 
 }
