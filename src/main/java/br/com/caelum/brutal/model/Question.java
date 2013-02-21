@@ -212,12 +212,7 @@ public class Question extends Moderatable implements Votable, Commentable, Updat
 	}
 
 	public UpdateStatus updateWith(QuestionInformation information) {
-        UpdateStatus status = information.getAuthor().canUpdate(this);
-        if (status == UpdateStatus.REFUSED)
-            return status;
-        
-        this.enqueueChange(information, status);
-        return status;
+	    return new Updater().update(this, information);
 	}
 
 	public void enqueueChange(QuestionInformation newInformation, UpdateStatus status) {
