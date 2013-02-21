@@ -7,5 +7,7 @@ public interface Information {
     Object getId();
 
     boolean isPending();
+    
+    User getAuthor();
 
 }

@@ -1,9 +1,12 @@
 package br.com.caelum.brutal.model;
 
+import br.com.caelum.brutal.model.interfaces.Updatable;
+
 public class Updater {
 
 	public UpdateStatus update(Answer answer, AnswerInformation information) {
-        UpdateStatus status = information.getAuthor().canUpdate(answer);
+	    UpdateStatus status = canUpdate(answer, information);
+        
         if (status == UpdateStatus.REFUSED)
             return status;
         
@@ -11,8 +14,9 @@ public class Updater {
 		return status;
 	}
 
+
 	public UpdateStatus update(Question question, QuestionInformation information) {
-        UpdateStatus status = information.getAuthor().canUpdate(question);
+	    UpdateStatus status = canUpdate(question, information);
         if (status == UpdateStatus.REFUSED)
             return status;
         
@@ -20,4 +24,12 @@ public class Updater {
 		return status;
 	}
 
+	private UpdateStatus canUpdate(Updatable answer, Information newInformation) {
+	    User informationAuthor = newInformation.getAuthor();
+	    User author = answer.getAuthor();
+	    if (author.getId().equals(informationAuthor.getId()) || informationAuthor.isModerator()) {
+	        return UpdateStatus.NO_NEED_TO_APPROVE;
+	    }
+	    return UpdateStatus.PENDING;
+	}
 }

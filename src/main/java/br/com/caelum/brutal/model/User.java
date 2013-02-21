@@ -18,7 +18,6 @@ import org.joda.time.Years;
 import br.com.caelum.brutal.infra.Digester;
 import br.com.caelum.brutal.model.interfaces.Identifiable;
 import br.com.caelum.brutal.model.interfaces.Moderatable;
-import br.com.caelum.brutal.model.interfaces.Updatable;
 
 @Table(name="Users")
 @Entity
@@ -133,14 +132,6 @@ public class User implements Identifiable {
 		this.moderator = true;
 		return this;
 	}
-
-    public UpdateStatus canUpdate(Updatable updatable) {
-        User author = updatable.getAuthor();
-        if (author.getId().equals(id) || this.isModerator()) {
-            return UpdateStatus.NO_NEED_TO_APPROVE;
-        }
-        return UpdateStatus.PENDING;
-    }
 
 	public String touchForgotPasswordToken () {
 		String tokenSource = Math.random() + System.currentTimeMillis() + getEmail() + getId();

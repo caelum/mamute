@@ -7,5 +7,5 @@ public interface Updatable extends Identifiable {
     User getAuthor();
     
     String getTypeName();
-
+    
 }
