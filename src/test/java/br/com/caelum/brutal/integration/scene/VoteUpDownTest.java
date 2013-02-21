@@ -16,10 +16,6 @@ public class VoteUpDownTest extends AuthenticatedAcceptanceTest {
     @Before
     public void login() {
         loginRandomly();
-    }
-
-    @Before
-    public void setup() {
         questionPage = home().toFirstQuestionWithAnswerPage();
     }
     
@@ -29,7 +25,6 @@ public class VoteUpDownTest extends AuthenticatedAcceptanceTest {
         int countAfter = questionPage
             .voteQuestion(VoteType.UP)
             .questionVoteCount();
-        
         assertEquals(initialQuestionVoteCount + 1, countAfter);
     }
     

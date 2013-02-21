@@ -15,7 +15,7 @@ import br.com.caelum.brutal.integration.pages.ResetPasswordPage;
 import br.com.caelum.brutal.providers.SessionFactoryCreator;
 import br.com.caelum.pagpag.aceitacao.util.ServerInfo;
 
-public class ForgotPasswordTest extends AcceptanceTestBase implements ServerInfo.TesteAceitacao  {
+public class ForgotPasswordTest extends AcceptanceTestBase implements ServerInfo.AcceptanceTest  {
     
     private static Session SESSION;
     private String validEmail = "francisco.sokol@caelum.com.br";
@@ -33,7 +33,6 @@ public class ForgotPasswordTest extends AcceptanceTestBase implements ServerInfo
         boolean sentEmail = tryToResetPassword("unexistant@brutal.com");
         assertFalse(sentEmail);
     }
-
     
     @Test
     public void should_accept_recovery_for_existant_email() throws Exception {
@@ -58,6 +57,7 @@ public class ForgotPasswordTest extends AcceptanceTestBase implements ServerInfo
             .isLoggedIn();
         
         assertTrue(isLoggedIn);
+        home().logOut();
     }
 
     private String getRecoverURL() {

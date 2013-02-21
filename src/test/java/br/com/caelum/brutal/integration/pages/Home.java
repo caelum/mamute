@@ -9,14 +9,18 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class Home extends PageObject {
+import br.com.caelum.pagpag.aceitacao.util.ServerInfo;
 
+public class Home extends PageObject{
+	static final ServerInfo SERVER = new ServerInfo();
+	
 	public Home(WebDriver driver) {
 		super(driver);
+		driver.get(SERVER.getRoot());
 	}
 
 	public LoginPage toLoginPage(){
-		allByClassName("login").get(0).click();
+		byClassName("login").click();
 		LoginPage loginPage = new LoginPage(driver);
 		return loginPage;
 	}

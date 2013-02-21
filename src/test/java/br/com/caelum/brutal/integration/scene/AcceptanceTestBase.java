@@ -24,7 +24,7 @@ import br.com.caelum.vraptor.environment.Environment;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 
-public abstract class AcceptanceTestBase implements ServerInfo.TesteAceitacao {
+public abstract class AcceptanceTestBase implements ServerInfo.AcceptanceTest {
 
 	protected static WebDriver driver;
 
