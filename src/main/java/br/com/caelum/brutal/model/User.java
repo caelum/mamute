@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
@@ -27,6 +28,8 @@ public class User implements Identifiable {
 	private final DateTime createdAt = new DateTime();
 
 	@Column(unique=true)
+	@Length(max = 100)
+	@Email
 	private String email;
 
 	@Id
@@ -38,11 +41,13 @@ public class User implements Identifiable {
 	private String password = "";
 	
 	@NotEmpty
-	@Length(min = 6)
+	@Length(min = 6, max = 100)
 	private String name;
-
+	
+	@Length(max = 200)
 	private String website;
 	
+	@Length(max = 100)
 	private String location;
 	
 	private String about;
