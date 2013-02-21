@@ -17,20 +17,22 @@ public class SignupValidatorTest {
 
     private UserDAO users;
     private Validator validator;
-    private SignupValidator userValidator;
+    private SignupValidator signupValidator;
+	private UserValidator userValidator;
     
     @Before
     public void setup() {
         users = mock(UserDAO.class);
         validator = new JSR303MockValidator();
-        userValidator = new SignupValidator(validator, users);
+        userValidator = new UserValidator(validator, users);
+        signupValidator = new SignupValidator(validator, userValidator);
     }
 
     @Test
     public void should_verify_email() {
         when(users.existsWithEmail("used@gmail.com")).thenReturn(true);
         User user = new User("nome muito grande ai meu deus", "used@gmail.com", "123456");
-        boolean valid = userValidator.validate(user, "123456", "123456");
+        boolean valid = signupValidator.validate(user, "123456", "123456");
         
         assertFalse(valid);
     }
@@ -38,7 +40,7 @@ public class SignupValidatorTest {
     @Test
     public void should_verify_email_without_domain() {
     	User user = new User("nome muito grande ai meu deus", "usedgmail.com", "123456");
-    	boolean valid = userValidator.validate(user, "123456", "123456");
+    	boolean valid = signupValidator.validate(user, "123456", "123456");
     	assertFalse(valid);
     }
     
@@ -46,7 +48,7 @@ public class SignupValidatorTest {
     public void should_verify_passwords() throws Exception {
         when(users.existsWithEmail("valid@gmail.com")).thenReturn(false);
         User user = new User("nome muito grande ai meu deus", "valid@gmail.com", "123456");
-        boolean valid = userValidator.validate(user, "123456", "1234567");
+        boolean valid = signupValidator.validate(user, "123456", "1234567");
         
         assertFalse(valid);
     }
@@ -55,7 +57,7 @@ public class SignupValidatorTest {
     public void should_verify_tiny_password() throws Exception {
     	when(users.existsWithEmail("valid@gmail.com")).thenReturn(false);
     	User user = new User("nome muito grande ai meu deus", "valid@gmail.com", "123");
-    	boolean valid = userValidator.validate(user, "123", "123");
+    	boolean valid = signupValidator.validate(user, "123", "123");
     	
     	assertFalse(valid);
     }
@@ -64,14 +66,14 @@ public class SignupValidatorTest {
     public void should_verify_tiny_name() throws Exception {
     	when(users.existsWithEmail("valid@gmail.com")).thenReturn(false);
     	User user = new User("nome", "valid@gmail.com", "123456");
-    	boolean valid = userValidator.validate(user, "123456", "123456");
+    	boolean valid = signupValidator.validate(user, "123456", "123456");
     	
     	assertFalse(valid);
     }
     
     @Test
     public void should_verify_null() throws Exception {
-        boolean valid = userValidator.validate(null, "123", "1234");
+        boolean valid = signupValidator.validate(null, "123", "1234");
         
         assertFalse(valid);
     }
@@ -80,7 +82,7 @@ public class SignupValidatorTest {
     public void should_valid_user() throws Exception {
         when(users.existsWithEmail("used@gmail.com")).thenReturn(false);
         User user = new User("nome muito grande ai meu deus", "used@gmail.com", "123456");
-        boolean valid = userValidator.validate(user, "123456", "123456");
+        boolean valid = signupValidator.validate(user, "123456", "123456");
         
         assertTrue(valid);
     }
