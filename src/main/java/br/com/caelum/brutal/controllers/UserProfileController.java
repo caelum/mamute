@@ -67,7 +67,7 @@ public class UserProfileController {
 			return;
 		}
 		
-		if (!userValidator.validate(user, email, birthDate)){
+		if (!userValidator.validate(user, name, email, birthDate)){
 			userValidator.onErrorRedirectTo(this).editProfile(id);
 			return;
 		}

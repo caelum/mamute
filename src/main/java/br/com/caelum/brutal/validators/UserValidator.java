@@ -39,9 +39,17 @@ public class UserValidator {
 	}
 
 	
-	public boolean validate(User user, String email, LocalDate birthDate) {
+	public boolean validate(User user, String name, String email, LocalDate birthDate) {
+		if (user == null) {
+		    validator.add(new I18nMessage("error","user.errors.wrong"));
+		}
+		
+		if (user.getName().length() < MIN_LENGHT) {
+			validator.add(new I18nMessage("error","user.errors.name.length"));
+		}
+		
 		if (birthDate == null) {
-			validator.add(new I18nMessage("error", "user.invalid_birth_date"));
+			validator.add(new I18nMessage("error", "user.errors.invalid_birth_date"));
 		}
 		
 		if (!user.getEmail().equals(email)){
