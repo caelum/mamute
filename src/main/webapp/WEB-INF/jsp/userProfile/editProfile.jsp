@@ -9,31 +9,31 @@
 	<a href="#">atualizar foto</a>
 </div>
 
-<form class="profile-edit-form" action="${linkTo[UserProfileController].editProfile[user.id]}" method="POST">
+<form class="validated-form profile-edit-form" action="${linkTo[UserProfileController].editProfile[user.id]}" method="POST">
 	<span class="data-line">
-		<label for="email"><fmt:message key="user_profile.edit.form.email.label" /></label>
-		<input type="email" name="email" class="text-input" maxlength="100" value="${user.email}"/>
+		<label for="email" class="form-label"><fmt:message key="user_profile.edit.form.email.label" /></label>
+		<input type="email" name="email" class="required text-input email" maxlength="100" value="${user.email}"/>
 	</span>
 	<span class="data-line">
-		<label for="website"><fmt:message key="user_profile.edit.form.website.label" /></label>
-		<input type="text" name="website" class="text-input" maxlength="200" value="${user.website}"/>
+		<label for="website" class="form-label"><fmt:message key="user_profile.edit.form.website.label" /></label>
+		<input type="text" name="website" class="text-input url" maxlength="200" value="${user.website}"/>
 	</span>
 		<span class="data-line">
-		<label for="name"><fmt:message key="user_profile.edit.form.name.label" /></label>
+		<label for="name" class="form-label"><fmt:message key="user_profile.edit.form.name.label" /></label>
 		<input type="text" name="name" class="text-input" maxlength="100" value="${user.name}"/>
 	</span>
 	</span>
 		<span class="data-line">
-		<label for="birthDate"><fmt:message key="user_profile.edit.form.birth_date.label" /></label>
-		<input type="text" name="birthDate" class="text-input" maxlength="50" value='<tags:jodaTime pattern="dd/MM/YYYY" time="${user.birthDate}"></tags:jodaTime>'/>
+		<label for="birthDate" class="form-label"><fmt:message key="user_profile.edit.form.birth_date.label" /></label>
+		<input type="text" name="birthDate" class="text-input date" maxlength="50" value='<tags:jodaTime pattern="dd/MM/YYYY" time="${user.birthDate}"></tags:jodaTime>'/>
 	</span>
 	</span>
 	<span class="data-line">
-		<label for="location"><fmt:message key="user_profile.edit.form.location.label" /></label>
+		<label for="location" class="form-label"><fmt:message key="user_profile.edit.form.location.label" /></label>
 		<input type="text" name="location" class="text-input" maxlength="100" value="${user.location}"/>
 	</span>
 	<span class="data-line">
-		<label for="description"><fmt:message key="user_profile.edit.form.about.label" /></label>
+		<label for="description" class="form-label"><fmt:message key="user_profile.edit.form.about.label" /></label>
 		<tags:markDown value="${user.about}" hintId="user-about-hint" />
 	</span>
 		

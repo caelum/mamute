@@ -936,7 +936,7 @@ textarea {
 	width:50%;
 }
 
-.data-line label {
+.data-line .form-label {
 	width: 17%;
 }
 
