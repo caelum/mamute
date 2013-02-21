@@ -20,29 +20,31 @@ public class VoteDAOTest extends DatabaseTestCase{
     private User guilherme = new User("quilherme", "email@email", "123456");
     private Question question = question("Tiny title Tiny title Tiny title", "Description 1234567890123456789012345678901234567890", guilherme);
     private User ricardo = new User("blabla", "blabla@gmail", "123");
+    private VoteDAO voteDAO;
 
     @Before
 	public void before_testing() {
 	    session.save(ricardo);
 	    session.save(guilherme);
 	    session.save(question);
+	    voteDAO = new VoteDAO(session);
 	}
 
 	@Test
 	public void should_delete_previous_and_save_new() {
 		Vote current = new Vote(guilherme, VoteType.UP);
-		new VoteDAO(session).substitute(null, current, question);
+        voteDAO.substitute(null, current, question);
 		assertTrue(session.contains(current));
 	}
 	
 	@Test
 	public void should_ignore_previous_null_and_save_new() {
 		Vote previous = new Vote(guilherme, VoteType.UP);
-		new VoteDAO(session).substitute(null, previous, question);
+		voteDAO.substitute(null, previous, question);
 		assertTrue(session.contains(previous));
 
 		Vote current = new Vote(guilherme, VoteType.DOWN);
-		new VoteDAO(session).substitute(previous, current, question);
+		voteDAO.substitute(previous, current, question);
 		assertTrue(session.contains(current));
 		assertFalse(session.contains(previous));
 	}
@@ -50,19 +52,19 @@ public class VoteDAOTest extends DatabaseTestCase{
 	@Test
 	public void should_verify_that_a_user_already_voted_a_question() {
 		Vote previous = new Vote(guilherme, VoteType.UP);
-		new VoteDAO(session).substitute(null, previous, question);
+		voteDAO.substitute(null, previous, question);
 		question.substitute(null,previous);
 		session.save(question);
 		
-		Vote found = new VoteDAO(session).previousVoteFor(question.getId(), guilherme, Question.class);
+		Vote found = voteDAO.previousVoteFor(question.getId(), guilherme, Question.class);
 		assertEquals(previous, found);
 
 		Vote current = new Vote(guilherme, VoteType.DOWN);
-		new VoteDAO(session).substitute(previous, current, question);
+		voteDAO.substitute(previous, current, question);
 		question.substitute(previous,current);
 		session.save(question);
 
-		found = new VoteDAO(session).previousVoteFor(question.getId(), guilherme, Question.class);
+		found = voteDAO.previousVoteFor(question.getId(), guilherme, Question.class);
 		assertEquals(current, found);
 	}
 	
