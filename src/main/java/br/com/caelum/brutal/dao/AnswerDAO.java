@@ -7,16 +7,20 @@ import org.hibernate.Session;
 import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.model.Answer;
+import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.SubscribableDTO;
+import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class AnswerDAO {
 
 	private final Session session;
+	private WithAuthorDAO<Answer> withAuthor;
 
 	public AnswerDAO(Session session) {
 		this.session = session;
+		withAuthor = new WithAuthorDAO<Answer>(session, Answer.class);
 	}
 	
 	public Answer getById(Long id) {
@@ -42,6 +46,14 @@ public class AnswerDAO {
         results.addAll(query.setParameter("timeAgo", timeAgo).list());
         
         return results;
+	}
+
+	public List<Answer> withAuthorByVotes(User user) {
+		return withAuthor.byVotes(user);
+	}
+	
+	public List<Answer> withAuthorByDate(User user) {
+		return withAuthor.byDate(user);
 	}
 }
 

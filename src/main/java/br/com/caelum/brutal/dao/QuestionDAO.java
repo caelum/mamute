@@ -14,9 +14,11 @@ import br.com.caelum.vraptor.ioc.Component;
 public class QuestionDAO {
 	
     private final Session session;
+    private final WithAuthorDAO<Question> withAuthor;
 
     public QuestionDAO(Session session) {
         this.session = session;
+		this.withAuthor = new WithAuthorDAO<Question>(session, Question.class);
     }
     
     public void save(Question q) {
@@ -53,22 +55,12 @@ public class QuestionDAO {
 	}
 	
 	public List<Question> withAuthorByVotes(User user) {
-		List<Question> questions = session.createQuery(questionOfUser()+" order by q.voteCount desc")
-				.setParameter("user", user)
-				.setMaxResults(5)
-				.list();
-		return questions;
+		return withAuthor.byVotes(user);
 	}
 	
 	public List<Question> withAuthorByDate(User user) {
-		List<Question> questions = session.createQuery(questionOfUser()+" order by q.createdAt desc")
-				.setParameter("user", user)
-				.setMaxResults(5)
-				.list();
-		return questions;
+		return withAuthor.byDate(user);
 	}
 	
-	private String questionOfUser(){
-		return "select q from Question as q join q.author a where a = :user";
-	}
+	
 }
