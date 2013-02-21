@@ -12,9 +12,7 @@
 	</div>
 	<div class="summary">
 		<h3 class="title item-title">
-			<a href="<c:url value="/questions/${question.id }/${question.sluggedTitle}"/>">
-					${question.title}
-			</a>
+			<tags:questionLinkFor question="${question}"/>
 		</h3>
 		<tags:tagsFor taggable="${question}"/>
 		<div class="stats">

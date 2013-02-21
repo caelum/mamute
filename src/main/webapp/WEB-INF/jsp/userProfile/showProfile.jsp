@@ -55,7 +55,7 @@
 		<h3 class="title section-title subheader"><fmt:message key="user_profile.questions" /></h3>
 		<ul>
 			<c:forEach var="question" items="${questionsByVotes}">
-				<li>${question.title} - ${question.voteCount}</li>
+				<li><span>${question.voteCount}</span> <tags:questionLinkFor question="${question}"/></li>
 			</c:forEach>
 		</ul>
 	</section>	
