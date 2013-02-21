@@ -28,10 +28,13 @@
 		<input type="text" name="birthDate" class="text-input" value='<tags:jodaTime pattern="dd/MM/YYYY" time="${user.birthDate}"></tags:jodaTime>'/>
 	</span>
 	</span>
-		<span class="data-line">
+	<span class="data-line">
 		<label for="location"><fmt:message key="user_profile.edit.form.location.label" /></label>
 		<input type="text" name="location" class="text-input" value="${user.location}"/>
 	</span>
-
+	
+	<label for="description">Sobre</label>
+	<tags:markDown value="${user.about}" hintId="user-about-hint" />
+		
 	<input type="submit" value="<fmt:message key="user_profile.edit.form.submit" />"/>
 </form>

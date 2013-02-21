@@ -59,7 +59,8 @@ public class UserProfileController {
 	}
 	
 	@Post("/users/edit/{id}")
-	public void editProfile(Long id, String name, String email, String website, String location, LocalDate birthDate) {
+	public void editProfile(Long id, String name, String email, 
+			String website, String location, LocalDate birthDate, String description) {
 		User user = users.findById(id);
 		
 		if (!user.getId().equals(currentUser.getCurrent().getId())){
@@ -72,7 +73,7 @@ public class UserProfileController {
 			return;
 		}
 		
-		user.setPersonalInformation(email, name, website, location, birthDate.toDateTimeAtStartOfDay());
+		user.setPersonalInformation(email, name, website, location, birthDate.toDateTimeAtStartOfDay(), description);
 		result.redirectTo(this).showProfile(id, user.getSluggedName());
 	}
 }
