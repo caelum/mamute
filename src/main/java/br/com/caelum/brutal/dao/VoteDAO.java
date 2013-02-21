@@ -34,19 +34,6 @@ public class VoteDAO {
 		return (Votable) session.load(type, id);
 	}
 
-	public void substitute(Vote previous, Vote current, Votable on) {
-	    long delta = current.getValue();
-	    if (previous != null) {
-	        delta -= previous.getValue();
-	        session.delete(previous);
-	    }
-		session.save(current);
-		session.createQuery("update User as u set u.karma = u.karma + (:value) where u.id = :user")
-		    .setParameter("value", delta)
-		    .setParameter("user", on.getAuthor().getId())
-		    .executeUpdate();
-	}
-
 	@SuppressWarnings("unchecked")
 	public AnswerAndVotes previousVotesForAnswers(Question question, User currentUser) {
 		Query query = session.createQuery("select a,v from Answer as a join a.votes as v where v.author = :author and a.question = :question");
