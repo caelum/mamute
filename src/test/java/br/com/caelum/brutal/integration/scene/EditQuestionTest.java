@@ -30,12 +30,39 @@ public class EditQuestionTest extends AuthenticatedAcceptanceTest {
             .newQuestion("question title question title question title", 
                 "question description question description question description question description ", 
                 "java");
+        
+        String newTitle = "edited by author question title";
+        String newDescription = "new description new description new description new description";
+        String newTags = "new-tag";
         questionPage = questionPage.toEditQuestionPage()
-            .edit("edited by author question title", 
-                "new description new description new description new description", 
-                "new-tag");
+            .edit(newTitle, 
+                newDescription, 
+                newTags);
+        
+        questionPage.hasInformation(newTitle, newDescription, newTags);
+        questionPage.confirmationMessages().contains(message("status.no_need_to_approve"));
+    }
+    
+    @Test
+    public void should_edit_and_automatically_approve_moderator() throws Exception {
+        loginRandomly();
+        home().toNewQuestionPage()
+            .newQuestion("question title question title question title", 
+                "question description question description question description question description ", 
+                "java");
+        logout();
+        loginAsModerator();
+        
+        String newTitle = "I'm the moderator, nigga";
+        String newDescription = "yeah yeah yeah yeah yeah yeah yeah yeah";
+        String newTags = "moderator";
+        QuestionPage questionPage = home().toFirstQuestionPage().toEditQuestionPage()
+            .edit(newTitle, 
+                    newDescription, 
+                    newTags);
         
         questionPage.confirmationMessages().contains(message("status.no_need_to_approve"));
+        questionPage.hasInformation(newTitle, newDescription, newTags);
         
     }
 }

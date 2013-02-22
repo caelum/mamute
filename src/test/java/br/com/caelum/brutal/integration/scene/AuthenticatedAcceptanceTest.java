@@ -23,5 +23,10 @@ public abstract class AuthenticatedAcceptanceTest extends AcceptanceTestBase {
         		"acceptance"+ Math.random() +"@brutal.com", 
         		"123456", "123456");
     }
+    
+    protected void loginAsModerator() {
+        logout();
+        home().toLoginPage().login("moderator@caelum.com.br", "123456");
+    }
 
 }
