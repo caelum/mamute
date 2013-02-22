@@ -74,7 +74,7 @@
 		</div>
 		<ul id="user-answers">
 			<c:forEach var="answer" items="${answersByVotes}">
-				<li><span>${answer.voteCount}</span> <tags:questionLinkFor question="${answer.question}"/></li>
+				<li><span>${answer.voteCount}</span> <tags:questionLinkFor answer="${answer}" question="${answer.question}"/></li>
 			</c:forEach>
 		</ul>
 	</section>	
