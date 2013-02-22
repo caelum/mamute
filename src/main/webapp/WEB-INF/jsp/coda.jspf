@@ -46,5 +46,6 @@ $(function(){prettyPrint()});
 <script src="<c:url value="/js/submenu.js"/>"></script>
 <script src="<c:url value="/js/popup.js"/>"></script>
 <script src="<c:url value="/js/dropdown.js"/>"></script>
+<script src="<c:url value="/js/order-by.js"/>"></script>
 </body>
 </html>
