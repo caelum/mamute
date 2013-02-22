@@ -3,17 +3,22 @@ $(function(){
 		event.preventDefault();
 		var self = $(this);
 		$.get(self.attr("href"), function(list){
-			console.log(self.data("type"));
-			console.log(list);
-			var listElements = ""
+			var listElements = "";
 			$(list).each(function(index, item){
-				if(self.data("type")=="question"){
-					listElements += "<li><span>"+item.voteCount+"</span> <a href='#'>"+item.information.title+"</a></li>";
-				}else if(self.data("type")=="answer"){
-					listElements += "<li><span>"+item.voteCount+"</span> <a href='#'>"+item.question.information.title+"</a></li>";
-				}
+				var question = getQuestion(self.data("type"), item),
+					href = "/questions/"+question.id+"/"+question.information.sluggedTitle;
+				
+				listElements += "<li><span>"+item.voteCount+"</span> <a href='"+href+"'>"+question.information.title+"</a></li>";
 			});
 			$("#"+self.data("target-id")).html(listElements);
 		});
 	});
+	
+	function getQuestion(type, item){
+		if(type == "questions"){
+			return item;
+		}else if(type == "answers"){
+			return item.question;
+		}
+	}
 });

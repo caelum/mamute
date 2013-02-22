@@ -55,8 +55,8 @@
 		<div class="subheader">
 			<h3 class="title section-title"><tags:pluralize key="user_profile.questions" count="${fn:length(questionByVotes)}" /> por votos</h3>
 			<ul class="subheader-menu">
-				<li><a class="order-by" data-type="question" data-target-id="user-questions" href="${linkTo[UserProfileController].questionsByVotesWith[selectedUser]}"><fmt:message key="user_profile.order.votes"/></a></li>
-				<li><a class="order-by" data-type="question" data-target-id="user-questions" href="${linkTo[UserProfileController].questionsByDateWith[selectedUser]}"><fmt:message key="user_profile.order.date"/></a></li>
+				<li><a class="order-by" data-type="questions" data-target-id="user-questions" href="${linkTo[UserProfileController].questionsByVotesWith[selectedUser]}"><fmt:message key="user_profile.order.votes"/></a></li>
+				<li><a class="order-by" data-type="questions" data-target-id="user-questions" href="${linkTo[UserProfileController].questionsByDateWith[selectedUser]}"><fmt:message key="user_profile.order.date"/></a></li>
 			</ul>
 		</div>
 		<ul id="user-questions">
@@ -69,8 +69,8 @@
 		<div class="subheader">
 			<h3 class="title section-title"><tags:pluralize key="user_profile.answers" count="${fn:length(answersByVotes)}" /></h3>
 			<ul class="subheader-menu">
-				<li><a class="order-by" data-type="answer" data-target-id="user-answers" href="${linkTo[UserProfileController].answersByVotesWith[selectedUser]}"><fmt:message key="user_profile.order.votes"/></a></li>
-				<li><a class="order-by" data-type="answer" data-target-id="user-answers" href="${linkTo[UserProfileController].answersByDateWith[selectedUser]}"><fmt:message key="user_profile.order.date"/></a></li>
+				<li><a class="order-by" data-type="answers" data-target-id="user-answers" href="${linkTo[UserProfileController].answersByVotesWith[selectedUser]}"><fmt:message key="user_profile.order.votes"/></a></li>
+				<li><a class="order-by" data-type="answers" data-target-id="user-answers" href="${linkTo[UserProfileController].answersByDateWith[selectedUser]}"><fmt:message key="user_profile.order.date"/></a></li>
 			</ul>
 		</div>
 		<ul id="user-answers">
