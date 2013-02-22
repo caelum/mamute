@@ -36,7 +36,7 @@ public class User implements Identifiable {
 	private Long id;
 
 	@NotEmpty
-	@Length(min = 6)
+	@Length(min = 6, max = 100)
 	private String password = "";
 	
 	@NotEmpty
