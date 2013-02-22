@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.com.caelum.brutal.builder.QuestionBuilder;
 import br.com.caelum.brutal.dao.TestCase;
 
 public class UserTest extends TestCase {
@@ -16,6 +17,9 @@ public class UserTest extends TestCase {
     private User author;
     private User moderator;
     private User otherUser;
+    private QuestionBuilder question = new QuestionBuilder();
+    private Question myQuestion;
+	private Question myOtherQuestion;
 
     @Before
     public void before_test() {
@@ -24,26 +28,27 @@ public class UserTest extends TestCase {
         otherUser = new User("other", "email", "1234");
         otherUser.setId(2l);
         
+        myQuestion = question.withTitle("question title").withDescription("question description").withAuthor(author).build();
+        myOtherQuestion = question.withTitle("question title").withDescription("question description").withAuthor(otherUser).build();
+        
         moderator = new User("yeah", "email", "1234").asModerator();
         moderator.setId(3l);
     }
 
     @Test
     public void moderator_should_approve_question_information() throws Exception {
-        Question question = question("question title", "question description", author);
         Information approvedInfo = new QuestionInformation("edited title", "edited desc", 
                 new LoggedUser(otherUser, null), new ArrayList<Tag>(), "comment");
         
-        moderator.approve(question, approvedInfo);
+        moderator.approve(myQuestion, approvedInfo);
         
-        assertEquals(approvedInfo, question.getInformation());
-        assertTrue(question.getInformation().isModerated());
+        assertEquals(approvedInfo, myQuestion.getInformation());
+        assertTrue(myQuestion.getInformation().isModerated());
     }
     
     @Test
     public void moderator_should_approve_answer_information() throws Exception {
-        Question question = question("question title", "question description", author);
-        Answer answer = answer("answer description", question, author);
+        Answer answer = answer("answer description", myQuestion, author);
         AnswerInformation approvedInfo = answerInformation("new description", otherUser, answer);
         
         moderator.approve(answer, approvedInfo);
@@ -54,9 +59,7 @@ public class UserTest extends TestCase {
     
     @Test
     public void should_verify_if_its_author_of_the_question(){
-    	Question question = question("question title", "question description", author);
-    	Question otherQuestion = question("question title", "question description", otherUser);
-    	assertTrue(author.isAuthorOf(question));
-    	assertFalse(author.isAuthorOf(otherQuestion));
+    	assertTrue(author.isAuthorOf(myQuestion));
+    	assertFalse(author.isAuthorOf(myOtherQuestion));
     }
 }

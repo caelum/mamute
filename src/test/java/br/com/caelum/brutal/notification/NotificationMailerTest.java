@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import org.apache.commons.mail.Email;
 import org.junit.Test;
 
+import br.com.caelum.brutal.builder.QuestionBuilder;
 import br.com.caelum.brutal.dao.TestCase;
 import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.Question;
@@ -22,10 +23,11 @@ import br.com.caelum.vraptor.simplemail.Mailer;
 import br.com.caelum.vraptor.simplemail.testing.MockTemplateMailer;
 
 public class NotificationMailerTest extends TestCase {
+    private QuestionBuilder question = new QuestionBuilder();
     private User questionAuthor = user("chico", "chico@gmail.com", 1l);
-    private Question question = question("question title", "question description", questionAuthor);
+    private Question myQuestion = question.withTitle("question title").withDescription("question description").withAuthor(questionAuthor).build();
     private User answerAuthor = user("answer user", "answer@brutal.com", 2l);
-    private Subscribable answer = answer("description", question, answerAuthor);
+    private Subscribable answer = answer("description", myQuestion, answerAuthor);
     
     private MockTemplateMailer templates = new MockTemplateMailer();
     private Mailer mailer = mock(Mailer.class);
@@ -39,8 +41,8 @@ public class NotificationMailerTest extends TestCase {
         
         User otherSubscribed = user("other", "email@brutal.com", 1l);
         
-        subscribablesDTO.add(new SubscribableDTO(answer, questionAuthor, question));
-        subscribablesDTO.add(new SubscribableDTO(answer, otherSubscribed, question));
+        subscribablesDTO.add(new SubscribableDTO(answer, questionAuthor, myQuestion));
+        subscribablesDTO.add(new SubscribableDTO(answer, otherSubscribed, myQuestion));
         
         notificationMailer.sendMails(subscribablesDTO);
         
@@ -51,9 +53,9 @@ public class NotificationMailerTest extends TestCase {
     public void should_send_one_email_with_three_subscribables() throws Exception {
         Subscribable comment = new Comment(answerAuthor, "comment");
         ArrayList<SubscribableDTO> subscribablesDTO = new ArrayList<>();
-        subscribablesDTO.add(new SubscribableDTO(answer, questionAuthor, question));
-        subscribablesDTO.add(new SubscribableDTO(comment, questionAuthor, question));
-        subscribablesDTO.add(new SubscribableDTO(new Comment(answerAuthor, "blablabla"), questionAuthor, question));
+        subscribablesDTO.add(new SubscribableDTO(answer, questionAuthor, myQuestion));
+        subscribablesDTO.add(new SubscribableDTO(comment, questionAuthor, myQuestion));
+        subscribablesDTO.add(new SubscribableDTO(new Comment(answerAuthor, "blablabla"), questionAuthor, myQuestion));
         
         notificationMailer.sendMails(subscribablesDTO);
         

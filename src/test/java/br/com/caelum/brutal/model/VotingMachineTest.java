@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.com.caelum.brutal.builder.QuestionBuilder;
 import br.com.caelum.brutal.dao.TestCase;
 import br.com.caelum.brutal.dao.VoteDAO;
 import br.com.caelum.brutal.model.interfaces.Votable;
@@ -19,6 +20,7 @@ public class VotingMachineTest extends TestCase {
     private User voter;
     private User author;
     private Votable votable;
+    private QuestionBuilder question = new QuestionBuilder();
     
     @Before
     public void setUp() {
@@ -26,7 +28,7 @@ public class VotingMachineTest extends TestCase {
         votingMachine = new VotingMachine(votes);
         voter = user("chico", "chico@brutal.com", 1l);
         author = user("author", "author@brutal.com", 2l);
-        votable = question("title", "description", author);
+        votable = question.withTitle("title").withDescription("description").withAuthor(author).build();
     }
 
     @Test

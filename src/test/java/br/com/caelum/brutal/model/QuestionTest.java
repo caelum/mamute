@@ -4,20 +4,22 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import br.com.caelum.brutal.builder.QuestionBuilder;
 import br.com.caelum.brutal.dao.TestCase;
 
 public class QuestionTest  extends TestCase{
+	private QuestionBuilder question = new QuestionBuilder();
 
 	@Test(expected = RuntimeException.class)
 	public void can_not_be_marked_as_solved_by_the_an_answer_that_is_not_mine() {
-		Question shouldILiveForever = question("", "", null);
+		Question shouldILiveForever = question.build();
 		Answer yes = answer("", null, null);
 		shouldILiveForever.markAsSolvedBy(yes);
 	}
 
 	@Test
 	public void can_be_marked_as_solved_by_the_an_answer_that_is_mine() {
-		Question shouldILiveForever = question("", "", null);
+		Question shouldILiveForever = question.build();
 		Answer yes = answer("my answer", shouldILiveForever, null);
 		
 		shouldILiveForever.markAsSolvedBy(yes);
@@ -27,7 +29,7 @@ public class QuestionTest  extends TestCase{
 	
 	@Test
 	public void should_be_touched_when_marked_as_solved() {
-		Question shouldILiveForever = question("", "", null);
+		Question shouldILiveForever = question.build();
 		User leo = new User("", "", "");
 		Answer yes = answer("my answer", shouldILiveForever, leo);
 		
@@ -40,22 +42,22 @@ public class QuestionTest  extends TestCase{
 
 	@Test
 	public void should_remove_vote_values_and_update_vote_count() {
-		Question question = question("", "", null);
-		assertEquals(0l, question.getVoteCount());
+		Question myQuestion = question.build();
+		assertEquals(0l, myQuestion.getVoteCount());
 		Vote firstVote = new Vote(null, VoteType.UP);
-		question.substitute(null, firstVote);
-		assertEquals(1l, question.getVoteCount());
-		question.substitute(firstVote, new Vote(null, VoteType.DOWN));
-		assertEquals(-1l, question.getVoteCount());
-		question.substitute(null, new Vote(null, VoteType.DOWN));
-		assertEquals(-2l, question.getVoteCount());
+		myQuestion.substitute(null, firstVote);
+		assertEquals(1l, myQuestion.getVoteCount());
+		myQuestion.substitute(firstVote, new Vote(null, VoteType.DOWN));
+		assertEquals(-1l, myQuestion.getVoteCount());
+		myQuestion.substitute(null, new Vote(null, VoteType.DOWN));
+		assertEquals(-2l, myQuestion.getVoteCount());
 	}
 	
 	@Test
 	public void should_be_touched_by_original_author_after_edit() throws Exception {
 		User artur = new User("artur", "artur@x.com", "");
 		artur.setId(1l);
-		Question comoFaz = question("titulo", "descricao", artur);
+		Question comoFaz = question.withTitle("titulo").withDescription("descricao").withAuthor(artur).build();
 		User leo = new User("leo", "leo@x.com", "");
 		leo.setId(2l);
 		comoFaz.updateWith(new QuestionInformationBuilder().with(leo).build());
@@ -69,7 +71,7 @@ public class QuestionTest  extends TestCase{
 		artur.setId(1l);
 		leo.setId(2l);
 		
-		Question comoFaz = question("titulo", "descricao", artur);
+		Question comoFaz = question.withTitle("titulo").withDescription("descricao").withAuthor(artur).build();
 		QuestionInformation comoFazEditedInformation = new QuestionInformationBuilder().with(leo).build();
 		comoFaz.updateWith(comoFazEditedInformation);
 		comoFaz.approve(comoFazEditedInformation);

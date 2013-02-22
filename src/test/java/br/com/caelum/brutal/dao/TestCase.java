@@ -1,40 +1,15 @@
 package br.com.caelum.brutal.dao;
 
-import java.util.Arrays;
-import java.util.List;
-
 import net.vidageek.mirror.dsl.Mirror;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.AnswerInformation;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.Question;
-import br.com.caelum.brutal.model.QuestionInformation;
-import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.Vote;
 import br.com.caelum.brutal.model.VoteType;
 
 public abstract class TestCase {
-
-	/**
-	 * This constructor should not exist. It is only for tests
-	 */
-	public Question question(String title,String description, User author, Tag... tags) {
-	    List<Tag> tagList = Arrays.asList(tags);
-		Question q = new Question(new QuestionInformation(title, description, new LoggedUser(author, null), tagList, ""), author);
-		return q;
-	}
-	
-	/**
-	 * This constructor should not exist. It is only for tests
-	 */
-	public Question question(String title,String description, User author, Long id, Tag... tags) {
-	    List<Tag> tagList = Arrays.asList(tags);
-	    Question q = new Question(new QuestionInformation(title, description, new LoggedUser(author, null), tagList, ""), author);
-	    setId(q, id);
-	    return q;
-	}
-
 
 	/**
 	 * This constructor should not exist. It is only for tests

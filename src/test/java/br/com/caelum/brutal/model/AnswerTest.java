@@ -6,16 +6,17 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import br.com.caelum.brutal.builder.QuestionBuilder;
 import br.com.caelum.brutal.dao.TestCase;
 
 public class AnswerTest extends TestCase {
     private User author = user("name", "email", 1l);
     private User editUser = user("edit", "editemail", 2l);
-    private User moderator = user("moderator", "moderatoremail", 3l).asModerator();
+    private QuestionBuilder question = new QuestionBuilder();
 
 	@Test
 	public void should_mark_question_as_solved() {
-		Question canILiveForever = question("", "", null);
+		Question canILiveForever = question.build();
 		Answer yes = answer("Yes", canILiveForever, null);
 		
 		assertEquals(null, canILiveForever.getSolution());
@@ -27,7 +28,7 @@ public class AnswerTest extends TestCase {
 	
 	@Test
 	public void should_return_that_answer_is_solution_or_not() {
-		Question canILiveForever = question("", "", null);
+		Question canILiveForever = question.build();
 		Answer yes = answer("Yes", canILiveForever, null);
 		
 		assertFalse(yes.isSolution());
@@ -39,8 +40,8 @@ public class AnswerTest extends TestCase {
 	
 	@Test
     public void should_approve_answer_info() throws Exception {
-        Question question = question("question title", "description", author);
-        Answer answer = answer("blablablab", question, author);
+        Question myQuestion = question.withTitle("question title").withDescription("description").withAuthor(author).build();
+        Answer answer = answer("blablablab", myQuestion, author);
         
         Information approved = new AnswerInformation("blablabalblab", new LoggedUser(editUser, null), answer, "");
         answer.approve(approved);

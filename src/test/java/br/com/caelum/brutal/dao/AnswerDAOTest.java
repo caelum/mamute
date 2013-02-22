@@ -9,6 +9,7 @@ import org.joda.time.DateTimeUtils;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.com.caelum.brutal.builder.QuestionBuilder;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.SubscribableDTO;
@@ -20,7 +21,8 @@ public class AnswerDAOTest extends DatabaseTestCase {
     private User answerAuthor1 = new User("leonardo", "answer2@email.com", "123456");
     private User answerAuthor2 = new User("francisco", "answer1@email.com", "123456");
     private User answerAuthor3 = new User("felipe", "answer3@email.com", "123456");
-    private Question question = question("title title title title", "description descriptions descriptions descriptions descriptions", questionAuthor);
+    private QuestionBuilder question = new QuestionBuilder();
+    private Question creativeQuestion = question.withTitle("title title title title").withDescription("description descriptions descriptions descriptions descriptions").withAuthor(questionAuthor).build();
     AnswerDAO answers;
     
     @Before
@@ -30,18 +32,18 @@ public class AnswerDAOTest extends DatabaseTestCase {
         session.save(answerAuthor2);
         session.save(answerAuthor3);
         session.save(answerAuthor1);
-        session.save(question);
+        session.save(creativeQuestion);
     }
 
     @Test
     public void should_find_recent_answers() {
         DateTimeUtils.setCurrentMillisFixed(new DateTime().minusHours(4).getMillis());
-        Answer oldAnswer1 = answer("answer answer answer answer answer answer", question, answerAuthor1);
-        Answer oldAnswer2 = answer("answer answer answer answer answer answer", question, answerAuthor1);
+        Answer oldAnswer1 = answer("answer answer answer answer answer answer", creativeQuestion, answerAuthor1);
+        Answer oldAnswer2 = answer("answer answer answer answer answer answer", creativeQuestion, answerAuthor1);
         
         DateTimeUtils.setCurrentMillisSystem();
-        Answer newAnswer1 = answer("answer answer answer answer answer answer", question, answerAuthor2);
-        Answer newAnswer2 = answer("answer answer answer answer answer answer", question, answerAuthor3);
+        Answer newAnswer1 = answer("answer answer answer answer answer answer", creativeQuestion, answerAuthor2);
+        Answer newAnswer2 = answer("answer answer answer answer answer answer", creativeQuestion, answerAuthor3);
         
         session.save(oldAnswer1);
         session.save(oldAnswer2);
@@ -53,7 +55,7 @@ public class AnswerDAOTest extends DatabaseTestCase {
         List<SubscribableDTO> recentAnswers = answers.getSubscribablesAfter(threeHoursAgo);
         
         assertEquals(6, recentAnswers.size());
-        assertEquals(question.getId(), recentAnswers.get(0).getQuestion().getId());
+        assertEquals(creativeQuestion.getId(), recentAnswers.get(0).getQuestion().getId());
     }
     
 }
