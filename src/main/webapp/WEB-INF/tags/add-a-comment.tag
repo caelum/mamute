@@ -7,8 +7,8 @@
 	<c:forEach var="comment" items="${item.comments }">
 		<li class="comment">
 			<span id="comment-${comment.id}">${comment.htmlComment}</span> &#8212;
-			<tags:userProfileLink user="${comment.author}" htmlClass="${comment.author.id eq item.author.id ? 'same-author' : ''}"></tags:userProfileLink>
-			<tags:prettyTime time="${comment.lastUpdatedAt}"/>
+			<tags:userProfileLink user="${comment.author}" htmlClass="${comment.author.id eq item.author.id ? 'same-author' : ''}"/> 
+			&nbsp;<tags:prettyTime time="${comment.lastUpdatedAt}"/>
 			<c:if test="${comment.author.id == currentUser.id }">
 				<tags:editFor item="${comment}" field="comment" value="${comment.comment}" ajaxResult="comment-${comment.id}" />
 			</c:if>

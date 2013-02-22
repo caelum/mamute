@@ -64,7 +64,7 @@ a {
 .title,.title a {
 	font-family: Trebuchet MS, Liberation Sans, DejaVu Sans, sans-serif;
 	font-weight: bold;
-	line-height: 34px;
+	line-height: 2em;
 }
 
 .subheader {
@@ -207,7 +207,7 @@ p {
 	background-color: #EAEAEA;
  	-webkit-box-shadow: 2px 2px 4px #999;
 	box-shadow: 2px 2px 4px #999;
-	width: 25%;
+	width: 320px;
 	padding: .4em .8em;	
 }
 

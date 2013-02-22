@@ -16,6 +16,7 @@
 	.complete-tag{
 		width:25%;
 	}
+	
 }
 
 	
@@ -54,7 +55,8 @@
 		max-width:94%;
 	}
 	
-	.autocompleted-tags, .user-form, .question-form {
+	.autocompleted-tags, .user-form, .question-form,
+	.form-hints, .hint {
 		width:100%;
 	}
 	
@@ -116,6 +118,7 @@
 		width:100%;
 		padding:0;
 	}
+	
 	/*Show question*/
 	
 	.post-action-nav, .post-touchs{
@@ -132,6 +135,11 @@
 		width:100%;
 	}
 	
+	/*Share popup*/
+	.popup.share{
+		width:180px
+	}
+	
 }
 
 @media only screen and (max-width: 550px) {
@@ -144,4 +152,4 @@
 	.complete-tag{
 		width:50%;
 	}
-}
+}	
