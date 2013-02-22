@@ -65,5 +65,19 @@
 			</c:forEach>
 		</ul>
 	</section>	
+	<section class="user-questions advanced-data-section">
+		<h3 class="title section-title subheader"><fmt:message key="user_profile.answers" /> por votos</h3>
+		<ul>
+			<c:forEach var="answer" items="${answersByVotes}">
+				<li><span>${answer.voteCount}</span> <tags:questionLinkFor question="${answer.question}"/></li>
+			</c:forEach>
+		</ul>
+		<h3 class="title section-title subheader"><fmt:message key="user_profile.answers" /> por data</h3>
+		<ul>
+			<c:forEach var="answer" items="${answersByDate}">
+				<li><span>${answer.voteCount}</span> <tags:questionLinkFor question="${answer.question}"/></li>
+			</c:forEach>
+		</ul>
+	</section>	
 	
 </section>

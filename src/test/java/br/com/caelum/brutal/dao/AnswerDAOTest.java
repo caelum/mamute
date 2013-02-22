@@ -1,7 +1,6 @@
 package br.com.caelum.brutal.dao;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
 
 import java.util.List;
 
@@ -14,8 +13,6 @@ import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.SubscribableDTO;
 import br.com.caelum.brutal.model.User;
-import br.com.caelum.brutal.model.Vote;
-import br.com.caelum.brutal.model.VoteType;
 
 public class AnswerDAOTest extends DatabaseTestCase {
 

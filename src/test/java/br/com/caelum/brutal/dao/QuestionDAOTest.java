@@ -1,6 +1,5 @@
 package br.com.caelum.brutal.dao;
 
-import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
@@ -8,16 +7,12 @@ import java.util.List;
 
 import javax.validation.ConstraintViolationException;
 
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeUtils;
 import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
-import br.com.caelum.brutal.model.Vote;
-import br.com.caelum.brutal.model.VoteType;
 
 public class QuestionDAOTest extends DatabaseTestCase {
 

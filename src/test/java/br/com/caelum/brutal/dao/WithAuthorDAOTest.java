@@ -2,7 +2,6 @@ package br.com.caelum.brutal.dao;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
-import static org.junit.Assert.*;
 
 import java.util.List;
 
@@ -11,7 +10,6 @@ import org.joda.time.DateTimeUtils;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.Vote;

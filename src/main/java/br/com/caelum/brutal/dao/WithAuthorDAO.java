@@ -26,6 +26,7 @@ public class WithAuthorDAO<T> {
 		return items;
 	}
 
+	@SuppressWarnings("unchecked")
 	private List<T> fiveWithUserBy(User user, String order) {
 		List<T> items = session.createQuery(selectWithUser()+order)
 				.setParameter("user", user)
