@@ -72,7 +72,8 @@
 		</div>
 	</section>
 </header>
-<tags:messages type="alert" messages="${alerts}" />
-<tags:messages type="confirmation" messages="${confirmations}" />
-<tags:errorMessages errors="${errors}" />
+
 <div class="container">
+	<tags:messages type="alert" messages="${alerts}" />
+	<tags:messages type="confirmation" messages="${confirmations}" />
+	<tags:errorMessages errors="${errors}" />
