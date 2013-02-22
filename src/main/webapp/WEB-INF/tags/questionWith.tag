@@ -21,8 +21,8 @@
 							<label for="share-url"><fmt:message key="share.text"/></label>
 							<input type="text" class="text-input required" id="share-url" value="${currentUrl}"/>
 						</form>
-						<a class="sprite share-button facebook-icon" href="#">share facebook</a>
-						<a class="sprite share-button twitter-icon" href="https://twitter.com/share?text=${question.title}&url=${currentUrl}">share twitter</a>
+						<a target="_blank" class="sprite share-button facebook-icon" data-shareurl="http://www.facebook.com/sharer/sharer.php?u=${currentUrl}">share facebook</a>
+						<a target="_blank" class="sprite share-button twitter-icon" data-shareurl="https://twitter.com/share?text=${question.title}&url=${currentUrl}">share twitter</a>
 						<a class="close-popup"><fmt:message key="popup.close"/></a>
 					</div>
 				</li>

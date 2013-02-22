@@ -215,11 +215,18 @@ p {
 	margin: 0;
 }
 
-a.share-button {
-	width: 24px;
+.share a.share-button {
+	width: 20px;
 	height: 20px;
 	float:left;
+	margin-right: 3px;
+	cursor: pointer;
 }
+
+.share a.twitter-icon {
+	width: 24px;
+}
+
 
 .share .close-popup {
 	float:right;
