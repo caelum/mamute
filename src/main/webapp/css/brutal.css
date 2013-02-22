@@ -934,6 +934,15 @@ textarea {
 
 .advanced-data-section{
 	width:50%;
+	float:left;
+}
+
+.advanced-data-section:nth-child(even){
+	padding-right:20px;
+}
+
+.advanced-data-section:nth-child(odd){
+	padding-left:20px;
 }
 
 .data-line .form-label {
