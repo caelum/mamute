@@ -7,7 +7,6 @@ import org.hibernate.Session;
 import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.model.Answer;
-import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.SubscribableDTO;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.ioc.Component;

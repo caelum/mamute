@@ -21,10 +21,11 @@ public class AnswerDAOTest extends DatabaseTestCase {
     private User answerAuthor2 = new User("francisco", "answer1@email.com", "123456");
     private User answerAuthor3 = new User("felipe", "answer3@email.com", "123456");
     private Question question = question("title title title title", "description descriptions descriptions descriptions descriptions", questionAuthor);
-    AnswerDAO answers = new AnswerDAO(session);
+    AnswerDAO answers;
     
     @Before
     public void before_test() {
+    	answers = new AnswerDAO(session);
         session.save(questionAuthor);
         session.save(answerAuthor2);
         session.save(answerAuthor3);
