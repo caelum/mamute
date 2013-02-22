@@ -25,7 +25,7 @@
 	</span>
 		<span class="data-line">
 		<label for="birthDate" class="form-label"><fmt:message key="user_profile.edit.form.birth_date.label" /></label>
-		<input type="text" name="birthDate" class="text-input date" maxlength="50" value='<tags:jodaTime pattern="dd/MM/YYYY" time="${user.birthDate}"></tags:jodaTime>'/>
+		<input type="text" name="birthDate" class="text-input date" maxlength="10" value='<tags:jodaTime pattern="dd/MM/YYYY" time="${user.birthDate}"></tags:jodaTime>'/>
 	</span>
 	</span>
 	<span class="data-line">

@@ -6,7 +6,7 @@
 
 <h2 class="title page-title"><fmt:message key="newanswer.answer.your_answer"/></h2>
 <form action="${uri}" method="post" class="validated-form hinted-form">
-	<tags:markDown value="${answer.description}" hintId="newanswer-answer-hint" />
+	<tags:markDown value="${answer.description}" hintId="newanswer-answer-hint" htmlClass="required"/>
 	
 	<c:if test='${not empty edit}'>
 		<label for="comment"><fmt:message key="answer.form.comment" /></label>
