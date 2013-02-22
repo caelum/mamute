@@ -21,7 +21,6 @@
 							<label for="share-url"><fmt:message key="share.text"/></label>
 							<input type="text" class="text-input required" id="share-url" value="${currentUrl}"/>
 						</form>
-						<a class="sprite share-button google-plus-icon" href="#">share google plus</a>
 						<a class="sprite share-button facebook-icon" href="#">share facebook</a>
 						<a class="sprite share-button twitter-icon" href="#">share twitter</a>
 						<a class="close-popup"><fmt:message key="popup.close"/></a>
