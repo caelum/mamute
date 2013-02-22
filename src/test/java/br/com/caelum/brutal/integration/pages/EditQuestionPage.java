@@ -10,7 +10,7 @@ public class EditQuestionPage extends PageObject {
 		super(driver);
 	}
 
-	public QuestionPage edit(String title, String description, String tags) {
+	public PageObject edit(String title, String description, String tags) {
 		WebElement newQuestionForm = byClassName("question-form");
 		
 		WebElement questionTitle = newQuestionForm.findElement(By.name("title"));

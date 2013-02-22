@@ -18,6 +18,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import br.com.caelum.brutal.integration.pages.Home;
+import br.com.caelum.brutal.integration.util.AppMessages;
 import br.com.caelum.pagpag.aceitacao.util.ServerInfo;
 import br.com.caelum.vraptor.environment.DefaultEnvironment;
 import br.com.caelum.vraptor.environment.Environment;
@@ -31,7 +32,9 @@ public abstract class AcceptanceTestBase implements ServerInfo.AcceptanceTest {
 	protected static HttpClient client;
 	
 	protected static Environment env;
-
+	
+	private AppMessages messages = new AppMessages();
+	
 	@AfterClass
 	public static void close() {
 		if (driver != null)
@@ -103,5 +106,9 @@ public abstract class AcceptanceTestBase implements ServerInfo.AcceptanceTest {
 		};
 		new WebDriverWait(driver, 40).until(homeAppear);
 	}
+    
+    protected String message(String text) {
+        return messages.getMessage(text);
+    }
 	
 }

@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.integration.pages;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -56,4 +57,13 @@ public abstract class PageObject {
 	protected void waitForTextInElement(final By by, String text, int time) {
 	    new WebDriverWait(driver, time).until(ExpectedConditions.textToBePresentInElement(by, text));
 	}
+
+    public List<String> confirmationMessages() {
+        List<String> confirmations = new ArrayList<>();
+        List<WebElement> confirmationElements = allByClassName("confirmation");
+        for (WebElement element : confirmationElements) {
+            confirmations.add(element.getText());
+        }
+        return confirmations;
+    }
 }
