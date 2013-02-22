@@ -70,19 +70,21 @@ a {
 .subheader {
 	border-bottom: 1px solid #cccccc;
 	margin-bottom: 15px;
+	overflow:hidden;
 }
 
-.subheader * {
-	display: inline;
+.subheader .title{
+	float:left;
 }
 
-.subheader-menu * {
+.subheader-menu {
+	float: right;
 	line-height: 34px;
 }
 
-.subheader-menu a {
+.subheader-menu a{
 	color: #999;
-	float: right;
+	font-size:.9em;
 }
 
 .page-title,.page-title a {
