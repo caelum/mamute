@@ -18,7 +18,7 @@
 		<div class="stats">
 			<span class="last-updated-at"><tags:prettyTime time="${question.lastUpdatedAt }" /></span>
 			<tags:userProfileLink user="${question.lastTouchedBy}"></tags:userProfileLink>
-			<span class="reputation">${question.lastTouchedBy.karma }</span>
+			<span class="reputation">${question.lastTouchedBy.karma}</span>
 		</div>
 	</div>		
 </li>
