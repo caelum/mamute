@@ -46,8 +46,8 @@ public class UserProfileController {
 		result.include("isCurrentUser", currentUser.getCurrent().getId().equals(id));
 		result.include("questionsByVotes", questions.withAuthorByVotes(selectedUser));
 		result.include("questionsByDate", questions.withAuthorByDate(selectedUser));
-		result.include("answerByVotes", answers.withAuthorByVotes(selectedUser));
-		result.include("answerByDate", answers.withAuthorByDate(selectedUser));
+		result.include("answersByVotes", answers.withAuthorByVotes(selectedUser));
+		result.include("answersByDate", answers.withAuthorByDate(selectedUser));
 		result.include("selectedUser", selectedUser);
 	}
 	
