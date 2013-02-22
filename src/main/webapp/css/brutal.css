@@ -624,6 +624,10 @@ textarea {
 	background-color: #ffe6bf;
 }
 
+.complete-tag .tag{
+	margin-bottom:5%;
+}
+
 /*SHOW QUESTION*/
 .solution .mark-as-solution {
 	display: none;
