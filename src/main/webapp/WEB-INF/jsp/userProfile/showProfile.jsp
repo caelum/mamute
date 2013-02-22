@@ -50,10 +50,9 @@
 	</div>
 </section>
 <section class="advanced-user-data">
-	<h2 class="title page-title subheader"><fmt:message key="user_profile.summary" /></h2>
 	<section class="user-questions advanced-data-section">
 		<div class="subheader">
-			<h3 class="title section-title"><tags:pluralize key="user_profile.questions" count="${fn:length(questionByVotes)}" /> por votos</h3>
+			<h3 class="title section-title"><tags:pluralize key="user_profile.questions" count="${fn:length(questionByVotes)}" /></h3>
 			<ul class="subheader-menu">
 				<li><a class="order-by" data-type="questions" data-target-id="user-questions" href="${linkTo[UserProfileController].questionsByVotesWith[selectedUser]}"><fmt:message key="user_profile.order.votes"/></a></li>
 				<li><a class="order-by" data-type="questions" data-target-id="user-questions" href="${linkTo[UserProfileController].questionsByDateWith[selectedUser]}"><fmt:message key="user_profile.order.date"/></a></li>

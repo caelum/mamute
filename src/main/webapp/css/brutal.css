@@ -949,11 +949,11 @@ textarea {
 }
 
 .advanced-data-section:nth-child(even){
-	padding-right:20px;
+	padding-left:20px;
 }
 
 .advanced-data-section:nth-child(odd){
-	padding-left:20px;
+	padding-right:20px;
 }
 
 .data-line .form-label {
