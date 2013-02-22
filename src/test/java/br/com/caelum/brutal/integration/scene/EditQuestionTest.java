@@ -26,6 +26,16 @@ public class EditQuestionTest extends AuthenticatedAcceptanceTest {
     @Test
     public void should_edit_and_automatically_approve_author_edit() throws Exception {
         loginRandomly();
+        QuestionPage questionPage = home().toNewQuestionPage()
+            .newQuestion("question title question title question title", 
+                "question description question description question description question description ", 
+                "java");
+        questionPage = questionPage.toEditQuestionPage()
+            .edit("edited by author question title", 
+                "new description new description new description new description", 
+                "new-tag");
+        
+        questionPage.confirmationMessages().contains(message("status.no_need_to_approve"));
         
     }
 }
