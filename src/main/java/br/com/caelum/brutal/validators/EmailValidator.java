@@ -4,8 +4,10 @@ import java.util.regex.Pattern;
 
 import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.validator.I18nMessage;
 
+@Component
 public class EmailValidator {
 	
 	private UserDAO users;

@@ -5,9 +5,10 @@ import org.joda.time.LocalDate;
 import br.com.caelum.brutal.dao.AnswerDAO;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.UserDAO;
+import br.com.caelum.brutal.dto.UserPersonalInfoDTO;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.User;
-import br.com.caelum.brutal.validators.UserValidator;
+import br.com.caelum.brutal.validators.UserPersonalInfoValidator;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
@@ -20,18 +21,18 @@ public class UserProfileController {
 	private UserDAO users;
 	private LoggedUser currentUser;
 	private final QuestionDAO questions;
-	private UserValidator userValidator;
 	private final AnswerDAO answers;
+	private UserPersonalInfoValidator infoValidator;
 	
 	public UserProfileController(Result result, UserDAO users,
 			LoggedUser currentUser, QuestionDAO questions,
-			AnswerDAO answers, UserValidator userValidator) {
+			AnswerDAO answers, UserPersonalInfoValidator infoValidator) {
 		this.result = result;
 		this.users = users;
 		this.currentUser = currentUser;
 		this.answers = answers;
-		this.userValidator = userValidator;
 		this.questions = questions;
+		this.infoValidator = infoValidator;
 	}
 	
 	@Get("/users/{id}/{sluggedName}")
@@ -67,14 +68,16 @@ public class UserProfileController {
 	public void editProfile(Long id, String name, String email, 
 			String website, String location, LocalDate birthDate, String description) {
 		User user = users.findById(id);
+		UserPersonalInfoDTO info = new UserPersonalInfoDTO(user, name, email, website, location, birthDate, description);
+		
 		
 		if (!user.getId().equals(currentUser.getCurrent().getId())){
 			result.redirectTo(ListController.class).home();
 			return;
 		}
 		
-		if (!userValidator.validate(user, name, email, birthDate)){
-			userValidator.onErrorRedirectTo(this).editProfile(id);
+		if (!infoValidator.validate(info)){
+			infoValidator.onErrorRedirectTo(this).editProfile(id);
 			return;
 		}
 		
