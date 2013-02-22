@@ -253,7 +253,12 @@ public class Question extends Moderatable implements Votable, Commentable, Touch
 	}
 	
 	public String getTypeName() {
-        return Question.class.getSimpleName();
+        return getType().getSimpleName();
+    }
+
+    @Override
+    public Class<? extends Votable> getType() {
+        return Question.class;
     }
 
 }

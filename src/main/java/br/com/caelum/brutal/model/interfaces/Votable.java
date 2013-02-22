@@ -11,4 +11,5 @@ public interface Votable {
 	User getAuthor();
 	Serializable getId();
 	long getVoteCount();
+    Class<? extends Votable> getType();
 }

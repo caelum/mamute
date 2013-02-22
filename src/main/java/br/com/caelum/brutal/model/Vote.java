@@ -42,16 +42,16 @@ public class Vote {
         this.type = type;
     }
 
-	public int getValue() {
-		return type.getValue();
+	public int getCountValue() {
+		return type.getCountValue();
 	}
 
 	public long substitute(Vote previous, List<Vote> votes) {
 		long delta = 0;
 		if (votes.remove(previous))
-			delta -= previous.getValue();
+			delta -= previous.getCountValue();
 		votes.add(this);
-		delta += getValue();
+		delta += getCountValue();
 		return delta;
 	}
 	
@@ -82,6 +82,10 @@ public class Vote {
         } else if (!id.equals(other.id))
             return false;
         return true;
+    }
+
+    VoteType getType() {
+        return type;
     }
 	
     

@@ -7,9 +7,11 @@ import br.com.caelum.vraptor.ioc.Component;
 @Component
 public class VotingMachine {
     private VoteDAO votes;
+    private final KarmaCalculator karmaCalculator;
 
-    public VotingMachine(VoteDAO votes) {
+    public VotingMachine(VoteDAO votes, KarmaCalculator karmaCalculator) {
         this.votes = votes;
+        this.karmaCalculator = karmaCalculator;
     }
 
     public void register(Votable votable, Vote current, Class<?> votableType) {
@@ -22,11 +24,11 @@ public class VotingMachine {
         Vote previous = votes.previousVoteFor(votable.getId(), voter, votableType);
 
         if (previous != null) {
-            votableAuthor.descreaseKarma(previous.getValue());
+            votableAuthor.descreaseKarma(karmaCalculator.karmaFor(previous.getType(), votable));
         }
         votable.substitute(previous, current);
         
-        votableAuthor.increaseKarma(current.getValue());
+        votableAuthor.increaseKarma(karmaCalculator.karmaFor(current.getType(), votable));
     }
 
 }

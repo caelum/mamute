@@ -151,7 +151,7 @@ public class Answer extends Moderatable implements Votable, Commentable, Subscri
 		return this;
 	}
 
-    public Class<?> getType() {
+    public Class<? extends Votable> getType() {
         return Answer.class;
     }
 
