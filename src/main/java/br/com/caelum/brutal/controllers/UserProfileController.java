@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.controllers;
 
+import static br.com.caelum.vraptor.view.Results.json;
+
 import org.joda.time.LocalDate;
 
 import br.com.caelum.brutal.dao.AnswerDAO;
@@ -46,21 +48,37 @@ public class UserProfileController {
 		
 		result.include("isCurrentUser", currentUser.getCurrent().getId().equals(id));
 		result.include("questionsByVotes", questions.withAuthorByVotes(selectedUser));
-		result.include("questionsByDate", questions.withAuthorByDate(selectedUser));
 		result.include("answersByVotes", answers.withAuthorByVotes(selectedUser));
-		result.include("answersByDate", answers.withAuthorByDate(selectedUser));
 		result.include("selectedUser", selectedUser);
+	}
+	
+	@Get("/users/{selectedUser.id}/{selectedUser.sluggedName}/questionsByVotes")
+	public void questionsByVotesWith(User selectedUser){
+		result.use(json()).withoutRoot().from(questions.withAuthorByVotes(selectedUser)).include("information").serialize();
+	}
+	
+	@Get("/users/{selectedUser.id}/{selectedUser.sluggedName}/questionsByDate")
+	public void questionsByDateWith(User selectedUser){
+		result.use(json()).withoutRoot().from(questions.withAuthorByDate(selectedUser)).include("information").serialize();
+	}
+	
+	@Get("/users/{selectedUser.id}/{selectedUser.sluggedName}/answersByVotes")
+	public void answersByVotesWith(User selectedUser){
+		result.use(json()).withoutRoot().from(answers.withAuthorByVotes(selectedUser)).include("question").include("question.information").serialize();
+	}
+	
+	@Get("/users/{selectedUser.id}/{selectedUser.sluggedName}/answersByDate")
+	public void answersByDateWith(User selectedUser){
+		result.use(json()).withoutRoot().from(answers.withAuthorByDate(selectedUser)).include("question").include("question.information").serialize();
 	}
 	
 	@Get("/users/edit/{id}")
 	public void editProfile(Long id) {
 		User user = users.findById(id);
-		
 		if (!user.getId().equals(currentUser.getCurrent().getId())){
 			result.redirectTo(ListController.class).home();
 			return;
 		}
-		
 		result.include("user", user);
 	}
 	
