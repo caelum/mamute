@@ -5,7 +5,7 @@ import org.joda.time.LocalDate;
 import br.com.caelum.brutal.dao.AnswerDAO;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.UserDAO;
-import br.com.caelum.brutal.dto.UserPersonalInfoDTO;
+import br.com.caelum.brutal.dto.UserPersonalInfo;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.validators.UserPersonalInfoValidator;
@@ -68,7 +68,7 @@ public class UserProfileController {
 	public void editProfile(Long id, String name, String email, 
 			String website, String location, LocalDate birthDate, String description) {
 		User user = users.findById(id);
-		UserPersonalInfoDTO info = new UserPersonalInfoDTO(user, name, email, website, location, birthDate, description);
+		UserPersonalInfo info = new UserPersonalInfo(user, name, email, website, location, birthDate, description);
 		
 		
 		if (!user.getId().equals(currentUser.getCurrent().getId())){

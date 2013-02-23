@@ -1,6 +1,21 @@
 package br.com.caelum.brutal.model;
 
 import static br.com.caelum.brutal.infra.NormalizerBrutal.toSlug;
+import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.ABOUT_LENGTH_MESSAGE;
+import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.ABOUT_MAX_LENGTH;
+import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.ABOUT_MIN_LENGTH;
+import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.EMAIL_LENGTH_MESSAGE;
+import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.EMAIL_MAX_LENGTH;
+import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.EMAIL_MIN_LENGTH;
+import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.NAME_LENGTH_MESSAGE;
+import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.NAME_MAX_LENGTH;
+import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.NAME_MIN_LENGTH;
+import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.PASSWORD_LENGTH_MESSAGE;
+import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.PASSWORD_MAX_LENGTH;
+import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.PASSWORD_MIN_LENGTH;
+import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.WEBSITE_LENGTH_MESSAGE;
+import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.WEBSITE_MAX_LENGHT;
+import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.WEBSITE_MIN_LENGTH;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,9 +40,9 @@ public class User implements Identifiable {
 
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
 	private final DateTime createdAt = new DateTime();
-
+	
 	@Column(unique=true)
-	@Length(max = 100)
+	@Length(min = EMAIL_MIN_LENGTH , max = EMAIL_MAX_LENGTH, message = EMAIL_LENGTH_MESSAGE)
 	@Email
 	private String email;
 
@@ -36,19 +51,19 @@ public class User implements Identifiable {
 	private Long id;
 
 	@NotEmpty
-	@Length(min = 6, max = 100)
+	@Length(min = PASSWORD_MIN_LENGTH, max = PASSWORD_MAX_LENGTH, message = PASSWORD_LENGTH_MESSAGE)
 	private String password = "";
 	
 	@NotEmpty
-	@Length(min = 6, max = 100)
+	@Length(min = NAME_MIN_LENGTH, max = NAME_MAX_LENGTH, message = NAME_LENGTH_MESSAGE)
 	private String name;
 	
-	@Length(max = 200)
+	@Length(min = WEBSITE_MIN_LENGTH, max = WEBSITE_MAX_LENGHT, message = WEBSITE_LENGTH_MESSAGE)
 	private String website;
 	
-	@Length(max = 100)
 	private String location;
 	
+	@Length(min = ABOUT_MIN_LENGTH, max = ABOUT_MAX_LENGTH ,  message = ABOUT_LENGTH_MESSAGE)
 	private String about;
 	
 	private String markedAbout;

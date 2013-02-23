@@ -8,7 +8,6 @@ import br.com.caelum.vraptor.validator.I18nMessage;
 
 @Component
 public class SignupValidator {
-	private static final int MIN_LENGHT = 6;
 	private final Validator validator;
 	private UserValidator userValidator;
 
@@ -20,9 +19,6 @@ public class SignupValidator {
 	public boolean validate(User user, String password, String passwordConfirmation){
 		userValidator.validate(user);
 		
-		if (password.length() < MIN_LENGHT) {
-			validator.add(new I18nMessage("error","signup.errors.password.length"));
-		}
 		if (!password.equals(passwordConfirmation)) {
 		    validator.add(new I18nMessage("error","signup.errors.password_confirmation"));
 		}
