@@ -414,8 +414,6 @@ textarea {
 	display:none;
 }
 
-
-
 /*MENU*/
 .nav,.nav-items {
 	overflow: hidden;
@@ -568,22 +566,8 @@ textarea {
 	width:100%;
 }
 
-.original-answer {
-	background-color: #FCF8E3; 
-	color: #C09853;
-	line-height: 17px;
-	padding: 1em .8em;
-}
-
-.original-answer p {
-	font-size: 1.1em;
-	margin: 0;
-}
-
-.original-answer div {
-	font-size: 0.9em;
-	font-weight: bold;
-	margin-bottom: 10px;
+.history-comparison .answer-touchs{
+	width:100%;
 }
 
 /*TAG*/

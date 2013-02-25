@@ -7,7 +7,6 @@
 	<div class="history-version">
 		<h2 class="history-title page-title title"><fmt:message key="moderation.version"/>:</h2>
 		<select class="history-select-version">
-			<option><fmt:message key="moderation.select_version"/></option>
 			<c:forEach items="${histories}" var="information" varStatus="status">
 				<option ${status.index == 0 ? 'selected' : '' } value="${status.index}">
 					${information.author.name} às
