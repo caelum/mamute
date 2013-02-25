@@ -1,11 +1,13 @@
 package br.com.caelum.brutal.util;
 
 import java.io.File;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 
 public class S3FileProvider {
@@ -20,16 +22,27 @@ public class S3FileProvider {
         PutObjectRequest putObjectRequest = new PutObjectRequest(dir, key, file)
             .withCannedAcl(CannedAccessControlList.PublicRead);
         amazonS3Client.putObject(putObjectRequest);
+        return urlFor(dir, key);
+    }
+    
+    public URL store(InputStream is, String dir, String key, String mimeType) {
+        ObjectMetadata metadata = new ObjectMetadata();
+        metadata.setContentType(mimeType);
+        PutObjectRequest putObjectRequest = new PutObjectRequest(dir, key, is, metadata)
+            .withCannedAcl(CannedAccessControlList.PublicRead);
+        amazonS3Client.putObject(putObjectRequest);
+        return urlFor(dir, key);
+    }
+    
+    public void mkdir(String dir) {
+        amazonS3Client.createBucket(dir);
+    }
+
+    private URL urlFor(String dir, String key) {
         try {
             return new URL("http://" + dir + ".s3.amazonaws.com/" + key);
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
     }
-    
-    public void mkdir(String dir) {
-        amazonS3Client.createBucket(dir);
-    }
-    
-
 }
