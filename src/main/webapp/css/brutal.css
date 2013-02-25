@@ -900,6 +900,12 @@ textarea {
 	margin-bottom: 5%;
 }
 
+.user-data{
+	overflow:hidden;
+	margin-bottom:2%;
+}
+
+
 .data-list {
 	float: left;
 	width: 34%;
@@ -983,7 +989,7 @@ textarea {
 }
 
 .order-by{
-	padding:.3em;
+	padding:.2em .3em;
 }
 
 .order-by.selected{

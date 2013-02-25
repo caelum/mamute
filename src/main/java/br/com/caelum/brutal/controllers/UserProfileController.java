@@ -52,22 +52,22 @@ public class UserProfileController {
 		result.include("selectedUser", selectedUser);
 	}
 	
-	@Get("/users/{selectedUser.id}/{selectedUser.sluggedName}/questionsByVotes")
+	@Get("/users/{selectedUser.id}/{selectedUser.sluggedName}/questions/byVotes")
 	public void questionsByVotesWith(User selectedUser){
 		result.use(json()).withoutRoot().from(questions.withAuthorByVotes(selectedUser)).include("information").serialize();
 	}
 	
-	@Get("/users/{selectedUser.id}/{selectedUser.sluggedName}/questionsByDate")
+	@Get("/users/{selectedUser.id}/{selectedUser.sluggedName}/questions/byDate")
 	public void questionsByDateWith(User selectedUser){
 		result.use(json()).withoutRoot().from(questions.withAuthorByDate(selectedUser)).include("information").serialize();
 	}
 	
-	@Get("/users/{selectedUser.id}/{selectedUser.sluggedName}/answersByVotes")
+	@Get("/users/{selectedUser.id}/{selectedUser.sluggedName}/answers/byVotes")
 	public void answersByVotesWith(User selectedUser){
 		result.use(json()).withoutRoot().from(answers.withAuthorByVotes(selectedUser)).include("question").include("question.information").serialize();
 	}
 	
-	@Get("/users/{selectedUser.id}/{selectedUser.sluggedName}/answersByDate")
+	@Get("/users/{selectedUser.id}/{selectedUser.sluggedName}/answers/byDate")
 	public void answersByDateWith(User selectedUser){
 		result.use(json()).withoutRoot().from(answers.withAuthorByDate(selectedUser)).include("question").include("question.information").serialize();
 	}
