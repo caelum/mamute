@@ -18,7 +18,6 @@
 
 <div class="form-hints">
 	<div id="newanswer-answer-hint" class="hint">
-		<h2 class="title page-title"><fmt:message key="newanswer.answer.your_answer"/></h2>
 		<p><fmt:message key="newanswer.answer.hint" /></p>
 	</div>
 	
