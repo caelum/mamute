@@ -61,6 +61,8 @@ public class User implements Identifiable {
 	private boolean moderator = false;
 
 	private String forgotPasswordToken = "";
+	
+	private String photoUri = "";
 
 	@Type(type = "text")
 	@NotEmpty
@@ -100,7 +102,10 @@ public class User implements Identifiable {
     }
 	
 	public String getPhoto() {
-		return "http://www.gravatar.com/avatar/" + Digester.md5(email);
+	    if (photoUri.isEmpty()) {
+	        return "http://www.gravatar.com/avatar/" + Digester.md5(email);
+	    }
+	    return photoUri;
 	}
 	
 	public String getName() {
@@ -133,7 +138,7 @@ public class User implements Identifiable {
 		return this;
 	}
 
-	public String touchForgotPasswordToken () {
+	public String touchForgotPasswordToken() {
 		String tokenSource = Math.random() + System.currentTimeMillis() + getEmail() + getId();
 		this.forgotPasswordToken = Digester.encrypt(tokenSource);
 		return forgotPasswordToken;
