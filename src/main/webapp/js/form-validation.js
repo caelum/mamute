@@ -8,7 +8,7 @@ $(function(){
 	    maxlength: jQuery.validator.format("Por favor, insira no máximo {0} caracteres."),
 	});
 	
-	$.validator.setDefaults({onkeyup : true});
+	$.validator.setDefaults({onkeyup : false});
 	
 	$.validator.addMethod(
 		    "date",
