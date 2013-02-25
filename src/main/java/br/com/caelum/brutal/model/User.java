@@ -102,7 +102,7 @@ public class User implements Identifiable {
     }
 	
 	public String getPhoto() {
-	    if (photoUri.isEmpty()) {
+	    if (photoUri != null && photoUri.isEmpty()) {
 	        return "http://www.gravatar.com/avatar/" + Digester.md5(email);
 	    }
 	    return photoUri;
