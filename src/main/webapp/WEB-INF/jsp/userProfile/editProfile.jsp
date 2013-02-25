@@ -9,7 +9,8 @@
 	<a href="#">atualizar foto</a>
 </div>
 
-<form class="validated-form profile-edit-form" action="${linkTo[UserProfileController].editProfile[user.id]}" method="POST">
+
+<form class="validated-form profile-edit-form" action="${linkTo[UserProfileController].editProfile[user.id]}" method="POST" enctype="multipart/form-data">
 	<span class="data-line">
 		<label for="email" class="form-label"><fmt:message key="user_profile.edit.form.email.label" /></label>
 		<input type="email" name="email" class="required text-input email" maxlength="100" value="${user.email}"/>
@@ -24,13 +25,17 @@
 	</span>
 	</span>
 		<span class="data-line">
-		<label for="birthDate" class="form-label"><fmt:message key="user_profile.edit.form.birth_date.label" /></label>
-		<input type="text" name="birthDate" class="text-input date" maxlength="10" value="<tags:jodaTime pattern="dd/MM/YYYY" time="${user.birthDate}"></tags:jodaTime>" placeholder="dd/mm/yyyy"/>
-	</span>
+			<label for="birthDate" class="form-label"><fmt:message key="user_profile.edit.form.birth_date.label" /></label>
+			<input type="text" name="birthDate" class="text-input date" maxlength="10" value="<tags:jodaTime pattern="dd/MM/YYYY" time="${user.birthDate}"></tags:jodaTime>" placeholder="dd/mm/yyyy"/>
+		</span>
 	</span>
 	<span class="data-line">
 		<label for="location" class="form-label"><fmt:message key="user_profile.edit.form.location.label" /></label>
 		<input type="text" name="location" class="text-input" maxlength="100" value="${user.location}"/>
+	</span>
+	<span class="data-line">
+		<label for="avatar" class="form-label"><fmt:message key="user_profile.edit.form.avatar.label" /></label>
+		<input type="file" name="avatar" />
 	</span>
 	<span class="data-line">
 		<label for="description" class="form-label"><fmt:message key="user_profile.edit.form.about.label" /></label>
