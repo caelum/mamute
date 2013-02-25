@@ -6,7 +6,7 @@
 	<tags:markDown value="${question.description}" hintId="newquestion-description-hint" htmlClass="required" minlength="30"/>
 	<label for="tags"><fmt:message key="newquestion.tags"/></label>
 	<input id="tags" type="text" name="tagNames" autocomplete="off" class="hintable autocomplete  text-input" value="${question.tagsAsString }" data-hint-id="newquestion-tags-hint" data-autocomplete-id="newquestion-tags-autocomplete"/>
-	<ul class="tags autocompleted-tags" id="newquestion-tags-autocomplete"></ul>
+	<ul class="tags autocompleted-tags hidden" id="newquestion-tags-autocomplete"></ul>
 	
 	<label for="comment"><fmt:message key="question.edit_form.comment" /></label>
 	<input type="text" name="comment" class="hintable text-input" data-hint-id="newquestion-comment-hint" />
