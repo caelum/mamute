@@ -1,7 +1,10 @@
 package br.com.caelum.brutal.dao;
 
+import net.vidageek.mirror.dsl.Mirror;
+
 import org.hibernate.Session;
 
+import br.com.caelum.brutal.infra.Digester;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.ioc.Component;
 
@@ -15,13 +18,7 @@ public class UserDAO {
 	}
 
 	public User findByMailAndPassword(String email, String pass) {
-		return (User) session
-				.createQuery(
-						"from User where email = :email and password = :password")
-				.setParameter("email", email)
-				.setParameter("password",
-						br.com.caelum.brutal.infra.Digester.encrypt(pass))
-				.uniqueResult();
+		return findByEmailAndEncryptedPassword(email, Digester.encrypt(pass));
 	}
 
 	public void save(User user) {
@@ -58,5 +55,20 @@ public class UserDAO {
 
     public boolean existsWithEmail(String email) {
         return loadByEmail(email) != null;
+    }
+
+    public User findByMailAndLegacyPasswordAndUpdatePassword(String email, String password) {
+        User legacyUser = findByEmailAndEncryptedPassword(email, Digester.legacyMd5(password));
+        if (legacyUser != null) {
+            new Mirror().on(legacyUser).set().field("password").withValue(Digester.encrypt(password));
+        }
+        return legacyUser;
+    }
+    
+    private User findByEmailAndEncryptedPassword(String email, String pass) {
+        return (User) session.createQuery("from User where email = :email and password = :password")
+                .setParameter("email", email)
+                .setParameter("password", pass)
+                .uniqueResult();
     }
 }

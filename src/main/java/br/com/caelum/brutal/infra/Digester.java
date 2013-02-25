@@ -14,6 +14,10 @@ public class Digester {
 	public static String md5(String content) {
 		return DigestUtils.md5Hex(content);
 	}
+	
+	public static String legacyMd5(String content) {
+	    return MD5.crypt(content);
+	}
 
 	public static String hashFor(Long id) {
 		return encrypt(id.toString())
