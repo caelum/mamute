@@ -1,7 +1,7 @@
 <div class="subheader">
 	<tags:userProfileLink user="${user}" htmlClass="title page-title" />
 	<ul class="subheader-menu">
-		<a href="${linkTo[UserProfileController].editProfile[user.id]}">edit</a>
+		<a href="${linkTo[UserProfileController].editProfile[user.id]}"><fmt:message key="user_profile.edit" /></a>
 	</ul>
 </div>
 <div class="image-and-information">
@@ -25,7 +25,7 @@
 	</span>
 		<span class="data-line">
 		<label for="birthDate" class="form-label"><fmt:message key="user_profile.edit.form.birth_date.label" /></label>
-		<input type="text" name="birthDate" class="text-input date" maxlength="10" value='<tags:jodaTime pattern="dd/MM/YYYY" time="${user.birthDate}"></tags:jodaTime>'/>
+		<input type="text" name="birthDate" class="text-input date" maxlength="10" value="<tags:jodaTime pattern="dd/MM/YYYY" time="${user.birthDate}"></tags:jodaTime>" placeholder="dd/mm/yyyy"/>
 	</span>
 	</span>
 	<span class="data-line">
@@ -38,5 +38,5 @@
 	</span>
 		
 	<input type="submit" class="post-submit big-submit" value="<fmt:message key="user_profile.edit.form.submit" />"/>
-	<tags:userProfileLink user="${user}" value="cancelar"></tags:userProfileLink>
+	<tags:userProfileLink user="${user}" value="user_profile.edit.cancel"></tags:userProfileLink>
 </form>

@@ -3,7 +3,7 @@
 <form class="validated-form question-form hinted-form" action='<c:url value="/question/edit/${question.id}"/>' method="post" >
 	<label for="question-title"><fmt:message key="newquestion.title" /></label>
 	<input id="question-title" type="text" class="required hintable text-input" value="${question.title }" data-hint-id="newquestion-title-hint" minlength="15" name="title">
-	<tags:markDown value="${question.description}" hintId="newquestion-description-hint" htmlClass="required"/>
+	<tags:markDown value="${question.description}" hintId="newquestion-description-hint" htmlClass="required" minlength="30"/>
 	<label for="tags"><fmt:message key="newquestion.tags"/></label>
 	<input id="tags" type="text" name="tagNames" autocomplete="off" class="hintable autocomplete  text-input" value="${question.tagsAsString }" data-hint-id="newquestion-tags-hint" data-autocomplete-id="newquestion-tags-autocomplete"/>
 	<ul class="tags autocompleted-tags" id="newquestion-tags-autocomplete"></ul>

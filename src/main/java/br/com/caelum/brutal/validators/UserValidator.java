@@ -3,7 +3,7 @@ package br.com.caelum.brutal.validators;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.ioc.Component;
-import br.com.caelum.vraptor.validator.I18nMessage;
+import br.com.caelum.vraptor.validator.ValidationMessage;
 
 @Component
 public class UserValidator {
@@ -18,7 +18,7 @@ public class UserValidator {
 
 	public boolean validate(User user) {
 		if (user == null) {
-			validator.add(new I18nMessage("error","user.errors.wrong"));
+			validator.add(new ValidationMessage("user.errors.wrong", "error"));
 			return false;
 		}
 		

@@ -3,7 +3,7 @@ package br.com.caelum.brutal.validators;
 import br.com.caelum.brutal.dto.UserPersonalInfo;
 import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.ioc.Component;
-import br.com.caelum.vraptor.validator.I18nMessage;
+import br.com.caelum.vraptor.validator.ValidationMessage;
 
 @Component
 public class UserPersonalInfoValidator {
@@ -40,11 +40,11 @@ public class UserPersonalInfoValidator {
 		validator.validate(info);
 		
 		if (info.getUser() == null) {
-		    validator.add(new I18nMessage("error","user.errors.wrong"));
+		    validator.add(new ValidationMessage("error","user.errors.wrong"));
 		}
 		
 		if (info.getBirthDate() == null) {
-			validator.add(new I18nMessage("error", "user.errors.invalid_birth_date"));
+			validator.add(new ValidationMessage("user.errors.invalid_birth_date", "error"));
 		}
 		
 		if (!info.getUser().getEmail().equals(info.getEmail())){

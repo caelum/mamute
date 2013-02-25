@@ -3,7 +3,7 @@ package br.com.caelum.brutal.validators;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.ioc.Component;
-import br.com.caelum.vraptor.validator.I18nMessage;
+import br.com.caelum.vraptor.validator.ValidationMessage;
 
 
 @Component
@@ -23,11 +23,11 @@ public class SignupValidator {
 		userValidator.validate(user);
 		
 		if (password.length() < PASSWORD_MIN_LENGTH || password.length() > PASSWORD_MAX_LENGTH){
-			validator.add(new I18nMessage("error","user.errors.password.length"));
+			validator.add(new ValidationMessage("user.errors.password.length", "error"));
 		}
 		
 		if (!password.equals(passwordConfirmation)) {
-		    validator.add(new I18nMessage("error","signup.errors.password_confirmation"));
+		    validator.add(new ValidationMessage("signup.errors.password_confirmation", "error"));
 		}
 		return !validator.hasErrors();
 	}
