@@ -104,6 +104,10 @@ a {
 	margin-bottom: 5px;
 }
 
+.hint-title, .hint-title a{
+	color: #AE0000;
+}
+
 .hidden,.hint {
 	display: none;
 }
@@ -115,11 +119,16 @@ a {
 }
 
 .hint {
-	background-color: #FEFAE2;
-	border: 1px solid #F3EED5;
+	background-color: #FFEFC6;
+	border-radius: 5px;
 	padding: .3em;
 	width:95%;
 	float: right;
+	color:#735005;
+}
+
+.hint-tips .hint-tip{
+	line-height:1.5em;
 }
 
 .post-container .hint {
@@ -158,6 +167,10 @@ code {
 p {
 	margin-bottom: 1em;
 	word-wrap:break-word;
+}
+
+strong, b{
+	font-weight:bold;
 }
 /* Ellipsis */
 .ellipsis {
