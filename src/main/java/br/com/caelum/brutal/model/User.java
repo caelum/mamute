@@ -29,7 +29,7 @@ public class User implements Identifiable {
 	
 	@Column(unique=true)
 	@Length(min = EMAIL_MIN_LENGTH , max = EMAIL_MAX_LENGTH, message = EMAIL_LENGTH_MESSAGE)
-	@Email
+	@Email(message = EMAIL_NOT_VALID)
 	private String email;
 
 	@Id
@@ -37,7 +37,6 @@ public class User implements Identifiable {
 	private Long id;
 
 	@NotEmpty
-	@Length(min = PASSWORD_MIN_LENGTH, max = PASSWORD_MAX_LENGTH, message = PASSWORD_LENGTH_MESSAGE)
 	private String password = "";
 	
 	@NotEmpty

@@ -65,9 +65,29 @@ public class SignupValidatorTest {
     }
     
     @Test
+    public void should_verify_large_password() throws Exception {
+    	when(users.existsWithEmail("valid@gmail.com")).thenReturn(false);
+    	String password = 666*100 + "";
+    	User user = new User("nome", "valid@gmail.com", password);
+    	boolean valid = signupValidator.validate(user, password, password);
+    	
+    	assertFalse(valid);
+    }
+    
+    @Test
     public void should_verify_tiny_name() throws Exception {
     	when(users.existsWithEmail("valid@gmail.com")).thenReturn(false);
     	User user = new User("nome", "valid@gmail.com", "123456");
+    	boolean valid = signupValidator.validate(user, "123456", "123456");
+    	
+    	assertFalse(valid);
+    }
+    
+    @Test
+    public void should_verify_large_name() throws Exception {
+    	when(users.existsWithEmail("valid@gmail.com")).thenReturn(false);
+    	String name = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+    	User user = new User(name, "valid@gmail.com", "123456");
     	boolean valid = signupValidator.validate(user, "123456", "123456");
     	
     	assertFalse(valid);

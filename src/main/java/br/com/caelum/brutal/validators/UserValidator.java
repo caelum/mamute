@@ -17,13 +17,13 @@ public class UserValidator {
 	}
 
 	public boolean validate(User user) {
-	    validator.validate(user);
-	    
 		if (user == null) {
-		    validator.add(new I18nMessage("error","user.errors.wrong"));
-		    return false;
+			validator.add(new I18nMessage("error","user.errors.wrong"));
+			return false;
 		}
 		
+	    validator.validate(user);
+	    
 		emailValidator.validate(user.getEmail());
 		
 		return !validator.hasErrors();

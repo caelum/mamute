@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.dto;
 
+import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.EMAIL_NOT_VALID;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.ABOUT_LENGTH_MESSAGE;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.ABOUT_MAX_LENGTH;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.ABOUT_MIN_LENGTH;
@@ -30,7 +31,7 @@ public class UserPersonalInfo {
 	private String name;
 	
 	@Length(min = EMAIL_MIN_LENGTH , max = EMAIL_MAX_LENGTH, message = EMAIL_LENGTH_MESSAGE)
-	@Email
+	@Email(message = EMAIL_NOT_VALID)
 	private String email;
 	
 	@Length(min = WEBSITE_MIN_LENGTH, max = WEBSITE_MAX_LENGHT, message = WEBSITE_LENGTH_MESSAGE)

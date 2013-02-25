@@ -22,9 +22,6 @@ public class EmailValidator {
 		if (users.existsWithEmail(email)) {
 			validator.add(new I18nMessage("error","user.errors.used_email"));
 		}
-		if (!isEmail(email)) {
-			validator.add(new I18nMessage("error","user.errors.invalid_email"));
-		}
 		
 		return !validator.hasErrors();
 	}
