@@ -1,4 +1,4 @@
-<section class="basic-user-data">
+<section class="basic-user-data user-data">
 	<div class="subheader">
 		<tags:userProfileLink user="${selectedUser}" htmlClass="title page-title" />
 		<c:if test="${isCurrentUser}">
@@ -49,14 +49,11 @@
 		${selectedUser.markedAbout}
 	</div>
 </section>
-<section class="advanced-user-data">
+<section class="advanced-user-data user-data">
 	<section class="user-questions advanced-data-section">
 		<div class="subheader">
-			<h3 class="title section-title"><tags:pluralize key="user_profile.questions" count="${fn:length(questionByVotes)}" /></h3>
-			<ul class="subheader-menu nav">
-				<li class="nav-item"><a class="order-by selected" data-type="questions" data-target-id="user-questions" href="${linkTo[UserProfileController].questionsByVotesWith[selectedUser]}"><fmt:message key="user_profile.order.votes"/></a></li>
-				<li class="nav-item"><a class="order-by" data-type="questions" data-target-id="user-questions" href="${linkTo[UserProfileController].questionsByDateWith[selectedUser]}"><fmt:message key="user_profile.order.date"/></a></li>
-			</ul>
+			<h3 class="title section-title"><tags:pluralize key="user_profile.questions" count="${fn:length(answersByVotes)}" /></h3>
+			<tags:ordersFor type="questions" user="${selectedUser}" targetId="user-questions" />
 		</div>
 		<ul id="user-questions">
 			<c:forEach var="question" items="${questionsByVotes}">
@@ -67,16 +64,12 @@
 	<section class="user-answers advanced-data-section">
 		<div class="subheader">
 			<h3 class="title section-title"><tags:pluralize key="user_profile.answers" count="${fn:length(answersByVotes)}" /></h3>
-			<ul class="subheader-menu nav">
-				<li class="nav-item"><a class="order-by selected" data-type="answers" data-target-id="user-answers" href="${linkTo[UserProfileController].answersByVotesWith[selectedUser]}"><fmt:message key="user_profile.order.votes"/></a></li>
-				<li class="nav-item"><a class="order-by" data-type="answers" data-target-id="user-answers" href="${linkTo[UserProfileController].answersByDateWith[selectedUser]}"><fmt:message key="user_profile.order.date"/></a></li>
-			</ul>
+			<tags:ordersFor type="answers" user="${selectedUser}" targetId="user-answers" />
 		</div>
 		<ul id="user-answers">
 			<c:forEach var="answer" items="${answersByVotes}">
-				<li><span>${answer.voteCount}</span> <tags:questionLinkFor answer="${answer}" question="${answer.question}"/></li>
+				<li><span>${answer.voteCount}</span> <tags:questionLinkFor answer="${answer}"/></li>
 			</c:forEach>
 		</ul>
 	</section>	
-	
 </section>
