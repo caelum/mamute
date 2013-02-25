@@ -1,20 +1,8 @@
 package br.com.caelum.brutal.model;
 
-import br.com.caelum.brutal.model.interfaces.Votable;
 
 public enum VoteType {
-	UP(1) {
-        @Override
-        public int getKarmaValue(Class<? extends Votable> type) {
-            return type.equals(Answer.class) ? 10 : 5;
-        }
-    },
-    DOWN(-1) {
-        @Override
-        public int getKarmaValue(Class<? extends Votable> type) {
-            return -2;
-        }
-    };
+	UP(1), DOWN(-1);
 
 	private final int value;
 
@@ -26,5 +14,4 @@ public enum VoteType {
 		return value;
 	}
 
-    abstract public int getKarmaValue(Class<? extends Votable> type);
 }
