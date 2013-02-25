@@ -982,3 +982,12 @@ textarea {
 	float:left;
 	width: 85%;
 }
+
+.order-by{
+	padding:.3em;
+}
+
+.order-by.selected{
+	background-color:#808185;
+	color:#FFF;
+}

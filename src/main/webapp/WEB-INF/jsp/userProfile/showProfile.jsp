@@ -54,7 +54,7 @@
 		<div class="subheader">
 			<h3 class="title section-title"><tags:pluralize key="user_profile.questions" count="${fn:length(questionByVotes)}" /></h3>
 			<ul class="subheader-menu nav">
-				<li class="nav-item"><a class="order-by" data-type="questions" data-target-id="user-questions" href="${linkTo[UserProfileController].questionsByVotesWith[selectedUser]}"><fmt:message key="user_profile.order.votes"/></a></li>
+				<li class="nav-item"><a class="order-by selected" data-type="questions" data-target-id="user-questions" href="${linkTo[UserProfileController].questionsByVotesWith[selectedUser]}"><fmt:message key="user_profile.order.votes"/></a></li>
 				<li class="nav-item"><a class="order-by" data-type="questions" data-target-id="user-questions" href="${linkTo[UserProfileController].questionsByDateWith[selectedUser]}"><fmt:message key="user_profile.order.date"/></a></li>
 			</ul>
 		</div>
@@ -68,7 +68,7 @@
 		<div class="subheader">
 			<h3 class="title section-title"><tags:pluralize key="user_profile.answers" count="${fn:length(answersByVotes)}" /></h3>
 			<ul class="subheader-menu nav">
-				<li class="nav-item"><a class="order-by" data-type="answers" data-target-id="user-answers" href="${linkTo[UserProfileController].answersByVotesWith[selectedUser]}"><fmt:message key="user_profile.order.votes"/></a></li>
+				<li class="nav-item"><a class="order-by selected" data-type="answers" data-target-id="user-answers" href="${linkTo[UserProfileController].answersByVotesWith[selectedUser]}"><fmt:message key="user_profile.order.votes"/></a></li>
 				<li class="nav-item"><a class="order-by" data-type="answers" data-target-id="user-answers" href="${linkTo[UserProfileController].answersByDateWith[selectedUser]}"><fmt:message key="user_profile.order.date"/></a></li>
 			</ul>
 		</div>

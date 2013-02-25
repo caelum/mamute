@@ -3,15 +3,25 @@ $(function(){
 		event.preventDefault();
 		var self = $(this);
 		$.get(self.attr("href"), function(list){
-			var listElements = "";
-			$(list).each(function(index, item){
-				var question = getQuestion(self.data("type"), item),
-					href = getHref(self.data("type"), question, item);
-				listElements += "<li><span>"+item.voteCount+"</span> <a href='"+href+"'>"+question.information.title+"</a></li>";
-			});
-			$("#"+self.data("target-id")).html(listElements);
+			repopulateWith("#"+self.data("target-id"), list, self.data("type"));
+			selectMenu(self);
 		});
 	});
+	
+	function selectMenu(selectedMenu){
+		$(selectedMenu).closest(".nav").find(".order-by").removeClass("selected");
+		$(selectedMenu).addClass("selected");
+	}
+	
+	function repopulateWith(target, list, type) {
+		var listElements = "";
+		$(list).each(function(index, item){
+			var question = getQuestion(type, item),
+				href = getHref(type, question, item);
+			listElements += "<li><span>"+item.voteCount+"</span> <a href='"+href+"'>"+question.information.title+"</a></li>";
+		});
+		$(target).html(listElements);
+	}
 	
 	function getHref(type, question, item){
 		var answerAnchor;
