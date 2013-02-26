@@ -50,36 +50,21 @@
 	</div>
 </section>
 <section class="advanced-user-data user-data">
-	<section class="user-questions advanced-data-section">
-		<div class="subheader">
-			<h3 class="title section-title"><tags:pluralize key="user_profile.questions" count="${fn:length(answersByVotes)}" /></h3>
-			<tags:ordersFor type="questions" user="${selectedUser}" targetId="user-questions" />
-		</div>
-		<ul id="user-questions">
+	<tags:userProfileAdvancedData list="${questionsByVotes}" type="questions" orderOptions="true">
 			<c:forEach var="question" items="${questionsByVotes}">
 				<li><span>${question.voteCount}</span> <tags:questionLinkFor question="${question}"/></li>
 			</c:forEach>
-		</ul>
-	</section>	
-	<section class="user-answers advanced-data-section">
-		<div class="subheader">
-			<h3 class="title section-title"><tags:pluralize key="user_profile.answers" count="${fn:length(answersByVotes)}" /></h3>
-			<tags:ordersFor type="answers" user="${selectedUser}" targetId="user-answers" />
-		</div>
-		<ul id="user-answers">
+	</tags:userProfileAdvancedData>
+	
+	<tags:userProfileAdvancedData list="${answersByVotes}" type="answers" orderOptions="true">
 			<c:forEach var="answer" items="${answersByVotes}">
 				<li><span>${answer.voteCount}</span> <tags:questionLinkFor answer="${answer}"/></li>
 			</c:forEach>
-		</ul>
-	</section>	
-	<section class="advanced-data-section">
-		<div class="subheader">
-			<h3 class="title section-title"><tags:pluralize key="user_profile.tags" count="${fn:length(mainTags)}" /></h3>
-		</div>
-		<ul id="user-tags">
+	</tags:userProfileAdvancedData>
+	
+	<tags:userProfileAdvancedData list="${mainTags}" type="tags" orderOptions="false">
 			<c:forEach var="tagUsage" items="${mainTags}">
 				<li><span>${tagUsage.usage}</span> <tags:tag tag="${tagUsage.tag}"/></li>
 			</c:forEach>
-		</ul>
-	</section>	
+	</tags:userProfileAdvancedData>
 </section>
