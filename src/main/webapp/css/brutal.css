@@ -558,20 +558,24 @@ textarea {
 	padding-right:2em;
 }
 
-.history-comparison .user-info{
-	width:50%;
-}
-
-.history-comparison .touch{
+.history-comparison .touch,
+.history-comparison .post-touchs{
 	width:100%;
 }
 
-.history-comparison .answer-touchs{
-	width:100%;
+.history-comparison .tags,
+.history-comparison .post-touchs{
+	margin-bottom:2%;
 }
 
 /*TAG*/
+.tags{
+	overflow:hidden;
+	width:100%;
+	
+}
 
+.tags, 
 .tags .tags-item{
 	float: left;
 }
@@ -660,10 +664,11 @@ textarea {
 
 .post-area .tags {
 	margin-top: 10px;
-	overflow: hidden;
 }
 
 .post-interactions {
+	float:left;
+	width:100%;
 	overflow: hidden;
 	margin-bottom: 5px;
 }
@@ -723,6 +728,7 @@ textarea {
 	font-size: 1.1em;
 	line-height: 17px;
 	color: #000;
+	margin-bottom:5%;
 }
 
 .post-submit {

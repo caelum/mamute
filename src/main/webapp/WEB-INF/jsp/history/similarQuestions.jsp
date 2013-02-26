@@ -20,19 +20,16 @@
 				
 				<tags:question taggable="${information}"/>	
 				
-				<ul class="post-touchs">
+				<ul class="post-touchs clear">
 					<li class="touch author-touch">
 						<tags:completeUser touchText="touch.edited" user="${information.author}" date="${information.createdAt}"/>
 					</li>
 				</ul>
-				<br class="clear"/>
-		
-				<c:if test="${not empty information.comment}">
-					<h2 class="history-title page-title"><fmt:message key="moderation.comment"/></h2>
-					<p class="post-text">
-						${information.comment}
-					</p>
-				</c:if>
+
+				<h2 class="history-title page-title"><fmt:message key="moderation.comment"/></h2>
+				<p class="post-text">
+					${information.comment}
+				</p>
 		
 				<input type="hidden" name="moderatableId" value="${information.question.id}"/>
 				<input type="hidden" name="aprovedInformationId" value="${information.id}"/>

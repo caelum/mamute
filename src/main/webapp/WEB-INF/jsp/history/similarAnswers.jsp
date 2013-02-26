@@ -23,15 +23,13 @@
 		</select>
 		
 		<c:forEach items="${histories}" var="information" varStatus="status">
-		
 			<form method="post" class="history-form moderate-form ${status.index != 0 ? 'hidden' : ''}" action="${linkTo[HistoryController].publish}${information.answer.typeName}">
-			
 		
 				<div class="post-text">
 					${information.markedDescription}
 				</div>
 				
-				<ul class="post-touchs answer-touchs">
+				<ul class="post-touchs clear">
 					<li class="touch author-touch">
 						<tags:completeUser touchText="touch.edited" user="${information.author}" date="${information.createdAt}"/>
 					</li>
@@ -41,10 +39,10 @@
 				<p class="post-text">
 					${information.comment}
 				</p>
+				
 				<input type="hidden" name="moderatableId" value="${information.answer.id}"/>
 				<input type="hidden" name="aprovedInformationId" value="${information.id}"/>
 				<input type="hidden" name="aprovedInformationType" value="AnswerInformation"/>
-				
 				<input type="submit" class="post-submit big-submit" value='<fmt:message key="moderation.accept" />' />
 			</form>
 		</c:forEach>
