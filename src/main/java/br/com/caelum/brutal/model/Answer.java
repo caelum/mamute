@@ -100,7 +100,7 @@ public class Answer extends Moderatable implements Votable, Commentable, Subscri
 		return id;
 	}
 	
-	public void markAsSolution(){
+	public void markAsSolution() {
 		this.question.markAsSolvedBy(this);
 	}
 	
@@ -227,4 +227,8 @@ public class Answer extends Moderatable implements Votable, Commentable, Subscri
 	public String getTypeName() {
 	    return Answer.class.getSimpleName();
 	}
+
+    public boolean isTheSameAuthorOfQuestion() {
+        return getQuestion().wasMadeBy(author);
+    }
 }

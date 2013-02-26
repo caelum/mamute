@@ -261,4 +261,8 @@ public class Question extends Moderatable implements Votable, Commentable, Touch
         return Question.class;
     }
 
+    public boolean wasMadeBy(User author) {
+        return this.author.getId().equals(author.getId());
+    }
+
 }

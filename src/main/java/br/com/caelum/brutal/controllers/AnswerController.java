@@ -5,6 +5,7 @@ import br.com.caelum.brutal.dao.AnswerDAO;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.AnswerInformation;
+import br.com.caelum.brutal.model.KarmaCalculator;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.UpdateStatus;
@@ -23,13 +24,17 @@ public class AnswerController {
 	private final QuestionDAO questions;
 	private final LoggedUser currentUser;
 	private final Localization localization;
+    private final KarmaCalculator calculator;
 
-	public AnswerController(Result result, AnswerDAO dao, User currentUser, QuestionDAO questions, LoggedUser user, Localization localization) {
+	public AnswerController(Result result, AnswerDAO dao, User currentUser, 
+	        QuestionDAO questions, LoggedUser user, Localization localization,
+	        KarmaCalculator calculator) {
 		this.result = result;
 		this.answers = dao;
 		this.currentUser = user;
 		this.questions = questions;
 		this.localization = localization;
+        this.calculator = calculator;
 	}
 
 
@@ -65,16 +70,24 @@ public class AnswerController {
 	@Post("/question/answer/markAsSolution/{solutionId}")
 	public void markAsSolution(Long solutionId) {
 		Answer solution = answers.getById(solutionId);
-		if(currentUser.getCurrent().isAuthorOf(solution.getQuestion())){
-			solution.markAsSolution();
+		if (currentUser.getCurrent().isAuthorOf(solution.getQuestion())) {
+		    solution.markAsSolution();
+		    increaseKarmaOfUsersInvolved(solution);
 			result.nothing();
-		}else{
+		} else {
 			Question question = solution.getQuestion();
 			result.use(Results.status()).forbidden(localization.getMessage("answer.error.not_autor"));
 			result.redirectTo(QuestionController.class).showQuestion(question.getId(),
 	                question.getSluggedTitle());
 		}
 	}
+
+    private void increaseKarmaOfUsersInvolved(Answer solution) {
+        int karmaForSolutionAuthor = calculator.karmaForSolutionAuthor(solution);
+        int karmaForQuestionAuthorSolution = calculator.karmaForAuthorOfQuestionSolved(solution);
+        solution.getAuthor().increaseKarma(karmaForSolutionAuthor);
+        solution.getQuestion().getAuthor().increaseKarma(karmaForQuestionAuthorSolution);
+    }
 
 
 }
