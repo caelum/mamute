@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.controllers;
 
+import java.util.Arrays;
+
 import br.com.caelum.brutal.auth.LoggedAccess;
 import br.com.caelum.brutal.dao.AnswerDAO;
 import br.com.caelum.brutal.dao.QuestionDAO;
@@ -50,7 +52,10 @@ public class AnswerController {
 		Answer original = answers.getById(id);
 		UpdateStatus status = original.updateWith(information);
 		answers.save(original);
-		result.include("status", status.getMessage());
+
+		result.include("confirmations", Arrays.asList(status.getMessage()));
+		Question originalQuestion = original.getQuestion();
+		result.redirectTo(QuestionController.class).showQuestion(originalQuestion.getId(), originalQuestion.getSluggedTitle());
 	}
 	
 	@Post("/question/answer/{question.id}")

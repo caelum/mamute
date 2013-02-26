@@ -70,9 +70,29 @@ public class QuestionPage extends PageObject{
     }
 
     public int firstAnswerVoteCount() {
-        String text = byClassName("answer").findElement(By.className("vote-count")).getText();
+        String text = firstAnswer().findElement(By.className("vote-count")).getText();
         return Integer.parseInt(text);
     }
 
+
+	public EditAnswerPage toEditFirstAnswerPage() {
+		firstAnswer().findElement(By.className("edit")).click();
+		return new EditAnswerPage(driver);
+	}
+
+	public QuestionPage answer(String description) {
+		WebElement answerForm = byClassName("answer-form");
+		answerForm.findElement(By.name("description")).sendKeys(description);
+		answerForm.submit();
+		return new QuestionPage(driver);
+	}
+
+	public boolean firstAnswerHasDescription(String newDescription) {
+		return newDescription.equals(firstAnswer().findElement(By.className("post-text")).getText());
+	}
+
+	private WebElement firstAnswer() {
+		return byClassName("answer");
+	}
 	
 }

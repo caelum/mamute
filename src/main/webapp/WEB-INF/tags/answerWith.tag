@@ -19,7 +19,7 @@
 		<div class="post-interactions">
 			<ul class="post-action-nav nav">
 				<li class="nav-item">
-					<a class="post-action" href="<c:url value="/answer/edit/${answer.id}"/>"><fmt:message key="edit" /></a>
+					<a class="post-action edit" href="<c:url value="/answer/edit/${answer.id}"/>"><fmt:message key="edit" /></a>
 				</li>
 			</ul>
 			<tags:touchesFor touchable="${answer}" />
