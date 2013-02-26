@@ -49,5 +49,5 @@ public class KarmaCalculatorTest extends TestCase {
         int karmaForQuestionAuthor = karmaCalculator.karmaForAuthorOfQuestionSolved(answer);
         assertEquals(0, karmaForQuestionAuthor);
     }
-
+    
 }

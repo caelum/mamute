@@ -12,6 +12,7 @@ public class KarmaCalculator {
     static final int ANSWER_VOTED_DOWN = -2;
     static final int QUESTION_VOTED_DOWN = ANSWER_VOTED_DOWN;
     static final int QUESTION_VOTED_UP = 5;
+    static final int APPROVED_INFORMATION = 2;
     /**
      *  karma won by the author of a votable that received a vote of 
      *  a given type 
@@ -50,6 +51,10 @@ public class KarmaCalculator {
             return 0;
         }
         return SOLVED_QUESTION_AUTHOR;
+    }
+
+    public int karmaForApprovedInformation(Information approved) {
+        return APPROVED_INFORMATION;
     }
     
 }
