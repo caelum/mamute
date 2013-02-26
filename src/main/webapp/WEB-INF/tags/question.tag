@@ -6,4 +6,4 @@
 <div class="post-text">
 	${taggable.markedDescription}
 </div>
-<tags:tagsFor taggable="${question}"/>
+<tags:tagsFor taggable="${taggable}"/>

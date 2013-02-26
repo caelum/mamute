@@ -7,9 +7,9 @@ import br.com.caelum.brutal.model.User;
 public abstract class Moderatable implements Identifiable {
 
     protected abstract Information getInformation();
-    
     protected abstract void updateApproved(Information approved);
     public abstract User getAuthor();
+    public abstract String getTypeName();
     
     public final UpdateStatus approve(Information approved) {
         if (!canBeUptadedWith(approved)) {

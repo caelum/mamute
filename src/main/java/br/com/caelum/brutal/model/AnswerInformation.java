@@ -14,6 +14,8 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
+import br.com.caelum.brutal.model.interfaces.Moderatable;
+
 @Entity
 public class AnswerInformation implements Information {
 
@@ -114,7 +116,7 @@ public class AnswerInformation implements Information {
         return createdAt;
     }
     
-    public Answer getAnswer() {
+    public Moderatable getModeratable() {
         return answer;
     }
 
@@ -138,5 +140,10 @@ public class AnswerInformation implements Information {
     public boolean isModerated() {
         return moderation != null;
     }
+
+	@Override
+	public String getTypeName() {
+		return getClass().getSimpleName();
+	}
 
 }
