@@ -84,7 +84,7 @@ public class TagDAOTest extends DatabaseTestCase{
 		List<Tag> tagsLike = tags.findTagsLike("ja");
 		
 		assertEquals(1, tagsLike.size());
-		assertEquals(3l, tagsLike.get(0).getUsageCount().longValue());
+ 		assertEquals(3l, tagsLike.get(0).getUsageCount().longValue());
 		assertEquals(java.getId(), tagsLike.get(0).getId());
 	}
 	

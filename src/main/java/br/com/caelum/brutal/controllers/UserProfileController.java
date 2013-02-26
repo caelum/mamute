@@ -8,6 +8,7 @@ import org.joda.time.LocalDate;
 
 import br.com.caelum.brutal.dao.AnswerDAO;
 import br.com.caelum.brutal.dao.QuestionDAO;
+import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.dto.UserPersonalInfo;
 import br.com.caelum.brutal.infra.Digester;
@@ -31,15 +32,18 @@ public class UserProfileController {
 	private final AnswerDAO answers;
 	private UserPersonalInfoValidator infoValidator;
     private final S3FileProvider fileProvider;
+	private final TagDAO tags;
 	
 	public UserProfileController(Result result, UserDAO users,
 			LoggedUser currentUser, QuestionDAO questions,
-			AnswerDAO answers, UserPersonalInfoValidator infoValidator, S3FileProvider fileProvider) {
+			AnswerDAO answers, TagDAO tags,
+			UserPersonalInfoValidator infoValidator, S3FileProvider fileProvider) {
 		this.result = result;
 		this.users = users;
 		this.currentUser = currentUser;
 		this.answers = answers;
 		this.questions = questions;
+		this.tags = tags;
 		this.infoValidator = infoValidator;
         this.fileProvider = fileProvider;
 	}
@@ -56,6 +60,7 @@ public class UserProfileController {
 		result.include("isCurrentUser", currentUser.getCurrent().getId().equals(id));
 		result.include("questionsByVotes", questions.withAuthorByVotes(selectedUser));
 		result.include("answersByVotes", answers.withAuthorByVotes(selectedUser));
+		result.include("mainTags", tags.findMainTagsOfUser(selectedUser));
 		result.include("selectedUser", selectedUser);
 	}
 	

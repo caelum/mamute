@@ -72,4 +72,14 @@
 			</c:forEach>
 		</ul>
 	</section>	
+	<section class="advanced-data-section">
+		<div class="subheader">
+			<h3 class="title section-title"><tags:pluralize key="user_profile.tags" count="${fn:length(mainTags)}" /></h3>
+		</div>
+		<ul id="user-tags">
+			<c:forEach var="tagUsage" items="${mainTags}">
+				<li><span>${tagUsage.usage}</span> <tags:tag tag="${tagUsage.tag}"/></li>
+			</c:forEach>
+		</ul>
+	</section>	
 </section>
