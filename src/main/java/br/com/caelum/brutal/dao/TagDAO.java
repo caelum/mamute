@@ -67,6 +67,17 @@ public class TagDAO {
 		query.setParameter("since", since);
 		return query.list();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<TagUsage> findMainTagsOfUser(User user) {
+		Query query = session.createQuery("select new br.com.caelum.brutal.model.TagUsage(tag, count(question)) from Answer answer " +
+				"join answer.question question " +
+				"join question.information.tags tag " +
+				"where answer.author = :user " +
+				"group by tag order by count(question) desc");
+		query.setParameter("user", user);
+		return query.list();
+	}
 
 	public List<TagUsage> all() {
 		Query query = session.createQuery("select new br.com.caelum.brutal.model.TagUsage(tag, count(question)) from Question question " +

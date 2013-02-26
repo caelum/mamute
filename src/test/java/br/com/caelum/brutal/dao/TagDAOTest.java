@@ -10,9 +10,9 @@ import org.joda.time.DateTimeUtils;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.com.caelum.brutal.builder.QuestionBuilder;
+import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.Question;
-import br.com.caelum.brutal.model.QuestionInformation;
-import br.com.caelum.brutal.model.QuestionInformationBuilder;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.TagUsage;
 import br.com.caelum.brutal.model.User;
@@ -87,14 +87,45 @@ public class TagDAOTest extends DatabaseTestCase{
 		assertEquals(3l, tagsLike.get(0).getUsageCount().longValue());
 		assertEquals(java.getId(), tagsLike.get(0).getId());
 	}
+	
+	@Test
+	public void should_get_main_tags_of_the_provided_user() throws Exception {
+		Question javaQuestion = questionWith(Arrays.asList(java));
+		Answer javaAnswer = answer("just do this and that and you will be happy forever", javaQuestion, leo);
+		session.save(javaAnswer);
+		
+		Question oneMoreJavaQuestion = questionWith(Arrays.asList(java));
+		Answer oneMoreJavaAnswer = answer("just do this and that and you will be happy forever", oneMoreJavaQuestion, leo);
+		session.save(oneMoreJavaAnswer);
+		
+		Question rubyQuestion = questionWith(Arrays.asList(ruby));
+		Answer rubyAnswer = answer("just do this and that and you will be happy forever", rubyQuestion, leo);
+		session.save(rubyAnswer);
+		
+		User chico = user("chicoh", "chico@chico.com");
+		session.save(chico);
+		Question otherJavaQuestion = questionWith(Arrays.asList(java));
+		Answer otherJavaAnswer = answer("just do this and that and you will be happy forever", otherJavaQuestion, chico);
+		session.save(otherJavaAnswer);
+		
+		
+		List<TagUsage> mainTags = tags.findMainTagsOfUser(leo);
+		
+		for (TagUsage tagUsage : mainTags) {
+			System.out.println(tagUsage.getTag().getName()+ " - "+ tagUsage.getUsage());
+		}
+	
+		assertEquals(2, mainTags.size());
+		assertEquals(2l, mainTags.get(0).getUsage().longValue());
+		assertEquals(1l, mainTags.get(1).getUsage().longValue());
+	}
 
 	private Question questionWith(List<Tag> tags) {
-		QuestionInformation questionInfo = new QuestionInformationBuilder()
-			.with(leo).withTags(tags).build();
-		Question question = new Question(questionInfo, leo);
+		Question question = new QuestionBuilder().withAuthor(leo).withTags(tags).build();
 		session.save(question);
 		return question;
 	}
+
 	
 }
 
