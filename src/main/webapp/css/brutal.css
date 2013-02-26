@@ -572,7 +572,6 @@ textarea {
 .tags{
 	overflow:hidden;
 	width:100%;
-	
 }
 
 .tags, 
@@ -592,6 +591,7 @@ textarea {
 	display: inline-block;
 	font-size: .9em;
 	padding: .25em .3em;
+	line-height:1em;
 }
 
 .tag:hover {
@@ -949,14 +949,35 @@ textarea {
 	clear:left;
 }
 
-
- .data-section .data-description{
+.data-section .data-description{
 	width: 65%;	
 }
 
 .advanced-data-section{
 	width:50%;
-	height:200px;
+	height:150px;
+}
+
+.advanced-data-section .advanced-data-line{
+	line-height: 2em;
+	height: 2em;
+}
+
+.advanced-data-section .counter{
+	padding:.4em;
+	color:#000;
+}
+
+.advanced-data-section .tag-line{
+	float:left;
+	width:50%;
+	margin-bottom:1.5%;
+}
+
+.advanced-data-section .tag-usage{
+	background-color: #EEE;	
+	padding:.3em .8em;
+	font-weight:bold;
 }
 
 .advanced-data-section:nth-child(odd){

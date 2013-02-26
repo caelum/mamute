@@ -8,7 +8,7 @@
 <%@attribute name="orderOptions" type="java.lang.Boolean" required="true" %>
 <section class="user-questions advanced-data-section">
 	<div class="subheader">
-		<h3 class="title section-title"><span>${fn:length(list)}</span><tags:pluralize key="user_profile.${type}" count="${fn:length(list)}" /></h3>
+		<h3 class="title section-title"><span class="counter">${fn:length(list)}</span><tags:pluralize key="user_profile.${type}" count="${fn:length(list)}" /></h3>
 		<c:if test="${orderOptions}">
 			<tags:ordersFor type="${type}" user="${selectedUser}" targetId="user-${type}"/>
 		</c:if>
