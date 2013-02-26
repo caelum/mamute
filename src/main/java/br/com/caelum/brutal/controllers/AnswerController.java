@@ -70,17 +70,27 @@ public class AnswerController {
 	@Post("/question/answer/markAsSolution/{solutionId}")
 	public void markAsSolution(Long solutionId) {
 		Answer solution = answers.getById(solutionId);
-		if (currentUser.getCurrent().isAuthorOf(solution.getQuestion())) {
+		Question question = solution.getQuestion();
+        if (currentUser.getCurrent().isAuthorOf(question)) {
+            if (question.isSolved()) {
+                decreaseKarmaOfOldSolution(question);
+            }
 		    solution.markAsSolution();
 		    increaseKarmaOfUsersInvolved(solution);
 			result.nothing();
 		} else {
-			Question question = solution.getQuestion();
 			result.use(Results.status()).forbidden(localization.getMessage("answer.error.not_autor"));
 			result.redirectTo(QuestionController.class).showQuestion(question.getId(),
 	                question.getSluggedTitle());
 		}
 	}
+
+    private void decreaseKarmaOfOldSolution(Question question) {
+        Answer solution = question.getSolution();
+        User author = solution.getAuthor();
+        author.descreaseKarma(calculator.karmaForSolutionAuthor(solution));
+    }
+
 
     private void increaseKarmaOfUsersInvolved(Answer solution) {
         int karmaForSolutionAuthor = calculator.karmaForSolutionAuthor(solution);
