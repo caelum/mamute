@@ -43,10 +43,6 @@ public class UserPersonalInfoValidator {
 		    validator.add(new ValidationMessage("error","user.errors.wrong"));
 		}
 		
-		if (info.getBirthDate() == null) {
-			validator.add(new ValidationMessage("user.errors.invalid_birth_date", "error"));
-		}
-		
 		if (!info.getUser().getEmail().equals(info.getEmail())){
 			emailValidator.validate(info.getEmail());
 		}

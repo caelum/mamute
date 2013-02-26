@@ -28,6 +28,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.joda.time.Years;
 
 import br.com.caelum.brutal.infra.Digester;
@@ -229,9 +230,11 @@ public class User implements Identifiable {
 		return markedAbout;
 	}
 	
-	public void setPersonalInformation(String email, String name, String website, String location, DateTime birthDate, String about) {
+	public void setPersonalInformation(String email, String name, String website, String location, LocalDate birthDate, String about) {
+		 if (birthDate != null) {
+			 this.birthDate = birthDate.toDateTimeAtStartOfDay();
+		 }
 		this.email = email;
-		this.birthDate = birthDate;
 		this.name = name;
 		this.website = website;
 		setAbout(about);

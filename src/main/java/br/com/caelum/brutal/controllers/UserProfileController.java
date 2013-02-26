@@ -103,7 +103,7 @@ public class UserProfileController {
 			return;
 		}
 		
-		user.setPersonalInformation(email, name, website, location, birthDate.toDateTimeAtStartOfDay(), description);
+		user.setPersonalInformation(email, name, website, location, birthDate, description);
 		
 		if (avatar != null) {
 		    URL storedUrl = fileProvider.store(avatar.getFile(), "guj-avatar", Digester.md5(email), avatar.getContentType());
