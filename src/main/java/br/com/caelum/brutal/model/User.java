@@ -209,10 +209,10 @@ public class User implements Identifiable {
 		return birthDate;
 	}
 	
-	public int getAge() {
+	public Integer getAge() {
 		DateTime now = new DateTime();
 		if (birthDate == null){
-			return 0;
+			return null;
 		}
 		return Years.yearsBetween(birthDate, now).getYears();
 	}
@@ -233,6 +233,8 @@ public class User implements Identifiable {
 	public void setPersonalInformation(String email, String name, String website, String location, LocalDate birthDate, String about) {
 		 if (birthDate != null) {
 			 this.birthDate = birthDate.toDateTimeAtStartOfDay();
+		 } else {
+			this.birthDate = null; 
 		 }
 		this.email = email;
 		this.name = name;
