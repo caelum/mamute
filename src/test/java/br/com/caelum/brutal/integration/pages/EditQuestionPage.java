@@ -11,21 +11,21 @@ public class EditQuestionPage extends PageObject {
 	}
 
 	public QuestionPage edit(String title, String description, String tags) {
-		WebElement newQuestionForm = byClassName("question-form");
+		WebElement editQuestionForm = byClassName("question-form");
 		
-		WebElement questionTitle = newQuestionForm.findElement(By.name("title"));
+		WebElement questionTitle = editQuestionForm.findElement(By.name("title"));
 		questionTitle.clear();
 		questionTitle.sendKeys(title);
 		
-		WebElement questionDescription = newQuestionForm.findElement(By.name("description"));
+		WebElement questionDescription = editQuestionForm.findElement(By.name("description"));
 		questionDescription.clear();
 		questionDescription.sendKeys(description);
 		
-		WebElement questionTags = newQuestionForm.findElement(By.name("tagNames"));
+		WebElement questionTags = editQuestionForm.findElement(By.name("tagNames"));
 		questionTags.clear();
 		questionTags.sendKeys(tags);
 		
-		newQuestionForm.submit();
+		editQuestionForm.submit();
 		return new QuestionPage(driver);
 	}
 

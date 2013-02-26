@@ -12,8 +12,8 @@ import br.com.caelum.brutal.model.User;
 
 public class QuestionBuilder extends ModelBuilder{
 
-	private String title = "default question title";
-	private String description = "default question description";
+	private String title = "default title default title";
+	private String description = "default description default description default description";
 	private User author;
 	private List<Tag> tags = new ArrayList<Tag>();
 	private Long id;
