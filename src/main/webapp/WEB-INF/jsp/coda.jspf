@@ -48,5 +48,20 @@ $(function(){prettyPrint()});
 <script src="<c:url value="/js/dropdown.js"/>"></script>
 <script src="<c:url value="/js/order-by.js"/>"></script>
 <script src="<c:url value="/js/share.js"/>"></script>
+
+<c:if test="${environment.name == 'production'}" >
+	<script type="text/javascript">
+	var gaq = gaq || [];
+	_gaq.push(['_setAccount', 'UA-132222-1']);
+	_gaq.push(['_trackPageview']);
+	
+	(function() {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'www') + '.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+	</script>
+</c:if>
+
 </body>
 </html>
