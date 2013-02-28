@@ -19,7 +19,7 @@
 			<h5 class="data-section-title ellipsis"><fmt:message key="user_profile.bio" /></h5>
 			<dl class="data-section">
 				<dt class="data-title ellipsis"><fmt:message key="user_profile.website"/></dt>
-				<dd class="data-description ellipsis"><a href="${selectedUser.website}">${selectedUser.website}</a></dd>
+				<dd class="data-description ellipsis"><a rel="nofollow" href="${selectedUser.website}">${selectedUser.website}</a></dd>
 				<dt class="data-title ellipsis"><fmt:message key="user_profile.location"/></dt>
 				<dd class="data-description ellipsis">${selectedUser.location}</dd>
 				<c:if test="${isCurrentUser}">
