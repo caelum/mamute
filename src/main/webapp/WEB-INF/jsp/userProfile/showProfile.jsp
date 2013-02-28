@@ -25,7 +25,7 @@
 				<c:if test="${isCurrentUser}">
 					<dt class="data-title ellipsis"><fmt:message key="user_profile.email"/></dt>
 					<dd class="data-description ellipsis">${selectedUser.email}</dd>
-					<dt class="data-title ellipsis"><fmt:message key="user_profile.name"/></dt>
+					<dt class="data-title ellipsis"><fmt:message key="user_profile.real_name"/></dt>
 					<dd class="data-description ellipsis">${selectedUser.name}</dd>
 				</c:if>
 				<dt class="data-title ellipsis"><fmt:message key="user_profile.age"/></dt>

@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.dto;
 
+import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.NAME_REQUIRED;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.ABOUT_LENGTH_MESSAGE;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.ABOUT_MAX_LENGTH;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.ABOUT_MIN_LENGTH;
@@ -14,6 +15,8 @@ import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.WEBSITE_
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.WEBSITE_MAX_LENGHT;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.WEBSITE_MIN_LENGTH;
 
+import javax.persistence.Column;
+
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -26,7 +29,8 @@ public class UserPersonalInfo {
 	
 	private User user;
 	
-	@NotEmpty
+	@Column(unique=true)
+	@NotEmpty(message = NAME_REQUIRED)
 	@Length(min = NAME_MIN_LENGTH, max = NAME_MAX_LENGTH, message = NAME_LENGTH_MESSAGE)
 	private String name;
 	

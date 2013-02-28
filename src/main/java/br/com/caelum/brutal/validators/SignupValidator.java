@@ -29,6 +29,7 @@ public class SignupValidator {
 		if (!password.equals(passwordConfirmation)) {
 		    validator.add(new ValidationMessage("signup.errors.password_confirmation", "error"));
 		}
+		
 		return !validator.hasErrors();
 	}
 

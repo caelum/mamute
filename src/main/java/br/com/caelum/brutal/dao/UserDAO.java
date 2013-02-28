@@ -45,6 +45,17 @@ public class UserDAO {
 				.uniqueResult();
 	}
 
+	private User loadByName(String name) {
+	    if (name == null) {
+	        throw new IllegalArgumentException("impossible to search for a null name");
+	    }
+	    
+	    return (User) session
+	    		.createQuery("from User where name = :name")
+	    		.setParameter("name", name)
+	    		.uniqueResult();
+	}
+	
 	public User loadByIdAndToken(Long id, String token) {
 		return (User) session
 				.createQuery("from User where id = :id and forgotPasswordToken = :token")
@@ -71,4 +82,9 @@ public class UserDAO {
                 .setParameter("password", pass)
                 .uniqueResult();
     }
+
+	public boolean existsWithName(String name) {
+		return loadByName(name) != null;	
+	}
+
 }

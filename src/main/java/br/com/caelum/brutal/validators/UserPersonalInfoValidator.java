@@ -25,14 +25,18 @@ public class UserPersonalInfoValidator {
 	public static final String EMAIL_LENGTH_MESSAGE = "user.errors.email.length";
 	public static final String ABOUT_LENGTH_MESSAGE = "user.errors.about.length";
 	
-	public static final String EMAIL_NOT_VALID = "user.errors.invalid_email";
+	public static final String EMAIL_NOT_VALID = "user.errors.email.invalid";
+	
+	public static final String NAME_REQUIRED = "user.errors.name.required";
 	
 	private Validator validator;
 	private EmailValidator emailValidator;
+	private UserNameValidator userNameValidator;
 
-	public UserPersonalInfoValidator(Validator validator, EmailValidator emailValidator){
+	public UserPersonalInfoValidator(Validator validator, EmailValidator emailValidator, UserNameValidator userNameValidator){
 		this.validator = validator;
 		this.emailValidator = emailValidator;
+		this.userNameValidator = userNameValidator;
 	}
 	
 	public boolean validate(UserPersonalInfo info) {
@@ -41,6 +45,10 @@ public class UserPersonalInfoValidator {
 		
 		if (info.getUser() == null) {
 		    validator.add(new ValidationMessage("error","user.errors.wrong"));
+		}
+		
+		if(!info.getUser().getName().equals(info.getName())){
+			userNameValidator.validate(info.getName());
 		}
 		
 		if (!info.getUser().getEmail().equals(info.getEmail())){

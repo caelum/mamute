@@ -11,6 +11,7 @@ import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.EMAIL_NO
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.NAME_LENGTH_MESSAGE;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.NAME_MAX_LENGTH;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.NAME_MIN_LENGTH;
+import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.NAME_REQUIRED;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.WEBSITE_LENGTH_MESSAGE;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.WEBSITE_MAX_LENGHT;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.WEBSITE_MIN_LENGTH;
@@ -54,7 +55,8 @@ public class User implements Identifiable {
 	@NotEmpty
 	private String password = "";
 	
-	@NotEmpty
+	@Column(unique=true)
+	@NotEmpty(message = NAME_REQUIRED)
 	@Length(min = NAME_MIN_LENGTH, max = NAME_MAX_LENGTH, message = NAME_LENGTH_MESSAGE)
 	private String name;
 	
@@ -83,6 +85,13 @@ public class User implements Identifiable {
 	@NotEmpty
 	private String sluggedName;
 
+	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+	private DateTime nameLastTouchedAt;
+
+	public DateTime getNameLastTouchedAt() {
+		return nameLastTouchedAt;
+	}
+
 	static final User GHOST;
 	static {
 		GHOST = new User("", "", "");
@@ -106,6 +115,7 @@ public class User implements Identifiable {
 	public void setName(String name) {
 		this.name = name;
 		this.sluggedName = toSlug(name);
+		this.nameLastTouchedAt = new DateTime();
 	}
 
 	public Long getId() {
@@ -247,8 +257,8 @@ public class User implements Identifiable {
 	
 	public void setPersonalInformation(String email, String name, String website, String location, DateTime birthDate, String about) {
 		this.birthDate = birthDate;
-		this.email = email;
 		this.name = name;
+		this.email = email;
 		this.website = website;
 		setAbout(about);
 	}

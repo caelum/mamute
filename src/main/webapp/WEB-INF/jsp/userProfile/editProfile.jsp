@@ -11,6 +11,11 @@
 
 
 <form class="validated-form profile-edit-form" action="${linkTo[UserProfileController].editProfile[user.id]}" method="POST">
+	</span>
+	<span class="data-line">
+		<label for="name" class="form-label"><fmt:message key="user_profile.edit.form.name.label" /></label>
+		<input type="text" name="name" class="text-input" maxlength="100" value="${user.name}"/>
+	</span>
 	<span class="data-line">
 		<label for="email" class="form-label"><fmt:message key="user_profile.edit.form.email.label" /></label>
 		<input type="email" name="email" class="required text-input email" maxlength="100" value="${user.email}"/>
@@ -18,10 +23,6 @@
 	<span class="data-line">
 		<label for="website" class="form-label"><fmt:message key="user_profile.edit.form.website.label" /></label>
 		<input type="text" name="website" class="text-input url" maxlength="200" value="${user.website}"/>
-	</span>
-		<span class="data-line">
-		<label for="name" class="form-label"><fmt:message key="user_profile.edit.form.name.label" /></label>
-		<input type="text" name="name" class="text-input" maxlength="100" value="${user.name}"/>
 	</span>
 	<span class="data-line">
 		<label for="birthDate" class="form-label"><fmt:message key="user_profile.edit.form.birth_date.label" /></label>
