@@ -1,17 +1,36 @@
 package br.com.caelum.brutal.auth;
 
+import java.util.Arrays;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.ComponentFactory;
-import br.com.caelum.vraptor.ioc.SessionScoped;
 
 @Component
-@SessionScoped
-public class Access implements ComponentFactory<User>{
+public class Access implements ComponentFactory<User> {
 	
-	private User user; 
+	public static final String BRUTAL_SESSION = "brutal_session";
+    private User user;
+    private final HttpServletResponse response;
+    private final HttpServletRequest request;
+    private final UserDAO users; 
+	
+	public Access(HttpServletResponse response, HttpServletRequest request, UserDAO users) {
+	    this.response = response;
+        this.request = request;
+        this.users = users;
+    }
 
 	public User login(User user) {
+	    Cookie cookie = new Cookie(BRUTAL_SESSION, user.getSessionKey());
+        response.addCookie(cookie);
 		this.user = user;
 		return user;
 	}
@@ -20,8 +39,30 @@ public class Access implements ComponentFactory<User>{
 	public User getInstance() {
 		return user;
 	}
+	
+	@PostConstruct
+	public void tryToAutoLogin() {
+	    String key = extractKeyFromCookies();
+	    this.user = users.findBySessionKey(key);
+	}
+	
+    private String extractKeyFromCookies() {
+        Cookie[] cookiesArray = request.getCookies();
+        if (cookiesArray != null) {
+            List<Cookie> cookies = Arrays.asList(cookiesArray);
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("brutal_session")) {
+                    return cookie.getValue();
+                }
+            }
+        }
+        return null;
+    }
 
 	public void logout() {
+	    Cookie cookie = new Cookie(BRUTAL_SESSION, "");
+	    cookie.setMaxAge(-1);
+	    response.addCookie(cookie);
 		this.user = null;
 	}
 	
