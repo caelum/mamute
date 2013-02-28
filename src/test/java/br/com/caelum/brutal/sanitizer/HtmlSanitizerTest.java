@@ -15,5 +15,14 @@ public class HtmlSanitizerTest {
 		String sanitized = sanitize(html);
 		assertEquals(expected, sanitized);
 	}
+	
+
+	@Test
+	public void shouldAllowImages() {
+		String html = "<img src=\"http://www.teste.com.br\" alt=\"x\" width=\"5\" height=\"3\">";
+		String expected = "<img src=\"http://www.teste.com.br\" alt=\"x\" width=\"5\" height=\"3\">";
+		String sanitized = sanitize(html);
+		assertEquals(expected, sanitized);
+	}
 
 }
