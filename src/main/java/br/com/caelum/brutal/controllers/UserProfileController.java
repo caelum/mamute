@@ -4,7 +4,7 @@ import static br.com.caelum.vraptor.view.Results.json;
 
 import java.net.URL;
 
-import org.joda.time.LocalDate;
+import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.dao.AnswerDAO;
 import br.com.caelum.brutal.dao.QuestionDAO;
@@ -96,7 +96,7 @@ public class UserProfileController {
 	
 	@Post("/users/edit/{id}")
 	public void editProfile(Long id, String name, String email, 
-			String website, String location, LocalDate birthDate, String description, UploadedFile avatar) {
+			String website, String location, DateTime birthDate, String description, UploadedFile avatar) {
 		User user = users.findById(id);
 		if (!user.getId().equals(currentUser.getCurrent().getId())){
 			result.redirectTo(ListController.class).home();
