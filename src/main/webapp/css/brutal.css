@@ -196,6 +196,12 @@ strong, b{
 	margin: 0 0 16px 0;
 }
 
+.validated-form .error {
+	color: #8e0000;
+	padding: 0;
+	margin: -13px 0 0 0;
+}
+
 .popup.validation-error {
 	background-color: #ad0000;
 	font-weight: bold;
