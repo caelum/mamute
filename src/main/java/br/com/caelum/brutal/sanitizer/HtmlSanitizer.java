@@ -6,9 +6,12 @@ import org.owasp.html.PolicyFactory;
 public class HtmlSanitizer {
 	private static PolicyFactory 
 		policy = new HtmlPolicyBuilder()
-		    .allowElements("a", "p", "pre", "code")
+		    .allowElements("a", "p", "pre", "code", "img", "kbd", "ol", "ul",
+		    		"li", "strong", "h2", "blockquote", "hr")
 		    .allowUrlProtocols("https", "http")
 		    .allowAttributes("href").onElements("a")
+		    .allowAttributes("class").onElements("pre")
+		    .allowAttributes("src", "alt", "width", "height").onElements("img")
 		    .requireRelNofollowOnLinks()
 		    .toFactory();
 
