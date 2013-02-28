@@ -85,6 +85,8 @@ public class HtmlSanitizerTest {
 		assertEquals(expected, sanitized);
 	}
 	
+	
+	
 	@Test
 	public void shouldNotRemoveTagKbd() {
 		String html = "<kbd>shift</kbd>";
