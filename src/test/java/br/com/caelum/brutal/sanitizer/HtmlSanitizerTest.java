@@ -1,6 +1,7 @@
 package br.com.caelum.brutal.sanitizer;
 
 import static br.com.caelum.brutal.sanitizer.HtmlSanitizer.sanitize;
+import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
@@ -21,6 +22,13 @@ public class HtmlSanitizerTest {
 		String expected = "teste";
 		String sanitized = sanitize(html);
 		assertEquals(expected, sanitized);
+	}
+	
+	@Test
+	public void shouldRemoveTagScript() {
+		String html = "<script>function deleteAll(){document.getElementsByTagName(\"body\")[0].remove()}</script>";
+		String sanitized = sanitize(html);
+		assertTrue(sanitized.isEmpty());
 	}
 	
 	@Test

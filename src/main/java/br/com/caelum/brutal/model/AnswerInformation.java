@@ -1,5 +1,8 @@
 package br.com.caelum.brutal.model;
 
+import static br.com.caelum.brutal.model.MarkDown.parse;
+import static br.com.caelum.brutal.sanitizer.HtmlSanitizer.sanitize;
+
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -85,7 +88,7 @@ public class AnswerInformation implements Information {
 
 	private void setDescription(String description) {
 		this.description = description;
-		this.markedDescription = MarkDown.parse(description);
+		this.markedDescription = sanitize(parse(description));
 	}
 
 	public String getDescription() {

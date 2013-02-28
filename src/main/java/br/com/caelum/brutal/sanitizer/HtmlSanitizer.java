@@ -10,6 +10,7 @@ public class HtmlSanitizer {
 		    		"li", "strong", "h2", "blockquote", "hr")
 		    .allowUrlProtocols("https", "http")
 		    .allowAttributes("href").onElements("a")
+		    .allowAttributes("class").onElements("pre")
 		    .allowAttributes("src", "alt").onElements("img")
 		    .requireRelNofollowOnLinks()
 		    .toFactory();
