@@ -119,6 +119,10 @@ a {
 	float: left;
 }
 
+.hint-anchor{
+	display:none;
+}
+
 .hint {
 	background-color: #FFEFC6;
 	border-radius: 5px;

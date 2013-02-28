@@ -1,4 +1,12 @@
 $(function(){
+	$(".hintable").each(function(index, hintable){
+		var currentHintable = $(hintable),
+			anchor = currentHintable.data("hint-id"),
+			label = $("label[for="+currentHintable.attr("id")+"]"),
+			hintAnchor = $("<a class='hint-anchor' href='#"+anchor+"'> ?</a>");
+		hintAnchor.appendTo(label);
+	});
+	
 	var toggleHintFor = function(element) {
 		var hint = $("#" + $(element).data("hint-id"));
 		if(!$(hint).is(":visible")){

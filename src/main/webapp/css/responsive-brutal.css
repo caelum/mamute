@@ -18,7 +18,6 @@
 	}
 	
 }
-
 	
 @media only screen and (max-width: 800px) {
 	.info.views{
@@ -58,6 +57,10 @@
 	.autocompleted-tags, .user-form, .question-form,
 	.form-hints, .hint {
 		width:100%;
+	}
+	
+	.hint-anchor{
+		display:inline;
 	}
 	
 	/*Tag list*/
