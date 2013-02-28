@@ -91,20 +91,21 @@ public class UserProfileController {
 	}
 	
 	@Post("/users/edit/{id}")
-	public void editProfile(Long id, String name, String email, 
+	public void editProfile(Long id, String name, String realName, String email, 
 			String website, String location, DateTime birthDate, String description) {
 		User user = users.findById(id);
 		if (!user.getId().equals(currentUser.getCurrent().getId())){
 			result.redirectTo(ListController.class).home();
 			return;
 		}
-		UserPersonalInfo info = new UserPersonalInfo(user, name, email, website, location, birthDate, description);
+		UserPersonalInfo info = new UserPersonalInfo(user, name, realName,email, website, location, birthDate, description);
+		
 		if (!infoValidator.validate(info)) {
 			infoValidator.onErrorRedirectTo(this).editProfile(id);
 			return;
 		}
 		
-		user.setPersonalInformation(email, name, website, location, birthDate, description);
+		user.setPersonalInformation(email, name, realName, website, location, birthDate, description);
 		
 		result.redirectTo(this).showProfile(id, user.getSluggedName());
 	}

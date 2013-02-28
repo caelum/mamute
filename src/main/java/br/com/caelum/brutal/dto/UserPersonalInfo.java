@@ -1,6 +1,5 @@
 package br.com.caelum.brutal.dto;
 
-import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.NAME_REQUIRED;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.ABOUT_LENGTH_MESSAGE;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.ABOUT_MAX_LENGTH;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.ABOUT_MIN_LENGTH;
@@ -11,6 +10,8 @@ import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.EMAIL_NO
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.NAME_LENGTH_MESSAGE;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.NAME_MAX_LENGTH;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.NAME_MIN_LENGTH;
+import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.NAME_REQUIRED;
+import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.REALNAME_LENGTH_MESSAGE;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.WEBSITE_LENGTH_MESSAGE;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.WEBSITE_MAX_LENGHT;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.WEBSITE_MIN_LENGTH;
@@ -31,7 +32,7 @@ public class UserPersonalInfo {
 	
 	@Column(unique=true)
 	@NotEmpty(message = NAME_REQUIRED)
-	@Length(min = NAME_MIN_LENGTH, max = NAME_MAX_LENGTH, message = NAME_LENGTH_MESSAGE)
+	@Length(min = NAME_MIN_LENGTH, max = NAME_MAX_LENGTH, message = REALNAME_LENGTH_MESSAGE)
 	private String name;
 	
 	@Length(min = EMAIL_MIN_LENGTH , max = EMAIL_MAX_LENGTH, message = EMAIL_LENGTH_MESSAGE)
@@ -47,12 +48,16 @@ public class UserPersonalInfo {
 	
 	@Length(min = ABOUT_MIN_LENGTH, max = ABOUT_MAX_LENGTH ,  message = ABOUT_LENGTH_MESSAGE)
 	private String about;
+
+	@Length(min = NAME_MIN_LENGTH, max = NAME_MAX_LENGTH, message = NAME_LENGTH_MESSAGE)
+	private String realName;
 	
-	public UserPersonalInfo(User user, String name, String email,
+	public UserPersonalInfo(User user, String name, String realName, String email,
 			String website, String location, DateTime birthDate,
 			String about) {
 				this.user = user;
 				this.name = name;
+				this.realName = realName;
 				this.email = email;
 				this.website = website;
 				this.location = location;
@@ -66,6 +71,10 @@ public class UserPersonalInfo {
 
 	public String getName() {
 		return name;
+	}
+	
+	public String getRealName() {
+		return realName;
 	}
 
 	public String getEmail() {

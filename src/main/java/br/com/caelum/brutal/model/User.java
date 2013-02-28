@@ -60,6 +60,9 @@ public class User implements Identifiable {
 	@Length(min = NAME_MIN_LENGTH, max = NAME_MAX_LENGTH, message = NAME_LENGTH_MESSAGE)
 	private String name;
 	
+	@Length(min = NAME_MIN_LENGTH, max = NAME_MAX_LENGTH, message = NAME_LENGTH_MESSAGE)
+	private String realName;
+	
 	@Length(min = WEBSITE_MIN_LENGTH, max = WEBSITE_MAX_LENGHT, message = WEBSITE_LENGTH_MESSAGE)
 	private String website;
 	
@@ -93,6 +96,7 @@ public class User implements Identifiable {
 	}
 
 	static final User GHOST;
+
 	static {
 		GHOST = new User("", "", "");
 		GHOST.setId(1000l);
@@ -108,6 +112,7 @@ public class User implements Identifiable {
 	public User(String name, String email, String password) {
 		super();
 		this.email = email;
+		this.realName = name;
 		setName(name);
 		this.password = Digester.encrypt(password);
 	}
@@ -150,6 +155,10 @@ public class User implements Identifiable {
 
 	public String getName() {
 		return name;
+	}
+	
+	public String getRealName() {
+		return realName;
 	}
 
 	@Override
@@ -255,9 +264,10 @@ public class User implements Identifiable {
 		return markedAbout;
 	}
 	
-	public void setPersonalInformation(String email, String name, String website, String location, DateTime birthDate, String about) {
+	public void setPersonalInformation(String email, String name, String realName, String website, String location, DateTime birthDate, String about) {
+		this.realName = realName;
 		this.birthDate = birthDate;
-		this.name = name;
+		setName(name);
 		this.email = email;
 		this.website = website;
 		setAbout(about);
