@@ -24,6 +24,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Index;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
@@ -48,6 +49,7 @@ public class User implements Identifiable {
 	@Email(message = EMAIL_NOT_VALID)
 	private String email;
 	
+	@Index(name="session_key")
 	@Type(type = "text")
 	private String sessionKey;
 
