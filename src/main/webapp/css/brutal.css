@@ -643,19 +643,22 @@ textarea {
 }
 
 /*SHOW QUESTION*/
-.solution .mark-as-solution {
+.mark-as-solution *{
+	padding-top: 5px;
+}
+
+.solution .mark-as-solution *{
 	display: none;
 }
 
 .solution-mark {
-	display: none;
-	background-position: 0px -460px;
-	width: 39px;
-	height: 40px;
+	display: none !important;
 }
 
 .solution .solution-mark {
-	display: block
+	display: block !important;
+	color: #ADFF2F;
+	padding-top: 5px;
 }
 
 .post-area {

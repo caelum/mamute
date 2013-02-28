@@ -7,10 +7,10 @@
 <section class="post-area">
 	<div class="post-meta">
 		<tags:voteFor item="${answer}" type="answer" vote="${vote}"/>
-		<span class="solution-mark sprite container">CERTO</span>
+		<span class="icon-ok-sign icon-2x solution-mark container"></span>
 		<c:if test="${answer.question.author.id == currentUser.id}">
-			<a class="mark-as-solution requires-login" href="${linkTo[AnswerController].markAsSolution}">
-				<fmt:message key="answer.mark_as_solution" />
+			<a class="mark-as-solution requires-login"  href="${linkTo[AnswerController].markAsSolution}">
+				<span class="icon-ok-sign icon-2x icon-muted container"></span>
 			</a>
 		</c:if>
 	</div>
