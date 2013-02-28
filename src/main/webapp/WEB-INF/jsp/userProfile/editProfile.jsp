@@ -5,7 +5,7 @@
 	</ul>
 </div>
 <div class="image-and-information">
-	<img class="profile-image" src="${user.photo}?s=128"/>
+	<img class="profile-image" src="${user.mediumPhoto}"/>
 	<a href="#">atualizar foto</a>
 </div>
 
