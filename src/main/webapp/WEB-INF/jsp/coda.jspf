@@ -24,6 +24,12 @@ var LOGGED_IN = ${not empty currentUser};
 var MODERATOR = ${empty currentUser ? false : currentUser.moderator};
 var KARMA = ${empty currentUser ? 0 : currentUser.karma};
 $(function(){prettyPrint()});
+function errorPopup(text, self){
+	if($(".validation-error.popup").length == 0){
+		var errorPopup = $("<div class='validation-error popup close-popup'>"+text+"</div>");
+		errorPopup.insertAfter(self).show();
+	}
+}
 </script>
 <script src="<c:url value="/js/prettify.js"/>"></script>
 <script src="<c:url value="/js/jquery.validate.min.js"/>"></script>

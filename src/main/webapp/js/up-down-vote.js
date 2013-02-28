@@ -13,9 +13,9 @@ function vote(link) {
 				var count = jqXHR.responseText;
 				voteSuccess(link, count);
 			} else if (jqXHR.status == "403") {
-				alert("you can't vote on your own question");
+				errorPopup("Você não pode votar na própria questão", link);
 			} else {
-				alert("you must login");
+				errorPopup("Você precisa logar", link);
 			}
 		},
 		accepts: "application/json",

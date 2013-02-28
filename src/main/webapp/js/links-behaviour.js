@@ -6,7 +6,7 @@ $(function() {
 			element.off('click');
 			element.click(function(e) {
 				e.preventDefault();
-				errorDiv("Você precisa ter "+ required +" karma!", this);
+				errorPopup("Você precisa ter "+ required +" karma!", this);
 			});
 		}
 	});
@@ -17,7 +17,7 @@ $(function() {
 			element.off('click');
 			element.click(function(e) {
 				e.preventDefault();
-				errorDiv("O autor não pode performar esta operação!", this);
+				errorPopup("O autor não pode performar esta operação!", this);
 			});
 		}
 	});
@@ -25,7 +25,7 @@ $(function() {
 		$('.requires-login').off('click');
 		$('.requires-login').bind("click", function(e) {
 			e.preventDefault();
-			errorDiv("Você precisa estar logado!", this);
+			errorPopup("Você precisa estar logado!", this);
 		});
 	}
 	$('.iframe-load').click(function() {
@@ -35,10 +35,4 @@ $(function() {
 		link.parent().html(iframe);
 	});
 	
-	function errorDiv(text, self){
-		if($(".validation-error.popup").length == 0){
-			var errorDiv = $("<div class='validation-error popup close-popup'>"+text+"</div>");
-			errorDiv.insertAfter(self).show();
-		}
-	}
 });
