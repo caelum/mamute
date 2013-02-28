@@ -9,7 +9,7 @@
 	</div>
 		
 	<div class="image-and-information">
-		<img class="profile-image" src="${selectedUser.photo}?s=128"/>
+		<img class="user-image" src="${selectedUser.mediumPhoto}"/>
 		<span class="karma">${selectedUser.karma}</span>
 		<span><fmt:message key="user_profile.reputation"/></span>
 	</div>
