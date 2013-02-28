@@ -126,7 +126,7 @@ public class User implements Identifiable {
 	}
 	
 	public String getPhoto(String size) {
-	    if (photoUri == null || photoUri.isEmpty()) {
+	    if (photoUri == null) {
 	    		String digest = Digester.md5(email);
 	    		String robohash = "http://robohash.org/size_"+size+"/"+digest+".png?size="+size+"&bgset=any";
 
