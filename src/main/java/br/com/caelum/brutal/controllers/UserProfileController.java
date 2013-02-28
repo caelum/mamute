@@ -2,8 +2,6 @@ package br.com.caelum.brutal.controllers;
 
 import static br.com.caelum.vraptor.view.Results.json;
 
-import java.net.URL;
-
 import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.dao.AnswerDAO;
@@ -11,7 +9,6 @@ import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.dto.UserPersonalInfo;
-import br.com.caelum.brutal.infra.Digester;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.util.S3FileProvider;
@@ -20,7 +17,6 @@ import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.interceptor.multipart.UploadedFile;
 
 @Resource
 public class UserProfileController {
@@ -96,7 +92,7 @@ public class UserProfileController {
 	
 	@Post("/users/edit/{id}")
 	public void editProfile(Long id, String name, String email, 
-			String website, String location, DateTime birthDate, String description, UploadedFile avatar) {
+			String website, String location, DateTime birthDate, String description) {
 		User user = users.findById(id);
 		if (!user.getId().equals(currentUser.getCurrent().getId())){
 			result.redirectTo(ListController.class).home();
@@ -109,11 +105,6 @@ public class UserProfileController {
 		}
 		
 		user.setPersonalInformation(email, name, website, location, birthDate, description);
-		
-		if (avatar != null) {
-		    URL storedUrl = fileProvider.store(avatar.getFile(), "guj-avatar", Digester.md5(email), avatar.getContentType());
-		    user.setPhotoUri(storedUrl);
-		}
 		
 		result.redirectTo(this).showProfile(id, user.getSluggedName());
 	}

@@ -1,6 +1,6 @@
 <div class="history-comparison">
 	<div class="history-original">
-		<h2 class="history-title page-title title"><fmt:message key="moderation.original_question"/>:</h2>
+		<h2 class="history-title page-title title"><fmt:message key="moderation.current_version"/>:</h2>
 		<tags:question taggable="${question}"/>
 	</div>
 	<div class="history-version">

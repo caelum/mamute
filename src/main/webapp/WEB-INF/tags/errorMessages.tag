@@ -2,10 +2,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@attribute name="errors" type="java.util.List" required="true" %>
+<ul class="error-messages">
 <c:if test="${not empty errors}">
-	<ul>
-		<c:forEach var="error" items="${errors}">
-			<li class="error"><fmt:message>${error.message}</fmt:message></li>
-		</c:forEach>
-	</ul>
+	<c:forEach var="error" items="${errors}">
+		<li class="error"><fmt:message>${error.message}</fmt:message></li>
+	</c:forEach>
 </c:if>
+</ul>

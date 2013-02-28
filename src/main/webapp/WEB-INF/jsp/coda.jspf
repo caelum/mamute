@@ -24,6 +24,12 @@ var LOGGED_IN = ${not empty currentUser};
 var MODERATOR = ${empty currentUser ? false : currentUser.moderator};
 var KARMA = ${empty currentUser ? 0 : currentUser.karma};
 $(function(){prettyPrint()});
+function errorPopup(text, self){
+	if($(".validation-error.popup").length == 0){
+		var errorPopup = $("<div class='validation-error popup close-popup'>"+text+"</div>");
+		errorPopup.insertAfter(self).show();
+	}
+}
 </script>
 <script src="<c:url value="/js/prettify.js"/>"></script>
 <script src="<c:url value="/js/jquery.validate.min.js"/>"></script>
@@ -48,5 +54,20 @@ $(function(){prettyPrint()});
 <script src="<c:url value="/js/dropdown.js"/>"></script>
 <script src="<c:url value="/js/order-by.js"/>"></script>
 <script src="<c:url value="/js/share.js"/>"></script>
+
+<c:if test="${environment.name == 'production'}" >
+	<script type="text/javascript">
+	var gaq = gaq || [];
+	_gaq.push(['_setAccount', 'UA-132222-1']);
+	_gaq.push(['_trackPageview']);
+	
+	(function() {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'www') + '.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+	</script>
+</c:if>
+
 </body>
 </html>

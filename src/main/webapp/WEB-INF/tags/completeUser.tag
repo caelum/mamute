@@ -7,7 +7,7 @@
 
 <div class="complete-user">
 	<div class="when"><fmt:message key='${touchText}'/> <tags:prettyTime time="${date}"/></div>
-	<img class="user-image" src="${user.photo}?s=32"/>
+	<img class="user-image" src="${user.smallPhoto}"/>
 	<div class="user-info">
 		<tags:userProfileLink user="${user}" htmlClass="user-name ellipsis"></tags:userProfileLink>
 		<div class="user-karma">${user.karma}</div>

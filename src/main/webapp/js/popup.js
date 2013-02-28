@@ -1,11 +1,16 @@
 $(function(){
-	$(".show-popup").click(function(event){
+	$("body").on('click', '.show-popup', function(event){
 		event.preventDefault();
 		$(this).parent().find(".popup").toggle();
 	});
 	
-	$(".close-popup").click(function(event){
+	$("body").on('click', '.close-popup', function(event){
 		event.preventDefault();
-		$(this).closest(".popup").hide();
+		var self = $(this)
+		if(self.hasClass("popup")){
+			self.hide();
+		}else{
+			self.closest(".popup").hide();
+		}
 	});
 });

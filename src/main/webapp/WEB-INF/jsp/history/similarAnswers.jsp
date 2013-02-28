@@ -1,12 +1,12 @@
 <div class="history-original">
-	<a href="#" class="dropdown-trigger" data-target-id="question-original"><fmt:message key="moderation.show_original_question" /></a>
+	<a href="#" class="dropdown-trigger" data-target-id="question-original"><fmt:message key="moderation.show_question" /></a>
 	<div id="question-original" class="dropdown-target">
 		<tags:question taggable="${answer.question}"/>
 	</div>
 </div>
 <div class="history-comparison">
 	<div class="history-original">
-		<h2 class="history-title page-title title"><fmt:message key="moderation.original_answer"/>:</h2>
+		<h2 class="history-title page-title title"><fmt:message key="moderation.current_version"/>:</h2>
 		<div class="post-text">${answer.markedDescription}</div>
 	</div>
 	

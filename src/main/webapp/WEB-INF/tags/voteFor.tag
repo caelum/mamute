@@ -4,7 +4,7 @@
 <%@attribute name="item" type="br.com.caelum.brutal.model.interfaces.Votable" required="true" %>
 <%@attribute type="br.com.caelum.brutal.model.Vote" name="vote" required="true" %>
 <div class="vote-container container">
-	<a class="requires-login up-vote up-arrow arrow  vote-option container ${(not empty vote and vote.value == 1) ? 'voted' : '' }" data-value="up" data-type="${type}" data-id="${item.id}">up</a>
+	<a class="requires-login author-cant up-vote up-arrow arrow  vote-option container ${(not empty vote and vote.countValue == 1) ? 'voted' : '' }" data-value="up" data-author="${item.author.id == currentUser.id}" data-type="${type}" data-id="${item.id}">up</a>
 	<span class="vote-count">${item.voteCount}</span>
-	<a class="requires-login down-vote  down-arrow arrow vote-option container ${(not empty vote and vote.value == -1) ? 'voted' : '' }" data-value="down" data-type="${type}" data-id="${item.id}">down</a>
+	<a class="requires-login author-cant down-vote  down-arrow arrow vote-option container ${(not empty vote and vote.countValue == -1) ? 'voted' : '' }" data-value="down"  data-author="${item.author.id == currentUser.id}" data-type="${type}" data-id="${item.id}">down</a>
 </div>

@@ -3,7 +3,7 @@ $(function(){
 	    required: "Este campo é necessário.",
 	    email: "Este email não é válido",
 	    url: "Insira uma url válida",
-	    equalTo: jQuery.validator.format("O valor deste campo tem de ser igual ao do campo {0}."),
+	    equalTo: jQuery.validator.format("Os valores inseridos são diferentes."),
 	    minlength: jQuery.validator.format("Por favor, insira ao menos {0} caracteres."),
 	    maxlength: jQuery.validator.format("Por favor, insira no máximo {0} caracteres."),
 	});

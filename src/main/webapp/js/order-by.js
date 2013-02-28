@@ -18,7 +18,7 @@ $(function(){
 		$(list).each(function(index, item){
 			var question = getQuestion(type, item),
 				href = getHref(type, question, item);
-			listElements += "<li><span>"+item.voteCount+"</span> <a href='"+href+"'>"+question.information.title+"</a></li>";
+			listElements += "<li class='ellipsis advanced-data-line'><span class='counter'>"+item.voteCount+"</span> <a href='"+href+"'>"+question.information.title+"</a></li>";
 		});
 		$(target).html(listElements);
 	}

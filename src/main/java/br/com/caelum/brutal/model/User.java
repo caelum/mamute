@@ -15,6 +15,7 @@ import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.WEBSITE_
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.WEBSITE_MAX_LENGHT;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.WEBSITE_MIN_LENGTH;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 
 import javax.persistence.Column;
@@ -76,7 +77,7 @@ public class User implements Identifiable {
 
 	private String forgotPasswordToken = "";
 	
-	private String photoUri = "";
+	private String photoUri;
 
 	@Type(type = "text")
 	@NotEmpty
@@ -115,13 +116,28 @@ public class User implements Identifiable {
         this.id = id;
     }
 	
-	public String getPhoto() {
+	public String getSmallPhoto() {
+	    return getPhoto("32x32");
+	}
+	
+	public String getMediumPhoto() {
+		return getPhoto("128x128");
+	}
+	
+	public String getPhoto(String size) {
 	    if (photoUri == null) {
-	        return "http://www.gravatar.com/avatar/" + Digester.md5(email);
+	    		String digest = Digester.md5(email);
+	    		String robohash = "http://robohash.org/size_"+size+"/"+digest+".png?size="+size+"&bgset=any";
+
+	        try {
+				return "http://www.gravatar.com/avatar/" + digest + ".png?size="+size+"&d=" + java.net.URLEncoder.encode(robohash, "UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				return "http://www.gravatar.com/avatar/" + digest;
+			}
 	    }
 	    return photoUri;
 	}
-	
+
 	public String getName() {
 		return name;
 	}

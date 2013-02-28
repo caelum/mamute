@@ -64,12 +64,13 @@ a {
 .title,.title a {
 	font-family: Trebuchet MS, Liberation Sans, DejaVu Sans, sans-serif;
 	font-weight: bold;
-	line-height: 2em;
+	line-height: 1.3em;
 }
 
 .subheader {
 	border-bottom: 1px solid #cccccc;
 	margin-bottom: 15px;
+	padding-bottom:1.5%;
 	overflow:hidden;
 }
 
@@ -118,6 +119,10 @@ a {
 	float: left;
 }
 
+.hint-anchor{
+	display:none;
+}
+
 .hint {
 	background-color: #FFEFC6;
 	border-radius: 5px;
@@ -129,10 +134,6 @@ a {
 
 .hint-tips .hint-tip{
 	margin-bottom:.5em
-}
-
-.post-container .hint {
-	margin-top: 0px;
 }
 
 .suggestion-accepted {
@@ -186,12 +187,16 @@ strong, b{
 }
 
 /*Validations*/
-.error {
+.validated-form .error, .error {
 	color: #8e0000;
 	padding: 0;
 }
 
-.required {
+.validated-form .error {
+	margin: -13px 0 0 0;
+}
+
+.validated-form .required, .required {
 	margin: 0 0 16px 0;
 }
 
@@ -849,6 +854,11 @@ textarea {
 /*EDIT VIA AJAX*/
 .edit-via-ajax {
 	margin: 10px 0;
+	overflow:hidden;
+}
+
+.edit-via-ajax .form-hints {
+	margin-top: 0px;
 }
 
 .edit-via-ajax span,.edit div {

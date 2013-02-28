@@ -4,16 +4,16 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 
 <form class="validated-form question-form hinted-form" action='<c:url value="${uri}"/>' method="post" >
-	<label for="question-title"><fmt:message key="newquestion.title" /></label>
-	<input id="question-title" type="text" class="required hintable text-input" value="${question.title }" data-hint-id="newquestion-title-hint" minlength="15" name="title">
-	<tags:markDown value="${question.description}" hintId="newquestion-description-hint" htmlClass="required" minlength="30"/>
-	<label for="tags"><fmt:message key="newquestion.tags"/></label>
-	<input id="tags" type="text" autocomplete="off" name="tagNames" class="hintable autocomplete  text-input" value="${question.tagsAsString }" data-hint-id="newquestion-tags-hint" data-autocomplete-id="newquestion-tags-autocomplete"/>
+	<label for="question-title"><fmt:message key="question.title.label" /></label>
+	<input id="question-title" type="text" class="required hintable text-input" value="${question.title }" data-hint-id="question-title-hint" minlength="15" maxlength="150" name="title">
+	<tags:markDown value="${question.description}" hintId="question-description-hint" htmlClass="required" minlength="30"/>
+	<label for="tags"><fmt:message key="question.tags.label"/></label>
+	<input id="tags" type="text" autocomplete="off" name="tagNames" class="hintable autocomplete  text-input" value="${question.tagsAsString }" data-hint-id="question-tags-hint" data-autocomplete-id="newquestion-tags-autocomplete"/>
 	<ul class="tags autocompleted-tags complete-tags hidden" id="newquestion-tags-autocomplete"></ul>
-	<input class="post-submit big-submit" type="submit" value="<fmt:message key="newquestion.submit"/>" />
+	<input class="post-submit big-submit" type="submit" value="<fmt:message key="question.new_form.submit"/>" />
 </form>
 <div class="form-hints">
-	<div id="newquestion-title-hint" class="hint"><fmt:message key="title.hint" /></div>
-	<div id="newquestion-description-hint" class="hint"><fmt:message key="description.hint" /></div>
-	<div id="newquestion-tags-hint" class="hint"><fmt:message key="tags.hint" /></div>
+	<div id="question-title-hint" class="hint"><fmt:message key="question.title.hint" /></div>
+	<div id="question-description-hint" class="hint"><fmt:message key="question.description.hint" /></div>
+	<div id="question-tags-hint" class="hint"><fmt:message key="question.tags.hint" /></div>
 </div>

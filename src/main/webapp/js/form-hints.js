@@ -1,17 +1,21 @@
 $(function(){
-	var showHintFor = function(element) {
+	$(".hintable").each(function(index, hintable){
+		var currentHintable = $(hintable),
+			anchor = currentHintable.data("hint-id"),
+			label = $("label[for="+currentHintable.attr("id")+"]"),
+			hintAnchor = $("<a class='hint-anchor' href='#"+anchor+"'> ?</a>");
+		hintAnchor.appendTo(label);
+	});
+	
+	var toggleHintFor = function(element) {
 		var hint = $("#" + $(element).data("hint-id"));
-		hint.fadeIn(500);
-	};
-	var hideHintFor = function(element) {
-		var hint = $("#" + $(element).data("hint-id"));
-		hint.hide();
+		if(!$(hint).is(":visible")){
+			$(".hint").hide();
+			hint.fadeIn(500);
+		}
 	};
 	$(".hintable").focus(function() {
-		showHintFor(this);
-	});
-	$(".hintable").blur(function() {
-		hideHintFor(this);
+		toggleHintFor(this);
 	});
 	$('#question-title').focus();
 });
