@@ -28,6 +28,10 @@ public class DateTimeConverter implements Converter<DateTime>{
 	public DateTime convert(String value, Class<? extends DateTime> type,
 			ResourceBundle bundle) {
 		
+		if (value == null || value.isEmpty()){
+			return null;
+		}
+		
 		String[] splitedDate = value.split("/");
 		
 		if(splitedDate.length > 3 
