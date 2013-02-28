@@ -31,6 +31,17 @@ public class UserDAOTest extends DatabaseTestCase {
 	}
 	
 	@Test
+	public void should_find_by_session_key() {
+	    User guilherme = new User("Guilherme Silveira", "guilherme@caelum.com.br", "654321");
+	    users.save(guilherme);
+	    String key = Digester.encrypt(guilherme.getEmail());
+	    
+	    assertEquals(guilherme, users.findBySessionKey(key));
+	    assertNull(users.findBySessionKey("12345"));
+	    assertNull(users.findBySessionKey(null));
+	}
+	
+	@Test
 	public void should_search_by_email_and_legacy_password_and_update_password() {
 	    String password = "654321";
         User guilherme = new User("Guilherme Silveira", "guilherme@caelum.com.br", password);
