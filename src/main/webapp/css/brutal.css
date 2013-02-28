@@ -235,31 +235,21 @@ strong, b{
 }
 
 .share a.share-button {
-	width: 20px;
-	height: 20px;
 	float:left;
-	margin-right: 3px;
+	margin-right: 0;
 	cursor: pointer;
 }
 
-.share a.twitter-icon {
-	width: 24px;
+.icon-twitter-sign {
+	color: #00aced;
 }
 
+.icon-facebook-sign {
+	color: #2b5998;
+}
 
 .share .close-popup {
 	float:right;
-}
-
-.google-plus-icon {
-	background-position: -150px -959px;
-}
-
-.facebook-icon {
-	background-position: -150px -999px;
-}
-.twitter-icon {
-	background-position: -150px -1039px;
 }
 
 /*Forms*/
