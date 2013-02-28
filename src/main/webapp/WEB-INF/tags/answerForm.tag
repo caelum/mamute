@@ -9,7 +9,7 @@
 	<tags:markDown value="${answer.description}" hintId="newanswer-answer-hint" htmlClass="required" minlength="30"/>
 	
 	<c:if test='${not empty edit}'>
-		<label for="comment"><fmt:message key="answer.form.comment" /></label>
+		<label for="comment"><fmt:message key="edit_form.comment.label" /></label>
 		<input type="text" data-hint-id="answer-comment-hint" class="required hintable" name="comment" />
 	</c:if>
 	
@@ -23,7 +23,7 @@
 	
 	<c:if test='${not empty edit}'>
 		<div id="answer-comment-hint" class="hint">
-			<p><fmt:message key="answer.comment.hint"/></p>
+			<p><fmt:message key="edit_form.comment.hint"/></p>
 		</div>
 	</c:if>
 </div>

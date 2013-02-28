@@ -136,10 +136,6 @@ a {
 	margin-bottom:.5em
 }
 
-.post-container .hint {
-	margin-top: 0px;
-}
-
 .suggestion-accepted {
 	color: #FF0000;
 }
@@ -854,6 +850,11 @@ textarea {
 /*EDIT VIA AJAX*/
 .edit-via-ajax {
 	margin: 10px 0;
+	overflow:hidden;
+}
+
+.edit-via-ajax .form-hints {
+	margin-top: 0px;
 }
 
 .edit-via-ajax span,.edit div {
