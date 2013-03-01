@@ -23,11 +23,14 @@
 var LOGGED_IN = ${not empty currentUser};
 var MODERATOR = ${empty currentUser ? false : currentUser.moderator};
 var KARMA = ${empty currentUser ? 0 : currentUser.karma};
+var ALL_TAGS;
+$.get("/allTagNames", function(tags){ALL_TAGS = tags});
+
 $(function(){prettyPrint()});
-function errorPopup(text, self){
-	if($(".validation-error.popup").length == 0){
-		var errorPopup = $("<div class='validation-error popup close-popup'>"+text+"</div>");
-		errorPopup.insertAfter(self).show();
+function errorPopup(text, target){
+	if(!$(".validation-error.popup").is(":visible")){
+		var errorPopup = $("<div class='validation-error popup close-popup'><div class='popup-error-message'>"+text+"</div><div class='subtitle'>(clique para fechar)</div></div>");
+		errorPopup.insertAfter(target).show();
 	}
 }
 </script>
