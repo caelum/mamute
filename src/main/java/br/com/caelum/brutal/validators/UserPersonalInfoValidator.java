@@ -46,6 +46,10 @@ public class UserPersonalInfoValidator {
 		
 		validator.validate(info);
 		
+		if(validator.hasErrors()){
+			return false;
+		}
+		
 		if (info.getUser() == null) {
 		    validator.add(new ValidationMessage("user.errors.wrong", "error"));
 		}
@@ -58,7 +62,7 @@ public class UserPersonalInfoValidator {
 			emailValidator.validate(info.getEmail());
 		}
 		
-		if(info.getUser().getNameLastTouchedAt() != null){
+		if(!info.getUser().getName().equals(info.getName())){
 			if(info.getUser().getNameLastTouchedAt().isAfter(new DateTime().minusDays(30))){
 				validator.add(new ValidationMessage("user.errors.name.min_time", "error"));
 			}

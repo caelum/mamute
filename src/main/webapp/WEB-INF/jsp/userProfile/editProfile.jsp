@@ -13,7 +13,7 @@
 <form class="validated-form profile-edit-form" action="${linkTo[UserProfileController].editProfile[user.id]}" method="POST">
 	<span class="data-line">
 		<label for="name" class="form-label"><fmt:message key="user_profile.edit.form.name.label" /></label>
-		<input type="text" name="name" class="text-input" maxlength="100" value="${user.name}"/>
+		<input type="text" name="name" class="text-input required" maxlength="100" value="${user.name}"/>
 	</span>
 	<span class="data-line">
 		<label for="email" class="form-label"><fmt:message key="user_profile.edit.form.email.label" /></label>
