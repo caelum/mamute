@@ -24,6 +24,7 @@ import br.com.caelum.vraptor.Result;
 @Resource
 public class HistoryController {
 
+	private static final String MODEL_PACKAGE = "br.com.caelum.brutal.model.";
 	private final Result result;
     private final QuestionDAO questions;
     private final User currentUser;
@@ -42,12 +43,19 @@ public class HistoryController {
 	}
 
 	@ModeratorAccess
-	@Get("/history")
-	public void unmoderated() {
-		UpdatablesAndPendingHistory pendingQuestions = informations.pendingByUpdatables(Question.class);
-		UpdatablesAndPendingHistory pendingAnswers = informations.pendingByUpdatables(Answer.class);
-		result.include("pendingQuestions", pendingQuestions);
-		result.include("pendingAnswers", pendingAnswers);
+	@Get("/history/{moderatableType}")
+	public void unmoderated(String moderatableType) {
+			Class<?> clazz = null; 
+		try {
+			clazz = Class.forName(MODEL_PACKAGE + moderatableType);
+		} catch (ClassNotFoundException e) {
+			result.notFound();
+			return;
+		}
+		UpdatablesAndPendingHistory pending= informations.pendingByUpdatables(clazz);
+		
+		result.include("pending", pending);
+		result.include("type", moderatableType);
 	}
 
 	@ModeratorAccess
@@ -70,8 +78,8 @@ public class HistoryController {
         Class<?> moderatableClass = null;
         Class<?> aprovedInformationClass = null;
         try {
-            moderatableClass = Class.forName("br.com.caelum.brutal.model." + moderatableType);
-            aprovedInformationClass = Class.forName("br.com.caelum.brutal.model." + aprovedInformationType);
+            moderatableClass = Class.forName(MODEL_PACKAGE + moderatableType);
+            aprovedInformationClass = Class.forName(MODEL_PACKAGE + aprovedInformationType);
         } catch (ClassNotFoundException e) {
             result.notFound();
             return;
@@ -91,7 +99,7 @@ public class HistoryController {
     	int karma = calculator.karmaForApprovedInformation(approved);
     	approved.getAuthor().increaseKarma(karma);
     	
-    	result.redirectTo(this).unmoderated();
+    	result.redirectTo(this).unmoderated(moderatableType);
     }
 
     private void refusePending(Long aprovedHistoryId, List<Information> pending) {

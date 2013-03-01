@@ -70,8 +70,13 @@ a {
 .subheader {
 	border-bottom: 1px solid #cccccc;
 	margin-bottom: 15px;
-	padding-bottom:1.5%;
-	overflow:hidden;
+	padding-bottom: 1.5%;
+	overflow: hidden;
+}
+
+.subheader-with-tab {
+	padding-bottom: 38px;
+	overflow: visible;
 }
 
 .subheader .title{
@@ -542,6 +547,21 @@ textarea {
 }
 
 /*MODERACAO*/
+.tabs {
+	float: right;
+	margin-top: 10px;
+}
+
+.tabs a {
+	padding: 5px 10px 13px 10px;
+}
+
+.selected {
+	border: 1px solid #eaeaea;
+	padding: 5px 9px 13px 9px;
+	border-bottom-color: #fff;
+}
+
 .history-comparison > *{
 	width:50%;
 	float:left;
@@ -863,6 +883,18 @@ textarea {
 
 .pending-questions a {
 	font-size: 1.4em;
+}
+
+.pending-questions .pending {
+	border-bottom: 1px solid #eaeaea;
+}
+
+.pending {
+	padding: 0.8em 0;
+}
+
+.pending ul {
+	padding-top: 0.4em;
 }
 
 /*Footer*/

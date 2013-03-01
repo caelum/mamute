@@ -1,11 +1,19 @@
+<div class="subheader subheader-with-tab">
+	<h2 class="title page-title"><fmt:message key="moderation"/></h2>
+	<div class="tabs">
+		<a href="${linkTo[HistoryController].unmoderated['Question']}">Perguntas</a>
+		<a href="${linkTo[HistoryController].unmoderated['Answer']}">Respostas</a>
+	</div>
+</div>
 <ul class="pending-questions">
-	<c:forEach var="entry" items="${pendingQuestions.entrySet}">
-		<li>
-			<a href="${linkTo[QuestionController].showQuestion[entry.key.id][entry.key.sluggedTitle]}">
-				${entry.key.title}
-			</a>
-			- <a href="${linkTo[HistoryController].similarQuestions[entry.key.id]}">Moderar</a>
-		</li>
+	<c:forEach var="entry" items="${pending.entrySet}">
+		<li class="pending">
+			<c:if test="${type eq 'Question'}">
+				<a href="${linkTo[HistoryController].similarQuestions[entry.key.id]}">${entry.key.title}</a>
+			</c:if>
+			<c:if test="${type eq 'Answer'}">
+				<a href="${linkTo[HistoryController].similarAnswers[entry.key.id]}">${entry.key.question.title} (resposta)</a>
+			</c:if>
 			<ul>
 				<c:forEach var="information" items="${entry.value}">
 					<li>
@@ -14,23 +22,6 @@
 					</li>
 				</c:forEach>
 			</ul>
-	</c:forEach>
-	
-	<c:forEach var="entry" items="${pendingAnswers.entrySet}">
-		<li>
-			<a href="${linkTo[QuestionController].showQuestion[entry.key.question.id][entry.key.question.sluggedTitle]}">
-				${entry.key.question.title} (resposta)
-			</a>
-			- <a href="${linkTo[HistoryController].similarAnswers[entry.key.id]}">Moderar</a>
 		</li>
-			<ul>
-				<c:forEach var="information" items="${entry.value}">
-					<li>
-						<tags:jodaTime pattern="DD-MM-YYYY HH:mm" time="${information.createdAt}"></tags:jodaTime>
-						 - by ${information.author}
-					</li>
-				</c:forEach>
-			</ul>
 	</c:forEach>
-	
 </ul>
