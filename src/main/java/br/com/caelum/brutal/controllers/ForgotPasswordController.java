@@ -15,7 +15,7 @@ import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.simplemail.Mailer;
 import br.com.caelum.vraptor.simplemail.template.TemplateMailer;
-import br.com.caelum.vraptor.validator.ValidationMessage;
+import br.com.caelum.vraptor.validator.I18nMessage;
 
 @Resource
 public class ForgotPasswordController {
@@ -49,7 +49,7 @@ public class ForgotPasswordController {
 		User user = users.loadByEmail(email);
 
 		if (user == null) {
-			validator.add(new ValidationMessage("forgot_password.invalid_email", "error"));
+			validator.add(new I18nMessage("error", "forgot_password.invalid_email"));
 			validator.onErrorRedirectTo(this).forgotPasswordForm();
 			return;
 		}
@@ -60,7 +60,7 @@ public class ForgotPasswordController {
 			result.include("user", user);
 			result.redirectTo(this).sentMail();
 		} catch (EmailException e) {
-			validator.add(new ValidationMessage("forgot_password.send_mail.error", "error"));
+			validator.add(new I18nMessage("error", "forgot_password.send_mail.error"));
 			validator.onErrorRedirectTo(this).forgotPasswordForm();
 		}	
 	}
@@ -79,7 +79,7 @@ public class ForgotPasswordController {
 
 		boolean passwordUpdated = user.updateForgottenPassword(password, password_confirmation);
 		if(!passwordUpdated) {
-			validator.add(new ValidationMessage("forgot_password.password_doesnt_match", "error"));
+			validator.add(new I18nMessage("error", "forgot_password.password_doesnt_match"));
 			validator.onErrorRedirectTo(this).forgotPasswordForm();
 		}
 		
@@ -106,7 +106,7 @@ public class ForgotPasswordController {
 	private User validateTokenAndGetUser(Long id, String token) {
 		User user = users.loadByIdAndToken(id, token);
 		if (user == null) {
-			validator.add(new ValidationMessage("forgot_password.invalid_token", "error"));
+			validator.add(new I18nMessage("error", "forgot_password.invalid_token"));
 			validator.onErrorRedirectTo(this).forgotPasswordForm();
 		}
 		return user;

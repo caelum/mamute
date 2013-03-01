@@ -11,7 +11,7 @@ import br.com.caelum.vraptor.Convert;
 import br.com.caelum.vraptor.Converter;
 import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.core.Localization;
-import br.com.caelum.vraptor.validator.ValidationMessage;
+import br.com.caelum.vraptor.validator.I18nMessage;
 
 @Convert(DateTime.class)
 public class DateTimeConverter implements Converter<DateTime>{
@@ -36,7 +36,7 @@ public class DateTimeConverter implements Converter<DateTime>{
 		if(splitedDate.length > 3 
 				|| value.length() > 10 
 				|| !value.matches("^\\d\\d/\\d\\d/\\d\\d\\d\\d$")) {
-			validator.add(new ValidationMessage("converters.errors.invalid_date.format", "error"));
+			validator.add(new I18nMessage("error", "converters.errors.invalid_date.format"));
 		}
 		
 		if (validator.hasErrors()) {
@@ -48,7 +48,7 @@ public class DateTimeConverter implements Converter<DateTime>{
 			DateTime date = pattern.parseDateTime(value);
 			return date;
 		}catch (IllegalFieldValueException e) {
-			validator.add(new ValidationMessage("converters.errors.invalid_date.parameters", "error"));
+			validator.add(new I18nMessage("error", "converters.errors.invalid_date.parameters"));
 		}
 		return null;
 	}
