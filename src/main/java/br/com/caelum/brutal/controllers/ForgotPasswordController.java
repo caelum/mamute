@@ -13,6 +13,7 @@ import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.core.Localization;
 import br.com.caelum.vraptor.simplemail.Mailer;
 import br.com.caelum.vraptor.simplemail.template.TemplateMailer;
 import br.com.caelum.vraptor.validator.I18nMessage;
@@ -26,14 +27,16 @@ public class ForgotPasswordController {
 	private final UserDAO users;
 	private final DefaultLinker linker;
 	private Validator validator;
+	private Localization localization;
 
-	public ForgotPasswordController(Mailer mailer, TemplateMailer templates, Result result, UserDAO users, DefaultLinker linker, Validator validator) {
+	public ForgotPasswordController(Mailer mailer, TemplateMailer templates, Result result, UserDAO users, DefaultLinker linker, Validator validator, Localization localization) {
 		this.mailer = mailer;
 		this.templates = templates;
 		this.result = result;
 		this.users = users;
 		this.linker = linker;
 		this.validator = validator;
+		this.localization = localization;
 	}
 
 	@Get("/forgotpassword")
@@ -97,9 +100,10 @@ public class ForgotPasswordController {
 	
 	private Email emailWithTokenFor(User user) {
 		String url = tokenUrlFor(user);
-		return templates.template("esqueci_minha_senha")
+		return templates.template("forgot_password_mail")
+				.with("localization", localization)
 				.with("user_name", user.getName())
-				.with("forgot_password_url", url)
+				.with("url", url)
 				.to(user.getName(), user.getEmail());
 	}
 
