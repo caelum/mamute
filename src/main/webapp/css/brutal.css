@@ -556,7 +556,7 @@ textarea {
 	padding: 5px 10px 13px 10px;
 }
 
-.selected {
+.tabs a.selected {
 	border: 1px solid #eaeaea;
 	padding: 5px 9px 13px 9px;
 	border-bottom-color: #fff;
