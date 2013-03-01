@@ -3,6 +3,7 @@ package br.com.caelum.brutal.converters;
 import java.util.ResourceBundle;
 
 import org.joda.time.DateTime;
+import org.joda.time.IllegalFieldValueException;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -31,13 +32,11 @@ public class DateTimeConverter implements Converter<DateTime>{
 		if (value == null || value.isEmpty()){
 			return null;
 		}
-		
 		String[] splitedDate = value.split("/");
-		
 		if(splitedDate.length > 3 
 				|| value.length() > 10 
-				|| !value.matches("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/(19[1-9][0-9]|20[01][0-3])$")) {
-			validator.add(new ValidationMessage("converters.errors.invalid_birth_date", "error"));
+				|| !value.matches("^\\d\\d/\\d\\d/\\d\\d\\d\\d$")) {
+			validator.add(new ValidationMessage("converters.errors.invalid_date.format", "error"));
 		}
 		
 		if (validator.hasErrors()) {
@@ -45,10 +44,13 @@ public class DateTimeConverter implements Converter<DateTime>{
 		}
 		
 		DateTimeFormatter pattern = DateTimeFormat.forPattern(localization.getMessage("date.joda.simple.pattern"));
-		DateTime date = pattern.parseDateTime(value);
-		
-		return date;
-	
+		try {
+			DateTime date = pattern.parseDateTime(value);
+			return date;
+		}catch (IllegalFieldValueException e) {
+			validator.add(new ValidationMessage("converters.errors.invalid_date.parameters", "error"));
+		}
+		return null;
 	}
 
 }

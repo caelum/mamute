@@ -62,9 +62,14 @@ public class UserPersonalInfoValidator {
 			emailValidator.validate(info.getEmail());
 		}
 		
+		if(info.getBirthDate().getYear() > DateTime.now().getYear()-12){
+			validator.add(new ValidationMessage("user.errors.invalid_birth_date.min_age", "error"));
+		}
+		
 		if(!info.getUser().getName().equals(info.getName())){
-			if(info.getUser().getNameLastTouchedAt().isAfter(new DateTime().minusDays(30))){
-				validator.add(new ValidationMessage("user.errors.name.min_time", "error"));
+			DateTime nameLastTouchedAt = info.getUser().getNameLastTouchedAt();
+			if(nameLastTouchedAt.isAfter(new DateTime().minusDays(30))){
+				validator.add(new ValidationMessage("user.errors.name.min_time", "error", nameLastTouchedAt.plusDays(30).toString()));
 			}
 		}
 		
