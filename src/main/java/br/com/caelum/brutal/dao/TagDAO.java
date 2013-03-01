@@ -75,4 +75,8 @@ public class TagDAO {
 		}
 		return tags;
 	}
+
+	public List<String> allNames() {
+		return session.createQuery("select t.name from Tag t").list();
+	}
 }

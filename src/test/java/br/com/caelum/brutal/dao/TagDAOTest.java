@@ -6,8 +6,6 @@ import static junit.framework.Assert.assertNull;
 import java.util.Arrays;
 import java.util.List;
 
-import junit.framework.Assert;
-
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeUtils;
 import org.junit.Before;
@@ -113,6 +111,15 @@ public class TagDAOTest extends DatabaseTestCase{
 		assertEquals(java.getId(), tagsByNames.get(0).getId());
 		assertEquals(ruby.getId(), tagsByNames.get(1).getId());
 		assertNull(tagsByNames.get(2));
+	}
+	
+	@Test
+	public void should_get_all_tag_names() throws Exception {
+		List<String> tagsNames = tags.allNames();
+		
+		assertEquals(2, tagsNames.size());
+		assertEquals(java.getName(), tagsNames.get(0));
+		assertEquals(ruby.getName(), tagsNames.get(1));
 	}
 
 	private Question questionWith(List<Tag> tags) {
