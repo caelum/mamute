@@ -5,6 +5,7 @@ import java.util.Properties;
 
 import javax.annotation.PreDestroy;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
@@ -12,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import br.com.caelum.brutal.components.HerokuDatabaseInformation;
+import br.com.caelum.brutal.migration.DatabaseManager;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.AnswerInformation;
 import br.com.caelum.brutal.model.Comment;
@@ -94,5 +96,10 @@ public class SessionFactoryCreator implements ComponentFactory<SessionFactory> {
 	
 	public Configuration getCfg() {
 		return cfg;
+	}
+	
+	public void createFromScratch() {
+		final Session session = factory.openSession();
+		new DatabaseManager(session).importAll("/db_structure.sql");
 	}
 }
