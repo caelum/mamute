@@ -21,19 +21,9 @@ public class TagDAO {
 		this.session = session;
 	}
 	
-	public Tag saveOrLoad(Tag tag) {
-		Tag loadedTag = findByName(tag.getName());
-		if(loadedTag == null){
-			save(tag);
-			return tag;
-		}else{
-			save(loadedTag);
-			return loadedTag;
-		}
-	}
-	
 	public Tag findByName(String name) {
-		return (Tag) session.createQuery("from Tag t where t.name like :name").setString("name", name).uniqueResult();
+		Tag tag = (Tag) session.createQuery("from Tag t where t.name like :name").setString("name", name).uniqueResult();
+		return tag;
 	}
 
 	private void save(Tag tag) {
@@ -47,16 +37,6 @@ public class TagDAO {
 				"where tag.name like :tagChunk group by tag order by tag.usageCount desc");
 		query.setString("tagChunk", "%"+tagChunk+"%");
 		return query.list();
-	}
-
-	public List<Tag> loadAll(String tagNames, User author) {
-		List<Tag> tags = new ArrayList<>();
-		if(tagNames==null || tagNames.isEmpty()) return tags;
-		for (String tagName : tagNames.split(" ")) {
-			Tag newTag = saveOrLoad(new Tag(tagName, "", author));
-			tags.add(newTag);
-		}
-		return tags;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -84,5 +64,15 @@ public class TagDAO {
 				"join question.information.tags tag " +
 				"group by tag order by count(question) desc");
 		return query.list();
+	}
+
+	public List<Tag> findAllByNames(String tagNames) {
+		List<Tag> tags = new ArrayList<>();
+		if(tagNames == null || tagNames.isEmpty()) return tags;
+		for (String tagName : tagNames.split(" ")) {
+			Tag newTag = findByName(tagName);
+			tags.add(newTag);
+		}
+		return tags;
 	}
 }

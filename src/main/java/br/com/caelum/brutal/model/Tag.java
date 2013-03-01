@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
 
@@ -16,7 +17,8 @@ public class Tag {
 	@GeneratedValue
 	private Long id;
 	
-	@Column(unique=true)
+	@Column(unique = true, nullable = false)
+	@NotEmpty
 	private String name;
 	
 	private String description;
