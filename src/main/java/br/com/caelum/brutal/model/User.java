@@ -51,6 +51,7 @@ public class User implements Identifiable {
 	
 	@Index(name="session_key")
 	@Type(type = "text")
+	@Column(unique=true)
 	private String sessionKey;
 
 	@Id
@@ -111,11 +112,11 @@ public class User implements Identifiable {
 
 	private void setEmail(String email) {
         this.email = email;
-        setSessionKey();
     }
 	
-	private void setSessionKey() {
-	    this.sessionKey = Digester.encrypt(this.email);
+	public void setSessionKey() {
+	    Long currentTimeMillis = System.currentTimeMillis();
+	    this.sessionKey = Digester.encrypt(currentTimeMillis.toString() + this.id.toString());
     }
 
     public void setName(String name) {
@@ -288,5 +289,9 @@ public class User implements Identifiable {
     
     public String getSessionKey() {
         return sessionKey;
+    }
+    
+    public void resetSession() {
+        sessionKey = null;
     }
 }
