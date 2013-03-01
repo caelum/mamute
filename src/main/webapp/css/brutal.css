@@ -189,14 +189,13 @@ strong, b{
 /*Validations*/
 .validated-form .error, .error {
 	color: #8e0000;
-	padding: 0;
 }
 
 .validated-form .error {
 	margin: -13px 0 0 0;
 }
 
-.validated-form .required, .required {
+.validated-form .text-input {
 	margin: 0 0 16px 0;
 }
 
@@ -209,6 +208,11 @@ strong, b{
 	cursor: pointer;
 	padding: 1.3em;
 }
+
+.popup-error-message{
+	margin-bottom:2%;
+}
+
 
 /*Popup*/
 .popup {

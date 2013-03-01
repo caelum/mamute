@@ -6,7 +6,6 @@ import br.com.caelum.brutal.dto.UserPersonalInfo;
 import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.validator.I18nMessage;
-import br.com.caelum.vraptor.validator.ValidationMessage;
 
 @Component
 public class UserPersonalInfoValidator {
@@ -50,7 +49,7 @@ public class UserPersonalInfoValidator {
 		}
 		
 		if (info.getUser() == null) {
-		    validator.add(new ValidationMessage("user.errors.wrong", "error"));
+		    validator.add(new I18nMessage("error", "user.errors.wrong"));
 		}
 		
 		if (!info.getUser().getEmail().equals(info.getEmail())){
@@ -58,7 +57,7 @@ public class UserPersonalInfoValidator {
 		}
 		
 		if (info.getBirthDate() != null && info.getBirthDate().getYear() > DateTime.now().getYear()-12){
-			validator.add(new ValidationMessage("user.errors.invalid_birth_date.min_age", "error"));
+			validator.add(new I18nMessage("error", "user.errors.invalid_birth_date.min_age"));
 		}
 	
 		if(!info.getUser().getName().equals(info.getName())){
