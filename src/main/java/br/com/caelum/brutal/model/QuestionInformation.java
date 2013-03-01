@@ -1,6 +1,8 @@
 package br.com.caelum.brutal.model;
 
 import static br.com.caelum.brutal.infra.NormalizerBrutal.toSlug;
+import static br.com.caelum.brutal.model.MarkDown.parse;
+import static br.com.caelum.brutal.sanitizer.HtmlSanitizer.sanitize;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,7 +121,7 @@ public class QuestionInformation implements Information, Taggable {
 
 	private void setDescription(String description) {
 		this.description = description;
-		this.markedDescription = MarkDown.parse(description);
+		this.markedDescription = sanitize(parse(description));
 	}
 
 	public String getTitle() {

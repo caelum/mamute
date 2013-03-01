@@ -2,6 +2,7 @@ package br.com.caelum.brutal.dao;
 
 import net.vidageek.mirror.dsl.Mirror;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 import br.com.caelum.brutal.infra.Digester;
@@ -87,4 +88,9 @@ public class UserDAO {
 		return loadByName(name) != null;	
 	}
 
+    public User findBySessionKey(String key) {
+        Query query = session.createQuery("from User where sessionKey=:key");
+        return (User) query.setParameter("key", key).uniqueResult();
+        
+    }
 }

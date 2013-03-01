@@ -25,6 +25,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Index;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
@@ -47,6 +48,10 @@ public class User implements Identifiable {
 	@Length(min = EMAIL_MIN_LENGTH , max = EMAIL_MAX_LENGTH, message = EMAIL_LENGTH_MESSAGE)
 	@Email(message = EMAIL_NOT_VALID)
 	private String email;
+	
+	@Index(name="session_key")
+	@Type(type = "text")
+	private String sessionKey;
 
 	@Id
 	@GeneratedValue
@@ -111,14 +116,22 @@ public class User implements Identifiable {
 
 	public User(String name, String email, String password) {
 		super();
-		this.email = email;
 		this.realName = name;
-		this.name = name;
-		this.sluggedName = toSlug(name);
+		setName(name);
+		setEmail(email);
 		this.password = Digester.encrypt(password);
 	}
 
-	public void setName(String name) {
+	private void setEmail(String email) {
+        this.email = email;
+        setSessionKey();
+    }
+	
+	private void setSessionKey() {
+	    this.sessionKey = Digester.encrypt(this.email);
+    }
+
+    public void setName(String name) {
 		this.name = name;
 		this.sluggedName = toSlug(name);
 		this.nameLastTouchedAt = new DateTime();
@@ -284,5 +297,9 @@ public class User implements Identifiable {
 
     public void setPhotoUri(URL storedUri) {
         photoUri = storedUri.toString();
+    }
+    
+    public String getSessionKey() {
+        return sessionKey;
     }
 }
