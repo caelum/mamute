@@ -50,7 +50,6 @@ public class User implements Identifiable {
 	private String email;
 	
 	@Index(name="session_key")
-	@Type(type = "text")
 	@Column(unique=true)
 	private String sessionKey;
 
