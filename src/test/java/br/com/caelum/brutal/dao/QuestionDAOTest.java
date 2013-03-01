@@ -20,7 +20,6 @@ public class QuestionDAOTest extends DatabaseTestCase {
 
 	private QuestionDAO questions;
 	private QuestionBuilder question = new QuestionBuilder();
-	private TagDAO tags;
 	private User author;
 	private Tag sal;
 
@@ -29,9 +28,8 @@ public class QuestionDAOTest extends DatabaseTestCase {
 		author = new User("Leonardo", "leo@leo", "123456");
 		session.save(author);
 		this.questions = new QuestionDAO(session);
-		this.tags = new TagDAO(session);
 		sal = new Tag("sal", "", null);
-		tags.saveOrLoad(sal);
+		session.save(sal);
 	}
 	
 	

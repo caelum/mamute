@@ -33,7 +33,7 @@ public class EditQuestionTest extends AuthenticatedAcceptanceTest {
         
         String newTitle = "edited by author question title";
         String newDescription = "new description new description new description new description";
-        String newTags = "new-tag";
+        String newTags = "ruby";
         questionPage = questionPage.toEditQuestionPage()
             .edit(newTitle, 
                 newDescription, 
@@ -55,7 +55,7 @@ public class EditQuestionTest extends AuthenticatedAcceptanceTest {
         
         String newTitle = "I'm the moderator, nigga";
         String newDescription = "yeah yeah yeah yeah yeah yeah yeah yeah";
-        String newTags = "moderator";
+        String newTags = "ruby";
         QuestionPage questionPage = home().toFirstQuestionPage().toEditQuestionPage()
             .edit(newTitle, 
                     newDescription, 

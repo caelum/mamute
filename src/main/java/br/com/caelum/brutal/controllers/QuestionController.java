@@ -14,6 +14,7 @@ import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.providers.RequiresTransaction;
+import br.com.caelum.brutal.validators.TagsValidator;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
@@ -27,13 +28,16 @@ public class QuestionController {
 	private final TagDAO tags;
 	private final VoteDAO votes;
 	private final LoggedUser currentUser;
+	private final TagsValidator tagsValidator;
 
-	public QuestionController(Result result, QuestionDAO questionDAO, TagDAO tagDAO, VoteDAO votes, LoggedUser currentUser) {
+	public QuestionController(Result result, QuestionDAO questionDAO, TagDAO tags, VoteDAO votes, LoggedUser currentUser,
+			TagsValidator tagsValidator) {
 		this.result = result;
 		this.questions = questionDAO;
-		this.tags = tagDAO;
+		this.tags = tags;
 		this.votes = votes;
 		this.currentUser = currentUser;
+		this.tagsValidator = tagsValidator;
 	}
 
 	@Get("/question/ask")
@@ -48,14 +52,17 @@ public class QuestionController {
 
 	@Post("/question/edit/{id}")
 	public void edit(String title, String description, String tagNames, Long id, String comment) {
-		List<Tag> tags = this.tags.loadAll(tagNames, currentUser.getCurrent());
-		QuestionInformation information = new QuestionInformation(title, description, this.currentUser, tags, comment);
-
-		Question original = questions.getById(id);
-		UpdateStatus status = original.updateWith(information);
-		questions.save(original);
-		result.include("confirmations", Arrays.asList(status.getMessage()));
-		result.redirectTo(this).showQuestion(id, original.getSluggedTitle());
+		List<Tag> loadedTags = tags.findAllByNames(tagNames);
+		if(validate(loadedTags)){
+			QuestionInformation information = new QuestionInformation(title, description, this.currentUser, loadedTags, comment);
+	
+			Question original = questions.getById(id);
+			UpdateStatus status = original.updateWith(information);
+			questions.save(original);
+			result.include("confirmations", Arrays.asList(status.getMessage()));
+			result.redirectTo(this).showQuestion(id, original.getSluggedTitle());
+		}
+		tagsValidator.onErrorRedirectTo(this).questionEditForm(id);
 	}
 	
 	@Get("/questions/{questionId}/{sluggedTitle}")
@@ -78,12 +85,26 @@ public class QuestionController {
 	@Post("/question/ask")
 	@LoggedAccess
 	public void newQuestion(String title, String description, String tagNames) {
-		List<Tag> tags = this.tags.loadAll(tagNames, currentUser.getCurrent());
-		QuestionInformation information = new QuestionInformation(title, description, currentUser, tags, "new");
-		Question question = new Question(information, currentUser.getCurrent());
+		List<Tag> loadedTags = tags.findAllByNames(tagNames);
+		
+		if(validate(loadedTags)){
+			QuestionInformation information = new QuestionInformation(title, description, currentUser, loadedTags, "new");
+			Question question = new Question(information, currentUser.getCurrent());
+	
+			questions.save(question);
+			result.redirectTo(this).showQuestion(question.getId(),
+					question.getSluggedTitle());
+		}
 
-		questions.save(question);
-		result.redirectTo(this).showQuestion(question.getId(),
-				question.getSluggedTitle());
+		tagsValidator.onErrorRedirectTo(this).questionForm();
+	}
+
+	private boolean validate(List<Tag> tags) {
+		for (Tag tag : tags) {
+			if(!tagsValidator.validate(tag)){
+				return false;
+			}
+		}
+		return true;
 	}
 }

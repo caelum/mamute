@@ -29,6 +29,7 @@ public class Access implements ComponentFactory<User> {
     }
 
 	public User login(User user) {
+	    user.setSessionKey();
 	    Cookie cookie = new Cookie(BRUTAL_SESSION, user.getSessionKey());
         response.addCookie(cookie);
 		this.user = user;
@@ -51,7 +52,7 @@ public class Access implements ComponentFactory<User> {
         if (cookiesArray != null) {
             List<Cookie> cookies = Arrays.asList(cookiesArray);
             for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("brutal_session")) {
+                if (cookie.getName().equals(BRUTAL_SESSION)) {
                     return cookie.getValue();
                 }
             }
@@ -63,6 +64,7 @@ public class Access implements ComponentFactory<User> {
 	    Cookie cookie = new Cookie(BRUTAL_SESSION, "");
 	    cookie.setMaxAge(-1);
 	    response.addCookie(cookie);
+	    user.resetSession();
 		this.user = null;
 	}
 	

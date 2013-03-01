@@ -1,9 +1,12 @@
 package br.com.caelum.brutal.dao;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNull;
 
 import java.util.Arrays;
 import java.util.List;
+
+import junit.framework.Assert;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeUtils;
@@ -35,24 +38,6 @@ public class TagDAOTest extends DatabaseTestCase{
 		session.save(leo);
 		session.save(java);
 		session.save(ruby);
-	}
-	
-	@Test
-	public void should_save_if_does_not_exists_on_database() {
-		Tag tag = new Tag("rails", "", null);
-		Tag persistedTag = tags.saveOrLoad(tag);
-		assertEquals(tag, persistedTag);
-	}
-	
-	@Test
-	public void should_load_if_exists_on_database() {
-		String savedTagDescription = "for rails related questions";
-		Tag rails = new Tag("rails", savedTagDescription, null);
-		tags.saveOrLoad(rails);
-		Tag otherRailsTag = new Tag("rails", "", null);
-		Tag persistedTag = tags.saveOrLoad(otherRailsTag);
-		assertEquals(rails, persistedTag);
-		assertEquals(savedTagDescription, persistedTag.getDescription());
 	}
 
 	@Test
@@ -118,6 +103,16 @@ public class TagDAOTest extends DatabaseTestCase{
 		assertEquals(2, mainTags.size());
 		assertEquals(2l, mainTags.get(0).getUsage().longValue());
 		assertEquals(1l, mainTags.get(1).getUsage().longValue());
+	}
+	
+	@Test
+	public void should_load_all_tags_with_the_name_in_the_provided_string() throws Exception {
+		List<Tag> tagsByNames = tags.findAllByNames("java ruby doesntexist");
+		
+		assertEquals(3, tagsByNames.size());
+		assertEquals(java.getId(), tagsByNames.get(0).getId());
+		assertEquals(ruby.getId(), tagsByNames.get(1).getId());
+		assertNull(tagsByNames.get(2));
 	}
 
 	private Question questionWith(List<Tag> tags) {
