@@ -62,7 +62,7 @@ public class UserPersonalInfoValidator {
 	
 		if(!info.getUser().getName().equals(info.getName())){
 			DateTime nameLastTouchedAt = info.getUser().getNameLastTouchedAt();
-			if(nameLastTouchedAt.isAfter(new DateTime().minusDays(30))){
+			if (nameLastTouchedAt != null && nameLastTouchedAt.isAfter(new DateTime().minusDays(30))) {
 				validator.add(new I18nMessage("error", "user.errors.name.min_time",nameLastTouchedAt.plusDays(30).toString()));
 			}
 		}
