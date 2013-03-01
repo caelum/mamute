@@ -34,9 +34,10 @@ public class UserDAOTest extends DatabaseTestCase {
 	public void should_find_by_session_key() {
 	    User guilherme = new User("Guilherme Silveira", "guilherme@caelum.com.br", "654321");
 	    users.save(guilherme);
-	    String key = Digester.encrypt(guilherme.getEmail());
+	    guilherme.setSessionKey();
+	    String sessionKey = guilherme.getSessionKey();
 	    
-	    assertEquals(guilherme, users.findBySessionKey(key));
+	    assertEquals(guilherme, users.findBySessionKey(sessionKey));
 	    assertNull(users.findBySessionKey("12345"));
 	    assertNull(users.findBySessionKey(null));
 	}
