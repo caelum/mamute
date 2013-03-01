@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.validators;
 
+import org.joda.time.DateTime;
+
 import br.com.caelum.brutal.dto.UserPersonalInfo;
 import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.ioc.Component;
@@ -45,15 +47,21 @@ public class UserPersonalInfoValidator {
 		validator.validate(info);
 		
 		if (info.getUser() == null) {
-		    validator.add(new ValidationMessage("error","user.errors.wrong"));
+		    validator.add(new ValidationMessage("user.errors.wrong", "error"));
 		}
 		
 		if(!info.getUser().getName().equals(info.getName())){
 			userNameValidator.validate(info.getName());
 		}
 		
-		if (!info.getUser().getEmail().equals(info.getEmail())){
+		if(!info.getUser().getEmail().equals(info.getEmail())){
 			emailValidator.validate(info.getEmail());
+		}
+		
+		if(info.getUser().getNameLastTouchedAt() != null){
+			if(info.getUser().getNameLastTouchedAt().isAfter(new DateTime().minusDays(30))){
+				validator.add(new ValidationMessage("user.errors.name.min_time", "error"));
+			}
 		}
 		
 		return !validator.hasErrors();

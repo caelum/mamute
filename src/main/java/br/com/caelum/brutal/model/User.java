@@ -113,7 +113,8 @@ public class User implements Identifiable {
 		super();
 		this.email = email;
 		this.realName = name;
-		setName(name);
+		this.name = name;
+		this.sluggedName = toSlug(name);
 		this.password = Digester.encrypt(password);
 	}
 

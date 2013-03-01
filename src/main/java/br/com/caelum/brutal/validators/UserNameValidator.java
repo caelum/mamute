@@ -20,6 +20,7 @@ public class UserNameValidator {
 		if(users.existsWithName(name)){
 			validator.add(new ValidationMessage("user.errors.name.used", "error"));
 		}
+		
 		return !validator.hasErrors();
 	}
 
