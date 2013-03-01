@@ -60,7 +60,6 @@ public class User implements Identifiable {
 	@NotEmpty
 	private String password = "";
 	
-	@Column(unique=true)
 	@NotEmpty(message = NAME_REQUIRED)
 	@Length(min = NAME_MIN_LENGTH, max = NAME_MAX_LENGTH, message = NAME_LENGTH_MESSAGE)
 	private String name;

@@ -34,12 +34,10 @@ public class UserPersonalInfoValidator {
 	
 	private Validator validator;
 	private EmailValidator emailValidator;
-	private UserNameValidator userNameValidator;
 
-	public UserPersonalInfoValidator(Validator validator, EmailValidator emailValidator, UserNameValidator userNameValidator){
+	public UserPersonalInfoValidator(Validator validator, EmailValidator emailValidator){
 		this.validator = validator;
 		this.emailValidator = emailValidator;
-		this.userNameValidator = userNameValidator;
 	}
 	
 	public boolean validate(UserPersonalInfo info) {
@@ -52,10 +50,6 @@ public class UserPersonalInfoValidator {
 		
 		if (info.getUser() == null) {
 		    validator.add(new ValidationMessage("user.errors.wrong", "error"));
-		}
-		
-		if(!info.getUser().getName().equals(info.getName())){
-			userNameValidator.validate(info.getName());
 		}
 		
 		if(!info.getUser().getEmail().equals(info.getEmail())){

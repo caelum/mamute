@@ -10,12 +10,10 @@ public class UserValidator {
 
 	private Validator validator;
 	private EmailValidator emailValidator;
-	private UserNameValidator userNameValidator;
 
-	public UserValidator(Validator validator, EmailValidator emailValidator, UserNameValidator userNameValidator) {
+	public UserValidator(Validator validator, EmailValidator emailValidator) {
 		this.validator = validator;
 		this.emailValidator = emailValidator;
-		this.userNameValidator = userNameValidator;
 	}
 
 	public boolean validate(User user) {
@@ -27,7 +25,6 @@ public class UserValidator {
 	    validator.validate(user);
 	    
 		emailValidator.validate(user.getEmail());
-		userNameValidator.validate(user.getName());
 		
 		return !validator.hasErrors();
 	}

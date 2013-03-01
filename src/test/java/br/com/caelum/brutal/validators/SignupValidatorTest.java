@@ -19,7 +19,6 @@ public class SignupValidatorTest {
     private Validator validator;
     private SignupValidator signupValidator;
 	private UserValidator userValidator;
-	private UserNameValidator userNameValidator;
 	private EmailValidator emailValidator;
     
     @Before
@@ -27,8 +26,7 @@ public class SignupValidatorTest {
         users = mock(UserDAO.class);
         validator = new JSR303MockValidator();
         emailValidator = new EmailValidator(validator, users);
-        userNameValidator = new UserNameValidator(validator, users);
-        userValidator = new UserValidator(validator, emailValidator, userNameValidator);
+        userValidator = new UserValidator(validator, emailValidator);
         signupValidator = new SignupValidator(validator, userValidator);
     }
 
