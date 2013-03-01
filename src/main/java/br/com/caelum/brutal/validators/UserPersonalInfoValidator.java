@@ -5,6 +5,7 @@ import org.joda.time.DateTime;
 import br.com.caelum.brutal.dto.UserPersonalInfo;
 import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.ioc.Component;
+import br.com.caelum.vraptor.validator.I18nMessage;
 import br.com.caelum.vraptor.validator.ValidationMessage;
 
 @Component
@@ -63,7 +64,7 @@ public class UserPersonalInfoValidator {
 		if(!info.getUser().getName().equals(info.getName())){
 			DateTime nameLastTouchedAt = info.getUser().getNameLastTouchedAt();
 			if(nameLastTouchedAt.isAfter(new DateTime().minusDays(30))){
-				validator.add(new ValidationMessage("user.errors.name.min_time", "error", nameLastTouchedAt.plusDays(30).toString()));
+				validator.add(new I18nMessage("error", "user.errors.name.min_time",nameLastTouchedAt.plusDays(30).toString()));
 			}
 		}
 		
