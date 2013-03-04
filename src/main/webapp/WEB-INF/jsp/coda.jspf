@@ -40,12 +40,10 @@ function errorPopup(text, target){
 <script src="<c:url value="/js/form-hints.js"/>"></script>
 <script src="<c:url value="/js/edit-ajax.js"/>"></script>
 <script src="<c:url value="/js/mark-as-solution.js"/>"></script>
-<script type="text/javascript"
-	src="<c:url value="/js/Markdown.Converter.js"/>"></script>
-<script type="text/javascript"
-	src="<c:url value="/js/Markdown.Sanitizer.js"/>"></script>
-<script type="text/javascript"
-	src="<c:url value="/js/Markdown.Editor.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/js/Markdown.Converter.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/js/Markdown.Sanitizer.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/js/Markdown.Editor.js"/>"></script>
+<script src="<c:url value="/js/marked.js"/>"></script>
 <script src="<c:url value="/js/form-markdown.js"/>"></script>
 <script src="<c:url value="/js/up-down-vote.js"/>"></script>
 <script src="<c:url value="/js/links-behaviour.js"/>"></script>

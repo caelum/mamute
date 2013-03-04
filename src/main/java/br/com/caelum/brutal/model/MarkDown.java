@@ -12,13 +12,12 @@ public class MarkDown {
 
 	public synchronized static String parse(String content) {
 		if(content == null || content.isEmpty()) return "";
-		ScriptEngine js = new ScriptEngineManager()
-				.getEngineByName("javascript");
+		ScriptEngine js = new ScriptEngineManager().getEngineByName("javascript");
 		Bindings bindings = js.getBindings(ScriptContext.ENGINE_SCOPE);
 		try {
-			js.eval(new InputStreamReader(MarkDown.class.getResourceAsStream("/Markdown.Converter.js")));
+			js.eval(new InputStreamReader(MarkDown.class.getResourceAsStream("/marked.js")));
 			bindings.put("content", content);
-			Object result = js.eval("new Markdown.Converter().makeHtml(content)");
+			Object result = js.eval("marked(content)");
 			return result.toString();
 		} catch (ScriptException e) {
 			throw new RuntimeException(e);

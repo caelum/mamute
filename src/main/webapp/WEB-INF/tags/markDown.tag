@@ -8,11 +8,11 @@
 <div class="wmd">
 	<div class="wmd-panel">
 		<div id="wmd-button-bar"></div>
-		<textarea class="${htmlClass} hintable wmd-input text-input"  id="wmd-input"
+		<textarea class="${htmlClass} hintable wmd-input text-input" id="wmd-input"
 		data-hint-id="${hintId}" 
 		minlength="${minlength}"
 		maxlength="${maxlength}"
 		name="description">${value}</textarea>
 	</div>
-	<div id="wmd-preview" class="wmd-panel wmd-preview hidden"></div>
+	<div class="md-panel md-preview hidden"></div>
 </div>

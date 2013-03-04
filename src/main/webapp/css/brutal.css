@@ -150,6 +150,13 @@ a {
 }
 
 /*Markdown*/
+
+.md-preview {
+	border:2px dotted #CCC;
+	padding:3px;
+	color:#000;
+}
+
 pre {
 	font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono,
 		DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace,
@@ -177,6 +184,10 @@ p {
 
 strong, b{
 	font-weight:bold;
+}
+
+em{
+	font-style: italic;
 }
 /* Ellipsis */
 .ellipsis {

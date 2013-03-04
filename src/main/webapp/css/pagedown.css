@@ -21,12 +21,6 @@
 	border: 1px solid DarkGray;
 }
 
-.wmd-preview {
-	border:2px dotted #CCC;
-	padding:3px;
-	color:#000;
-}
-
 .wmd-button-row {
 	position: relative;
 	margin-left: 5px;
