@@ -63,11 +63,7 @@ public abstract class AcceptanceTestBase implements ServerInfo.AcceptanceTest {
 
 	@BeforeClass
 	public static void getDriver() {
-		if ("firefox".equals(System.getProperty("vraptor.browser"))) {
-			driver = new FirefoxDriver();
-		} else {
-			driver = htmlUnitDriver();
-		}
+	    driver = new FirefoxDriver();
 		waitForFirstBodyPresence();
 	}
 	

@@ -2,6 +2,7 @@ package br.com.caelum.brutal.integration.pages;
 
 import static java.util.Arrays.asList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -94,5 +95,24 @@ public class QuestionPage extends PageObject{
 	private WebElement firstAnswer() {
 		return byClassName("answer");
 	}
+
+    public QuestionPage commentQuestion(String comment) {
+        WebElement addCommentLink = byCSS(".question-area .requires-login.post-action");
+        addCommentLink.click();
+        waitForElement(By.id("comment"), 2);
+        byId("comment").sendKeys(comment);
+        byCSS(".question-area .edit-via-ajax form .comment-submit").click();
+        
+        return this;
+    }
+
+    public List<String> questionComments() {
+        List<String> comments = new ArrayList<>();
+        List<WebElement> commentsElements = allByCSS(".comment-container .comment");
+        for (WebElement e : commentsElements) {
+            comments.add(e.getText());
+        }
+        return comments;
+    }
 	
 }
