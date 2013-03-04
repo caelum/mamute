@@ -21,7 +21,7 @@
 	<span>
 		<form action="<c:url value="/${item.typeName}/${item.id}/comment"/>" class="validated-form ajax hinted-form" data-ajax-result="${ajaxResultName}" data-ajax-on-callback="append">
 			<label for="comment"><fmt:message key="comment.label" /></label>
-			<textarea id="comment" class="required to-focus hintable" minlength="15" name="message" data-hint-id="${ajaxResultName}-hint"></textarea>
+			<textarea id="comment" class="text-input required to-focus hintable" minlength="15" name="message" data-hint-id="${ajaxResultName}-hint"></textarea>
 			<input type="submit" class="post-submit comment-submit" value="<fmt:message key="comment.submit"/>" />
 		</form>
 		<div class="form-hints">
