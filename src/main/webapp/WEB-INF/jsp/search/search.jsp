@@ -5,7 +5,7 @@
 	google.load("search", "1");
 	var query = "${query}";
 	function googleLoad() {
-		var customSearchControl = new google.search.CustomSearchControl("017438064098731207402:hq3ygwemflm");
+		var customSearchControl = new google.search.CustomSearchControl("015657611711082820003:davabg980gk");
 		customSearchControl.draw('search-results'); 
 		customSearchControl.execute(query);
 	}
