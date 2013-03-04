@@ -378,41 +378,20 @@ textarea {
 	margin-bottom: 20px;
 }
 
-.first-header, .search-form {
-	line-height: 31px;
-}
-
 .first-header {
+	line-height: 31px;
 	margin-bottom: 50px;
 	background-color: #EEE;
 	padding: .15em;
 }
 
 .user-area {
-	float: right;
 	overflow: hidden;
+	float: right;
 }
 
-.search-form,.user-area .nav {
-	float: left;
-}
-
-.search-form input{
+.user-area .nav{
 	float:left;
-	margin:0;
-}
-
-
-.search-form .text-input {
-	border: none;
-	border-top: 1px solid #ccc;
-	border-left: 1px solid #ccc;
-	width:100%;
-}
-
-.search-form input[type="submit"] {
-	display: none;
-	width:30%;
 }
 
 .dropdown-search-form  .text-input{
@@ -421,6 +400,40 @@ textarea {
 
 .search-dropdown{
 	display:none;
+}
+
+/* Google Search */
+.google-search{
+	width:170px;
+	float:left;
+	line-height:25px;
+	height:25px;
+}
+
+.google-search .gsc-search-box-tools .gsc-search-box .gsc-input{
+	padding:0
+}
+
+.google-search #___gcse_0{
+	line-height:25px;
+	height:25px;
+}
+
+.google-search .gsc-control-cse{
+	background-color:transparent;
+	border:none;
+	padding:0;
+}
+
+.google-search .gsib_a{
+	padding:0;
+}
+
+.google-search .gsc-search-button,
+.google-search .gsc-search-button-v2{
+	display:none;
+	width:30%;
+	
 }
 
 /*Dropdown*/

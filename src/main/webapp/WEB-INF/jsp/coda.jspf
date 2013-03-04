@@ -69,6 +69,17 @@ function errorPopup(text, target){
 	})();
 	</script>
 </c:if>
+<script>
+(function() {
+  var cx = '015657611711082820003:davabg980gk';
+  var gcse = document.createElement('script'); gcse.type = 'text/javascript';
+  gcse.async = true;
+  gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+      '//www.google.com.br/cse/cse.js?cx=' + cx;
+  var s = document.getElementsByTagName('script')[0];
+  s.parentNode.insertBefore(gcse, s);
+})();
+</script>
 
 </body>
 </html>

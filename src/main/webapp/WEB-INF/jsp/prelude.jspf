@@ -46,17 +46,15 @@
 						</li>
 					</ul>
 				</nav>
-				<form class="search-form" action="<c:url value='/search' />" method="get">
-					<input class="text-input" name="query" placeholder="search" type="text"/>
-					<input type="submit"/>
-				</form>
+				<div class="google-search">
+					<gcse:search/>
+				</div>
 			</section>
 		</div>
 		<div class="container dropdown-target" id="dropdown-search-form">
-			<form class="dropdown-search-form search-form" action="<c:url value='/search' />" method="get">
-				<input class="text-input" name="query" placeholder="search" type="text"/>
-				<input type="submit"/>
-			</form>
+			<div class="dropdown-search-form google-search">
+				<gcse:search/>
+			</div>
 		</div>
 	</section>
 	<section class="second-header">
