@@ -17,11 +17,24 @@ public class NewQuestionPage extends PageObject {
 	}
 	
 	public QuestionPage newQuestion(String title, String description, String tags){
-		newQuestionForm.findElement(By.name("title")).sendKeys(title);
-		newQuestionForm.findElement(By.name("description")).sendKeys(description);
+		typeTitle(title);
+		typeDescription(description);
 		typeTags(tags);
 		newQuestionForm.submit();
 		return new QuestionPage(driver);
+	}
+	
+	public NewQuestionPage typeDescription(String description) {
+	    return type("description", description);
+	}
+	
+	public NewQuestionPage typeTitle(String title) {
+	    return type("title", title);
+	}
+	
+	private NewQuestionPage type(String fieldName, String content) {
+	    newQuestionForm.findElement(By.name(fieldName)).sendKeys(content);
+	    return this;
 	}
 
 	public NewQuestionPage typeTags(String tags) {
@@ -57,4 +70,16 @@ public class NewQuestionPage extends PageObject {
 	public boolean hasTag(String tag) {
 		return byName("tagNames").getAttribute("value").contains(tag);
 	}
+
+    public boolean descriptionHintIsVisible() {
+        String display = byId("question-description-hint").getCssValue("display");
+        return !display.equals("none");
+    }
+    
+    public boolean titleHintIsVisible() {
+        System.out.println("asdasdads");
+        String display = byId("question-title-hint").getCssValue("display");
+        
+        return !display.equals("none");
+    }
 }
