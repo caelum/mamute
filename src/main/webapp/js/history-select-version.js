@@ -5,3 +5,10 @@ $(".history-select-version").change(function(event) {
 	$(".history-diff").addClass("hidden");
 	$(".history-diff").eq(selected).removeClass("hidden");
 });
+
+$(".toggle-original").click(function(){
+	$(this).siblings('.post-text').first().toggleClass("hidden");
+	$(this).siblings('.history-diff').toggleClass("hidden");
+	$(this).siblings(".toggle-original").toggleClass("hidden");
+	$(this).toggleClass("hidden");
+});

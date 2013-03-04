@@ -608,6 +608,15 @@ textarea {
 	margin-bottom:2%;
 }
 
+.toggle-original {
+	cursor: pointer;
+}
+
+.toggle-original:not(.hidden) {
+	display: block;
+	margin: 4% 0;
+}
+
 .history-diff ins {
 	background-color: #dfd;
 	text-decoration: none;

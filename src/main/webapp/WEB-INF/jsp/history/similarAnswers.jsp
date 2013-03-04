@@ -15,6 +15,9 @@
 		
 		<c:forEach items="${histories}" var="information" varStatus="status">
 			<tags:historyForm index="${status.index}" information="${information}">
+				<a href="#" class="toggle-original">Ver formatação original</a>
+				<a href="#" class="toggle-original hidden">Ver diff</a>
+				
 				<div class="post-text hidden">${information.markedDescription}</div>
 				<div class="history-diff post-text">
 				</div>
