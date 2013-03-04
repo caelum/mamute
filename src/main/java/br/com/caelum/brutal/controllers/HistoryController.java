@@ -45,24 +45,23 @@ public class HistoryController {
 	@ModeratorAccess
 	@Get("/history/{moderatableType}")
 	public void unmoderated(String moderatableType) {
-			Class<?> clazz = null; 
 		try {
-			clazz = Class.forName(MODEL_PACKAGE + moderatableType);
+			Class<?> clazz = Class.forName(MODEL_PACKAGE + moderatableType);
+			UpdatablesAndPendingHistory pending = informations.pendingByUpdatables(clazz);
+			
+			result.include("pending", pending);
+			result.include("type", moderatableType);
 		} catch (ClassNotFoundException e) {
 			result.notFound();
 			return;
 		}
-		UpdatablesAndPendingHistory pending= informations.pendingByUpdatables(clazz);
-		
-		result.include("pending", pending);
-		result.include("type", moderatableType);
 	}
 
 	@ModeratorAccess
 	@Get("/questions/history/{questionId}/similar")
 	public void similarQuestions(Long questionId) {
 		result.include("histories", informations.pendingFor(questionId, Question.class));
-		result.include("question", questions.getById(questionId));
+		result.include("question", moderatables.getById(questionId, Question.class));
 	}
 	
 	@ModeratorAccess
@@ -75,31 +74,28 @@ public class HistoryController {
     @ModeratorAccess
     @Post("/publish/{moderatableType}")
     public void publish(Long moderatableId, String moderatableType, Long aprovedInformationId,  String aprovedInformationType) {
-        Class<?> moderatableClass = null;
-        Class<?> aprovedInformationClass = null;
         try {
-            moderatableClass = Class.forName(MODEL_PACKAGE + moderatableType);
-            aprovedInformationClass = Class.forName(MODEL_PACKAGE + aprovedInformationType);
+        	Class<?> moderatableClass = Class.forName(MODEL_PACKAGE + moderatableType);
+        	Class<?> aprovedInformationClass = Class.forName(MODEL_PACKAGE + aprovedInformationType);
+            Information approved = informations.getById(aprovedInformationId, aprovedInformationClass);
+            Moderatable moderatable = moderatables.getById(moderatableId, moderatableClass);
+            List<Information> pending = informations.pendingFor(moderatableId, moderatableClass);
+            
+            if (!approved.isPending()) {
+            	result.use(http()).sendError(403);
+            	return;
+            }
+            
+            refusePending(aprovedInformationId, pending);
+            currentUser.approve(moderatable, approved);
+            int karma = calculator.karmaForApprovedInformation(approved);
+            approved.getAuthor().increaseKarma(karma);
+            
+            result.redirectTo(this).unmoderated(moderatableType);
         } catch (ClassNotFoundException e) {
             result.notFound();
-            return;
         }
     	
-    	Information approved = informations.getById(aprovedInformationId, aprovedInformationClass);
-    	Moderatable moderatable = moderatables.getById(moderatableId, moderatableClass);
-    	List<Information> pending = informations.pendingFor(moderatableId, moderatableClass);
-    	
-    	if (!approved.isPending()) {
-    	    result.use(http()).sendError(403);
-    	    return;
-    	}
-    	
-    	refusePending(aprovedInformationId, pending);
-    	currentUser.approve(moderatable, approved);
-    	int karma = calculator.karmaForApprovedInformation(approved);
-    	approved.getAuthor().increaseKarma(karma);
-    	
-    	result.redirectTo(this).unmoderated(moderatableType);
     }
 
     private void refusePending(Long aprovedHistoryId, List<Information> pending) {
