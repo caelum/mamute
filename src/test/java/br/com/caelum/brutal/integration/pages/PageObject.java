@@ -12,19 +12,20 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class PageObject {
 
-	protected final WebDriver driver;
+	private static final int WAIT_TIME = 10;
+    protected final WebDriver driver;
 
 	public PageObject(WebDriver driver) {
 		this.driver = driver;
 	}
 	
 	protected WebElement byId(String id) {
-	    waitForElement(By.id(id), 5);
+	    waitForElement(By.id(id), WAIT_TIME);
 		return driver.findElement(By.id(id));
 	}
 
 	protected WebElement byName(String name) {
-	    waitForElement(By.name(name), 5);
+	    waitForElement(By.name(name), WAIT_TIME);
 		return driver.findElement(By.name(name));
 	}
 
@@ -34,6 +35,7 @@ public abstract class PageObject {
 	
 	protected WebElement byClassName(String name) {
 	    try {
+	        waitForElement(By.className(name), WAIT_TIME);
 	        return driver.findElement(By.className(name));
 	    } catch (NoSuchElementException e) {
 	        throw new NoSuchElementException("could not find element by class: " + name);
@@ -54,7 +56,7 @@ public abstract class PageObject {
 	}
 	
 	protected void waitForElement(final By by, int time) {
-		new WebDriverWait(driver, time).until(ExpectedConditions.visibilityOfElementLocated(by));
+		new WebDriverWait(driver, time).until(ExpectedConditions.presenceOfElementLocated(by));
 	}
 	
 	protected void waitForTextInElement(final By by, String text, int time) {
