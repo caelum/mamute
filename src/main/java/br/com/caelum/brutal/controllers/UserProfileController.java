@@ -11,7 +11,6 @@ import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.dto.UserPersonalInfo;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.User;
-import br.com.caelum.brutal.util.S3FileProvider;
 import br.com.caelum.brutal.validators.UserPersonalInfoValidator;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
@@ -27,13 +26,11 @@ public class UserProfileController {
 	private final QuestionDAO questions;
 	private final AnswerDAO answers;
 	private UserPersonalInfoValidator infoValidator;
-    private final S3FileProvider fileProvider;
-	private final TagDAO tags;
+    private final TagDAO tags;
 	
-	public UserProfileController(Result result, UserDAO users,
-			LoggedUser currentUser, QuestionDAO questions,
-			AnswerDAO answers, TagDAO tags,
-			UserPersonalInfoValidator infoValidator, S3FileProvider fileProvider) {
+    public UserProfileController(Result result, UserDAO users, LoggedUser currentUser,
+            QuestionDAO questions, AnswerDAO answers, TagDAO tags,
+            UserPersonalInfoValidator infoValidator) {
 		this.result = result;
 		this.users = users;
 		this.currentUser = currentUser;
@@ -41,7 +38,6 @@ public class UserProfileController {
 		this.questions = questions;
 		this.tags = tags;
 		this.infoValidator = infoValidator;
-        this.fileProvider = fileProvider;
 	}
 	
 	@Get("/users/{id}/{sluggedName}")
