@@ -144,6 +144,17 @@
 		width:180px
 	}
 	
+	/*Moderation tabs*/
+	.tabs a {
+		padding: 5px 11px 10px 11px;
+	}
+	.tabs a:hover {
+		padding: 5px 10px 10px 10px;
+	}
+	.tabs a.selected {
+		padding: 12px 9px 10px 9px;
+	}
+	
 }
 
 @media only screen and (max-width: 550px) {
