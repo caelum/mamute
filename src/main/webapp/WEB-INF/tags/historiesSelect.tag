@@ -10,7 +10,7 @@
 	<c:forEach items="${histories}" var="information" varStatus="status">
 		<option ${status.index == 0 ? 'selected' : '' } value="${status.index}">
 			${information.author.name} às
-			<tags:jodaTime pattern="DD-MM-YYYY HH:mm"
+			<tags:jodaTime pattern="dd-MM-YYYY HH:mm"
 				time="${information.createdAt}"></tags:jodaTime>
 		</option>
 	</c:forEach>
