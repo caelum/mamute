@@ -12,6 +12,7 @@ public class CreateQuetionTest extends AuthenticatedAcceptanceTest {
 
 	@Before
 	public void setup(){
+	    logout();
 		login();
 	}
 

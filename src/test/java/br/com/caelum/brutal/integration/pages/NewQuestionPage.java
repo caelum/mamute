@@ -77,9 +77,7 @@ public class NewQuestionPage extends PageObject {
     }
     
     public boolean titleHintIsVisible() {
-        System.out.println("asdasdads");
         String display = byId("question-title-hint").getCssValue("display");
-        
         return !display.equals("none");
     }
 }
