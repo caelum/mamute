@@ -19,10 +19,12 @@ public abstract class PageObject {
 	}
 	
 	protected WebElement byId(String id) {
+	    waitForElement(By.id(id), 5);
 		return driver.findElement(By.id(id));
 	}
 
 	protected WebElement byName(String name) {
+	    waitForElement(By.name(name), 5);
 		return driver.findElement(By.name(name));
 	}
 
@@ -40,6 +42,7 @@ public abstract class PageObject {
 	
 	protected WebElement byCSS(String selector) {
 	    try {
+	        waitForElement(By.cssSelector(selector), 1);
 	        return driver.findElement(By.cssSelector(selector));
 	    } catch (NoSuchElementException e) {
 	        throw new NoSuchElementException("could not find element for selector: " + selector);
