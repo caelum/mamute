@@ -608,6 +608,16 @@ textarea {
 	margin-bottom:2%;
 }
 
+.history-diff ins {
+	background-color: #dfd;
+	text-decoration: none;
+}
+
+.history-diff del {
+	background-color: #fdd;
+	text-decoration: line-through;
+}
+
 /*TAG*/
 .tags{
 	overflow:hidden;

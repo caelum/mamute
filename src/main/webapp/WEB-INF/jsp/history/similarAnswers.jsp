@@ -15,8 +15,8 @@
 		
 		<c:forEach items="${histories}" var="information" varStatus="status">
 			<tags:historyForm index="${status.index}" information="${information}">
-				<div class="post-text">${information.markedDescription}</div>
-				<div class="history-diff">
+				<div class="post-text hidden">${information.markedDescription}</div>
+				<div class="history-diff post-text">
 				</div>
 			</tags:historyForm>
 		</c:forEach>
