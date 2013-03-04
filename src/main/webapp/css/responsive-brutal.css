@@ -69,13 +69,12 @@
 	}
 	
 	/*Header*/
-	.big-logo, .google-search{
+	.big-logo, .search-form{
 		display: none;
 	}
 	
 	.dropdown-search-form,
-	.dropdown-search-form .gsc-search-button-v2,
-	.dropdown-search-form .gsc-search-button,
+	.dropdown-search-form input[type="submit"],
 	.search-dropdown{
 		display:block;
 	}
