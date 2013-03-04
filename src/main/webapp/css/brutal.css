@@ -902,20 +902,13 @@ textarea {
 	display: none;
 }
 
-.pending-questions a {
-	font-size: 1.4em;
-}
-
 .pending-questions .pending {
 	border-bottom: 1px solid #eaeaea;
+	overflow: hidden;
 }
 
 .pending {
 	padding: 0.8em 0;
-}
-
-.pending ul {
-	padding-top: 0.4em;
 }
 
 /*Footer*/

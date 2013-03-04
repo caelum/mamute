@@ -9,19 +9,24 @@
 	<c:forEach var="entry" items="${pending.entrySet}">
 		<li class="pending">
 			<c:if test="${type eq 'Question'}">
-				<a href="${linkTo[HistoryController].similarQuestions[entry.key.id]}">${entry.key.title}</a>
+				<h3 class="title item-title">
+					<a href="${linkTo[HistoryController].similarQuestions[entry.key.id]}">${entry.key.title}</a>
+				</h3>
+				<tags:tagsFor taggable="${entry.key}"></tags:tagsFor>
 			</c:if>
 			<c:if test="${type eq 'Answer'}">
-				<a href="${linkTo[HistoryController].similarAnswers[entry.key.id]}">${entry.key.question.title}</a>
+				<h3 class="title item-title">
+					<a href="${linkTo[HistoryController].similarAnswers[entry.key.id]}">${entry.key.question.title}</a>
+				</h3>
+				<tags:tagsFor taggable="${entry.key.question}"></tags:tagsFor>
 			</c:if>
-			<ul>
+			
+			<div class="stats">
 				<c:forEach var="information" items="${entry.value}">
-					<li>
-						<tags:jodaTime pattern="DD-MM-YYYY HH:mm" time="${information.createdAt}"></tags:jodaTime>
-						 - by ${information.author}
-					</li>
+						<span class="last-updated-at"><tags:prettyTime time="${information.createdAt}" /></span>
+						<tags:userProfileLink user="${information.author}"></tags:userProfileLink> 
 				</c:forEach>
-			</ul>
+			</div>
 		</li>
 	</c:forEach>
 </ul>
