@@ -15,7 +15,7 @@ public class MarkDownTest {
 	@Test
 	public void should_suport_three_backticks() {
 		String result = MarkDown.parse("```\npublic void main(String[] args)\n```");
-		assertEquals("<pre><code>public void main(String[] args)</code></pre>\n", result);
+		assertEquals("<pre class=\"prettyprint\"><code>public void main(String[] args)</code></pre>\n", result);
 	}
 
 }
