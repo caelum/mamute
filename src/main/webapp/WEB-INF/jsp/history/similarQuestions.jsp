@@ -12,4 +12,6 @@
 			</tags:historyForm>
 		</c:forEach>
 	</div>
+	<div class="history-diff">
+	</div>
 </div>
