@@ -1,10 +1,12 @@
 package br.com.caelum.brutal.validators;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 
 import br.com.caelum.brutal.dto.UserPersonalInfo;
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.core.Localization;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
@@ -35,11 +37,13 @@ public class UserPersonalInfoValidator {
 	private Validator validator;
 	private EmailValidator emailValidator;
 	private MessageFactory messageFactory;
+	private Localization localization;
 
-	public UserPersonalInfoValidator(Validator validator, EmailValidator emailValidator, MessageFactory messageFactory){
+	public UserPersonalInfoValidator(Validator validator, EmailValidator emailValidator, MessageFactory messageFactory, Localization localization){
 		this.validator = validator;
 		this.emailValidator = emailValidator;
 		this.messageFactory = messageFactory;
+		this.localization = localization;
 	}
 	
 	public boolean validate(UserPersonalInfo info) {
@@ -65,7 +69,11 @@ public class UserPersonalInfoValidator {
 		if(!info.getUser().getName().equals(info.getName())){
 			DateTime nameLastTouchedAt = info.getUser().getNameLastTouchedAt();
 			if (nameLastTouchedAt != null && nameLastTouchedAt.isAfter(new DateTime().minusDays(30))) {
-				validator.add(messageFactory.build("error", "user.errors.name.min_time",nameLastTouchedAt.plusDays(30).toString()));
+				validator.add(messageFactory.build(
+						"error", 
+						"user.errors.name.min_time", 
+						nameLastTouchedAt.plusDays(30).toString(DateTimeFormat.forPattern(localization.getMessage("date.joda.simple.pattern")))
+				));
 			}
 		}
 		
