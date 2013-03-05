@@ -59,6 +59,7 @@ public class SessionFactoryCreator implements ComponentFactory<SessionFactory> {
 		cfg.addAnnotatedClass(Vote.class);
 		cfg.addAnnotatedClass(Comment.class);
 		cfg.addAnnotatedClass(QuestionInformation.class);
+		cfg.addAnnotatedClass(br.com.caelum.brutal.model.Flag.class);
 
 		init();
 	}
