@@ -434,7 +434,7 @@ textarea {
 }
 
 .main-nav .nav-items {
-	margin-top: 35px;
+	margin-top: 17px;
 	width: 100%;
 	float:right;
 }
@@ -563,6 +563,9 @@ textarea {
 	color: #999;
 }
 
+.tags-usage .tags-item{
+	margin-bottom: .3em;
+}
 /*MODERACAO*/
 .tabs {
 	float: right;
@@ -641,7 +644,7 @@ textarea {
 }
 
 .tags-item{
-	padding: .2em .3em;
+	margin-right:.3em;
 }
 
 .tag {
