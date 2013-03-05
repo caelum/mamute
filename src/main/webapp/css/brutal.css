@@ -1096,3 +1096,20 @@ textarea {
 	background-color: #808185;
 	color: #FFF;
 }
+
+/*404*/
+.not-found {
+	font-size: 1.1em;
+	line-height: 17px;
+	color: #000;
+	margin-bottom: 1.5em;
+}
+
+.not-found a {
+	font-size: 1em;
+}
+
+.not-found li{
+	list-style-type: disc;
+	margin: 0 0 1em 1.3em; 
+}
