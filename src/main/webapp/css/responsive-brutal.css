@@ -20,6 +20,19 @@
 }
 	
 @media only screen and (max-width: 800px) {
+
+	body, a{
+		font-size:11.5px;
+	}
+	
+	.button{
+		padding: 0 .7em;
+	}
+	
+	.main-nav .nav-item{
+		padding-right:.6em;
+	}
+	
 	.info.views{
 		display:none;
 	}
@@ -58,6 +71,10 @@
 		display:inline;
 	}
 	
+	.info{
+		padding: .15em 0;
+	}
+
 	/*Tag list*/
 	.complete-tag{
 		font-size:1.2em;

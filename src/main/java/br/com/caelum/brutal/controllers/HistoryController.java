@@ -7,7 +7,6 @@ import java.util.List;
 import br.com.caelum.brutal.auth.ModeratorAccess;
 import br.com.caelum.brutal.dao.InformationDAO;
 import br.com.caelum.brutal.dao.ModeratableDao;
-import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.Information;
 import br.com.caelum.brutal.model.KarmaCalculator;
@@ -26,16 +25,14 @@ public class HistoryController {
 
 	private static final String MODEL_PACKAGE = "br.com.caelum.brutal.model.";
 	private final Result result;
-    private final QuestionDAO questions;
     private final User currentUser;
     private final InformationDAO informations;
 	private final ModeratableDao moderatables;
     private final KarmaCalculator calculator;
 
-	public HistoryController(Result result, QuestionDAO questions, User currentUser,
+	public HistoryController(Result result, User currentUser,
 			InformationDAO informations, ModeratableDao moderatables, KarmaCalculator calculator) {
 		this.result = result;
-        this.questions = questions;
         this.currentUser = currentUser;
         this.informations = informations;
 		this.moderatables = moderatables;
@@ -58,14 +55,14 @@ public class HistoryController {
 	}
 
 	@ModeratorAccess
-	@Get("/questions/history/{questionId}/similar")
+	@Get("/history/question/{questionId}/similar")
 	public void similarQuestions(Long questionId) {
 		result.include("histories", informations.pendingFor(questionId, Question.class));
 		result.include("question", moderatables.getById(questionId, Question.class));
 	}
 	
 	@ModeratorAccess
-	@Get("/answers/history/{answerId}/similar")
+	@Get("/history/answer/{answerId}/similar")
 	public void similarAnswers(Long answerId) {
 	    result.include("histories", informations.pendingFor(answerId, Answer.class));
 		result.include("answer", moderatables.getById(answerId, Answer.class));

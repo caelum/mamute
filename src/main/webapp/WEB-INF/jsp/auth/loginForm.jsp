@@ -1,4 +1,4 @@
-<h2 class="title page-title">Login</h2>
+<h2 class="title page-title subheader">Login</h2>
 
 <section class="first-content">
 	<tags:loginForm redirectUrl="${redirectUrl}"/>
