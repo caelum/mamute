@@ -17,6 +17,7 @@ import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.core.Localization;
+import br.com.caelum.vraptor.validator.I18nMessage;
 import br.com.caelum.vraptor.view.Results;
 
 @Resource
@@ -53,7 +54,9 @@ public class AnswerController {
 		UpdateStatus status = original.updateWith(information);
 		answers.save(original);
 
-		result.include("confirmations", Arrays.asList(status.getMessage()));
+		result.include("messages", Arrays.asList(
+				new I18nMessage("confirmation", status.getMessage())
+				));
 		Question originalQuestion = original.getQuestion();
 		result.redirectTo(QuestionController.class).showQuestion(originalQuestion.getId(), originalQuestion.getSluggedTitle());
 	}

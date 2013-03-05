@@ -7,6 +7,7 @@ import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.validator.I18nMessage;
 
 @Resource
 public class AuthController {
@@ -27,7 +28,7 @@ public class AuthController {
 		if (auth.authenticate(email, password)) {
 			redirectToRightUrl(redirectUrl);
 		} else {
-			result.include("alerts", Arrays.asList("auth.invalid.login"));
+			result.include("messages", Arrays.asList(new I18nMessage("alert", "auth.invalid.login")));
 			result.include("redirectUrl", redirectUrl);
 			result.redirectTo(this).loginForm();
 		}

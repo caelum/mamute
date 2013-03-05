@@ -88,7 +88,9 @@ public class ForgotPasswordController {
 		
 		user.touchForgotPasswordToken();
 		users.save(user);
-		result.include("confirmations", Arrays.asList("forgot_password.password_changed"));
+		result.include("messages", Arrays.asList(
+				new I18nMessage("confirmation", "forgot_password.password_changed")
+				));
 		result.redirectTo(ListController.class).home();
 	}
 	

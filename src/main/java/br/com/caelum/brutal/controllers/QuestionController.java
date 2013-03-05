@@ -19,6 +19,7 @@ import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.validator.I18nMessage;
 
 @Resource
 public class QuestionController {
@@ -59,7 +60,9 @@ public class QuestionController {
 			Question original = questions.getById(id);
 			UpdateStatus status = original.updateWith(information);
 			questions.save(original);
-			result.include("confirmations", Arrays.asList(status.getMessage()));
+			result.include("messages", Arrays.asList(
+					new I18nMessage("confirmation",status.getMessage())
+					));
 			result.redirectTo(this).showQuestion(id, original.getSluggedTitle());
 		}
 		tagsValidator.onErrorRedirectTo(this).questionEditForm(id);

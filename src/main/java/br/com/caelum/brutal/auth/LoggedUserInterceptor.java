@@ -12,6 +12,7 @@ import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.core.InterceptorStack;
 import br.com.caelum.vraptor.interceptor.Interceptor;
 import br.com.caelum.vraptor.resource.ResourceMethod;
+import br.com.caelum.vraptor.validator.I18nMessage;
 
 @Intercepts
 public class LoggedUserInterceptor implements Interceptor {
@@ -35,7 +36,9 @@ public class LoggedUserInterceptor implements Interceptor {
     public void intercept(InterceptorStack stack, ResourceMethod method, Object instance)
             throws InterceptionException {
         if (currentUser == null) {
-            result.include("alerts", Arrays.asList("auth.access.denied"));
+            result.include("messages", Arrays.asList(
+            		new I18nMessage("alert","auth.access.denied")
+            		));
             result.include("redirectUrl", req.getRequestURL().toString());
             result.redirectTo(AuthController.class).loginForm();
         } else {

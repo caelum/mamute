@@ -9,6 +9,7 @@ import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.validator.I18nMessage;
 
 @Resource
 public class SignupController {
@@ -36,7 +37,7 @@ public class SignupController {
 		
 		if (valid) {
 		    dao.save(newUser);
-		    result.include("confirmations", Arrays.asList("signup.confirmation"));
+		    result.include("messages", Arrays.asList(new I18nMessage("confirmation", "signup.confirmation")));
 		    result.forwardTo(AuthController.class).login(email, password, "");
 		} else {
 		    result.include("email", email);

@@ -75,6 +75,7 @@
 </header>
 
 <div class="container">
-	<tags:messages type="alert" messages="${alerts}" />
-	<tags:messages type="confirmation" messages="${confirmations}" />
-	<tags:errorMessages errors="${errors}" />
+	<tags:messages messages="${alerts}" />
+	<tags:messages messages="${confirmations}" />
+	<tags:messages messages="${otherMessages}" />
+	<tags:messages messages="${errors}" />
