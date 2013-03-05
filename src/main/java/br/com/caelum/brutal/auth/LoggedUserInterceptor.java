@@ -5,6 +5,7 @@ import java.util.Arrays;
 import javax.servlet.http.HttpServletRequest;
 
 import br.com.caelum.brutal.controllers.AuthController;
+import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
@@ -12,7 +13,6 @@ import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.core.InterceptorStack;
 import br.com.caelum.vraptor.interceptor.Interceptor;
 import br.com.caelum.vraptor.resource.ResourceMethod;
-import br.com.caelum.vraptor.validator.I18nMessage;
 
 @Intercepts
 public class LoggedUserInterceptor implements Interceptor {
@@ -20,11 +20,13 @@ public class LoggedUserInterceptor implements Interceptor {
     private final User currentUser;
     private final Result result;
 	private final HttpServletRequest req;
+	private MessageFactory messageFactory;
     
-    public LoggedUserInterceptor(User currentUser, Result result, HttpServletRequest req) {
+    public LoggedUserInterceptor(User currentUser, Result result, HttpServletRequest req, MessageFactory messageFactory) {
         this.currentUser = currentUser;
         this.result = result;
 		this.req = req;
+		this.messageFactory = messageFactory;
     }
 
     @Override
@@ -37,7 +39,7 @@ public class LoggedUserInterceptor implements Interceptor {
             throws InterceptionException {
         if (currentUser == null) {
             result.include("messages", Arrays.asList(
-            		new I18nMessage("alert","auth.access.denied")
+            		messageFactory.build("alert","auth.access.denied")
             		));
             result.include("redirectUrl", req.getRequestURL().toString());
             result.redirectTo(AuthController.class).loginForm();

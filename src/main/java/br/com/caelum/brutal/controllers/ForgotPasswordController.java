@@ -6,6 +6,7 @@ import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
 
 import br.com.caelum.brutal.dao.UserDAO;
+import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.vraptor.DefaultLinker;
 import br.com.caelum.vraptor.Get;
@@ -16,7 +17,6 @@ import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.core.Localization;
 import br.com.caelum.vraptor.simplemail.Mailer;
 import br.com.caelum.vraptor.simplemail.template.TemplateMailer;
-import br.com.caelum.vraptor.validator.I18nMessage;
 
 @Resource
 public class ForgotPasswordController {
@@ -26,10 +26,11 @@ public class ForgotPasswordController {
 	private final Result result;
 	private final UserDAO users;
 	private final DefaultLinker linker;
-	private Validator validator;
-	private Localization localization;
+	private final Validator validator;
+	private final Localization localization;
+	private final MessageFactory messageFactory;
 
-	public ForgotPasswordController(Mailer mailer, TemplateMailer templates, Result result, UserDAO users, DefaultLinker linker, Validator validator, Localization localization) {
+	public ForgotPasswordController(Mailer mailer, TemplateMailer templates, Result result, UserDAO users, DefaultLinker linker, Validator validator, Localization localization, MessageFactory messageFactory) {
 		this.mailer = mailer;
 		this.templates = templates;
 		this.result = result;
@@ -37,14 +38,11 @@ public class ForgotPasswordController {
 		this.linker = linker;
 		this.validator = validator;
 		this.localization = localization;
+		this.messageFactory = messageFactory;
 	}
 
 	@Get("/forgotpassword")
 	public void forgotPasswordForm() {
-	}
-	
-	@Get("/sentmail")
-	public void sentMail() {
 	}
 
 	@Post("/forgotpassword")
@@ -52,7 +50,7 @@ public class ForgotPasswordController {
 		User user = users.loadByEmail(email);
 
 		if (user == null) {
-			validator.add(new I18nMessage("error", "forgot_password.invalid_email"));
+			validator.add(messageFactory.build("error", "forgot_password.invalid_email"));
 			validator.onErrorRedirectTo(this).forgotPasswordForm();
 			return;
 		}
@@ -60,10 +58,13 @@ public class ForgotPasswordController {
 		Email forgotPasswordEmail = emailWithTokenFor(user);
 		try {
 			mailer.send(forgotPasswordEmail);
-			result.include("user", user);
-			result.redirectTo(this).sentMail();
+			result.include("messages", Arrays.asList(
+						messageFactory.build("confirmation", "forgot_password.sent_mail", user.getEmail()),
+						messageFactory.build("confirmation", "forgot_password.sent_mail.warn")
+					));
+			result.redirectTo(this).forgotPasswordForm();
 		} catch (EmailException e) {
-			validator.add(new I18nMessage("error", "forgot_password.send_mail.error"));
+			validator.add(messageFactory.build("error", "forgot_password.send_mail.error"));
 			validator.onErrorRedirectTo(this).forgotPasswordForm();
 		}	
 	}
@@ -82,14 +83,14 @@ public class ForgotPasswordController {
 
 		boolean passwordUpdated = user.updateForgottenPassword(password, password_confirmation);
 		if(!passwordUpdated) {
-			validator.add(new I18nMessage("error", "forgot_password.password_doesnt_match"));
+			validator.add(messageFactory.build("error", "forgot_password.password_doesnt_match"));
 			validator.onErrorRedirectTo(this).forgotPasswordForm();
 		}
 		
 		user.touchForgotPasswordToken();
 		users.save(user);
 		result.include("messages", Arrays.asList(
-				new I18nMessage("confirmation", "forgot_password.password_changed")
+					messageFactory.build("confirmation", "forgot_password.password_changed")
 				));
 		result.redirectTo(ListController.class).home();
 	}
@@ -112,7 +113,7 @@ public class ForgotPasswordController {
 	private User validateTokenAndGetUser(Long id, String token) {
 		User user = users.loadByIdAndToken(id, token);
 		if (user == null) {
-			validator.add(new I18nMessage("error", "forgot_password.invalid_token"));
+			validator.add(messageFactory.build("error", "forgot_password.invalid_token"));
 			validator.onErrorRedirectTo(this).forgotPasswordForm();
 		}
 		return user;

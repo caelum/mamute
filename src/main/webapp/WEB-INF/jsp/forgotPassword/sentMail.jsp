@@ -1,1 +1,0 @@
-${user.name}, <fmt:message key="forgot_password.sent_mail" />

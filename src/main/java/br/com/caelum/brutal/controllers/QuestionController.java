@@ -7,6 +7,7 @@ import br.com.caelum.brutal.auth.LoggedAccess;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.dao.VoteDAO;
+import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.QuestionInformation;
@@ -19,7 +20,6 @@ import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.validator.I18nMessage;
 
 @Resource
 public class QuestionController {
@@ -30,15 +30,17 @@ public class QuestionController {
 	private final VoteDAO votes;
 	private final LoggedUser currentUser;
 	private final TagsValidator tagsValidator;
+	private final MessageFactory messageFactory;
 
 	public QuestionController(Result result, QuestionDAO questionDAO, TagDAO tags, VoteDAO votes, LoggedUser currentUser,
-			TagsValidator tagsValidator) {
+			TagsValidator tagsValidator, MessageFactory messageFactory) {
 		this.result = result;
 		this.questions = questionDAO;
 		this.tags = tags;
 		this.votes = votes;
 		this.currentUser = currentUser;
 		this.tagsValidator = tagsValidator;
+		this.messageFactory = messageFactory;
 	}
 
 	@Get("/question/ask")
@@ -61,7 +63,7 @@ public class QuestionController {
 			UpdateStatus status = original.updateWith(information);
 			questions.save(original);
 			result.include("messages", Arrays.asList(
-					new I18nMessage("confirmation",status.getMessage())
+						messageFactory.build("confirmation",status.getMessage())
 					));
 			result.redirectTo(this).showQuestion(id, original.getSluggedTitle());
 		}

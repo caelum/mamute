@@ -3,20 +3,22 @@ package br.com.caelum.brutal.controllers;
 import java.util.Arrays;
 
 import br.com.caelum.brutal.auth.DefaultAuthenticator;
+import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.validator.I18nMessage;
 
 @Resource
 public class AuthController {
 	
 	private final DefaultAuthenticator auth;
 	private final Result result;
-	public AuthController(DefaultAuthenticator auth, Result result) {
+	private final MessageFactory messageFactory;
+	public AuthController(DefaultAuthenticator auth, Result result, MessageFactory messageFactory) {
 		this.auth = auth;
 		this.result = result;
+		this.messageFactory = messageFactory;
 	}
 	
 	@Get("/login")
@@ -28,7 +30,9 @@ public class AuthController {
 		if (auth.authenticate(email, password)) {
 			redirectToRightUrl(redirectUrl);
 		} else {
-			result.include("messages", Arrays.asList(new I18nMessage("alert", "auth.invalid.login")));
+			result.include("messages", Arrays.asList(
+						messageFactory.build("alert", "auth.invalid.login")
+					));
 			result.include("redirectUrl", redirectUrl);
 			result.redirectTo(this).loginForm();
 		}

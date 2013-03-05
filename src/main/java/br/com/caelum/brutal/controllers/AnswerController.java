@@ -5,6 +5,7 @@ import java.util.Arrays;
 import br.com.caelum.brutal.auth.LoggedAccess;
 import br.com.caelum.brutal.dao.AnswerDAO;
 import br.com.caelum.brutal.dao.QuestionDAO;
+import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.AnswerInformation;
 import br.com.caelum.brutal.model.KarmaCalculator;
@@ -17,7 +18,6 @@ import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.core.Localization;
-import br.com.caelum.vraptor.validator.I18nMessage;
 import br.com.caelum.vraptor.view.Results;
 
 @Resource
@@ -28,16 +28,18 @@ public class AnswerController {
 	private final LoggedUser currentUser;
 	private final Localization localization;
     private final KarmaCalculator calculator;
+	private final MessageFactory messageFactory;
 
 	public AnswerController(Result result, AnswerDAO dao, User currentUser, 
 	        QuestionDAO questions, LoggedUser user, Localization localization,
-	        KarmaCalculator calculator) {
+	        KarmaCalculator calculator, MessageFactory messageFactory) {
 		this.result = result;
 		this.answers = dao;
 		this.currentUser = user;
 		this.questions = questions;
 		this.localization = localization;
         this.calculator = calculator;
+		this.messageFactory = messageFactory;
 	}
 
 
@@ -55,7 +57,7 @@ public class AnswerController {
 		answers.save(original);
 
 		result.include("messages", Arrays.asList(
-				new I18nMessage("confirmation", status.getMessage())
+					messageFactory.build("confirmation", status.getMessage())
 				));
 		Question originalQuestion = original.getQuestion();
 		result.redirectTo(QuestionController.class).showQuestion(originalQuestion.getId(), originalQuestion.getSluggedTitle());

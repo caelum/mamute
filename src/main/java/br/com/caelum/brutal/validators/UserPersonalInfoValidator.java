@@ -3,9 +3,9 @@ package br.com.caelum.brutal.validators;
 import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.dto.UserPersonalInfo;
+import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.ioc.Component;
-import br.com.caelum.vraptor.validator.I18nMessage;
 
 @Component
 public class UserPersonalInfoValidator {
@@ -34,10 +34,12 @@ public class UserPersonalInfoValidator {
 	
 	private Validator validator;
 	private EmailValidator emailValidator;
+	private MessageFactory messageFactory;
 
-	public UserPersonalInfoValidator(Validator validator, EmailValidator emailValidator){
+	public UserPersonalInfoValidator(Validator validator, EmailValidator emailValidator, MessageFactory messageFactory){
 		this.validator = validator;
 		this.emailValidator = emailValidator;
+		this.messageFactory = messageFactory;
 	}
 	
 	public boolean validate(UserPersonalInfo info) {
@@ -49,7 +51,7 @@ public class UserPersonalInfoValidator {
 		}
 		
 		if (info.getUser() == null) {
-		    validator.add(new I18nMessage("error", "user.errors.wrong"));
+		    validator.add(messageFactory.build("error", "user.errors.wrong"));
 		}
 		
 		if (!info.getUser().getEmail().equals(info.getEmail())){
@@ -57,13 +59,13 @@ public class UserPersonalInfoValidator {
 		}
 		
 		if (info.getBirthDate() != null && info.getBirthDate().getYear() > DateTime.now().getYear()-12){
-			validator.add(new I18nMessage("error", "user.errors.invalid_birth_date.min_age"));
+			validator.add(messageFactory.build("error", "user.errors.invalid_birth_date.min_age"));
 		}
 	
 		if(!info.getUser().getName().equals(info.getName())){
 			DateTime nameLastTouchedAt = info.getUser().getNameLastTouchedAt();
 			if (nameLastTouchedAt != null && nameLastTouchedAt.isAfter(new DateTime().minusDays(30))) {
-				validator.add(new I18nMessage("error", "user.errors.name.min_time",nameLastTouchedAt.plusDays(30).toString()));
+				validator.add(messageFactory.build("error", "user.errors.name.min_time",nameLastTouchedAt.plusDays(30).toString()));
 			}
 		}
 		
