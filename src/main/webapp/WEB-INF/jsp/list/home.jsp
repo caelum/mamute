@@ -9,6 +9,8 @@
 	</ol>
 </section>
 <aside class="sidebar">
-	<h3 class="title section-title"><fmt:message key="tags.recent"/></h3>
+	<div class="subheader">
+		<h3 class="title page-title"><fmt:message key="tags.recent"/></h3>
+	</div>
 	<tags:recentTagsUsage tagsUsage="${recentTags}"/>
 </aside>
