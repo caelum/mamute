@@ -12,6 +12,7 @@ import org.hibernate.annotations.Type;
 @Entity
 public class Flag {
 	
+
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -24,5 +25,17 @@ public class Flag {
 	
 	@Enumerated(EnumType.STRING)
 	private FlagType type;
+
+
+	public Flag(FlagType flagType, User author) {
+		this.type = flagType;
+		this.author = author;
+	}
+	
+	/**
+	 * @deprecated
+	 */
+	Flag() {
+	}
 	
 }

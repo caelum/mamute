@@ -11,9 +11,14 @@
 			<a href="#" class="flag-it">flag</a>
 			<div class="hidden modal">
 				<form action="${linkTo[FlagController].addFlag[comment.id]}">
-					<label for="rude-flag"><fmt:message key="comment.flag.rude" /></label>
-					<input type="radio" value="rude" name="flagType" id="rude-flag" />
-					<label for="obsolete-flag"><fmt:message key="comment.flag.obsolete" /></label>
+					<label>
+						<fmt:message key="comment.flag.rude" />
+						<input type="radio" value="RUDE" name="flagType" />
+					</label>
+					<label>
+						<fmt:message key="comment.flag.obsolete" />
+						<input type="radio" value="OBSOLETE" name="flagType" />
+					</label>
 					<input type="radio" value="obsolete" name="flagType" id="obsolete-flag" />
 					<input type="submit" />
 				</form>

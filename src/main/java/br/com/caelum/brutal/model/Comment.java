@@ -114,4 +114,8 @@ public class Comment implements Subscribable {
 		return lastUpdatedAt;
 	}
 
+	public void add(Flag flag) {
+		flags.add(flag);
+	}
+
 }
