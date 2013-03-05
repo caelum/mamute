@@ -11,7 +11,6 @@
 		<property name="connection.password"></property>
 		<property name="show_sql">false</property>
 		<property name="format_sql">false</property>
-		<property name="hibernate.hbm2ddl.auto">update</property>
 
         <property name="hibernate.cache.region.factory_class">net.sf.ehcache.hibernate.EhCacheRegionFactory</property>
 		<property name="hibernate.cache.use_query_cache">false</property>

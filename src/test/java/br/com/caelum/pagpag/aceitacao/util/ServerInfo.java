@@ -14,7 +14,7 @@ public class ServerInfo {
 	}
 	
 	public String getRoot() {
-		return "http://" + ACTUAL_HOST + "/" ;
+		return "http://" + ACTUAL_HOST;
 	}
 
 	private static final String ACTUAL_HOST = getHost();

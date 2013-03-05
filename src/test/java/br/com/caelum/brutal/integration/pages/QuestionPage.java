@@ -102,6 +102,7 @@ public class QuestionPage extends PageObject{
         waitForElement(By.id("comment"), 2);
         byId("comment").sendKeys(comment);
         byCSS(".question-area .edit-via-ajax form .comment-submit").click();
+        waitForElement(By.cssSelector(".comment-container .comment"), 10);
         
         return this;
     }

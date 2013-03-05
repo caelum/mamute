@@ -5,5 +5,5 @@
 <%@attribute name="information" type="java.lang.String" required="true" %>
 
 <div class="info ${information}">${count}
-	<span class="subtitle"><tags:pluralize key="${key}" count="${count}" /></span>
+	<div class="subtitle"><tags:pluralize key="${key}" count="${count}" /></div>
 </div>

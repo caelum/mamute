@@ -1,5 +1,11 @@
 $(".history-select-version").change(function(event) {
 	var selected = $(this).val();
-	$(".history-form").addClass("hidden");
-	$(".history-form").eq(selected).removeClass("hidden");
+	$(".history-form").addClass("hidden").eq(selected).removeClass("hidden");
+});
+
+$(".toggle-version").click(function(){
+	$(this).siblings('.history-version').toggleClass("hidden");
+	$(this).siblings('.history-diff').toggleClass("hidden");
+	$(this).siblings(".toggle-version").toggleClass("hidden");
+	$(this).toggleClass("hidden");
 });

@@ -46,7 +46,11 @@ public class Comment implements Subscribable {
 	private final List<Vote> votes = new ArrayList<>();
 	
 	private long voteCount = 0;
-
+	
+	@JoinTable(name = "Comment_Flags")
+	@OneToMany
+	private final List<Flag> flags = new ArrayList<>();
+	
     /**
      * @deprecated hibernate eyes
      */

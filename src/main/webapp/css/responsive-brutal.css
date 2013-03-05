@@ -20,13 +20,21 @@
 }
 	
 @media only screen and (max-width: 800px) {
-	.info.views{
-		display:none;
+
+	body, a{
+		font-size:11.5px;
 	}
 	
-	.info{
-		padding-top:0;
-		padding-bottom:.65em;
+	.button{
+		padding: 0 .7em;
+	}
+	
+	.main-nav .nav-item{
+		padding-right:.6em;
+	}
+	
+	.info.views{
+		display:none;
 	}
 	
 	.question-information{
@@ -63,6 +71,10 @@
 		display:inline;
 	}
 	
+	.info{
+		padding: .15em 0;
+	}
+
 	/*Tag list*/
 	.complete-tag{
 		font-size:1.2em;

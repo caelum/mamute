@@ -40,9 +40,9 @@ function errorPopup(text, target){
 <script src="<c:url value="/js/form-hints.js"/>"></script>
 <script src="<c:url value="/js/edit-ajax.js"/>"></script>
 <script src="<c:url value="/js/mark-as-solution.js"/>"></script>
-<script type="text/javascript" src="<c:url value="/js/Markdown.Converter.js"/>"></script>
-<script type="text/javascript" src="<c:url value="/js/Markdown.Sanitizer.js"/>"></script>
-<script type="text/javascript" src="<c:url value="/js/Markdown.Editor.js"/>"></script>
+<script src="<c:url value="/js/Markdown.Converter.js"/>"></script>
+<script src="<c:url value="/js/Markdown.Sanitizer.js"/>"></script>
+<script src="<c:url value="/js/Markdown.Editor.js"/>"></script>
 <script src="<c:url value="/js/marked.js"/>"></script>
 <script src="<c:url value="/js/form-markdown.js"/>"></script>
 <script src="<c:url value="/js/up-down-vote.js"/>"></script>
@@ -55,6 +55,9 @@ function errorPopup(text, target){
 <script src="<c:url value="/js/dropdown.js"/>"></script>
 <script src="<c:url value="/js/order-by.js"/>"></script>
 <script src="<c:url value="/js/share.js"/>"></script>
+<script src="<c:url value="/js/diff_match_patch.js"/>"></script>
+<script src="<c:url value="/js/pretty-text-diff.js"/>"></script>
+<script src="<c:url value="/js/diff.js"/>"></script>
 
 <c:if test="${environment.name == 'production'}" >
 	<script type="text/javascript">

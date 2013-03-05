@@ -5,7 +5,13 @@
 <%@attribute name="index" type="java.lang.Integer" required="true" %>
 
 <form method="post" class="history-form moderate-form ${index != 0 ? 'hidden' : ''}" action="${linkTo[HistoryController].publish}${information.moderatable.typeName}">
-	<jsp:doBody/>
+	<a href="#" class="toggle-version">Ver a versão sem diff</a>
+	<a href="#" class="toggle-version hidden">Ver diff</a>
+	<div class="history-version hidden">
+		<jsp:doBody/>	
+	</div>
+	<div class="history-diff post-text"></div>
+
 	<ul class="post-touchs clear">
 		<li class="touch author-touch">
 			<tags:completeUser touchText="touch.edited" user="${information.author}" date="${information.createdAt}"/>
@@ -16,6 +22,7 @@
 	<p class="post-text">
 		${information.comment}
 	</p>
+	
 
 	<input type="hidden" name="aprovedInformationType" value="${information.typeName}"/>
 	<input type="hidden" name="moderatableId" value="${information.moderatable.id}"/>

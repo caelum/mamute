@@ -5,16 +5,16 @@
 	</div>
 </div>
 <div class="history-comparison">
-	<div class="history-original">
+	<div class="history-current">
 		<h2 class="history-title page-title title"><fmt:message key="moderation.current_version"/>:</h2>
 		<div class="post-text">${answer.markedDescription}</div>
 	</div>
 	
-	<div class="history-version">
+	<div class="history-edited">
 		<tags:historiesSelect histories="${histories}" />
 		
 		<c:forEach items="${histories}" var="information" varStatus="status">
-			<tags:historyForm index="${status.index}" information="${information}">
+			<tags:historyForm index="${status.index}" information="${information}">		
 				<div class="post-text">${information.markedDescription}</div>
 			</tags:historyForm>
 		</c:forEach>

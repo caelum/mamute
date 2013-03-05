@@ -1,9 +1,9 @@
 <div class="history-comparison">
-	<div class="history-original">
+	<div class="history-current">
 		<h2 class="history-title page-title title"><fmt:message key="moderation.current_version"/>:</h2>
 		<tags:question taggable="${question}"/>
 	</div>
-	<div class="history-version">
+	<div class="history-edited">
 		<tags:historiesSelect histories="${histories}" />
 		
 		<c:forEach items="${histories}" var="information" varStatus="status">
