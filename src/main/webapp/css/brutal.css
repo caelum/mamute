@@ -564,7 +564,7 @@ textarea {
 }
 
 .tags-usage .tags-item {
-	margin-bottom: .3em;
+	margin-bottom: .45em;
 }
 /*MODERACAO*/
 .tabs {
@@ -652,7 +652,7 @@ textarea {
 	display: inline-block;
 	font-size: .9em;
 	padding: 0 0.4em;
-	line-height: 1.2em;
+	line-height: 1.35em;
 }
 
 .tag:hover {
