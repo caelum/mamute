@@ -4,11 +4,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Página não encontrada</title>
+<title><fmt:message key="not_found.title"/></title>
 </head>
 <body>
 	<div class="subheader">
-		<h2 class="title page-title">Página não encontrada</h2>
+		<h2 class="title page-title"><fmt:message key="not_found.title"/></h2>
 	</div>
 	
 	<div class="not-found">
