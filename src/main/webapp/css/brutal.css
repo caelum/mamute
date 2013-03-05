@@ -514,9 +514,8 @@ textarea {
 .info {
 	float: left;
 	font-size: 1.6em;
-	padding: .25em;
+	padding: .4em .25em;
 	text-align: center;
-	width: 33%;
 }
 
 .answers {
@@ -529,7 +528,8 @@ textarea {
 }
 
 .answers.solved {
-	background-color:#e0f0d3;
+	background-color:#e4f9d3;
+	border-top:1px solid #bcf093;
 }
 
 .votes {
