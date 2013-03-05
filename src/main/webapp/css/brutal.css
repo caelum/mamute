@@ -593,7 +593,7 @@ textarea {
 	margin-right: 2%;
 }
 
-.history-original {
+.history-current {
 	margin-bottom: 30px;
 	padding-right:2em;
 }
@@ -608,11 +608,7 @@ textarea {
 	margin-bottom:2%;
 }
 
-.toggle-original {
-	cursor: pointer;
-}
-
-.toggle-original:not(.hidden) {
+.toggle-version:not(.hidden) {
 	display: block;
 	margin: 4% 0;
 }
