@@ -512,11 +512,12 @@ textarea {
 
 .question-information {
 	width: 22%;
+	padding-right:1.5%;
 }
 
 .info {
 	float: left;
-	font-size: 1.5em;
+	font-size: 1.4em;
 	padding: .4em .25em;
 	text-align: center;
 }
@@ -546,7 +547,6 @@ textarea {
 .views {
 	color: #999;
 }
-
 .subtitle {
 	display: block;
 	font-size: .63em;
