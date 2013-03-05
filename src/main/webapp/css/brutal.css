@@ -529,8 +529,7 @@ textarea {
 }
 
 .answers.solved {
-	background-color: #e4f9d3;
-	border-top: 1px solid #bcf093;
+	border-bottom: 2px solid #008e43;
 }
 
 .votes,.views {
