@@ -9,9 +9,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.brutal.dao.UserDAO;
+import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.core.Localization;
 import br.com.caelum.vraptor.util.test.JSR303MockValidator;
+import br.com.caelum.vraptor.util.test.MockLocalization;
 
 public class SignupValidatorTest {
 
@@ -20,14 +23,18 @@ public class SignupValidatorTest {
     private SignupValidator signupValidator;
 	private UserValidator userValidator;
 	private EmailValidator emailValidator;
+	private MessageFactory messageFactory;
+	private Localization localization;
     
     @Before
     public void setup() {
         users = mock(UserDAO.class);
         validator = new JSR303MockValidator();
-        emailValidator = new EmailValidator(validator, users);
-        userValidator = new UserValidator(validator, emailValidator);
-        signupValidator = new SignupValidator(validator, userValidator);
+        localization = new MockLocalization();
+        messageFactory = new MessageFactory(localization);
+        emailValidator = new EmailValidator(validator, users, messageFactory);
+        userValidator = new UserValidator(validator, emailValidator, messageFactory);
+        signupValidator = new SignupValidator(validator, userValidator, messageFactory);
     }
 
     @Test

@@ -75,5 +75,5 @@
 </header>
 
 <div class="container">
-	<tags:messages messages="${messages}" />
-	<tags:messages messages="${errors}" />
+	<tags:messages messages_list="${messages}" />
+	<tags:messages messages_list="${errors}" />
