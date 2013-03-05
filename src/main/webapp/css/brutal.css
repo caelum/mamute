@@ -504,16 +504,20 @@ textarea {
 }
 
 .summary {
-	width: 75%;
+	width: 77%;
+}
+
+.summary .tags{
+	width: auto;
 }
 
 .question-information {
-	width: 25%;
+	width: 22%;
 }
 
 .info {
 	float: left;
-	font-size: 1.6em;
+	font-size: 1.3em;
 	padding: .4em .25em;
 	text-align: center;
 }
