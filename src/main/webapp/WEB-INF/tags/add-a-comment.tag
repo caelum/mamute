@@ -2,10 +2,22 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@attribute name="item" type="br.com.caelum.brutal.model.interfaces.Commentable" required="true" %>
+
 <c:set var="ajaxResultName" value="new-comment-for-${item.typeName}-new-comment-${item.id}"/>
+
 <ul class="comment-container ${empty item.comments ? 'hidden' : ''}" id="${ajaxResultName }">
 	<c:forEach var="comment" items="${item.comments }">
 		<li class="comment">
+			<a href="#" class="flag-it">flag</a>
+			<div class="hidden modal">
+				<form action="${linkTo[FlagController].addFlag[comment.id]}">
+					<label for="rude-flag"><fmt:message key="comment.flag.rude" /></label>
+					<input type="radio" value="rude" name="flagType" id="rude-flag" />
+					<label for="obsolete-flag"><fmt:message key="comment.flag.obsolete" /></label>
+					<input type="radio" value="obsolete" name="flagType" id="obsolete-flag" />
+					<input type="submit" />
+				</form>
+			</div>
 			<span id="comment-${comment.id}">${comment.htmlComment}</span> &#8212;
 			<tags:userProfileLink user="${comment.author}" htmlClass="${comment.author.id eq item.author.id ? 'same-author' : ''}"/> 
 			&nbsp;<tags:prettyTime time="${comment.lastUpdatedAt}"/>
