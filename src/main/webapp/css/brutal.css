@@ -98,6 +98,7 @@ a {
 
 .section-title,.section-title a {
 	font-size: 1.2em;
+	margin-bottom: 10px;
 }
 
 .question-title,.question-title a {
@@ -615,7 +616,7 @@ textarea {
 	margin-bottom: 2%;
 }
 
-.toggle-version:not (.hidden ) {
+.toggle-version:not(.hidden) {
 	display: block;
 	margin: 4% 0;
 }
@@ -770,12 +771,18 @@ textarea {
 
 .post-action-nav .nav-item {
 	border-left: 2px solid #ccc;
-	padding: 0 .25em;
-	margin: 0px;
+	padding:0 .25em;
+}
+
+.post-action-nav .nav-item,
+.post-action-nav .nav-item a{
+	height:1.3em;
+	line-height:1.3em;
 }
 
 .post-action-nav .nav-item:first-child {
 	border: none;
+	padding-left:0;	
 }
 
 .post-container {
