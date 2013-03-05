@@ -445,7 +445,7 @@ textarea {
 }
 
 .nav-item .current {
-	background-color: #F90;
+	background-color: #3A77A6;
 }
 
 .nav-item,.nav-item a {
@@ -486,7 +486,7 @@ textarea {
 }
 
 .button:hover {
-	background-color: #ff9900;
+	background-color: #3A77A6;
 }
 
 /*HOME*/
@@ -520,22 +520,25 @@ textarea {
 }
 
 .answers {
+	width: 35%;
 	color: #9A4444;
 }
 
 .answers.answered {
-	border-bottom: 5px solid #75845C;
-}
-
-.answers.solved {
 	color: #008e43;
 }
 
+.answers.solved {
+	background-color:#e0f0d3;
+}
+
 .votes {
+	width: 32.5%;
 	color: #555;
 }
 
 .views {
+	width: 32.5%;
 	color: #999;
 }
 
@@ -640,20 +643,17 @@ textarea {
 
 .tag {
 	background-color: #e0eaf1;
-	border-bottom: 1px solid #3e6d8e;
-	border-right: 1px solid #7f9fb6;
+	border-bottom: 1px solid #adc2d0;
+	border-right: 1px solid #bacbd8;
 	color: #3e6d8e;
 	display: inline-block;
 	font-size: .9em;
-	padding: .25em .3em;
-	line-height:1em;
+	padding: 0 0.4em;
+	line-height: 1.2em;
 }
-
+	
 .tag:hover {
-	background-color: #3e6d8e;
-	border-bottom: 1px solid #37607d;
-	border-right: 1px solid #37607d;
-	color: #e0eaf1;
+	background-color: #bfd4e3;
 }
 
 .tag-description {
@@ -836,6 +836,7 @@ textarea {
 }
 
 .comment {
+	overflow:hidden;
 	padding: .4em 2em;
 	border-bottom: dotted 1px #ddd;
 	line-height: 20px;
@@ -896,17 +897,16 @@ textarea {
 }
 
 .up-arrow.voted {
-	border-bottom-color: orange;
+	border-bottom-color: #3A77A6;
 }
 
 .down-arrow.voted {
-	border-top-color: orange;
+	border-top-color: #3A77A6;
 }
 
 /*EDIT VIA AJAX*/
 .edit-via-ajax {
 	margin: 10px 0;
-	overflow:hidden;
 }
 
 .edit-via-ajax .form-hints {
