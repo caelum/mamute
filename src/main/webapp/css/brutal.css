@@ -1103,6 +1103,8 @@ textarea {
 	line-height: 17px;
 	color: #000;
 	margin-bottom: 1.5em;
+	float: left;
+	width: 49%;
 }
 
 .not-found a {
@@ -1112,4 +1114,20 @@ textarea {
 .not-found li{
 	list-style-type: disc;
 	margin: 0 0 1em 1.3em; 
+}
+
+.stacktrace {
+	background-color: transparent;
+	color: black;
+}
+
+.error-code {
+	color: #eaeaea;
+	float: right;
+	font-size: 5em;
+	font-weight: bold;
+	padding-top: 4%;
+	padding-bottom: 4%;
+	text-align: center;
+	width: 49%;
 }

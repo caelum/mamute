@@ -20,5 +20,8 @@
 			<li><fmt:message key="not_found.new_question"><fmt:param value="${linkTo[QuestionController].questionForm}"/></fmt:message></li>
 		</ul>
 	</div>
+	<div class="error-code">
+		404
+	</div>
 </body>
 </html>
