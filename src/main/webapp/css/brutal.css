@@ -516,13 +516,13 @@ textarea {
 
 .info {
 	float: left;
-	font-size: 1.3em;
+	font-size: 1.5em;
 	padding: .4em .25em;
 	text-align: center;
 }
 
 .answers {
-	width: 35%;
+	width: 40%;
 	color: #9A4444;
 }
 
@@ -535,13 +535,15 @@ textarea {
 	border-top:1px solid #bcf093;
 }
 
+.votes, .views{
+	width: 30%;
+}
+
 .votes {
-	width: 32.5%;
 	color: #555;
 }
 
 .views {
-	width: 32.5%;
 	color: #999;
 }
 
@@ -549,6 +551,7 @@ textarea {
 	display: block;
 	font-size: .63em;
 	overflow: visible;
+	margin-top:6%;
 }
 
 .stats {
