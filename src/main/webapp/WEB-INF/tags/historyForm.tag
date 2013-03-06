@@ -5,8 +5,8 @@
 <%@attribute name="index" type="java.lang.Integer" required="true" %>
 
 <form method="post" class="history-form moderate-form ${index != 0 ? 'hidden' : ''}" action="${linkTo[HistoryController].publish}${information.moderatable.typeName}">
-	<a href="#" class="toggle-version">Ver a versão sem diff</a>
-	<a href="#" class="toggle-version hidden">Ver diff</a>
+	<a href="#" class="toggle-version"><fmt:message key="moderation.formatted"/></a>
+	<a href="#" class="toggle-version hidden"><fmt:message key="moderation.diff"/></a>
 	<div class="history-version hidden">
 		<jsp:doBody/>	
 	</div>

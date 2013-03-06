@@ -1,3 +1,5 @@
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <div class="subheader subheader-with-tab">
 	<h2 class="title page-title"><fmt:message key="moderation"/></h2>
 	<div class="tabs">
@@ -22,10 +24,9 @@
 			</c:if>
 			
 			<div class="stats">
-				<c:forEach var="information" items="${entry.value}">
-						<span class="last-updated-at"><tags:prettyTime time="${information.createdAt}" /></span>
-						<tags:userProfileLink user="${information.author}"></tags:userProfileLink> 
-				</c:forEach>
+				<c:set var="information" value="${entry.value[fn:length(entry.value)-1]}"/>
+				<span class="last-updated-at"><tags:prettyTime time="${information.createdAt}" /></span>
+				<tags:userProfileLink user="${information.author}"></tags:userProfileLink>
 			</div>
 		</li>
 	</c:forEach>
