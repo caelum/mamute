@@ -996,6 +996,7 @@ textarea {
 
 .image-and-information span {
 	display: block;
+	width: 128px;
 }
 
 .profile-image {

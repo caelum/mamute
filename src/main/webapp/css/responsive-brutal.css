@@ -10,6 +10,7 @@
 	.container{
 		max-width:90%;
 	}
+
 }
 
 @media only screen and (max-width: 840px) {
@@ -164,6 +165,43 @@
 	}
 	.tabs a.selected {
 		padding: 12px 9px 10px 9px;
+	}
+	
+	.data-list {
+		float: right;
+		width: 60%;
+	}
+	
+	.data-line * {
+		font-size: 1em;
+	}
+	
+	.data-list .data-section {
+		width: 76%;
+	}
+	
+	.data-section .data-title {
+		width: 45%;
+	}
+	
+	.data-section .data-description {
+		width: 55%;
+	}
+	
+	.data-section-title {
+		width: 23%;
+	}
+	
+	.about-me {
+		clear: both;
+		height: 10em;
+		min-height: initial;
+		width: 100%;
+	}
+	
+	.image-and-information {
+		overflow: visible;
+		margin-bottom: 3%;
 	}
 	
 }
