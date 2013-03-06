@@ -1094,17 +1094,6 @@ textarea {
 	float: right;
 }
 
-.data-line .form-label {
-	width: 17%;
-}
-
-.data-line .wmd,.data-line input {
-	float: none;
-	width: 82%;
-	margin: 0;
-	vertical-align: middle;
-}
-
 .about-me {
 	float: left;
 	width: 45%;

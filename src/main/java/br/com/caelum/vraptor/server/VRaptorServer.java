@@ -1,3 +1,5 @@
+package br.com.caelum.vraptor.server;
+
 import java.io.IOException;
 
 import javax.servlet.ServletException;
