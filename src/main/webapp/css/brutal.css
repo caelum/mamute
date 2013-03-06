@@ -209,7 +209,7 @@ em {
 	margin: -13px 0 0 0;
 }
 
-.validated-form .text-input {
+.validated-form .text-input, .validated-form input[type='text'] {
 	margin: 0 0 16px 0;
 }
 
