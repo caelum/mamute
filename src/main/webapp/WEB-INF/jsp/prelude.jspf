@@ -23,12 +23,12 @@
 			<section class="user-area">
 				<nav class="nav">
 					<ul class="nav-items">
+						<li class="nav-item">
+							<a href="${linkTo[NavigationController].about}">
+								<fmt:message key="about.link"/>
+							</a>
+						</li>
 						<c:if test="${empty currentUser }">
-							<li class="nav-item">
-								<a class="login" href="${linkTo[NavigationController].about}">
-									<fmt:message key="about.link"/>
-								</a>
-							</li>
 							<li class="nav-item">
 								<a class="login" href="${linkTo[AuthController].loginForm}">
 									<fmt:message key="auth.login_form_link"/>
@@ -42,6 +42,11 @@
 							<li class="nav-item">
 								<tags:userProfileLink user="${currentUser}" htmlClass="user-name"/>
 							</li>
+							<c:if test="${currentUser.moderator }">
+								<li class="nav-item">
+									<a href="${linkTo[HistoryController].history}"><fmt:message key="moderation.link"/></a>
+								</li>
+							</c:if>
 							<li class="nav-item">
 								<a class="logout" href="${linkTo[AuthController].logout}"><fmt:message key="auth.logout_link"/></a>
 							</li>
