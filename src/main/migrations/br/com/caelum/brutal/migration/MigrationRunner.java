@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.ioc.ApplicationScoped;
 import br.com.caelum.vraptor.ioc.Component;
 
@@ -20,11 +21,13 @@ public class MigrationRunner {
 	private final static Logger LOGGER = LoggerFactory
 			.getLogger(MigrationRunner.class);
 	private final MigrationExecutor executor;
+	private final Environment env;
 
 	public MigrationRunner(List<Migration> migrations, NumberExtractor number,
-			MigrationExecutor executor) {
+			MigrationExecutor executor, Environment env) {
 		this.extractNumber = number;
 		this.executor = executor;
+		this.env = env;
 		this.migrations = sort(migrations);
 	}
 
@@ -36,6 +39,9 @@ public class MigrationRunner {
 
 	@PostConstruct 
 	public void execute() {
+		if (env.getName().equals("testing") || env.getName().equals("acceptance")) {
+			return;
+		}
 
 		prepareTables();
 
