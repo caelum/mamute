@@ -78,10 +78,10 @@ public class ForgotPasswordController {
 	}
 	
 	@Post("/newpassword/{id}/{token}")
-	public void changePassword(Long id, String token, String password, String password_confirmation) {
+	public void changePassword(Long id, String token, String password, String passwordConfirmation) {
 		User user = validateTokenAndGetUser(id, token);
 
-		boolean passwordUpdated = user.updateForgottenPassword(password, password_confirmation);
+		boolean passwordUpdated = user.updateForgottenPassword(password, passwordConfirmation);
 		if(!passwordUpdated) {
 			validator.add(messageFactory.build("error", "forgot_password.password_doesnt_match"));
 			validator.onErrorRedirectTo(this).forgotPasswordForm();

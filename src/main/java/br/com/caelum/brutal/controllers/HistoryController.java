@@ -38,6 +38,12 @@ public class HistoryController {
 		this.moderatables = moderatables;
         this.calculator = calculator;
 	}
+	
+	@ModeratorAccess
+	@Get("/history")
+	public void history() {
+		result.redirectTo(this).unmoderated(Question.class.getSimpleName());
+	}
 
 	@ModeratorAccess
 	@Get("/history/{moderatableType}")
