@@ -6,6 +6,18 @@ $(".flag-it").click(function(e) {
 	var uri = form.attr("action");
 	
 	modal.show(200);
+	
+	var callbacks = {};
+	callbacks["409"] = function() {
+		alert("conflict, you can't do it, sorry");
+	};
+	callbacks["400"] = function() {
+		alert("please choose an valid option");
+	};
+	callbacks["403"] = function() {
+		alert("you must login");
+	};
+	
 	form.submit(function(e) {
 		e.preventDefault();
 		$.ajax(uri, {
@@ -13,17 +25,17 @@ $(".flag-it").click(function(e) {
 				modal.hide(200);
 				link.remove();
 			},
-			error: function(xhr, textStatus) {
-				if (xhr.status == "403") {
-					alert("sorry, you can't do it");
-				} else if (xhr.status == "400") {
-					alert("please choose an valid option");
+			complete: function(xhr, textStatus) {
+				console.log(xhr.status);
+				if (callbacks[xhr.status] != undefined) {
+					callbacks[xhr.status].call();
 				}
 				else { 
 					alert("something went wrong");
 				}
 			},
 			data: form.serialize(),
+			headers: {Accept: "application/json"},
 			method: "POST"
 		});
 	});

@@ -32,9 +32,10 @@ public class FlagController {
 	public void addFlag(Long commentId, FlagType flagType, String reason) {
 		if (flagType == null) {
 			result.use(Results.http()).sendError(400);
+			return;
 		}
 		if (flags.alreadyFlagged(loggedUser.getCurrent(), commentId)) {
-			result.use(Results.http()).sendError(403);
+			result.use(Results.http()).sendError(409); //conflict
 			return;
 		}
 		
