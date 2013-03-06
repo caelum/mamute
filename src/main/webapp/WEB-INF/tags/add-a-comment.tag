@@ -12,7 +12,7 @@
 				<a href="#" class="flag-it">flag</a>
 			</c:if>
 			<div class="hidden modal modal-flag">
-				<form action="${linkTo[FlagController].addFlag[comment.id]}">
+				<form class="validated-form" action="${linkTo[FlagController].addFlag[comment.id]}">
 					<label>
 						<fmt:message key="comment.flag.rude" />
 						<input type="radio" value="RUDE" name="flagType" />
@@ -28,7 +28,7 @@
 					<label>
 						<fmt:message key="comment.flag.other" />
 						<input class="other-option" type="radio" value="OTHER" name="flagType" />
-						<textarea class="hidden" name="reason"></textarea>
+						<textarea class="hidden" minlength="6" name="reason"></textarea>
 					</label>
 					<input type="submit" value="<fmt:message key="flag.submit" />"/>
 				</form>
