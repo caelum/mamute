@@ -6,7 +6,7 @@
 </div>
 <div class="image-and-information">
 	<img class="profile-image" src="${user.mediumPhoto}"/>
-	<a href="#">atualizar foto</a>
+	<a href="https://gravatar.com/"><fmt:message key="user_profile.edit.photo" /></a>
 </div>
 
 
