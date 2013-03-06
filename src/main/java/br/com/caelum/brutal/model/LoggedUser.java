@@ -16,7 +16,7 @@ public class LoggedUser {
 	}
 	
 	public User getCurrent() {
-		return user == null ? User.GHOST : user;
+		return isLoggedIn() ? user : User.GHOST;
 	}
 
 	public String getIp() {
@@ -24,7 +24,11 @@ public class LoggedUser {
 	}
 	
 	public boolean isModerator() {
-	    return user == null ? false : user.isModerator();
+	    return isLoggedIn() ? user.isModerator() : false;
+	}
+
+	public boolean isLoggedIn() {
+		return user != null;
 	}
 	
 

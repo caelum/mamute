@@ -2,6 +2,7 @@ package br.com.caelum.brutal.auth;
 
 import javax.servlet.http.HttpServletRequest;
 
+import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
 import br.com.caelum.vraptor.Result;
@@ -15,9 +16,11 @@ public class AjaxAuthInterceptor implements Interceptor {
 
 	private final String acceptHeader;
 	private final Result result;
+	private final LoggedUser loggedUser;
 
-	public AjaxAuthInterceptor(HttpServletRequest req, Result result) {
+	public AjaxAuthInterceptor(HttpServletRequest req, Result result, LoggedUser loggedUser) {
 		this.result = result;
+		this.loggedUser = loggedUser;
 		acceptHeader = req.getHeader("Accept");
 	}
 
@@ -30,7 +33,7 @@ public class AjaxAuthInterceptor implements Interceptor {
 	@Override
 	public void intercept(InterceptorStack stack, ResourceMethod method,
 			Object obj) throws InterceptionException {
-		if (acceptHeader != null && acceptHeader.equals("application/json")) {
+		if (!loggedUser.isLoggedIn()) {
 			result.use(Results.http()).sendError(403);
 			return;
 		}

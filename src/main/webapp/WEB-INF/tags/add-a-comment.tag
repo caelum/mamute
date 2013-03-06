@@ -8,9 +8,11 @@
 <ul class="comment-container ${empty item.comments ? 'hidden' : ''}" id="${ajaxResultName }">
 	<c:forEach var="comment" items="${item.comments }">
 		<li class="comment">
-			<a href="#" class="flag-it">flag</a>
+			<c:if test="${currentUser != null && !comment.alreadyFlaggedBy(currentUser)}">
+				<a href="#" class="flag-it">flag</a>
+			</c:if>
 			<div class="hidden modal modal-flag">
-				<form action="${linkTo[FlagController].addFlag[comment.id]}">
+				<form class="validated-form" action="${linkTo[FlagController].addFlag[comment.id]}">
 					<label>
 						<fmt:message key="comment.flag.rude" />
 						<input type="radio" value="RUDE" name="flagType" />
@@ -26,7 +28,7 @@
 					<label>
 						<fmt:message key="comment.flag.other" />
 						<input class="other-option" type="radio" value="OTHER" name="flagType" />
-						<textarea class="hidden" name="reason"></textarea>
+						<textarea class="hidden" minlength="6" name="reason"></textarea>
 					</label>
 					<input type="submit" value="<fmt:message key="flag.submit" />"/>
 				</form>
