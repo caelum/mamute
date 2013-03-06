@@ -44,5 +44,9 @@ public class Flag {
 		}
 		this.reason = reason;
 	}
+
+	public boolean createdBy(User user) {
+		return user.getId().equals(author.getId());
+	}
 	
 }

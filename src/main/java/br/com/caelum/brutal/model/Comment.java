@@ -117,5 +117,13 @@ public class Comment implements Subscribable {
 	public void add(Flag flag) {
 		flags.add(flag);
 	}
+	
+	public boolean alreadyFlaggedBy(User user) {
+		for (Flag flag : flags) {
+			if (flag.createdBy(user))
+				return true;
+		}
+		return false;
+	}
 
 }

@@ -3,6 +3,7 @@ package br.com.caelum.brutal.dao;
 import net.vidageek.mirror.dsl.Mirror;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.AnswerInformation;
+import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
@@ -49,9 +50,14 @@ public abstract class TestCase {
         return new AnswerInformation(string, new LoggedUser(otherUser, null), answer, "comment");
     }
     
+    protected Comment comment(User author, String comment) {
+    	return new Comment(author, comment);
+    }
+    
     private void setId(Object o, Long id) {
         new Mirror().on(o).set().field("id").withValue(id);
     }
+
 
 }
 
