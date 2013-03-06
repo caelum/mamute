@@ -17,20 +17,20 @@ $(".flag-it").click(function(e) {
 	callbacks["403"] = function() {
 		alert("you must login");
 	};
+	callbacks["200"] = function() {
+		modal.hide(200);
+		link.remove();
+	};
 	
 	form.submit(function(e) {
 		e.preventDefault();
 		$.ajax(uri, {
-			success: function() {
-				modal.hide(200);
-				link.remove();
-			},
 			complete: function(xhr, textStatus) {
 				console.log(xhr.status);
 				if (callbacks[xhr.status] != undefined) {
 					callbacks[xhr.status].call();
 				}
-				else { 
+				else {
 					alert("something went wrong");
 				}
 			},
