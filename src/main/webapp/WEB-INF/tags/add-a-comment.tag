@@ -9,7 +9,7 @@
 	<c:forEach var="comment" items="${item.comments }">
 		<li class="comment">
 			<a href="#" class="flag-it">flag</a>
-			<div class="hidden modal">
+			<div class="hidden modal modal-flag">
 				<form action="${linkTo[FlagController].addFlag[comment.id]}">
 					<label>
 						<fmt:message key="comment.flag.rude" />
@@ -28,7 +28,7 @@
 						<input class="other-option" type="radio" value="OTHER" name="flagType" />
 						<textarea class="hidden" name="reason"></textarea>
 					</label>
-					<input type="submit" />
+					<input type="submit" value="<fmt:message key="flag.submit" />"/>
 				</form>
 			</div>
 			<span id="comment-${comment.id}">

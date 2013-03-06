@@ -864,6 +864,37 @@ textarea {
 	padding-bottom: 1em;
 }
 
+.modal-flag {
+	background-color: white;
+	border: 1px solid #eaeaea;
+	box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+	position: absolute;
+	width: 20%;
+}
+
+.modal-flag input[type="radio"] {
+	float: left;
+	margin-top: 0;
+	width: auto;
+}
+
+.modal-flag textarea {
+	border: 1px solid #aaa;
+	margin-top: 7%;
+	width: 85%;
+}
+
+.modal-flag input[type="submit"] {
+	background-color: #333;
+	border: 1px solid black;
+	box-shadow: 0 2px 1px rgba(0, 0, 0, 0.3), 0 1px 0
+		rgba(255, 255, 255, 0.4) inset;
+	color: white;
+	margin: 4% 25%;
+	opacity: 0.3;
+	width: 50%;
+}
+
 /*Vote*/
 .post-meta,.post-container {
 	float: left
