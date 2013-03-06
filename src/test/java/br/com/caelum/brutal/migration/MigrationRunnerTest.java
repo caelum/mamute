@@ -10,9 +10,13 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.io.IOException;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InOrder;
+
+import br.com.caelum.vraptor.environment.DefaultEnvironment;
 
 public class MigrationRunnerTest {
 
@@ -23,7 +27,7 @@ public class MigrationRunnerTest {
 	private NumberExtractor extractor;
 
 	@Before
-	public void setup() {
+	public void setup() throws IOException {
 		executor = mock(MigrationExecutor.class);
 
 		m1 = mock(Migration.class);
@@ -33,7 +37,7 @@ public class MigrationRunnerTest {
 		when(extractor.from(m1)).thenReturn(1);
 		when(extractor.from(m2)).thenReturn(2);
 
-		runner = new MigrationRunner(asList(m1, m2), extractor, executor);
+		runner = new MigrationRunner(asList(m1, m2), extractor, executor, new DefaultEnvironment("production"));
 	}
 
 	@Test
