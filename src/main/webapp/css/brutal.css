@@ -237,6 +237,7 @@ em {
 
 .close-popup {
 	cursor: pointer;
+	padding-top: 1em;
 }
 
 .popup.share {
@@ -247,11 +248,15 @@ em {
 	padding: .4em .8em;
 }
 
+.popup.share .share-button {
+	height: 2.5em;
+}
+
 .popup.share label {
 	margin: 0;
 }
 
-.share a.share-button {
+.share-button {
 	float: left;
 	margin-right: 0;
 	cursor: pointer;
