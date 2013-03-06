@@ -38,4 +38,11 @@ public class Flag {
 	Flag() {
 	}
 	
+	public void setReason(String reason) {
+		if (!type.equals(FlagType.OTHER)) {
+			throw new IllegalStateException("only " + FlagType.OTHER + "should have a reason");
+		}
+		this.reason = reason;
+	}
+	
 }

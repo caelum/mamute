@@ -10,6 +10,7 @@ import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.view.Results;
 
 @Resource
 public class FlagController {
@@ -28,9 +29,21 @@ public class FlagController {
 
 	@LoggedAccess
 	@Post("/comments/{commentId}/flags")
-	public void addFlag(Long commentId, FlagType flagType) {
+	public void addFlag(Long commentId, FlagType flagType, String reason) {
+		if (flagType == null) {
+			result.use(Results.http()).sendError(400);
+		}
+		if (flags.alreadyFlagged(loggedUser.getCurrent(), commentId)) {
+			result.use(Results.http()).sendError(403);
+			return;
+		}
+		
 		Comment comment = comments.getById(commentId);
 		Flag flag = new Flag(flagType, loggedUser.getCurrent());
+		if (flagType.equals(FlagType.OTHER)) {
+			flag.setReason(reason);
+		}
+		
 		flags.save(flag);
 		comment.add(flag);
 		

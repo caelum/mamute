@@ -16,14 +16,25 @@
 						<input type="radio" value="RUDE" name="flagType" />
 					</label>
 					<label>
+						<fmt:message key="comment.flag.not_constructive" />
+						<input type="radio" value="NOT_CONSTRUCTIVE" name="flagType" />
+					</label>
+					<label>
 						<fmt:message key="comment.flag.obsolete" />
 						<input type="radio" value="OBSOLETE" name="flagType" />
 					</label>
-					<input type="radio" value="obsolete" name="flagType" id="obsolete-flag" />
+					<label>
+						<fmt:message key="comment.flag.other" />
+						<input class="other-option" type="radio" value="OTHER" name="flagType" />
+						<textarea class="hidden" name="reason"></textarea>
+					</label>
 					<input type="submit" />
 				</form>
 			</div>
-			<span id="comment-${comment.id}">${comment.htmlComment}</span> &#8212;
+			<span id="comment-${comment.id}">
+				${comment.htmlComment}
+			</span> &#8212;
+			
 			<tags:userProfileLink user="${comment.author}" htmlClass="${comment.author.id eq item.author.id ? 'same-author' : ''}"/> 
 			&nbsp;<tags:prettyTime time="${comment.lastUpdatedAt}"/>
 			<c:if test="${comment.author.id == currentUser.id }">

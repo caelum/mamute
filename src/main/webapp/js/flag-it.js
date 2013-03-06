@@ -9,11 +9,31 @@ $(".flag-it").click(function(e) {
 	form.submit(function(e) {
 		e.preventDefault();
 		$.ajax(uri, {
-			success: function() {alert("deu certo")},
-			error: function() {alert("deu errado")},
+			success: function() {
+				modal.hide(200);
+				link.remove();
+			},
+			error: function(xhr, textStatus) {
+				if (xhr.status == "403") {
+					alert("sorry, you can't do it");
+				} else if (xhr.status == "400") {
+					alert("please choose an valid option");
+				}
+				else { 
+					alert("something went wrong");
+				}
+			},
 			data: form.serialize(),
 			method: "POST"
 		});
 	});
 	
+});
+
+$(".other-option").change(function() {
+	$(this).next("textarea").show(200);
+});
+
+$(".modal input:not(.other-option)").change(function() {
+	$(".modal textarea").hide();
 });
