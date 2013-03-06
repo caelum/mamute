@@ -11,7 +11,7 @@ public class ResetPasswordPage extends PageObject {
 
     public ResetPasswordPage typePassword(String password) {
         byName("password").sendKeys(password);
-        byName("password_confirmation").sendKeys(password);
+        byName("passwordConfirmation").sendKeys(password);
         return this;
     }
 

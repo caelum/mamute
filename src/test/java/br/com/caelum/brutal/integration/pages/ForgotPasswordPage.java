@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.integration.pages;
 
+import java.util.List;
+
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -24,11 +26,11 @@ public class ForgotPasswordPage extends PageObject {
     
     public boolean emailWasSent() {
         try {
-            byClassName(FORM_CLASS);
+        	List<WebElement> confirmations = allByClassName("confirmation");
+        	return !confirmations.isEmpty();
         } catch (NoSuchElementException e) {
             return true;
         }
-        return false;
     }
 
 }
