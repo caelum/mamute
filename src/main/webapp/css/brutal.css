@@ -645,18 +645,18 @@ textarea {
 }
 
 .tag {
-	background-color: #e0eaf1;
-	border-bottom: 1px solid #adc2d0;
-	border-right: 1px solid #bacbd8;
+	background-color: #f8f8f8;
+	border: 1px solid #adc2d0;
 	color: #3e6d8e;
 	display: inline-block;
 	font-size: .9em;
 	padding: 0 0.4em;
-	line-height: 1.35em;
+	line-height: 1.45em;
+	border-radius: 5px;
 }
 
 .tag:hover {
-	background-color: #bfd4e3;
+	background-color: #e0eaf1;
 }
 
 .tag-description {
