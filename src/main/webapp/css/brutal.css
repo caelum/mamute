@@ -156,28 +156,33 @@ a {
 }
 
 .md-preview ul, .md-preview ol,
-.post-text ul, .post-text ol {
+.post-text ul, .post-text ol,
+.about-me ul, .about-me ol {
 	padding: 1em 0;
 }
 
 .md-preview ul,
-.post-text ul {
+.post-text ul,
+.about-me ul {
 	list-style: disc inside;
 }
 
 .md-preview ol,
-.post-text ol {
+.post-text ol,
+.about-me ol {
 	list-style: decimal inside;
 }
 
 .md-preview h2, .md-preview h1,
-.post-text h2, .post-test h1 {
+.post-text h2, .post-test h1,
+.about-me h2, .about-me h1 {
 	font-size: 1.3em;
 	margin: 1em 0;
 }
 
 .md-preview blockquote,
-.post-text blockquote {
+.post-text blockquote,
+.about-me blockquote {
 	margin-bottom: 0.8em;
 	padding: 1em 1em 0.1em;
 	background-color: #eee;
