@@ -37,7 +37,6 @@ public class MigrationRunner {
 		return unsortedMigrations;
 	}
 
-	@PostConstruct 
 	public void execute() {
 		if (env.getName().equals("testing") || env.getName().equals("acceptance")) {
 			return;

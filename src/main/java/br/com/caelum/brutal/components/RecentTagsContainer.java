@@ -30,8 +30,7 @@ public class RecentTagsContainer {
 		return recentTagsUsage;
 	}
 	
-	@PostConstruct
-	public void init() {
+	public void execute() {
 	    // we need to do this anyway, sorry
 	    Session session = sf.openSession();
 	    session.beginTransaction();
