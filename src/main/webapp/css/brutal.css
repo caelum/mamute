@@ -155,27 +155,31 @@ a {
 	color: #000;
 }
 
-.md-preview ul, .md-preview ol {
+.md-preview ul, .md-preview ol,
+.post-text ul, .post-text ol {
 	padding: 1em 0;
 }
 
-.md-preview ul {
+.md-preview ul,
+.post-text ul {
 	list-style: disc inside;
 }
 
-.md-preview ol {
+.md-preview ol,
+.post-text ol {
 	list-style: decimal inside;
 }
 
-.md-preview h2, .md-preview h1 {
-	font-size: 1.4em;
-	font-weight: bold;
+.md-preview h2, .md-preview h1,
+.post-text h2, .post-test h1 {
+	font-size: 1.3em;
 	margin: 1em 0;
 }
 
-.md-preview blockquote {
-	margin-bottom: 10px;
-	padding: 10px 10px 1px 10px;
+.md-preview blockquote,
+.post-text blockquote {
+	margin-bottom: 0.8em;
+	padding: 1em 1em 0.1em;
 	background-color: #eee;
 }
 
