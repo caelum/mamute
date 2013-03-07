@@ -155,6 +155,30 @@ a {
 	color: #000;
 }
 
+.md-preview ul, .md-preview ol {
+	padding: 1em 0;
+}
+
+.md-preview ul {
+	list-style: disc inside;
+}
+
+.md-preview ol {
+	list-style: decimal inside;
+}
+
+.md-preview h2, .md-preview h1 {
+	font-size: 1.4em;
+	font-weight: bold;
+	margin: 1em 0;
+}
+
+.md-preview blockquote {
+	margin-bottom: 10px;
+	padding: 10px 10px 1px 10px;
+	background-color: #eee;
+}
+
 pre {
 	font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono,
 		DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace,
