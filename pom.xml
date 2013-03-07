@@ -246,6 +246,12 @@
 			</exclusions>
 			<version>r156</version>
 		</dependency>
+		<dependency>
+			<groupId>org.scribe</groupId>
+			<artifactId>scribe</artifactId>
+			<version>1.3.3</version>
+		</dependency>
+
 
 		<!-- Jetty, jsp, jstl, etc -->
 		<dependency>
