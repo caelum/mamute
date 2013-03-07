@@ -42,14 +42,17 @@ public class HistoryController {
 	@ModeratorAccess
 	@Get("/history")
 	public void history() {
-		result.redirectTo(this).unmoderated(Question.class.getSimpleName());
+		result.redirectTo(this).unmoderated(Question.class.getSimpleName().toLowerCase());
 	}
 
 	@ModeratorAccess
 	@Get("/history/{moderatableType}")
 	public void unmoderated(String moderatableType) {
 		try {
-			Class<?> clazz = Class.forName(MODEL_PACKAGE + moderatableType);
+			String first = moderatableType.substring(0, 1);
+			String moderatableTypeFormatted = moderatableType.replaceFirst(first, first.toUpperCase());
+			
+			Class<?> clazz = Class.forName(MODEL_PACKAGE + moderatableTypeFormatted);
 			UpdatablesAndPendingHistory pending = informations.pendingByUpdatables(clazz);
 			
 			result.include("pending", pending);

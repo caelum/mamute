@@ -1,6 +1,6 @@
 <tags:tabs titleKey="moderation">
-	<a href="${linkTo[HistoryController].unmoderated['Question']}"><fmt:message key="moderation.questions"/></a>
-	<a href="${linkTo[HistoryController].unmoderated['Answer']}"><fmt:message key="moderation.answers"/></a>
+	<a href="${linkTo[HistoryController].unmoderated['question']}"><fmt:message key="moderation.questions"/></a>
+	<a href="${linkTo[HistoryController].unmoderated['answer']}"><fmt:message key="moderation.answers"/></a>
 	<a href="${linkTo[FlagController].topFlaggedComments}"><fmt:message key="moderation.flagged.comments"/></a>
 </tags:tabs>
 
