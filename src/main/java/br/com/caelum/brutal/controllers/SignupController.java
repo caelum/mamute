@@ -16,15 +16,17 @@ import br.com.caelum.vraptor.Result;
 public class SignupController {
 
 	private final SignupValidator validator;
-	private final UserDAO dao;
+	private final UserDAO users;
 	private final Result result;
 	private MessageFactory messageFactory;
+	private LoginMethodDAO loginMethods;
 
-	public SignupController(SignupValidator validator, UserDAO dao, Result result, MessageFactory messageFactory) {
+	public SignupController(SignupValidator validator, UserDAO users, Result result, MessageFactory messageFactory, LoginMethodDAO loginMethods) {
 		this.validator = validator;
-		this.dao = dao;
+		this.users = users;
 		this.result = result;
 		this.messageFactory = messageFactory;
+		this.loginMethods = loginMethods;
 	}
 	
 	@Get("/signup")
@@ -41,7 +43,8 @@ public class SignupController {
 		validator.onErrorRedirectTo(this).signupForm();
 		
 		if (valid) {
-		    dao.save(newUser);
+		    users.save(newUser);
+		    loginMethods.save(brutalLogin);
 		    result.include("messages", Arrays.asList(
 		    			messageFactory.build("confirmation", "signup.confirmation")
 		    		));
