@@ -7,6 +7,7 @@ import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.Flag;
 import br.com.caelum.brutal.model.FlagType;
 import br.com.caelum.brutal.model.LoggedUser;
+import br.com.caelum.brutal.model.LoginMethod;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.Vote;
@@ -26,6 +27,14 @@ public abstract class TestCase {
 	    User user = new User(name, email);
 	    user.confirmEmail();
 	    return user;
+	}
+	
+	protected User userWithPassword(String name, String email) {
+		User user = new User(name, email);
+		user.confirmEmail();
+		LoginMethod brutalLogin = LoginMethod.brutalLogin(user, email, "123456");
+		user.add(brutalLogin);
+		return user;
 	}
 	
 	protected Vote vote(User author, VoteType type, Long id) {
