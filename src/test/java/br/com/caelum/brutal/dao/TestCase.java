@@ -25,6 +25,7 @@ public abstract class TestCase {
 	 */
 	protected User user(String name, String email) {
 	    User user = new User(name, email, "123456");
+	    user.confirmEmail();
 	    return user;
 	}
 	

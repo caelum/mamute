@@ -84,14 +84,14 @@ public class User implements Identifiable {
 	
 	private boolean moderator = false;
 
+	private boolean confirmedEmail = false;
+
 	private String forgotPasswordToken = "";
 	
 	private String photoUri;
-
 	@Type(type = "text")
 	@NotEmpty
 	private String sluggedName;
-
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
 	private DateTime nameLastTouchedAt;
 
@@ -305,4 +305,8 @@ public class User implements Identifiable {
     public void resetSession() {
         sessionKey = null;
     }
+    
+    public void confirmEmail(){
+    	confirmedEmail = true;
+	}
 }
