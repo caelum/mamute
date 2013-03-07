@@ -25,8 +25,10 @@ public class UserDAOTest extends DatabaseTestCase {
 	public void should_search_by_email_and_password() {
 		User guilherme = user("Guilherme Silveira", "guilherme@caelum.com.br");
 		LoginMethod brutalLogin = LoginMethod.brutalLogin(guilherme, "guilherme@caelum.com.br", "654321");
-		session.save(brutalLogin);
+		guilherme.add(brutalLogin);
+		
 		users.save(guilherme);
+		session.save(brutalLogin);
 		
 		assertEquals(guilherme, users.findByMailAndPassword("guilherme@caelum.com.br", "654321"));
 		assertNull(users.findByMailAndPassword("guilherme@caelum.com.br", "1234567"));
@@ -53,14 +55,15 @@ public class UserDAOTest extends DatabaseTestCase {
 	    new Mirror().on(brutalLogin).set().field("token").withValue(MD5.crypt(password));
 
 	    guilherme.add(brutalLogin);
-	    session.save(brutalLogin);
 	    users.save(guilherme);
+	    session.save(brutalLogin);
 	    
 	    assertNull(users.findByMailAndPassword("guilherme@caelum.com.br", password));
 	    
 	    User found = users.findByMailAndLegacyPasswordAndUpdatePassword("guilherme@caelum.com.br", password);
+	    
         assertEquals(guilherme, found);
-	    assertEquals(Digester.encrypt(password), brutalLogin.getToken());
+	    assertEquals(Digester.encrypt(password), found.getBrutalLogin().getToken());
 	    
 	    assertNull(users.findByMailAndPassword("joao.silveira@caelum.com.br", password));
 	    assertNull(users.findByMailAndPassword("guilherme.silveira@caelum.com.br", "123456"));
