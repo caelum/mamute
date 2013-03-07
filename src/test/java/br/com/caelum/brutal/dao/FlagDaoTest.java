@@ -26,6 +26,8 @@ public class FlagDaoTest extends DatabaseTestCase {
 		assertFalse(flags.alreadyFlagged(author, commentFromOther.getId()));
 		assertTrue(flags.alreadyFlagged(author, commentFromAuthor.getId()));
 	}
+	
+	
 
 	private Comment createCommentWithFlag(User author) {
 		Comment comment = new Comment(author, "my comment my comment my comment");

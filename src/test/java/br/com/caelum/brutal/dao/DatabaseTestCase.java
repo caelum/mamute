@@ -14,7 +14,7 @@ import br.com.caelum.vraptor.environment.DefaultEnvironment;
 import br.com.caelum.vraptor.environment.Environment;
 
 @SuppressWarnings("unchecked")
-public abstract class DatabaseTestCase  extends TestCase{
+public abstract class DatabaseTestCase extends TestCase {
 
 	private static final SessionFactory factory;
 

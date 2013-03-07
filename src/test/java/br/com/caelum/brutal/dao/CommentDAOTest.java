@@ -5,21 +5,29 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 
 import org.joda.time.DateTime;
+import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.brutal.builder.QuestionBuilder;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.Comment;
+import br.com.caelum.brutal.model.Flag;
+import br.com.caelum.brutal.model.FlagType;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.SubscribableDTO;
 import br.com.caelum.brutal.model.User;
 
 public class CommentDAOTest extends DatabaseTestCase {
+	
+	private CommentDAO comments;
+
+	@Before
+	public void setup() {
+		comments = new CommentDAO(session);
+	}
 
     @Test
     public void should_find_recent_comments_and_subscribed_users() {
-        CommentDAO comments = new CommentDAO(session);
-        
         User artur = new User("question author", "qauthor@gmail", "1234");
         User iFag = new User("question author", "otherqauthor@gmail", "1234");
         User valeriano = new User("answer author", "aauthor@gmail", "1234");
@@ -63,10 +71,34 @@ public class CommentDAOTest extends DatabaseTestCase {
         assertEquals(naoFazMal.getId(), ((Comment) recentComments.get(1).getSubscribable()).getId());
         
         assertEquals(beberFazMal.getId(), recentComments.get(0).getQuestion().getId());
-        
-        
-        
-        
     }
+    
+    @Test
+	public void should_get_comments_with_three_flags() throws Exception {
+    	User author = user("author author", "author@brutal.com");
+		Comment comment = comment(author, "comment comment comment comment");
+		Comment other = comment(author, "comment comment comment comment");
+		Flag flag1 = flag(FlagType.RUDE, author);
+		Flag flag2 = flag(FlagType.RUDE, author);
+		Flag flag3 = flag(FlagType.RUDE, author);
+		Flag flag4 = flag(FlagType.RUDE, author);
+		
+		comment.add(flag1);
+		comment.add(flag2);
+		comment.add(flag3);
+		other.add(flag4);
+		
+		session.save(author);
+		session.save(flag1);
+		session.save(flag2);
+		session.save(flag3);
+		session.save(flag4);
+		session.save(comment);
+		session.save(other);
+		
+		List<Comment> flagged = comments.flagged(3l);
+		assertEquals(1, flagged.size());
+		
+	}
 
 }
