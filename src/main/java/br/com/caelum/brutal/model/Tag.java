@@ -29,7 +29,7 @@ public class Tag {
 	@ManyToOne
 	private final User author;
 
-	private Long usageCount;
+	private Long usageCount = 0l;
 	
 	/**
 	 * @deprecated hibernate eyes only
@@ -61,10 +61,6 @@ public class Tag {
 	}
 	
 	public void incrementUsage() {
-		if (this.usageCount == null){
-			this.usageCount = 1l;
-			return;
-		}
 		this.usageCount ++;
 	}
 	
