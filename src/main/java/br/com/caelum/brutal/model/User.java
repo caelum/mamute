@@ -4,10 +4,6 @@ import static br.com.caelum.brutal.infra.NormalizerBrutal.toSlug;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.ABOUT_LENGTH_MESSAGE;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.ABOUT_MAX_LENGTH;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.ABOUT_MIN_LENGTH;
-import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.EMAIL_LENGTH_MESSAGE;
-import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.EMAIL_MAX_LENGTH;
-import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.EMAIL_MIN_LENGTH;
-import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.EMAIL_NOT_VALID;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.MARKED_ABOUT_MAX_LENGTH;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.NAME_LENGTH_MESSAGE;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.NAME_MAX_LENGTH;
@@ -16,19 +12,23 @@ import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.NAME_REQ
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.WEBSITE_LENGTH_MESSAGE;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.WEBSITE_MAX_LENGHT;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.WEBSITE_MIN_LENGTH;
+import static org.hibernate.annotations.CascadeType.SAVE_UPDATE;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Index;
 import org.hibernate.annotations.Type;
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
@@ -46,11 +46,6 @@ public class User implements Identifiable {
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
 	private final DateTime createdAt = new DateTime();
 	
-	@Column(unique=true)
-	@Length(min = EMAIL_MIN_LENGTH , max = EMAIL_MAX_LENGTH, message = EMAIL_LENGTH_MESSAGE)
-	@Email(message = EMAIL_NOT_VALID)
-	private String email;
-	
 	@Index(name="session_key")
 	@Column(unique=true)
 	private String sessionKey;
@@ -59,9 +54,6 @@ public class User implements Identifiable {
 	@GeneratedValue
 	private Long id;
 
-	@NotEmpty
-	private String password = "";
-	
 	@NotEmpty(message = NAME_REQUIRED)
 	@Length(min = NAME_MIN_LENGTH, max = NAME_MAX_LENGTH, message = NAME_LENGTH_MESSAGE)
 	private String name;
@@ -92,20 +84,24 @@ public class User implements Identifiable {
 	private String forgotPasswordToken = "";
 	
 	private String photoUri;
+	
 	@Type(type = "text")
 	@NotEmpty
 	private String sluggedName;
+	
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
 	private DateTime nameLastTouchedAt;
 
-	public DateTime getNameLastTouchedAt() {
-		return nameLastTouchedAt;
-	}
+	@Cascade(SAVE_UPDATE)
+	@OneToMany(mappedBy="user")
+	private List<LoginMethod> loginMethods = new ArrayList<>();
 
 	static final User GHOST;
 
+	private String email;
+
 	static {
-		GHOST = new User("", "", "");
+		GHOST = new User("", "");
 		GHOST.setId(1000l);
 	}
 	
@@ -113,21 +109,20 @@ public class User implements Identifiable {
 	 * @deprecated hibernate eyes only
 	 */
 	protected User() {
-		this("", "", "786213675312678");
+		this("", "");
 	}
 
-	public User(String name, String email, String password) {
+	public User(String name, String email) {
 		super();
 		this.realName = name;
+		this.email = email;
 		setName(name);
-		setEmail(email);
-		this.password = Digester.encrypt(password);
+	}
+	
+	public DateTime getNameLastTouchedAt() {
+		return nameLastTouchedAt;
 	}
 
-	private void setEmail(String email) {
-        this.email = email;
-    }
-	
 	public void setSessionKey() {
 	    Long currentTimeMillis = System.currentTimeMillis();
 	    this.sessionKey = Digester.encrypt(currentTimeMillis.toString() + this.id.toString());
@@ -214,19 +209,16 @@ public class User implements Identifiable {
 	}
 
 	public boolean updateForgottenPassword(String password,
-			String password_confirmation) {
-		if(password.equals(password_confirmation)) {
-			this.password = br.com.caelum.brutal.infra.Digester.encrypt(password);
-			touchForgotPasswordToken();
-			return true;
+			String passwordConfirmation) {
+		if (!password.equals(passwordConfirmation)) {
+			return false;
 		}
-		return false;
+		for (LoginMethod method : loginMethods) {
+			method.updateForgottenPassword(password);
+		}
+		return true;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-	
 	public String getSluggedName() {
 		return sluggedName;
 	}
@@ -311,5 +303,18 @@ public class User implements Identifiable {
     
     public void confirmEmail(){
     	confirmedEmail = true;
+	}
+
+	public void add(LoginMethod brutalLogin) {
+		loginMethods.add(brutalLogin);
+	}
+
+	public LoginMethod getBrutalLogin() {
+		for (LoginMethod method : loginMethods) {
+			if (method.isBrutal()) {
+				return method;
+			}
+		}
+		throw new IllegalStateException("this guy dont have a brutal login method!");
 	}
 }

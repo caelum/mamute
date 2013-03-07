@@ -23,15 +23,15 @@ public class UserTest extends TestCase {
 
     @Before
     public void before_test() {
-        author = new User("name", "email", "12234");
+        author = user("name", "email");
         author.setId(1l);
-        otherUser = new User("other", "email", "1234");
+        otherUser = user("other", "email");
         otherUser.setId(2l);
         
         myQuestion = question.withTitle("question title").withDescription("question description").withAuthor(author).build();
         myOtherQuestion = question.withTitle("question title").withDescription("question description").withAuthor(otherUser).build();
         
-        moderator = new User("yeah", "email", "1234").asModerator();
+        moderator = user("yeah", "email").asModerator();
         moderator.setId(3l);
     }
 

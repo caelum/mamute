@@ -24,7 +24,7 @@ public class InformationDAOTest extends DatabaseTestCase {
     public void should_find_pending_answers_edits() {
         InformationDAO informations = new InformationDAO(session);
         
-        User author = new User("namename", "email@gmail.com", "123456");
+        User author = user("namename", "email@gmail.com");
         LoggedUser currentAuthor = new LoggedUser(author, null);
         
         QuestionInformation qinfo1 = new QuestionInformationBuilder().with(author).build();
@@ -54,7 +54,7 @@ public class InformationDAOTest extends DatabaseTestCase {
     @Test
     public void should_get_pending_history() {
         InformationDAO informations = new InformationDAO(session);
-        User author = new User("francisco", "chico@chico", "123456");
+        User author = user("francisco", "chico@chico");
         
         QuestionInformation info1 = new QuestionInformationBuilder().with(author).build();
         Question question1 = new Question(info1, author);

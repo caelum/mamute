@@ -17,10 +17,10 @@ import br.com.caelum.brutal.model.User;
 
 public class AnswerDAOTest extends DatabaseTestCase {
 
-    private User questionAuthor = new User("guilherme", "email@email.com", "123456");
-    private User answerAuthor1 = new User("leonardo", "answer2@email.com", "123456");
-    private User answerAuthor2 = new User("francisco", "answer1@email.com", "123456");
-    private User answerAuthor3 = new User("felipe", "answer3@email.com", "123456");
+    private User questionAuthor = user("guilherme", "email@email.com");
+    private User answerAuthor1 = user("leonardo", "answer2@email.com");
+    private User answerAuthor2 = user("francisco", "answer1@email.com");
+    private User answerAuthor3 = user("felipe", "answer3@email.com");
     private QuestionBuilder question = new QuestionBuilder();
     private Question creativeQuestion = question.withTitle("title title title title").withDescription("description descriptions descriptions descriptions descriptions").withAuthor(questionAuthor).build();
     AnswerDAO answers;

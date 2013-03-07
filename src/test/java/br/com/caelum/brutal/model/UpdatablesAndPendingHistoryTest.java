@@ -7,12 +7,14 @@ import java.util.List;
 
 import org.junit.Test;
 
-public class UpdatablesAndPendingHistoryTest {
+import br.com.caelum.brutal.dao.TestCase;
+
+public class UpdatablesAndPendingHistoryTest extends TestCase {
 
     @Test
     public void should_build_group_informations_by_updatable() {
         List<Object[]> updatableAndInformations = new ArrayList<>();
-        User author =  new User("name", "emaiil", "12245");
+        User author =  user("name", "emaiil");
         
         QuestionInformationBuilder builder = new QuestionInformationBuilder().with(author);
         QuestionInformation info1 = builder.withTitle("title1").build();

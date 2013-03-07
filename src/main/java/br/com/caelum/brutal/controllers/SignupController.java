@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.factory.MessageFactory;
+import br.com.caelum.brutal.model.LoginMethod;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.validators.SignupValidator;
 import br.com.caelum.vraptor.Get;
@@ -32,7 +33,9 @@ public class SignupController {
 
 	@Post("/signup")
 	public void signup(String email, String password, String name, String passwordConfirmation) {
-		User newUser = new User(name, email, password);
+		User newUser = new User(name, email);
+		LoginMethod brutalLogin = LoginMethod.brutalLogin(newUser, email, password);
+		newUser.add(brutalLogin);
 		
 		boolean valid = validator.validate(newUser, password, passwordConfirmation);
 		validator.onErrorRedirectTo(this).signupForm();

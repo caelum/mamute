@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import br.com.caelum.brutal.infra.Digester;
+import br.com.caelum.brutal.model.MethodType;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.ioc.Component;
 
@@ -72,15 +73,18 @@ public class UserDAO {
     public User findByMailAndLegacyPasswordAndUpdatePassword(String email, String password) {
         User legacyUser = findByEmailAndEncryptedPassword(email, Digester.legacyMd5(password));
         if (legacyUser != null) {
-            new Mirror().on(legacyUser).set().field("password").withValue(Digester.encrypt(password));
+            new Mirror().on(legacyUser.getBrutalLogin()).set().field("token").withValue(Digester.encrypt(password));
         }
         return legacyUser;
     }
     
     private User findByEmailAndEncryptedPassword(String email, String pass) {
-        return (User) session.createQuery("from User where email = :email and password = :password")
+        return (User) session.createQuery("select u from User u " +
+        			"join u.loginMethods method where " +
+        			"method.serviceEmail = :email and method.token = :password and method.type=:brutal")
                 .setParameter("email", email)
                 .setParameter("password", pass)
+                .setParameter("brutal", MethodType.BRUTAL)
                 .uniqueResult();
     }
 

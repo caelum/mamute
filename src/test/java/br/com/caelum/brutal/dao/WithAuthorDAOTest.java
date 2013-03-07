@@ -19,7 +19,7 @@ import br.com.caelum.brutal.model.VoteType;
 
 public class WithAuthorDAOTest extends DatabaseTestCase{
 
-	private User author = new User("Leonardo", "leo@leo", "123456");
+	private User author = user("Leonardo", "leo@leo");
 	private WithAuthorDAO<Question> questionsWithUser;
 	private WithAuthorDAO<Answer> answersWithUser;
 	private QuestionBuilder question = new QuestionBuilder();

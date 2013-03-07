@@ -28,10 +28,10 @@ public class CommentDAOTest extends DatabaseTestCase {
 
     @Test
     public void should_find_recent_comments_and_subscribed_users() {
-        User artur = new User("question author", "qauthor@gmail", "1234");
-        User iFag = new User("question author", "otherqauthor@gmail", "1234");
-        User valeriano = new User("answer author", "aauthor@gmail", "1234");
-        User alcoolatra = new User("comment author", "cauthor@gmail", "1234");
+        User artur = user("question author", "qauthor@gmail");
+        User iFag = user("question author", "otherqauthor@gmail");
+        User valeriano = user("answer author", "aauthor@gmail");
+        User alcoolatra = user("comment author", "cauthor@gmail");
         QuestionBuilder question = new QuestionBuilder();        
 
 		Question beberFazMal = question

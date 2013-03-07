@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.com.caelum.brutal.dao.TestCase;
 import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.User;
@@ -16,7 +17,7 @@ import br.com.caelum.vraptor.core.Localization;
 import br.com.caelum.vraptor.util.test.JSR303MockValidator;
 import br.com.caelum.vraptor.util.test.MockLocalization;
 
-public class SignupValidatorTest {
+public class SignupValidatorTest extends TestCase {
 
     private UserDAO users;
     private Validator validator;
@@ -40,7 +41,7 @@ public class SignupValidatorTest {
     @Test
     public void should_verify_email() {
         when(users.existsWithEmail("used@gmail.com")).thenReturn(true);
-        User user = new User("nome muito grande ai meu deus", "used@gmail.com", "123456");
+        User user = user("nome muito grande ai meu deus", "used@gmail.com");
         boolean valid = signupValidator.validate(user, "123456", "123456");
         
         assertFalse(valid);
@@ -48,7 +49,7 @@ public class SignupValidatorTest {
     
     @Test
     public void should_verify_email_without_domain() {
-    	User user = new User("nome muito grande ai meu deus", "usedgmail.com", "123456");
+    	User user = user("nome muito grande ai meu deus", "usedgmail.com");
     	boolean valid = signupValidator.validate(user, "123456", "123456");
     	assertFalse(valid);
     }
@@ -56,7 +57,7 @@ public class SignupValidatorTest {
     @Test
     public void should_verify_passwords() throws Exception {
         when(users.existsWithEmail("valid@gmail.com")).thenReturn(false);
-        User user = new User("nome muito grande ai meu deus", "valid@gmail.com", "123456");
+        User user = user("nome muito grande ai meu deus", "valid@gmail.com");
         boolean valid = signupValidator.validate(user, "123456", "1234567");
         
         assertFalse(valid);
@@ -65,7 +66,7 @@ public class SignupValidatorTest {
     @Test
     public void should_verify_tiny_password() throws Exception {
     	when(users.existsWithEmail("valid@gmail.com")).thenReturn(false);
-    	User user = new User("nome muito grande ai meu deus", "valid@gmail.com", "123");
+    	User user = user("nome muito grande ai meu deus", "valid@gmail.com");
     	boolean valid = signupValidator.validate(user, "123", "123");
     	
     	assertFalse(valid);
@@ -75,7 +76,7 @@ public class SignupValidatorTest {
     public void should_verify_large_password() throws Exception {
     	when(users.existsWithEmail("valid@gmail.com")).thenReturn(false);
     	String password = 666*100 + "";
-    	User user = new User("nome", "valid@gmail.com", password);
+    	User user = user("nome", "valid@gmail.com");
     	boolean valid = signupValidator.validate(user, password, password);
     	
     	assertFalse(valid);
@@ -84,7 +85,7 @@ public class SignupValidatorTest {
     @Test
     public void should_verify_tiny_name() throws Exception {
     	when(users.existsWithEmail("valid@gmail.com")).thenReturn(false);
-    	User user = new User("nome", "valid@gmail.com", "123456");
+    	User user = user("nome", "valid@gmail.com");
     	boolean valid = signupValidator.validate(user, "123456", "123456");
     	
     	assertFalse(valid);
@@ -94,7 +95,7 @@ public class SignupValidatorTest {
     public void should_verify_large_name() throws Exception {
     	when(users.existsWithEmail("valid@gmail.com")).thenReturn(false);
     	String name = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-    	User user = new User(name, "valid@gmail.com", "123456");
+    	User user = user(name, "valid@gmail.com");
     	boolean valid = signupValidator.validate(user, "123456", "123456");
     	
     	assertFalse(valid);
@@ -110,7 +111,7 @@ public class SignupValidatorTest {
     @Test
     public void should_valid_user() throws Exception {
         when(users.existsWithEmail("used@gmail.com")).thenReturn(false);
-        User user = new User("nome muito grande ai meu deus", "used@gmail.com", "123456");
+        User user = user("nome muito grande ai meu deus", "used@gmail.com");
         boolean valid = signupValidator.validate(user, "123456", "123456");
         
         assertTrue(valid);

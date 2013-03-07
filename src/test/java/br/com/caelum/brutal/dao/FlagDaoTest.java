@@ -15,8 +15,8 @@ public class FlagDaoTest extends DatabaseTestCase {
 	@Test
 	public void should_verify_that_user_flagged_comment() {
 		FlagDao flags = new FlagDao(session);
-		User author = new User("user user", "chico@brutal.com", "123456");
-		User other = new User("user user", "other@brutal.com", "123456");
+		User author = user("user user", "chico@brutal.com");
+		User other = user("user user", "other@brutal.com");
 		session.save(author);
 		session.save(other);
 

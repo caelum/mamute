@@ -30,7 +30,7 @@ public class QuestionTest  extends TestCase{
 	@Test
 	public void should_be_touched_when_marked_as_solved() {
 		Question shouldILiveForever = question.build();
-		User leo = new User("", "", "");
+		User leo = user("", "");
 		Answer yes = answer("my answer", shouldILiveForever, leo);
 		
 		assertEquals(User.GHOST, shouldILiveForever.getLastTouchedBy());
@@ -55,10 +55,10 @@ public class QuestionTest  extends TestCase{
 	
 	@Test
 	public void should_be_touched_by_original_author_after_edit() throws Exception {
-		User artur = new User("artur", "artur@x.com", "");
+		User artur = user("artur", "artur@x.com");
 		artur.setId(1l);
 		Question comoFaz = question.withTitle("titulo").withDescription("descricao").withAuthor(artur).build();
-		User leo = new User("leo", "leo@x.com", "");
+		User leo = user("leo", "leo@x.com");
 		leo.setId(2l);
 		comoFaz.updateWith(new QuestionInformationBuilder().with(leo).build());
 		assertEquals(comoFaz.getLastTouchedBy().getId(), artur.getId());
@@ -66,8 +66,8 @@ public class QuestionTest  extends TestCase{
 	
 	@Test
 	public void should_update_information_status_and_last_touched_by() throws Exception {
-		User artur = new User("", "", "");
-		User leo = new User("", "", "");
+		User artur = user("", "");
+		User leo = user("", "");
 		artur.setId(1l);
 		leo.setId(2l);
 		

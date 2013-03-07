@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import br.com.caelum.brutal.infra.Digester;
 import br.com.caelum.brutal.infra.MD5;
+import br.com.caelum.brutal.model.LoginMethod;
 import br.com.caelum.brutal.model.User;
 
 public class UserDAOTest extends DatabaseTestCase {
@@ -22,7 +23,9 @@ public class UserDAOTest extends DatabaseTestCase {
 	
 	@Test
 	public void should_search_by_email_and_password() {
-		User guilherme = new User("Guilherme Silveira", "guilherme@caelum.com.br", "654321");
+		User guilherme = user("Guilherme Silveira", "guilherme@caelum.com.br");
+		LoginMethod brutalLogin = LoginMethod.brutalLogin(guilherme, "guilherme@caelum.com.br", "654321");
+		session.save(brutalLogin);
 		users.save(guilherme);
 		
 		assertEquals(guilherme, users.findByMailAndPassword("guilherme@caelum.com.br", "654321"));
@@ -32,7 +35,7 @@ public class UserDAOTest extends DatabaseTestCase {
 	
 	@Test
 	public void should_find_by_session_key() {
-	    User guilherme = new User("Guilherme Silveira", "guilherme@caelum.com.br", "654321");
+	    User guilherme = user("Guilherme Silveira", "guilherme@caelum.com.br");
 	    users.save(guilherme);
 	    guilherme.setSessionKey();
 	    String sessionKey = guilherme.getSessionKey();
@@ -45,16 +48,19 @@ public class UserDAOTest extends DatabaseTestCase {
 	@Test
 	public void should_search_by_email_and_legacy_password_and_update_password() {
 	    String password = "654321";
-        User guilherme = new User("Guilherme Silveira", "guilherme@caelum.com.br", password);
-	    new Mirror().on(guilherme).set().field("password").withValue(MD5.crypt(password));
-	    
+        User guilherme = user("Guilherme Silveira", "guilherme@caelum.com.br");
+		LoginMethod brutalLogin = LoginMethod.brutalLogin(guilherme, "guilherme@caelum.com.br", password);
+	    new Mirror().on(brutalLogin).set().field("token").withValue(MD5.crypt(password));
+
+	    guilherme.add(brutalLogin);
+	    session.save(brutalLogin);
 	    users.save(guilherme);
 	    
 	    assertNull(users.findByMailAndPassword("guilherme@caelum.com.br", password));
 	    
 	    User found = users.findByMailAndLegacyPasswordAndUpdatePassword("guilherme@caelum.com.br", password);
         assertEquals(guilherme, found);
-	    assertEquals(Digester.encrypt(password), found.getPassword());
+	    assertEquals(Digester.encrypt(password), brutalLogin.getToken());
 	    
 	    assertNull(users.findByMailAndPassword("joao.silveira@caelum.com.br", password));
 	    assertNull(users.findByMailAndPassword("guilherme.silveira@caelum.com.br", "123456"));
