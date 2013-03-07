@@ -2,3 +2,4 @@
 
 <tags:signupForm name="${name}" email="${email}"/>
 
+<a href="${facebookUrl}">Logar via facebook</a>

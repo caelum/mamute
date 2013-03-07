@@ -2,6 +2,7 @@ package br.com.caelum.brutal.controllers;
 
 import java.util.Arrays;
 
+import br.com.caelum.brutal.auth.FacebookAuthService;
 import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.LoginMethod;
@@ -20,17 +21,22 @@ public class SignupController {
 	private final Result result;
 	private MessageFactory messageFactory;
 	private LoginMethodDAO loginMethods;
+	private final FacebookAuthService facebook;
 
-	public SignupController(SignupValidator validator, UserDAO users, Result result, MessageFactory messageFactory, LoginMethodDAO loginMethods) {
+	public SignupController(SignupValidator validator, UserDAO users, Result result,
+			MessageFactory messageFactory, LoginMethodDAO loginMethods, FacebookAuthService facebook) {
 		this.validator = validator;
 		this.users = users;
 		this.result = result;
 		this.messageFactory = messageFactory;
 		this.loginMethods = loginMethods;
+		this.facebook = facebook;
 	}
 	
 	@Get("/signup")
 	public void signupForm() {
+		String facebookUrl = facebook.getOauthUrl();
+		result.include("facebookUrl", facebookUrl);
 	}
 
 	@Post("/signup")
@@ -53,5 +59,10 @@ public class SignupController {
 		    result.include("email", email);
 		    result.include("name", name);
 		}
+	}
+	
+	@Get("/signup/facebook")
+	public void signupViaFacebook(String code) {
+		facebook.buildToken(code);
 	}
 }
