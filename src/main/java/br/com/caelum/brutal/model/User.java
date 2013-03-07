@@ -8,6 +8,7 @@ import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.EMAIL_LE
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.EMAIL_MAX_LENGTH;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.EMAIL_MIN_LENGTH;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.EMAIL_NOT_VALID;
+import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.MARKED_ABOUT_MAX_LENGTH;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.NAME_LENGTH_MESSAGE;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.NAME_MAX_LENGTH;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.NAME_MIN_LENGTH;
@@ -36,6 +37,7 @@ import org.joda.time.Years;
 import br.com.caelum.brutal.infra.Digester;
 import br.com.caelum.brutal.model.interfaces.Identifiable;
 import br.com.caelum.brutal.model.interfaces.Moderatable;
+import br.com.caelum.brutal.sanitizer.HtmlSanitizer;
 
 @Table(name="Users")
 @Entity
@@ -75,6 +77,7 @@ public class User implements Identifiable {
 	@Length(min = ABOUT_MIN_LENGTH, max = ABOUT_MAX_LENGTH ,  message = ABOUT_LENGTH_MESSAGE)
 	private String about;
 	
+	@Length(min = ABOUT_MIN_LENGTH, max = MARKED_ABOUT_MAX_LENGTH ,  message = ABOUT_LENGTH_MESSAGE)
 	private String markedAbout;
 	
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
@@ -266,7 +269,7 @@ public class User implements Identifiable {
 	
 	public void setAbout(String content) {
 		this.about = content;
-		this.markedAbout = MarkDown.parse(content);
+		this.markedAbout = HtmlSanitizer.sanitize(MarkDown.parse(content));
 	}
 	
 	public String getAbout() {

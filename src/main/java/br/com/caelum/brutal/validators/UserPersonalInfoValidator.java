@@ -23,6 +23,7 @@ public class UserPersonalInfoValidator {
 	
 	public static final int ABOUT_MIN_LENGTH = 6;
 	public static final int ABOUT_MAX_LENGTH = 500;
+	public static final int MARKED_ABOUT_MAX_LENGTH = 600;
 	
 	public static final String NAME_LENGTH_MESSAGE = "user.errors.name.length";
 	public static final String REALNAME_LENGTH_MESSAGE = "user.errors.realName.length";

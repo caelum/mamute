@@ -167,6 +167,7 @@
 		padding: 12px 9px 10px 9px;
 	}
 	
+	/*User profile*/
 	.data-list {
 		float: right;
 		width: 60%;
@@ -194,7 +195,7 @@
 	
 	.about-me {
 		clear: both;
-		height: 10em;
+		height: auto;
 		min-height: initial;
 		width: 100%;
 	}
