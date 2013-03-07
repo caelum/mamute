@@ -10,12 +10,27 @@
 	.container{
 		max-width:90%;
 	}
-
+	
+	.modal-flag {
+		width: 32%;
+	}
+	
+	.modal-flag textarea {
+		width: 88%;
+	}
 }
 
 @media only screen and (max-width: 840px) {
 	.complete-tag{
 		width:25%;
+	}
+	
+	.modal-flag {
+		width: 36%;
+	}
+	
+	.modal-flag textarea {
+		width: 83%;
 	}
 	
 }
@@ -205,16 +220,35 @@
 		margin-bottom: 3%;
 	}
 	
+	.modal-flag {
+		width: 40%;
+	}
+	
+	.modal-flag textarea {
+		width: 82%;
+	}
 }
 
 @media only screen and (max-width: 550px) {
 	.complete-tag{
 		width:33%;
 	}
+	
+	.modal-flag {
+		width: 53%;
+	}
+	
+	.modal-flag textarea {
+		width: 83%;
+	}
 }
 
 @media only screen and (max-width: 400px) {
 	.complete-tag{
 		width:50%;
+	}
+	
+	.modal-flag {
+		width: 60%;
 	}
 }	

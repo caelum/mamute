@@ -918,7 +918,7 @@ textarea {
 	border: 1px solid #eaeaea;
 	box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 	position: absolute;
-	width: 20%;
+	width: 22%;
 }
 
 .modal-flag input[type="radio"] {
@@ -939,6 +939,7 @@ textarea {
 	box-shadow: 0 2px 1px rgba(0, 0, 0, 0.3), 0 1px 0
 		rgba(255, 255, 255, 0.4) inset;
 	color: white;
+	font-size: 1em;
 	margin: 4% 25%;
 	opacity: 0.3;
 	width: 50%;
