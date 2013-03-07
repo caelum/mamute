@@ -1,12 +1,16 @@
 package br.com.caelum.brutal.controllers;
 
+import java.util.List;
+
 import br.com.caelum.brutal.auth.LoggedAccess;
+import br.com.caelum.brutal.auth.ModeratorAccess;
 import br.com.caelum.brutal.dao.CommentDAO;
 import br.com.caelum.brutal.dao.FlagDao;
 import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.Flag;
 import br.com.caelum.brutal.model.FlagType;
 import br.com.caelum.brutal.model.LoggedUser;
+import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
@@ -49,5 +53,12 @@ public class FlagController {
 		comment.add(flag);
 		
 		result.nothing();
+	}
+	
+	@ModeratorAccess
+	@Get("/comments/flagged")
+	public void topFlaggedComments() {
+		List<Comment> flaggedComments = comments.flagged(3l);
+		result.include("flaggedComments", flaggedComments);
 	}
 }

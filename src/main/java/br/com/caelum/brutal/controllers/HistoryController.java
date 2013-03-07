@@ -56,7 +56,6 @@ public class HistoryController {
 			result.include("type", moderatableType);
 		} catch (ClassNotFoundException e) {
 			result.notFound();
-			return;
 		}
 	}
 

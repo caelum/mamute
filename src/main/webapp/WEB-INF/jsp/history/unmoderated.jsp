@@ -1,12 +1,11 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-<div class="subheader subheader-with-tab">
-	<h2 class="title page-title"><fmt:message key="moderation"/></h2>
-	<div class="tabs">
-		<a href="${linkTo[HistoryController].unmoderated['Question']}"><fmt:message key="moderation.questions"/></a>
-		<a href="${linkTo[HistoryController].unmoderated['Answer']}"><fmt:message key="moderation.answers"/></a>
-	</div>
-</div>
+<tags:tabs titleKey="moderation">
+	<a href="${linkTo[HistoryController].unmoderated['Question']}"><fmt:message key="moderation.questions"/></a>
+	<a href="${linkTo[HistoryController].unmoderated['Answer']}"><fmt:message key="moderation.answers"/></a>
+	<a href="${linkTo[FlagController].topFlaggedComments}"><fmt:message key="moderation.flagged.comments"/></a>
+</tags:tabs>
+
 <ul class="pending-questions">
 	<c:forEach var="entry" items="${pending.entrySet}">
 		<li class="pending">
