@@ -28,17 +28,21 @@ import br.com.caelum.brutal.model.interfaces.Taggable;
 @Entity
 public class QuestionInformation implements Information, Taggable {
 
+	public static final int DESCRIPTION_MIN_LENGTH = 30;
+	public static final int TITLE_MAX_LENGTH = 150;
+	public static final int TITLE_MIN_LENGTH = 15;
+
 	@Id
 	@GeneratedValue
 	private Long id;
 
 	@Lob
-	@Length(min = 15)
+	@Length(min = TITLE_MIN_LENGTH, max = TITLE_MAX_LENGTH, message = "question.errors.title.lenght")
 	@NotEmpty
 	private String title;
 
 	@Lob
-	@Length(min = 30)
+	@Length(min = DESCRIPTION_MIN_LENGTH, message = "question.errors.description.lenght")
 	@NotEmpty
 	private String description;
 

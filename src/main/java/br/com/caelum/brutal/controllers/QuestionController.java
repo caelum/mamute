@@ -15,6 +15,7 @@ import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.providers.RequiresTransaction;
+import br.com.caelum.brutal.validators.QuestionInformationValidator;
 import br.com.caelum.brutal.validators.TagsValidator;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
@@ -31,9 +32,10 @@ public class QuestionController {
 	private final LoggedUser currentUser;
 	private final TagsValidator tagsValidator;
 	private final MessageFactory messageFactory;
+	private final QuestionInformationValidator informationValidator;
 
 	public QuestionController(Result result, QuestionDAO questionDAO, TagDAO tags, VoteDAO votes, LoggedUser currentUser,
-			TagsValidator tagsValidator, MessageFactory messageFactory) {
+			TagsValidator tagsValidator, MessageFactory messageFactory, QuestionInformationValidator questionInformationValidator) {
 		this.result = result;
 		this.questions = questionDAO;
 		this.tags = tags;
@@ -41,6 +43,7 @@ public class QuestionController {
 		this.currentUser = currentUser;
 		this.tagsValidator = tagsValidator;
 		this.messageFactory = messageFactory;
+		this.informationValidator = questionInformationValidator;
 	}
 
 	@Get("/question/ask")
@@ -56,15 +59,12 @@ public class QuestionController {
 	@Post("/question/edit/{id}")
 	public void edit(String title, String description, String tagNames, Long id, String comment) {
 		List<Tag> loadedTags = tags.findAllByNames(tagNames);
-		if(validate(loadedTags)){
-			QuestionInformation information = new QuestionInformation(title, description, this.currentUser, loadedTags, comment);
-	
+		QuestionInformation information = new QuestionInformation(title, description, this.currentUser, loadedTags, comment);
+		if(validate(loadedTags) && informationValidator.validate(information)){
 			Question original = questions.getById(id);
 			UpdateStatus status = original.updateWith(information);
 			questions.save(original);
-			result.include("messages", Arrays.asList(
-						messageFactory.build("confirmation",status.getMessage())
-					));
+			result.include("messages", Arrays.asList(messageFactory.build("confirmation",status.getMessage())));
 			result.redirectTo(this).showQuestion(id, original.getSluggedTitle());
 		}
 		tagsValidator.onErrorRedirectTo(this).questionEditForm(id);
@@ -91,16 +91,12 @@ public class QuestionController {
 	@LoggedAccess
 	public void newQuestion(String title, String description, String tagNames) {
 		List<Tag> loadedTags = tags.findAllByNames(tagNames);
-		
-		if(validate(loadedTags)){
-			QuestionInformation information = new QuestionInformation(title, description, currentUser, loadedTags, "new");
+		QuestionInformation information = new QuestionInformation(title, description, currentUser, loadedTags, "new");
+		if(validate(loadedTags) && informationValidator.validate(information)){
 			Question question = new Question(information, currentUser.getCurrent());
-	
 			questions.save(question);
-			result.redirectTo(this).showQuestion(question.getId(),
-					question.getSluggedTitle());
+			result.redirectTo(this).showQuestion(question.getId(), question.getSluggedTitle());
 		}
-
 		tagsValidator.onErrorRedirectTo(this).questionForm();
 	}
 

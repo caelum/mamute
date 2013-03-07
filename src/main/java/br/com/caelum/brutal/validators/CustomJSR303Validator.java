@@ -28,7 +28,7 @@ public class CustomJSR303Validator extends JSR303Validator{
 		List<Message> validationMessages = super.validate(bean);
 		ArrayList<Message> messages = new ArrayList<Message>();
 		for (Message message : validationMessages) {
-			messages.add(messageFactory.build(message.getCategory(), message.getMessage()));
+			messages.add(messageFactory.build("error", message.getMessage()));
 		}
 		return messages;
 	}
