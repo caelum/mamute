@@ -9,7 +9,9 @@
 	<c:forEach var="comment" items="${item.comments }">
 		<li class="comment">
 			<c:if test="${currentUser != null && !comment.alreadyFlaggedBy(currentUser)}">
-				<a href="#" class="flag-it">flag</a>
+				<div class="comment-options hidden">
+					<a href="#" class="flag-it icon-flag"></a>
+				</div>
 			</c:if>
 			<div class="hidden modal modal-flag">
 				<form class="validated-form" action="${linkTo[FlagController].addFlag[comment.id]}">

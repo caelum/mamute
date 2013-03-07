@@ -877,6 +877,17 @@ textarea {
 }
 
 /*Comments*/
+.comment-options *{
+	float: left;
+	margin: 1em 0 0 -2em;
+	color: #d0d0d0;	
+}
+
+.comment-options .flag-selected,
+.comment-options .flag-it:hover {
+	color: #f8d408;
+}
+
 .comment-container {
 	color: #444;
 	border-top: dotted 1px #aaa;
@@ -889,7 +900,7 @@ textarea {
 	line-height: 20px;
 }
 
-.comment:hover {
+.comment:hover, .to-flag {
 	background-color: #FAFAFA;
 }
 

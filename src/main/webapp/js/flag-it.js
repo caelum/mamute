@@ -1,11 +1,28 @@
+$('.comment').hover(function(){
+	var commentOptions = $(this).find('.comment-options');
+	if(!commentOptions.find('.flag-it').hasClass('flag-selected')) {
+		commentOptions.toggleClass('hidden');
+	}
+});
+
 $(".flag-it").click(function(e) {
 	e.preventDefault();
 	var link = $(this);
-	var modal = link.siblings(".modal");
+	var commentOptions = link.parent();
+	var comment = link.parents('.comment');
+	var modal = commentOptions.siblings(".modal");
 	var form = modal.find("form");
 	var uri = form.attr("action");
 	
-	modal.show(200);
+	modal.toggleClass('hidden');
+	
+	if(modal.hasClass('hidden')) {
+		link.removeClass('flag-selected');
+		comment.removeClass('to-flag');
+	} else {
+		link.addClass('flag-selected');
+		comment.addClass('to-flag');
+	}
 	
 	var callbacks = {};
 	callbacks["409"] = function() {
