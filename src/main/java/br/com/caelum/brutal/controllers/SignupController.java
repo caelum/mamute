@@ -3,11 +3,9 @@ package br.com.caelum.brutal.controllers;
 import java.util.Arrays;
 
 import br.com.caelum.brutal.auth.FacebookAuthService;
-import br.com.caelum.brutal.auth.SignupInfo;
 import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.LoginMethod;
-import br.com.caelum.brutal.model.MethodType;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.validators.SignupValidator;
 import br.com.caelum.vraptor.Get;
@@ -61,20 +59,5 @@ public class SignupController {
 		    result.include("email", email);
 		    result.include("name", name);
 		}
-	}
-	
-	@Get("/signup/facebook")
-	public void signupViaFacebook(String code) {
-		String rawToken = facebook.buildToken(code);
-		SignupInfo signupInfo = facebook.getSignupInfo();
-		
-		User user = new User(signupInfo.getName(), signupInfo.getEmail());
-		LoginMethod facebookLogin = new LoginMethod(MethodType.FACEBOOK, signupInfo.getEmail(), rawToken, user);
-		user.add(facebookLogin);
-		
-		users.save(user);
-		loginMethods.save(facebookLogin);
-		
-		result.redirectTo(ListController.class).home();
 	}
 }
