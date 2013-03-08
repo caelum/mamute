@@ -30,9 +30,7 @@ public class AuthController {
 		if (auth.authenticate(email, password)) {
 			redirectToRightUrl(redirectUrl);
 		} else {
-			result.include("messages", Arrays.asList(
-						messageFactory.build("alert", "auth.invalid.login")
-					));
+			result.include("messages", Arrays.asList(messageFactory.build("alert", "auth.invalid.login")));
 			result.include("redirectUrl", redirectUrl);
 			result.redirectTo(this).loginForm();
 		}
