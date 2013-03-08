@@ -1,5 +1,8 @@
 package br.com.caelum.brutal.model;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -46,6 +49,15 @@ public class Tag {
 
 	public String getName() {
 		return name;
+	}
+	
+	public String getUriName() {
+		try {
+			return URLEncoder.encode(name, "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public String getDescription() {
