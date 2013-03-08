@@ -41,7 +41,6 @@ public class FacebookSignupController {
 		loginMethods.save(facebookLogin);
 		access.login(user);
 		
-//		result.redirectTo(ListController.class).home();
-		result.nothing();
+		result.redirectTo(ListController.class).home();
 	}
 }
