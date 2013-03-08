@@ -5,13 +5,14 @@
 <footer class="footer">
 	<div class="container">
 		<a class="tag" href="/list/withTag/java">java</a>
-		<a class="tag" href="/list/withTag/html">HTML</a>
-		<a class="tag" href="/list/withTag/javascript">javascript</a>
-		<a class="tag" href="/list/withTag/net">.net</a>
-		<a class="tag" href="/list/withTag/arquitetura">arquitetura</a>
-		<a class="tag" href="/list/withTag/rails">rails</a>
 		<a class="tag" href="/list/withTag/android">android</a>
-		<a class="tag" href="/list/withTag/ios">ios</a>
+		<a class="tag" href="/list/withTag/c%23">c#</a>
+		<a class="tag" href="/list/withTag/.net">.net</a>
+		<a class="tag" href="/list/withTag/javascript">javascript</a>
+		<a class="tag" href="/list/withTag/php">php</a>
+		<a class="tag" href="/list/withTag/jquery">jquery</a>
+		<a class="tag" href="/list/withTag/html">html</a>
+		<a class="tag" href="/list/withTag/sql">sql</a>
 		
 		<p><fmt:message key="footer.powered_by"/></p>		
 		<p><a href="http://www.casadocodigo.com.br"><fmt:message key="footer.casa_do_codigo"/></a></p>		
