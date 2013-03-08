@@ -16,28 +16,34 @@ public class WithAuthorDAO<T> {
 		this.clazz = clazz;
 	}
 
-	public List<T> byVotes(User user) {
-		List<T> items = fiveWithUserBy(user, "order by q.voteCount desc");
+	public List<T> by(User user, OrderType orderByWhat) {
+		List<T> items = fiveWithUserBy(user, orderByWhat.getOrder());
 		return items;		
 	}
 	
-	public List<T> byDate(User user) {
-		List<T> items = fiveWithUserBy(user, "order by q.createdAt desc");
-		return items;
-	}
-
 	@SuppressWarnings("unchecked")
 	private List<T> fiveWithUserBy(User user, String order) {
-		List<T> items = session.createQuery(selectWithUser()+order)
+		List<T> items = session.createQuery("select p from "+ clazz.getSimpleName() +" as p join p.author a where a = :user " + order)
 				.setParameter("user", user)
 				.setMaxResults(5)
 				.list();
 		return items;
 	}
 	
+	public enum OrderType {
+		ByDate {
+			@Override
+			public String getOrder() {
+				return "order by p.createdAt desc";
+			}
+		}, ByVotes() {
+			@Override
+			public String getOrder() {
+				return "order by p.voteCount desc";
+			}
+		};
 
-	private String selectWithUser(){
-		return "select q from "+ clazz.getSimpleName() +" as q join q.author a where a = :user ";
+		public abstract String getOrder();
 	}
 
 }

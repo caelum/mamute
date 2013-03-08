@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.dao;
 
+import static br.com.caelum.brutal.dao.WithAuthorDAO.OrderType.ByDate;
+import static br.com.caelum.brutal.dao.WithAuthorDAO.OrderType.ByVotes;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 
@@ -51,7 +53,7 @@ public class WithAuthorDAOTest extends DatabaseTestCase{
 		
 		Question salDaAzar = salDaAzar();
 		
-		List<Question> perguntasDoAuthor = questionsWithUser.byVotes(author);
+		List<Question> perguntasDoAuthor = questionsWithUser.by(author, ByVotes);
 
 		assertTrue(perguntasDoAuthor.contains(salDaAzar));
 		assertTrue(perguntasDoAuthor.contains(beberFazMal));
@@ -81,7 +83,7 @@ public class WithAuthorDAOTest extends DatabaseTestCase{
 		session.save(ehMuito);
 		session.save(nemEh);
 		
-		List<Answer> respostasDoAuthor = answersWithUser.byVotes(author);
+		List<Answer> respostasDoAuthor = answersWithUser.by(author, ByVotes);
 		
 		assertTrue(respostasDoAuthor.contains(maisOuMenos));
 		assertTrue(respostasDoAuthor.contains(ehMuito));
@@ -103,7 +105,7 @@ public class WithAuthorDAOTest extends DatabaseTestCase{
 
 		Question salDaAzar = salDaAzar();
 		
-		List<Question> perguntasDoAuthor = questionsWithUser.byDate(author);
+		List<Question> perguntasDoAuthor = questionsWithUser.by(author, ByDate);
 		
 		assertTrue(perguntasDoAuthor.contains(salDaAzar));
 		assertTrue(perguntasDoAuthor.contains(beberFazMal));

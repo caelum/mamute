@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.joda.time.DateTime;
 
+import br.com.caelum.brutal.dao.WithAuthorDAO.OrderType;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.SubscribableDTO;
 import br.com.caelum.brutal.model.User;
@@ -46,13 +47,10 @@ public class AnswerDAO {
         
         return results;
 	}
-
-	public List<Answer> withAuthorByVotes(User user) {
-		return withAuthor.byVotes(user);
-	}
 	
-	public List<Answer> withAuthorByDate(User user) {
-		return withAuthor.byDate(user);
+
+	public List<Answer> withAuthorBy(User user, OrderType orderByWhat) {
+		return withAuthor.by(user,orderByWhat);
 	}
 }
 

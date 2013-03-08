@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.controllers;
 
+import static br.com.caelum.brutal.dao.WithAuthorDAO.OrderType.ByVotes;
 import static br.com.caelum.vraptor.view.Results.json;
 
 import org.joda.time.DateTime;
@@ -8,6 +9,7 @@ import br.com.caelum.brutal.dao.AnswerDAO;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.dao.UserDAO;
+import br.com.caelum.brutal.dao.WithAuthorDAO.OrderType;
 import br.com.caelum.brutal.dto.UserPersonalInfo;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.User;
@@ -50,34 +52,22 @@ public class UserProfileController {
 		}
 		
 		result.include("isCurrentUser", currentUser.getCurrent().getId().equals(id));
-		result.include("questionsByVotes", questions.withAuthorByVotes(selectedUser));
-		result.include("answersByVotes", answers.withAuthorByVotes(selectedUser));
+		result.include("questionsByVotes", questions.withAuthorBy(selectedUser, ByVotes));
+		result.include("answersByVotes", answers.withAuthorBy(selectedUser, ByVotes));
 		result.include("mainTags", tags.findMainTagsOfUser(selectedUser));
 		result.include("selectedUser", selectedUser);
 	}
 	
-	@Get("/users/{id}/{sluggedName}/questions/byVotes")
-	public void questionsByVotesWith(Long id, String sluggedName){
+	@Get("/users/{id}/{sluggedName}/questions/{orderByWhat}")
+	public void questionsByVotesWith(Long id, String sluggedName, OrderType orderByWhat){
 		User author = users.findById(id);
-		result.use(json()).withoutRoot().from(questions.withAuthorByVotes(author)).include("information").serialize();
+		result.use(json()).withoutRoot().from(questions.withAuthorBy(author, orderByWhat)).include("information").serialize();
 	}
 	
-	@Get("/users/{id}/{sluggedName}/questions/byDate")
-	public void questionsByDateWith(Long id, String sluggedName){
+	@Get("/users/{id}/{sluggedName}/answers/{orderByWhat}")
+	public void answersByVotesWith(Long id, String sluggedName, OrderType orderByWhat){
 		User author = users.findById(id);
-		result.use(json()).withoutRoot().from(questions.withAuthorByDate(author)).include("information").serialize();
-	}
-	
-	@Get("/users/{id}/{sluggedName}/answers/byVotes")
-	public void answersByVotesWith(Long id, String sluggedName){
-		User author = users.findById(id);
-		result.use(json()).withoutRoot().from(answers.withAuthorByVotes(author)).include("question").include("question.information").serialize();
-	}
-	
-	@Get("/users/{id}/{sluggedName}/answers/byDate")
-	public void answersByDateWith(Long id, String sluggedName){
-		User author = users.findById(id);
-		result.use(json()).withoutRoot().from(answers.withAuthorByDate(author)).include("question").include("question.information").serialize();
+		result.use(json()).withoutRoot().from(answers.withAuthorBy(author, orderByWhat)).include("question", "question.information").serialize();
 	}
 	
 	@Get("/users/edit/{id}")

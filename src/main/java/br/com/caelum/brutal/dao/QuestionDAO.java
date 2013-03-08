@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 
+import br.com.caelum.brutal.dao.WithAuthorDAO.OrderType;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
@@ -54,12 +55,8 @@ public class QuestionDAO {
 		return questions;
 	}
 	
-	public List<Question> withAuthorByVotes(User user) {
-		return withAuthor.byVotes(user);
-	}
-	
-	public List<Question> withAuthorByDate(User user) {
-		return withAuthor.byDate(user);
+	public List<Question> withAuthorBy(User user, OrderType orderByWhat) {
+		return withAuthor.by(user,orderByWhat);
 	}
 	
 	
