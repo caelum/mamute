@@ -13,87 +13,87 @@ public class Controller {
 		return PimpMyControllerInterceptor.getResult();
 	}
 
-	public <T> T forwardTo(Class<T> arg0) {
-		return result().forwardTo(arg0);
+	protected <T> T forwardTo(Class<T> argumento0) {
+		return result().forwardTo(argumento0);
 	}
 
-	public void forwardTo(String arg0) {
-		result().forwardTo(arg0);
+	protected void forwardTo(String argumento0) {
+		result().forwardTo(argumento0);
 	}
 
-	public <T> T forwardTo(T arg0) {
-		return result().forwardTo(arg0);
+	protected <T> T forwardTo(T argumento0) {
+		return result().forwardTo(argumento0);
 	}
 
-	public Result include(Object arg0) {
-		return result().include(arg0);
+	protected Result include(Object argumento0) {
+		return result().include(argumento0);
 	}
 
-	public Result include(String arg0, Object arg1) {
-		return result().include(arg0, arg1);
+	protected Result include(String argumento0, Object arg1) {
+		return result().include(argumento0, arg1);
 	}
 
-	public Result includeAsList(String arg0, Object ... arg1) {
-		return result().include(arg0, Arrays.asList(arg1));
+	protected Result includeAsList(String argumento0, Object ... arg1) {
+		return result().include(argumento0, Arrays.asList(arg1));
 	}
 
-	public Map<String, Object> included() {
+	protected Map<String, Object> included() {
 		return result().included();
 	}
 
-	public void notFound() {
+	protected void notFound() {
 		result().notFound();
 	}
 
-	public void nothing() {
+	protected void nothing() {
 		result().nothing();
 	}
 
-	public <T> T of(Class<T> arg0) {
-		return result().of(arg0);
+	protected <T> T of(Class<T> argumento0) {
+		return result().of(argumento0);
 	}
 
-	public <T> T of(T arg0) {
-		return result().of(arg0);
+	protected <T> T of(T argumento0) {
+		return result().of(argumento0);
 	}
 
-	public Result on(Class<? extends Exception> arg0) {
-		return result().on(arg0);
+	protected Result on(Class<? extends Exception> argumento0) {
+		return result().on(argumento0);
 	}
 
-	public <T> T permanentlyRedirectTo(Class<T> arg0) {
-		return result().permanentlyRedirectTo(arg0);
+	protected <T> T permanentlyRedirectTo(Class<T> argumento0) {
+		return result().permanentlyRedirectTo(argumento0);
 	}
 
-	public void permanentlyRedirectTo(String arg0) {
-		result().permanentlyRedirectTo(arg0);
+	protected void permanentlyRedirectTo(String argumento0) {
+		result().permanentlyRedirectTo(argumento0);
 	}
 
-	public <T> T permanentlyRedirectTo(T arg0) {
-		return result().permanentlyRedirectTo(arg0);
+	protected <T> T permanentlyRedirectTo(T argumento0) {
+		return result().permanentlyRedirectTo(argumento0);
 	}
 
-	public <T> T redirectTo(Class<T> arg0) {
-		return result().redirectTo(arg0);
+	protected <T> T redirectTo(Class<T> argumento0) {
+		return result().redirectTo(argumento0);
 	}
 
-	public void redirectTo(String arg0) {
-		result().redirectTo(arg0);
+	protected void redirectTo(String argumento0) {
+		result().redirectTo(argumento0);
 	}
 
-	public <T> T redirectTo(T arg0) {
-		return result().redirectTo(arg0);
+	protected <T> T redirectTo(T argumento0) {
+		return result().redirectTo(argumento0);
 	}
 
-	public <T extends View> T use(Class<T> arg0) {
-		return result().use(arg0);
+	protected <T extends View> T use(Class<T> argumento0) {
+		return result().use(argumento0);
 	}
 
-	public boolean used() {
+	protected boolean used() {
 		return result().used();
 	}
 	
-	public I18nMessage i18n(String category, String key, String ... params) {
+	protected I18nMessage i18n(String category, String key, String ... params) {
 		return PimpMyControllerInterceptor.getFactory().build(category, key, (Object[]) params);
 	}
 
