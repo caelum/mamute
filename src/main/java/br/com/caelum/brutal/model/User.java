@@ -118,7 +118,6 @@ public class User implements Identifiable {
 
 	public User(String name, String email) {
 		super();
-		this.realName = name;
 		this.email = email;
 		setName(name);
 	}
@@ -134,6 +133,7 @@ public class User implements Identifiable {
 
     public void setName(String name) {
 		this.name = name;
+		this.realName = name;
 		this.sluggedName = toSlug(name);
 		this.nameLastTouchedAt = new DateTime();
 	}

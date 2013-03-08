@@ -56,24 +56,28 @@ public class UserProfileController {
 		result.include("selectedUser", selectedUser);
 	}
 	
-	@Get("/users/{selectedUser.id}/{selectedUser.sluggedName}/questions/byVotes")
-	public void questionsByVotesWith(User selectedUser){
-		result.use(json()).withoutRoot().from(questions.withAuthorByVotes(selectedUser)).include("information").serialize();
+	@Get("/users/{id}/{sluggedName}/questions/byVotes")
+	public void questionsByVotesWith(Long id, String sluggedName){
+		User author = users.findById(id);
+		result.use(json()).withoutRoot().from(questions.withAuthorByVotes(author)).include("information").serialize();
 	}
 	
-	@Get("/users/{selectedUser.id}/{selectedUser.sluggedName}/questions/byDate")
-	public void questionsByDateWith(User selectedUser){
-		result.use(json()).withoutRoot().from(questions.withAuthorByDate(selectedUser)).include("information").serialize();
+	@Get("/users/{id}/{sluggedName}/questions/byDate")
+	public void questionsByDateWith(Long id, String sluggedName){
+		User author = users.findById(id);
+		result.use(json()).withoutRoot().from(questions.withAuthorByDate(author)).include("information").serialize();
 	}
 	
-	@Get("/users/{selectedUser.id}/{selectedUser.sluggedName}/answers/byVotes")
-	public void answersByVotesWith(User selectedUser){
-		result.use(json()).withoutRoot().from(answers.withAuthorByVotes(selectedUser)).include("question").include("question.information").serialize();
+	@Get("/users/{id}/{sluggedName}/answers/byVotes")
+	public void answersByVotesWith(Long id, String sluggedName){
+		User author = users.findById(id);
+		result.use(json()).withoutRoot().from(answers.withAuthorByVotes(author)).include("question").include("question.information").serialize();
 	}
 	
-	@Get("/users/{selectedUser.id}/{selectedUser.sluggedName}/answers/byDate")
-	public void answersByDateWith(User selectedUser){
-		result.use(json()).withoutRoot().from(answers.withAuthorByDate(selectedUser)).include("question").include("question.information").serialize();
+	@Get("/users/{id}/{sluggedName}/answers/byDate")
+	public void answersByDateWith(Long id, String sluggedName){
+		User author = users.findById(id);
+		result.use(json()).withoutRoot().from(answers.withAuthorByDate(author)).include("question").include("question.information").serialize();
 	}
 	
 	@Get("/users/edit/{id}")
