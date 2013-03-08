@@ -1,24 +1,16 @@
 package br.com.caelum.brutal.controllers;
 
-import java.util.Arrays;
-
 import br.com.caelum.brutal.auth.DefaultAuthenticator;
-import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
-import br.com.caelum.vraptor.Result;
 
 @Resource
-public class AuthController {
+public class AuthController extends Controller {
 	
 	private final DefaultAuthenticator auth;
-	private final Result result;
-	private final MessageFactory messageFactory;
-	public AuthController(DefaultAuthenticator auth, Result result, MessageFactory messageFactory) {
+	public AuthController(DefaultAuthenticator auth) {
 		this.auth = auth;
-		this.result = result;
-		this.messageFactory = messageFactory;
 	}
 	
 	@Get("/login")
@@ -30,25 +22,23 @@ public class AuthController {
 		if (auth.authenticate(email, password)) {
 			redirectToRightUrl(redirectUrl);
 		} else {
-			result.include("messages", Arrays.asList(
-						messageFactory.build("alert", "auth.invalid.login")
-					));
-			result.include("redirectUrl", redirectUrl);
-			result.redirectTo(this).loginForm();
+			includeAsList("messages", i18n("alert", "auth.invalid.login"));
+			include("redirectUrl", redirectUrl);
+			redirectTo(this).loginForm();
 		}
 	}
 	
 	@Get("/logout")
 	public void logout() {
 		auth.signout();
-		result.redirectTo(ListController.class).home();
+		redirectTo(ListController.class).home();
 	}
 	
 	private void redirectToRightUrl(String redirectUrl) {
         if (redirectUrl != null && !redirectUrl.isEmpty()) {
-            result.redirectTo(redirectUrl);
+            redirectTo(redirectUrl);
         } else {
-            result.redirectTo(ListController.class).home();
+            redirectTo(ListController.class).home();
         }
 	}
 }

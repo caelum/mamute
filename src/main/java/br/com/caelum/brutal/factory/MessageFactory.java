@@ -6,7 +6,7 @@ import br.com.caelum.vraptor.validator.I18nMessage;
 
 @Component
 public class MessageFactory {
-	Localization localization;
+	private final Localization localization;
 
 	public MessageFactory(Localization localization) {
 		this.localization = localization;
@@ -17,6 +17,5 @@ public class MessageFactory {
 		message.setBundle(localization.getBundle());
 		return message;
 	}
-	
 	
 }
