@@ -92,7 +92,7 @@ public class ForgotPasswordController {
 		result.include("messages", Arrays.asList(
 					messageFactory.build("confirmation", "forgot_password.password_changed")
 				));
-		result.redirectTo(ListController.class).home();
+	    result.forwardTo(AuthController.class).login(user.getEmail(), password, "");
 	}
 	
 	private String tokenUrlFor(User user) {
