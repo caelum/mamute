@@ -31,6 +31,7 @@ public class Access implements ComponentFactory<User> {
 	public User login(User user) {
 	    user.setSessionKey();
 	    Cookie cookie = new Cookie(BRUTAL_SESSION, user.getSessionKey());
+	    cookie.setPath("/");
         response.addCookie(cookie);
 		this.user = user;
 		return user;
