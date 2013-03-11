@@ -2,7 +2,9 @@ package br.com.caelum.brutal.validators;
 
 import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.ioc.Component;
 
+@Component
 public class CommentValidator {
 
 	private Validator validator;
