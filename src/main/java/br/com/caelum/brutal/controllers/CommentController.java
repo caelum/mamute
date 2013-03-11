@@ -6,6 +6,7 @@ import br.com.caelum.brutal.auth.LoggedAccess;
 import br.com.caelum.brutal.dao.CommentDAO;
 import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.validators.CommentValidator;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
@@ -16,21 +17,26 @@ public class CommentController {
 	private final Result result;
 	private final User currentUser;
 	private final CommentDAO comments;
+	private final CommentValidator validator;
 
-	public CommentController(Result result, User currentUser, CommentDAO comments) {
+	public CommentController(Result result, User currentUser, CommentDAO comments, CommentValidator validator) {
 		this.result = result;
 		this.currentUser = currentUser;
 		this.comments = comments;
+		this.validator = validator;
 	}
 
 	@SuppressWarnings("rawtypes")
 	@LoggedAccess
 	@Post("/{onWhat}/{id}/comment")
 	public void comment(Long id, String onWhat, String message) throws ClassNotFoundException {
-		Class type = Class.forName("br.com.caelum.brutal.model." + onWhat);
-		Comment comment = comments.load(type, id).add(new Comment(currentUser, message));
-		comments.save(comment);
-		result.use(http()).body("<li class=\"comment\">" + message + "</li>");
+		Comment comment = new Comment(currentUser, message);
+		if(validator.validate(comment)){
+			Class type = Class.forName("br.com.caelum.brutal.model." + onWhat);
+			comments.load(type, id).add(comment);
+			comments.save(comment);
+			result.use(http()).body("<li class=\"comment\">" + message + "</li>");
+		}
 	}
 	
 
@@ -42,8 +48,10 @@ public class CommentController {
 			return;
 		}
 		original.setComment(comment);
-		comments.save(original);
-		result.use(http()).body("<p>"+comment+"</p>");
+		if(validator.validate(original)){
+			comments.save(original);
+			result.use(http()).body("<p>"+comment+"</p>");
+		}
 	}
 
 
