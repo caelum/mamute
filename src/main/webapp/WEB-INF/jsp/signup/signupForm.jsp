@@ -2,4 +2,4 @@
 
 <tags:signupForm name="${name}" email="${email}"/>
 
-<a href="${facebookUrl}">Logar via facebook</a>
+<a href="${facebookUrl}"><fmt:message key="signup.facebook" /></a>
