@@ -29,7 +29,8 @@ public class UserProfileController {
 	private final AnswerDAO answers;
 	private UserPersonalInfoValidator infoValidator;
     private final TagDAO tags;
-	
+	private static final String HTTP = "http://";
+
     public UserProfileController(Result result, UserDAO users, LoggedUser currentUser,
             QuestionDAO questions, AnswerDAO answers, TagDAO tags,
             UserPersonalInfoValidator infoValidator) {
@@ -88,7 +89,10 @@ public class UserProfileController {
 			result.redirectTo(ListController.class).home();
 			return;
 		}
-		UserPersonalInfo info = new UserPersonalInfo(user, name, realName,email, website, location, birthDate, description);
+		
+		website = correctWebsite(website);
+
+		UserPersonalInfo info = new UserPersonalInfo(user, name, realName, email, website, location, birthDate, description);
 		
 		if (!infoValidator.validate(info)) {
 			infoValidator.onErrorRedirectTo(this).editProfile(id);
@@ -98,5 +102,14 @@ public class UserProfileController {
 		user.setPersonalInformation(email, name, realName, website, location, birthDate, description);
 		
 		result.redirectTo(this).showProfile(id, user.getSluggedName());
+	}
+
+	private String correctWebsite(String website) {
+		String protocol = "";
+		if(!website.startsWith(HTTP)){
+			protocol = HTTP;
+		}
+		website = protocol+website;
+		return website;
 	}
 }

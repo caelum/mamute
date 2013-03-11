@@ -24,8 +24,6 @@ import org.joda.time.DateTime;
 import br.com.caelum.brutal.model.User;
 
 public class UserPersonalInfo {
-
-	
 	private User user;
 	
 	@NotEmpty(message = NAME_REQUIRED)
@@ -52,16 +50,16 @@ public class UserPersonalInfo {
 	public UserPersonalInfo(User user, String name, String realName, String email,
 			String website, String location, DateTime birthDate,
 			String about) {
-				this.user = user;
-				this.name = name;
-				this.realName = realName;
-				this.email = email;
-				this.website = website;
-				this.location = location;
-				this.birthDate = birthDate;
-				this.about = about;
+		this.user = user;
+		this.name = name;
+		this.realName = realName;
+		this.email = email;
+		this.website = website;
+		this.location = location;
+		this.birthDate = birthDate;
+		this.about = about;
 	}
-
+	
 	public User getUser() {
 		return user;
 	}

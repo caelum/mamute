@@ -2,7 +2,6 @@ $(function(){
 	jQuery.extend(jQuery.validator.messages, {
 	    required: "Este campo é necessário.",
 	    email: "Este email não é válido",
-	    url: "Insira uma url válida",
 	    equalTo: jQuery.validator.format("Os valores inseridos são diferentes."),
 	    minlength: jQuery.validator.format("Por favor, insira ao menos {0} caracteres."),
 	    maxlength: jQuery.validator.format("Por favor, insira no máximo {0} caracteres."),
@@ -34,6 +33,17 @@ $(function(){
 				return valid;
 			},
 			"Use apenas tags que existem!"
+	);
+	
+	$.validator.addMethod(
+			"brutal-url",
+			function(value, element) {
+				if(value.length == 0){
+					return true
+				}
+				return value.match(/(www\.)?(.*\.)(.*)/);
+			},
+			"Insira uma url válida!"
 	);
 	
 	$(".validated-form").each(function(i,f){
