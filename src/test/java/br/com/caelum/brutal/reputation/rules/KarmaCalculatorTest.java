@@ -13,7 +13,6 @@ import org.junit.Test;
 import br.com.caelum.brutal.builder.QuestionBuilder;
 import br.com.caelum.brutal.dao.TestCase;
 import br.com.caelum.brutal.model.Answer;
-import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.VoteType;
@@ -27,11 +26,11 @@ public class KarmaCalculatorTest extends TestCase {
 
     @Test
     public void should_calculate_karma_for_votes() {
-        assertEquals(QUESTION_VOTED_UP, karmaCalculator.karmaFor(VoteType.UP, question));
-        assertEquals(QUESTION_VOTED_DOWN, karmaCalculator.karmaFor(VoteType.DOWN, answer));
+        assertEquals(QUESTION_VOTED_UP, karmaCalculator.karmaFor(new VoteEvent(VoteType.UP, question)));
+        assertEquals(QUESTION_VOTED_DOWN, karmaCalculator.karmaFor(new VoteEvent(VoteType.DOWN, answer)));
 
-        assertEquals(ANSWER_VOTED_UP, karmaCalculator.karmaFor(VoteType.UP, answer));
-        assertEquals(ANSWER_VOTED_DOWN, karmaCalculator.karmaFor(VoteType.DOWN, question));
+        assertEquals(ANSWER_VOTED_UP, karmaCalculator.karmaFor(new VoteEvent(VoteType.UP, answer)));
+        assertEquals(ANSWER_VOTED_DOWN, karmaCalculator.karmaFor(new VoteEvent(VoteType.DOWN, question)));
     }
 
     @Test
@@ -53,13 +52,6 @@ public class KarmaCalculatorTest extends TestCase {
         assertEquals(0, karmaForSolutionAuthor);
         int karmaForQuestionAuthor = karmaCalculator.karmaForAuthorOfQuestionSolved(answer);
         assertEquals(0, karmaForQuestionAuthor);
-    }
-    
-    @Test
-    public void should_calculate_karma_for_comment_voted_up() throws Exception {
-    	Comment comment = comment(questionAuthor, "comment");
-    	karmaCalculator.karmaFor(VoteType.UP, comment);
-    	
     }
     
 }
