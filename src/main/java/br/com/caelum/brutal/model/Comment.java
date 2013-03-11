@@ -26,7 +26,7 @@ public class Comment implements Subscribable {
     
     @Lob
     @NotEmpty
-    @Length(min = 15)
+    @Length(min = 15, message = "comment.errors.length")
     private String comment;
 
     @Lob
