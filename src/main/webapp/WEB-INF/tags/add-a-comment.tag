@@ -8,6 +8,14 @@
 <ul class="comment-container ${empty item.comments ? 'hidden' : ''}" id="${ajaxResultName }">
 	<c:forEach var="comment" items="${item.comments }">
 		<li class="comment">
+			<div class="vote-container container">
+				<a class="requires-author-cant up-vote up-arrow arrow  vote-option container" 
+					data-value="up" data-author="${comment.author.id == currentUser.id}" 
+					data-type="comment" data-id="${comment.id}">
+					up
+				</a>
+				<span class="vote-count">${comment.voteCount}</span>
+			</div>
 			<c:if test="${currentUser != null && !comment.alreadyFlaggedBy(currentUser)}">
 				<div class="comment-options hidden">
 					<a href="#" class="flag-it icon-flag"></a>

@@ -20,7 +20,7 @@ a {
 
 .sprite {
 	display: block;
-	background-image: url('/images/sprites.png');
+/* 	background-image: url('/images/sprites.png'); */
 	background-repeat: no-repeat;
 	overflow: hidden;
 	text-indent: -999999em;

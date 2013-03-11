@@ -12,14 +12,15 @@ function vote(link) {
 			if (jqXHR.status == "200") {
 				var count = jqXHR.responseText;
 				voteSuccess(link, count);
-			} else if (jqXHR.status == "403") {
+			} else if (jqXHR.status == "409") {
 				errorPopup("Você não pode votar na própria questão", link);
-			} else {
+			} else if (jqXHR.status == "403") {
 				errorPopup("Você precisa logar", link);
+			} else {
+				errorPopup("Ocorreu um erro", link);
 			}
 		},
 		accepts: "application/json",
-		error: voteError,
 		method: "POST"
 	});
 }
@@ -38,6 +39,3 @@ function voteSuccess(link, count) {
 	updateCount(link, count);
 }
 
-function voteError() {
-	console.log("falhou");
-}
