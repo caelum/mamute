@@ -1,20 +1,28 @@
 package br.com.caelum.brutal.controllers;
 
 import br.com.caelum.brutal.auth.DefaultAuthenticator;
+import br.com.caelum.brutal.auth.FacebookAuthService;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
+import br.com.caelum.vraptor.Result;
 
 @Resource
 public class AuthController extends Controller {
 	
 	private final DefaultAuthenticator auth;
-	public AuthController(DefaultAuthenticator auth) {
+	private final FacebookAuthService facebook;
+	private final Result result;
+	public AuthController(DefaultAuthenticator auth, FacebookAuthService facebook, Result result) {
 		this.auth = auth;
+		this.facebook = facebook;
+		this.result = result;
 	}
 	
 	@Get("/login")
 	public void loginForm(){
+		String facebookUrl = facebook.getOauthUrl();
+		result.include("facebookUrl", facebookUrl);
 	}
 	
 	@Post("/login")

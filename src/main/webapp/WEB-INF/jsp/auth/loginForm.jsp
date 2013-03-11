@@ -3,3 +3,5 @@
 <section class="first-content">
 	<tags:loginForm redirectUrl="${redirectUrl}"/>
 </section>
+
+<a href="${facebookUrl}"><fmt:message key="auth.facebook" /></a>
