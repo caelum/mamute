@@ -6,8 +6,8 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.StatelessSession;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -17,15 +17,14 @@ import br.com.caelum.pagpag.aceitacao.util.ServerInfo;
 
 public class ForgotPasswordTest extends AcceptanceTestBase implements ServerInfo.AcceptanceTest  {
     
-    private static StatelessSession SESSION;
+    private static Session SESSION;
     private String validEmail = "francisco.sokol@caelum.com.br";
 
     @BeforeClass
     public static void setup() throws IOException {
         SessionFactoryCreator sessionFactoryCreator = new SessionFactoryCreator(env);
         SessionFactory sf = sessionFactoryCreator.getInstance();
-        StatelessSession session = sf.openStatelessSession();
-        SESSION = session;
+        SESSION = sf.openSession();
     }
 
     @Test
@@ -75,10 +74,11 @@ public class ForgotPasswordTest extends AcceptanceTestBase implements ServerInfo
 	}
 
     private String getLastRecoverURL() {
+    	SESSION.beginTransaction();
     	Query query = SESSION.createQuery("select u.id, u.forgotPasswordToken from User u where u.email=:email");
         Object[] result = (Object[]) query.setParameter("email", validEmail).uniqueResult();
         String recoverUrl = SERVER.urlFor("/newpassword/"+result[0]+"/"+result[1]);
-        System.out.println(recoverUrl);
+        SESSION.getTransaction().commit();
         return recoverUrl;
     }
 
