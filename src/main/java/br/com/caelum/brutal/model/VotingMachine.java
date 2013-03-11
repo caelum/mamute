@@ -2,6 +2,7 @@ package br.com.caelum.brutal.model;
 
 import br.com.caelum.brutal.dao.VoteDAO;
 import br.com.caelum.brutal.model.interfaces.Votable;
+import br.com.caelum.brutal.reputation.rules.KarmaCalculator;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
