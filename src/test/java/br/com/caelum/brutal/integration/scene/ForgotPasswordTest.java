@@ -39,17 +39,12 @@ public class ForgotPasswordTest extends AcceptanceTestBase implements ServerInfo
         boolean sentEmail = tryToResetPassword(validEmail);
         assertTrue(sentEmail);
     }
-    
+
     @Test
     public void should_show_new_password_form_for_reseted_password_user() throws Exception {
         tryToResetPassword(validEmail);
-        
-        String recoverUrl = getRecoverURL();
-        
-        ResetPasswordPage resetPasswordPage = new ResetPasswordPage(driver, recoverUrl);
-        resetPasswordPage
-            .typePassword("newpass")
-            .submitNewPassword();
+        tryToSetNewPassword("newpass");
+        home().logOut();
         
         boolean isLoggedIn = home()
             .toLoginPage()
@@ -60,10 +55,18 @@ public class ForgotPasswordTest extends AcceptanceTestBase implements ServerInfo
         home().logOut();
     }
 
-    private String getRecoverURL() {
-        Query query = SESSION.createQuery("select u.id,u.forgotPasswordToken from User u where u.email=:email");
+	private void tryToSetNewPassword(String newPass) {
+        String recoverUrl = getLastRecoverURL();
+		ResetPasswordPage resetPasswordPage = new ResetPasswordPage(driver, recoverUrl);
+        resetPasswordPage.typePassword(newPass)
+            .submitNewPassword();
+	}
+
+    private String getLastRecoverURL() {
+        Query query = SESSION.createQuery("select u.id, u.forgotPasswordToken from User u where u.email=:email");
         Object[] result = (Object[]) query.setParameter("email", validEmail).uniqueResult();
         String recoverUrl = SERVER.urlFor("/newpassword/"+result[0]+"/"+result[1]);
+        System.out.println(recoverUrl);
         return recoverUrl;
     }
 
