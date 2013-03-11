@@ -452,6 +452,10 @@ textarea {
 	width:53%;
 }
 
+.user-area .nav-items{
+	float:right;
+}
+
 .search-form{
 	width:47%;
 }
