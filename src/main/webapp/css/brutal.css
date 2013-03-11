@@ -439,10 +439,20 @@ textarea {
 .user-area {
 	float: right;
 	overflow: hidden;
+	width:405px;
 }
 
-.search-form,.user-area .nav {
+.search-form,
+.user-area .nav {
 	float: left;
+}
+
+.user-area .nav{
+	width:45%;
+}
+
+.search-form{
+	width:55%;
 }
 
 .search-form input {
