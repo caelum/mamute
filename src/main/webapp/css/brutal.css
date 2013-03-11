@@ -241,6 +241,11 @@ em {
 .confirmation{
 	color: #008e43;
 }
+
+.alert{
+	color: #e7b403;
+}
+
 /*Validations*/
 .validated-form .error{
 	color: #8e0000;
