@@ -13,7 +13,7 @@ import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 
 @Resource
-public class FacebookSignupController {
+public class FacebookAuthController {
 	
 	private final FacebookAuthService facebook;
 	private final UserDAO users;
@@ -21,7 +21,7 @@ public class FacebookSignupController {
 	private final Result result;
 	private final Access access;
 
-	public FacebookSignupController(FacebookAuthService facebook, UserDAO users, LoginMethodDAO loginMethods, Result result, Access access) {
+	public FacebookAuthController(FacebookAuthService facebook, UserDAO users, LoginMethodDAO loginMethods, Result result, Access access) {
 		this.facebook = facebook;
 		this.users = users;
 		this.loginMethods = loginMethods;
