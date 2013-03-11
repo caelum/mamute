@@ -233,8 +233,16 @@ em {
 	clear: both;
 }
 
+/*Messages*/
+.error{
+	color: #8e0000;
+}
+
+.confirmation{
+	color: #008e43;
+}
 /*Validations*/
-.validated-form .error,.error {
+.validated-form .error{
 	color: #8e0000;
 }
 
