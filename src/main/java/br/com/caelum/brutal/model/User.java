@@ -37,6 +37,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 import org.joda.time.Years;
 
+import br.com.caelum.brutal.dto.UserPersonalInfo;
 import br.com.caelum.brutal.infra.Digester;
 import br.com.caelum.brutal.model.interfaces.Identifiable;
 import br.com.caelum.brutal.model.interfaces.Moderatable;
@@ -265,7 +266,7 @@ public class User implements Identifiable {
 	
 	public void setAbout(String content) {
 		this.about = content;
-		this.markedAbout = HtmlSanitizer.sanitize(MarkDown.parse(content));
+		this.markedAbout = content == null ? null : HtmlSanitizer.sanitize(MarkDown.parse(content));
 	}
 	
 	public String getAbout() {
@@ -276,13 +277,13 @@ public class User implements Identifiable {
 		return markedAbout;
 	}
 	
-	public void setPersonalInformation(String email, String name, String realName, String website, String location, DateTime birthDate, String about) {
-		this.realName = realName;
-		this.birthDate = birthDate;
-		setName(name);
-		this.email = email;
-		this.website = website;
-		setAbout(about);
+	public void setPersonalInformation(UserPersonalInfo info) {
+		this.realName = info.getRealName();
+		this.birthDate = info.getBirthDate();
+		setName(info.getName());
+		this.email = info.getEmail();
+		this.website = info.getWebsite();
+		setAbout(info.getAbout());
 	}
 
     public void descreaseKarma(int value) {

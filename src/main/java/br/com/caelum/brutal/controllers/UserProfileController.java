@@ -90,7 +90,9 @@ public class UserProfileController {
 			return;
 		}
 		
-		website = correctWebsite(website);
+		if (website != null) {
+			website = correctWebsite(website);
+		}
 
 		UserPersonalInfo info = new UserPersonalInfo(user, name, realName, email, website, location, birthDate, description);
 		
@@ -99,7 +101,7 @@ public class UserProfileController {
 			return;
 		}
 		
-		user.setPersonalInformation(email, name, realName, website, location, birthDate, description);
+		user.setPersonalInformation(info);
 		
 		result.redirectTo(this).showProfile(id, user.getSluggedName());
 	}
