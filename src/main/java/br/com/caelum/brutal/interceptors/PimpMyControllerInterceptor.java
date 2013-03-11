@@ -1,6 +1,7 @@
-package br.com.caelum.brutal.controllers;
+package br.com.caelum.brutal.interceptors;
 
 import br.com.caelum.brutal.factory.MessageFactory;
+import br.com.caelum.brutal.infra.ThreadLocals;
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
 import br.com.caelum.vraptor.Result;

@@ -3,6 +3,7 @@ package br.com.caelum.brutal.controllers;
 import java.util.Arrays;
 
 import br.com.caelum.brutal.auth.FacebookAuthService;
+import br.com.caelum.brutal.dao.LoginMethodDAO;
 import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.LoginMethod;

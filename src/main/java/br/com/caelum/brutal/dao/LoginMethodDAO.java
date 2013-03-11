@@ -1,4 +1,4 @@
-package br.com.caelum.brutal.controllers;
+package br.com.caelum.brutal.dao;
 
 import org.hibernate.Session;
 

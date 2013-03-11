@@ -3,6 +3,7 @@ package br.com.caelum.brutal.controllers;
 import java.util.Arrays;
 import java.util.Map;
 
+import br.com.caelum.brutal.interceptors.PimpMyControllerInterceptor;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.View;
 import br.com.caelum.vraptor.validator.I18nMessage;

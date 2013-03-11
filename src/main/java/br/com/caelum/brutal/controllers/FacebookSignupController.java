@@ -3,6 +3,7 @@ package br.com.caelum.brutal.controllers;
 import br.com.caelum.brutal.auth.Access;
 import br.com.caelum.brutal.auth.FacebookAuthService;
 import br.com.caelum.brutal.auth.SignupInfo;
+import br.com.caelum.brutal.dao.LoginMethodDAO;
 import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.model.LoginMethod;
 import br.com.caelum.brutal.model.MethodType;

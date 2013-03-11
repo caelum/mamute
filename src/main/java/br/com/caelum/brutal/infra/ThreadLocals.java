@@ -1,4 +1,4 @@
-package br.com.caelum.brutal.controllers;
+package br.com.caelum.brutal.infra;
 
 import java.util.HashMap;
 import java.util.Map;
