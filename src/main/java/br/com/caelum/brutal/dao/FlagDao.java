@@ -20,12 +20,12 @@ public class FlagDao {
 		session.save(f);
 	}
 
-	public boolean alreadyFlagged(User author, Long commentId) {
-		String hql = "select f from Comment c join c.flags f where f.author=:author and c.id=:commentId";
+	public boolean alreadyFlagged(User author, Long flaggableId, String flaggableType) {
+		String hql = "select f from "+flaggableType+" c join c.flags f where f.author=:author and c.id=:commentId";
 		Query query = session.createQuery(hql);
 		
 		Object flag = query.setParameter("author", author)
-				.setParameter("commentId", commentId)
+				.setParameter("commentId", flaggableId)
 				.uniqueResult();
 
 		return flag != null;

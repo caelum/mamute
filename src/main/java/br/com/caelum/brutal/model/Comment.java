@@ -16,10 +16,11 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
+import br.com.caelum.brutal.model.interfaces.Flaggable;
 import br.com.caelum.brutal.model.interfaces.Subscribable;
 
 @Entity
-public class Comment implements Subscribable {
+public class Comment implements Subscribable, Flaggable{
     
     @Id @GeneratedValue
     private Long id;

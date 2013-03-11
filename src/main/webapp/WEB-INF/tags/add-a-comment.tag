@@ -14,7 +14,7 @@
 				</div>
 			</c:if>
 			<div class="hidden modal modal-flag">
-				<form class="validated-form" action="${linkTo[FlagController].addFlag[comment.id]}">
+				<form class="validated-form" action="${linkTo[FlagController].addFlag['Comment'][comment.id]}">
 					<input type="radio" value="RUDE" name="flagType" id="flag-type-rude" />
 					<label for="flag-type-rude"><fmt:message key="comment.flag.rude" /></label>
 					
