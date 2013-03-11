@@ -1,6 +1,7 @@
 package br.com.caelum.brutal.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import net.vidageek.mirror.dsl.Mirror;
 
@@ -10,6 +11,7 @@ import org.junit.Test;
 import br.com.caelum.brutal.infra.Digester;
 import br.com.caelum.brutal.infra.MD5;
 import br.com.caelum.brutal.model.LoginMethod;
+import br.com.caelum.brutal.model.MethodType;
 import br.com.caelum.brutal.model.User;
 
 public class UserDAOTest extends DatabaseTestCase {
@@ -67,6 +69,22 @@ public class UserDAOTest extends DatabaseTestCase {
 	    
 	    assertNull(users.findByMailAndPassword("joao.silveira@caelum.com.br", password));
 	    assertNull(users.findByMailAndPassword("guilherme.silveira@caelum.com.br", "123456"));
+	}
+	
+	@Test
+	public void should_find_by_email_and_login_method() throws Exception {
+		User user = user("Chico Sokol", "chico@brutal.com");
+		LoginMethod facebookLogin = LoginMethod.facebookLogin(user, user.getEmail(), "1234");
+		user.add(facebookLogin);
+		
+		session.save(user);
+		session.save(facebookLogin);
+		
+		User found = users.findByEmailAndMethod("chico@brutal.com", MethodType.FACEBOOK);
+		
+		assertNotNull(found);
+		assertEquals(user, found);
+		
 	}
 	
 	

@@ -98,13 +98,13 @@ public class UserDAO {
         
     }
 
-	public User findByEmailAndMethod(String email, MethodType method) {
-		Query query = session.createQuery("select u from User u " +
+	public User findByEmailAndMethod(String email, MethodType... methods) {
+		Query query = session.createQuery("select distinct u from User u " +
 				"join u.loginMethods method " +
-				"where method.serviceEmail =: email " +
-				"and method.type = :method");
+				"where method.serviceEmail = :email " +
+				"and method.type in (:methods)");
 		query.setParameter("email", email);
-		query.setParameter("method", method);
+		query.setParameterList("methods", methods);
 		return (User) query.uniqueResult();
 	}
 }

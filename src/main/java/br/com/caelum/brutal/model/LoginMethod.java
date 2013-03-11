@@ -64,6 +64,10 @@ public class LoginMethod {
 	public static LoginMethod brutalLogin(User user, String email, String password) {
 		return new LoginMethod(MethodType.BRUTAL, email, password, user);
 	}
+	
+	public static LoginMethod facebookLogin(User user, String email, String token) {
+		return new LoginMethod(MethodType.FACEBOOK, email, token, user);
+	}
 
 	public boolean isBrutal() {
 		return type == MethodType.BRUTAL;
@@ -72,5 +76,6 @@ public class LoginMethod {
 	public String getToken() {
 		return token;
 	}
+
 
 }
