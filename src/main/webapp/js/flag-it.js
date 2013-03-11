@@ -60,7 +60,8 @@ $(".flag-it").click(function(e) {
 });
 
 $(".other-option").change(function() {
-	$(this).next("textarea").show(200);
+	var self = $(this);
+	$("#"+self.data("reason-id")).show(200);
 });
 
 $(".modal input:not(.other-option)").change(function() {
