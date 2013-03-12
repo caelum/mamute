@@ -19,13 +19,14 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.model.interfaces.Commentable;
+import br.com.caelum.brutal.model.interfaces.Flaggable;
 import br.com.caelum.brutal.model.interfaces.Moderatable;
 import br.com.caelum.brutal.model.interfaces.Subscribable;
 import br.com.caelum.brutal.model.interfaces.Touchable;
 import br.com.caelum.brutal.model.interfaces.Votable;
 
 @Entity
-public class Answer extends Moderatable implements Votable, Commentable, Subscribable, Touchable{
+public class Answer extends Moderatable implements Votable, Commentable, Subscribable, Touchable, Flaggable{
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -64,6 +65,10 @@ public class Answer extends Moderatable implements Votable, Commentable, Subscri
     
 	private long voteCount= 0;
 
+	@JoinTable(name = "Answer_Flags")
+	@OneToMany
+	private final List<Flag> flags = new ArrayList<>();
+	
 	public Answer(AnswerInformation information, Question question, User author) {
 		this.question = question;
 		this.author = author;
@@ -231,4 +236,18 @@ public class Answer extends Moderatable implements Votable, Commentable, Subscri
     public boolean isTheSameAuthorOfQuestion() {
         return getQuestion().wasMadeBy(author);
     }
+
+	@Override
+	public void add(Flag flag) {
+		flags.add(flag);
+	}
+
+	@Override
+	public boolean alreadyFlaggedBy(User user) {
+		for (Flag flag : flags) {
+			if (flag.createdBy(user))
+				return true;
+		}
+		return false;
+	}
 }
