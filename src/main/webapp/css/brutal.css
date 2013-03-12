@@ -947,8 +947,8 @@ textarea {
 	padding-bottom: 1em;
 }
 
-.flag-it.selected,
-.flag-it:hover {
+.comment .flag-it.selected,
+.comment .flag-it:hover {
 	color: #f8d408;
 }
 
