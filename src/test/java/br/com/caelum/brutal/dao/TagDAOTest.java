@@ -91,13 +91,8 @@ public class TagDAOTest extends DatabaseTestCase{
 		Answer otherJavaAnswer = answer("just do this and that and you will be happy forever", otherJavaQuestion, chico);
 		session.save(otherJavaAnswer);
 		
-		
 		List<TagUsage> mainTags = tags.findMainTagsOfUser(leo);
 		
-		for (TagUsage tagUsage : mainTags) {
-			System.out.println(tagUsage.getTag().getName()+ " - "+ tagUsage.getUsage());
-		}
-	
 		assertEquals(2, mainTags.size());
 		assertEquals(2l, mainTags.get(0).getUsage().longValue());
 		assertEquals(1l, mainTags.get(1).getUsage().longValue());

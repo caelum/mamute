@@ -1,17 +1,21 @@
-package br.com.caelum.brutal.model;
+package br.com.caelum.brutal.reputation.rules;
 
-import static br.com.caelum.brutal.model.KarmaCalculator.ANSWER_VOTED_DOWN;
-import static br.com.caelum.brutal.model.KarmaCalculator.ANSWER_VOTED_UP;
-import static br.com.caelum.brutal.model.KarmaCalculator.QUESTION_VOTED_DOWN;
-import static br.com.caelum.brutal.model.KarmaCalculator.QUESTION_VOTED_UP;
-import static br.com.caelum.brutal.model.KarmaCalculator.SOLUTION_AUTHOR;
-import static br.com.caelum.brutal.model.KarmaCalculator.SOLVED_QUESTION_AUTHOR;
+import static br.com.caelum.brutal.reputation.rules.KarmaCalculator.ANSWER_VOTED_DOWN;
+import static br.com.caelum.brutal.reputation.rules.KarmaCalculator.ANSWER_VOTED_UP;
+import static br.com.caelum.brutal.reputation.rules.KarmaCalculator.QUESTION_VOTED_DOWN;
+import static br.com.caelum.brutal.reputation.rules.KarmaCalculator.QUESTION_VOTED_UP;
+import static br.com.caelum.brutal.reputation.rules.KarmaCalculator.SOLUTION_AUTHOR;
+import static br.com.caelum.brutal.reputation.rules.KarmaCalculator.SOLVED_QUESTION_AUTHOR;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
 import br.com.caelum.brutal.builder.QuestionBuilder;
 import br.com.caelum.brutal.dao.TestCase;
+import br.com.caelum.brutal.model.Answer;
+import br.com.caelum.brutal.model.Question;
+import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.model.VoteType;
 
 public class KarmaCalculatorTest extends TestCase {
     private KarmaCalculator karmaCalculator = new KarmaCalculator();
@@ -22,11 +26,11 @@ public class KarmaCalculatorTest extends TestCase {
 
     @Test
     public void should_calculate_karma_for_votes() {
-        assertEquals(QUESTION_VOTED_UP, karmaCalculator.karmaFor(VoteType.UP, question));
-        assertEquals(QUESTION_VOTED_DOWN, karmaCalculator.karmaFor(VoteType.DOWN, answer));
+        assertEquals(QUESTION_VOTED_UP, karmaCalculator.karmaFor(new VoteEvent(VoteType.UP, question)));
+        assertEquals(QUESTION_VOTED_DOWN, karmaCalculator.karmaFor(new VoteEvent(VoteType.DOWN, answer)));
 
-        assertEquals(ANSWER_VOTED_UP, karmaCalculator.karmaFor(VoteType.UP, answer));
-        assertEquals(ANSWER_VOTED_DOWN, karmaCalculator.karmaFor(VoteType.DOWN, question));
+        assertEquals(ANSWER_VOTED_UP, karmaCalculator.karmaFor(new VoteEvent(VoteType.UP, answer)));
+        assertEquals(ANSWER_VOTED_DOWN, karmaCalculator.karmaFor(new VoteEvent(VoteType.DOWN, question)));
     }
 
     @Test

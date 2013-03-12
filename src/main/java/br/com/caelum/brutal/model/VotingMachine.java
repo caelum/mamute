@@ -2,6 +2,8 @@ package br.com.caelum.brutal.model;
 
 import br.com.caelum.brutal.dao.VoteDAO;
 import br.com.caelum.brutal.model.interfaces.Votable;
+import br.com.caelum.brutal.reputation.rules.KarmaCalculator;
+import br.com.caelum.brutal.reputation.rules.VoteEvent;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
@@ -24,11 +26,11 @@ public class VotingMachine {
         Vote previous = votes.previousVoteFor(votable.getId(), voter, votableType);
 
         if (previous != null) {
-            votableAuthor.descreaseKarma(karmaCalculator.karmaFor(previous.getType(), votable));
+            votableAuthor.descreaseKarma(karmaCalculator.karmaFor(new VoteEvent(previous.getType(), votable)));
         }
         votable.substitute(previous, current);
         
-        votableAuthor.increaseKarma(karmaCalculator.karmaFor(current.getType(), votable));
+        votableAuthor.increaseKarma(karmaCalculator.karmaFor(new VoteEvent(current.getType(), votable)));
     }
 
 }

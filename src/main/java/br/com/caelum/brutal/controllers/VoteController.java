@@ -5,6 +5,7 @@ import static br.com.caelum.vraptor.view.Results.json;
 import br.com.caelum.brutal.auth.LoggedAccess;
 import br.com.caelum.brutal.dao.VoteDAO;
 import br.com.caelum.brutal.model.Answer;
+import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.Vote;
@@ -33,37 +34,43 @@ public class VoteController {
 	@LoggedAccess
 	@Post("/question/{id}/up")
 	public void voteQuestionUp(Long id) {
-		tryToVoteQuestion(id, VoteType.UP, Question.class);
+		tryToVoteVotable(id, VoteType.UP, Question.class);
 	}
 
 	@LoggedAccess
 	@Post("/question/{id}/down")
 	public void voteQuestionDown(Long id) {
-		tryToVoteQuestion(id, VoteType.DOWN, Question.class);
+		tryToVoteVotable(id, VoteType.DOWN, Question.class);
 	}
 
 	@LoggedAccess
 	@Post("/answer/{id}/up")
 	public void voteAnswerUp(Long id) {
-		tryToVoteQuestion(id, VoteType.UP, Answer.class);
+		tryToVoteVotable(id, VoteType.UP, Answer.class);
 	}
 
 	@LoggedAccess
 	@Post("/answer/{id}/down")
 	public void voteAnswerDown(Long id) {
-		tryToVoteQuestion(id, VoteType.DOWN, Answer.class);
+		tryToVoteVotable(id, VoteType.DOWN, Answer.class);
+	}
+	
+	@LoggedAccess
+	@Post("/comment/{id}/up")
+	public void voteCommentUp(Long id) {
+		tryToVoteVotable(id, VoteType.UP, Comment.class);
 	}
 
 	@SuppressWarnings("rawtypes")
-	private void tryToVoteQuestion(Long id, VoteType voteType, Class votableType) {
+	private void tryToVoteVotable(Long id, VoteType voteType, Class votableType) {
 		try {
-		    Votable votable = votes.loadVotedOnFor(votableType, id);
+		    Votable votable = votes.loadVotable(votableType, id);
 		    Vote current = new Vote(currentUser, voteType);
 		    votingMachine.register(votable, current, votableType);
 		    votes.save(current);
 		    result.use(json()).withoutRoot().from(votable.getVoteCount()).serialize();
 		} catch (IllegalArgumentException e) {
-		    result.use(http()).sendError(403);
+		    result.use(http()).sendError(409);
 		    return;
         }
 	}

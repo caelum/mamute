@@ -11,7 +11,6 @@ import org.hibernate.annotations.Type;
 
 @Entity
 public class Flag {
-	
 
 	@Id
 	@GeneratedValue
@@ -26,17 +25,17 @@ public class Flag {
 	@Enumerated(EnumType.STRING)
 	private FlagType type;
 
+	/**
+	 * @deprecated
+	 */
+	Flag() {
+	}
 
 	public Flag(FlagType flagType, User author) {
 		this.type = flagType;
 		this.author = author;
 	}
 	
-	/**
-	 * @deprecated
-	 */
-	Flag() {
-	}
 	
 	public void setReason(String reason) {
 		if (!type.equals(FlagType.OTHER)) {

@@ -30,7 +30,7 @@ public class VoteDAO {
 				.setParameter("votable", id).setMaxResults(1).uniqueResult();
 	}
 
-	public Votable loadVotedOnFor(Class type, Long id) {
+	public Votable loadVotable(Class type, Long id) {
 		return (Votable) session.load(type, id);
 	}
 

@@ -6,10 +6,12 @@ import br.com.caelum.brutal.auth.LoggedAccess;
 import br.com.caelum.brutal.auth.ModeratorAccess;
 import br.com.caelum.brutal.dao.CommentDAO;
 import br.com.caelum.brutal.dao.FlagDao;
+import br.com.caelum.brutal.dao.FlaggableDAO;
 import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.Flag;
 import br.com.caelum.brutal.model.FlagType;
 import br.com.caelum.brutal.model.LoggedUser;
+import br.com.caelum.brutal.model.interfaces.Flaggable;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
@@ -23,34 +25,38 @@ public class FlagController {
 	private final CommentDAO comments;
 	private final FlagDao flags;
 	private final LoggedUser loggedUser;
+	private FlaggableDAO flaggables;
 
-	public FlagController(Result result, CommentDAO comments, FlagDao flags, LoggedUser loggedUser) {
+	public FlagController(Result result, CommentDAO comments, FlagDao flags,
+			LoggedUser loggedUser, FlaggableDAO flaggables) {
 		this.result = result;
 		this.comments = comments;
 		this.flags = flags;
 		this.loggedUser = loggedUser;
+		this.flaggables = flaggables;
 	}
 
 	@LoggedAccess
-	@Post("/comments/{commentId}/flags")
-	public void addFlag(Long commentId, FlagType flagType, String reason) {
+	@Post("/{flaggableType}/{flaggableId}/flag")
+	public void addFlag(String flaggableType, Long flaggableId, FlagType flagType, String reason) {
 		if (flagType == null) {
 			result.use(Results.http()).sendError(400);
 			return;
 		}
-		if (flags.alreadyFlagged(loggedUser.getCurrent(), commentId)) {
+		if (flags.alreadyFlagged(loggedUser.getCurrent(), flaggableId, flaggableType)) {
 			result.use(Results.http()).sendError(409); //conflict
 			return;
 		}
 		
-		Comment comment = comments.getById(commentId);
+		Flaggable flaggable = flaggables.getById(flaggableId, flaggableType);
+
 		Flag flag = new Flag(flagType, loggedUser.getCurrent());
 		if (flagType.equals(FlagType.OTHER)) {
 			flag.setReason(reason);
 		}
 		
 		flags.save(flag);
-		comment.add(flag);
+		flaggable.add(flag);
 		
 		result.nothing();
 	}

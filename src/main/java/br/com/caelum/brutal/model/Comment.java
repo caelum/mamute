@@ -16,10 +16,12 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
+import br.com.caelum.brutal.model.interfaces.Flaggable;
 import br.com.caelum.brutal.model.interfaces.Subscribable;
+import br.com.caelum.brutal.model.interfaces.Votable;
 
 @Entity
-public class Comment implements Subscribable {
+public class Comment implements Subscribable, Votable, Flaggable {
     
     @Id @GeneratedValue
     private Long id;
@@ -88,7 +90,7 @@ public class Comment implements Subscribable {
 		return comment;
 	}
 
-    public Class<?> getType() {
+    public Class getType() {
         return Comment.class;
     }
 
@@ -124,6 +126,16 @@ public class Comment implements Subscribable {
 				return true;
 		}
 		return false;
+	}
+
+	@Override
+	public void substitute(Vote previous, Vote vote) {
+		this.voteCount += vote.substitute(previous, votes);
+	}
+
+	@Override
+	public long getVoteCount() {
+		return voteCount;
 	}
 
 }

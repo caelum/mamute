@@ -11,7 +11,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<jetty.version>8.1.5.v20120716</jetty.version>
+		<jetty.version>9.0.0.RC2</jetty.version>
 		<jetty.jsp.version>8.1.4.v20120524</jetty.jsp.version>
 	</properties>
 

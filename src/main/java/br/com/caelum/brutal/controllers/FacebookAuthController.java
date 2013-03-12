@@ -43,11 +43,20 @@ public class FacebookAuthController {
 		String rawToken = facebook.buildToken(code);
 		SignupInfo signupInfo = facebook.getSignupInfo();
 
-		User existantUser = users.findByEmailAndMethod(signupInfo.getEmail(), MethodType.FACEBOOK, MethodType.BRUTAL);
-		if (existantUser != null) {
-			access.login(existantUser);
-			List<I18nMessage> messages = asList(messageFactory.build("confirmation", "signup.facebook.already_signed"));
+		User existantFacebookUser = users.findByEmailAndMethod(signupInfo.getEmail(), MethodType.FACEBOOK);
+		if (existantFacebookUser != null) {
+			access.login(existantFacebookUser);
+			result.redirectTo(ListController.class).home();
+			return;
+		}
+		
+		User existantBrutalUser = users.findByEmailAndMethod(signupInfo.getEmail(), MethodType.BRUTAL);
+		if (existantBrutalUser != null) {
+			LoginMethod facebookLogin = LoginMethod.facebookLogin(existantBrutalUser, existantBrutalUser.getEmail(), rawToken);
+			List<I18nMessage> messages = asList(messageFactory.build("confirmation", "signup.facebook.existant_brutal", existantBrutalUser.getEmail()));
 			result.include("messages", messages);
+			existantBrutalUser.add(facebookLogin);
+			access.login(existantBrutalUser);
 			result.redirectTo(ListController.class).home();
 			return;
 		}
@@ -60,6 +69,5 @@ public class FacebookAuthController {
 		loginMethods.save(facebookLogin);
 		access.login(user);
 		result.redirectTo(ListController.class).home();
-		
 	}
 }

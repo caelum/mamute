@@ -1,6 +1,7 @@
-package br.com.caelum.brutal.model;
+package br.com.caelum.brutal.reputation.rules;
 
-import br.com.caelum.brutal.model.interfaces.Votable;
+import br.com.caelum.brutal.model.Answer;
+import br.com.caelum.brutal.model.Information;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
@@ -13,23 +14,10 @@ public class KarmaCalculator {
     static final int QUESTION_VOTED_DOWN = ANSWER_VOTED_DOWN;
     static final int QUESTION_VOTED_UP = 5;
     static final int APPROVED_INFORMATION = 2;
-    /**
-     *  karma won by the author of a votable that received a vote of 
-     *  a given type 
-     */
-    public int karmaFor(VoteType type, Votable votable) {
-        if (votable.getType() == Question.class) {
-            return karmaForQuestion(type);
-        } 
-        return karmaForAnswer(type);
-    }
-
-    private int karmaForQuestion(VoteType type) {
-        return type == VoteType.UP ? QUESTION_VOTED_UP : QUESTION_VOTED_DOWN;
-    }
-
-    private int karmaForAnswer(VoteType type) {
-        return type == VoteType.UP ? ANSWER_VOTED_UP : ANSWER_VOTED_DOWN;
+    static final int COMMENT_VOTED_UP = 2;
+    
+    public int karmaFor(KarmaRewardEvent voteEvent) {
+    	return voteEvent.reward();
     }
     
     /**
@@ -56,5 +44,6 @@ public class KarmaCalculator {
     public int karmaForApprovedInformation(Information approved) {
         return APPROVED_INFORMATION;
     }
+
     
 }
