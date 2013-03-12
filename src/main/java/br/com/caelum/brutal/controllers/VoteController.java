@@ -2,7 +2,6 @@ package br.com.caelum.brutal.controllers;
 
 import static br.com.caelum.vraptor.view.Results.http;
 import static br.com.caelum.vraptor.view.Results.json;
-import br.com.caelum.brutal.auth.LoggedAccess;
 import br.com.caelum.brutal.auth.rules.MinimumReputation;
 import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.dao.VoteDAO;
@@ -34,35 +33,30 @@ public class VoteController {
 	}
 
 	@MinimumReputation(PermissionRulesConstants.VOTE_UP)
-	@LoggedAccess
 	@Post("/question/{id}/up")
 	public void voteQuestionUp(Long id) {
 		tryToVoteVotable(id, VoteType.UP, Question.class);
 	}
 
 	@MinimumReputation(PermissionRulesConstants.VOTE_DOWN)
-	@LoggedAccess
 	@Post("/question/{id}/down")
 	public void voteQuestionDown(Long id) {
 		tryToVoteVotable(id, VoteType.DOWN, Question.class);
 	}
 
 	@MinimumReputation(PermissionRulesConstants.VOTE_UP)
-	@LoggedAccess
 	@Post("/answer/{id}/up")
 	public void voteAnswerUp(Long id) {
 		tryToVoteVotable(id, VoteType.UP, Answer.class);
 	}
 
 	@MinimumReputation(PermissionRulesConstants.VOTE_DOWN)
-	@LoggedAccess
 	@Post("/answer/{id}/down")
 	public void voteAnswerDown(Long id) {
 		tryToVoteVotable(id, VoteType.DOWN, Answer.class);
 	}
 	
 	@MinimumReputation(PermissionRulesConstants.VOTE_UP)
-	@LoggedAccess
 	@Post("/comment/{id}/up")
 	public void voteCommentUp(Long id) {
 		tryToVoteVotable(id, VoteType.UP, Comment.class);

@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import javax.servlet.http.HttpServletRequest;
 
+import br.com.caelum.brutal.auth.rules.MinimumReputation;
 import br.com.caelum.brutal.controllers.AuthController;
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.User;
@@ -31,7 +32,7 @@ public class LoggedUserInterceptor implements Interceptor {
 
     @Override
     public boolean accepts(ResourceMethod method) {
-        return method.containsAnnotation(LoggedAccess.class);
+        return method.containsAnnotation(LoggedAccess.class) || method.containsAnnotation(MinimumReputation.class);
     }
 
     @Override
