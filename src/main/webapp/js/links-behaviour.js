@@ -17,7 +17,7 @@ $(function() {
 			element.off('click');
 			element.click(function(e) {
 				e.preventDefault();
-				errorPopup("O autor não pode performar esta operação!", this);
+				errorPopup("O autor não pode realizar esta operação!", this);
 			});
 		}
 	});
