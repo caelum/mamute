@@ -57,6 +57,7 @@ public class UserPersonalInfoValidator {
 		
 		if (info.getUser() == null) {
 		    validator.add(messageFactory.build("error", "user.errors.wrong"));
+		    return false;
 		}
 		
 		if (!info.getUser().getEmail().equals(info.getEmail())){
