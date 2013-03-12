@@ -15,7 +15,7 @@ public class VoteUpDownTest extends AuthenticatedAcceptanceTest {
     @Override
     @Before
     public void login() {
-        loginRandomly();
+        loginWithALotOfKarma();
         questionPage = home().toFirstQuestionWithAnswerPage();
     }
     
