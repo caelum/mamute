@@ -4,7 +4,6 @@ import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.EMAIL_LE
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.EMAIL_MAX_LENGTH;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.EMAIL_NOT_VALID;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -27,7 +26,6 @@ public class LoginMethod {
 	 */
 	private String token;
 	
-	@Column(unique=true)
 	@Length(max = EMAIL_MAX_LENGTH, message = EMAIL_LENGTH_MESSAGE)
 	@Email(message = EMAIL_NOT_VALID)
 	private String serviceEmail;
