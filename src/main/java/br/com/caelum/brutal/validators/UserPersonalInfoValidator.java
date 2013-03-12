@@ -21,11 +21,14 @@ public class UserPersonalInfoValidator {
 	public static final int EMAIL_MIN_LENGTH = 6;
 	public static final int EMAIL_MAX_LENGTH = 100;
 	
+	public static final int LOCATION_MAX_LENGTH = 100;
+	
 	public static final int ABOUT_MIN_LENGTH = 6;
 	public static final int ABOUT_MAX_LENGTH = 500;
 	public static final int MARKED_ABOUT_MAX_LENGTH = 600;
 	
 	public static final String NAME_LENGTH_MESSAGE = "user.errors.name.length";
+	public static final String LOCATION_LENGTH_MESSAGE = "user.errors.location.length";
 	public static final String REALNAME_LENGTH_MESSAGE = "user.errors.realName.length";
 	public static final String WEBSITE_LENGTH_MESSAGE = "user.errors.website.length";
 	public static final String EMAIL_LENGTH_MESSAGE = "user.errors.email.length";
@@ -35,10 +38,10 @@ public class UserPersonalInfoValidator {
 	
 	public static final String NAME_REQUIRED = "user.errors.name.required";
 	
-	private Validator validator;
-	private EmailValidator emailValidator;
-	private MessageFactory messageFactory;
-	private Localization localization;
+	private final Validator validator;
+	private final EmailValidator emailValidator;
+	private final MessageFactory messageFactory;
+	private final Localization localization;
 
 	public UserPersonalInfoValidator(Validator validator, EmailValidator emailValidator, MessageFactory messageFactory, Localization localization){
 		this.validator = validator;
