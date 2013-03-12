@@ -939,6 +939,10 @@ textarea {
 	line-height: 20px;
 }
 
+.comment p {
+	display: inline;
+}
+
 .comment:hover, .to-flag {
 	background-color: #FAFAFA;
 }
