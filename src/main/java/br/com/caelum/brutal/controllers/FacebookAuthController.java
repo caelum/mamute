@@ -52,15 +52,16 @@ public class FacebookAuthController {
 		
 		User existantBrutalUser = users.findByEmailAndMethod(signupInfo.getEmail(), MethodType.BRUTAL);
 		if (existantBrutalUser != null) {
-			LoginMethod facebookLogin = LoginMethod.facebookLogin(existantBrutalUser, existantBrutalUser.getEmail(), rawToken);
-			List<I18nMessage> messages = asList(messageFactory.build("confirmation", "signup.facebook.existant_brutal", existantBrutalUser.getEmail()));
-			result.include("messages", messages);
-			existantBrutalUser.add(facebookLogin);
-			access.login(existantBrutalUser);
-			result.redirectTo(ListController.class).home();
+			mergeLoginMethods(rawToken, existantBrutalUser);
 			return;
 		}
 		
+		createNewUser(rawToken, signupInfo);
+		
+		result.redirectTo(ListController.class).home();
+	}
+
+	private void createNewUser(String rawToken, SignupInfo signupInfo) {
 		User user = new User(signupInfo.getName(), signupInfo.getEmail());
 		LoginMethod facebookLogin = new LoginMethod(MethodType.FACEBOOK, signupInfo.getEmail(), rawToken, user);
 		user.add(facebookLogin);
@@ -68,6 +69,15 @@ public class FacebookAuthController {
 		users.save(user);
 		loginMethods.save(facebookLogin);
 		access.login(user);
+	}
+
+	private void mergeLoginMethods(String rawToken, User existantBrutalUser) {
+		LoginMethod facebookLogin = LoginMethod.facebookLogin(existantBrutalUser, existantBrutalUser.getEmail(), rawToken);
+		List<I18nMessage> messages = asList(messageFactory.build("confirmation", "signup.facebook.existant_brutal", existantBrutalUser.getEmail()));
+		result.include("messages", messages);
+		existantBrutalUser.add(facebookLogin);
+		loginMethods.save(facebookLogin);
+		access.login(existantBrutalUser);
 		result.redirectTo(ListController.class).home();
 	}
 }
