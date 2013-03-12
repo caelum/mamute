@@ -12,13 +12,11 @@ import br.com.caelum.vraptor.ioc.Component;
 @Component
 public class UserPersonalInfoValidator {
 	
-	public static final int NAME_MIN_LENGTH = 6;
 	public static final int NAME_MAX_LENGTH = 100;
 	
 	public static final int WEBSITE_MIN_LENGTH = 0;
 	public static final int WEBSITE_MAX_LENGHT = 200;
 	
-	public static final int EMAIL_MIN_LENGTH = 6;
 	public static final int EMAIL_MAX_LENGTH = 100;
 	
 	public static final int LOCATION_MAX_LENGTH = 100;
