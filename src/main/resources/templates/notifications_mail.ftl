@@ -1,6 +1,6 @@
 <html>
 <body style="font-family:arial, sans-serif; font-size:12px;">
-	<div style="color:#222; font-size:14px; line-height:1.2em; padding:8px 0 8px 10px; background-color:#edf2f4;">Os seguintes itens que você acompanha no brutal foram atualizados:</div>
+	<div style="color:#222; font-size:14px; line-height:1.2em; padding:8px 0 8px 10px; background-color:#edf2f4;">Os seguintes itens que você acompanha no GUJ foram atualizados:</div>
 	<table cellspacing="0" style="font-family:arial, sans-serif; font-size:12px;width:100%;">
 		<#list subscribablesDTO as subscribableDTO>
 			<tr>
@@ -20,7 +20,7 @@
 		</#list>
 	</table>
 	<hr />
-	Brutal
+	GUJ
 </body>
 </html>
 
