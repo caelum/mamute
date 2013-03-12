@@ -9,8 +9,10 @@
 	<c:forEach var="comment" items="${item.comments }">
 		<li class="comment">
 			<div class="comment-vote vote-container">
-				<c:if test="${currentUser != null && !flaggable.alreadyFlaggedBy(currentUser)}">
-					<a href="#" data-author="${comment.author.id == currentUser.id}" class="author-cant requires-login comment-option flag-it icon-flag"></a>
+				<c:if test="${currentUser != null && !comment.alreadyFlaggedBy(currentUser)}">
+					<a href="#" data-author="${comment.author.id == currentUser.id}"
+					data-modal-id="comment-flag-modal${comment.id}"
+					class="author-cant requires-login comment-option flag-it icon-flag"></a>
 				</c:if>
 				<a class="comment-option author-cant requires-login vote-option icon-chevron-up 
 					${(comment.voteCount > 0) ? 'voted' : '' }" 
@@ -19,7 +21,7 @@
 				</a>
 				<span class="comment-option vote-count comment-vote-count">${comment.voteCount}</span>
 			</div>
-			<tags:flagItFor flaggable="${comment}"/>
+			<tags:flagItFor type="Comment" modalId="comment-flag-modal${comment.id}" flaggable="${comment}"/>
 								
 			<span id="comment-${comment.id}">
 				${comment.htmlComment}

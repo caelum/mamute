@@ -29,6 +29,14 @@
 				<li class="nav-item">
 					<a class="post-action edit-question" href="<c:url value="/question/edit/${question.id}"/>"><fmt:message key="edit" /></a>
 				</li>
+				<li class="nav-item">
+					<c:if test="${currentUser != null && !question.alreadyFlaggedBy(currentUser)}">
+						<a href="#" data-author="${question.author.id == currentUser.id}"
+						data-modal-id="question-flag-modal${question.id}" 
+						class="post-action author-cant requires-login flag-it"><fmt:message key="flag" /></a>
+					</c:if>
+					<tags:flagItFor type="Question" modalId="question-flag-modal${question.id}" flaggable="${question}"/>
+				</li>
 			</ul>
 			<tags:touchesFor touchable="${question}" />
 		</div>

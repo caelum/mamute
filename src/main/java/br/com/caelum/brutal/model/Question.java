@@ -19,13 +19,14 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.model.interfaces.Commentable;
+import br.com.caelum.brutal.model.interfaces.Flaggable;
 import br.com.caelum.brutal.model.interfaces.Moderatable;
 import br.com.caelum.brutal.model.interfaces.Taggable;
 import br.com.caelum.brutal.model.interfaces.Touchable;
 import br.com.caelum.brutal.model.interfaces.Votable;
 
 @Entity
-public class Question extends Moderatable implements Votable, Commentable, Touchable, Taggable {
+public class Question extends Moderatable implements Votable, Commentable, Touchable, Taggable, Flaggable {
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -69,6 +70,11 @@ public class Question extends Moderatable implements Votable, Commentable, Touch
 	@OneToMany(cascade = CascadeType.ALL)
 	private final List<Comment> comments = new ArrayList<>();
 
+	@JoinTable(name = "Question_Flags")
+	@OneToMany
+	private final List<Flag> flags = new ArrayList<>();
+	
+	
 	/**
 	 * @deprecated hibernate eyes only
 	 */
@@ -264,5 +270,19 @@ public class Question extends Moderatable implements Votable, Commentable, Touch
     public boolean wasMadeBy(User author) {
         return this.author.getId().equals(author.getId());
     }
+
+	@Override
+	public void add(Flag flag) {
+		flags.add(flag);
+	}
+	
+	@Override
+	public boolean alreadyFlaggedBy(User user) {
+		for (Flag flag : flags) {
+			if (flag.createdBy(user))
+				return true;
+		}
+		return false;
+	}
 
 }

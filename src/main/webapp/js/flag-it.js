@@ -4,7 +4,7 @@ $(".flag-it").click(function(e) {
 	var link = $(this);
 	var commentOptions = link.parent();
 	var comment = link.parents('.comment');
-	var modal = comment.find(".modal-flag");
+	var modal = $("#"+link.data("modal-id"))
 	var form = modal.find("form");
 	var uri = form.attr("action");
 	

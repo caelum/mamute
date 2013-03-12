@@ -2,9 +2,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@attribute name="flaggable" type="br.com.caelum.brutal.model.interfaces.Flaggable" required="true" %>
+<%@attribute name="modalId" type="java.lang.String" required="true" %>
+<%@attribute name="type" type="java.lang.String" required="true" %>
 
-<div class="hidden modal modal-flag">
-	<form class="validated-form" action="${linkTo[FlagController].addFlag[flaggable.class.simpleName][flaggable.id]}">
+<div class="hidden modal modal-flag" id="${modalId}">
+	<form class="validated-form" action="${linkTo[FlagController].addFlag[type][flaggable.id]}">
 		<input type="radio" value="RUDE" name="flagType" id="flag-type-rude" />
 		<label for="flag-type-rude"><fmt:message key="comment.flag.rude" /></label>
 		
