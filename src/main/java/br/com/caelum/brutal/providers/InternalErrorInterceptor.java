@@ -39,7 +39,7 @@ public class InternalErrorInterceptor implements Interceptor{
 			
 			pw.close();
 			result.include("stacktrace", sw.toString());
-			throw new RuntimeException(e);
+			throw e;
 		}
 	}
 }

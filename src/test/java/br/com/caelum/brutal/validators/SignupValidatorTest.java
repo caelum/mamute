@@ -83,9 +83,9 @@ public class SignupValidatorTest extends TestCase {
     }
     
     @Test
-    public void should_verify_tiny_name() throws Exception {
+    public void should_verify_empty_name() throws Exception {
     	when(users.existsWithEmail("valid@gmail.com")).thenReturn(false);
-    	User user = user("nome", "valid@gmail.com");
+    	User user = user("", "valid@gmail.com");
     	boolean valid = signupValidator.validate(user, "123456", "123456");
     	
     	assertFalse(valid);
