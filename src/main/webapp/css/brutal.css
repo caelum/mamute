@@ -118,6 +118,10 @@ a {
 	display: none;
 }
 
+.important-hidden {
+	display: none !important;
+}
+
 .form-hints {
 	width: 35%;
 	margin-top: 32px;
@@ -907,7 +911,7 @@ textarea {
 /*Comments*/
 .comment-options *{
 	float: left;
-	margin: 1em 0 0 -2em;
+	margin: 0.5em 0 0 -2em;
 	color: #d0d0d0;	
 }
 
@@ -995,12 +999,23 @@ textarea {
 	color: #FF0000;
 }
 
-.vote-container {
+.post-vote {
 	width: 100%;
 	height: 80px;
 }
 
-.vote-count {
+.comment-vote .flag-it {
+	margin-top: 3.25em;
+}
+
+.comment-vote-count {
+	color: #9B764F;
+	font-size: 1.25em;
+	font-weight: bold;
+	margin: 1.25em 0 0 -22px;
+}
+
+.post-vote-count {
 	display: block;
 	font-size: 1.85em;
 	color: #555;

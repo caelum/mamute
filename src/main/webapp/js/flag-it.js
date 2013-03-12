@@ -1,7 +1,10 @@
 $('.comment').hover(function(){
 	var commentOptions = $(this).find('.comment-options');
-	if(!commentOptions.find('.flag-it').hasClass('flag-selected')) {
-		commentOptions.toggleClass('hidden');
+	var flag = commentOptions.find('.flag-it');
+	var up = commentOptions.find('.vote-option');
+	if(!flag.hasClass('flag-selected')) {
+		flag.toggleClass('important-hidden');
+		up.toggleClass('important-hidden');
 	}
 });
 
@@ -61,9 +64,9 @@ $(".flag-it").click(function(e) {
 
 $(".other-option").change(function() {
 	var self = $(this);
-	$("#"+self.data("reason-id")).show(200);
+	self.siblings("#other-reason").show(200);
 });
 
 $(".modal input:not(.other-option)").change(function() {
-	$(".modal textarea").hide();
+	$(".modal #other-reason").hide();
 });

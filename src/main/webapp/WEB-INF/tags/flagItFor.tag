@@ -3,11 +3,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@attribute name="flaggable" type="br.com.caelum.brutal.model.interfaces.Flaggable" required="true" %>
 
-<c:if test="${currentUser != null && !flaggable.alreadyFlaggedBy(currentUser)}">
-	<div class="comment-options hidden">
-		<a href="#" class="flag-it icon-flag"></a>
-	</div>
-</c:if>
+<div class="comment-options vote-container comment-vote">
+	<a class="requires-author-cant vote-option icon-chevron-up important-hidden
+		${(flaggable.voteCount > 0) ? 'voted' : '' }" 
+		data-value="up" data-author="${flaggable.author.id == currentUser.id}" 
+		data-type="comment" data-id="${flaggable.id}">
+	</a>
+	<span class="vote-count comment-vote-count">${flaggable.voteCount}</span>
+	<c:if test="${currentUser != null && !flaggable.alreadyFlaggedBy(currentUser)}">
+		<a href="#" class="flag-it icon-flag important-hidden"></a>
+	</c:if>
+</div>
 <div class="hidden modal modal-flag">
 	<form class="validated-form" action="${linkTo[FlagController].addFlag[flaggable.class.simpleName][flaggable.id]}">
 		<input type="radio" value="RUDE" name="flagType" id="flag-type-rude" />
