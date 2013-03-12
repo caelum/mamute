@@ -235,6 +235,11 @@ em {
 }
 
 /*Messages*/
+.message{
+	margin-bottom: 1%;
+	font-size: 1.1em;
+}
+
 .error{
 	color: #8e0000;
 }

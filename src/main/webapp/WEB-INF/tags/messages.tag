@@ -5,7 +5,7 @@
 <c:if test="${not empty messagesList}">
 	<ul>
 		<c:forEach var="message" items="${messagesList}">
-			<li class="${message.category}">${message.message}</li>
+			<li class="message ${message.category}">${message.message}</li>
 		</c:forEach>
 	</ul>
 </c:if>

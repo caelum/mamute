@@ -30,7 +30,7 @@ public class AuthController extends Controller {
 		if (auth.authenticate(email, password)) {
 			redirectToRightUrl(redirectUrl);
 		} else {
-			includeAsList("messages", i18n("alert", "auth.invalid.login"));
+			includeAsList("messages", i18n("error", "auth.invalid.login"));
 			include("redirectUrl", redirectUrl);
 			redirectTo(this).loginForm();
 		}
