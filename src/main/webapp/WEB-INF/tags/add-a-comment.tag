@@ -8,15 +8,26 @@
 <ul class="comment-container ${empty item.comments ? 'hidden' : ''}" id="${ajaxResultName }">
 	<c:forEach var="comment" items="${item.comments }">
 		<li class="comment">
-		
+			<div class="comment-vote vote-container">
+				<c:if test="${currentUser != null && !flaggable.alreadyFlaggedBy(currentUser)}">
+					<a href="#" data-author="${comment.author.id == currentUser.id}" class="author-cant requires-login comment-option flag-it icon-flag"></a>
+				</c:if>
+				<a class="comment-option author-cant requires-login vote-option icon-chevron-up 
+					${(comment.voteCount > 0) ? 'voted' : '' }" 
+					data-value="up" data-author="${comment.author.id == currentUser.id}" 
+					data-type="comment" data-id="${comment.id}">
+				</a>
+				<span class="comment-option vote-count comment-vote-count">${comment.voteCount}</span>
+			</div>
 			<tags:flagItFor flaggable="${comment}"/>
-			
+								
 			<span id="comment-${comment.id}">
 				${comment.htmlComment}
 			</span> &#8212;
 			
 			<tags:userProfileLink user="${comment.author}" htmlClass="${comment.author.id eq item.author.id ? 'same-author' : ''}"/> 
 			&nbsp;<tags:prettyTime time="${comment.lastUpdatedAt}"/>
+
 			<c:if test="${comment.author.id == currentUser.id }">
 				<tags:editFor item="${comment}" field="comment" value="${comment.comment}" ajaxResult="comment-${comment.id}" />
 			</c:if>

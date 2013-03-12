@@ -114,12 +114,8 @@ a {
 	color: #AE0000;
 }
 
-.hidden,.hint {
+.hint {
 	display: none;
-}
-
-.important-hidden {
-	display: none !important;
 }
 
 .form-hints {
@@ -272,6 +268,7 @@ em {
 	border-radius: 3px;
 	cursor: pointer;
 	padding: 1.3em;
+	text-align:center;
 }
 
 .popup-error-message {
@@ -909,21 +906,26 @@ textarea {
 }
 
 /*Comments*/
-.comment-options *{
+.comment-option {
 	float: left;
 	margin: 0.5em 0 0 -2em;
 	color: #d0d0d0;	
-}
-
-.comment-options .flag-selected,
-.comment-options .flag-it:hover {
-	color: #f8d408;
 }
 
 .comment-container {
 	color: #444;
 	border-top: dotted 1px #aaa;
 }
+
+.comment-container .vote-option,
+.comment-container .flag-it{
+	display:none;
+} 
+
+.comment-container:hover .vote-option,
+.comment-container:hover .flag-it{
+	display:block;
+} 
 
 .comment {
 	overflow: hidden;
@@ -943,6 +945,11 @@ textarea {
 
 .answer {
 	padding-bottom: 1em;
+}
+
+.flag-it.selected,
+.flag-it:hover {
+	color: #f8d408;
 }
 
 .modal-flag {
@@ -1244,4 +1251,8 @@ textarea {
 	padding-bottom: 4%;
 	text-align: center;
 	width: 49%;
+}
+
+.hidden{
+	display:none;
 }

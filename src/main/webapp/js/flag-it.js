@@ -1,31 +1,16 @@
-$('.comment').hover(function(){
-	var commentOptions = $(this).find('.comment-options');
-	var flag = commentOptions.find('.flag-it');
-	var up = commentOptions.find('.vote-option');
-	if(!flag.hasClass('flag-selected')) {
-		flag.toggleClass('important-hidden');
-		up.toggleClass('important-hidden');
-	}
-});
 
 $(".flag-it").click(function(e) {
 	e.preventDefault();
 	var link = $(this);
 	var commentOptions = link.parent();
 	var comment = link.parents('.comment');
-	var modal = commentOptions.siblings(".modal");
+	var modal = comment.find(".modal-flag");
 	var form = modal.find("form");
 	var uri = form.attr("action");
 	
 	modal.toggleClass('hidden');
-	
-	if(modal.hasClass('hidden')) {
-		link.removeClass('flag-selected');
-		comment.removeClass('to-flag');
-	} else {
-		link.addClass('flag-selected');
-		comment.addClass('to-flag');
-	}
+	link.toggleClass('selected');
+	comment.toggleClass('to-flag');
 	
 	var callbacks = {};
 	callbacks["409"] = function() {
