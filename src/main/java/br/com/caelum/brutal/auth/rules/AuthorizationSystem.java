@@ -19,9 +19,10 @@ public class AuthorizationSystem {
 	public boolean canEdit(Moderatable question, int karmaRequired) {
 		AuthorRule<Moderatable> isAuthor = new AuthorRule<Moderatable>();
 		PermissionRule<Moderatable> hasEnoughKarma = new MinimumKarmaRule<>(karmaRequired);
+		ModeratorRule<Moderatable> moderatorRule = new ModeratorRule<>();
 		ComposedRule<Moderatable> composed = new ComposedRule<>();
 		
-		ComposedRule<Moderatable> rule = composed.thiz(isAuthor).or(hasEnoughKarma);
+		ComposedRule<Moderatable> rule = composed.thiz(isAuthor).or(hasEnoughKarma).or(moderatorRule).or(moderatorRule);
 		
 		if (rule.isAllowed(user, question))
 			return true;

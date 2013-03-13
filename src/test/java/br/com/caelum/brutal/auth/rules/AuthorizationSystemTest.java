@@ -35,6 +35,14 @@ public class AuthorizationSystemTest extends TestCase {
 		assertTrue(authorizationSystem.canEdit(question, 0));
 	}
 	
+	@Test
+	public void moderator_should_be_allowed_to_edit() {
+		User moderator = user("moderator", "moderator@brutal.com", 2l).asModerator();
+		AuthorizationSystem authorizationSystem = new AuthorizationSystem(moderator);
+		
+		assertTrue(authorizationSystem.canEdit(question, 100));
+	}
+	
 	@Test(expected=UnauthorizedException.class)
 	public void user_with_low_karma_should_not_be_allowed_to_edit() {
 		User other = user("other", "other@brutal.com", 3l);
