@@ -819,6 +819,7 @@ textarea {
 	border-bottom: 1px solid #aaa;
 	overflow: hidden;
 	margin-bottom:2%;
+	padding-bottom: 1%;
 }
 
 .question-area {
