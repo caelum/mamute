@@ -24,6 +24,11 @@ public abstract class AuthenticatedAcceptanceTest extends AcceptanceTestBase {
         		"123456", "123456");
     }
     
+    protected void loginWithALotOfKarma() {
+    	logout();
+    	home().toLoginPage().login("karma.nigga@caelum.com.br", "123456");
+    }
+    
     protected void loginAsModerator() {
         logout();
         home().toLoginPage().login("moderator@caelum.com.br", "123456");
