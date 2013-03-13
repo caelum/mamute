@@ -10,6 +10,7 @@
  <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="<c:url value="/css/reset.css"/>">
 <link rel="stylesheet" href="<c:url value="/css/font-awesome.css"/>">
+<link rel=" stylesheet" type="text/css" href="jquery.joyride-2.0.3.js">
 <link rel="stylesheet" href="<c:url value="/css/pagedown.css"/>">
 <link rel="stylesheet" href="<c:url value="/css/prettify.css"/>">
 <link rel="stylesheet" href="<c:url value="/css/brutal.css"/>">
