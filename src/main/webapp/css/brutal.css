@@ -819,6 +819,7 @@ textarea {
 .post-area {
 	border-bottom: 1px solid #aaa;
 	overflow: hidden;
+	margin-bottom:2%;
 }
 
 .question-area {
@@ -856,13 +857,14 @@ textarea {
 }
 
 .post-action-nav {
+	float: left;
 	margin-top: 10px;
-	float: left
 }
 
 .post-action {
 	color: #888;
 	padding: .15em .25em;
+	line-height: 1.4em;
 }
 
 .post-action:hover {
@@ -994,6 +996,7 @@ textarea {
 .comment-list {
 	color: #444;
 	border-top: dotted 1px #aaa;
+	margin-bottom:2%;
 }
 
 .comment {
