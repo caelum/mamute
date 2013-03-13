@@ -12,18 +12,20 @@ public class AuthorizationSystem {
 	public AuthorizationSystem(User user) {
 		this.user = user;
 	}
+	
 	/**
-	 * @throws UnauthorizedException, if the user isn't allowed to edit this moderatable
+	 * @throws UnauthorizedException if the user isn't allowed to edit this moderatable
 	 */
 	public boolean canEdit(Moderatable question, int karmaRequired) {
-		AuthorRule<Moderatable> authorRule = new AuthorRule<Moderatable>();
-		MinimumKarmaRule<Moderatable> minimumKarmaRule = new MinimumKarmaRule<>(karmaRequired);
+		AuthorRule<Moderatable> isAuthor = new AuthorRule<Moderatable>();
+		PermissionRule<Moderatable> hasEnoughKarma = new MinimumKarmaRule<>(karmaRequired);
+		ComposedRule<Moderatable> composed = new ComposedRule<>();
 		
-		boolean dontHaveEnoughKarma = !minimumKarmaRule.isAllowed(user, question);
-		boolean isNoTheAuthor = !authorRule.isAllowed(user, question);
-		if (isNoTheAuthor && dontHaveEnoughKarma)
-			throw new UnauthorizedException("you are not the author or don't have enough karma"); // i18n here?
-		return true;
+		ComposedRule<Moderatable> rule = composed.thiz(isAuthor).or(hasEnoughKarma);
+		
+		if (rule.isAllowed(user, question))
+			return true;
+		throw new UnauthorizedException("you are not the author or don't have enough karma"); // i18n here?
 	}
 
 }

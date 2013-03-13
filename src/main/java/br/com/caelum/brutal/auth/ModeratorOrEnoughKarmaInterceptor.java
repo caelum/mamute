@@ -1,7 +1,10 @@
 package br.com.caelum.brutal.auth;
 
 import static br.com.caelum.vraptor.view.Results.http;
+import br.com.caelum.brutal.auth.rules.ComposedRule;
 import br.com.caelum.brutal.auth.rules.MinimumKarmaRule;
+import br.com.caelum.brutal.auth.rules.ModeratorRule;
+import br.com.caelum.brutal.auth.rules.PermissionRule;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
@@ -32,8 +35,14 @@ public class ModeratorOrEnoughKarmaInterceptor implements Interceptor {
     public void intercept(InterceptorStack stack, ResourceMethod method, Object obj)
             throws InterceptionException {
     	long karma = method.getMethod().getAnnotation(ModeratorOrKarmaAccess.class).value();
+    	
     	MinimumKarmaRule<Void> minimumKarmaRule = new MinimumKarmaRule<>(karma);
-        if (currentUser == null || currentUser.isModerator() || minimumKarmaRule.isAllowed(currentUser, null)) {
+    	ModeratorRule moderatorRule = new ModeratorRule();
+    	ComposedRule<Void> compose = new ComposedRule<>();
+    	
+    	PermissionRule<Void> rule = compose.thiz(moderatorRule).or(minimumKarmaRule);
+    	
+        if (currentUser == null || rule.isAllowed(currentUser, null)){
             result.use(http()).sendError(403);
             return;
         }
