@@ -957,8 +957,8 @@ textarea {
 	display:none;
 } 
 
-.comment-container:hover .vote-option,
-.comment-container:hover .flag-it{
+.comment:hover .vote-option,
+.comment:hover .flag-it{
 	display:block;
 } 
 
