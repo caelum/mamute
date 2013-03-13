@@ -112,6 +112,7 @@ a {
 
 .hint-title,.hint-title a {
 	color: #AE0000;
+	font-weight:bold;
 }
 
 .hint {
@@ -131,7 +132,7 @@ a {
 .hint {
 	background-color: #FFEFC6;
 	border-radius: 5px;
-	padding: .3em;
+	padding: .6em;
 	width: 95%;
 	float: right;
 	color: #735005;
@@ -189,17 +190,15 @@ a {
 	background-color: #eee;
 }
 
-pre {
+pre.prettyprint {
 	font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono,
 		DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace,
 		serif;
 	margin-bottom: 10px;
 	background-color: #eeeeee;
 	overflow: auto;
-	width: auto;
-	width: 650px!ie7;
-	padding-bottom: 20px!ie7;
 	max-height: 600px;
+	padding: .3em;
 }
 
 code {
