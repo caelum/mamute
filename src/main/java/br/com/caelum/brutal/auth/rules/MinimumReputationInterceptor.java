@@ -33,8 +33,7 @@ public class MinimumReputationInterceptor implements Interceptor {
 		MinimumReputation annotation = method.getMethod().getAnnotation(
 				MinimumReputation.class);
 		int minimum = annotation.value();
-		MinimumKarmaRule<Void> minimumKarmaRule = new MinimumKarmaRule<>(
-				minimum);
+		MinimumKarmaRule<Void> minimumKarmaRule = new MinimumKarmaRule<>(minimum);
 		if (!minimumKarmaRule.isAllowed(loggedUser.getCurrent(), null)) {
 			result.use(http()).sendError(403);	
 			return;
