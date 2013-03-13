@@ -59,7 +59,7 @@ public class QuestionController {
 	@Get("/question/edit/{questionId}")
 	public void questionEditForm(Long questionId) {
 		Question question = questions.getById(questionId);
-		authorizationSystem.authorize(question, PermissionRulesConstants.EDIT_QUESTION);
+		authorizationSystem.canEdit(question, PermissionRulesConstants.EDIT_QUESTION);
 		
 		result.include("question",  questions.getById(questionId));
 	}
@@ -67,7 +67,7 @@ public class QuestionController {
 	@Post("/question/edit/{id}")
 	public void edit(String title, String description, String tagNames, Long id, String comment) {
 		Question original = questions.getById(id);
-		authorizationSystem.authorize(original, PermissionRulesConstants.EDIT_QUESTION);
+		authorizationSystem.canEdit(original, PermissionRulesConstants.EDIT_QUESTION);
 		
 		List<Tag> loadedTags = tags.findAllByNames(tagNames);
 		QuestionInformation information = new QuestionInformation(title, description, this.currentUser, loadedTags, comment);

@@ -50,7 +50,7 @@ public class AnswerController {
 	@Get("/answer/edit/{id}")
 	public void answerEditForm(Long id) {
 		Answer answer = answers.getById(id);
-		authorizationSystem.authorize(answer, PermissionRulesConstants.EDIT_ANSWER);
+		authorizationSystem.canEdit(answer, PermissionRulesConstants.EDIT_ANSWER);
 		
 		result.include("answer",  answers.getById(id));
 	}
@@ -58,7 +58,7 @@ public class AnswerController {
 	@Post("/answer/edit/{id}")
 	public void edit(String description, Long id, String comment) {
 		Answer original = answers.getById(id);
-		authorizationSystem.authorize(original, PermissionRulesConstants.EDIT_ANSWER);
+		authorizationSystem.canEdit(original, PermissionRulesConstants.EDIT_ANSWER);
 		
 		AnswerInformation information = new AnswerInformation(description, currentUser, comment);
 
