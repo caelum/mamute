@@ -796,6 +796,25 @@ textarea {
 	margin-bottom: 5%;
 }
 
+/*ABOUT*/
+.about-title {
+	font-size: 2.5em;
+	text-align: center;
+	margin: 5% 0;
+}
+
+.about-main {
+	font-size: 1.2em;
+	line-height: 1.5em;
+	text-align: center;
+}
+
+.about-text {
+	font-size: 1.2em;
+	line-height: 2em;
+	width: 50%;
+}
+
 /*SHOW QUESTION*/
 .mark-as-solution * {
 	padding-top: 5px;
