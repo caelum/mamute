@@ -977,6 +977,11 @@ textarea {
 	background-color: #FAFAFA;
 }
 
+.comment-content{
+	margin-bottom:3%;	
+	display:block;
+}
+
 .same-author {
 	background-color: #E0EAF1;
 	padding: .2em .35em;
@@ -1085,9 +1090,6 @@ textarea {
 }
 
 /*EDIT VIA AJAX*/
-.edit-via-ajax {
-	margin: 10px 0;
-}
 
 .edit-via-ajax .form-hints {
 	margin-top: 0px;
