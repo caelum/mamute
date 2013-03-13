@@ -1134,16 +1134,15 @@ textarea {
 
 /*USER PROFILE*/
 .image-and-information {
-	width: 13%;
 	float: left;
 	color: #000;
 	text-align: center;
 	margin-right: 2%;
+	width: 128px;
 }
 
 .image-and-information span {
 	display: block;
-	width: 128px;
 }
 
 .profile-image {
@@ -1164,8 +1163,7 @@ textarea {
 
 .data-list {
 	float: left;
-	width: 34%;
-	margin-right: 5%;
+	width: 30%;
 	line-height: 1.5em;
 }
 
@@ -1243,8 +1241,8 @@ textarea {
 }
 
 .about-me {
-	float: left;
-	width: 45%;
+	float: right;
+	width: 48%;
 	height: auto;
 	min-height: 247px;
 	padding: 0.7em;
