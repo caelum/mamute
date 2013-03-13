@@ -5,25 +5,24 @@
 
 <c:set var="ajaxResultName" value="new-comment-for-${item.typeName}-new-comment-${item.id}"/>
 
-<ul class="comment-container ${empty item.comments ? 'hidden' : ''}" id="${ajaxResultName }">
+<ul class="comment-list ${empty item.comments ? 'hidden' : ''}" id="${ajaxResultName }">
 	<c:forEach var="comment" items="${item.comments }">
 		<li class="comment">
-			<div class="comment-content">
-				<div class="comment-vote vote-container">
-					<c:if test="${currentUser != null && !comment.alreadyFlaggedBy(currentUser)}">
-						<a href="#" data-author="${comment.author.id == currentUser.id}"
-						data-modal-id="comment-flag-modal${comment.id}"
-						class="author-cant requires-login comment-option flag-it icon-flag"></a>
-					</c:if>
-					<a class="comment-option author-cant requires-login vote-option icon-chevron-up 
-						${(comment.voteCount > 0) ? 'voted' : '' }" 
-						data-value="up" data-author="${comment.author.id == currentUser.id}" 
-						data-type="comment" data-id="${comment.id}">
-					</a>
-					<span class="comment-option vote-count comment-vote-count">${comment.voteCount}</span>
-				</div>
-				<tags:flagItFor type="Comment" modalId="comment-flag-modal${comment.id}" flaggable="${comment}"/>
-									
+			<div class="post-meta comment-meta vote-container">
+				<a class="comment-meta-item container comment-option author-cant requires-login vote-option icon-chevron-up 
+					${(comment.voteCount > 0) ? 'voted' : '' }" 
+					data-value="up" data-author="${comment.author.id == currentUser.id}" 
+					data-type="comment" data-id="${comment.id}">
+				</a>
+				<span class="comment-meta-item vote-count comment-vote-count">${comment.voteCount}</span>
+				<c:if test="${currentUser != null && !comment.alreadyFlaggedBy(currentUser)}">
+					<a href="#" data-author="${comment.author.id == currentUser.id}"
+					data-modal-id="comment-flag-modal${comment.id}"
+					class="comment-meta-item container author-cant requires-login comment-option flag-it icon-flag"></a>
+				</c:if>
+			</div>
+			<tags:flagItFor type="Comment" modalId="comment-flag-modal${comment.id}" flaggable="${comment}"/>
+			<div class="post-container comment-container">
 				<span id="comment-${comment.id}">
 					${comment.htmlComment}
 				</span> &#8212;
@@ -34,7 +33,7 @@
 				<c:if test="${comment.author.id == currentUser.id }">
 					<tags:editFor item="${comment}" field="comment" value="${comment.comment}" ajaxResult="comment-${comment.id}" />
 				</c:if>
-			</div>
+			</div>	
 		</li>
 	</c:forEach>
 </ul>

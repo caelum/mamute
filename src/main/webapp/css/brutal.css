@@ -940,31 +940,65 @@ textarea {
 	border-left: 1px solid #999;
 }
 
-/*Comments*/
-.comment-option {
-	float: left;
-	margin: 0.5em 0 0 -2em;
-	color: #d0d0d0;	
+
+/* Post Vote*/
+.post-meta, .post-container {
+	float: left
 }
 
-.comment-container {
+.post-meta {
+	text-align: center;
+	width: 10%;
+}
+
+.already-voted {
+	display: none;
+}
+
+.vote .vote-option {
+	cursor: pointer;
+}
+
+.post-vote {
+	width: 100%;
+	height: 80px;
+}
+
+.vote-count{
+	display: block;
+	text-align: center;
+	width: 100%;
+}
+
+.post-vote-count {
+	font-size: 1.85em;
+	color: #555;
+	height: 40px;
+	line-height: 40px;
+}
+
+.vote-option {
+	cursor: pointer;
+}
+
+.up-arrow.voted {
+	border-bottom-color: #3A77A6;
+}
+
+.down-arrow.voted {
+	border-top-color: #3A77A6;
+}
+
+
+/*Comments*/
+.comment-list {
 	color: #444;
 	border-top: dotted 1px #aaa;
 }
 
-.comment-container .vote-option,
-.comment-container .flag-it{
-	display:none;
-} 
-
-.comment:hover .vote-option,
-.comment:hover .flag-it{
-	display:block;
-} 
-
 .comment {
 	overflow: hidden;
-	padding: .4em 2em;
+	padding: .4em 2em .4em 0;
 	border-bottom: dotted 1px #ddd;
 	line-height: 20px;
 }
@@ -973,13 +1007,29 @@ textarea {
 	display: inline;
 }
 
-.comment:hover, .to-flag {
-	background-color: #FAFAFA;
+.comment-meta{
+	width:6%;
 }
 
-.comment-content{
-	margin-bottom:3%;	
+.comment .comment-meta-item{
+	display:none;
+}
+
+.comment:hover .comment-meta-item{
 	display:block;
+}
+
+.comment-option{
+	color: #d0d0d0;	
+}
+
+.comment-container{
+	width:94%;
+	float:right;
+}
+
+.comment:hover, .to-flag {
+	background-color: #FAFAFA;
 }
 
 .same-author {
@@ -994,6 +1044,11 @@ textarea {
 .comment .flag-it.selected,
 .comment .flag-it:hover {
 	color: #f8d408;
+}
+
+
+.comment .vote-option.voted {
+	color: #FF0000;
 }
 
 .modal-flag {
@@ -1029,64 +1084,10 @@ textarea {
 	width: 50%;
 }
 
-/*Vote*/
-.post-meta,.post-container {
-	float: left
-}
-
-.post-meta {
-	text-align: center;
-	width: 10%;
-}
-
-.already-voted {
-	display: none;
-}
-
-.vote .vote-option {
-	cursor: pointer;
-}
-
-.voted {
-	color: #FF0000;
-}
-
-.post-vote {
-	width: 100%;
-	height: 80px;
-}
-
-.comment-vote .flag-it {
-	margin-top: 3.25em;
-}
-
 .comment-vote-count {
 	color: #9B764F;
 	font-size: 1.25em;
 	font-weight: bold;
-	margin: 1.25em 0 0 -22px;
-}
-
-.post-vote-count {
-	display: block;
-	font-size: 1.85em;
-	color: #555;
-	text-align: center;
-	width: 100%;
-	height: 40px;
-	line-height: 40px;
-}
-
-.vote-option {
-	cursor: pointer;
-}
-
-.up-arrow.voted {
-	border-bottom-color: #3A77A6;
-}
-
-.down-arrow.voted {
-	border-top-color: #3A77A6;
 }
 
 /*EDIT VIA AJAX*/
