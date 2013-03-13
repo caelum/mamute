@@ -29,16 +29,27 @@ public class CommentController {
 	@SuppressWarnings("rawtypes")
 	@LoggedAccess
 	@Post("/{onWhat}/{id}/comment")
-	public void comment(Long id, String onWhat, String message) throws ClassNotFoundException {
+	public void comment(Long id, String onWhat, String message) {
 		Comment comment = new Comment(currentUser, message);
-		if(validator.validate(comment)){
-			Class type = Class.forName("br.com.caelum.brutal.model." + onWhat);
+		Class type = getType("br.com.caelum.brutal.model." + onWhat);
+		if (type == null) {
+			result.notFound();
+			return;
+		}
+		if (validator.validate(comment)){
 			comments.load(type, id).add(comment);
 			comments.save(comment);
 			result.use(http()).body("<li class=\"comment\">" + message + "</li>");
 		}
 	}
-	
+
+	private Class getType(String name) {
+		try {
+			return Class.forName(name);
+		} catch (ClassNotFoundException e) {
+			return null;
+		}
+	}
 
 	@Post("/Comment/edit/{id}")
 	public void edit(String comment, Long id) {
