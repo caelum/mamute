@@ -769,10 +769,10 @@ textarea {
 	border: 1px solid #000;
 	z-index: 999;
 	position: absolute;
-	margin-top: 30px;
+	margin-top: 21px;
 	background-color: #FFF;
 	padding: .6em;
-	width: 45%;
+	width: 45.5%;
 }
 
 .autocompleted-tags .complete-tag {
