@@ -21,7 +21,7 @@ public class ComposedRuleTest {
 
 	@Test
 	public void multiple_ors_should_work() {
-		assertTrue(composedRule().thiz(FALSE).or(FALSE).or(FALSE).isAllowed(null, null));
+		assertTrue(composedRule().thiz(FALSE).or(FALSE).or(TRUE).isAllowed(null, null));
 		assertTrue(composedRule().thiz(FALSE).or(TRUE).or(FALSE).isAllowed(null, null));
 		assertTrue(composedRule().thiz(TRUE).or(FALSE).or(FALSE).isAllowed(null, null));
 		assertFalse(composedRule().thiz(FALSE).or(FALSE).or(FALSE).isAllowed(null, null));
