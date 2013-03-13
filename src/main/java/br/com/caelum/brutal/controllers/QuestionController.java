@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import br.com.caelum.brutal.auth.LoggedAccess;
+import br.com.caelum.brutal.auth.rules.AuthorizationSystem;
+import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.dao.VoteDAO;
@@ -33,9 +35,11 @@ public class QuestionController {
 	private final TagsValidator tagsValidator;
 	private final MessageFactory messageFactory;
 	private final QuestionInformationValidator informationValidator;
+	private final AuthorizationSystem authorizationSystem;
 
 	public QuestionController(Result result, QuestionDAO questionDAO, TagDAO tags, VoteDAO votes, LoggedUser currentUser,
-			TagsValidator tagsValidator, MessageFactory messageFactory, QuestionInformationValidator questionInformationValidator) {
+			TagsValidator tagsValidator, MessageFactory messageFactory, QuestionInformationValidator questionInformationValidator,
+			AuthorizationSystem authorizationSystem) {
 		this.result = result;
 		this.questions = questionDAO;
 		this.tags = tags;
@@ -44,6 +48,7 @@ public class QuestionController {
 		this.tagsValidator = tagsValidator;
 		this.messageFactory = messageFactory;
 		this.informationValidator = questionInformationValidator;
+		this.authorizationSystem = authorizationSystem;
 	}
 
 	@Get("/question/ask")
@@ -53,15 +58,21 @@ public class QuestionController {
 
 	@Get("/question/edit/{questionId}")
 	public void questionEditForm(Long questionId) {
+		Question question = questions.getById(questionId);
+		authorizationSystem.authorize(question, PermissionRulesConstants.EDIT_QUESTION);
+		
 		result.include("question",  questions.getById(questionId));
 	}
 
 	@Post("/question/edit/{id}")
 	public void edit(String title, String description, String tagNames, Long id, String comment) {
+		Question original = questions.getById(id);
+		authorizationSystem.authorize(original, PermissionRulesConstants.EDIT_QUESTION);
+		
 		List<Tag> loadedTags = tags.findAllByNames(tagNames);
 		QuestionInformation information = new QuestionInformation(title, description, this.currentUser, loadedTags, comment);
-		if(validate(loadedTags) && informationValidator.validate(information)){
-			Question original = questions.getById(id);
+		
+		if (validate(loadedTags) && informationValidator.validate(information)) {
 			UpdateStatus status = original.updateWith(information);
 			questions.save(original);
 			result.include("messages", Arrays.asList(messageFactory.build("confirmation",status.getMessage())));

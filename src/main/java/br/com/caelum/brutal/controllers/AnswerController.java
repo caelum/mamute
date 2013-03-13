@@ -3,6 +3,8 @@ package br.com.caelum.brutal.controllers;
 import java.util.Arrays;
 
 import br.com.caelum.brutal.auth.LoggedAccess;
+import br.com.caelum.brutal.auth.rules.AuthorizationSystem;
+import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.dao.AnswerDAO;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.factory.MessageFactory;
@@ -29,10 +31,11 @@ public class AnswerController {
 	private final Localization localization;
     private final KarmaCalculator calculator;
 	private final MessageFactory messageFactory;
+	private final AuthorizationSystem authorizationSystem;
 
 	public AnswerController(Result result, AnswerDAO dao, User currentUser, 
 	        QuestionDAO questions, LoggedUser user, Localization localization,
-	        KarmaCalculator calculator, MessageFactory messageFactory) {
+	        KarmaCalculator calculator, MessageFactory messageFactory, AuthorizationSystem authorizationSystem) {
 		this.result = result;
 		this.answers = dao;
 		this.currentUser = user;
@@ -40,19 +43,25 @@ public class AnswerController {
 		this.localization = localization;
         this.calculator = calculator;
 		this.messageFactory = messageFactory;
+		this.authorizationSystem = authorizationSystem;
 	}
 
 
 	@Get("/answer/edit/{id}")
 	public void answerEditForm(Long id) {
+		Answer answer = answers.getById(id);
+		authorizationSystem.authorize(answer, PermissionRulesConstants.EDIT_ANSWER);
+		
 		result.include("answer",  answers.getById(id));
 	}
 
 	@Post("/answer/edit/{id}")
 	public void edit(String description, Long id, String comment) {
+		Answer original = answers.getById(id);
+		authorizationSystem.authorize(original, PermissionRulesConstants.EDIT_ANSWER);
+		
 		AnswerInformation information = new AnswerInformation(description, currentUser, comment);
 
-		Answer original = answers.getById(id);
 		UpdateStatus status = original.updateWith(information);
 		answers.save(original);
 
