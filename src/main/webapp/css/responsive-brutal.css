@@ -77,8 +77,11 @@
 	.container{
 		max-width:94%;
 	}
+	.autocompleted-tags{
+		width:94%;
+	}
 	
-	.autocompleted-tags, .user-form, .question-form,
+	.user-form, .question-form,
 	.form-hints, .hint {
 		width:100%;
 	}
