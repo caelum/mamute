@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.integration.pages;
 
+import static java.lang.Integer.parseInt;
 import static org.openqa.selenium.By.tagName;
 
 import java.util.List;
@@ -83,15 +84,18 @@ public class Home extends PageObject{
     public QuestionPage toFirstQuestionWithAnswerPage() {
         List<WebElement> questionItems = allByCSS(".question-item");
         for (WebElement question : questionItems) {
-            String countText = question.findElement(By.className("answers")).getText();
-            Integer answersCount = Integer.parseInt(countText.split("\\s+")[0].trim());
-            if (answersCount > 0) {
+            if (hasAnswer(question)) {
                 question.findElement(By.cssSelector(".title a")).click();
                 return new QuestionPage(driver);
             }
         }
         throw new NoSuchElementException("could not find any question with at least one answer");
     }
-
+	
+    private boolean hasAnswer(WebElement question) {
+		String countText = question.findElement(By.className("answers")).getText();
+		Integer answersCount = parseInt(countText.split("\\s+")[0].trim());
+		return answersCount > 0;
+	}
 
 }
