@@ -13,30 +13,45 @@ public class ComposedRuleTest {
 
 	@Test
 	public void should_use_or() {
-		ComposedRule<Void> composedRule = new ComposedRule<>();
-		assertTrue(composedRule.thiz(TRUE).or(FALSE).isAllowed(null, null));
-		assertTrue(composedRule.thiz(TRUE).or(TRUE).isAllowed(null, null));
-		assertTrue(composedRule.thiz(FALSE).or(TRUE).isAllowed(null, null));
-		assertFalse(composedRule.thiz(FALSE).or(FALSE).isAllowed(null, null));
+		assertTrue(composedRule().thiz(TRUE).or(FALSE).isAllowed(null, null));
+		assertTrue(composedRule().thiz(TRUE).or(TRUE).isAllowed(null, null));
+		assertTrue(composedRule().thiz(FALSE).or(TRUE).isAllowed(null, null));
+		assertFalse(composedRule().thiz(FALSE).or(FALSE).isAllowed(null, null));
+	}
+
+	@Test
+	public void multiple_ors_should_work() {
+		assertTrue(composedRule().thiz(FALSE).or(FALSE).or(FALSE).isAllowed(null, null));
+		assertTrue(composedRule().thiz(FALSE).or(TRUE).or(FALSE).isAllowed(null, null));
+		assertTrue(composedRule().thiz(TRUE).or(FALSE).or(FALSE).isAllowed(null, null));
+		assertFalse(composedRule().thiz(FALSE).or(FALSE).or(FALSE).isAllowed(null, null));
 	}
 	
 	@Test
 	public void should_use_and() {
-		ComposedRule<Void> composedRule = new ComposedRule<>();
-		assertFalse(composedRule.thiz(TRUE).and(FALSE).isAllowed(null, null));
-		assertTrue(composedRule.thiz(TRUE).and(TRUE).isAllowed(null, null));
-		assertFalse(composedRule.thiz(FALSE).and(TRUE).isAllowed(null, null));
-		assertFalse(composedRule.thiz(FALSE).and(FALSE).isAllowed(null, null));
+		assertFalse(composedRule().thiz(TRUE).and(FALSE).isAllowed(null, null));
+		assertTrue(composedRule().thiz(TRUE).and(TRUE).isAllowed(null, null));
+		assertFalse(composedRule().thiz(FALSE).and(TRUE).isAllowed(null, null));
+		assertFalse(composedRule().thiz(FALSE).and(FALSE).isAllowed(null, null));
 	}
 	
-	static class True implements PermissionRule<Void> {
+	@Test
+	public void composed_rules_should_work() {
+		assertFalse(composedRule().thiz(FALSE).and(FALSE).and(FALSE).isAllowed(null, null));
+	}
+	
+	private ComposedRule<Void> composedRule() {
+		return new ComposedRule<Void>();
+	}
+	
+	static private class True implements PermissionRule<Void> {
 		@Override
 		public boolean isAllowed(User u, Void item) {
 			return true;
 		}
 	}
 	
-	static class False implements PermissionRule<Void> {
+	static private class False implements PermissionRule<Void> {
 		@Override
 		public boolean isAllowed(User u, Void item) {
 			return false;
