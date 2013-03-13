@@ -23,12 +23,16 @@ import br.com.caelum.brutal.model.interfaces.Votable;
 @Entity
 public class Comment implements Subscribable, Votable, Flaggable {
     
-    @Id @GeneratedValue
+	public static final int COMMENT_MIN_LENGTH = 15;
+	public static final String ERROR_NOT_EMPTY = "comment.errors.not_empty";
+    public static final String ERROR_LENGTH = "comment.errors.length";
+
+	@Id @GeneratedValue
     private Long id;
     
     @Lob
-    @NotEmpty(message = "comment.errors.not_empty")
-    @Length(min = 15, message = "comment.errors.length")
+    @NotEmpty(message = ERROR_NOT_EMPTY)
+    @Length(min = COMMENT_MIN_LENGTH, message = ERROR_LENGTH)
     private String comment;
 
     @Lob

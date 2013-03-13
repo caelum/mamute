@@ -41,14 +41,7 @@ public class CommentController {
 			comments.save(comment);
 			result.use(http()).body("<li class=\"comment\">" + message + "</li>");
 		}
-	}
-
-	private Class<?> getType(String name) {
-		try {
-			return Class.forName(name);
-		} catch (ClassNotFoundException e) {
-			return null;
-		}
+		validator.onErrorUse(http()).body("<span class=\"error\">error</span>");
 	}
 
 	@Post("/Comment/edit/{id}")
@@ -58,10 +51,19 @@ public class CommentController {
 			result.use(status()).badRequest("comment.edit.not_author");
 			return;
 		}
-		original.setComment(comment);
-		if (validator.validate(original)) {
+		if(validator.validate(comment)){
+			original.setComment(comment);
 			comments.save(original);
 			result.use(http()).body("<p>"+comment+"</p>");
+		}
+		validator.onErrorUse(http()).body("<span class=\"error\">error</span>");
+	}
+	
+	private Class getType(String name) {
+		try {
+			return Class.forName(name);
+		} catch (ClassNotFoundException e) {
+			return null;
 		}
 	}
 
