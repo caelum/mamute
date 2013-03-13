@@ -7,9 +7,11 @@ $(function() {
 		father.find(".to-focus").focus();
 		return false;
 	});
+	
 	$('form.ajax').submit(function(e) {
 		e.preventDefault();
 		var self = $(this);
+		if(!self.valid()) return false;
 
 		var error = function() {
 			console.log("error");

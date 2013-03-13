@@ -9,7 +9,7 @@
 	<a class="requires-login requires-karma" data-author="${item.author.id eq currentUser.id }" data-karma="10" href="#"><fmt:message key="${editKey}"/></a>
 	<div class="edit-form hidden">
 		<form action="<c:url value="/${item.typeName}/edit/${item.id}"/>" class="validated-form ajax hinted-form" data-ajax-result="${ajaxResult }">
-			<textarea class="required to-focus hintable" minlength="15" name="${field}" data-hint-id="${ajaxResult }-hint">${value }</textarea>
+			<textarea class="required to-focus hintable text-input" minlength="15" name="${field}" data-hint-id="${ajaxResult }-hint">${value }</textarea>
 			<input class="post-submit" type="submit"
 				value="<fmt:message key="${editKey}_form.submit"/>" />
 		</form>
