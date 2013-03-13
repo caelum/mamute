@@ -1,6 +1,7 @@
 package br.com.caelum.brutal.auth;
 
 import static br.com.caelum.vraptor.view.Results.http;
+import br.com.caelum.brutal.auth.rules.MinimumKarmaRule;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
@@ -12,29 +13,31 @@ import br.com.caelum.vraptor.resource.ResourceMethod;
 
 @Intercepts
 @Component
-public class ModeratorInterceptor implements Interceptor {
+public class ModeratorOrEnoughKarmaInterceptor implements Interceptor {
     
     private final User currentUser;
     private final Result result;
     
-    public ModeratorInterceptor(User currentUser, Result result) {
+    public ModeratorOrEnoughKarmaInterceptor(User currentUser, Result result) {
         this.currentUser = currentUser;
         this.result = result;
     }
 
     @Override
     public boolean accepts(ResourceMethod method) {
-        return method.containsAnnotation(ModeratorAccess.class);
+        return method.containsAnnotation(ModeratorOrKarmaAccess.class);
     }
 
     @Override
     public void intercept(InterceptorStack stack, ResourceMethod method, Object obj)
             throws InterceptionException {
-        if (currentUser == null || !currentUser.isModerator()) {
+    	long karma = method.getMethod().getAnnotation(ModeratorOrKarmaAccess.class).value();
+    	MinimumKarmaRule<Void> minimumKarmaRule = new MinimumKarmaRule<>(karma);
+        if (currentUser == null || currentUser.isModerator() || minimumKarmaRule.isAllowed(currentUser, null)) {
             result.use(http()).sendError(403);
-        } else {
-            stack.next(method, obj);
+            return;
         }
+        stack.next(method, obj);
     }
 
 }

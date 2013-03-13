@@ -4,9 +4,9 @@ import br.com.caelum.brutal.model.User;
 
 public class MinimumKarmaRule<T> implements PermissionRule<T> {
     
-    private final int minimum;
+    private final long minimum;
 
-    public MinimumKarmaRule(int minimum) {
+    public MinimumKarmaRule(long minimum) {
         this.minimum = minimum;
     }
 

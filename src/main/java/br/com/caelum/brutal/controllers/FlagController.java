@@ -2,7 +2,7 @@ package br.com.caelum.brutal.controllers;
 
 import java.util.List;
 
-import br.com.caelum.brutal.auth.ModeratorAccess;
+import br.com.caelum.brutal.auth.ModeratorOrKarmaAccess;
 import br.com.caelum.brutal.auth.rules.MinimumReputation;
 import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.dao.CommentDAO;
@@ -62,7 +62,7 @@ public class FlagController {
 		result.nothing();
 	}
 	
-	@ModeratorAccess
+	@ModeratorOrKarmaAccess
 	@Get("/comments/flagged")
 	public void topFlaggedComments() {
 		List<Comment> flaggedComments = comments.flagged(3l);

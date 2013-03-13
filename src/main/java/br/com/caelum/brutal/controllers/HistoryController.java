@@ -4,7 +4,8 @@ import static br.com.caelum.vraptor.view.Results.http;
 
 import java.util.List;
 
-import br.com.caelum.brutal.auth.ModeratorAccess;
+import br.com.caelum.brutal.auth.ModeratorOrKarmaAccess;
+import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.dao.InformationDAO;
 import br.com.caelum.brutal.dao.ModeratableDao;
 import br.com.caelum.brutal.model.Answer;
@@ -39,13 +40,13 @@ public class HistoryController {
         this.calculator = calculator;
 	}
 	
-	@ModeratorAccess
+	@ModeratorOrKarmaAccess(PermissionRulesConstants.MODERATE_EDITS)
 	@Get("/history")
 	public void history() {
 		result.redirectTo(this).unmoderated(Question.class.getSimpleName().toLowerCase());
 	}
 
-	@ModeratorAccess
+	@ModeratorOrKarmaAccess(PermissionRulesConstants.MODERATE_EDITS)
 	@Get("/history/{moderatableType}")
 	public void unmoderated(String moderatableType) {
 		try {
@@ -62,21 +63,21 @@ public class HistoryController {
 		}
 	}
 
-	@ModeratorAccess
+	@ModeratorOrKarmaAccess(PermissionRulesConstants.MODERATE_EDITS)
 	@Get("/history/question/{questionId}/similar")
 	public void similarQuestions(Long questionId) {
 		result.include("histories", informations.pendingFor(questionId, Question.class));
 		result.include("question", moderatables.getById(questionId, Question.class));
 	}
 	
-	@ModeratorAccess
+	@ModeratorOrKarmaAccess(PermissionRulesConstants.MODERATE_EDITS)
 	@Get("/history/answer/{answerId}/similar")
 	public void similarAnswers(Long answerId) {
 	    result.include("histories", informations.pendingFor(answerId, Answer.class));
 		result.include("answer", moderatables.getById(answerId, Answer.class));
 	}
 
-    @ModeratorAccess
+	@ModeratorOrKarmaAccess(PermissionRulesConstants.MODERATE_EDITS)
     @Post("/publish/{moderatableType}")
     public void publish(Long moderatableId, String moderatableType, Long aprovedInformationId,  String aprovedInformationType) {
         try {

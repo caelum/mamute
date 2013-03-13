@@ -7,5 +7,7 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ModeratorAccess {
+public @interface ModeratorOrKarmaAccess {
+
+	long value() default Long.MAX_VALUE;
 }
