@@ -2,7 +2,8 @@ package br.com.caelum.brutal.controllers;
 
 import static br.com.caelum.vraptor.view.Results.http;
 import static br.com.caelum.vraptor.view.Results.status;
-import br.com.caelum.brutal.auth.LoggedAccess;
+import br.com.caelum.brutal.auth.rules.MinimumReputation;
+import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.dao.CommentDAO;
 import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.User;
@@ -26,12 +27,11 @@ public class CommentController {
 		this.validator = validator;
 	}
 
-	@SuppressWarnings("rawtypes")
-	@LoggedAccess
+	@MinimumReputation(PermissionRulesConstants.CREATE_COMMENT)
 	@Post("/{onWhat}/{id}/comment")
 	public void comment(Long id, String onWhat, String message) {
 		Comment comment = new Comment(currentUser, message);
-		Class type = getType("br.com.caelum.brutal.model." + onWhat);
+		Class<?> type = getType("br.com.caelum.brutal.model." + onWhat);
 		if (type == null) {
 			result.notFound();
 			return;
@@ -43,7 +43,7 @@ public class CommentController {
 		}
 	}
 
-	private Class getType(String name) {
+	private Class<?> getType(String name) {
 		try {
 			return Class.forName(name);
 		} catch (ClassNotFoundException e) {
@@ -59,7 +59,7 @@ public class CommentController {
 			return;
 		}
 		original.setComment(comment);
-		if(validator.validate(original)){
+		if (validator.validate(original)) {
 			comments.save(original);
 			result.use(http()).body("<p>"+comment+"</p>");
 		}

@@ -2,8 +2,9 @@ package br.com.caelum.brutal.controllers;
 
 import java.util.List;
 
-import br.com.caelum.brutal.auth.LoggedAccess;
 import br.com.caelum.brutal.auth.ModeratorAccess;
+import br.com.caelum.brutal.auth.rules.MinimumReputation;
+import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.dao.CommentDAO;
 import br.com.caelum.brutal.dao.FlagDao;
 import br.com.caelum.brutal.dao.FlaggableDAO;
@@ -36,7 +37,7 @@ public class FlagController {
 		this.flaggables = flaggables;
 	}
 
-	@LoggedAccess
+	@MinimumReputation(PermissionRulesConstants.CREATE_FLAG)
 	@Post("/{flaggableType}/{flaggableId}/flag")
 	public void addFlag(String flaggableType, Long flaggableId, FlagType flagType, String reason) {
 		if (flagType == null) {
