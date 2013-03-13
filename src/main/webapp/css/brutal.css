@@ -827,7 +827,7 @@ textarea {
 }
 
 .post-area .tags {
-	margin-top: 10px;
+	margin: 1% 0;
 }
 
 .post-interactions {
@@ -898,7 +898,7 @@ textarea {
 	font-size: 1.1em;
 	line-height: 17px;
 	color: #000;
-	margin-bottom: 5%;
+	margin-bottom: 3%;
 }
 
 .post-submit {
