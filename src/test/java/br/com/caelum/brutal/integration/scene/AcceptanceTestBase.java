@@ -106,5 +106,12 @@ public abstract class AcceptanceTestBase implements ServerInfo.AcceptanceTest {
     protected String message(String text) {
         return messages.getMessage(text);
     }
-	
+    
+    protected void createQuestion() {
+		home().toNewQuestionPage()
+            .newQuestion("question title question title question title", 
+                "question description question description question description question description ", 
+                "java");
+	}
+    
 }
