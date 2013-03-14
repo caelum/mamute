@@ -522,6 +522,12 @@ textarea {
 	width: 70%;
 }
 
+.dropdown-search-form {
+	width: 47%;
+	margin-top: .3%;
+	float:left;
+}
+
 .search-dropdown {
 	display: none;
 }
