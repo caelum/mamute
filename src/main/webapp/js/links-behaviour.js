@@ -2,11 +2,13 @@ $(function() {
 	$('.requires-karma').each(function(index, element) {
 		var element = $(element);
 		var required = parseInt(element.data("karma"));
-		if(!MODERATOR && required > KARMA && element.data("author")=="false") {
+		var isAuthor = element.data("author");
+		isAuthor = isAuthor == undefined ? false : isAuthor;
+		if(!MODERATOR && required > KARMA && isAuthor == false) {
 			element.off('click');
 			element.click(function(e) {
 				e.preventDefault();
-				errorPopup("Você precisa ter "+ required +" karma!", this);
+				errorPopup("Você precisa ter "+ required +" pontos de reputação!", this);
 			});
 		}
 	});

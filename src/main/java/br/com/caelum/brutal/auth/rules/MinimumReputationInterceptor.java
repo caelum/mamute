@@ -7,6 +7,7 @@ import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.core.InterceptorStack;
+import br.com.caelum.vraptor.core.Localization;
 import br.com.caelum.vraptor.interceptor.Interceptor;
 import br.com.caelum.vraptor.resource.ResourceMethod;
 
@@ -15,10 +16,12 @@ public class MinimumReputationInterceptor implements Interceptor {
 
 	private final LoggedUser loggedUser;
 	private final Result result;
+	private final Localization localization;
 
-	public MinimumReputationInterceptor(LoggedUser loggedUser, Result result) {
+	public MinimumReputationInterceptor(LoggedUser loggedUser, Result result, Localization localization) {
 		this.loggedUser = loggedUser;
 		this.result = result;
+		this.localization = localization;
 	}
 
 	@Override
@@ -40,7 +43,7 @@ public class MinimumReputationInterceptor implements Interceptor {
 		rule = rule.thiz(hasEnoughKarma).or(isModerador);
 		
 		if (!rule.isAllowed(loggedUser.getCurrent(), null)) {
-			result.use(http()).sendError(403);	
+			result.use(http()).body(localization.getMessage("error.not_allowed")).setStatusCode(403);
 			return;
 		}
 		stack.next(method, resourceInstance);

@@ -15,7 +15,7 @@ function vote(link) {
 			} else if (jqXHR.status == "409") {
 				errorPopup("Você não pode votar na própria questão", link);
 			} else if (jqXHR.status == "403") {
-				errorPopup("Você precisa logar", link);
+				errorPopup(jqXHR.responseText, link);
 			} else {
 				errorPopup("Ocorreu um erro", link);
 			}

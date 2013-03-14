@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@attribute name="question" type="br.com.caelum.brutal.model.Question" required="true" %>
+<c:set var="isAuthor" value="${question.author.id == currentUser.id}" />
 <section class="post-area question-area">
 	<div class="post-meta">
 		<tags:voteFor item="${question}" type="question" vote="${currentVote}"/>
@@ -27,13 +28,21 @@
 					</div>
 				</li>
 				<li class="nav-item">
-					<a class="post-action edit-question" href="<c:url value="/question/edit/${question.id}"/>"><fmt:message key="edit" /></a>
+					<a class="post-action edit-question 
+							  requires-login requires-karma"
+							  data-author="${isAuthor}"
+							  data-karma="20" 
+						href="<c:url value="/question/edit/${question.id}"/>">
+						<fmt:message key="edit" />
+					</a>
 				</li>
 				<li class="nav-item">
 					<c:if test="${currentUser != null && !question.alreadyFlaggedBy(currentUser)}">
-						<a href="#" data-author="${question.author.id == currentUser.id}"
-						data-modal-id="question-flag-modal${question.id}" 
-						class="post-action author-cant requires-login flag-it"><fmt:message key="flag" /></a>
+						<a href="#" data-author="${isAuthor}"
+							data-modal-id="question-flag-modal${question.id}" 
+							class="post-action author-cant requires-login flag-it">
+							<fmt:message key="flag" />
+						</a>
 					</c:if>
 					<tags:flagItFor type="Question" modalId="question-flag-modal${question.id}" flaggable="${question}"/>
 				</li>

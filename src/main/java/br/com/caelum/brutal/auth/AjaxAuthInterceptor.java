@@ -7,6 +7,7 @@ import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.core.InterceptorStack;
+import br.com.caelum.vraptor.core.Localization;
 import br.com.caelum.vraptor.interceptor.Interceptor;
 import br.com.caelum.vraptor.resource.ResourceMethod;
 import br.com.caelum.vraptor.view.Results;
@@ -17,10 +18,12 @@ public class AjaxAuthInterceptor implements Interceptor {
 	private final String acceptHeader;
 	private final Result result;
 	private final LoggedUser loggedUser;
+	private final Localization localization;
 
-	public AjaxAuthInterceptor(HttpServletRequest req, Result result, LoggedUser loggedUser) {
+	public AjaxAuthInterceptor(HttpServletRequest req, Result result, LoggedUser loggedUser, Localization localization) {
 		this.result = result;
 		this.loggedUser = loggedUser;
+		this.localization = localization;
 		acceptHeader = req.getHeader("Accept");
 	}
 
@@ -34,7 +37,7 @@ public class AjaxAuthInterceptor implements Interceptor {
 	public void intercept(InterceptorStack stack, ResourceMethod method,
 			Object obj) throws InterceptionException {
 		if (!loggedUser.isLoggedIn()) {
-			result.use(Results.http()).sendError(403);
+			result.use(Results.http()).body(localization.getMessage("error.requires_login")).sendError(403);
 			return;
 		}
 		stack.next(method, obj);
