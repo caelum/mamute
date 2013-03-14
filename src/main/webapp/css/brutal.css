@@ -467,14 +467,13 @@ textarea {
 	margin-bottom: 20px;
 }
 
-
 .first-header,.search-form {
 	line-height: 31px;
 }
 
 .first-header {
 	background-color: #84BC41;
-	padding: .15em;
+	padding: .3em .15em;
 }
 
 .first-header a {
@@ -489,9 +488,14 @@ textarea {
 	overflow: hidden;
 	width:100%;
 }
+
 .user-area .nav{
 	width:75%;
 	float:left;
+}
+
+.user-area .nav-item a{
+	font-size:1.1em;
 }
 
 .search-form{
