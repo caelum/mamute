@@ -31,29 +31,16 @@ a:hover{
 }
 
 .logo {
-	overflow: hidden;
 	float: left;
 	margin: .5% 0;
+	display: block;
 }
 
-.small-logo {
-	margin-top: 5px;
-}
-
-.small-logo a {
-	background-position: -55px -66px;
-	width: 120px;
-	height: 18px;
-}
-
-.big-logo a {
+.big-logo {
+	background-image: url('/images/guj-logo.png');
 	background-position: 0px 0px;
 	width: 250px;
 	height: 61px;
-}
-
-.logo a {
-	display: block;
 }
 
 .container {
