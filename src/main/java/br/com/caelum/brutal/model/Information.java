@@ -15,5 +15,8 @@ public interface Information {
     Moderatable getModeratable();
 
     String getTypeName();
+    
+    boolean isBeforeCurrent();
+    
 
 }

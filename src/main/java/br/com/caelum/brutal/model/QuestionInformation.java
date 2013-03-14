@@ -201,4 +201,9 @@ public class QuestionInformation implements Information, Taggable {
 	public String getTypeName() {
 		return getClass().getSimpleName();
 	}
+
+	@Override
+	public boolean isBeforeCurrent() {
+		return createdAt.isBefore(question.getInformation().createdAt);
+	}
 }

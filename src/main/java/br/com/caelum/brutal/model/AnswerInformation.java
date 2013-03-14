@@ -149,4 +149,9 @@ public class AnswerInformation implements Information {
 		return getClass().getSimpleName();
 	}
 
+	@Override
+	public boolean isBeforeCurrent() {
+		return createdAt.isBefore(answer.getInformation().createdAt);
+	}
+
 }

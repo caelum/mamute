@@ -83,7 +83,8 @@ public class HistoryController {
         try {
         	Class<?> moderatableClass = Class.forName(MODEL_PACKAGE + moderatableType);
         	Class<?> aprovedInformationClass = Class.forName(MODEL_PACKAGE + aprovedInformationType);
-            Information approved = informations.getById(aprovedInformationId, aprovedInformationClass);
+            
+        	Information approved = informations.getById(aprovedInformationId, aprovedInformationClass);
             Moderatable moderatable = moderatables.getById(moderatableId, moderatableClass);
             List<Information> pending = informations.pendingFor(moderatableId, moderatableClass);
             

@@ -13,7 +13,7 @@ public abstract class Moderatable implements Identifiable {
     
     public final UpdateStatus approve(Information approved) {
         if (!canBeUptadedWith(approved)) {
-            throw new IllegalArgumentException("an answer can only approve an answer information");
+            throw new IllegalArgumentException("an Answer can only approve an AnswerInformation and a Question can only approve a QuestionInformation");
         }
         updateApproved(approved);
         return UpdateStatus.APPROVED;

@@ -1,10 +1,15 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 <%@attribute name="information" type="br.com.caelum.brutal.model.Information" required="true" %>
 <%@attribute name="index" type="java.lang.Integer" required="true" %>
 
 <form method="post" class="history-form moderate-form ${index != 0 ? 'hidden' : ''}" action="${linkTo[HistoryController].publish}${information.moderatable.typeName}">
+	<c:if test="${information.beforeCurrent}">
+		<p class="alert"><fmt:message key="moderation.version_before_current"/></p>
+	</c:if>
+
 	<a href="#" class="toggle-version"><fmt:message key="moderation.formatted"/></a>
 	<a href="#" class="toggle-version hidden"><fmt:message key="moderation.diff"/></a>
 	<div class="history-version hidden">
