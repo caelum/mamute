@@ -645,6 +645,10 @@ a.button.ask-a-question:hover{
 	margin-bottom: 2%;
 }
 
+.question-item:last-child {
+	margin-bottom: 0;
+}
+
 .summary {
 	width: 77%;
 }
