@@ -23,7 +23,7 @@ public class LoginPage extends PageObject {
 	}
 
     public ForgotPasswordPage toForgotPasswordPage() {
-        byCSS(".first-content a").click();
+        byClassName("forgot-password").click();
         ForgotPasswordPage forgotPasswordPage = new ForgotPasswordPage(driver);
         return forgotPasswordPage;
     }

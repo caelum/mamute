@@ -12,6 +12,6 @@
 	<input type="submit" value="Login"/>
 </form>
 
-<a href="${linkTo[ForgotPasswordController].forgotPasswordForm}">
+<a href="${linkTo[ForgotPasswordController].forgotPasswordForm}" class="forgot-password">
 	<fmt:message key="forgot_password.link.text" />
 </a>
