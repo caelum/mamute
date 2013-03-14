@@ -401,7 +401,7 @@
 								<exclude>none</exclude>
 							</excludes>
 							<includes>
-								<include>**/scene/**/*Test.java</include>
+								<include>**/AcceptanceTestsSuite.java</include>
 							</includes>
 						</configuration>
 					</execution>
@@ -409,6 +409,7 @@
 				<configuration>
 					<excludes>
 						<exclude>**/scene/**</exclude>
+						<exclude>**/AcceptanceTestsSuite.java</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
