@@ -37,7 +37,7 @@ public class ModeratorOrEnoughKarmaInterceptor implements Interceptor {
     	long karma = method.getMethod().getAnnotation(ModeratorOrKarmaAccess.class).value();
     	
     	MinimumKarmaRule<Void> minimumKarmaRule = new MinimumKarmaRule<>(karma);
-    	ModeratorRule moderatorRule = new ModeratorRule();
+    	ModeratorRule<Void> moderatorRule = new ModeratorRule<>();
     	ComposedRule<Void> compose = new ComposedRule<>();
     	
     	PermissionRule<Void> rule = compose.thiz(moderatorRule).or(minimumKarmaRule);
