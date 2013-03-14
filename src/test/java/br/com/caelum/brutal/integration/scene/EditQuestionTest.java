@@ -10,7 +10,7 @@ public class EditQuestionTest extends AuthenticatedAcceptanceTest {
 
     @Test
     public void should_edit_question_of_other_author() throws Exception {
-        loginRandomly();
+        loginWithALotOfKarma();
         QuestionPage questionPage = home().toFirstQuestionPage()
             .toEditQuestionPage()
             .edit("new title new title new title", 
@@ -46,10 +46,7 @@ public class EditQuestionTest extends AuthenticatedAcceptanceTest {
     @Test
     public void should_edit_and_automatically_approve_moderator() throws Exception {
         loginRandomly();
-        home().toNewQuestionPage()
-            .newQuestion("question title question title question title", 
-                "question description question description question description question description ", 
-                "java");
+        createQuestion();
         logout();
         loginAsModerator();
         
@@ -65,4 +62,5 @@ public class EditQuestionTest extends AuthenticatedAcceptanceTest {
         questionPage.hasInformation(newTitle, newDescription, newTags);
         
     }
+
 }

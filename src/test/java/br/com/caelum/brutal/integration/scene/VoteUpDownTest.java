@@ -12,14 +12,19 @@ public class VoteUpDownTest extends AuthenticatedAcceptanceTest {
     
     private QuestionPage questionPage;
     
-    @Override
     @Before
     public void login() {
-        loginWithALotOfKarma();
+    	loginRandomly();
+    	createQuestion();
+    	logout();
+    	loginRandomly();
+    	home().toFirstQuestionPage().answer("blablablablablablablablablablablablablab");
+    	logout();
+    	loginWithALotOfKarma();
         questionPage = home().toFirstQuestionWithAnswerPage();
     }
     
-    @Test
+	@Test
     public void should_vote_question_up() throws Exception {
         int initialQuestionVoteCount = questionPage.questionVoteCount();
         int countAfter = questionPage

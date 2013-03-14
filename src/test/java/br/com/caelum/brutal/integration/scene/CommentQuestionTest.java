@@ -17,7 +17,7 @@ public class CommentQuestionTest extends AuthenticatedAcceptanceTest {
 
     @Test
     public void should_comment_question_after_login() throws Exception {
-        this.login();
+        this.loginWithALotOfKarma();
         
         home()
             .toNewQuestionPage()

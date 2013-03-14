@@ -39,7 +39,7 @@
 </ul>
 
 <div class="edit-via-ajax">
-	<a href="#" class="requires-login post-action"><fmt:message key="comment.submit" /></a>
+	<a href="#" class="requires-login post-action add-comment"><fmt:message key="comment.submit" /></a>
 	<span>
 		<form action="<c:url value="/${item.typeName}/${item.id}/comment"/>" class="validated-form ajax hinted-form" data-ajax-result="${ajaxResultName}" data-ajax-on-callback="append">
 			<label for="comment"><fmt:message key="comment.label" /></label>
