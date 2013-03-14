@@ -97,7 +97,7 @@ public class QuestionPage extends PageObject{
 	}
 
     public QuestionPage commentQuestion(String comment) {
-        WebElement addCommentLink = byCSS(".question-area .requires-login.post-action");
+        WebElement addCommentLink = byClassName("add-comment");
         addCommentLink.click();
         waitForElement(By.id("comment"), 2);
         byId("comment").sendKeys(comment);
@@ -109,7 +109,7 @@ public class QuestionPage extends PageObject{
 
     public List<String> questionComments() {
         List<String> comments = new ArrayList<>();
-        List<WebElement> commentsElements = allByCSS(".comment-container .comment");
+        List<WebElement> commentsElements = allByCSS(".comment");
         for (WebElement e : commentsElements) {
             comments.add(e.getText());
         }
