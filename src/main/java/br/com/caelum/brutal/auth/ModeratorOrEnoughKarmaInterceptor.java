@@ -42,7 +42,7 @@ public class ModeratorOrEnoughKarmaInterceptor implements Interceptor {
     	
     	PermissionRule<Void> rule = compose.thiz(moderatorRule).or(minimumKarmaRule);
     	
-        if (currentUser == null || rule.isAllowed(currentUser, null)){
+        if (currentUser == null || !rule.isAllowed(currentUser, null)){
             result.use(http()).sendError(403);
             return;
         }
