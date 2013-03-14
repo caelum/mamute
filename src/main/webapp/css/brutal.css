@@ -811,8 +811,12 @@ textarea {
 
 .about-text {
 	font-size: 1.2em;
-	line-height: 2em;
+	line-height: 2.5em;
 	width: 50%;
+}
+
+.about-text .karma {
+	color: #3A77A6;
 }
 
 /*SHOW QUESTION*/
@@ -1173,6 +1177,7 @@ textarea {
 .karma {
 	font-size: 2.2em;
 	margin-bottom: 5%;
+	vertical-align: middle;
 }
 
 .user-data {
