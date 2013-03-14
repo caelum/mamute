@@ -17,7 +17,7 @@
 	<div class="post-container">
 		<div class="post-text" id="answer-${answer.id }">${answer.markedDescription}</div>
 		<div class="post-interactions">
-			<ul class="post-action-nav nav">
+			<ul class="post-action-nav nav piped-nav">
 				<li class="nav-item">
 					<a class="post-action edit" href="<c:url value="/answer/edit/${answer.id}"/>"><fmt:message key="edit" /></a>
 				</li>

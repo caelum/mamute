@@ -18,6 +18,10 @@ a {
 	color: rgb(0, 119, 204);
 }
 
+a:hover{
+	text-decoration: underline;
+}
+
 .sprite {
 	display: block;
 /* 	background-image: url('/images/sprites.png'); */
@@ -29,6 +33,7 @@ a {
 .logo {
 	overflow: hidden;
 	float: left;
+	margin: .5% 0;
 }
 
 .small-logo {
@@ -462,37 +467,38 @@ textarea {
 	margin-bottom: 20px;
 }
 
+
 .first-header,.search-form {
 	line-height: 31px;
 }
 
 .first-header {
 	margin-bottom: 50px;
-	background-color: #EEE;
+	background-color: #84BC41;
 	padding: .15em;
 }
 
+.first-header a {
+	color: #FFF;	
+}
+
+.second-header{
+	background-color: #244b69;
+}
+
 .user-area {
-	float: right;
 	overflow: hidden;
-	width:470px;
+	width:100%;
 }
-
-.search-form,
-.user-area .nav {
-	float: left;
-}
-
 .user-area .nav{
-	width:53%;
-}
-
-.user-area .nav-items{
-	float:right;
+	width:75%;
+	float:left;
 }
 
 .search-form{
-	width:47%;
+	width:25%;
+	margin-top: .3%;
+	float:right;
 }
 
 .search-form input {
@@ -525,15 +531,39 @@ textarea {
 	display: none;
 }
 
+/* Piped menu */
+.piped-nav .nav-item{
+	border-left: 1px solid;
+	padding:0;
+}
+
+.piped-nav .nav-item:first-child{
+	border:none;
+}
+
 /*MENU*/
 .nav,.nav-items {
 	overflow: hidden;
 }
 
+.main-nav{
+	height:5.35em;
+}
+
 .main-nav .nav-items {
-	margin-top: 17px;
 	width: 100%;
-	float: right;
+	height:100%;	
+}
+
+.main-nav .nav-item,
+.main-nav .nav-item a{
+	height:100%;	
+	line-height:5em;
+	border-color: #3c5f7b;
+}
+
+.main-nav .nav-item a:hover{
+	text-decoration: none;
 }
 
 .nav-buttons {
@@ -541,7 +571,7 @@ textarea {
 }
 
 .nav-item .current {
-	background-color: #3A77A6;
+	background-color: #306691;
 }
 
 .nav-item,.nav-item a {
@@ -554,8 +584,19 @@ textarea {
 	padding-right: .8em;
 }
 
-.ask {
+.piped-nav .nav-item.ask {
 	float: right;
+	border: none;
+	height:80%;
+}
+
+a.button.ask-a-question{
+	background-color: #dc962c;
+	line-height:4em;
+}
+
+a.button.ask-a-question:hover{
+	background-color: #dc962c;
 }
 
 /*Basic structure*/
@@ -574,15 +615,14 @@ textarea {
 
 /*BUTTON*/
 .button {
-	background: #777;
-	padding: 0 .8em;
+	padding: 0 1.5em;
 	display: block;
 	color: #fff;
 	font-size: 1.23em;
 }
 
 .button:hover {
-	background-color: #3A77A6;
+	background-color: #2b5b81;
 }
 
 /*HOME*/
@@ -895,10 +935,6 @@ textarea {
 	color: #fff;
 }
 
-.post-action-nav .nav-item {
-	border-left: 2px solid #ccc;
-	padding:0 .25em;
-}
 
 .post-action-nav .nav-item,
 .post-action-nav .nav-item a{
@@ -906,8 +942,12 @@ textarea {
 	line-height:1.3em;
 }
 
+.post-action-nav .nav-item {
+	border-color:  #ccc;
+	padding:0 .25em;
+}
+
 .post-action-nav .nav-item:first-child {
-	border: none;
 	padding-left:0;	
 }
 

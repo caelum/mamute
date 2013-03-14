@@ -11,7 +11,7 @@
 		<div class="post-text question-description" id="question-description-${question.id }">${question.markedDescription}</div>
 		<tags:tagsFor taggable="${question}"/>
 		<div class="post-interactions">
-			<ul class="post-action-nav nav">
+			<ul class="post-action-nav piped-nav nav">
 				<li class="nav-item">
 					<a class="post-action show-popup" href="#">
 						<fmt:message key="share"/>
