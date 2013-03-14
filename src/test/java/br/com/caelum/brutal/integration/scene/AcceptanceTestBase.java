@@ -1,6 +1,7 @@
 package br.com.caelum.brutal.integration.scene;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
@@ -27,6 +28,8 @@ import br.com.caelum.vraptor.environment.Environment;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 
 public abstract class AcceptanceTestBase implements ServerInfo.AcceptanceTest {
+
+	private static final int TIME_WAIT = 5;
 
 	protected static WebDriver driver;
 
@@ -69,6 +72,7 @@ public abstract class AcceptanceTestBase implements ServerInfo.AcceptanceTest {
 		} else {
 			driver = new FirefoxDriver();
 		}
+		driver.manage().timeouts().implicitlyWait(TIME_WAIT, TimeUnit.SECONDS);
 		waitForFirstBodyPresence();
 	}
 	

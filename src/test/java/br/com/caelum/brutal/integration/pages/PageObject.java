@@ -14,7 +14,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class PageObject {
 
-	private static final int WAIT_TIME = 5;
     protected final WebDriver driver;
     private static Logger LOG = Logger.getLogger(PageObject.class);
 
@@ -23,31 +22,23 @@ public abstract class PageObject {
 	}
 	
 	protected WebElement byId(String id) {
-	    waitForElement(By.id(id), WAIT_TIME);
 		return driver.findElement(By.id(id));
 	}
 
 	protected WebElement byName(String name) {
-	    waitForElement(By.name(name), WAIT_TIME);
 		return driver.findElement(By.name(name));
 	}
 
 	protected List<WebElement> allByClassName(String name) {
-	    try {
-	        waitForElement(By.className(name), WAIT_TIME);
-	    } catch (TimeoutException e) {
-	    }
 		return driver.findElements(By.className(name));
 	}
 	
 	protected WebElement byClassName(String name) {
-        waitForElement(By.className(name), WAIT_TIME);
         return driver.findElement(By.className(name));
 	}
 	
 	protected WebElement byCSS(String selector) {
 	    try {
-	        waitForElement(By.cssSelector(selector), 1);
 	        return driver.findElement(By.cssSelector(selector));
 	    } catch (NoSuchElementException e) {
 	        throw new NoSuchElementException("could not find element for selector: " + selector);
