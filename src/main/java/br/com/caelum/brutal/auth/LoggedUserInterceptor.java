@@ -1,6 +1,6 @@
 package br.com.caelum.brutal.auth;
 
-import java.util.Arrays;
+import static java.util.Arrays.asList;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -39,7 +39,7 @@ public class LoggedUserInterceptor implements Interceptor {
     public void intercept(InterceptorStack stack, ResourceMethod method, Object instance)
             throws InterceptionException {
         if (currentUser == null) {
-			result.include("messages", Arrays.asList(messageFactory.build("alert", "auth.access.denied")));
+			result.include("messages", asList(messageFactory.build("alert", "auth.access.denied")));
             result.include("redirectUrl", req.getRequestURL().toString());
             result.redirectTo(AuthController.class).loginForm();
         } else {
