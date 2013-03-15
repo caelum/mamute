@@ -44,7 +44,7 @@
 							</a>
 						</li>
 						<c:if test="${empty currentUser }">
-							<li class="nav-item">
+							<li class="nav-item user-item">
 								<a class="login" href="${linkTo[AuthController].loginForm}">
 									<fmt:message key="auth.login_form_link"/>
 								</a>
@@ -54,7 +54,7 @@
 							</li>
 						</c:if>
 						<c:if test="${not empty currentUser }">
-							<li class="nav-item">
+							<li class="nav-item user-item">
 								<tags:userProfileLink user="${currentUser}" htmlClass="user-name"/>
 							</li>
 							<c:if test="${currentUser.moderator }">

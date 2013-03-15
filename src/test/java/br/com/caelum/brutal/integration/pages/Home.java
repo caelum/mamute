@@ -31,7 +31,9 @@ public class Home extends PageObject{
 	}
 
 	public boolean isLoggedIn() {
-		return allByClassName("login").isEmpty();
+		WebElement byCSS = byCSS(".user-item a");
+		String linkClass = byCSS.getAttribute("class");
+		return !linkClass.equals("login");
 	}
 
 	public SignupPage toSignUpPage() {
