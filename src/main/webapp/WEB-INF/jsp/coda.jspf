@@ -30,7 +30,6 @@ var ALL_TAGS;
 // fix context path of ajax requests *cool* 
 $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
 	options.url = CONTEXT_PATH + options.url;
-	console.log(options);
 });
 
 $.get("/allTagNames", function(tags){ALL_TAGS = tags});
