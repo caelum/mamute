@@ -21,7 +21,7 @@ public class FacebookAuthService {
 	}
 	
 	public String getOauthUrl() {
-		return service.getAuthorizationUrl(EMPTY_TOKEN) + "&scope=email";
+		return service.getAuthorizationUrl(EMPTY_TOKEN) + "&scope=email,user_location";
 	}
 
 	public String buildToken(String code) {
