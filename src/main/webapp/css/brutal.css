@@ -37,7 +37,7 @@ a:hover{
 }
 
 .big-logo {
-	background-image: url('/images/guj-logo.png');
+	background-image: url('./images/guj-logo.png');
 	background-position: 0px 0px;
 	width: 250px;
 	height: 61px;
