@@ -897,6 +897,9 @@ a.button.ask-a-question:hover{
 	margin: 5% 0;
 }
 
+.about-section {
+	margin-bottom: 7%;
+}
 .about-main {
 	font-size: 1.2em;
 	line-height: 1.5em;
@@ -906,10 +909,14 @@ a.button.ask-a-question:hover{
 .about-text {
 	font-size: 1.2em;
 	line-height: 2.5em;
-	width: 50%;
+	width: 100%;
 }
 
 .about-text .karma {
+	display: inline-block;
+	width: 7%;
+	text-align: center;
+	margin-bottom: 0;
 	color: #3A77A6;
 }
 

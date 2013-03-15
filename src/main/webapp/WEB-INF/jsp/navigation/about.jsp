@@ -1,23 +1,12 @@
 <div class="about-section sub-header">
 	<h2 class="title about-title"><fmt:message key="about.title.welcome" /></h1>
-	
-		<p class="about-main">
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent aliquet ipsum in diam congue vulputate.
-		Morbi vestibulum, lorem vitae accumsan tempor, nisi turpis cursus metus, ut feugiat leo sapien eu mi. 
-		Nullam quis pretium enim. Fusce augue elit, hendrerit quis viverra vitae, hendrerit ac est. 
-		Nunc ullamcorper gravida purus, eget cursus eros pretium ornare. 
-		Nam sapien erat, iaculis sit amet viverra sed, laoreet at massa.
-		Vivamus vel nulla non dui accumsan consectetur non in eros. 
-		In congue velit at dolor aliquet a vulputate orci interdum.
-		Praesent cursus ullamcorper ultrices. Sed non lacus ante, vitae condimentum est.
-		</p>
-	
+	<p class="about-main"></p>
 </div>
 
 <div class="about-section">
 	<h2 class="title about-title"><fmt:message key="about.reputation.permission" /></h2>
 	<div class="about-text">
-		<ul>
+		<ul class="rules-list">
 			<li>
 				<fmt:message key="about.reputation.upvote" >
 					<fmt:param value="${VOTE_UP}"/>
@@ -59,7 +48,7 @@
 <div class="about-section">
 	<h2 class="title about-title"><fmt:message key="about.reputation.gain" /></h2>
 	<div class="about-text">
-		<ul>
+		<ul class="rules-list">
 			<li>
 				<fmt:message key="about.reputation.gain.question.solution" >
 					<fmt:param value="${SOLVED_QUESTION_AUTHOR}"/>
