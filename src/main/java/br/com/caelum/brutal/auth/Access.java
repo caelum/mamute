@@ -44,9 +44,12 @@ public class Access implements ComponentFactory<User> {
 	}
 	
 	@PostConstruct
-	public void tryToAutoLogin() {
+	public boolean tryToAutoLogin() {
 	    String key = extractKeyFromCookies();
-	    this.user = users.findBySessionKey(key);
+	    if (key != null) {
+	    	this.user = users.findBySessionKey(key);
+	    }
+	    return this.user != null;
 	}
 	
     private String extractKeyFromCookies() {
