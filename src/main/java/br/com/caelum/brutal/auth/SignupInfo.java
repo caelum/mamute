@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.auth;
 
+import org.apache.log4j.Logger;
+
 import br.com.caelum.brutal.model.MethodType;
 
 import com.google.gson.JsonObject;
@@ -12,16 +14,18 @@ public class SignupInfo {
 	private final String email;
 	private final String name;
 	private final String location;
+	private static final Logger LOG = Logger.getLogger(SignupInfo.class);
 
 	public SignupInfo(MethodType method, String email, String name,
 			String location) {
-				this.method = method;
-				this.email = email;
-				this.name = name;
-				this.location = location;
+		this.method = method;
+		this.email = email;
+		this.name = name;
+		this.location = location;
 	}
 
 	public static SignupInfo fromFacebook(String body) {
+		LOG.debug("parsing json from facebook: " + body);
 		JsonObject jsonObj = new JsonParser().parse(body).getAsJsonObject();
 		String email = jsonObj.get("email").getAsString();
 		String name = jsonObj.get("name").getAsString();
