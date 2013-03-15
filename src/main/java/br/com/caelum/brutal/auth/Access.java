@@ -67,6 +67,7 @@ public class Access implements ComponentFactory<User> {
 
 	public void logout() {
 	    Cookie cookie = new Cookie(BRUTAL_SESSION, "");
+	    cookie.setPath("/");
 	    cookie.setMaxAge(-1);
 	    response.addCookie(cookie);
 	    user.resetSession();
