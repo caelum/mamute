@@ -22,7 +22,6 @@
 					class="comment-meta-item container author-cant requires-login comment-option flag-it icon-flag"></a>
 				</c:if>
 			</div>
-			<tags:flagItFor type="Comment" modalId="comment-flag-modal${comment.id}" flaggable="${comment}"/>
 			<div class="post-container comment-container">
 				<span id="comment-${comment.id}">
 					${comment.htmlComment}
@@ -36,6 +35,7 @@
 				</c:if>
 			</div>	
 		</li>
+		<tags:flagItFor type="Comment" modalId="comment-flag-modal${comment.id}" flaggable="${comment}"/>
 	</c:forEach>
 </ul>
 
