@@ -20,12 +20,21 @@
 </footer>
 <script src="<c:url value="/js/jquery.js"/>"></script>
 <script type="text/javascript">
-// UI flags
+// UI flags 
 var LOGGED_IN = ${not empty currentUser};
 var MODERATOR = ${empty currentUser ? false : currentUser.moderator};
 var KARMA = ${empty currentUser ? 0 : currentUser.karma};
+var CONTEXT_PATH = "${contextPath}";
 var ALL_TAGS;
+
+// fix context path of ajax requests *cool* 
+$.ajaxPrefilter(function(options, originalOptions, jqXHR) {
+	options.url = CONTEXT_PATH + options.url;
+	console.log(options);
+});
+
 $.get("/allTagNames", function(tags){ALL_TAGS = tags});
+
 
 $(function(){prettyPrint()});
 function errorPopup(text, target){
