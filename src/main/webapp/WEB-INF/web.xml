@@ -60,4 +60,9 @@
 			<include-coda>/WEB-INF/jsp/coda.jspf</include-coda>
 		</jsp-property-group>
 	</jsp-config>
+
+	<context-param>
+	    <param-name>org.eclipse.jetty.servlet.SessionIdPathParameterName</param-name>
+	    <param-value>none</param-value>
+	</context-param>
 </web-app>
