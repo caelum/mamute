@@ -16,8 +16,6 @@ import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
-import br.com.caelum.brutal.providers.RequiresTransaction;
-import br.com.caelum.brutal.validators.QuestionInformationValidator;
 import br.com.caelum.brutal.validators.TagsValidator;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
@@ -35,12 +33,11 @@ public class QuestionController {
 	private final LoggedUser currentUser;
 	private final TagsValidator tagsValidator;
 	private final MessageFactory messageFactory;
-	private final QuestionInformationValidator informationValidator;
 	private final AuthorizationSystem authorizationSystem;
 	private final Validator validator;
 
 	public QuestionController(Result result, QuestionDAO questionDAO, TagDAO tags, VoteDAO votes, LoggedUser currentUser,
-			TagsValidator tagsValidator, MessageFactory messageFactory, QuestionInformationValidator questionInformationValidator,
+			TagsValidator tagsValidator, MessageFactory messageFactory,
 			AuthorizationSystem authorizationSystem, Validator validator) {
 		this.result = result;
 		this.questions = questionDAO;
@@ -49,7 +46,6 @@ public class QuestionController {
 		this.currentUser = currentUser;
 		this.tagsValidator = tagsValidator;
 		this.messageFactory = messageFactory;
-		this.informationValidator = questionInformationValidator;
 		this.authorizationSystem = authorizationSystem;
 		this.validator = validator;
 	}
@@ -87,7 +83,6 @@ public class QuestionController {
 	}
 	
 	@Get("/questions/{questionId}/{sluggedTitle}")
-	@RequiresTransaction
 	public void showQuestion(Long questionId, String sluggedTitle) {
 		Question question = questions.getById(questionId);
 		if (!question.getSluggedTitle().equals(sluggedTitle)) {
@@ -107,18 +102,20 @@ public class QuestionController {
 	@LoggedAccess
 	public void newQuestion(String title, String description, String tagNames) {
 		List<Tag> loadedTags = tags.findAllByNames(tagNames);
-		QuestionInformation information = new QuestionInformation(title, description, currentUser, loadedTags, "new");
-		if(validate(loadedTags) && informationValidator.validate(information)){
-			Question question = new Question(information, currentUser.getCurrent());
-			questions.save(question);
-			result.redirectTo(this).showQuestion(question.getId(), question.getSluggedTitle());
-		}
-		tagsValidator.onErrorRedirectTo(this).questionForm();
+		QuestionInformation information = new QuestionInformation(title, description, currentUser, loadedTags, "new question");
+		
+		validator.validate(information);
+		validate(loadedTags);
+		validator.onErrorRedirectTo(this).questionForm();
+	
+		Question question = new Question(information, currentUser.getCurrent());
+		questions.save(question);
+		result.redirectTo(this).showQuestion(question.getId(), question.getSluggedTitle());
 	}
 
 	private boolean validate(List<Tag> tags) {
 		for (Tag tag : tags) {
-			if(!tagsValidator.validate(tag)){
+			if (!tagsValidator.validate(tag)) {
 				return false;
 			}
 		}

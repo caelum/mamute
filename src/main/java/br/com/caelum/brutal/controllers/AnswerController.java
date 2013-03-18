@@ -85,7 +85,7 @@ public class AnswerController {
         Question loadedQuestion = questions.getById(question.getId());
         loadedQuestion.touchedBy(currentUser.getCurrent());
 
-        AnswerInformation information = new AnswerInformation(description, currentUser, "new");
+        AnswerInformation information = new AnswerInformation(description, currentUser, "new answer");
 		Answer answer  = new Answer(information, question, currentUser.getCurrent());
 		answers.save(answer);
         
