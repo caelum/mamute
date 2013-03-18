@@ -21,7 +21,7 @@ import com.google.gson.JsonParser;
 public class FacebookSignupTest extends AcceptanceTestBase {
 	
 	@Test
-	public void should_signup_through_facebook() throws Exception {
+	public void should_signup_and_login_through_facebook() throws Exception {
 		String appToken = getAppToken();
 		FacebookUser facebookUser = createFacebookTestUser(appToken);
 		FacebookLoginPage signupWithFacebook = home().toSignUpPage().signupWithFacebook();
@@ -32,9 +32,13 @@ public class FacebookSignupTest extends AcceptanceTestBase {
 		
 		assertTrue(home.isLoggedIn());
 		assertEquals(facebookUser.email, home.toProfilePage().userEmail());
-			
+		
+		home().logOut();
+		
+		boolean loggedInThroughFacebook = home().toLoginPage().loginThroughFacebook().isLoggedIn();
+		assertTrue(loggedInThroughFacebook);
 	}
-
+	
 	@SuppressWarnings("deprecation")
 	private FacebookUser createFacebookTestUser(String appToken) throws URIException,
 			IOException, HttpException {

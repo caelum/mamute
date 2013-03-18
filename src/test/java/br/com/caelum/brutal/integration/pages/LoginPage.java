@@ -27,5 +27,10 @@ public class LoginPage extends PageObject {
         ForgotPasswordPage forgotPasswordPage = new ForgotPasswordPage(driver);
         return forgotPasswordPage;
     }
+
+	public Home loginThroughFacebook() {
+		byClassName("face-button").click();
+		return new Home(driver);
+	}
 	
 }
