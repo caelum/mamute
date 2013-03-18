@@ -3,6 +3,7 @@ package br.com.caelum.brutal.controllers;
 import java.util.Arrays;
 import java.util.List;
 
+import br.com.caelum.brutal.auth.FacebookAuthService;
 import br.com.caelum.brutal.auth.LoggedAccess;
 import br.com.caelum.brutal.auth.rules.AuthorizationSystem;
 import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
@@ -35,8 +36,10 @@ public class QuestionController {
 	private final MessageFactory messageFactory;
 	private final AuthorizationSystem authorizationSystem;
 	private final Validator validator;
+	private final FacebookAuthService facebook;
 
-	public QuestionController(Result result, QuestionDAO questionDAO, TagDAO tags, VoteDAO votes, LoggedUser currentUser,
+	public QuestionController(Result result, QuestionDAO questionDAO, TagDAO tags, 
+			VoteDAO votes, LoggedUser currentUser, FacebookAuthService facebook,
 			TagsValidator tagsValidator, MessageFactory messageFactory,
 			AuthorizationSystem authorizationSystem, Validator validator) {
 		this.result = result;
@@ -44,6 +47,7 @@ public class QuestionController {
 		this.tags = tags;
 		this.votes = votes;
 		this.currentUser = currentUser;
+		this.facebook = facebook;
 		this.tagsValidator = tagsValidator;
 		this.messageFactory = messageFactory;
 		this.authorizationSystem = authorizationSystem;
@@ -96,6 +100,7 @@ public class QuestionController {
 		result.include("answers", votes.previousVotesForAnswers(question, author));
 		result.include("questionTags", question.getInformation().getTags());
 		result.include("question", question);
+		result.include("facebookUrl", facebook.getOauthUrl());
 	}
 
 	@Post("/question/ask")
