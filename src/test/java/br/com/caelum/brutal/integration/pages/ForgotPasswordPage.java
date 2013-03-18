@@ -18,7 +18,7 @@ public class ForgotPasswordPage extends PageObject {
         return this;
     }
     
-    public ForgotPasswordPage resetPassword() {
+    public ForgotPasswordPage sendResetPassword() {
         WebElement emailForm = byClassName(FORM_CLASS);
         emailForm.submit();
         return this;

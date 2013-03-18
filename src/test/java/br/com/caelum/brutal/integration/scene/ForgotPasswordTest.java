@@ -29,19 +29,19 @@ public class ForgotPasswordTest extends AcceptanceTestBase implements ServerInfo
 
     @Test
     public void should_deny_recovery_for_inexistant_email() throws Exception {
-        boolean sentEmail = tryToResetPassword("unexistant@brutal.com");
+        boolean sentEmail = tryToSendResetPasswordEmail("unexistant@brutal.com");
         assertFalse(sentEmail);
     }
     
     @Test
     public void should_accept_recovery_for_existant_email() throws Exception {
-        boolean sentEmail = tryToResetPassword(validEmail);
+        boolean sentEmail = tryToSendResetPasswordEmail(validEmail);
         assertTrue(sentEmail);
     }
 
     @Test
     public void should_show_new_password_form_for_reseted_password_user() throws Exception {
-        tryToResetPassword(validEmail);
+        tryToSendResetPasswordEmail(validEmail);
         tryToSetNewPassword("newpass");
         home().logOut();
         
@@ -56,7 +56,7 @@ public class ForgotPasswordTest extends AcceptanceTestBase implements ServerInfo
 
     @Test
     public void should_login_automatically() throws Exception {
-        tryToResetPassword(validEmail);
+        tryToSendResetPasswordEmail(validEmail);
         tryToSetNewPassword("newpass");
         
         boolean isLoggedIn = home()
@@ -82,9 +82,9 @@ public class ForgotPasswordTest extends AcceptanceTestBase implements ServerInfo
         return recoverUrl;
     }
 
-    private boolean tryToResetPassword(String email) {
+    private boolean tryToSendResetPasswordEmail(String email) {
         boolean sentEmail = home().toLoginPage().toForgotPasswordPage()
-                .typeEmail(email).resetPassword()
+                .typeEmail(email).sendResetPassword()
                 .emailWasSent();
         return sentEmail;
     }
