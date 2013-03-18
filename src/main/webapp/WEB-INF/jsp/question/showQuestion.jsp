@@ -21,7 +21,7 @@
 	<c:if test="${empty currentUser}">
 		<div class="login-or-signup">
 			<div class="login">
-				<tags:loginForm />
+				<tags:loginForm redirectUrl="${currentUrl}" />
 			</div>
 			<div class="signup">
 				<tags:signupForm />
