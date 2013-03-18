@@ -50,6 +50,16 @@
 	<div class="about-text">
 		<ul class="rules-list">
 			<li>
+				<fmt:message key="about.reputation.gain.question.answered">
+					<fmt:param value="${ANSWERED_QUESTION}"/>
+				</fmt:message>
+			</li>
+			<li>
+				<fmt:message key="about.reputation.gain.question.asked">
+					<fmt:param value="${ASKED_QUESTION}"/>
+				</fmt:message>
+			</li>
+			<li>
 				<fmt:message key="about.reputation.gain.question.solution" >
 					<fmt:param value="${SOLVED_QUESTION_AUTHOR}"/>
 				</fmt:message>
