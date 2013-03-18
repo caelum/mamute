@@ -62,7 +62,7 @@ public class AnswerController {
 	}
 
 	@Post("/answer/edit/{id}")
-	public void edit(String description, Long id, String comment) {
+	public void edit(Long id, String description, String comment) {
 		Answer original = answers.getById(id);
 		authorizationSystem.canEdit(original, PermissionRulesConstants.EDIT_ANSWER);
 		

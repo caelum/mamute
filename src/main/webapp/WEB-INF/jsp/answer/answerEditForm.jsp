@@ -1,2 +1,1 @@
-<tags:answerForm uri="/answer/edit/${answer.id}" edit="true" />
-
+<tags:answerForm uri="${linkTo[AnswerController].edit[answer.id]}" edit="true" />
