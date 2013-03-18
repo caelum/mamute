@@ -45,7 +45,7 @@
 						</li>
 						<c:if test="${empty currentUser }">
 							<li class="nav-item user-item">
-								<a class="login" href="${linkTo[AuthController].loginForm}">
+								<a class="login" href="${linkTo[AuthController].loginForm[currentUrl]}?redirectUrl=${currentUrl}">
 									<fmt:message key="auth.login_form_link"/>
 								</a>
 							</li>

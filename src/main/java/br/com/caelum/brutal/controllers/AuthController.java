@@ -20,8 +20,9 @@ public class AuthController extends Controller {
 	}
 	
 	@Get("/login")
-	public void loginForm(){
+	public void loginForm(String redirectUrl) {
 		String facebookUrl = facebook.getOauthUrl();
+		include("redirectUrl", redirectUrl);
 		result.include("facebookUrl", facebookUrl);
 	}
 	
@@ -31,8 +32,7 @@ public class AuthController extends Controller {
 			redirectToRightUrl(redirectUrl);
 		} else {
 			includeAsList("messages", i18n("error", "auth.invalid.login"));
-			include("redirectUrl", redirectUrl);
-			redirectTo(this).loginForm();
+			redirectTo(this).loginForm(redirectUrl);
 		}
 	}
 	
