@@ -97,23 +97,39 @@ public class QuestionPage extends PageObject{
 	}
 
     public QuestionPage commentQuestion(String comment) {
-        WebElement addCommentLink = byClassName("add-comment");
-        addCommentLink.click();
-        waitForElement(By.id("comment"), 2);
-        byId("comment").sendKeys(comment);
-        byCSS(".question-area .edit-via-ajax form .comment-submit").click();
-        waitForElement(By.cssSelector(".comment-container .comment"), 10);
-        
+        comment(".post-container", comment);
         return this;
     }
 
-    public List<String> questionComments() {
-        List<String> comments = new ArrayList<>();
-        List<WebElement> commentsElements = allByCSS(".comment");
-        for (WebElement e : commentsElements) {
-            comments.add(e.getText());
-        }
-        return comments;
+	public QuestionPage commentFirstAnswer(String comment) {
+        comment(".answer .post-container", comment);
+        return this;
+	}
+
+	private void comment(String postContainer, String comment) {
+		byCSS(postContainer + " .add-comment").click();
+        waitForElement(By.cssSelector(postContainer + " #comment"), 2);
+        byCSS(postContainer + " #comment").sendKeys(comment);
+        byCSS(postContainer + " .edit-via-ajax form .comment-submit").click();
+        waitForElement(By.cssSelector(postContainer + " .comment-container .comment"), 10);
+	}
+
+	public List<String> firstAnswerComments() {
+		List<WebElement> commentsElements = allByCSS(".answer .comment");
+		return toListString(commentsElements);
+	}
+
+	public List<String> questionComments() {
+    	List<WebElement> commentsElements = allByCSS(".comment");
+    	return toListString(commentsElements);
     }
+
+	private List<String> toListString(List<WebElement> elements) {
+		List<String> listString = new ArrayList<>();
+		for (WebElement e : elements) {
+			listString.add(e.getText());
+		}
+		return listString;
+	}
 	
 }

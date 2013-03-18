@@ -4,17 +4,11 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.brutal.integration.pages.QuestionPage;
 
 public class CommentQuestionTest extends AuthenticatedAcceptanceTest {
-    
-    @Before
-    public void setup() {
-    }
-
     @Test
     public void should_comment_question_after_login() throws Exception {
         this.loginWithALotOfKarma();
