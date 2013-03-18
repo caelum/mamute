@@ -36,8 +36,8 @@ public class UpdatablesAndPendingHistory {
         return informationsByUpdatable.entrySet();
     }
 
-    public List<Information> pendingInfoFor(Moderatable question) {
-        return informationsByUpdatable.get(question);
+    public List<Information> pendingInfoFor(Moderatable moderatable) {
+        return informationsByUpdatable.get(moderatable);
     }
 
 }

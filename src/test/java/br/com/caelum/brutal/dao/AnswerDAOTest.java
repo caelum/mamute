@@ -13,6 +13,7 @@ import br.com.caelum.brutal.builder.QuestionBuilder;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.SubscribableDTO;
+import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
 
 public class AnswerDAOTest extends DatabaseTestCase {
@@ -22,7 +23,8 @@ public class AnswerDAOTest extends DatabaseTestCase {
     private User answerAuthor2 = user("francisco", "answer1@email.com");
     private User answerAuthor3 = user("felipe", "answer3@email.com");
     private QuestionBuilder question = new QuestionBuilder();
-    private Question creativeQuestion = question.withTitle("title title title title").withDescription("description descriptions descriptions descriptions descriptions").withAuthor(questionAuthor).build();
+    private Tag defaultTag = tag("defaultTag");
+    private Question creativeQuestion = question.withTag(defaultTag).withTitle("title title title title").withDescription("description descriptions descriptions descriptions descriptions").withAuthor(questionAuthor).build();
     AnswerDAO answers;
     
     @Before
@@ -32,6 +34,7 @@ public class AnswerDAOTest extends DatabaseTestCase {
         session.save(answerAuthor2);
         session.save(answerAuthor3);
         session.save(answerAuthor1);
+        session.save(defaultTag);
         session.save(creativeQuestion);
     }
 

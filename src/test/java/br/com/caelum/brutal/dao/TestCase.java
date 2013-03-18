@@ -9,6 +9,7 @@ import br.com.caelum.brutal.model.FlagType;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.LoginMethod;
 import br.com.caelum.brutal.model.Question;
+import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.Vote;
 import br.com.caelum.brutal.model.VoteType;
@@ -65,6 +66,10 @@ public abstract class TestCase {
         new Mirror().on(o).set().field("id").withValue(id);
     }
 
+    protected Tag tag(String name){
+    	return new Tag(name, "", null);
+    }
+    
 
 }
 

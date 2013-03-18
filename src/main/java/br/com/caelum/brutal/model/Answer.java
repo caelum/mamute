@@ -169,7 +169,7 @@ public class Answer extends Moderatable implements Votable, Commentable, Subscri
 		return new Updater().update(this, information);
 	}
 
-	void enqueueChange(AnswerInformation newInformation, UpdateStatus status) {
+	public void enqueueChange(AnswerInformation newInformation, UpdateStatus status) {
 		if (status.equals(UpdateStatus.NO_NEED_TO_APPROVE)) {
 			this.information = newInformation;
 		}

@@ -1,6 +1,5 @@
 package br.com.caelum.brutal.dao;
 
-import static java.util.Arrays.asList;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
@@ -26,15 +25,16 @@ public class QuestionDAOTest extends DatabaseTestCase {
 	private QuestionDAO questions;
 	private QuestionBuilder question = new QuestionBuilder();
 	private User author;
-	private Tag sal;
+	private Tag sal = tag("sal");
+	private Tag defaultTag = tag("defaultTag");
 
 	@Before
 	public void setup() {
 		author = user("Leonardo", "leo@leo");
 		session.save(author);
-		this.questions = new QuestionDAO(session);
-		sal = new Tag("sal", "", null);
 		session.save(sal);
+		session.save(defaultTag);
+		this.questions = new QuestionDAO(session);
 	}
 	
 	
@@ -95,12 +95,13 @@ public class QuestionDAOTest extends DatabaseTestCase {
 		assertFalse(perguntasComSal.contains(androidRuim));
 	}
 
-
 	public Question beberFazMal(){
 		Question beberFazMal = question
 			.withTitle("Por que dizem que beber demais faz mal?")
 			.withDescription("Alguem poderia me dizer o por que disso? Obrigado galera!")
-			.withAuthor(author).build();
+			.withAuthor(author)
+			.withTag(defaultTag)
+			.build();
 		session.save(beberFazMal);
 		return beberFazMal;
 	}
@@ -109,7 +110,9 @@ public class QuestionDAOTest extends DatabaseTestCase {
 		Question androidRuim = question
 				.withTitle("Por que a api de android é tão ruim?")
 				.withDescription("Alguem poderia me dizer o por que disso? Obrigado galera!")
-				.withAuthor(author).build();
+				.withAuthor(author)
+				.withTag(defaultTag)
+				.build();
 		session.save(androidRuim);
 		return androidRuim;
 		
@@ -120,9 +123,9 @@ public class QuestionDAOTest extends DatabaseTestCase {
 				.withTitle("Por que pegar o sal da mal dos outros da azar?")
 				.withDescription("Alguem poderia me dizer o por que disso? Obrigado galera!")
 				.withAuthor(author)
-				.withTags(asList(sal)).build();
+				.withTag(sal)
+				.build();
 		session.save(salDaAzar);
 		return salDaAzar;
 	}
-
 }

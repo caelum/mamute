@@ -15,6 +15,7 @@ import br.com.caelum.brutal.model.Flag;
 import br.com.caelum.brutal.model.FlagType;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.SubscribableDTO;
+import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
 
 public class CommentDAOTest extends DatabaseTestCase {
@@ -32,19 +33,25 @@ public class CommentDAOTest extends DatabaseTestCase {
         User iFag = user("question author", "otherqauthor@gmail");
         User valeriano = user("answer author", "aauthor@gmail");
         User alcoolatra = user("comment author", "cauthor@gmail");
+        Tag tagDefault = tag("default");
+        session.save(tagDefault);
         QuestionBuilder question = new QuestionBuilder();        
 
 		Question beberFazMal = question
 			.withTitle("Por que dizem que beber demais faz mal?")
 			.withDescription("Alguem poderia me dizer o por que disso? Obrigado galera!")
-			.withAuthor(artur).build();
+			.withAuthor(artur)
+			.withTag(tagDefault)
+			.build();
 		
         Answer figadoVaiProSaco = answer("Por que seu figado vai pro saco", beberFazMal, valeriano);
         
         Question androidRuim = question
 				.withTitle("Por que a api de android é tão ruim?")
 				.withDescription("Alguem poderia me dizer o por que disso? Obrigado galera!")
-				.withAuthor(iFag).build();
+				.withAuthor(iFag)
+				.withTag(tagDefault)
+				.build();
         
         Answer naoEhRuby = answer("Por que não é ruby, ai não é bacana.", androidRuim, valeriano);
         

@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.model;
 
+import static java.util.Arrays.asList;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +10,7 @@ public class QuestionInformationBuilder {
 	private User author = null;
 	private String title = "default title default title";
 	private String description = "default description default description default description";
+	private String comment = "new question";
 	private List<Tag> tags = new ArrayList<>();
     private UpdateStatus status;
 
@@ -16,15 +19,8 @@ public class QuestionInformationBuilder {
 		return this;
 	}
 
-	public QuestionInformation build() {
-		QuestionInformation questionInformation = new QuestionInformation(title, description, new LoggedUser(author, null), tags, "comment");
-		if (status != null)
-		    questionInformation.setInitStatus(status);
-        return questionInformation;
-	}
-
 	public QuestionInformationBuilder withTag(Tag tag) {
-		tags.add(tag);
+		tags = asList(tag);
 		return this;
 	}
 	
@@ -39,8 +35,34 @@ public class QuestionInformationBuilder {
     }
 
 	public QuestionInformationBuilder withTags(List<Tag> tags) {
-		this.tags.addAll(tags);
+		this.tags = tags;
 		return this;
 	}
 
+	public QuestionInformationBuilder withDescription(String description) {
+		this.description = description;
+		return this;
+	}
+
+	public QuestionInformationBuilder withComment(String comment) {
+		this.comment = comment;
+		return this;
+	}
+	
+	public QuestionInformation build() {
+		QuestionInformation questionInformation = new QuestionInformation(title, description, new LoggedUser(author, null), tags, comment);
+		if (status != null)
+			questionInformation.setInitStatus(status);
+		clear();
+		return questionInformation;
+	}
+
+	private void clear() {
+		author = null;
+		title = null;
+		description = null;
+		comment = null;
+		tags = new ArrayList<>();
+	    status = null;
+	}
 }

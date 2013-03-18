@@ -15,6 +15,7 @@ import org.junit.Test;
 import br.com.caelum.brutal.builder.QuestionBuilder;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.Question;
+import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.Vote;
 import br.com.caelum.brutal.model.VoteType;
@@ -29,8 +30,7 @@ public class WithAuthorDAOTest extends DatabaseTestCase{
 	private Vote upVote = new Vote(author, VoteType.UP);
 	private Vote upVote2 = new Vote(author, VoteType.UP);
 	private Vote upVote3 = new Vote(author, VoteType.UP);
-
-	
+	private Tag defaultTag = tag("defaultTag");
 
 	@Before
 	public void setup() {
@@ -38,6 +38,7 @@ public class WithAuthorDAOTest extends DatabaseTestCase{
 		session.save(upVote);
 		session.save(upVote2);
 		session.save(upVote3);
+		session.save(defaultTag);
 		questionsWithUser = new WithAuthorDAO<Question>(session, Question.class);
 		answersWithUser = new WithAuthorDAO<Answer>(session, Answer.class);
 	}
@@ -119,7 +120,9 @@ public class WithAuthorDAOTest extends DatabaseTestCase{
 		Question beberFazMal = question
 			.withTitle("Por que dizem que beber demais faz mal?")
 			.withDescription("Alguem poderia me dizer o por que disso? Obrigado galera!")
-			.withAuthor(author).build();
+			.withAuthor(author)
+			.withTag(defaultTag)
+			.build();
 		session.save(beberFazMal);
 		return beberFazMal;
 	}
@@ -128,7 +131,9 @@ public class WithAuthorDAOTest extends DatabaseTestCase{
 		Question androidRuim = question
 				.withTitle("Por que a api de android é tão ruim?")
 				.withDescription("Alguem poderia me dizer o por que disso? Obrigado galera!")
-				.withAuthor(author).build();
+				.withAuthor(author)
+				.withTag(defaultTag)
+				.build();
 		session.save(androidRuim);
 		return androidRuim;
 		
@@ -138,7 +143,9 @@ public class WithAuthorDAOTest extends DatabaseTestCase{
 		Question salDaAzar =  question
 				.withTitle("Por que pegar o sal da mal dos outros da azar?")
 				.withDescription("Alguem poderia me dizer o por que disso? Obrigado galera!")
-				.withAuthor(author).build();
+				.withAuthor(author)
+				.withTag(defaultTag)
+				.build();
 		session.save(salDaAzar);
 		return salDaAzar;
 	}
