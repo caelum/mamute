@@ -4,18 +4,16 @@
 	box-sizing: border-box;
 }
 
-body,a {
-	font-family: Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif;
-	font-size: 13px;
-}
-
 body {
 	color: #999;
+	font-size: 13px;
+	font-family: Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif;
 }
 
 a {
 	text-decoration: none;
 	color: rgb(0, 119, 204);
+	font-size: 1em;
 }
 
 a:hover{
