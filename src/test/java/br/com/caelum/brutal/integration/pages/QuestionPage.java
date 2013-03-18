@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -130,6 +131,15 @@ public class QuestionPage extends PageObject{
 			listString.add(e.getText());
 		}
 		return listString;
+	}
+
+	public boolean isAnswerFormDisplayed() {
+		try{
+			byClassName("answer-form");
+			return true;
+		}catch(NoSuchElementException e){
+			return false;
+		}
 	}
 	
 }
