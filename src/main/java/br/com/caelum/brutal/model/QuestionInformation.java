@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
@@ -28,6 +29,7 @@ import br.com.caelum.brutal.model.interfaces.Taggable;
 @Entity
 public class QuestionInformation implements Information, Taggable {
 
+	private static final int COMMENT_MIN_LENGTH = 5;
 	public static final int DESCRIPTION_MIN_LENGTH = 30;
 	public static final int TITLE_MAX_LENGTH = 150;
 	public static final int TITLE_MIN_LENGTH = 15;
@@ -37,12 +39,12 @@ public class QuestionInformation implements Information, Taggable {
 	private Long id;
 
 	@Lob
-	@Length(min = TITLE_MIN_LENGTH, max = TITLE_MAX_LENGTH, message = "question.errors.title.lenght")
+	@Length(min = TITLE_MIN_LENGTH, max = TITLE_MAX_LENGTH, message = "question.errors.title.length")
 	@NotEmpty
 	private String title;
 
 	@Lob
-	@Length(min = DESCRIPTION_MIN_LENGTH, message = "question.errors.description.lenght")
+	@Length(min = DESCRIPTION_MIN_LENGTH, message = "question.errors.description.length")
 	@NotEmpty
 	private String description;
 
@@ -50,6 +52,9 @@ public class QuestionInformation implements Information, Taggable {
 	@NotEmpty
 	private String sluggedTitle;
 	
+	@NotNull(message = "question.errors.comment.not_null")
+	@Length(min = COMMENT_MIN_LENGTH, message = "question.errors.comment.length")
+	@NotEmpty(message = "question.errors.comment.length")
 	@Type(type = "text")
 	private String comment;
 

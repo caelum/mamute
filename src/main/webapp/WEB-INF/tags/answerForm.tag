@@ -10,7 +10,7 @@
 	
 	<c:if test='${not empty edit}'>
 		<label for="comment"><fmt:message key="edit_form.comment.label" /></label>
-		<input type="text" data-hint-id="answer-comment-hint" class="required hintable" name="comment" />
+		<input type="text" data-hint-id="answer-comment-hint" class="hintable required" length="5" name="comment" />
 	</c:if>
 	
 	<input class="post-submit big-submit" value="<fmt:message key="newanswer.answer.submit"/>" type="submit" />

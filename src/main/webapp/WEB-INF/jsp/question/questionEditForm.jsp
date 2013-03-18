@@ -9,7 +9,7 @@
 	<ul class="tags autocompleted-tags hidden" id="question-tags-autocomplete"></ul>
 	
 	<label for="comment"><fmt:message key="edit_form.comment.label" /></label>
-	<input type="text" name="comment" class="hintable text-input" data-hint-id="question-comment-hint" />
+	<input type="text" name="comment" class="hintable text-input required" minlength="5" data-hint-id="question-comment-hint" />
 	
 	<input class="post-submit big-submit" type="submit" value="<fmt:message key="question.edit_form.submit"/>" />
 </form>

@@ -19,6 +19,7 @@ import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.core.Localization;
 import br.com.caelum.vraptor.view.Results;
 
@@ -32,10 +33,12 @@ public class AnswerController {
     private final KarmaCalculator calculator;
 	private final MessageFactory messageFactory;
 	private final AuthorizationSystem authorizationSystem;
+	private final Validator validator;
 
 	public AnswerController(Result result, AnswerDAO dao, User currentUser, 
 	        QuestionDAO questions, LoggedUser user, Localization localization,
-	        KarmaCalculator calculator, MessageFactory messageFactory, AuthorizationSystem authorizationSystem) {
+	        KarmaCalculator calculator, MessageFactory messageFactory, 
+	        AuthorizationSystem authorizationSystem, Validator validator) {
 		this.result = result;
 		this.answers = dao;
 		this.currentUser = user;
@@ -44,6 +47,7 @@ public class AnswerController {
         this.calculator = calculator;
 		this.messageFactory = messageFactory;
 		this.authorizationSystem = authorizationSystem;
+		this.validator = validator;
 	}
 
 
@@ -62,6 +66,9 @@ public class AnswerController {
 		
 		AnswerInformation information = new AnswerInformation(description, currentUser, comment);
 
+		validator.validate(information);
+		validator.onErrorRedirectTo(this).answerEditForm(id);
+		
 		UpdateStatus status = original.updateWith(information);
 		answers.save(original);
 

@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
@@ -48,6 +49,9 @@ public class AnswerInformation implements Information {
 
 	private String ip;
 
+	@NotNull(message = "answer.errors.comment.not_null")
+	@Length(min = 5, message = "answer.errors.comment.length")
+	@NotEmpty(message = "answer.errors.comment.length")
 	@Type(type = "text")
 	private String comment;
 

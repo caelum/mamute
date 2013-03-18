@@ -23,6 +23,7 @@ import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.Validator;
 
 @Resource
 public class QuestionController {
@@ -36,10 +37,11 @@ public class QuestionController {
 	private final MessageFactory messageFactory;
 	private final QuestionInformationValidator informationValidator;
 	private final AuthorizationSystem authorizationSystem;
+	private final Validator validator;
 
 	public QuestionController(Result result, QuestionDAO questionDAO, TagDAO tags, VoteDAO votes, LoggedUser currentUser,
 			TagsValidator tagsValidator, MessageFactory messageFactory, QuestionInformationValidator questionInformationValidator,
-			AuthorizationSystem authorizationSystem) {
+			AuthorizationSystem authorizationSystem, Validator validator) {
 		this.result = result;
 		this.questions = questionDAO;
 		this.tags = tags;
@@ -49,6 +51,7 @@ public class QuestionController {
 		this.messageFactory = messageFactory;
 		this.informationValidator = questionInformationValidator;
 		this.authorizationSystem = authorizationSystem;
+		this.validator = validator;
 	}
 
 	@Get("/question/ask")
@@ -72,13 +75,15 @@ public class QuestionController {
 		List<Tag> loadedTags = tags.findAllByNames(tagNames);
 		QuestionInformation information = new QuestionInformation(title, description, this.currentUser, loadedTags, comment);
 		
-		if (validate(loadedTags) && informationValidator.validate(information)) {
-			UpdateStatus status = original.updateWith(information);
-			questions.save(original);
-			result.include("messages", Arrays.asList(messageFactory.build("confirmation",status.getMessage())));
-			result.redirectTo(this).showQuestion(id, original.getSluggedTitle());
-		}
-		tagsValidator.onErrorRedirectTo(this).questionEditForm(id);
+		validator.validate(information);
+		validate(loadedTags);
+		validator.onErrorRedirectTo(this).questionEditForm(id);
+		
+		UpdateStatus status = original.updateWith(information);
+		questions.save(original);
+		result.include("messages",
+				Arrays.asList(messageFactory.build("confirmation", status.getMessage())));
+		result.redirectTo(this).showQuestion(id, original.getSluggedTitle());
 	}
 	
 	@Get("/questions/{questionId}/{sluggedTitle}")
