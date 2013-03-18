@@ -515,7 +515,7 @@ textarea {
 	padding: .3em .15em;
 }
 
-.first-header a {
+.first-header, .first-header a {
 	color: #FFF;	
 }
 
