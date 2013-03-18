@@ -7,7 +7,7 @@ public class CommentVoteRule implements VotableRule {
 	@Override
 	public int calculate(VoteType type) {
 		if (type != VoteType.UP) {
-			throw new IllegalArgumentException("comment cannot be upvoted");
+			throw new IllegalArgumentException("comment cannot be downvoted");
 		}
 		return KarmaCalculator.COMMENT_VOTED_UP;
 	}
