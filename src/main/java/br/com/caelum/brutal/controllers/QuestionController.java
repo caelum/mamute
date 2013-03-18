@@ -17,6 +17,8 @@ import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.reputation.rules.ReputationEvent;
+import br.com.caelum.brutal.reputation.rules.ReputationEvents;
 import br.com.caelum.brutal.validators.TagsValidator;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
@@ -105,6 +107,7 @@ public class QuestionController {
 
 	@Post("/question/ask")
 	@LoggedAccess
+	@ReputationEvent(ReputationEvents.NEW_QUESTION)
 	public void newQuestion(String title, String description, String tagNames) {
 		List<Tag> loadedTags = tags.findAllByNames(tagNames);
 		QuestionInformation information = new QuestionInformation(title, description, currentUser, loadedTags, "new question");

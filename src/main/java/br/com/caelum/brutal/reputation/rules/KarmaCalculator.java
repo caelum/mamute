@@ -7,14 +7,15 @@ import br.com.caelum.vraptor.ioc.Component;
 @Component
 public class KarmaCalculator {
 
-    static final int SOLVED_QUESTION_AUTHOR = 5;
-    static final int SOLUTION_AUTHOR = 20;
-    static final int ANSWER_VOTED_UP = 10;
-    static final int ANSWER_VOTED_DOWN = -2;
-    static final int QUESTION_VOTED_DOWN = ANSWER_VOTED_DOWN;
-    static final int QUESTION_VOTED_UP = 5;
-    static final int APPROVED_INFORMATION = 2;
-    static final int COMMENT_VOTED_UP = 2;
+    public static final int SOLVED_QUESTION_AUTHOR = 5;
+    public static final int SOLUTION_AUTHOR = 20;
+    public static final int ANSWER_VOTED_UP = 10;
+    public static final int ANSWER_VOTED_DOWN = -2;
+    public static final int QUESTION_VOTED_DOWN = ANSWER_VOTED_DOWN;
+    public static final int QUESTION_VOTED_UP = 5;
+    public static final int APPROVED_INFORMATION = 2;
+    public static final int COMMENT_VOTED_UP = 2;
+	public static final int ASKED_QUESTION = 2;
     
     public int karmaFor(KarmaRewardEvent voteEvent) {
     	return voteEvent.reward();
