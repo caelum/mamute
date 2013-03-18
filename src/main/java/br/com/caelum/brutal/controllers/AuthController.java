@@ -22,7 +22,10 @@ public class AuthController extends Controller {
 	@Get("/login")
 	public void loginForm(String redirectUrl) {
 		String facebookUrl = facebook.getOauthUrl();
-		include("redirectUrl", redirectUrl);
+		//TODO: verify that redirectUrl is inside our domain to avoid phishing atacks
+		if (redirectUrl != null && !redirectUrl.isEmpty()) {
+			include("redirectUrl", redirectUrl);
+		}
 		result.include("facebookUrl", facebookUrl);
 	}
 	
