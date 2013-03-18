@@ -1,6 +1,7 @@
 package br.com.caelum.brutal.integration.pages;
 
 import static java.lang.Integer.parseInt;
+import static org.junit.Assert.fail;
 import static org.openqa.selenium.By.tagName;
 
 import java.util.List;
@@ -31,9 +32,14 @@ public class Home extends PageObject{
 	}
 
 	public boolean isLoggedIn() {
-		WebElement byCSS = byCSS(".user-item a");
-		String linkClass = byCSS.getAttribute("class");
+		WebElement profileLink = profileLink();
+		String linkClass = profileLink.getAttribute("class");
 		return !linkClass.equals("login");
+	}
+
+	private WebElement profileLink() {
+		WebElement byCSS = byCSS(".user-item a");
+		return byCSS;
 	}
 
 	public SignupPage toSignUpPage() {
@@ -98,6 +104,14 @@ public class Home extends PageObject{
 		String countText = question.findElement(By.className("answers")).getText();
 		Integer answersCount = parseInt(countText.split("\\s+")[0].trim());
 		return answersCount > 0;
+	}
+
+	public UserProfilePage toProfilePage() {
+		if (!isLoggedIn()) {
+			fail("can't go to profile page if i'm not logged in");
+		}
+		profileLink().click();
+		return new UserProfilePage(driver);
 	}
 
 }

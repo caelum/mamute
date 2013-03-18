@@ -6,8 +6,11 @@ import org.openqa.selenium.WebElement;
 
 public class SignupPage extends PageObject{
 
+	private final WebDriver driver;
+
 	public SignupPage(WebDriver driver) {
 		super(driver);
+		this.driver = driver;
 	}
 	
 	public Home signUp(String name, String email, String password, String passwordConfirmation){
@@ -18,6 +21,12 @@ public class SignupPage extends PageObject{
 		signupForm.findElement(By.name("passwordConfirmation")).sendKeys(passwordConfirmation);
 		signupForm.submit();
 		return new Home(driver);
+	}
+
+	public FacebookLoginPage signupWithFacebook() {
+		WebElement faceButton = byClassName("face-button");
+		faceButton.click();
+		return new FacebookLoginPage(driver);
 	}
 
 }

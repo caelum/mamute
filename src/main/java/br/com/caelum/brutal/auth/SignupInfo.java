@@ -29,8 +29,11 @@ public class SignupInfo {
 		JsonObject jsonObj = new JsonParser().parse(body).getAsJsonObject();
 		String email = jsonObj.get("email").getAsString();
 		String name = jsonObj.get("name").getAsString();
-		String location = jsonObj.getAsJsonObject("location").get("name").getAsString();
-		
+		JsonObject locationJson = jsonObj.getAsJsonObject("location");
+		String location = "";
+		if (locationJson != null) {
+			location = locationJson.get("name").getAsString();
+		}
 		return new SignupInfo(MethodType.FACEBOOK, email, name, location);
 	}
 

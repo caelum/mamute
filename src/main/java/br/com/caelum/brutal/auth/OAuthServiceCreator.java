@@ -13,15 +13,19 @@ import br.com.caelum.vraptor.ioc.ComponentFactory;
 @Component
 public class OAuthServiceCreator implements ComponentFactory<OAuthService> {
 	
+	public static final String FACEBOOK_APP_SECRET = "facebook.app_secret";
+	public static final String FACEBOOK_REDIRECT_URI = "facebook.redirect_uri";
+	public static final String FACEBOOK_CLIENT_ID = "facebook.client_id";
+	
 	private OAuthService service;
 	private String appSecret;
 	private String redirectUri;
 	private String clientId;
 
 	public OAuthServiceCreator(Environment env) {
-		this.clientId = env.get("facebook.client_id");
-		this.redirectUri = env.get("facebook.redirect_uri");
-		this.appSecret = env.get("facebook.app_secret");
+		this.clientId = env.get(FACEBOOK_CLIENT_ID);
+		this.redirectUri = env.get(FACEBOOK_REDIRECT_URI);
+		this.appSecret = env.get(FACEBOOK_APP_SECRET);
 	}
 	
 	@PostConstruct

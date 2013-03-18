@@ -24,7 +24,7 @@
 				<dd class="data-description ellipsis">${selectedUser.location}</dd>
 				<c:if test="${isCurrentUser}">
 					<dt class="data-title ellipsis"><fmt:message key="user_profile.email"/></dt>
-					<dd class="data-description ellipsis">${selectedUser.email}</dd>
+					<dd class="data-description ellipsis profile-email">${selectedUser.email}</dd>
 					<dt class="data-title ellipsis"><fmt:message key="user_profile.real_name"/></dt>
 					<dd class="data-description ellipsis">${selectedUser.realName}</dd>
 				</c:if>
