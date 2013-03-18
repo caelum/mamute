@@ -40,7 +40,7 @@
 </ul>
 
 <div class="edit-via-ajax">
-	<a href="#" class="requires-login post-action add-comment requires-karma" data-karma="50">
+	<a href="#" class="requires-login post-action add-comment requires-karma" data-karma="20">
 		<fmt:message key="comment.submit" />
 	</a>
 	<span>
