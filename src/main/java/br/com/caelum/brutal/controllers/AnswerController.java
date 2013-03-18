@@ -15,6 +15,8 @@ import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.reputation.rules.KarmaCalculator;
+import br.com.caelum.brutal.reputation.rules.ReputationEvent;
+import br.com.caelum.brutal.reputation.rules.ReputationEvents;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
@@ -81,6 +83,7 @@ public class AnswerController {
 	
 	@Post("/question/answer/{question.id}")
 	@LoggedAccess
+	@ReputationEvent(ReputationEvents.NEW_ANSWER)
 	public void newAnswer(Question question, String description) {
         Question loadedQuestion = questions.getById(question.getId());
         loadedQuestion.touchedBy(currentUser.getCurrent());

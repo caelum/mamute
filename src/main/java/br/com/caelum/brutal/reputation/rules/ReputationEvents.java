@@ -6,6 +6,12 @@ public enum ReputationEvents implements KarmaRewardEvent {
 		public int reward() {
 			return KarmaCalculator.ASKED_QUESTION;
 		}
+	}, 
+	NEW_ANSWER {
+		@Override
+		public int reward() {
+			return KarmaCalculator.ANSWERED_QUESTION;
+		}
 	};
 
 	@Override
