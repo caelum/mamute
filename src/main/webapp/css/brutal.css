@@ -1238,7 +1238,7 @@ a.button.ask-a-question:hover{
 /*Footer*/
 .footer {
 	border-top: 8px solid #000000;
-	background-color: #777777;
+	background-color: #244B6A;
 	height: 150px;
 	margin-top: 50px;
 	text-align: center;
@@ -1246,11 +1246,11 @@ a.button.ask-a-question:hover{
 }
 
 .footer p {
-	color: #444;
+	color: #fff;
 	margin-top: 10px;
 }
 
-.footer p a {
+.footer-link {
 	color: #999;
 }
 

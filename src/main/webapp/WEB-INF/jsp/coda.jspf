@@ -15,7 +15,7 @@
 		<a class="tag" href="/list/withTag/sql">sql</a>
 		
 		<p><fmt:message key="footer.powered_by"/></p>		
-		<p><a href="http://www.casadocodigo.com.br"><fmt:message key="footer.casa_do_codigo"/></a></p>		
+		<p><a class="footer-link" href="http://www.casadocodigo.com.br"><fmt:message key="footer.casa_do_codigo"/></a></p>		
 	</div>
 </footer>
 <script src="<c:url value="/js/jquery.js"/>"></script>
