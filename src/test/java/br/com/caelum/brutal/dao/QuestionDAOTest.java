@@ -4,6 +4,7 @@ import static java.util.Arrays.asList;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.ConstraintViolationException;
@@ -18,6 +19,10 @@ import br.com.caelum.brutal.model.User;
 
 public class QuestionDAOTest extends DatabaseTestCase {
 
+	private static final String INVALID_TITLE = "Tiny title";
+	private static final String INVALID_DESC = "Tiny desc";
+	private static final String VALID_DESC = "Description with more than 30 characters";
+	private static final String VALID_TITLE = "Title with more than 15 characters";
 	private QuestionDAO questions;
 	private QuestionBuilder question = new QuestionBuilder();
 	private User author;
@@ -35,28 +40,33 @@ public class QuestionDAOTest extends DatabaseTestCase {
 	
 	@Test(expected=ConstraintViolationException.class)
 	public void should_throw_constraint_exception_if_description_is_null() {
-		Question myQuestion = question.withTitle("Title with more than 15 characters").withDescription(null).withAuthor(author).build();
+		Question myQuestion = question.withTitle(VALID_TITLE).withDescription(null).withAuthor(author).build();
 		questions.save(myQuestion );
 	}
 	
 	@Test(expected=ConstraintViolationException.class)
 	public void should_throw_constraint_exception_if_description_has_less_than_30_chars() {
-		Question myQuestion = question.withTitle("Title with more than 15 characters").withDescription("Tiny desc").withAuthor(author).build();
+		Question myQuestion = question.withTitle(VALID_TITLE).withDescription(INVALID_DESC).withAuthor(author).build();
 		questions.save(myQuestion);
 	}
 	
 	@Test(expected=ConstraintViolationException.class)
 	public void should_throw_constraint_exception_if_title_is_null() {
-		Question myQuestion = question.withTitle(null).withDescription("Description with more than 30 characters").withAuthor(author).build();
+		Question myQuestion = question.withTitle(null).withDescription(VALID_DESC).withAuthor(author).build();
 		questions.save(myQuestion);
 	}
 	
 	@Test(expected=ConstraintViolationException.class)
 	public void should_throw_constraint_exception_if_title_has_less_than_15_chars() {
-		Question myQuestion = question.withTitle("Tiny title").withDescription("Description with more than 30 characters").withAuthor(author).build();
+		Question myQuestion = question.withTitle(INVALID_TITLE).withDescription(VALID_DESC).withAuthor(author).build();
 		questions.save(myQuestion );
 	}
 	
+	@Test(expected=ConstraintViolationException.class)
+	public void should_throw_constraint_exception_if_tags_is_empty() {
+		Question myQuestion = question.withTags(new ArrayList<Tag>()).withTitle(VALID_TITLE).withDescription(VALID_DESC).withAuthor(author).build();
+		questions.save(myQuestion );
+	}
 	
 	@Test
 	public void should_ignore_low_reputation_ones() {

@@ -68,7 +68,9 @@ public class QuestionInformation implements Information, Taggable {
 	private Moderation moderation;
 
 	@ManyToMany
+	@NotEmpty(message = "question.errors.tags.empty")
 	private List<Tag> tags;
+	
 	@Lob
 	private String markedDescription;
 

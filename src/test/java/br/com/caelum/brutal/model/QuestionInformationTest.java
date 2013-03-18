@@ -11,7 +11,6 @@ import br.com.caelum.brutal.builder.QuestionBuilder;
 
 public class QuestionInformationTest {
 
-
 	private QuestionInformationBuilder builder;
 	private Question ruby;
 
