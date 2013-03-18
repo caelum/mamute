@@ -19,7 +19,10 @@
 		<div class="post-interactions">
 			<ul class="post-action-nav nav piped-nav">
 				<li class="nav-item">
-					<a class="post-action edit" href="<c:url value="/answer/edit/${answer.id}"/>"><fmt:message key="edit" /></a>
+					<a class="post-action edit requires-login requires-karma"
+							data-author="${isAuthor}"
+							data-karma="20" 
+							href="<c:url value="/answer/edit/${answer.id}"/>"><fmt:message key="edit" /></a>
 				</li>
 				<li class="nav-item">
 					<c:if test="${currentUser != null && !answer.alreadyFlaggedBy(currentUser)}">

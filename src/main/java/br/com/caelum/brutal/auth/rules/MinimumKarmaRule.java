@@ -7,12 +7,13 @@ public class MinimumKarmaRule<T> implements PermissionRule<T> {
     private final long minimum;
 
     public MinimumKarmaRule(long minimum) {
-        this.minimum = minimum;
+    	this.minimum = minimum;
     }
 
     @Override
     public boolean isAllowed(User u, T item) {
-        return minimum <= u.getKarma();
+    	if(u == null) return false;
+    	return minimum <= u.getKarma();
     }
 
 }
