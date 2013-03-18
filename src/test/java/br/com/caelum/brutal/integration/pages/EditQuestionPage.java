@@ -25,6 +25,10 @@ public class EditQuestionPage extends PageObject {
 		questionTags.clear();
 		questionTags.sendKeys(tags);
 		
+		WebElement editComment = editQuestionForm.findElement(By.name("comment"));
+		editComment.clear();
+		editComment.sendKeys("my comment");
+		
 		editQuestionForm.submit();
 		return new QuestionPage(driver);
 	}
