@@ -19,7 +19,7 @@ import br.com.caelum.brutal.model.VoteType;
 public abstract class TestCase {
 
 	protected Answer answer(String description, Question question, User author) {
-		Answer q = new Answer(new AnswerInformation(description, new LoggedUser(author, null), ""), question, author);
+		Answer q = new Answer(new AnswerInformation(description, new LoggedUser(author, null), "default comment"), question, author);
 		return q;
 	}
 	

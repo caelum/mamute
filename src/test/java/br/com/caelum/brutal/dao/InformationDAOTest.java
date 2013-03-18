@@ -29,12 +29,12 @@ public class InformationDAOTest extends DatabaseTestCase {
         
         QuestionInformation qinfo1 = new QuestionInformationBuilder().with(author).build();
         Question question = new Question(qinfo1, author);
-        AnswerInformation info1 = new AnswerInformation("info1 info1 info1 info1 info1 info1 info1 ", currentAuthor, "");
+        AnswerInformation info1 = new AnswerInformation("info1 info1 info1 info1 info1 info1 info1 ", currentAuthor, "new answer");
         Answer answer1 = new Answer(info1, question, author);
         
-        AnswerInformation edit1 = new AnswerInformation("info2 info2 info2 info2 info2 info2 info2 ", currentAuthor, answer1, "");
+        AnswerInformation edit1 = new AnswerInformation("info2 info2 info2 info2 info2 info2 info2 ", currentAuthor, answer1, "new answer");
         edit1.setInitStatus(UpdateStatus.PENDING);
-        AnswerInformation edit2 = new AnswerInformation("info3 info3 info3 info3 info3 info3 info3 ", currentAuthor, answer1, "");
+        AnswerInformation edit2 = new AnswerInformation("info3 info3 info3 info3 info3 info3 info3 ", currentAuthor, answer1, "new answer");
         edit2.setInitStatus(UpdateStatus.PENDING);
         
         session.save(author);

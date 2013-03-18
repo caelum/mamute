@@ -14,6 +14,7 @@ public class QuestionBuilder extends ModelBuilder{
 
 	private String title = "default title default title";
 	private String description = "default description default description default description";
+	private String comment = "default comment";
 	private User author;
 	private List<Tag> tags = new ArrayList<Tag>();
 	private Long id;
@@ -44,7 +45,7 @@ public class QuestionBuilder extends ModelBuilder{
 	}
 	
 	public Question build(){
-		Question q = new Question(new QuestionInformation(title, description, new LoggedUser(author, null), tags, ""), author);
+		Question q = new Question(new QuestionInformation(title, description, new LoggedUser(author, null), tags, comment), author);
 		setId(q, id);
 		clear();
 		return q;
