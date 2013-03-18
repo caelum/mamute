@@ -67,5 +67,17 @@ public class CreateQuetionTest extends AuthenticatedAcceptanceTest {
 	    assertFalse(descriptionHintIsVisible);
 	    assertTrue(titleHintIsVisible);
     }
+	
+	@Test
+	public void should_disallow_user_to_create_tag() {
+		NewQuestionPage newQuestionPage = home()
+		        .toNewQuestionPage()
+		        .typeDescription("description description description description description")
+		        .typeTitle("title title title title")
+		        .typeTags("unexistant-tag-blabla");
+		newQuestionPage.submit();
+		String message = message("question.errors.tags.unexistant");
+		assertTrue(newQuestionPage.errorMessages().contains(message));
+	}
 
 }

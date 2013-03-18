@@ -20,8 +20,7 @@ public class NewQuestionPage extends PageObject {
 		typeTitle(title);
 		typeDescription(description);
 		typeTags(tags);
-		newQuestionForm.submit();
-		return new QuestionPage(driver);
+		return submit();
 	}
 	
 	public NewQuestionPage typeDescription(String description) {
@@ -46,7 +45,11 @@ public class NewQuestionPage extends PageObject {
 		WebElement autoCompletedTag = findAutoCompletedTag(tag);
 		return autoCompletedTag != null;
 	}
-
+	
+	public QuestionPage submit() {
+		newQuestionForm.submit();
+		return new QuestionPage(driver);
+	}
 
 	public NewQuestionPage selectAutoCompleteSuggestion(String tag) {
 		WebElement autoCompletedTag = findAutoCompletedTag(tag);

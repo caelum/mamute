@@ -62,11 +62,20 @@ public abstract class PageObject {
 	}
 
     public List<String> confirmationMessages() {
-        List<String> confirmations = new ArrayList<>();
         List<WebElement> confirmationElements = allByClassName("confirmation");
-        for (WebElement element : confirmationElements) {
-            confirmations.add(element.getText());
-        }
-        return confirmations;
+        return elementsTexts(confirmationElements);
     }
+    
+    public List<String> errorMessages() {
+    	List<WebElement> errorElements = allByClassName("error");
+    	return elementsTexts(errorElements);
+    }
+
+	private List<String> elementsTexts(List<WebElement> errorElements) {
+		List<String> confirmations = new ArrayList<>();
+		for (WebElement element : errorElements) {
+    		confirmations.add(element.getText());
+    	}
+    	return confirmations;
+	}
 }
