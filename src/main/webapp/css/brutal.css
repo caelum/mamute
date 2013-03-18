@@ -918,6 +918,15 @@ a.button.ask-a-question:hover{
 	color: #3A77A6;
 }
 
+.about-text .about-question{
+	font-size: 1.2em;
+	color: #3A77A6;
+}
+
+.about-answer {
+	text-indent: 1.5em;
+}
+
 /*SHOW QUESTION*/
 .mark-as-solution * {
 	padding-top: 5px;

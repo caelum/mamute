@@ -43,8 +43,9 @@
 				</fmt:message>
 			</li>
 		</ul>
-	</div>
-</div>
+	</div><!-- about-text -->
+</div><!-- about-section -->
+
 <div class="about-section">
 	<h2 class="title about-title"><fmt:message key="about.reputation.gain" /></h2>
 	<div class="about-text">
@@ -93,6 +94,26 @@
 				<fmt:message key="about.reputation.gain.comment.voted_up">
 					<fmt:param value="${COMMENT_VOTED_UP}"/>
 				</fmt:message>
+			</li>
+		</ul>
+	</div><!-- about-text -->
+</div><!-- about-section -->
+
+<div class="about-section">
+	<h2 class="title about-title"><fmt:message key="about.reputation.faq" /></h2>
+	<div class="about-text">
+		<ul>
+			<li>
+				<p class="about-question">Quais perguntas aparecem na primeira página?</p>
+				<p class="about-answer">Todas as perguntas feitas são mostradas na página inicial.</p>
+			</li>
+			<li>
+				<p class="about-question">Quando e como uma edição é aprovada ?</p>
+				<p class="about-answer">Uma edição só é aprovada automaticamente se feita pelo autor original ou por algum moderador. Em qualquer outro caso, a edição entrará num fila e passará por análise de nossos moderadores, por isso, é importante que você indique um motivo no campo de comentário da edição.</p>
+			</li>
+			<li>
+				<p class="about-question">Não consigo achar minha pergunta, o que aconteceu com ela ?</p>
+				<p class="about-answer">Provavelmente sua pergunta não era pertinente. Qualquer pergunte com mais de 5 pontos negativos é eliminada e não pode mais ser visualizada.</p>
 			</li>
 		</ul>
 	</div>
