@@ -18,7 +18,49 @@
 		<p><a class="footer-link" href="http://www.casadocodigo.com.br"><fmt:message key="footer.casa_do_codigo"/></a></p>		
 	</div>
 </footer>
-<script src="<c:url value="/js/jquery.js"/>"></script>
+<c:if test="${environment.name != 'production'}" >
+	<script src="<c:url value="/js/jquery.js"/>"></script>
+	<script src="<c:url value="/js/prettify.js"/>"></script>
+	<script src="<c:url value="/js/jquery.validate.min.js"/>"></script>
+	<script src="<c:url value="/js/form-validation.js"/>"></script>
+	<script src="<c:url value="/js/jquery.joyride-2.0.3.js"/>"></script>
+	<script src="<c:url value="/js/form-hints.js"/>"></script>
+	<script src="<c:url value="/js/edit-ajax.js"/>"></script>
+	<script src="<c:url value="/js/mark-as-solution.js"/>"></script>
+	<script src="<c:url value="/js/Markdown.Converter.js"/>"></script>
+	<script src="<c:url value="/js/Markdown.Sanitizer.js"/>"></script>
+	<script src="<c:url value="/js/Markdown.Editor.js"/>"></script>
+	<script src="<c:url value="/js/marked.js"/>"></script>
+	<script src="<c:url value="/js/form-markdown.js"/>"></script>
+	<script src="<c:url value="/js/up-down-vote.js"/>"></script>
+	<script src="<c:url value="/js/links-behaviour.js"/>"></script>
+	<script src="<c:url value="/js/tag-autocomplete.js"/>"></script>
+	<script src="<c:url value="/js/history-select-version.js"/>"></script>
+	<script src="<c:url value="/js/submenu.js"/>"></script>
+	<script src="<c:url value="/js/popup.js"/>"></script>
+	<script src="<c:url value="/js/dropdown.js"/>"></script>
+	<script src="<c:url value="/js/order-by.js"/>"></script>
+	<script src="<c:url value="/js/share.js"/>"></script>
+	<script src="<c:url value="/js/diff_match_patch.js"/>"></script>
+	<script src="<c:url value="/js/pretty-text-diff.js"/>"></script>
+	<script src="<c:url value="/js/diff.js"/>"></script>
+	<script src="<c:url value="/js/flag-it.js"/>"></script>
+	<script src="<c:url value="/js/button-hints.js"/>"></script>
+</c:if>
+<c:if test="${environment.name == 'production'}" >
+	<script src="<c:url value="/js/all.js"/>"></script>
+	<script type="text/javascript">
+	var gaq = gaq || [];
+	_gaq.push(['_setAccount', 'UA-132222-1']);
+	_gaq.push(['_trackPageview']);
+	
+	(function() {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'www') + '.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+	</script>
+</c:if>
 <script type="text/javascript">
 // UI flags 
 var LOGGED_IN = ${not empty currentUser};
@@ -45,46 +87,6 @@ function errorPopup(text, target){
 	}
 }
 </script>
-<script src="<c:url value="/js/prettify.js"/>"></script>
-<script src="<c:url value="/js/jquery.validate.min.js"/>"></script>
-<script src="<c:url value="/js/form-validation.js"/>"></script>
-<script src="<c:url value="/js/jquery.joyride-2.0.3.js"/>"></script>
-<script src="<c:url value="/js/form-hints.js"/>"></script>
-<script src="<c:url value="/js/edit-ajax.js"/>"></script>
-<script src="<c:url value="/js/mark-as-solution.js"/>"></script>
-<script src="<c:url value="/js/Markdown.Converter.js"/>"></script>
-<script src="<c:url value="/js/Markdown.Sanitizer.js"/>"></script>
-<script src="<c:url value="/js/Markdown.Editor.js"/>"></script>
-<script src="<c:url value="/js/marked.js"/>"></script>
-<script src="<c:url value="/js/form-markdown.js"/>"></script>
-<script src="<c:url value="/js/up-down-vote.js"/>"></script>
-<script src="<c:url value="/js/links-behaviour.js"/>"></script>
-<script src="<c:url value="/js/tag-autocomplete.js"/>"></script>
-<script src="<c:url value="/js/history-select-version.js"/>"></script>
-<script src="<c:url value="/js/submenu.js"/>"></script>
-<script src="<c:url value="/js/popup.js"/>"></script>
-<script src="<c:url value="/js/dropdown.js"/>"></script>
-<script src="<c:url value="/js/order-by.js"/>"></script>
-<script src="<c:url value="/js/share.js"/>"></script>
-<script src="<c:url value="/js/diff_match_patch.js"/>"></script>
-<script src="<c:url value="/js/pretty-text-diff.js"/>"></script>
-<script src="<c:url value="/js/diff.js"/>"></script>
-<script src="<c:url value="/js/flag-it.js"/>"></script>
-<script src="<c:url value="/js/button-hints.js"/>"></script>
-
-<c:if test="${environment.name == 'production'}" >
-	<script type="text/javascript">
-	var gaq = gaq || [];
-	_gaq.push(['_setAccount', 'UA-132222-1']);
-	_gaq.push(['_trackPageview']);
-	
-	(function() {
-	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'www') + '.google-analytics.com/ga.js';
-	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-	})();
-	</script>
-</c:if>
 
 </body>
 </html>
