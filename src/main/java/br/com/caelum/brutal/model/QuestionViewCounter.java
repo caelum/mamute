@@ -4,6 +4,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.joda.time.Period;
+
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
@@ -22,6 +24,7 @@ public class QuestionViewCounter {
 		if (!recentlyViewed(question)) {
 			question.ping();
 			Cookie cookie = new Cookie(COOKIE_PREFIX + question.getId(), "1");
+			cookie.setMaxAge(Period.days(1).toStandardSeconds().getSeconds());
 			response.addCookie(cookie);
 		}
 	}
