@@ -4,15 +4,15 @@
 </div>
 <footer class="footer">
 	<div class="container">
-		<a class="tag" href="/list/withTag/java">java</a>
-		<a class="tag" href="/list/withTag/android">android</a>
-		<a class="tag" href="/list/withTag/c%23">c#</a>
-		<a class="tag" href="/list/withTag/.net">.net</a>
-		<a class="tag" href="/list/withTag/javascript">javascript</a>
-		<a class="tag" href="/list/withTag/php">php</a>
-		<a class="tag" href="/list/withTag/jquery">jquery</a>
-		<a class="tag" href="/list/withTag/html">html</a>
-		<a class="tag" href="/list/withTag/sql">sql</a>
+		<a class="tag" href="${linkTo[ListController].withTag['java']}">java</a>
+		<a class="tag" href="${linkTo[ListController].withTag['android']}">android</a>
+		<a class="tag" href="${linkTo[ListController].withTag['c%23']}">c#</a>
+		<a class="tag" href="${linkTo[ListController].withTag['.net']}">.net</a>
+		<a class="tag" href="${linkTo[ListController].withTag['javascript']}">javascript</a>
+		<a class="tag" href="${linkTo[ListController].withTag['php']}">php</a>
+		<a class="tag" href="${linkTo[ListController].withTag['jquery']}">jquery</a>
+		<a class="tag" href="${linkTo[ListController].withTag['html']}">html</a>
+		<a class="tag" href="${linkTo[ListController].withTag['sql']}">sql</a>
 		
 		<p><fmt:message key="footer.powered_by"/></p>		
 		<p><a class="footer-link" href="http://www.casadocodigo.com.br"><fmt:message key="footer.casa_do_codigo"/></a></p>		
