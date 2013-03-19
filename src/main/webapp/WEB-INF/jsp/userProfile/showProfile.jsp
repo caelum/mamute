@@ -1,3 +1,5 @@
+<tags:header title="metas.profile.title" description="metas.default.description"/>
+
 <section class="basic-user-data user-data">
 	<div class="subheader">
 		<tags:userProfileLink user="${selectedUser}" htmlClass="title page-title" />

@@ -1,3 +1,5 @@
+<tags:header title="metas.search.title" description="metas.default.description"/>
+
 <div id="search-results"></div>
 
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>

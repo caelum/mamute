@@ -1,3 +1,5 @@
+<tags:header title="metas.edit_profile.title" description="metas.default.description"/>
+
 <div class="subheader">
 	<tags:userProfileLink user="${user}" htmlClass="title page-title" />
 	<ul class="subheader-menu">

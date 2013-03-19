@@ -1,3 +1,5 @@
+<tags:header title="metas.home.title" description="metas.default.description"/>
+
 <section class="first-content">
 	<div class="subheader">
 		<h2 class="title page-title replace"></h2>

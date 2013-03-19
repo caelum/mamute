@@ -1,3 +1,5 @@
+<tags:header title="metas.errors.title" description="metas.default.description"/>
+
 <div class="subheader">
 	<h2 class="title page-title"><fmt:message key="internal_error.title"/></h2>
 </div>

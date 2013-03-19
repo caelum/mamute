@@ -1,3 +1,5 @@
+<tags:header title="metas.about.title" description="metas.default.description"/>
+
 <div class="about-section sub-header">
 	<h2 class="title about-title"><fmt:message key="about.title.welcome" /></h1>
 	<p class="about-main"></p>

@@ -1,3 +1,5 @@
+<tags:header plainTitle="${question.mostImportantTag} - ${question.title}" description="metas.default.description"/>
+
 <h1 class="title subheader question-title">${question.title}</h1>
 <section class="first-content">
 	<tags:questionWith question="${question}"/>

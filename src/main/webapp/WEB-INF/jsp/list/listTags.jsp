@@ -1,3 +1,5 @@
+<tags:header title="metas.tags.title" description="metas.default.description"/>
+
 <h2 class="title page-title replace"></h2>
 <ol class="tags-list complete-tags">
 	<c:forEach var="tagUsage" items="${tagsUsage}">

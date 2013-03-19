@@ -1,3 +1,5 @@
+<tags:header title="metas.moderate_answer.title" description="metas.default.description"/>
+
 <div class="history-original">
 	<a href="#" class="dropdown-trigger" data-target-id="question-original"><fmt:message key="moderation.show_question" /></a>
 	<div id="question-original" class="dropdown-target">

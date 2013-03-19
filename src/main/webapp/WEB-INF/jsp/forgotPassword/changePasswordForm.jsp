@@ -1,3 +1,5 @@
+<tags:header title="metas.change_password.title" description="metas.default.description"/>
+
 <h2 class="title page-title"><fmt:message key="change_password.form.title"/></h2>
 
 <form action="${linkTo[ForgotPasswordController].changePassword[id][token]}" method="POST" class="validated-form change-pass user-form">

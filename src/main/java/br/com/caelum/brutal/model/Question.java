@@ -211,6 +211,10 @@ public class Question extends Moderatable implements Votable, Commentable, Touch
 	public List<Tag> getTags() {
 		return information.getTags();
 	}
+	
+	public String getMostImportantTag(){
+		return information.getTags().get(0).getName();
+	}
 
 	public UpdateStatus updateWith(QuestionInformation information) {
 	    return new Updater().update(this, information);
