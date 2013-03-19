@@ -48,4 +48,8 @@ public class Flag {
 		return user.getId().equals(author.getId());
 	}
 	
+	String getReason() {
+		return reason;
+	}
+	
 }
