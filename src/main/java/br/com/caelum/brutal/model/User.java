@@ -12,6 +12,7 @@ import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.LOCATION
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.MARKED_ABOUT_MAX_LENGTH;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.NAME_LENGTH_MESSAGE;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.NAME_MAX_LENGTH;
+import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.NAME_MIN_LENGTH;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.NAME_REQUIRED;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.WEBSITE_LENGTH_MESSAGE;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.WEBSITE_MAX_LENGHT;
@@ -47,6 +48,7 @@ import br.com.caelum.brutal.sanitizer.HtmlSanitizer;
 @Entity
 public class User implements Identifiable {
 
+
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
 	private final DateTime createdAt = new DateTime();
 	
@@ -59,10 +61,10 @@ public class User implements Identifiable {
 	private Long id;
 
 	@NotEmpty(message = NAME_REQUIRED)
-	@Length(max = NAME_MAX_LENGTH, message = NAME_LENGTH_MESSAGE)
+	@Length(max = NAME_MAX_LENGTH, min = NAME_MIN_LENGTH, message = NAME_LENGTH_MESSAGE)
 	private String name;
 	
-	@Length(max = NAME_MAX_LENGTH, message = NAME_LENGTH_MESSAGE)
+	@Length(max = NAME_MAX_LENGTH, min = NAME_MIN_LENGTH, message = NAME_LENGTH_MESSAGE)
 	private String realName;
 	
 	@Length(min = WEBSITE_MIN_LENGTH, max = WEBSITE_MAX_LENGHT, message = WEBSITE_LENGTH_MESSAGE)
