@@ -1,6 +1,8 @@
 package br.com.caelum.brutal.model;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -77,6 +79,29 @@ public class QuestionTest  extends TestCase{
 		comoFaz.approve(comoFazEditedInformation);
 		
 		assertEquals(comoFaz.getLastTouchedBy().getId(), leo.getId());
+	}
+	
+	@Test
+	public void should_set_author_only_once() throws Exception {
+		Question q = question.build();
+		User original = user("original", "original@brutal.com");
+		q.setAuthor(original);
+		User other = user("other", "other@brutal.com");
+		q.setAuthor(other);
+		
+		assertEquals(original, q.getAuthor());
+	}
+	
+	@Test
+	public void should_verify_that_a_user_already_flagged_question() throws Exception {
+		Question q = question.build();
+		User author = user("author", "author@brutal.com", 1l);
+		User other = user("other", "other@brutal.com", 2l);
+		Flag flag = flag(FlagType.OTHER, author);
+		q.add(flag);
+		
+		assertTrue(q.alreadyFlaggedBy(author));
+		assertFalse(q.alreadyFlaggedBy(other));
 	}
 	
 }
