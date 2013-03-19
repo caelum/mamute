@@ -68,7 +68,7 @@
 						<c:if test="${not empty currentUser }">
 							<li class="nav-item user-item">
 								<tags:userProfileLink user="${currentUser}" htmlClass="user-name"/>
-								<span class="reputation">${currentUser.karma}</span>
+								<span class="reputation">(${currentUser.karma})</span>
 							</li>
 							<c:if test="${currentUser.moderator }">
 								<li class="nav-item">
