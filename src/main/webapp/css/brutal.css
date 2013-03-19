@@ -920,7 +920,7 @@ a.button.ask-a-question:hover{
 
 .about-text .karma {
 	display: inline-block;
-	width: 7%;
+	width: 2em;
 	text-align: center;
 	margin-bottom: 0;
 	color: #3A77A6;
