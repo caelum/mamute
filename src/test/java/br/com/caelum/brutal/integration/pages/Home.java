@@ -4,6 +4,7 @@ import static java.lang.Integer.parseInt;
 import static org.junit.Assert.fail;
 import static org.openqa.selenium.By.tagName;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -112,6 +113,36 @@ public class Home extends PageObject{
 		}
 		profileLink().click();
 		return new UserProfilePage(driver);
+	}
+
+	public List<HomeQuestion> allQuestions() {
+		List<HomeQuestion> questions = new ArrayList<>();
+		List<WebElement> questionItens = allByClassName("question-item");
+		for (WebElement item : questionItens) {
+			String title = item.findElement(By.className("title")).getText();
+			String views = item.findElement(By.className("votes")).getText();
+			Integer voteCount = Integer.valueOf(views.split("\n")[0].trim());
+			questions.add(new HomeQuestion(title, voteCount));
+		}
+		return questions;
+	}
+	
+	public static class HomeQuestion {
+		private final String title;
+		private final Integer voteCount;
+		public HomeQuestion(String title, Integer voteCount) {
+			this.title = title;
+			this.voteCount = voteCount;
+		}
+		
+		public String getTitle() {
+			return title;
+		}
+		
+		public Integer getVoteCount() {
+			return voteCount;
+		}
+		
 	}
 
 }

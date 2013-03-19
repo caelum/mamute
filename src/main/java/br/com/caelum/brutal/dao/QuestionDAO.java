@@ -14,7 +14,8 @@ import br.com.caelum.vraptor.ioc.Component;
 @SuppressWarnings("unchecked")
 public class QuestionDAO {
 	
-    private final Session session;
+    public static final long SPAM_BOUNDARY = -5;
+	private final Session session;
     private final WithAuthorDAO<Question> withAuthor;
 
     public QuestionDAO(Session session) {
@@ -36,7 +37,7 @@ public class QuestionDAO {
 	}
 
 	private String spamFilter() {
-		return "q.voteCount > -5";
+		return "q.voteCount > " + SPAM_BOUNDARY;
 	}
 
 	public List<Question> unsolved() {
