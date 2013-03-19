@@ -910,6 +910,14 @@ a.button.ask-a-question:hover{
 	width: 100%;
 }
 
+.about-faq{
+	line-height: 1.6em;
+}
+
+.about-faq li{
+	margin-bottom: 7%;
+}
+
 .about-text .karma {
 	display: inline-block;
 	width: 7%;
@@ -921,10 +929,6 @@ a.button.ask-a-question:hover{
 .about-text .about-question{
 	font-size: 1.2em;
 	color: #3A77A6;
-}
-
-.about-answer {
-	text-indent: 1.5em;
 }
 
 /*SHOW QUESTION*/

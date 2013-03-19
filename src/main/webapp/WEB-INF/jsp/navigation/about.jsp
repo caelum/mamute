@@ -104,18 +104,27 @@
 <div class="about-section">
 	<h2 class="title about-title"><fmt:message key="about.reputation.faq" /></h2>
 	<div class="about-text">
-		<ul>
+		<ul class="about-faq">
+			
 			<li>
-				<p class="about-question">Quais perguntas aparecem na primeira página?</p>
-				<p class="about-answer">Todas as perguntas feitas são mostradas na página inicial.</p>
+				<p class="about-question"><fmt:message key="about.faq.what_to_ask.question"/></p>
+				<p class="about-answer"><fmt:message key="about.faq.what_to_ask.answer"/></p>
 			</li>
 			<li>
-				<p class="about-question">Quando e como uma edição é aprovada ?</p>
-				<p class="about-answer">Uma edição só é aprovada automaticamente se feita pelo autor original ou por algum moderador. Em qualquer outro caso, a edição entrará num fila e passará por análise de nossos moderadores, por isso, é importante que você indique um motivo no campo de comentário da edição.</p>
+				<p class="about-question"><fmt:message key="about.faq.what_not_to_ask.question"/></p>
+				<p class="about-answer"><fmt:message key="about.faq.what_not_to_ask.answer"/></p>
 			</li>
 			<li>
-				<p class="about-question">Não consigo achar minha pergunta, o que aconteceu com ela ?</p>
-				<p class="about-answer">Provavelmente sua pergunta não era pertinente. Qualquer pergunte com mais de 5 pontos negativos é eliminada e não pode mais ser visualizada.</p>
+				<p class="about-question"><fmt:message key="about.faq.first_page_questions.question"/></p>
+				<p class="about-answer"><fmt:message key="about.faq.first_page_questions.answer"/></p>
+			</li>
+			<li>
+				<p class="about-question"><fmt:message key="about.faq.edition.question"/></p>
+				<p class="about-answer"><fmt:message key="about.faq.edition.answer"/></p>
+			</li>
+			<li>
+				<p class="about-question"><fmt:message key="about.faq.bad_question.question"/></p>
+				<p class="about-answer"><fmt:message key="about.faq.bad_question.answer"/></p>
 			</li>
 		</ul>
 	</div>
