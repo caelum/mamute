@@ -1,4 +1,4 @@
-<h2 class="title subheader question-title">${question.title}</h2>
+<h1 class="title subheader question-title">${question.title}</h1>
 <section class="first-content">
 	<tags:questionWith question="${question}"/>
 	<div class="subheader">
