@@ -90,6 +90,13 @@
 		padding: .15em 0;
 	}
 
+	/*About*/
+	.about-text .karma {
+		width: 8%;
+		font-size: 1.5em;
+		font-weight: bold;
+	}
+
 	/*Tag list*/
 	.complete-tag{
 		font-size:1.2em;
