@@ -151,14 +151,15 @@ public class User implements Identifiable {
     }
 	
 	public String getSmallPhoto() {
-	    return getPhoto("32x32");
+	    return getPhoto(32, 32);
 	}
 	
 	public String getMediumPhoto() {
-		return getPhoto("128x128");
+		return getPhoto(128, 128);
 	}
 	
-	public String getPhoto(String size) {
+	public String getPhoto(Integer width, Integer height) {
+		String size = width + "x" + height;
 	    if (photoUri == null) {
 	    		String digest = Digester.md5(email);
 	    		String robohash = "http://robohash.org/size_"+size+"/"+digest+".png?size="+size+"&bgset=any";

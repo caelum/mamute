@@ -4,6 +4,7 @@ import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.net.URL;
 import java.util.ArrayList;
 
 import org.junit.Before;
@@ -61,5 +62,29 @@ public class UserTest extends TestCase {
     public void should_verify_if_its_author_of_the_question(){
     	assertTrue(author.isAuthorOf(myQuestion));
     	assertFalse(author.isAuthorOf(myOtherQuestion));
+    }
+    
+    @Test
+	public void should_update_password_if_confirmation_matches() throws Exception {
+    	User user = user("name", "name@brutal.com");
+    	assertFalse(user.updateForgottenPassword("12345", "123456"));
+    	assertTrue(user.updateForgottenPassword("123456", "123456"));
+	}
+    
+    @Test
+	public void should_avatar_when_null_photo() throws Exception {
+    	User user = user("name", "name@brutal.com");
+    	String photo = user.getPhoto(10, 10);
+    	photo.startsWith("http://gravatar.com");
+	}
+    
+    @Test
+    public void should_not_use_gravatar_when_user_have_a_photo() throws Exception {
+    	User user = user("name", "name@brutal.com");
+    	String uri = "http://foo.com/bar.png";
+		user.setPhotoUri(new URL(uri));
+    	String photo =  user.getPhoto(10, 10);
+    	
+    	photo.equals(uri);
     }
 }
