@@ -1197,17 +1197,22 @@ a.button.ask-a-question:hover{
 	position: absolute;
 	width: 22%;
 	z-index:999;
+	padding: 10px;
 }
 
 .modal-flag input[type="radio"] {
-	float: left;
-	margin-top: 0;
-	width: auto;
+	display: inline-block;
+	width: 5%;
+	vertical-align: middle;
+}
+
+.modal-flag label { 
+	display:inline-block;
+	width: 90%;
 }
 
 .modal-flag textarea {
 	border: 1px solid #aaa;
-	margin-top: 7%;
 	width: 85%;
 }
 
