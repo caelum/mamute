@@ -9,7 +9,7 @@
 <div class="wmd">
 	<div class="wmd-panel">
 		<div id="wmd-button-bar"></div>
-		<ul class="button-hint-nav nav">
+<%-- 		<ul class="button-hint-nav nav">
 			<li class="button-hint nav-item" data-button-hint-id="links-button-hint"><fmt:message key="button_hint.links.text"/></li>
 			<li class="button-hint nav-item" data-button-hint-id="images-button-hint"><fmt:message key="button_hint.images.text"/></li>
 			<li class="button-hint nav-item" data-button-hint-id="styles-header-button-hint"><fmt:message key="button_hint.styles_headers.text"/></li>
@@ -26,7 +26,7 @@
 			<div id="blockquotes-button-hint" class="button-hint-text"><fmt:message key="button_hint.blockquotes.hint"/></div>
 			<div id="codes-button-hint" class="button-hint-text"><fmt:message key="button_hint.codes.hint"/></div>
 			<div id="html-button-hint" class="button-hint-text"><fmt:message key="button_hint.html.hint"/></div>
-		</div>
+		</div> --%>
 		<textarea class="${htmlClass} hintable wmd-input text-input" id="wmd-input"
 		data-hint-id="${hintId}" 
 		minlength="${minlength}"
