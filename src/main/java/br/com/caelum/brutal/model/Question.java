@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.model;
 
+import static br.com.caelum.brutal.sanitizer.QuotesSanitizer.sanitize;
 import static org.hibernate.annotations.CascadeType.SAVE_UPDATE;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ import br.com.caelum.brutal.model.interfaces.Moderatable;
 import br.com.caelum.brutal.model.interfaces.Taggable;
 import br.com.caelum.brutal.model.interfaces.Touchable;
 import br.com.caelum.brutal.model.interfaces.Votable;
+import br.com.caelum.brutal.sanitizer.QuotesSanitizer;
 
 @Entity
 public class Question extends Moderatable implements Votable, Commentable, Touchable, Taggable, Flaggable {
@@ -197,6 +199,10 @@ public class Question extends Moderatable implements Votable, Commentable, Touch
 
 	public String getMarkedDescription() {
 		return information.getMarkedDescription();
+	}
+
+	public String getSanitizedDescription() {
+		return sanitize(information.getDescription());
 	}
 
 	public String getTagsAsString() {
