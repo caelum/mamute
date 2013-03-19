@@ -14,6 +14,7 @@ import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.QuestionInformation;
+import br.com.caelum.brutal.model.QuestionViewCounter;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
@@ -39,11 +40,12 @@ public class QuestionController {
 	private final AuthorizationSystem authorizationSystem;
 	private final Validator validator;
 	private final FacebookAuthService facebook;
+	private final QuestionViewCounter viewCounter;
 
 	public QuestionController(Result result, QuestionDAO questionDAO, TagDAO tags, 
 			VoteDAO votes, LoggedUser currentUser, FacebookAuthService facebook,
 			TagsValidator tagsValidator, MessageFactory messageFactory,
-			AuthorizationSystem authorizationSystem, Validator validator) {
+			AuthorizationSystem authorizationSystem, Validator validator, QuestionViewCounter viewCounter) {
 		this.result = result;
 		this.questions = questionDAO;
 		this.tags = tags;
@@ -54,6 +56,7 @@ public class QuestionController {
 		this.messageFactory = messageFactory;
 		this.authorizationSystem = authorizationSystem;
 		this.validator = validator;
+		this.viewCounter = viewCounter;
 	}
 
 	@Get("/question/ask")
@@ -96,7 +99,7 @@ public class QuestionController {
 					question.getSluggedTitle());
 			return;
 		}
-		question.ping();
+		viewCounter.ping(question);
 		User author = currentUser.getCurrent();
 		result.include("currentVote", votes.previousVoteFor(questionId, author, Question.class));
 		result.include("answers", votes.previousVotesForAnswers(question, author));

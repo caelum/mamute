@@ -136,7 +136,7 @@ public class Question extends Moderatable implements Votable, Commentable, Touch
 		return answers;
 	}
 
-	public void ping() {
+	void ping() {
 		this.views++;
 	}
 
