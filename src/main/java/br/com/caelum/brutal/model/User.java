@@ -137,7 +137,6 @@ public class User implements Identifiable {
 
     public void setName(String name) {
 		this.name = name;
-		this.realName = name;
 		this.sluggedName = toSlug(name);
 		this.nameLastTouchedAt = new DateTime();
 	}
