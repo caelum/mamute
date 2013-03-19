@@ -23,7 +23,6 @@
 	<script src="<c:url value="/js/prettify.js"/>"></script>
 	<script src="<c:url value="/js/jquery.validate.min.js"/>"></script>
 	<script src="<c:url value="/js/form-validation.js"/>"></script>
-	<script src="<c:url value="/js/jquery.joyride-2.0.3.js"/>"></script>
 	<script src="<c:url value="/js/form-hints.js"/>"></script>
 	<script src="<c:url value="/js/edit-ajax.js"/>"></script>
 	<script src="<c:url value="/js/mark-as-solution.js"/>"></script>
