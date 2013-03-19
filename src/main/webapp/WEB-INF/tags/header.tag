@@ -5,7 +5,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@attribute name="title" type="java.lang.String" required="false" %>
 <%@attribute name="plainTitle" type="java.lang.String" required="false" %>
-<%@attribute name="description" type="java.lang.String" required="true" %>
+<%@attribute name="description" type="java.lang.String" required="false" %>
+<%@attribute name="plainDescription" type="java.lang.String" required="false" %>
 
 <!DOCTYPE html>
 <html>
@@ -17,7 +18,13 @@
 	<c:if test="${empty plainTitle}">
 		<title><fmt:message key="metas.generic.title"/> - <fmt:message key="${title}"/></title>
 	</c:if>
-	<meta name="description" content="${description}">
+	<c:if test="${not empty plainDescription}">
+		<meta name="description" content="${plainDescription}">
+	</c:if>
+	<c:if test="${empty plainDescription}">
+		<meta name="description" content="<fmt:message key="${description}"/>">
+	</c:if>
+	
 	<link rel="stylesheet" href="<c:url value="/css/reset.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/font-awesome.css"/>">
 	<link rel=" stylesheet" type="text/css" href="<c:url value="/css/joyride-2.0.3.css" />">
