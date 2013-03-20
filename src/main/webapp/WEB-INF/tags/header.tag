@@ -7,6 +7,7 @@
 <%@attribute name="plainTitle" type="java.lang.String" required="false" %>
 <%@attribute name="description" type="java.lang.String" required="false" %>
 <%@attribute name="plainDescription" type="java.lang.String" required="false" %>
+<%@attribute name="facebookMetas" type="java.lang.Boolean" required="false" %>
 
 <!DOCTYPE html>
 <html>
@@ -23,6 +24,14 @@
 	</c:if>
 	<c:if test="${empty plainDescription && not empty description}">
 		<meta name="description" content="<fmt:message key="${description}"/>">
+	</c:if>
+	<c:if test="${not empty facebookMetas || facebookMetas == true}">
+		<meta property="og:site_name" content="guj.com.br">
+	    <meta property="og:title" content="<fmt:message key="metas.generic.title"/>">
+	    <meta property="og:description" content="<fmt:message key="metas.default.description"/>">
+	    <meta property="og:url" content="http://guj.com.br">
+	    <meta property="og:type" content="forum">
+	    <meta property="og:image" content="<c:url value="/images/guj-logo.png"/>">
 	</c:if>
 	
 	<link rel="stylesheet" href="<c:url value="/css/reset.css"/>">

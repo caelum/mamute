@@ -1,4 +1,4 @@
-<tags:header title="metas.home.title" description="metas.default.description"/>
+<tags:header facebookMetas="${true}" title="metas.home.title" description="metas.default.description"/>
 
 <section class="first-content">
 	<div class="subheader">
