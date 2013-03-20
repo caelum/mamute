@@ -111,7 +111,6 @@ public class TagDAOTest extends DatabaseTestCase{
 	@Test
 	public void should_get_all_tag_names() throws Exception {
 		List<String> tagsNames = tags.allNames();
-		
 		assertEquals(2, tagsNames.size());
 		assertEquals(java.getName(), tagsNames.get(0));
 		assertEquals(ruby.getName(), tagsNames.get(1));

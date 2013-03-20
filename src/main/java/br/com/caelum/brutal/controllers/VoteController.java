@@ -33,31 +33,31 @@ public class VoteController {
 	}
 
 	@MinimumReputation(PermissionRulesConstants.VOTE_UP)
-	@Post("/question/{id}/up")
+	@Post("/pergunta/{id}/voto/positivo")
 	public void voteQuestionUp(Long id) {
 		tryToVoteVotable(id, VoteType.UP, Question.class);
 	}
 
 	@MinimumReputation(PermissionRulesConstants.VOTE_DOWN)
-	@Post("/question/{id}/down")
+	@Post("/pergunta/{id}/voto/negativo")
 	public void voteQuestionDown(Long id) {
 		tryToVoteVotable(id, VoteType.DOWN, Question.class);
 	}
 
 	@MinimumReputation(PermissionRulesConstants.VOTE_UP)
-	@Post("/answer/{id}/up")
+	@Post("/resposta/{id}/voto/positivo")
 	public void voteAnswerUp(Long id) {
 		tryToVoteVotable(id, VoteType.UP, Answer.class);
 	}
 
 	@MinimumReputation(PermissionRulesConstants.VOTE_DOWN)
-	@Post("/answer/{id}/down")
+	@Post("/resposta/{id}/voto/negativo")
 	public void voteAnswerDown(Long id) {
 		tryToVoteVotable(id, VoteType.DOWN, Answer.class);
 	}
 	
 	@MinimumReputation(PermissionRulesConstants.VOTE_UP)
-	@Post("/comment/{id}/up")
+	@Post("/comentario/{id}/voto/positivo")
 	public void voteCommentUp(Long id) {
 		tryToVoteVotable(id, VoteType.UP, Comment.class);
 	}

@@ -8,7 +8,7 @@ import org.openqa.selenium.WebElement;
 
 public class NewQuestionPage extends PageObject {
 	
-	public static final String URL = "/question/ask";
+	public static final String URL = "/perguntar";
 	private WebElement newQuestionForm;
 
 	public NewQuestionPage(WebDriver driver) {

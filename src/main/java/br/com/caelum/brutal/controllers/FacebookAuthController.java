@@ -29,7 +29,8 @@ public class FacebookAuthController {
 	private final MessageFactory messageFactory;
 
 	public FacebookAuthController(FacebookAuthService facebook, UserDAO users, 
-			LoginMethodDAO loginMethods, Result result, Access access, MessageFactory messageFactory) {
+			LoginMethodDAO loginMethods, Result result, Access access,
+			MessageFactory messageFactory) {
 		this.facebook = facebook;
 		this.users = users;
 		this.loginMethods = loginMethods;
@@ -38,7 +39,7 @@ public class FacebookAuthController {
 		this.messageFactory = messageFactory;
 	}
 	
-	@Get("/signup/facebook")
+	@Get("/cadastrar/facebook")
 	public void signupViaFacebook(String code) {
 		String rawToken = facebook.buildToken(code);
 		SignupInfo signupInfo = facebook.getSignupInfo();

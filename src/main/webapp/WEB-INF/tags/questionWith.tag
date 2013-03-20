@@ -6,7 +6,7 @@
 <c:set var="isAuthor" value="${question.author.id == currentUser.id}" />
 <section class="post-area question-area">
 	<div class="post-meta">
-		<tags:voteFor item="${question}" type="question" vote="${currentVote}"/>
+		<tags:voteFor item="${question}" type="pergunta" vote="${currentVote}"/>
 	</div>
 	<div class="post-container">
 		<div class="post-text question-description" id="question-description-${question.id }">${question.markedDescription}</div>

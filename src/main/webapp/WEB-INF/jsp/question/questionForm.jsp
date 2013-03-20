@@ -1,2 +1,2 @@
 <tags:header title="metas.question.title"/>
-<tags:questionForm uri="/question/ask" />
+<tags:questionForm uri="${linkTo[QuestionController].newQuestion}" />

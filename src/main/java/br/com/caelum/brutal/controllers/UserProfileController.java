@@ -43,7 +43,7 @@ public class UserProfileController {
 		this.infoValidator = infoValidator;
 	}
 	
-	@Get("/users/{id}/{sluggedName}")
+	@Get("/usuario/{id}/{sluggedName}")
 	public void showProfile(Long id, String sluggedName){
 		User selectedUser = users.findById(id);
 		String correctSluggedName = selectedUser.getSluggedName();
@@ -59,19 +59,19 @@ public class UserProfileController {
 		result.include("selectedUser", selectedUser);
 	}
 	
-	@Get("/users/{id}/{sluggedName}/questions/{orderByWhat}")
+	@Get("/usuario/{id}/{sluggedName}/perguntas/{orderByWhat}")
 	public void questionsByVotesWith(Long id, String sluggedName, OrderType orderByWhat){
 		User author = users.findById(id);
 		result.use(json()).withoutRoot().from(questions.withAuthorBy(author, orderByWhat)).include("information").serialize();
 	}
 	
-	@Get("/users/{id}/{sluggedName}/answers/{orderByWhat}")
+	@Get("/usuario/{id}/{sluggedName}/respostas/{orderByWhat}")
 	public void answersByVotesWith(Long id, String sluggedName, OrderType orderByWhat){
 		User author = users.findById(id);
 		result.use(json()).withoutRoot().from(answers.withAuthorBy(author, orderByWhat)).include("question", "question.information").serialize();
 	}
 	
-	@Get("/users/edit/{id}")
+	@Get("/usuario/editar/{id}")
 	public void editProfile(Long id) {
 		User user = users.findById(id);
 		if (!user.getId().equals(currentUser.getCurrent().getId())){
@@ -81,7 +81,7 @@ public class UserProfileController {
 		result.include("user", user);
 	}
 	
-	@Post("/users/edit/{id}")
+	@Post("/usuario/editar/{id}")
 	public void editProfile(Long id, String name, String realName, String email, 
 			String website, String location, DateTime birthDate, String description) {
 		User user = users.findById(id);

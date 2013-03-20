@@ -77,7 +77,7 @@ public class ForgotPasswordTest extends AcceptanceTestBase implements ServerInfo
     	SESSION.beginTransaction();
     	Query query = SESSION.createQuery("select u.id, u.forgotPasswordToken from User u where u.email=:email");
         Object[] result = (Object[]) query.setParameter("email", validEmail).uniqueResult();
-        String recoverUrl = SERVER.urlFor("/newpassword/"+result[0]+"/"+result[1]);
+        String recoverUrl = SERVER.urlFor("/mudar-senha/"+result[0]+"/"+result[1]);
         SESSION.getTransaction().commit();
         return recoverUrl;
     }

@@ -75,7 +75,7 @@ $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
 	}
 });
 
-$.get("/allTagNames", function(tags){ALL_TAGS = tags});
+$.get("/tags/todos-nomes", function(tags){ALL_TAGS = tags});
 
 
 $(function(){prettyPrint()});

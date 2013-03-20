@@ -3,7 +3,7 @@
 <%@attribute name="uri" required="true" type="java.lang.String" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 
-<form class="validated-form question-form hinted-form" action='<c:url value="${uri}"/>' method="post" >
+<form class="validated-form question-form hinted-form" action='${uri}' method="post" >
 	<label for="question-title"><fmt:message key="question.title.label" /></label>
 	<input id="question-title" type="text" class="required hintable text-input" value="${question.title }" data-hint-id="question-title-hint" minlength="15" maxlength="150" name="title">
 	<tags:markDown value="${question.description}" hintId="question-description-hint" htmlClass="required" minlength="30"/>

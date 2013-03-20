@@ -7,7 +7,7 @@
 	<a class="requires-login requires-karma author-cant
 		      up-vote up-arrow arrow vote-option 
 		      container ${(not empty vote and vote.countValue == 1) ? 'voted' : '' }" 
-		      data-value="up" data-author="${item.author.id == currentUser.id}"
+		      data-value="positivo" data-author="${item.author.id == currentUser.id}"
 		      data-type="${type}" 
 		      data-karma="10" 
 		      data-id="${item.id}">
@@ -17,7 +17,7 @@
 	<a class="requires-login author-cant down-vote down-arrow
 	 		  arrow vote-option container requires-karma
 	 		  ${(not empty vote and vote.countValue == -1) ? 'voted' : '' }" 
-	 		  data-value="down"  
+	 		  data-value="negativo"  
 	 		  data-author="${item.author.id == currentUser.id}"
 	 		  data-type="${type}" 
 		      data-karma="50" 

@@ -6,7 +6,7 @@
 <%@attribute name="vote" type="br.com.caelum.brutal.model.Vote" required="true" %>
 <section class="post-area">
 	<div class="post-meta">
-		<tags:voteFor item="${answer}" type="answer" vote="${vote}"/>
+		<tags:voteFor item="${answer}" type="resposta" vote="${vote}"/>
 		<span class="icon-ok-sign icon-2x solution-mark container"></span>
 		<c:if test="${answer.question.author.id == currentUser.id}">
 			<a class="mark-as-solution requires-login"  href="${linkTo[AnswerController].markAsSolution}">

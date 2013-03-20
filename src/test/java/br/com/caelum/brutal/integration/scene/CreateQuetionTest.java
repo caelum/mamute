@@ -54,14 +54,15 @@ public class CreateQuetionTest extends AuthenticatedAcceptanceTest {
 	    NewQuestionPage newQuestionPage = home()
 	        .toNewQuestionPage()
 	        .typeDescription("description");
+	    Thread.sleep(1000);
 	    boolean descriptionHintIsVisible = newQuestionPage.descriptionHintIsVisible();
 	    boolean titleHintIsVisible = newQuestionPage.titleHintIsVisible();
 	    assertTrue(descriptionHintIsVisible);
 	    assertFalse(titleHintIsVisible);
 	    
-	    Thread.sleep(1000);
 	    
 	    newQuestionPage.typeTitle("title");
+	    Thread.sleep(1000);
 	    descriptionHintIsVisible = newQuestionPage.descriptionHintIsVisible();
 	    titleHintIsVisible = newQuestionPage.titleHintIsVisible();
 	    assertFalse(descriptionHintIsVisible);

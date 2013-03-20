@@ -25,7 +25,6 @@ import br.com.caelum.brutal.model.interfaces.Moderatable;
 import br.com.caelum.brutal.model.interfaces.Taggable;
 import br.com.caelum.brutal.model.interfaces.Touchable;
 import br.com.caelum.brutal.model.interfaces.Votable;
-import br.com.caelum.brutal.sanitizer.QuotesSanitizer;
 
 @Entity
 public class Question extends Moderatable implements Votable, Commentable, Touchable, Taggable, Flaggable {

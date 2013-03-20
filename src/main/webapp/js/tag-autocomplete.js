@@ -13,7 +13,7 @@ $("*:not(.autocomplete)").click(function(){
 
 function suggestsAutoComplete(target, tagChunk, input){
 	if(tagChunk == undefined || tagChunk == " " || !tagChunk) return;
-	$.get("/tagsLike/"+tagChunk,function(suggestions){
+	$.get("/tags-similares/"+tagChunk,function(suggestions){
 		if(suggestions.length > 0){
 			showSuggestions(suggestions, target);
 		} 

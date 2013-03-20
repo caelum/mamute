@@ -13,7 +13,7 @@ public class SearchController {
         this.result = result;
     }
 
-    @Get("/search")
+    @Get("/buscar")
     public void search(String query) {
         result.include("query", query);
     }

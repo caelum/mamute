@@ -21,13 +21,13 @@ public class TagController {
 		this.tags = tags;
 	}
 	
-	@Get("/tagsLike/{tagChunk}")
+	@Get("/tags-similares/{tagChunk}")
 	public void getTagsLike(String tagChunk){
 		List<Tag> suggestions = tags.findTagsLike(tagChunk);
 		result.use(json()).withoutRoot().from(suggestions).serialize();
 	}
 	
-	@Get("/allTagNames")
+	@Get("/tags/todos-nomes")
 	public void getAllTagNames(){
 		result.use(json()).withoutRoot().from(tags.allNames()).serialize();
 	}

@@ -1,4 +1,7 @@
 $(function(){
+	var ANSWER = "respostas",
+		QUESTION = "perguntas";
+	
 	$(".order-by").click(function(event){
 		event.preventDefault();
 		var self = $(this);
@@ -25,16 +28,16 @@ $(function(){
 	
 	function getHref(type, question, item){
 		var answerAnchor;
-		if(type == "answers"){
+		if(type == ANSWER){
 			answerAnchor = "#answer-"+item.id;
 		}
-		return "/questions/"+question.id+"/"+question.information.sluggedTitle+answerAnchor;
+		return "/"+question.id+"-"+question.information.sluggedTitle+answerAnchor;
 	}
 	
 	function getQuestion(type, item){
-		if(type == "questions"){
+		if(type == QUESTION){
 			return item;
-		}else if(type == "answers"){
+		}else if(type == ANSWER){
 			return item.question;
 		}
 	}

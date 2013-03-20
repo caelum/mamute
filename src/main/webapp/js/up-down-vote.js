@@ -6,7 +6,7 @@ function vote(link) {
 	var vote = link.data("value");
 	var type = link.data("type");
 	var id = link.data("id");
-	var params = "/"+ type +"/"+ id +"/"+ vote;
+	var params = "/"+ type +"/"+ id +"/voto/"+ vote;
 	$.ajax(""+ params, {
 		complete: function(jqXHR, textStatus) {
 			if (jqXHR.status == "200") {
