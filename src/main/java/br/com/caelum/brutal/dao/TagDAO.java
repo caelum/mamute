@@ -22,12 +22,8 @@ public class TagDAO {
 	}
 	
 	public Tag findByName(String name) {
-		Tag tag = (Tag) session.createQuery("from Tag t where t.name like :name").setString("name", name).uniqueResult();
+		Tag tag = (Tag) session.createQuery("from Tag t where t.name=:name").setString("name", name).uniqueResult();
 		return tag;
-	}
-
-	private void save(Tag tag) {
-		session.save(tag);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -59,6 +55,7 @@ public class TagDAO {
 		return query.list();
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<TagUsage> all() {
 		Query query = session.createQuery("select new br.com.caelum.brutal.model.TagUsage(tag, tag.usageCount) from Tag tag " +
 				" order by tag.usageCount desc");
@@ -67,14 +64,17 @@ public class TagDAO {
 
 	public List<Tag> findAllByNames(String tagNames) {
 		List<Tag> tags = new ArrayList<>();
-		if(tagNames == null || tagNames.isEmpty()) return tags;
-		for (String tagName : tagNames.split(" ")) {
+		if (tagNames == null || tagNames.isEmpty()) 
+			return tags;
+		for (String tagName : tagNames.split("\\s+")) {
 			Tag newTag = findByName(tagName);
-			tags.add(newTag);
+			if (newTag != null)
+				tags.add(newTag);
 		}
 		return tags;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<String> allNames() {
 		return session.createQuery("select t.name from Tag t").list();
 	}

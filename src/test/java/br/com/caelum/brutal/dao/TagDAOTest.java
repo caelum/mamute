@@ -1,7 +1,7 @@
 package br.com.caelum.brutal.dao;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.List;
@@ -99,21 +99,25 @@ public class TagDAOTest extends DatabaseTestCase{
 	}
 	
 	@Test
-	public void should_load_all_tags_with_the_name_in_the_provided_string() throws Exception {
-		List<Tag> tagsByNames = tags.findAllByNames("java ruby doesntexist");
-		
-		assertEquals(3, tagsByNames.size());
-		assertEquals(java.getId(), tagsByNames.get(0).getId());
-		assertEquals(ruby.getId(), tagsByNames.get(1).getId());
-		assertNull(tagsByNames.get(2));
-	}
-	
-	@Test
 	public void should_get_all_tag_names() throws Exception {
 		List<String> tagsNames = tags.allNames();
 		assertEquals(2, tagsNames.size());
 		assertEquals(java.getName(), tagsNames.get(0));
 		assertEquals(ruby.getName(), tagsNames.get(1));
+	}
+	
+	@Test
+	public void should_get_empty_list_for_nonexistant_names() throws Exception {
+		List<Tag> found = tags.findAllByNames("blabla lala");
+		assertTrue(found.isEmpty());
+	}
+	
+	@Test
+	public void should_split_two_spaces() throws Exception {
+		List<Tag> found = tags.findAllByNames("java  ruby");
+		assertEquals(2, found.size());
+		assertEquals("java", found.get(0).getName());
+		assertEquals("ruby", found.get(1).getName());
 	}
 
 	private Question questionWith(List<Tag> tags) {
