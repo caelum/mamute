@@ -3,8 +3,7 @@
 <%@attribute name="uri" required="true" type="java.lang.String"%>
 <%@attribute name="edit" required="false" type="java.lang.String"%>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
-
-<h2 class="title page-title"><fmt:message key="newanswer.answer.your_answer"/></h2>
+<h2 class="title page-title subheader"><fmt:message key="newanswer.answer.your_answer"/></h2>
 <form action="${uri}" method="post" class="validated-form hinted-form answer-form">
 	<tags:markDown value="${answer.description}" hintId="newanswer-answer-hint" htmlClass="required" minlength="30"/>
 	

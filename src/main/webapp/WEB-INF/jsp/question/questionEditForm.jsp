@@ -1,6 +1,6 @@
 <tags:header title="metas.question_edit.title"/>
 
-<h2 class="title page-title"><fmt:message key="question.edit_form.title"/></h2>
+<h2 class="title subheader page-title"><fmt:message key="question.edit_form.title"/></h2>
 
 <form class="validated-form question-form hinted-form" action='<c:url value="/question/edit/${question.id}"/>' method="post" >
 	<label for="question-title"><fmt:message key="question.title.label"/></label>
