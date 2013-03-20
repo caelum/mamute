@@ -28,6 +28,7 @@ import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.view.Results;
 
 @Resource
 public class QuestionController {
@@ -82,12 +83,14 @@ public class QuestionController {
 		List<String> splitedTags = splitTags(tagNames);
 		List<Tag> loadedTags = tags.findAllByNames(splitedTags);
 		QuestionInformation information = new QuestionInformation(title, description, this.currentUser, loadedTags, comment);
+		UpdateStatus status = original.updateWith(information);
 		
+		result.include("editComment", comment);
+		result.include("question", original);
 		validator.validate(information);
 		validate(loadedTags, splitedTags);
-		validator.onErrorRedirectTo(this).questionEditForm(id);
+		validator.onErrorUse(Results.page()).of(this.getClass()).questionEditForm(id);
 		
-		UpdateStatus status = original.updateWith(information);
 		questions.save(original);
 		result.include("messages",
 				Arrays.asList(messageFactory.build("confirmation", status.getMessage())));
