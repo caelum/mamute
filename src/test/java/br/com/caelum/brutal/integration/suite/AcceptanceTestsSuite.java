@@ -11,7 +11,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import br.com.caelum.brutal.integration.scene.AnonymousTest;
 import br.com.caelum.brutal.integration.scene.AuthTest;
 import br.com.caelum.brutal.integration.scene.CommentQuestionTest;
-import br.com.caelum.brutal.integration.scene.CreateQuetionTest;
+import br.com.caelum.brutal.integration.scene.CreateQuestionTest;
 import br.com.caelum.brutal.integration.scene.EditAnswerTest;
 import br.com.caelum.brutal.integration.scene.EditQuestionTest;
 import br.com.caelum.brutal.integration.scene.ForgotPasswordTest;
@@ -24,7 +24,7 @@ import br.com.caelum.brutal.integration.scene.VoteUpDownTest;
 	AnonymousTest.class, 
 	AuthTest.class, 
 	CommentQuestionTest.class,
-	CreateQuetionTest.class,
+	CreateQuestionTest.class,
 	EditAnswerTest.class,
 	EditQuestionTest.class,
 	ForgotPasswordTest.class,

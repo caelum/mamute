@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import br.com.caelum.brutal.integration.pages.NewQuestionPage;
 
-public class CreateQuetionTest extends AuthenticatedAcceptanceTest {
+public class CreateQuestionTest extends AuthenticatedAcceptanceTest {
 
 	@Before
 	public void setup(){
