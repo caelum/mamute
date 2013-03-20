@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.validators;
 
+import java.util.List;
+
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.vraptor.Validator;
@@ -15,16 +17,21 @@ public class TagsValidator {
 		this.messageFactory = messageFactory;
 	}
 	
-	public boolean validate(Tag tag) {
-		if (tag == null) {
-			validator.add(messageFactory.build("error", "tag.errors.doesnt_exist"));
-			return false;
+	public boolean validate(List<Tag> found, List<String> wanted) {
+		for (String name : wanted) {
+			if (!isPresent(name, found)) {
+				validator.add(messageFactory.build("error", "tag.errors.doesnt_exist", name));
+			}
 		}
-		if(tag.getName() == null || tag.getName().isEmpty()){
-			validator.add(messageFactory.build("error", "tag.errors.empty_name"));
-		}
-		validator.validate(tag);
 		return !validator.hasErrors();
+	}
+
+	private boolean isPresent(String name, List<Tag> found) {
+		for (Tag tag : found) {
+			if (tag.getName().equals(name))
+				return true;
+		}
+		return false;
 	}
 
 	public <T> T onErrorRedirectTo(T controller){

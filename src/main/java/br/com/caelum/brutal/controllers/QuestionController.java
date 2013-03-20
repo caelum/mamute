@@ -84,7 +84,7 @@ public class QuestionController {
 		QuestionInformation information = new QuestionInformation(title, description, this.currentUser, loadedTags, comment);
 		
 		validator.validate(information);
-		validate(loadedTags);
+		validate(loadedTags, splitedTags);
 		validator.onErrorRedirectTo(this).questionEditForm(id);
 		
 		UpdateStatus status = original.updateWith(information);
@@ -122,7 +122,7 @@ public class QuestionController {
 		
 		result.include("question", question);
 		validator.validate(information);
-		validate(foundTags);
+		validate(foundTags, splitedTags);
 		validator.onErrorRedirectTo(this).questionForm();
 	
 		questions.save(question);
@@ -133,12 +133,7 @@ public class QuestionController {
 		return asList(tagNames.split("\\s+"));
 	}
 
-	private boolean validate(List<Tag> tags) {
-		for (Tag tag : tags) {
-			if (!tagsValidator.validate(tag)) {
-				return false;
-			}
-		}
-		return true;
+	private boolean validate(List<Tag> foundTags, List<String> splitedTags) {
+		return tagsValidator.validate(foundTags, splitedTags);
 	}
 }
