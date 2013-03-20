@@ -22,7 +22,7 @@
 					<a class="post-action edit requires-login requires-karma"
 							data-author="${isAuthor}"
 							data-karma="20" 
-							href="<c:url value="/answer/edit/${answer.id}"/>"><fmt:message key="edit" /></a>
+							href="${linkTo[AnswerController].answerEditForm[answer.id]}"><fmt:message key="edit" /></a>
 				</li>
 				<li class="nav-item">
 					<c:if test="${currentUser != null && !answer.alreadyFlaggedBy(currentUser)}">
@@ -30,11 +30,11 @@
 						data-modal-id="answer-flag-modal${answer.id}" 
 						class="post-action author-cant requires-login flag-it"><fmt:message key="flag" /></a>
 					</c:if>
-					<tags:flagItFor type="Answer" modalId="answer-flag-modal${answer.id}" flaggable="${answer}"/>
+					<tags:flagItFor type="resposta" modalId="answer-flag-modal${answer.id}" flaggable="${answer}"/>
 				</li>
 			</ul>
 			<tags:touchesFor touchable="${answer}" />
 		</div>
-		<tags:add-a-comment item="${answer}"/>
+		<tags:add-a-comment type="resposta" item="${answer}"/>
 	</div>
 </section>

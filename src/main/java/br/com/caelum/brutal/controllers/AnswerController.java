@@ -53,7 +53,7 @@ public class AnswerController {
 	}
 
 
-	@Get("/answer/edit/{id}")
+	@Get("/resposta/editar/{id}")
 	public void answerEditForm(Long id) {
 		Answer answer = answers.getById(id);
 		authorizationSystem.canEdit(answer, PermissionRulesConstants.EDIT_ANSWER);
@@ -61,7 +61,7 @@ public class AnswerController {
 		result.include("answer",  answers.getById(id));
 	}
 
-	@Post("/answer/edit/{id}")
+	@Post("/resposta/editar/{id}")
 	public void edit(Long id, String description, String comment) {
 		Answer original = answers.getById(id);
 		authorizationSystem.canEdit(original, PermissionRulesConstants.EDIT_ANSWER);
@@ -81,7 +81,7 @@ public class AnswerController {
 		result.redirectTo(QuestionController.class).showQuestion(originalQuestion.getId(), originalQuestion.getSluggedTitle());
 	}
 	
-	@Post("/question/answer/{question.id}")
+	@Post("/responder/{question.id}")
 	@LoggedAccess
 	@ReputationEvent(ReputationEvents.NEW_ANSWER)
 	public void newAnswer(Question question, String description) {
@@ -96,7 +96,7 @@ public class AnswerController {
                 loadedQuestion.getSluggedTitle());
 	}
 	
-	@Post("/question/answer/markAsSolution/{solutionId}")
+	@Post("/marcar-como-solucao/{solutionId}")
 	public void markAsSolution(Long solutionId) {
 		Answer solution = answers.getById(solutionId);
 		Question question = solution.getQuestion();
@@ -119,7 +119,6 @@ public class AnswerController {
         User author = solution.getAuthor();
         author.descreaseKarma(calculator.karmaForSolutionAuthor(solution));
     }
-
 
     private void increaseKarmaOfUsersInvolved(Answer solution) {
         int karmaForSolutionAuthor = calculator.karmaForSolutionAuthor(solution);

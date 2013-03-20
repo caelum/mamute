@@ -41,11 +41,11 @@ public class ForgotPasswordController {
 		this.messageFactory = messageFactory;
 	}
 
-	@Get("/forgotpassword")
+	@Get("/esqueci-minha-senha")
 	public void forgotPasswordForm() {
 	}
 
-	@Post("/forgotpassword")
+	@Post("/esqueci-minha-senha")
 	public void requestEmailWithToken(String email) {
 		User user = users.loadByEmail(email);
 
@@ -69,7 +69,7 @@ public class ForgotPasswordController {
 		}	
 	}
 
-	@Get("/newpassword/{id}/{token}")
+	@Get("/mudar-senha/{id}/{token}")
 	public void changePasswordForm(Long id, String token) {
 		validateTokenAndGetUser(id, token);
 		
@@ -77,7 +77,7 @@ public class ForgotPasswordController {
 		result.include("token", token);
 	}
 	
-	@Post("/newpassword/{id}/{token}")
+	@Post("/mudar-senha/{id}/{token}")
 	public void changePassword(Long id, String token, String password, String passwordConfirmation) {
 		User user = validateTokenAndGetUser(id, token);
 
@@ -92,7 +92,8 @@ public class ForgotPasswordController {
 		result.include("messages", Arrays.asList(
 					messageFactory.build("confirmation", "forgot_password.password_changed")
 				));
-	    result.forwardTo(AuthController.class).login(user.getEmail(), password, "");
+		linker.linkTo(ListController.class).home();
+	    result.forwardTo(AuthController.class).login(user.getEmail(), password, linker.get());
 	}
 	
 	private String tokenUrlFor(User user) {

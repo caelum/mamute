@@ -2,8 +2,8 @@
 <tags:header title="metas.unmoderated.title"/>
 
 <tags:tabs titleKey="moderation">
-	<a href="${linkTo[HistoryController].unmoderated['question']}"><fmt:message key="moderation.questions"/></a>
-	<a href="${linkTo[HistoryController].unmoderated['answer']}"><fmt:message key="moderation.answers"/></a>
+	<a href="${linkTo[HistoryController].unmoderated['pergunta']}"><fmt:message key="moderation.questions"/></a>
+	<a href="${linkTo[HistoryController].unmoderated['resposta']}"><fmt:message key="moderation.answers"/></a>
 	<a href="${linkTo[FlagController].topFlaggedComments}"><fmt:message key="moderation.flagged.comments"/></a>
 </tags:tabs>
 
@@ -12,13 +12,13 @@
 		<li class="pending">
 			<c:if test="${type eq 'question'}">
 				<h3 class="title item-title">
-					<a href="${linkTo[HistoryController].similarQuestions[entry.key.id]}">${entry.key.title}</a>
+					<a href="${linkTo[HistoryController].similar['pergunta'][entry.key.id]}">${entry.key.title}</a>
 				</h3>
 				<tags:tagsFor taggable="${entry.key}"></tags:tagsFor>
 			</c:if>
 			<c:if test="${type eq 'answer'}">
 				<h3 class="title item-title">
-					<a href="${linkTo[HistoryController].similarAnswers[entry.key.id]}">${entry.key.question.title}</a>
+					<a href="${linkTo[HistoryController].similar['resposta'][entry.key.id]}">${entry.key.question.title}</a>
 				</h3>
 				<tags:tagsFor taggable="${entry.key.question}"></tags:tagsFor>
 			</c:if>

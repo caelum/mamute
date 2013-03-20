@@ -59,12 +59,28 @@ public class QuestionController {
 		this.viewCounter = viewCounter;
 	}
 
-	@Get("/question/ask")
+	@Get("/perguntar")
 	@LoggedAccess
 	public void questionForm() {
 	}
+	
+	@Post("/perguntar")
+	@LoggedAccess
+	@ReputationEvent(ReputationEvents.NEW_QUESTION)
+	public void newQuestion(String title, String description, String tagNames) {
+		List<Tag> loadedTags = tags.findAllByNames(tagNames);
+		QuestionInformation information = new QuestionInformation(title, description, currentUser, loadedTags, "new question");
+		
+		validator.validate(information);
+		validate(loadedTags);
+		validator.onErrorRedirectTo(this).questionForm();
+	
+		Question question = new Question(information, currentUser.getCurrent());
+		questions.save(question);
+		result.redirectTo(this).showQuestion(question.getId(), question.getSluggedTitle());
+	}
 
-	@Get("/question/edit/{questionId}")
+	@Get("/pergunta/editar/{questionId}")
 	public void questionEditForm(Long questionId) {
 		Question question = questions.getById(questionId);
 		authorizationSystem.canEdit(question, PermissionRulesConstants.EDIT_QUESTION);
@@ -72,8 +88,8 @@ public class QuestionController {
 		result.include("question",  questions.getById(questionId));
 	}
 
-	@Post("/question/edit/{id}")
-	public void edit(String title, String description, String tagNames, Long id, String comment) {
+	@Post("/pergunta/editar/{id}")
+	public void edit(Long id, String title, String description, String tagNames, String comment) {
 		Question original = questions.getById(id);
 		authorizationSystem.canEdit(original, PermissionRulesConstants.EDIT_QUESTION);
 		
@@ -91,7 +107,7 @@ public class QuestionController {
 		result.redirectTo(this).showQuestion(id, original.getSluggedTitle());
 	}
 	
-	@Get("/questions/{questionId}/{sluggedTitle}")
+	@Get("/{questionId}-{sluggedTitle}")
 	public void showQuestion(Long questionId, String sluggedTitle) {
 		Question question = questions.getById(questionId);
 		if (!question.getSluggedTitle().equals(sluggedTitle)) {
@@ -108,22 +124,7 @@ public class QuestionController {
 		result.include("facebookUrl", facebook.getOauthUrl());
 	}
 
-	@Post("/question/ask")
-	@LoggedAccess
-	@ReputationEvent(ReputationEvents.NEW_QUESTION)
-	public void newQuestion(String title, String description, String tagNames) {
-		List<Tag> loadedTags = tags.findAllByNames(tagNames);
-		QuestionInformation information = new QuestionInformation(title, description, currentUser, loadedTags, "new question");
-		
-		validator.validate(information);
-		validate(loadedTags);
-		validator.onErrorRedirectTo(this).questionForm();
 	
-		Question question = new Question(information, currentUser.getCurrent());
-		questions.save(question);
-		result.redirectTo(this).showQuestion(question.getId(), question.getSluggedTitle());
-	}
-
 	private boolean validate(List<Tag> tags) {
 		for (Tag tag : tags) {
 			if (!tagsValidator.validate(tag)) {

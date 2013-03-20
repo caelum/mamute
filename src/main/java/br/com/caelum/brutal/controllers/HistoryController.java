@@ -8,9 +8,8 @@ import br.com.caelum.brutal.auth.ModeratorOrKarmaAccess;
 import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.dao.InformationDAO;
 import br.com.caelum.brutal.dao.ModeratableDao;
-import br.com.caelum.brutal.model.Answer;
+import br.com.caelum.brutal.infra.ModelUrlMapping;
 import br.com.caelum.brutal.model.Information;
-import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.UpdatablesAndPendingHistory;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
@@ -24,65 +23,59 @@ import br.com.caelum.vraptor.Result;
 @Resource
 public class HistoryController {
 
-	private static final String MODEL_PACKAGE = "br.com.caelum.brutal.model.";
 	private final Result result;
     private final User currentUser;
     private final InformationDAO informations;
 	private final ModeratableDao moderatables;
     private final KarmaCalculator calculator;
+	private final ModelUrlMapping urlMapping;
 
 	public HistoryController(Result result, User currentUser,
-			InformationDAO informations, ModeratableDao moderatables, KarmaCalculator calculator) {
+			InformationDAO informations, ModeratableDao moderatables,
+			KarmaCalculator calculator, ModelUrlMapping urlMapping) {
 		this.result = result;
         this.currentUser = currentUser;
         this.informations = informations;
 		this.moderatables = moderatables;
         this.calculator = calculator;
+		this.urlMapping = urlMapping;
 	}
 	
 	@ModeratorOrKarmaAccess(PermissionRulesConstants.MODERATE_EDITS)
-	@Get("/history")
+	@Get("/historico")
 	public void history() {
-		result.redirectTo(this).unmoderated(Question.class.getSimpleName().toLowerCase());
+		result.redirectTo(this).unmoderated("pergunta");
 	}
 
 	@ModeratorOrKarmaAccess(PermissionRulesConstants.MODERATE_EDITS)
-	@Get("/history/{moderatableType}")
+	@Get("/historico/{moderatableType}")
 	public void unmoderated(String moderatableType) {
-		try {
-			String first = moderatableType.substring(0, 1);
-			String moderatableTypeFormatted = moderatableType.replaceFirst(first, first.toUpperCase());
-			
-			Class<?> clazz = Class.forName(MODEL_PACKAGE + moderatableTypeFormatted);
+		try{
+			Class<?> clazz = urlMapping.getClassFor(moderatableType);
 			UpdatablesAndPendingHistory pending = informations.pendingByUpdatables(clazz);
 			
 			result.include("pending", pending);
 			result.include("type", moderatableType);
-		} catch (ClassNotFoundException e) {
+		}catch(IllegalArgumentException e){
 			result.notFound();
 		}
 	}
 
 	@ModeratorOrKarmaAccess(PermissionRulesConstants.MODERATE_EDITS)
-	@Get("/history/question/{questionId}/similar")
-	public void similarQuestions(Long questionId) {
-		result.include("histories", informations.pendingFor(questionId, Question.class));
-		result.include("question", moderatables.getById(questionId, Question.class));
+	@Get("/historico/{moderatableType}/{moderatableId}/versoes")
+	public void similar(String moderatableType, Long moderatableId) {
+		Class<?> clazz = urlMapping.getClassFor(moderatableType);
+		result.include("histories", informations.pendingFor(moderatableId, clazz));
+		result.include("question", moderatables.getById(moderatableId, clazz));
 	}
 	
-	@ModeratorOrKarmaAccess(PermissionRulesConstants.MODERATE_EDITS)
-	@Get("/history/answer/{answerId}/similar")
-	public void similarAnswers(Long answerId) {
-	    result.include("histories", informations.pendingFor(answerId, Answer.class));
-		result.include("answer", moderatables.getById(answerId, Answer.class));
-	}
 
 	@ModeratorOrKarmaAccess(PermissionRulesConstants.MODERATE_EDITS)
-    @Post("/publish/{moderatableType}")
+    @Post("/publicar/{moderatableType}")
     public void publish(Long moderatableId, String moderatableType, Long aprovedInformationId,  String aprovedInformationType) {
         try {
-        	Class<?> moderatableClass = Class.forName(MODEL_PACKAGE + moderatableType);
-        	Class<?> aprovedInformationClass = Class.forName(MODEL_PACKAGE + aprovedInformationType);
+        	Class<?> moderatableClass = urlMapping.getClassFor(moderatableType);
+			Class<?> aprovedInformationClass = urlMapping.getClassFor(aprovedInformationType);
             
         	Information approved = informations.getById(aprovedInformationId, aprovedInformationClass);
             Moderatable moderatable = moderatables.getById(moderatableId, moderatableClass);
@@ -99,7 +92,7 @@ public class HistoryController {
             approved.getAuthor().increaseKarma(karma);
             
             result.redirectTo(this).unmoderated(moderatableType);
-        } catch (ClassNotFoundException e) {
+        } catch (IllegalArgumentException e) {
             result.notFound();
         }
     	

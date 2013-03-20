@@ -8,6 +8,7 @@ import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.dao.CommentDAO;
 import br.com.caelum.brutal.dao.FlagDao;
 import br.com.caelum.brutal.dao.FlaggableDAO;
+import br.com.caelum.brutal.infra.ModelUrlMapping;
 import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.Flag;
 import br.com.caelum.brutal.model.FlagType;
@@ -27,29 +28,34 @@ public class FlagController {
 	private final FlagDao flags;
 	private final LoggedUser loggedUser;
 	private FlaggableDAO flaggables;
+	private final ModelUrlMapping urlMapping;
 
 	public FlagController(Result result, CommentDAO comments, FlagDao flags,
-			LoggedUser loggedUser, FlaggableDAO flaggables) {
+			LoggedUser loggedUser, FlaggableDAO flaggables, ModelUrlMapping urlMapping) {
 		this.result = result;
 		this.comments = comments;
 		this.flags = flags;
 		this.loggedUser = loggedUser;
 		this.flaggables = flaggables;
+		this.urlMapping = urlMapping;
 	}
 
 	@MinimumReputation(PermissionRulesConstants.CREATE_FLAG)
-	@Post("/{flaggableType}/{flaggableId}/flag")
+	@Post("/{flaggableType}/{flaggableId}/marcar")
 	public void addFlag(String flaggableType, Long flaggableId, FlagType flagType, String reason) {
+		Class<?> clazz = urlMapping.getClassFor(flaggableType);
+
 		if (flagType == null) {
 			result.use(Results.http()).sendError(400);
 			return;
 		}
-		if (flags.alreadyFlagged(loggedUser.getCurrent(), flaggableId, flaggableType)) {
+		
+		if (flags.alreadyFlagged(loggedUser.getCurrent(), flaggableId, clazz)) {
 			result.use(Results.http()).sendError(409); //conflict
 			return;
 		}
 		
-		Flaggable flaggable = flaggables.getById(flaggableId, flaggableType);
+		Flaggable flaggable = flaggables.getById(flaggableId, clazz);
 
 		Flag flag = new Flag(flagType, loggedUser.getCurrent());
 		if (flagType.equals(FlagType.OTHER)) {
@@ -63,7 +69,7 @@ public class FlagController {
 	}
 	
 	@ModeratorOrKarmaAccess
-	@Get("/comments/flagged")
+	@Get("/comentarios/marcados")
 	public void topFlaggedComments() {
 		List<Comment> flaggedComments = comments.flagged(3l);
 		result.include("flaggedComments", flaggedComments);

@@ -13,7 +13,7 @@ import br.com.caelum.vraptor.Resource;
 @Resource
 public class NavigationController extends Controller{
 
-	@Get("/about")
+	@Get("/sobre")
 	public void about() {
 		ClassController<KarmaCalculator> mirrorOnKarma = new Mirror().on(KarmaCalculator.class);
 		List<Field> karmaCalculatorFields = mirrorOnKarma.reflectAll().fields();

@@ -2,8 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@attribute name="item" type="br.com.caelum.brutal.model.interfaces.Commentable" required="true" %>
+<%@attribute name="type" type="java.lang.String" required="true" %>
 
-<c:set var="ajaxResultName" value="new-comment-for-${item.typeName}-new-comment-${item.id}"/>
+<c:set var="ajaxResultName" value="new-comment-for-${type}-new-comment-${item.id}"/>
 
 <ul class="comment-list ${empty item.comments ? 'hidden' : ''}" id="${ajaxResultName }">
 	<c:forEach var="comment" items="${item.comments }">
@@ -35,7 +36,7 @@
 				</c:if>
 			</div>	
 		</li>
-		<tags:flagItFor type="Comment" modalId="comment-flag-modal${comment.id}" flaggable="${comment}"/>
+		<tags:flagItFor type="comentario" modalId="comment-flag-modal${comment.id}" flaggable="${comment}"/>
 	</c:forEach>
 </ul>
 
@@ -44,7 +45,7 @@
 		<fmt:message key="comment.submit" />
 	</a>
 	<span>
-		<form action="<c:url value="/${item.typeName}/${item.id}/comment"/>" 
+		<form action="${linkTo[CommentController].comment[item.id][type]}" 
 			class="validated-form ajax hinted-form" data-ajax-result="${ajaxResultName}" 
 			data-ajax-on-callback="append">
 			<label for="comment"><fmt:message key="comment.label" /></label>

@@ -2,7 +2,7 @@
 
 <h2 class="title subheader page-title"><fmt:message key="question.edit_form.title"/></h2>
 
-<form class="validated-form question-form hinted-form" action='<c:url value="/question/edit/${question.id}"/>' method="post" >
+<form class="validated-form question-form hinted-form" action='${linkTo[QuestionController].edit[question.id]}' method="post" >
 	<label for="question-title"><fmt:message key="question.title.label"/></label>
 	<input id="question-title" type="text" class="required hintable text-input" value="${question.title }" data-hint-id="question-title-hint" minlength="15" maxlength="150" name="title">
 	<tags:markDown value="${question.description}" hintId="question-description-hint" htmlClass="required" minlength="30"/>

@@ -9,6 +9,7 @@ import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.LoginMethod;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.validators.SignupValidator;
+import br.com.caelum.brutal.vraptor.Linker;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
@@ -23,24 +24,27 @@ public class SignupController {
 	private MessageFactory messageFactory;
 	private LoginMethodDAO loginMethods;
 	private final FacebookAuthService facebook;
+	private final Linker linker;
 
 	public SignupController(SignupValidator validator, UserDAO users, Result result,
-			MessageFactory messageFactory, LoginMethodDAO loginMethods, FacebookAuthService facebook) {
+			MessageFactory messageFactory, LoginMethodDAO loginMethods,
+			FacebookAuthService facebook, Linker linker) {
 		this.validator = validator;
 		this.users = users;
 		this.result = result;
 		this.messageFactory = messageFactory;
 		this.loginMethods = loginMethods;
 		this.facebook = facebook;
+		this.linker = linker;
 	}
 	
-	@Get("/signup")
+	@Get("/cadastrar")
 	public void signupForm() {
 		String facebookUrl = facebook.getOauthUrl();
 		result.include("facebookUrl", facebookUrl);
 	}
 
-	@Post("/signup")
+	@Post("/cadastrar")
 	public void signup(String email, String password, String name, String passwordConfirmation) {
 		User newUser = new User(name, email);
 		LoginMethod brutalLogin = LoginMethod.brutalLogin(newUser, email, password);
@@ -55,7 +59,8 @@ public class SignupController {
 		    result.include("messages", Arrays.asList(
 		    			messageFactory.build("confirmation", "signup.confirmation")
 		    		));
-		    result.forwardTo(AuthController.class).login(email, password, "");
+		    linker.linkTo(ListController.class).home();
+		    result.forwardTo(AuthController.class).login(email, password, linker.get());
 		} else {
 		    result.include("email", email);
 		    result.include("name", name);

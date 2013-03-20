@@ -15,8 +15,8 @@ public class FlaggableDAO {
 		this.session = session;
 	}
 	
-	public Flaggable getById(Long flaggableId, String flaggableType) {
-		Flaggable flaggable = (Flaggable) session.createQuery("from "+flaggableType+" where id = :id")
+	public Flaggable getById(Long flaggableId, Class<?> clazz) {
+		Flaggable flaggable = (Flaggable) session.createQuery("from "+clazz.getSimpleName()+" where id = :id")
 				.setLong("id", flaggableId)
 				.uniqueResult();
 		return flaggable;

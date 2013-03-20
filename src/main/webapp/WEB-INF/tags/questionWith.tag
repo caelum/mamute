@@ -32,7 +32,7 @@
 							  requires-login requires-karma"
 							  data-author="${isAuthor}"
 							  data-karma="20" 
-						href="<c:url value="/question/edit/${question.id}"/>">
+						href="${linkTo[QuestionController].edit[question.id]}">
 						<fmt:message key="edit" />
 					</a>
 				</li>
@@ -44,11 +44,11 @@
 							<fmt:message key="flag" />
 						</a>
 					</c:if>
-					<tags:flagItFor type="Question" modalId="question-flag-modal${question.id}" flaggable="${question}"/>
+					<tags:flagItFor type="pergunta" modalId="question-flag-modal${question.id}" flaggable="${question}"/>
 				</li>
 			</ul>
 			<tags:touchesFor touchable="${question}" />
 		</div>
-		<tags:add-a-comment item="${question}" />
+		<tags:add-a-comment type="pergunta" item="${question}" />
 	</div>
 </section>
