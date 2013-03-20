@@ -22,7 +22,6 @@ a:hover{
 
 .sprite {
 	display: block;
-/* 	background-image: url('/images/sprites.png'); */
 	background-repeat: no-repeat;
 	overflow: hidden;
 	text-indent: -999999em;
@@ -35,7 +34,7 @@ a:hover{
 }
 
 .big-logo {
-	background-image: url('../images/guj-logo.png');
+	background-image: url('../imgs/guj-logo.png');
 	background-position: 0px 0px;
 	width: 250px;
 	height: 61px;

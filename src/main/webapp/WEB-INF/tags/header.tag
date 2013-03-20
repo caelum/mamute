@@ -38,7 +38,7 @@
 	<meta property="og:url" content='<env:get key="site.url"/>'>
 	<meta property="og:type" content="forum">
 	<meta property="og:image"
-		content="<c:url value="/images/guj-logo.png"/>">
+		content="<c:url value="/imgs/guj-logo.png"/>">
 </c:if>
 
 <link rel="stylesheet" href="<c:url value="/css/reset.css"/>">
@@ -60,9 +60,8 @@
 					href="${linkTo[ListController].home}">GUJ</a>
 				<nav class="nav main-nav piped-nav">
 					<ul class="nav-items">
-						<li class="nav-item"><a class="button"
-							href="${linkTo[ListController].home}"><fmt:message
-									key="menu.questions" /></a></li>
+						<li class="nav-item"><a class="button" href='<env:get key='site.url'/>'>
+							<fmt:message key="menu.questions"/></a></li>
 						<li class="nav-item"><a class="button"
 							href="${linkTo[ListController].listTags}"><fmt:message
 									key="menu.tags" /></a></li>
