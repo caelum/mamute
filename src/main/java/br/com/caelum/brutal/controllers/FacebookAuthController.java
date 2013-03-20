@@ -39,7 +39,7 @@ public class FacebookAuthController {
 		this.messageFactory = messageFactory;
 	}
 	
-	@Get("/cadastrar/facebook")
+	@Get("/signup/facebook")
 	public void signupViaFacebook(String code) {
 		String rawToken = facebook.buildToken(code);
 		SignupInfo signupInfo = facebook.getSignupInfo();
