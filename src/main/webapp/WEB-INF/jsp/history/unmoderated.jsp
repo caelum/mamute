@@ -1,5 +1,5 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<tags:header title="metas.unmoderated.title" description="metas.default.description"/>
+<tags:header title="metas.unmoderated.title"/>
 
 <tags:tabs titleKey="moderation">
 	<a href="${linkTo[HistoryController].unmoderated['question']}"><fmt:message key="moderation.questions"/></a>

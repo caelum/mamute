@@ -1,4 +1,4 @@
-<tags:header title="metas.moderate_question.title" description="metas.default.description"/>
+<tags:header title="metas.moderate_question.title"/>
 
 <div class="history-comparison">
 	<div class="history-current">

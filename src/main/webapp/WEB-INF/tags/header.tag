@@ -18,10 +18,10 @@
 	<c:if test="${empty plainTitle}">
 		<title><fmt:message key="metas.generic.title"/> - <fmt:message key="${title}"/></title>
 	</c:if>
-	<c:if test="${not empty plainDescription}">
+	<c:if test="${not empty plainDescription && empty description}">
 		<meta name="description" content="${plainDescription}">
 	</c:if>
-	<c:if test="${empty plainDescription}">
+	<c:if test="${empty plainDescription && not empty description}">
 		<meta name="description" content="<fmt:message key="${description}"/>">
 	</c:if>
 	

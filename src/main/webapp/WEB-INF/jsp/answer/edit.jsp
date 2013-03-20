@@ -1,2 +1,2 @@
-<tags:header title="metas.answer_edit.title" description="metas.default.description"/>
+<tags:header title="metas.answer_edit.title"/>
 <fmt:message key="${status}"/>

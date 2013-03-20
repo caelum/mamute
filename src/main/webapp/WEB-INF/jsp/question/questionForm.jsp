@@ -1,3 +1,3 @@
-<tags:header title="metas.question.title" description="metas.default.description"/>
+<tags:header title="metas.question.title"/>
 
 <tags:questionForm uri="/question/ask" />

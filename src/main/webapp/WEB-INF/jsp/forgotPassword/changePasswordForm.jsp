@@ -1,4 +1,4 @@
-<tags:header title="metas.change_password.title" description="metas.default.description"/>
+<tags:header title="metas.change_password.title"/>
 
 <h2 class="title page-title"><fmt:message key="change_password.form.title"/></h2>
 

@@ -1,4 +1,4 @@
-<tags:header title="metas.search.title" description="metas.default.description"/>
+<tags:header title="metas.search.title"/>
 
 <div id="search-results"></div>
 

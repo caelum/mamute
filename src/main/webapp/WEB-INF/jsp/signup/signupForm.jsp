@@ -1,4 +1,4 @@
-<tags:header title="metas.signup.title" description="metas.default.description"/>
+<tags:header title="metas.signup.title"/>
 
 <h2 class="title page-title"><fmt:message key="signup.form.title"/></h2>
 

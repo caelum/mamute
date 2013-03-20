@@ -1,4 +1,4 @@
-<tags:header title="metas.tags.title" description="metas.default.description"/>
+<tags:header title="metas.tags.title"/>
 
 <h2 class="title page-title replace"></h2>
 <ol class="tags-list complete-tags">

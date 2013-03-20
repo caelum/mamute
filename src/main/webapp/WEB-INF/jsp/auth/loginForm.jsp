@@ -1,4 +1,4 @@
-<tags:header title="metas.login.title" description="metas.default.description"/>
+<tags:header title="metas.login.title"/>
 
 <h2 class="title page-title subheader">Login</h2>
 

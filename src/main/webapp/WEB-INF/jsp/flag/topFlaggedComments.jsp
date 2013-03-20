@@ -1,4 +1,4 @@
-<tags:header title="metas.flagged_comments.title" description="metas.default.description"/>
+<tags:header title="metas.flagged_comments.title"\/>
 
 <tags:tabs titleKey="moderation">
 	<a href="${linkTo[HistoryController].unmoderated['question']}"><fmt:message key="moderation.questions"/></a>

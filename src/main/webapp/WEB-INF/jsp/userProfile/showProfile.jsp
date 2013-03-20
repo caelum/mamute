@@ -1,4 +1,4 @@
-<tags:header title="metas.profile.title" description="metas.default.description"/>
+<tags:header title="metas.profile.title"/>
 
 <section class="basic-user-data user-data">
 	<div class="subheader">

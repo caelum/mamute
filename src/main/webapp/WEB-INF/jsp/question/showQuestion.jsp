@@ -1,4 +1,4 @@
-<tags:header plainTitle="${question.mostImportantTag} - ${question.title}" plainDescription="${question.sanitizedDescription}"/>
+<tags:header plainTitle="${question.mostImportantTag} - ${question.title}" />
 
 <h1 class="title subheader question-title">${question.title}</h1>
 <section class="first-content">
