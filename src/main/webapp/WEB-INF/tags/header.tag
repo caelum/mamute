@@ -53,14 +53,13 @@
 </head>
 <body>
 	<header class="header clear">
-
 		<section class="second-header">
 			<div class="container">
 				<a class="logo big-logo sprite"
-					href='<c:url value="<env:get key='home.url'/>"/>'>GUJ</a>
+					href="<c:url value="${environment.get('home.url')}"/>">GUJ</a>
 				<nav class="nav main-nav piped-nav">
 					<ul class="nav-items">
-						<li class="nav-item"><a class="button" href='<c:url value="<env:get key='home.url'/>"/>'>
+						<li class="nav-item"><a class="button" href="<c:url value="${environment.get('home.url')}"/>">
 							<fmt:message key="menu.questions"/></a></li>
 						<li class="nav-item"><a class="button"
 							href="${linkTo[ListController].listTags}"><fmt:message
