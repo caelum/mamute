@@ -60,9 +60,9 @@ public class GlobalInterceptor implements Interceptor{
 		LOG.debug("headers received from request");
 		while (headerNames.hasMoreElements()) {
 			String key = headerNames.nextElement();
-			Enumeration<String> values = req.getHeaders(key);
+			String value = req.getHeader(key);
 			LOG.debug(key);
-			LOG.debug(values);
+			LOG.debug(value);
 		}
 	}
 
