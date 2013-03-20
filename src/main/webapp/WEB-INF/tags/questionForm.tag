@@ -13,7 +13,11 @@
 	<input class="post-submit big-submit" type="submit" value="<fmt:message key="question.new_form.submit"/>" />
 </form>
 <div class="form-hints">
-	<div id="question-title-hint" class="hint"><fmt:message key="question.title.hint" /></div>
+	<div id="question-title-hint" class="hint">
+		<fmt:message key="question.title.hint">
+        	<fmt:param value="${linkTo[NavigationController].about}#faq"/>
+		</fmt:message>
+	</div>
 	<div id="question-description-hint" class="hint"><fmt:message key="question.description.hint" /></div>
 	<div id="question-tags-hint" class="hint"><fmt:message key="question.tags.hint" /></div>
 </div>

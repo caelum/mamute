@@ -102,7 +102,7 @@
 </div><!-- about-section -->
 
 <div class="about-section">
-	<h2 class="title about-title"><fmt:message key="about.reputation.faq" /></h2>
+	<h2 class="title about-title" id="faq"><fmt:message key="about.reputation.faq" /></h2>
 	<div class="about-text">
 		<ul class="about-faq">
 			
