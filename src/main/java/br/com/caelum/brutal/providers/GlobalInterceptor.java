@@ -56,12 +56,12 @@ public class GlobalInterceptor implements Interceptor{
 	}
 
 	private String getCurrentUrl() {
-		String referer = req.getHeader("Referer");
+		String host = req.getHeader("Host");
 		String url;
-		if (referer == null) {
+		if (host == null) {
 			url = req.getRequestURL().toString();
 		} else {
-			url = referer; 
+			url = "http://" + host + req.getRequestURI(); 
 		}
 		LOG.debug("setting url: " + url);
 		return url;
