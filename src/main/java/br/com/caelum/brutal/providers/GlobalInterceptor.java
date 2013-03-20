@@ -47,12 +47,24 @@ public class GlobalInterceptor implements Interceptor{
 		result.include("currentUser", access.getInstance());
 		result.include("prettyTimeFormatter", new PrettyTime(localization.getLocale()));
 		result.include("literalFormatter", DateTimeFormat.forPattern(localization.getMessage("date.joda.pattern")).withLocale(localization.getLocale()));
-		result.include("currentUrl", req.getRequestURL());
+		result.include("currentUrl", getCurrentUrl());
 		result.include("contextPath", req.getContextPath());
 
 		logHeaders();
 		
 		stack.next(method, resourceInstance);
+	}
+
+	private String getCurrentUrl() {
+		String host = req.getHeader("Host");
+		String url;
+		if (host == null) {
+			url = req.getRequestURL().toString();
+		} else {
+			url = "http://" + host + req.getRequestURI(); 
+		}
+		LOG.debug("setting url: " + url);
+		return url;
 	}
 
 	private void logHeaders() {
