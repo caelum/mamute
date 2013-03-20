@@ -15,7 +15,7 @@ public class TagsValidator {
 		this.messageFactory = messageFactory;
 	}
 	
-	public boolean validate(Tag tag){
+	public boolean validate(Tag tag) {
 		if (tag == null) {
 			validator.add(messageFactory.build("error", "tag.errors.doesnt_exist"));
 			return false;

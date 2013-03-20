@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.dao;
 
+import static java.util.Arrays.asList;
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -108,13 +109,13 @@ public class TagDAOTest extends DatabaseTestCase{
 	
 	@Test
 	public void should_get_empty_list_for_nonexistant_names() throws Exception {
-		List<Tag> found = tags.findAllByNames("blabla lala");
+		List<Tag> found = tags.findAllByNames(asList("blabla", "lala"));
 		assertTrue(found.isEmpty());
 	}
 	
 	@Test
 	public void should_split_two_spaces() throws Exception {
-		List<Tag> found = tags.findAllByNames("java  ruby");
+		List<Tag> found = tags.findAllByNames(asList("java", "ruby"));
 		assertEquals(2, found.size());
 		assertEquals("java", found.get(0).getName());
 		assertEquals("ruby", found.get(1).getName());

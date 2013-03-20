@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.controllers;
 
+import static java.util.Arrays.asList;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -64,22 +66,6 @@ public class QuestionController {
 	public void questionForm() {
 	}
 	
-	@Post("/perguntar")
-	@LoggedAccess
-	@ReputationEvent(ReputationEvents.NEW_QUESTION)
-	public void newQuestion(String title, String description, String tagNames) {
-		List<Tag> loadedTags = tags.findAllByNames(tagNames);
-		QuestionInformation information = new QuestionInformation(title, description, currentUser, loadedTags, "new question");
-		
-		validator.validate(information);
-		validate(loadedTags);
-		validator.onErrorRedirectTo(this).questionForm();
-	
-		Question question = new Question(information, currentUser.getCurrent());
-		questions.save(question);
-		result.redirectTo(this).showQuestion(question.getId(), question.getSluggedTitle());
-	}
-
 	@Get("/pergunta/editar/{questionId}")
 	public void questionEditForm(Long questionId) {
 		Question question = questions.getById(questionId);
@@ -93,7 +79,8 @@ public class QuestionController {
 		Question original = questions.getById(id);
 		authorizationSystem.canEdit(original, PermissionRulesConstants.EDIT_QUESTION);
 		
-		List<Tag> loadedTags = tags.findAllByNames(tagNames);
+		List<String> splitedTags = splitTags(tagNames);
+		List<Tag> loadedTags = tags.findAllByNames(splitedTags);
 		QuestionInformation information = new QuestionInformation(title, description, this.currentUser, loadedTags, comment);
 		
 		validator.validate(information);
@@ -124,7 +111,28 @@ public class QuestionController {
 		result.include("facebookUrl", facebook.getOauthUrl());
 	}
 
+	@Post("/perguntar")
+	@LoggedAccess
+	@ReputationEvent(ReputationEvents.NEW_QUESTION)
+	public void newQuestion(String title, String description, String tagNames) {
+		List<String> splitedTags = splitTags(tagNames);
+		List<Tag> foundTags = tags.findAllByNames(splitedTags);
+		QuestionInformation information = new QuestionInformation(title, description, currentUser, foundTags, "new question");
+		Question question = new Question(information, currentUser.getCurrent());
+		
+		result.include("question", question);
+		validator.validate(information);
+		validate(foundTags);
+		validator.onErrorRedirectTo(this).questionForm();
 	
+		questions.save(question);
+		result.redirectTo(this).showQuestion(question.getId(), question.getSluggedTitle());
+	}
+
+	private List<String> splitTags(String tagNames) {
+		return asList(tagNames.split("\\s+"));
+	}
+
 	private boolean validate(List<Tag> tags) {
 		for (Tag tag : tags) {
 			if (!tagsValidator.validate(tag)) {

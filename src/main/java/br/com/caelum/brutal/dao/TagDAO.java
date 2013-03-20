@@ -62,11 +62,9 @@ public class TagDAO {
 		return query.list();
 	}
 
-	public List<Tag> findAllByNames(String tagNames) {
+	public List<Tag> findAllByNames(List<String> names) {
 		List<Tag> tags = new ArrayList<>();
-		if (tagNames == null || tagNames.isEmpty()) 
-			return tags;
-		for (String tagName : tagNames.split("\\s+")) {
+		for (String tagName : names) {
 			Tag newTag = findByName(tagName);
 			if (newTag != null)
 				tags.add(newTag);
