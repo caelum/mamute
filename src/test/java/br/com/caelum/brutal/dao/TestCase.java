@@ -31,8 +31,7 @@ public abstract class TestCase {
 	}
 	
 	protected User userWithPassword(String name, String email) {
-		User user = new User(name, email);
-		user.confirmEmail();
+		User user = user(name, email);
 		LoginMethod brutalLogin = LoginMethod.brutalLogin(user, email, "123456");
 		user.add(brutalLogin);
 		return user;
