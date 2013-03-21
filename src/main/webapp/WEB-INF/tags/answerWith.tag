@@ -27,8 +27,11 @@
 				<li class="nav-item">
 					<c:if test="${currentUser != null && !answer.alreadyFlaggedBy(currentUser)}">
 						<a href="#" data-author="${answer.author.id == currentUser.id}"
-						data-modal-id="answer-flag-modal${answer.id}" 
-						class="post-action author-cant requires-login flag-it"><fmt:message key="flag" /></a>
+							data-modal-id="answer-flag-modal${answer.id}" 
+							data-karma="10" class="post-action author-cant 
+							requires-login flag-it requires-karma">
+							<fmt:message key="flag" />
+						</a>
 					</c:if>
 					<tags:flagItFor type="resposta" modalId="answer-flag-modal${answer.id}" flaggable="${answer}"/>
 				</li>
