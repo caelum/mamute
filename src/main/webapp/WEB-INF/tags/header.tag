@@ -35,12 +35,14 @@
 		content="<fmt:message key="metas.generic.title"/>">
 	<meta property="og:description"
 		content="<fmt:message key="metas.default.description"/>">
-	<meta property="og:url" content='<env:get key="site.url"/>'>
+	<meta property="og:url" content='<env:get key="host"/><env:get key="home.url"/>'>
 	<meta property="og:type" content="forum">
 	<meta property="og:image"
 		content="<c:url value="/imgs/guj-logo.png"/>">
 </c:if>
-
+<!--[if lt IE 9]>
+	<script src="dist/html5shiv.js"></script>
+<![endif]-->
 <link rel="stylesheet" href="<c:url value="/css/reset.css"/>">
 <link rel="stylesheet" href="<c:url value="/css/font-awesome.css"/>">
 <link rel=" stylesheet" type="text/css"

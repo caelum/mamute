@@ -17,7 +17,7 @@ public class UrlValidatorTest {
 	@Before
 	public void setup() {
 		env = mock(Environment.class);
-		when(env.get("site.url")).thenReturn("http://localhost:8080/");
+		when(env.get("host")).thenReturn("http://localhost:8080/");
 	}
 
 	@Test

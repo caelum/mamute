@@ -5,6 +5,8 @@ import static java.util.Arrays.asList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.hibernate.ObjectNotFoundException;
+
 import br.com.caelum.brutal.auth.FacebookAuthService;
 import br.com.caelum.brutal.auth.LoggedAccess;
 import br.com.caelum.brutal.auth.rules.AuthorizationSystem;
@@ -98,7 +100,7 @@ public class QuestionController {
 	}
 	
 	@Get("/{questionId}-{sluggedTitle}")
-	public void showQuestion(Long questionId, String sluggedTitle) {
+	public void showQuestion(Long questionId, String sluggedTitle) throws ObjectNotFoundException{
 		Question question = questions.getById(questionId);
 		if (!question.getSluggedTitle().equals(sluggedTitle)) {
 			result.redirectTo(this).showQuestion(question.getId(),

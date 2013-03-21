@@ -370,6 +370,7 @@
 			              </includes>
 			              <excludes>
 			              	<exclude>**/jquery.js</exclude>
+			              	<exclude>**/html5shiv.js</exclude>
 			              </excludes>
 						</aggregation>
 					</aggregations>
