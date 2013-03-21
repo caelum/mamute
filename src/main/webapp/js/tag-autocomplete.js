@@ -1,5 +1,5 @@
 var autoCompleteId;
-$(".autocomplete").keyup(function(){
+$('.autocomplete').keypress(function(){
 	var autoCompleteInput = $(this),
 	target = $("#"+autoCompleteInput.data("autocomplete-id")),
 	tagChunk = $(autoCompleteInput.val().split(" ")).last().get(0);
@@ -31,13 +31,14 @@ function showSuggestions(suggestions, target){
 }
 
 var pos=-3;
-$('.autocomplete').keydown(function (e){
-	arrow = {left: 37, up: 38, right: 39, down: 40 };
+$('.autocomplete').keydown(function(e){
+	arrow = {left: 37, up: 38, right: 39, down: 40};
+	control = {esc: 27, enter: 13};
+	var completeTag = $('.complete-tag');
 	
-	if(! $('.autocompleted-tags').hasClass('hidden')) {
-		switch(e.which) {
+	switch(e.which) {
 		case arrow.down:
-			if(pos < $('.complete-tag').length - 3) pos += 3;
+			if(pos < completeTag.length - 3) pos += 3;
 			break;
 			
 		case arrow.up:
@@ -45,17 +46,27 @@ $('.autocomplete').keydown(function (e){
 			break;
 			
 		case arrow.right:
-			if(pos < $('.complete-tag').length - 1) pos++;
+			if(pos < completeTag.length - 1) pos++;
 			break;
 			
 		case arrow.left:
 			if(pos > 0)	pos--;
 			break;
+			
+		case control.esc:
+			$('.autocompleted-tags').addClass('hidden');
+			break;
+			
+		case control.enter:
+			insertTagIntoTextArea(completeTag.eq(pos).find(".tag").text());
+			pos=-3;
+			
 		default: return;
-		}
-		$('.complete-tag').eq(pos).css('background-color', '#ffe6bf');
-		e.preventDefault();
 	}
+
+	completeTag.removeClass('tag-selected');
+	completeTag.eq(pos).addClass('tag-selected');
+	e.preventDefault();
 });
 
 function insertTagIntoTextArea(text) {

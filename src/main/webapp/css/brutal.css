@@ -879,7 +879,7 @@ a.button.ask-a-question:hover{
 	width: 20%;
 }
 
-.autocompleted-tags .complete-tag:hover {
+.autocompleted-tags .complete-tag:hover, .tag-selected {
 	background-color: #ffe6bf;
 }
 
