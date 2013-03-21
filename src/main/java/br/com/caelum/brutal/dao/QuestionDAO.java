@@ -36,8 +36,8 @@ public class QuestionDAO {
 				" join fetch q.author qa" +
 				" join fetch q.lastTouchedBy qa" +
 				" join fetch qi.tags t" +
-				" join fetch q.solution s" +
-				" join fetch q.solution.information si" +
+				" left join fetch q.solution s" +
+				" left join fetch q.solution.information si" +
 				" where " + spamFilter() + " order by q.lastUpdatedAt desc";
 		return session.createQuery(hql).setMaxResults(50).list();
 	}
