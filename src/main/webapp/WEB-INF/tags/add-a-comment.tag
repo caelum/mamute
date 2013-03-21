@@ -17,7 +17,7 @@
 					data-type="comment" data-id="${comment.id}">
 				</a>
 				<span class="comment-meta-item vote-count comment-vote-count">${comment.voteCount}</span>
-				<c:if test="${currentUser != null && !comment.alreadyFlaggedBy(currentUser)}">
+				<c:if test="${currentUser != null && !comment.alreadyFlaggedBy(currentUser) && !isCommentAuthor}">
 					<a href="#" data-author="${isCommentAuthor}"
 					data-modal-id="comment-flag-modal${comment.id}"
 					class="comment-meta-item container author-cant requires-login comment-option flag-it icon-flag"></a>
