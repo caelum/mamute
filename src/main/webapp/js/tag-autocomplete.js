@@ -30,6 +30,33 @@ function showSuggestions(suggestions, target){
 	$('.autocompleted-tags .complete-tag').click(function(){insertTagIntoTextArea($(this).find(".tag").text())});
 }
 
+var pos=-3;
+$('.autocomplete').keydown(function (e){
+	arrow = {left: 37, up: 38, right: 39, down: 40 };
+	
+	if(! $('.autocompleted-tags').hasClass('hidden')) {
+		switch(e.which) {
+		case arrow.down:
+			if(pos < $('.complete-tag').length - 3) pos += 3;
+			break;
+			
+		case arrow.up:
+			if(pos > 0) pos -= 3;
+			break;
+			
+		case arrow.right:
+			if(pos < $('.complete-tag').length - 1) pos++;
+			break;
+			
+		case arrow.left:
+			if(pos > 0)	pos--;
+			break;
+		default: return;
+		}
+		$('.complete-tag').eq(pos).css('background-color', '#ffe6bf');
+		e.preventDefault();
+	}
+});
 
 function insertTagIntoTextArea(text) {
 	var input =$('input[name=tagNames]');
