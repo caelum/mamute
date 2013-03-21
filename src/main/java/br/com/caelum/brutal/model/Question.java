@@ -218,7 +218,11 @@ public class Question extends Moderatable implements Votable, Commentable, Touch
 	}
 	
 	public String getMostImportantTag(){
-		return information.getTags().get(0).getName();
+		List<Tag> tags = information.getTags();
+		if(tags.isEmpty()){
+			throw new IllegalStateException("a question must have at least one tag");
+		}
+		return tags.get(0).getName();
 	}
 
 	public UpdateStatus updateWith(QuestionInformation information) {
