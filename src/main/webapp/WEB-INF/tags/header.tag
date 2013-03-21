@@ -40,7 +40,9 @@
 	<meta property="og:image"
 		content="<c:url value="/imgs/guj-logo.png"/>">
 </c:if>
-
+<!--[if lt IE 9]>
+	<script src="dist/html5shiv.js"></script>
+<![endif]-->
 <link rel="stylesheet" href="<c:url value="/css/reset.css"/>">
 <link rel="stylesheet" href="<c:url value="/css/font-awesome.css"/>">
 <link rel=" stylesheet" type="text/css"
