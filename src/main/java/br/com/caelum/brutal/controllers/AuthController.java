@@ -17,6 +17,7 @@ public class AuthController extends Controller {
 	private final Result result;
 	private final UrlValidator urlValidator;
 	private final Validator validator;
+	
 	public AuthController(DefaultAuthenticator auth, FacebookAuthService facebook, 
 			Result result, UrlValidator urlValidator, Validator validator) {
 		this.auth = auth;
@@ -53,9 +54,11 @@ public class AuthController extends Controller {
 	}
 	
 	private void redirectToRightUrl(String redirectUrl) {
-		urlValidator.validate(redirectUrl);
-		validator.onErrorRedirectTo(ListController.class).home();
-        if (redirectUrl != null && !redirectUrl.isEmpty()) {
+		boolean valid = urlValidator.isValid(redirectUrl);
+		if (!valid) {
+			includeAsList("messages", i18n("error", "error.invalid.url", redirectUrl));
+		}
+        if (redirectUrl != null && !redirectUrl.isEmpty() && valid) {
             redirectTo(redirectUrl);
         } else {
             redirectTo(ListController.class).home();
