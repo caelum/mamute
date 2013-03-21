@@ -84,6 +84,9 @@ function errorPopup(text, target){
 		var errorPopup = $("<div class='validation-error popup close-popup'><div class='popup-error-message'>"+text+"</div><div class='subtitle'>(clique para fechar)</div></div>");
 		errorPopup.insertAfter(target).show();
 	}
+	setTimeout(function(){
+		errorPopup.fadeOut(200, "linear", function(){errorPopup.remove();});
+	},1500);
 }
 </script>
 

@@ -8,9 +8,9 @@ $(function(){
 		event.preventDefault();
 		var self = $(this)
 		if(self.hasClass("popup")){
-			self.hide();
+			self.remove();
 		}else{
-			self.closest(".popup").hide();
+			self.closest(".popup").remove();
 		}
 	});
 });
