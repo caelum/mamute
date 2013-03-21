@@ -3,6 +3,7 @@ package br.com.caelum.brutal.controllers;
 import static br.com.caelum.brutal.dao.WithAuthorDAO.OrderType.ByVotes;
 import static br.com.caelum.vraptor.view.Results.json;
 
+import org.hibernate.ObjectNotFoundException;
 import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.dao.AnswerDAO;
@@ -44,7 +45,7 @@ public class UserProfileController {
 	}
 	
 	@Get("/usuario/{id}/{sluggedName}")
-	public void showProfile(Long id, String sluggedName){
+	public void showProfile(Long id, String sluggedName) throws ObjectNotFoundException{
 		User selectedUser = users.findById(id);
 		String correctSluggedName = selectedUser.getSluggedName();
 		if (!correctSluggedName.equals(sluggedName)){
@@ -72,7 +73,7 @@ public class UserProfileController {
 	}
 	
 	@Get("/usuario/editar/{id}")
-	public void editProfile(Long id) {
+	public void editProfile(Long id) throws ObjectNotFoundException{
 		User user = users.findById(id);
 		if (!user.getId().equals(currentUser.getCurrent().getId())){
 			result.redirectTo(ListController.class).home();
