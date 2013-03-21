@@ -2,6 +2,7 @@ package br.com.caelum.brutal.model;
 
 import static br.com.caelum.brutal.model.MarkDown.parse;
 import static br.com.caelum.brutal.sanitizer.HtmlSanitizer.sanitize;
+import static javax.persistence.FetchType.EAGER;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -35,7 +36,7 @@ public class AnswerInformation implements Information {
 	@NotEmpty
 	private String description;
 
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = false, fetch = EAGER)
 	private final User author;
 
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")

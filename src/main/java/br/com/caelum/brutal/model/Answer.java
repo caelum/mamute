@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.model;
 
+import static javax.persistence.FetchType.EAGER;
 import static org.hibernate.annotations.CascadeType.SAVE_UPDATE;
 
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class Answer extends Moderatable implements Votable, Commentable, Subscri
 	@ManyToOne
 	private Question question;
 
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = false, fetch = EAGER)
 	@Cascade(SAVE_UPDATE)
 	@NotNull
 	private AnswerInformation information = null;
@@ -73,6 +74,7 @@ public class Answer extends Moderatable implements Votable, Commentable, Subscri
 		this.question = question;
 		this.author = author;
 		touchedBy(author);
+		question.add(this);
 		enqueueChange(information, UpdateStatus.NO_NEED_TO_APPROVE);
 		information.setAnswer(this);
 	}

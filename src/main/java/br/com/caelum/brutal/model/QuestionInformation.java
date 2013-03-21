@@ -3,6 +3,7 @@ package br.com.caelum.brutal.model;
 import static br.com.caelum.brutal.infra.NormalizerBrutal.toSlug;
 import static br.com.caelum.brutal.model.MarkDown.parse;
 import static br.com.caelum.brutal.sanitizer.HtmlSanitizer.sanitize;
+import static javax.persistence.FetchType.EAGER;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -58,7 +61,7 @@ public class QuestionInformation implements Information, Taggable {
 	@Type(type = "text")
 	private String comment;
 
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = false, fetch = EAGER)
 	private final User author;
 
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
@@ -69,6 +72,7 @@ public class QuestionInformation implements Information, Taggable {
 
 	@ManyToMany
 	@NotEmpty(message = "question.errors.tags.empty")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Tag> tags;
 	
 	@Lob
