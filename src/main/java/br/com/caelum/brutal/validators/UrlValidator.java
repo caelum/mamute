@@ -9,7 +9,7 @@ public class UrlValidator {
 	private String siteUrl;
 
 	public UrlValidator(Environment env) {
-		this.siteUrl = env.get("site.url");
+		this.siteUrl = env.get("host");
 	}
 
 	public boolean isValid(String url) {

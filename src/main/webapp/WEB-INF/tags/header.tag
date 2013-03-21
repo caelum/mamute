@@ -35,7 +35,7 @@
 		content="<fmt:message key="metas.generic.title"/>">
 	<meta property="og:description"
 		content="<fmt:message key="metas.default.description"/>">
-	<meta property="og:url" content='<env:get key="site.url"/>'>
+	<meta property="og:url" content='<env:get key="host"/><env:get key="home.url"/>'>
 	<meta property="og:type" content="forum">
 	<meta property="og:image"
 		content="<c:url value="/imgs/guj-logo.png"/>">

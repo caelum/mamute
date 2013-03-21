@@ -7,7 +7,6 @@ import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.Validator;
 
 @Resource
 public class AuthController extends Controller {
@@ -16,15 +15,13 @@ public class AuthController extends Controller {
 	private final FacebookAuthService facebook;
 	private final Result result;
 	private final UrlValidator urlValidator;
-	private final Validator validator;
 	
 	public AuthController(DefaultAuthenticator auth, FacebookAuthService facebook, 
-			Result result, UrlValidator urlValidator, Validator validator) {
+			Result result, UrlValidator urlValidator) {
 		this.auth = auth;
 		this.facebook = facebook;
 		this.result = result;
 		this.urlValidator = urlValidator;
-		this.validator = validator;
 	}
 	
 	@Get("/login")
