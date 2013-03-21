@@ -7,6 +7,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.com.caelum.brutal.builder.QuestionBuilder;
+
 public class AnswerInformationTest {
 
 	private Answer ruby;
@@ -14,7 +16,8 @@ public class AnswerInformationTest {
 	@Before
 	public void setup(){
 		AnswerInformation rubyInformation = newVersion();
-		ruby = new Answer(rubyInformation, null, null);
+		QuestionBuilder builder = new QuestionBuilder();
+		ruby = new Answer(rubyInformation, builder.build() , null);
 	}
 	
 	@Test
