@@ -1,8 +1,11 @@
 package br.com.caelum.brutal.providers;
 
+import java.util.Enumeration;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.joda.time.format.DateTimeFormat;
 import org.ocpsoft.prettytime.PrettyTime;
 
@@ -27,7 +30,7 @@ public class GlobalInterceptor implements Interceptor{
 	private final Access access;
 	private final HttpServletRequest req;
 	private final Localization localization;
-	private final ServletContext servletContext;
+	private static final Logger LOG = Logger.getLogger(GlobalInterceptor.class);
 
 	public GlobalInterceptor(Environment env, Result result, Access access, 
 			HttpServletRequest req, Localization localization, ServletContext servletContext) {
@@ -36,7 +39,6 @@ public class GlobalInterceptor implements Interceptor{
 		this.access = access;
 		this.req = req;
 		this.localization = localization;
-		this.servletContext = servletContext;
 	}
 
 	public void intercept(InterceptorStack stack, ResourceMethod method,
@@ -45,9 +47,35 @@ public class GlobalInterceptor implements Interceptor{
 		result.include("currentUser", access.getInstance());
 		result.include("prettyTimeFormatter", new PrettyTime(localization.getLocale()));
 		result.include("literalFormatter", DateTimeFormat.forPattern(localization.getMessage("date.joda.pattern")).withLocale(localization.getLocale()));
-		result.include("currentUrl", req.getRequestURL());
+		result.include("currentUrl", getCurrentUrl());
 		result.include("contextPath", req.getContextPath());
+
+		logHeaders();
+		
 		stack.next(method, resourceInstance);
+	}
+
+	private String getCurrentUrl() {
+		String host = req.getHeader("Host");
+		String url;
+		if (host == null) {
+			url = req.getRequestURL().toString();
+		} else {
+			url = "http://" + host + req.getRequestURI(); 
+		}
+		LOG.debug("setting url: " + url);
+		return url;
+	}
+
+	private void logHeaders() {
+		Enumeration<String> headerNames = req.getHeaderNames();
+		LOG.debug("headers received from request");
+		while (headerNames.hasMoreElements()) {
+			String key = headerNames.nextElement();
+			String value = req.getHeader(key);
+			LOG.debug(key);
+			LOG.debug(value);
+		}
 	}
 
 	public boolean accepts(ResourceMethod method) {
