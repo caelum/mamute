@@ -1,6 +1,7 @@
 package br.com.caelum.brutal.model;
 
 import static br.com.caelum.brutal.sanitizer.QuotesSanitizer.sanitize;
+import static javax.persistence.FetchType.EAGER;
 import static org.hibernate.annotations.CascadeType.SAVE_UPDATE;
 
 import java.util.ArrayList;
@@ -16,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
@@ -32,7 +35,7 @@ public class Question extends Moderatable implements Votable, Commentable, Touch
 	@GeneratedValue
 	private Long id;
 
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = false, fetch = EAGER)
 	@Cascade(SAVE_UPDATE)
 	@NotNull
 	private QuestionInformation information = null;
@@ -50,16 +53,18 @@ public class Question extends Moderatable implements Votable, Commentable, Touch
 	@ManyToOne
 	private User lastTouchedBy = null;
 
-	@ManyToOne(optional = true)
+	@ManyToOne(optional = true, fetch = EAGER)
 	private Answer solution;
 
-	@ManyToOne
+	@ManyToOne(fetch = EAGER)
 	private User author;
 
 	@OneToMany(mappedBy = "question")
 	private final List<Answer> answers = new ArrayList<>();
 
-	private long views = 0;
+	private long answerCount = 0l;
+
+	private long views = 0l;
 	
 	@JoinTable(name = "Question_Votes")
 	@OneToMany
@@ -114,7 +119,11 @@ public class Question extends Moderatable implements Votable, Commentable, Touch
 	}
 	
 	public void add(Answer a) {
+		if(a.getId() != null && answers.contains(a)){
+			throw new IllegalStateException("This question already have the answer with id: "+ a.getId());
+		}
 	    answers.add(a);
+	    answerCount++;
 	}
 
 	public long getViews() {
@@ -152,8 +161,8 @@ public class Question extends Moderatable implements Votable, Commentable, Touch
 		return solution;
 	}
 
-	public int getAnswersCount() {
-		return getAnswers().size();
+	public long getAnswersCount() {
+		return answerCount;
 	}
 
 	public boolean isSolved() {

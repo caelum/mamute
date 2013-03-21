@@ -32,7 +32,13 @@ public class QuestionDAO {
 	}
 	
 	public List<Question> all() {
-		String hql = "from Question as q where " + spamFilter() + " order by lastUpdatedAt desc";
+		String hql = "from Question as q join fetch q.information qi" +
+				" join fetch q.author qa" +
+				" join fetch q.lastTouchedBy qa" +
+				" join fetch qi.tags t" +
+				" left join fetch q.solution s" +
+				" left join fetch q.solution.information si" +
+				" where " + spamFilter() + " order by q.lastUpdatedAt desc";
 		return session.createQuery(hql).setMaxResults(50).list();
 	}
 
