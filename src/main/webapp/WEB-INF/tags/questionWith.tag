@@ -38,9 +38,9 @@
 				</li>
 				<li class="nav-item">
 					<c:if test="${currentUser != null && !question.alreadyFlaggedBy(currentUser)}">
-						<a href="#" data-author="${isAuthor}"
+						<a href="#" data-author="${isAuthor}" data-karma="10"
 							data-modal-id="question-flag-modal${question.id}" 
-							class="post-action author-cant requires-login flag-it">
+							class="post-action author-cant requires-login flag-it requires-karma">
 							<fmt:message key="flag" />
 						</a>
 					</c:if>
