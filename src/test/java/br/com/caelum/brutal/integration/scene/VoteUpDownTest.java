@@ -12,6 +12,7 @@ public class VoteUpDownTest extends AuthenticatedAcceptanceTest {
     
     private QuestionPage questionPage;
     
+    
     @Before
     public void login() {
     	loginRandomly();
@@ -21,7 +22,12 @@ public class VoteUpDownTest extends AuthenticatedAcceptanceTest {
     	home().toFirstQuestionPage().answer("blablablablablablablablablablablablablab");
     	logout();
     	loginWithALotOfKarma();
-        questionPage = home().toFirstQuestionWithAnswerPage();
+        questionPage = home().toFirstQuestionPage();
+    }
+    
+    @Override
+    public int implicitWaitSeconds() {
+    	return 10;
     }
     
 	@Test
@@ -62,6 +68,6 @@ public class VoteUpDownTest extends AuthenticatedAcceptanceTest {
         
         assertEquals(firstAnswerVoteCount - 1, countAfter);
     }
-    
+
 
 }

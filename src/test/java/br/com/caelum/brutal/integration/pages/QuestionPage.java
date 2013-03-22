@@ -50,11 +50,12 @@ public class QuestionPage extends PageObject{
         String voteTypeClass = type.name().toLowerCase() + "-vote";
         byCSS(".question-area ." + voteTypeClass).click();
         Integer finalVoteCount = voteCount + type.getCountValue();
-        waitForTextInElement(By.cssSelector(questionVoteCountSelector()), finalVoteCount.toString(), 10);
+        waitForTextIn(By.cssSelector(questionVoteCountSelector()), finalVoteCount.toString(), 10);
         return this;
     }
 
     public int questionVoteCount() {
+    	byCSS(questionVoteCountSelector()).getText();
         return Integer.parseInt(byCSS(questionVoteCountSelector()).getText());
     }
 
@@ -67,7 +68,7 @@ public class QuestionPage extends PageObject{
         String voteTypeClass = type.name().toLowerCase() + "-vote";
         byCSS(".answer ." + voteTypeClass).click();
         Integer finalVoteCount = initialVoteCount + type.getCountValue();
-        waitForTextInElement(By.cssSelector(".answer .vote-count"), finalVoteCount.toString(), 10);
+        waitForTextIn(By.cssSelector(".answer .vote-count"), finalVoteCount.toString(), 10);
         return this;
     }
 
