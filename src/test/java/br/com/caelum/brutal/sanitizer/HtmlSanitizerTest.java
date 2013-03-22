@@ -8,6 +8,15 @@ import org.junit.Test;
 
 public class HtmlSanitizerTest {
 
+	
+	@Test
+	public void shouldEscapeLTGTWhenPossible() {
+		String html = "< bla >";
+		String expected = "&lt;bla&gt;";
+		String sanitized = sanitize(html);
+		assertEquals(expected, sanitized);
+	}
+	
 	@Test
 	public void shouldAddNoFollowIntoLinks() {
 		String html = "<a href=\"http://www.teste.com.br\">teste</a>";
