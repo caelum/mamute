@@ -57,7 +57,7 @@ public abstract class PageObject {
         }
 	}
 	
-	protected void waitForTextInElement(final By by, String text, int time) {
+	protected void waitForTextIn(final By by, String text, int time) {
 	    new WebDriverWait(driver, time).until(ExpectedConditions.textToBePresentInElement(by, text));
 	}
 

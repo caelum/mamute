@@ -64,6 +64,11 @@ public abstract class AcceptanceTestBase implements ServerInfo.AcceptanceTest {
 		client = new HttpClient();
 	}
 	
+	@Before
+	public void setUpImplicitWait() {
+		driver.manage().timeouts().implicitlyWait(implicitWaitSeconds(), TimeUnit.SECONDS);
+	}
+	
 
 	@BeforeClass
 	public static void getDriver() {
@@ -72,7 +77,6 @@ public abstract class AcceptanceTestBase implements ServerInfo.AcceptanceTest {
 		} else {
 			driver = new FirefoxDriver();
 		}
-		driver.manage().timeouts().implicitlyWait(TIME_WAIT, TimeUnit.SECONDS);
 		waitForFirstBodyPresence();
 	}
 	
@@ -122,5 +126,9 @@ public abstract class AcceptanceTestBase implements ServerInfo.AcceptanceTest {
                 "question description question description question description question description ", 
                 "java");
 	}
+    
+    public int implicitWaitSeconds() {
+    	return TIME_WAIT;
+    }
     
 }
