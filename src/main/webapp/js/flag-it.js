@@ -13,13 +13,13 @@ $(".flag-it").click(function(e) {
 	
 	var callbacks = {};
 	callbacks["409"] = function() {
-		alert("conflict, you can't do it, sorry");
+		errorPopup("Você não pode fazer isso.", modal, "center-popup");
 	};
 	callbacks["400"] = function() {
-		alert("please choose an valid option");
+		errorPopup("Escolha uma opção.", modal, "center-popup");
 	};
 	callbacks["403"] = function() {
-		alert("you must login");
+		errorPopup("Você deve estar logado.", modal, "center-popup");
 	};
 	callbacks["200"] = function() {
 		modal.hide(200);

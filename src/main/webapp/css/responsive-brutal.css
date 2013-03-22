@@ -33,6 +33,10 @@
 		width: 83%;
 	}
 	
+	.center-popup {
+		margin: 4em 4.8em;
+	}
+	
 }
 	
 @media only screen and (max-width: 800px) {
@@ -204,6 +208,10 @@
 	.modal-flag textarea {
 		width: 82%;
 	}
+	
+	.center-popup {
+		margin: 4em 6em;
+	}
 }
 
 @media only screen and (max-width: 550px) {
@@ -217,6 +225,10 @@
 	
 	.modal-flag textarea {
 		width: 83%;
+	}
+	
+	.center-popup {
+		margin: 4em 8em;
 	}
 }
 

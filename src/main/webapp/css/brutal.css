@@ -330,6 +330,11 @@ em {
 	margin-top: 5px;
 }
 
+.center-popup {
+	z-index: 9999;
+	margin: 4em 5em;
+}
+
 .close-popup {
 	cursor: pointer;
 	padding-top: 1em;

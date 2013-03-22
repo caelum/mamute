@@ -1,7 +1,6 @@
 $(function() {
 	$('.requires-karma').each(function(index, element) {
 		var element = $(element);
-		console.log(element);
 		var authorCan = !element.hasClass("author-cant");
 		var required = parseInt(element.data("karma"));
 		var isAuthor = element.data("author");
@@ -9,7 +8,6 @@ $(function() {
 		if (authorCan && isAuthor) {
 			return;
 		}
-		console.log(required);
 		if(!MODERATOR && required > KARMA) {
 			element.off('click');
 			element.click(function(e) {
