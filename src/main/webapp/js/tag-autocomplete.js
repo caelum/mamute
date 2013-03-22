@@ -35,7 +35,7 @@ $('.autocomplete').keydown(function(e){
 	arrow = {left: 37, up: 38, right: 39, down: 40};
 	control = {esc: 27, enter: 13};
 	var completeTag = $('.complete-tag');
-	
+
 	switch(e.which) {
 		case arrow.down:
 			if(pos < completeTag.length - 3) pos += 3;
@@ -53,20 +53,21 @@ $('.autocomplete').keydown(function(e){
 			if(pos > 0)	pos--;
 			break;
 			
-		case control.esc:
-			$('.autocompleted-tags').addClass('hidden');
-			break;
-			
 		case control.enter:
 			insertTagIntoTextArea(completeTag.eq(pos).find(".tag").text());
 			pos=-3;
+			e.preventDefault();
+			$('.autocompleted-tags').addClass('hidden');
+			
+		case control.esc:
+			$('.autocompleted-tags').addClass('hidden');
+			break;
 			
 		default: return;
 	}
 
 	completeTag.removeClass('tag-selected');
 	completeTag.eq(pos).addClass('tag-selected');
-	e.preventDefault();
 });
 
 function insertTagIntoTextArea(text) {

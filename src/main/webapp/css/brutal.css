@@ -859,7 +859,7 @@ a.button.ask-a-question:hover{
 	border: 1px solid #000;
 	z-index: 999;
 	position: absolute;
-	margin-top: 21px;
+	margin-top: 2.4em;
 	background-color: #FFF;
 	padding: .6em;
 	width: 45.5%;
