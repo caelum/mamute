@@ -11,6 +11,7 @@ import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
+import br.com.caelum.brutal.providers.BrutalRoutesParser;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
@@ -30,6 +31,10 @@ public class ListController {
 		this.recentTagsContainer = recentTagsContainer;
 	}
 
+	/**
+	 * actually, this path will not be used, we use the path defined in the current environment
+	 * @see BrutalRoutesParser
+	 */
 	@Get("/")
 	public void home() {
 		result.include("questions", questions.all());
