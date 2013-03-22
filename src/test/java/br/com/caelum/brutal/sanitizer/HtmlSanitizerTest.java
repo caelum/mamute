@@ -11,7 +11,7 @@ public class HtmlSanitizerTest {
 	
 	@Test
 	public void shouldEscapeLTGTWhenPossible() {
-		String html = "< bla >";
+		String html = "<bla>";
 		String expected = "&lt;bla&gt;";
 		String sanitized = sanitize(html);
 		assertEquals(expected, sanitized);
