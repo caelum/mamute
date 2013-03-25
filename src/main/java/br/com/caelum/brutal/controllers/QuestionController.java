@@ -82,7 +82,7 @@ public class QuestionController {
 		authorizationSystem.canEdit(original, PermissionRulesConstants.EDIT_QUESTION);
 		
 		List<String> splitedTags = splitTags(tagNames);
-		List<Tag> loadedTags = tags.findAllByNames(splitedTags);
+		List<Tag> loadedTags = tags.findAllWithoutRepeat(splitedTags);
 		QuestionInformation information = new QuestionInformation(title, description, this.currentUser, loadedTags, comment);
 		UpdateStatus status = original.updateWith(information);
 		
@@ -119,7 +119,7 @@ public class QuestionController {
 	@ReputationEvent(ReputationEvents.NEW_QUESTION)
 	public void newQuestion(String title, String description, String tagNames) {
 		List<String> splitedTags = splitTags(tagNames);
-		List<Tag> foundTags = tags.findAllByNames(splitedTags);
+		List<Tag> foundTags = tags.findAllWithoutRepeat(splitedTags);
 		QuestionInformation information = new QuestionInformation(title, description, currentUser, foundTags, "new question");
 		Question question = new Question(information, currentUser.getCurrent());
 		
