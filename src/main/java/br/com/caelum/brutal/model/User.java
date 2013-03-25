@@ -1,6 +1,8 @@
 package br.com.caelum.brutal.model;
 
 import static br.com.caelum.brutal.infra.NormalizerBrutal.toSlug;
+import static br.com.caelum.brutal.model.MarkDown.parse;
+import static br.com.caelum.brutal.sanitizer.HtmlSanitizer.sanitize;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.ABOUT_LENGTH_MESSAGE;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.ABOUT_MAX_LENGTH;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.ABOUT_MIN_LENGTH;
@@ -42,7 +44,6 @@ import br.com.caelum.brutal.dto.UserPersonalInfo;
 import br.com.caelum.brutal.infra.Digester;
 import br.com.caelum.brutal.model.interfaces.Identifiable;
 import br.com.caelum.brutal.model.interfaces.Moderatable;
-import br.com.caelum.brutal.sanitizer.HtmlSanitizer;
 
 @Table(name="Users")
 @Entity
@@ -122,10 +123,10 @@ public class User implements Identifiable {
 
 	public User(String name, String email) {
 		super();
-		this.email = email;
+		setEmail(email);
 		setName(name);
 	}
-	
+
 	public DateTime getNameLastTouchedAt() {
 		return nameLastTouchedAt;
 	}
@@ -136,18 +137,58 @@ public class User implements Identifiable {
     }
 
     public void setName(String name) {
-		this.name = name;
-		this.sluggedName = toSlug(name);
+		this.name = sanitize(name);
+		this.sluggedName = sanitize(toSlug(name));
 		this.nameLastTouchedAt = new DateTime();
 	}
 
+    public void setId(Long id) {
+    	this.id = id;
+    }
+	
+	public void setAbout(String content) {
+		this.about = sanitize(content);
+		this.markedAbout = content == null ? null : sanitize(parse(content));
+	}
+	
+	public void setPhotoUri(URL storedUri) {
+		photoUri = storedUri.toString();
+	}
+	
+	public void setPersonalInformation(UserPersonalInfo info) {
+		setBirthDate(info.getBirthDate());
+		setRealName(info.getRealName());
+		setName(info.getName());
+		setEmail(info.getEmail());
+		setWebsite(info.getWebsite());
+		setLocation(info.getLocation());
+		setAbout(info.getAbout());
+	}
+
+	private void setBirthDate(DateTime birthDate) {
+		this.birthDate = birthDate;
+	}
+	
+	private void setRealName(String realName) {
+		this.realName = sanitize(realName);
+	}
+
+	private void setLocation(String location) {
+		this.location = sanitize(location);
+	}
+	
+	private void setWebsite(String website) {
+		this.website = sanitize(website);
+	}
+
+	private void setEmail(String email) {
+		this.email = sanitize(email);
+	}
+	
 	public Long getId() {
 		return this.id;
 	}
 	
-	public void setId(Long id) {
-        this.id = id;
-    }
 	
 	public String getSmallPhoto() {
 	    return getPhoto(32, 32);
@@ -157,20 +198,6 @@ public class User implements Identifiable {
 		return getPhoto(128, 128);
 	}
 	
-	public String getPhoto(Integer width, Integer height) {
-		String size = width + "x" + height;
-	    if (photoUri == null) {
-	    		String digest = Digester.md5(email);
-	    		String robohash = "http://robohash.org/size_"+size+"/"+digest+".png?size="+size+"&bgset=any";
-	    		String gravatar = "http://www.gravatar.com/avatar/" + digest + ".png?r=PG&size=" + size;
-	        try {
-				return gravatar + "&d=" + java.net.URLEncoder.encode(robohash, "UTF-8");
-			} catch (UnsupportedEncodingException e) {
-				return gravatar;
-			}
-	    }
-	    return photoUri;
-	}
 
 	public String getName() {
 		return name;
@@ -180,11 +207,6 @@ public class User implements Identifiable {
 		return realName;
 	}
 
-	@Override
-	public String toString() {
-		return "[User " + email + ", "+ name +"]";
-	}
-	
 	public long getKarma() {
 		return karma;
 	}
@@ -197,6 +219,75 @@ public class User implements Identifiable {
 		return email;
 	}
 
+	public String getSluggedName() {
+		return sluggedName;
+	}
+	
+	public DateTime getCreatedAt() {
+		return createdAt;
+	}
+	
+	public String getWebsite() {
+		return website;
+	}
+	
+	public String getLocation() {
+		return location;
+	}
+	
+	public DateTime getBirthDate() {
+		return birthDate;
+	}
+	
+	public Integer getAge() {
+		DateTime now = new DateTime();
+		if (birthDate == null){
+			return null;
+		}
+		return Years.yearsBetween(birthDate, now).getYears();
+	}
+	
+	public LoginMethod getBrutalLogin() {
+		for (LoginMethod method : loginMethods) {
+			if (method.isBrutal()) {
+				return method;
+			}
+		}
+		throw new IllegalStateException("this guy dont have a brutal login method!");
+	}
+	
+	public String getSessionKey() {
+		return sessionKey;
+	}
+
+	public String getPhoto(Integer width, Integer height) {
+		String size = width + "x" + height;
+		if (photoUri == null) {
+			String digest = Digester.md5(email);
+			String robohash = "http://robohash.org/size_"+size+"/"+digest+".png?size="+size+"&bgset=any";
+			String gravatar = "http://www.gravatar.com/avatar/" + digest + ".png?r=PG&size=" + size;
+			try {
+				return gravatar + "&d=" + java.net.URLEncoder.encode(robohash, "UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				return gravatar;
+			}
+		}
+		return photoUri;
+	}
+	
+	public String getAbout() {
+		return about;
+	}
+	
+	public String getMarkedAbout() {
+		return markedAbout;
+	}
+
+	@Override
+	public String toString() {
+		return "[User " + email + ", "+ name +"]";
+	}
+	
 	public boolean isModerator() {
 		return moderator;
 	}
@@ -227,14 +318,6 @@ public class User implements Identifiable {
 		return true;
 	}
 
-	public String getSluggedName() {
-		return sluggedName;
-	}
-	
-	public DateTime getCreatedAt() {
-		return createdAt;
-	}
-	
 	public UpdateStatus approve(Moderatable moderatable, Information approvedInfo) {
 	    if (this.isModerator()) {
 	        moderatable.approve(approvedInfo);
@@ -246,64 +329,13 @@ public class User implements Identifiable {
 	public boolean isAuthorOf(Question question){
 		return this.id == question.getAuthor().getId();  
 	}
-	
-	public String getWebsite() {
-		return website;
-	}
-	
-	public String getLocation() {
-		return location;
-	}
-	
-	public DateTime getBirthDate() {
-		return birthDate;
-	}
-	
-	public Integer getAge() {
-		DateTime now = new DateTime();
-		if (birthDate == null){
-			return null;
-		}
-		return Years.yearsBetween(birthDate, now).getYears();
-	}
-	
-	public void setAbout(String content) {
-		this.about = content;
-		this.markedAbout = content == null ? null : HtmlSanitizer.sanitize(MarkDown.parse(content));
-	}
-	
-	public String getAbout() {
-		return about;
-	}
-	
-	public String getMarkedAbout() {
-		return markedAbout;
-	}
-	
-	public void setPersonalInformation(UserPersonalInfo info) {
-		this.realName = info.getRealName();
-		this.birthDate = info.getBirthDate();
-		setName(info.getName());
-		this.email = info.getEmail();
-		this.website = info.getWebsite();
-		this.location = info.getLocation();
-		setAbout(info.getAbout());
-	}
 
-    public void descreaseKarma(int value) {
+	public void descreaseKarma(int value) {
         this.karma -= value;
     }
 
     public void increaseKarma(int value) {
         this.karma += value;
-    }
-
-    public void setPhotoUri(URL storedUri) {
-        photoUri = storedUri.toString();
-    }
-    
-    public String getSessionKey() {
-        return sessionKey;
     }
     
     public void resetSession() {
@@ -313,17 +345,9 @@ public class User implements Identifiable {
     public void confirmEmail(){
     	confirmedEmail = true;
 	}
-
+    
 	public void add(LoginMethod brutalLogin) {
 		loginMethods.add(brutalLogin);
 	}
-
-	public LoginMethod getBrutalLogin() {
-		for (LoginMethod method : loginMethods) {
-			if (method.isBrutal()) {
-				return method;
-			}
-		}
-		throw new IllegalStateException("this guy dont have a brutal login method!");
-	}
+	
 }
