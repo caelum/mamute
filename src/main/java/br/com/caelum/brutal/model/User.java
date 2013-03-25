@@ -184,11 +184,14 @@ public class User implements Identifiable {
 	private void setEmail(String email) {
 		this.email = sanitize(email);
 	}
+
+	void setKarma(long karma) {
+        this.karma = karma;
+    }
 	
 	public Long getId() {
 		return this.id;
 	}
-	
 	
 	public String getSmallPhoto() {
 	    return getPhoto(32, 32);
@@ -197,7 +200,6 @@ public class User implements Identifiable {
 	public String getMediumPhoto() {
 		return getPhoto(128, 128);
 	}
-	
 
 	public String getName() {
 		return name;
@@ -210,10 +212,6 @@ public class User implements Identifiable {
 	public long getKarma() {
 		return karma;
 	}
-
-	void setKarma(long karma) {
-        this.karma = karma;
-    }
 
 	public String getEmail() {
 		return email;
