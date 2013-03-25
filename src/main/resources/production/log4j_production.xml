@@ -35,7 +35,7 @@
     </appender>
 
     <category name="br.com.caelum.vraptor">
-        <priority value="INFO"/>
+        <priority value="WARN"/>
         <appender-ref ref="main"/>
     </category>
 

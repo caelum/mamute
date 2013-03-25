@@ -55,7 +55,7 @@
     </category>
 
     <category name="br.com.caelum.brutal">
-        <priority value="DEBUG"/>
+        <priority value="WARN"/>
         <appender-ref ref="main"/>
     </category>
     
