@@ -4,11 +4,16 @@
 	<div class="subheader">
 		<h2 class="title page-title replace"></h2>
 	</div>
-	<ol class="question-list">
-		<c:forEach var="question" items="${questions }">
-			<tags:list-question-item question="${question}"/>
-		</c:forEach>
-	</ol>
+	<c:if test="${not empty questions}">
+		<ol class="question-list">
+			<c:forEach var="question" items="${questions }">
+				<tags:list-question-item question="${question}"/>
+			</c:forEach>
+		</ol>
+	</c:if>
+	<c:if test="${empty questions}">
+		<h2 class="title section-title"><fmt:message key="questions.empty_list" /></h2>
+	</c:if>
 </section>
 <aside class="sidebar">
 	<div class="subheader">
