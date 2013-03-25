@@ -3,7 +3,7 @@
 <div class="subheader">
 	<tags:userProfileLink user="${user}" htmlClass="title page-title" />
 	<ul class="subheader-menu">
-		<a href="${linkTo[UserProfileController].editProfile[user.id]}"><fmt:message key="user_profile.edit" /></a>
+		<a href="${linkTo[UserProfileController].editProfile[user]}"><fmt:message key="user_profile.edit" /></a>
 	</ul>
 </div>
 <div class="image-and-information">
@@ -11,7 +11,7 @@
 	<a href="https://br.gravatar.com/"><fmt:message key="user_profile.edit.photo" /></a>
 </div>
 
-<form class="validated-form profile-edit-form" action="${linkTo[UserProfileController].editProfile[user.id]}" method="POST">
+<form class="validated-form profile-edit-form" action="${linkTo[UserProfileController].editProfile[user]}" method="POST">
 	<label for="name" class="form-label"><fmt:message key="user_profile.edit.form.name.label" /></label>
 	<input type="text" name="name" class="text-input required" minlength="4" maxlength="100" value="${user.name}"/>
 	
