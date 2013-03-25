@@ -13,13 +13,14 @@ import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.LoginMethod;
 import br.com.caelum.brutal.model.MethodType;
 import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.validators.UrlValidator;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.validator.I18nMessage;
 
 @Resource
-public class FacebookAuthController {
+public class FacebookAuthController extends Controller{
 	
 	private final FacebookAuthService facebook;
 	private final UserDAO users;
@@ -27,16 +28,18 @@ public class FacebookAuthController {
 	private final Result result;
 	private final Access access;
 	private final MessageFactory messageFactory;
+	private UrlValidator urlValidator;
 
 	public FacebookAuthController(FacebookAuthService facebook, UserDAO users, 
 			LoginMethodDAO loginMethods, Result result, Access access,
-			MessageFactory messageFactory) {
+			MessageFactory messageFactory, UrlValidator urlValidator) {
 		this.facebook = facebook;
 		this.users = users;
 		this.loginMethods = loginMethods;
 		this.result = result;
 		this.access = access;
 		this.messageFactory = messageFactory;
+		this.urlValidator = urlValidator;
 	}
 	
 	@Get("/signup/facebook")
@@ -63,11 +66,15 @@ public class FacebookAuthController {
 	}
 
 	private void redirectToRightUrl(String state) {
-		if(state != null){
-			result.redirectTo(state);
-		}else{
-			result.redirectTo(ListController.class).home();
+		boolean valid = urlValidator.isValid(state);
+		if (!valid) {
+			includeAsList("messages", i18n("error", "error.invalid.url", state));
 		}
+        if (state != null && !state.isEmpty() && valid) {
+            redirectTo(state);
+        } else {
+            redirectTo(ListController.class).home();
+        }
 	}
 
 	private void createNewUser(String rawToken, SignupInfo signupInfo) {
