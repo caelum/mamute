@@ -23,6 +23,7 @@ import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.core.Localization;
+import br.com.caelum.vraptor.util.hibernate.extra.Load;
 import br.com.caelum.vraptor.view.Results;
 
 @Resource
@@ -84,16 +85,14 @@ public class AnswerController {
 	@Post("/responder/{question.id}")
 	@LoggedAccess
 	@ReputationEvent(ReputationEvents.NEW_ANSWER)
-	public void newAnswer(Question question, String description) {
-        Question loadedQuestion = questions.getById(question.getId());
-        loadedQuestion.touchedBy(currentUser.getCurrent());
+	public void newAnswer(@Load Question question, String description) {
+        question.touchedBy(currentUser.getCurrent());
 
         AnswerInformation information = new AnswerInformation(description, currentUser, "new answer");
 		Answer answer  = new Answer(information, question, currentUser.getCurrent());
 		answers.save(answer);
-        
-        result.redirectTo(QuestionController.class).showQuestion(loadedQuestion,
-                loadedQuestion.getSluggedTitle());
+        result.redirectTo(QuestionController.class).showQuestion(question,
+        		question.getSluggedTitle());
 	}
 	
 	@Post("/marcar-como-solucao/{solutionId}")
