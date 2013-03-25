@@ -52,21 +52,25 @@
 	</div>
 </section>
 <section class="advanced-user-data user-data">
-	<tags:userProfileAdvancedData i18n="questions" list="${questionsByVotes}" type="perguntas" orderOptions="true">
-		<c:forEach var="question" items="${questionsByVotes}">
-			<li class="ellipsis advanced-data-line"><span class="counter">${question.voteCount}</span> <tags:questionLinkFor question="${question}"/></li>
-		</c:forEach>
-	</tags:userProfileAdvancedData>
+	<div class="advanced-data-line-wrapper">
+		<tags:userProfileAdvancedData i18n="questions" list="${questionsByVotes}" type="perguntas" orderOptions="true">
+			<c:forEach var="question" items="${questionsByVotes}">
+				<li class="ellipsis advanced-data-line"><span class="counter">${question.voteCount}</span> <tags:questionLinkFor question="${question}"/></li>
+			</c:forEach>
+		</tags:userProfileAdvancedData>
+		
+		<tags:userProfileAdvancedData i18n="answers" list="${answersByVotes}" type="respostas" orderOptions="true">
+			<c:forEach var="answer" items="${answersByVotes}">
+				<li class="ellipsis advanced-data-line"><span class="counter">${answer.voteCount}</span> <tags:questionLinkFor answer="${answer}"/></li>
+			</c:forEach>
+		</tags:userProfileAdvancedData>
+	</div>
 	
-	<tags:userProfileAdvancedData i18n="answers" list="${answersByVotes}" type="respostas" orderOptions="true">
-		<c:forEach var="answer" items="${answersByVotes}">
-			<li class="ellipsis advanced-data-line"><span class="counter">${answer.voteCount}</span> <tags:questionLinkFor answer="${answer}"/></li>
-		</c:forEach>
-	</tags:userProfileAdvancedData>
-	
-	<tags:userProfileAdvancedData i18n="tags" list="${mainTags}" type="tags" orderOptions="false">
-		<c:forEach var="tagUsage" items="${mainTags}">
-			<li class="ellipsis advanced-data-line tag-line"><span class="counter tag-usage">${tagUsage.usage}</span> <tags:tag tag="${tagUsage.tag}"/></li>
-		</c:forEach>
-	</tags:userProfileAdvancedData>
+	<div class="advanced-data-line-wrapper">
+		<tags:userProfileAdvancedData i18n="tags" list="${mainTags}" type="tags" orderOptions="false">
+			<c:forEach var="tagUsage" items="${mainTags}">
+				<li class="ellipsis advanced-data-line tag-line"><span class="counter tag-usage">${tagUsage.usage}</span> <tags:tag tag="${tagUsage.tag}"/></li>
+			</c:forEach>
+		</tags:userProfileAdvancedData>
+	</div>
 </section>

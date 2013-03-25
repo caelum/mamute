@@ -1357,7 +1357,7 @@ a.button.ask-a-question:hover{
 
 .advanced-data-section {
 	width: 50%;
-	height: 150px;
+	height: 100%;
 }
 
 .advanced-data-section .advanced-data-line {
@@ -1382,13 +1382,21 @@ a.button.ask-a-question:hover{
 	font-weight: bold;
 }
 
-.advanced-data-section:nth-child(odd) {
-	padding-right: 20px;
+.advanced-data-line-wrapper{
+	height:auto;
+	overflow:hidden;
+	margin-bottom:2%;
+}
+
+.advanced-data-line-wrapper
+.advanced-data-section:nth-child(odd){
+	padding-right: 10px;
 	float: left;
 }
 
-.advanced-data-section:nth-child(even) {
-	padding-left: 20px;
+.advanced-data-line-wrapper
+.advanced-data-section:nth-child(even){
+	padding-left: 10px;
 	float: right;
 }
 
