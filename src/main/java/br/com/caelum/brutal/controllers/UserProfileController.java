@@ -3,7 +3,6 @@ package br.com.caelum.brutal.controllers;
 import static br.com.caelum.brutal.dao.WithAuthorDAO.OrderType.ByVotes;
 import static br.com.caelum.vraptor.view.Results.json;
 
-import org.hibernate.ObjectNotFoundException;
 import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.dao.AnswerDAO;
@@ -19,6 +18,7 @@ import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.util.hibernate.extra.Load;
 
 @Resource
 public class UserProfileController {
@@ -44,20 +44,19 @@ public class UserProfileController {
 		this.infoValidator = infoValidator;
 	}
 	
-	@Get("/usuario/{id}/{sluggedName}")
-	public void showProfile(Long id, String sluggedName) throws ObjectNotFoundException{
-		User selectedUser = users.findById(id);
-		String correctSluggedName = selectedUser.getSluggedName();
+	@Get("/usuario/{user.id:[0-9]+}/{sluggedName}")
+	public void showProfile(@Load User user, String sluggedName){
+		String correctSluggedName = user.getSluggedName();
 		if (!correctSluggedName.equals(sluggedName)){
-			result.redirectTo(this).showProfile(id, correctSluggedName);
+			result.redirectTo(this).showProfile(user, correctSluggedName);
 			return;
 		}
 		
-		result.include("isCurrentUser", currentUser.getCurrent().getId().equals(id));
-		result.include("questionsByVotes", questions.withAuthorBy(selectedUser, ByVotes));
-		result.include("answersByVotes", answers.withAuthorBy(selectedUser, ByVotes));
-		result.include("mainTags", tags.findMainTagsOfUser(selectedUser));
-		result.include("selectedUser", selectedUser);
+		result.include("isCurrentUser", currentUser.getCurrent().getId().equals(user.getId()));
+		result.include("questionsByVotes", questions.withAuthorBy(user, ByVotes));
+		result.include("answersByVotes", answers.withAuthorBy(user, ByVotes));
+		result.include("mainTags", tags.findMainTagsOfUser(user));
+		result.include("selectedUser", user);
 	}
 	
 	@Get("/usuario/{id}/{sluggedName}/perguntas/{orderByWhat}")
@@ -71,10 +70,9 @@ public class UserProfileController {
 		User author = users.findById(id);
 		result.use(json()).withoutRoot().from(answers.withAuthorBy(author, orderByWhat)).include("question", "question.information").serialize();
 	}
-	
-	@Get("/usuario/editar/{id}")
-	public void editProfile(Long id) throws ObjectNotFoundException{
-		User user = users.findById(id);
+		
+	@Get("/usuario/editar/{user.id:[0-9]+}")
+	public void editProfile(@Load User user){
 		if (!user.getId().equals(currentUser.getCurrent().getId())){
 			result.redirectTo(ListController.class).home();
 			return;
@@ -82,10 +80,9 @@ public class UserProfileController {
 		result.include("user", user);
 	}
 	
-	@Post("/usuario/editar/{id}")
-	public void editProfile(Long id, String name, String realName, String email, 
+	@Post("/usuario/editar/{user.id:[0-9]+}")
+	public void editProfile(@Load User user, String name, String realName, String email, 
 			String website, String location, DateTime birthDate, String description) {
-		User user = users.findById(id);
 		if (!user.getId().equals(currentUser.getCurrent().getId())){
 			result.redirectTo(ListController.class).home();
 			return;
@@ -98,13 +95,13 @@ public class UserProfileController {
 		UserPersonalInfo info = new UserPersonalInfo(user, name, realName, email, website, location, birthDate, description);
 		
 		if (!infoValidator.validate(info)) {
-			infoValidator.onErrorRedirectTo(this).editProfile(id);
+			infoValidator.onErrorRedirectTo(this).editProfile(user);
 			return;
 		}
 		
 		user.setPersonalInformation(info);
 		
-		result.redirectTo(this).showProfile(id, user.getSluggedName());
+		result.redirectTo(this).showProfile(user, user.getSluggedName());
 	}
 
 	private String correctWebsite(String website) {

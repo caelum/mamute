@@ -78,7 +78,7 @@ public class AnswerController {
 					messageFactory.build("confirmation", status.getMessage())
 				));
 		Question originalQuestion = original.getQuestion();
-		result.redirectTo(QuestionController.class).showQuestion(originalQuestion.getId(), originalQuestion.getSluggedTitle());
+		result.redirectTo(QuestionController.class).showQuestion(originalQuestion, originalQuestion.getSluggedTitle());
 	}
 	
 	@Post("/responder/{question.id}")
@@ -92,7 +92,7 @@ public class AnswerController {
 		Answer answer  = new Answer(information, question, currentUser.getCurrent());
 		answers.save(answer);
         
-        result.redirectTo(QuestionController.class).showQuestion(loadedQuestion.getId(),
+        result.redirectTo(QuestionController.class).showQuestion(loadedQuestion,
                 loadedQuestion.getSluggedTitle());
 	}
 	
@@ -109,7 +109,7 @@ public class AnswerController {
 			result.nothing();
 		} else {
 			result.use(Results.status()).forbidden(localization.getMessage("answer.error.not_autor"));
-			result.redirectTo(QuestionController.class).showQuestion(question.getId(),
+			result.redirectTo(QuestionController.class).showQuestion(question,
 	                question.getSluggedTitle());
 		}
 	}

@@ -85,7 +85,7 @@ public class NotificationMailer {
         }
         
         public String questionLink(Question q) {
-            linker.linkTo(QuestionController.class).showQuestion(q.getId(), q.getSluggedTitle());
+            linker.linkTo(QuestionController.class).showQuestion(q, q.getSluggedTitle());
             return linker.get();
         }
         
