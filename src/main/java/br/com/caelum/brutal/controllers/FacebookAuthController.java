@@ -42,7 +42,7 @@ public class FacebookAuthController extends Controller{
 		this.urlValidator = urlValidator;
 	}
 	
-	@Get("/signup/facebook")
+	@Get("/cadastrar/facebook")
 	public void signupViaFacebook(String code, String state) {
 		String rawToken = facebook.buildToken(code);
 		SignupInfo signupInfo = facebook.getSignupInfo();
