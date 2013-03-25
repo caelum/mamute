@@ -142,10 +142,10 @@ public class User implements Identifiable {
 	}
 
 	public Long getId() {
-		return id;
+		return this.id;
 	}
 	
-	void setId(Long id) {
+	public void setId(Long id) {
         this.id = id;
     }
 	

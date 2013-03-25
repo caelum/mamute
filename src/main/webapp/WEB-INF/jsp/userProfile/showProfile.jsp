@@ -5,7 +5,7 @@
 		<tags:userProfileLink user="${selectedUser}" htmlClass="title page-title" />
 		<c:if test="${isCurrentUser}">
 			<ul class="subheader-menu">
-				<li><a href="${linkTo[UserProfileController].editProfile[selectedUser.id]}"><fmt:message key="user_profile.edit" /></a></li>
+				<li><a href="${linkTo[UserProfileController].editProfile[selectedUser]}"><fmt:message key="user_profile.edit" /></a></li>
 			</ul>
 		</c:if>
 	</div>
@@ -46,7 +46,7 @@
 	<div class="about-me">
 		<c:if test="${isCurrentUser && empty selectedUser.markedAbout}">
 			<fmt:message key="user_profile.blank_about_me"/>
-			<a href="${linkTo[UserProfileController].editProfile[selectedUser.id]}"><fmt:message key="user_profile.blank_about_me.click"/></a>
+			<a href="${linkTo[UserProfileController].editProfile[selectedUser]}"><fmt:message key="user_profile.blank_about_me.click"/></a>
 		</c:if>
 		${selectedUser.markedAbout}
 	</div>

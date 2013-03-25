@@ -5,8 +5,6 @@ import static java.util.Arrays.asList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.hibernate.ObjectNotFoundException;
-
 import br.com.caelum.brutal.auth.FacebookAuthService;
 import br.com.caelum.brutal.auth.LoggedAccess;
 import br.com.caelum.brutal.auth.rules.AuthorizationSystem;
@@ -30,6 +28,7 @@ import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.util.hibernate.extra.Load;
 import br.com.caelum.vraptor.view.Results;
 
 @Resource
@@ -96,20 +95,19 @@ public class QuestionController {
 		questions.save(original);
 		result.include("messages",
 				Arrays.asList(messageFactory.build("confirmation", status.getMessage())));
-		result.redirectTo(this).showQuestion(id, original.getSluggedTitle());
+		result.redirectTo(this).showQuestion(original, original.getSluggedTitle());
 	}
 	
-	@Get("/{questionId}-{sluggedTitle}")
-	public void showQuestion(Long questionId, String sluggedTitle) throws ObjectNotFoundException{
-		Question question = questions.getById(questionId);
+	@Get("/{question.id:[0-9]+}-{sluggedTitle}")
+	public void showQuestion(@Load Question question, String sluggedTitle){
 		if (!question.getSluggedTitle().equals(sluggedTitle)) {
-			result.redirectTo(this).showQuestion(question.getId(),
+			result.redirectTo(this).showQuestion(question,
 					question.getSluggedTitle());
 			return;
 		}
 		viewCounter.ping(question);
 		User author = currentUser.getCurrent();
-		result.include("currentVote", votes.previousVoteFor(questionId, author, Question.class));
+		result.include("currentVote", votes.previousVoteFor(question.getId(), author, Question.class));
 		result.include("answers", votes.previousVotesForAnswers(question, author));
 		result.include("questionTags", question.getInformation().getTags());
 		result.include("question", question);
@@ -131,7 +129,7 @@ public class QuestionController {
 		validator.onErrorRedirectTo(this).questionForm();
 	
 		questions.save(question);
-		result.redirectTo(this).showQuestion(question.getId(), question.getSluggedTitle());
+		result.redirectTo(this).showQuestion(question, question.getSluggedTitle());
 	}
 
 	private List<String> splitTags(String tagNames) {

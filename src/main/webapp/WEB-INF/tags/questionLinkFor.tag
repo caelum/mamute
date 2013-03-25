@@ -5,12 +5,12 @@
 
 <c:choose>
 	<c:when test="${empty question and not empty answer}">
-		<a href="${linkTo[QuestionController].showQuestion[answer.question.id][answer.question.sluggedTitle]}#answer-${answer.id}">
+		<a href="${linkTo[QuestionController].showQuestion[answer.question][answer.question.sluggedTitle]}#answer-${answer.id}">
 			${answer.question.title}
 		</a>
 	</c:when>
 	<c:when test="${empty answer and not empty question}">
-		<a href="${linkTo[QuestionController].showQuestion[question.id][question.sluggedTitle]}">
+		<a href="${linkTo[QuestionController].showQuestion[question][question.sluggedTitle]}">
 			${question.title}
 		</a>
 	</c:when>

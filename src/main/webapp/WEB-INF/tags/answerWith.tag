@@ -20,7 +20,7 @@
 			<ul class="post-action-nav nav piped-nav">
 				<li class="nav-item">
 					<a class="post-action edit requires-login requires-karma"
-							data-author="${isAuthor}"
+							data-author="${answer.question.author.id == currentUser.id}"
 							data-karma="20" 
 							href="${linkTo[AnswerController].answerEditForm[answer.id]}"><fmt:message key="edit" /></a>
 				</li>

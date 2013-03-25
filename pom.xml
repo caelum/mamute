@@ -21,7 +21,6 @@
 		<developerConnection>scm:git:git@github.com:caelum/brutal.git</developerConnection>
 	</scm>
 
-
 	<dependencies>
 		<dependency>
 			<groupId>joda-time</groupId>
@@ -348,35 +347,29 @@
 			<plugin>
 				<groupId>net.alchim31.maven</groupId>
 				<artifactId>yuicompressor-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<phase>compile</phase>
-						<goals>
-							<goal>compress</goal>
-						</goals>
-					</execution>
-				</executions>        
 				<configuration>
-				    <gzip>true</gzip>
-				    <nosuffix>true</nosuffix>
+					<gzip>true</gzip>
+					<nosuffix>true</nosuffix>
 					<aggregations>
 						<aggregation>
-			              <removeIncluded>true</removeIncluded>
-			              <output>${project.build.directory}/${project.build.finalName}/js/all.js</output>
-			              <!-- files to include, path relative to output's directory or absolute path-->
-			              <!--inputDir>base directory for non absolute includes, default to parent dir of output</inputDir-->
-			              <includes>
-			                <include>**/*.js</include>
-			              </includes>
-			              <excludes>
-			              	<exclude>**/jquery.js</exclude>
-			              	<exclude>**/html5shiv.js</exclude>
-			              </excludes>
+							<removeIncluded>true</removeIncluded>
+							<output>${project.build.directory}/${project.build.finalName}/js/all.js</output>
+							<!-- files to include, path relative to output's directory or absolute 
+								path -->
+							<!--inputDir>base directory for non absolute includes, default to 
+								parent dir of output</inputDir -->
+							<includes>
+								<include>**/*.js</include>
+							</includes>
+							<excludes>
+								<exclude>**/jquery.js</exclude>
+								<exclude>**/html5shiv.js</exclude>
+							</excludes>
 						</aggregation>
 					</aggregations>
 				</configuration>
 			</plugin>
-		
+
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
@@ -449,7 +442,7 @@
 						</goals>
 						<configuration>
 							<excludes>
-								<exclude>none</exclude>
+								<exclude>**/*Test.java</exclude>
 							</excludes>
 							<includes>
 								<include>**/AcceptanceTestsSuite.java</include>
@@ -572,6 +565,39 @@
 							<systemPropertyVariables>
 								<vraptor.server_host>caelum-brutal-acceptance.herokuapp.com</vraptor.server_host>
 							</systemPropertyVariables>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>acceptance-tests</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>2.5</version>
+						<executions>
+							<execution>
+								<id>surefire-integration</id>
+								<phase>integration-test</phase>
+								<goals>
+									<goal>test</goal>
+								</goals>
+								<configuration>
+									<excludes>
+										<exclude>**/*Test.java</exclude>
+									</excludes>
+									<includes>
+										<include>**/AcceptanceTestsSuite.java</include>
+									</includes>
+								</configuration>
+							</execution>
+						</executions>
+						<configuration>
+							<excludes>
+								<exclude>**/*</exclude>
+							</excludes>
 						</configuration>
 					</plugin>
 				</plugins>
