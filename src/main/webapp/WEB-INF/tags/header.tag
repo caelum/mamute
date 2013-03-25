@@ -47,6 +47,7 @@
 <link rel="stylesheet" href="<c:url value="/css/prettify.css"/>">
 <link rel="stylesheet" href="<c:url value="/css/brutal.css"/>">
 <link rel="stylesheet" href="<c:url value="/css/responsive-brutal.css"/>">
+<link rel="stylesheet" href="<c:url value="/css/jquery-ui-1.10.2.custom.css"/>">
 <!--[if lt IE 9]>
 	<script src="<c:url value="/js/html5shiv.js"/>"></script>
 <![endif]-->
