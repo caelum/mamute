@@ -101,7 +101,10 @@ $(function() {
 		 dayNamesMin: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
 		 maxDate: "-12y"
 		});
+	
+	$(".validated-form input").eq(0).focus();
 });
+
 </script>
 
 </body>
