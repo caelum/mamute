@@ -80,8 +80,6 @@ $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
 
 $.get("/tags/todos-nomes", function(tags){ALL_TAGS = tags});
 
-
-$(function(){prettyPrint()});
 function errorPopup(text, target, clazz){
 	clazz = clazz || "";
 	if(!$(".validation-error.popup").is(":visible")){
@@ -94,13 +92,15 @@ function errorPopup(text, target, clazz){
 }
 
 $(function() {
+	prettyPrint();
+	
 	$("#datepicker").datepicker(
 		{dateFormat: "dd/mm/yy",
 		 monthNames: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", 
 		              "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
 		 dayNamesMin: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
 		 maxDate: "-12y"
-		});
+	});
 	
 	$(".validated-form input").eq(0).focus();
 });
