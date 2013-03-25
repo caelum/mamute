@@ -40,7 +40,7 @@ public class SignupController {
 	
 	@Get("/cadastrar")
 	public void signupForm() {
-		String facebookUrl = facebook.getOauthUrl();
+		String facebookUrl = facebook.getOauthUrl(null);
 		result.include("facebookUrl", facebookUrl);
 	}
 

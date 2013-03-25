@@ -20,8 +20,12 @@ public class FacebookAuthService {
 		this.service = service;
 	}
 	
-	public String getOauthUrl() {
-		return service.getAuthorizationUrl(EMPTY_TOKEN) + "&scope=email,user_location";
+	public String getOauthUrl(String state) {
+		String url = service.getAuthorizationUrl(EMPTY_TOKEN) + "&scope=email,user_location";
+		if (state == null) {
+			return url;
+		}
+		return url + "&state=" + state;
 	}
 
 	public String buildToken(String code) {

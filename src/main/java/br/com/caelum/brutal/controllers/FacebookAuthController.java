@@ -40,26 +40,34 @@ public class FacebookAuthController {
 	}
 	
 	@Get("/signup/facebook")
-	public void signupViaFacebook(String code) {
+	public void signupViaFacebook(String code, String state) {
 		String rawToken = facebook.buildToken(code);
 		SignupInfo signupInfo = facebook.getSignupInfo();
 
 		User existantFacebookUser = users.findByEmailAndMethod(signupInfo.getEmail(), MethodType.FACEBOOK);
 		if (existantFacebookUser != null) {
 			access.login(existantFacebookUser);
-			result.redirectTo(ListController.class).home();
+			redirectToRightUrl(state);
 			return;
 		}
 		
 		User existantBrutalUser = users.findByEmailAndMethod(signupInfo.getEmail(), MethodType.BRUTAL);
 		if (existantBrutalUser != null) {
 			mergeLoginMethods(rawToken, existantBrutalUser);
+			redirectToRightUrl(state);
 			return;
 		}
 		
 		createNewUser(rawToken, signupInfo);
-		
-		result.redirectTo(ListController.class).home();
+		redirectToRightUrl(state);
+	}
+
+	private void redirectToRightUrl(String state) {
+		if(state != null){
+			result.redirectTo(state);
+		}else{
+			result.redirectTo(ListController.class).home();
+		}
 	}
 
 	private void createNewUser(String rawToken, SignupInfo signupInfo) {
@@ -79,6 +87,5 @@ public class FacebookAuthController {
 		existantBrutalUser.add(facebookLogin);
 		loginMethods.save(facebookLogin);
 		access.login(existantBrutalUser);
-		result.redirectTo(ListController.class).home();
 	}
 }

@@ -23,6 +23,7 @@ import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.reputation.rules.ReputationEvent;
 import br.com.caelum.brutal.reputation.rules.ReputationEvents;
 import br.com.caelum.brutal.validators.TagsValidator;
+import br.com.caelum.brutal.vraptor.Linker;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
@@ -45,11 +46,12 @@ public class QuestionController {
 	private final Validator validator;
 	private final FacebookAuthService facebook;
 	private final QuestionViewCounter viewCounter;
+	private Linker linker;
 
 	public QuestionController(Result result, QuestionDAO questionDAO, TagDAO tags, 
 			VoteDAO votes, LoggedUser currentUser, FacebookAuthService facebook,
 			TagsValidator tagsValidator, MessageFactory messageFactory,
-			AuthorizationSystem authorizationSystem, Validator validator, QuestionViewCounter viewCounter) {
+			AuthorizationSystem authorizationSystem, Validator validator, QuestionViewCounter viewCounter, Linker linker) {
 		this.result = result;
 		this.questions = questionDAO;
 		this.tags = tags;
@@ -61,6 +63,7 @@ public class QuestionController {
 		this.authorizationSystem = authorizationSystem;
 		this.validator = validator;
 		this.viewCounter = viewCounter;
+		this.linker = linker;
 	}
 
 	@Get("/perguntar")
@@ -111,7 +114,8 @@ public class QuestionController {
 		result.include("answers", votes.previousVotesForAnswers(question, author));
 		result.include("questionTags", question.getInformation().getTags());
 		result.include("question", question);
-		result.include("facebookUrl", facebook.getOauthUrl());
+		linker.linkTo(this).showQuestion(question, sluggedTitle);
+		result.include("facebookUrl", facebook.getOauthUrl(linker.get()));
 	}
 
 	@Post("/perguntar")

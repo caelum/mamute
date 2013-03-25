@@ -26,7 +26,7 @@ public class AuthController extends Controller {
 	
 	@Get("/login")
 	public void loginForm(String redirectUrl) {
-		String facebookUrl = facebook.getOauthUrl();
+		String facebookUrl = facebook.getOauthUrl(redirectUrl);
 		if (redirectUrl != null && !redirectUrl.isEmpty()) {
 			include("redirectUrl", redirectUrl);
 		}

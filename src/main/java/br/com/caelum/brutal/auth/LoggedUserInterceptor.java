@@ -40,8 +40,8 @@ public class LoggedUserInterceptor implements Interceptor {
             throws InterceptionException {
         if (currentUser == null) {
 			result.include("messages", asList(messageFactory.build("alert", "auth.access.denied")));
-            result.include("redirectUrl", req.getRequestURL().toString());
-            result.redirectTo(AuthController.class).loginForm("");
+            String redirectUrl = req.getRequestURL().toString();
+            result.redirectTo(AuthController.class).loginForm(redirectUrl);
         } else {
             stack.next(method, instance);
         }
