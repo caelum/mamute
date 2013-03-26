@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This is an example of a custom instrumentation extension XML file. It 
+	instruments some of the main java methods. -->
+
+<urn:extension xmlns:urn="newrelic-extension"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="newrelic-extension extension.xsd " name="customExtensions"
+	version="1.0" enabled="true">
+	<urn:instrumentation>
+
+		<!-- This point cut instruments some of the methods in the class java.util.ArrayList. -->
+		<urn:pointcut transactionStartPoint="true"
+			excludeFromTransactionTrace="false" ignoreTransaction="false">
+			<urn:className>java.util.ArrayList</urn:className>
+			<!-- Implements the method clear() -->
+			<urn:method>
+				<urn:name>clear</urn:name>
+				<!-- The parameters node does not need to be specified if there are no 
+					input parameters. -->
+			</urn:method>
+			<!-- Implements the method Object get(int index) -->
+			<urn:method>
+				<urn:name>get</urn:name>
+				<urn:parameters>
+					<!-- Primitives should written using their name: byte, short, int, long, 
+						float, double, boolean, char -->
+					<urn:type>int</urn:type>
+				</urn:parameters>
+			</urn:method>
+			<!-- Implements the method boolean addAll(int index, Collection c) -->
+			<urn:method>
+				<urn:name>addAll</urn:name>
+				<urn:parameters>
+					<!-- Make sure your parameters are listed in order. -->
+					<urn:type>int</urn:type>
+					<urn:type>java.util.Collection</urn:type>
+				</urn:parameters>
+			</urn:method>
+		</urn:pointcut>
+
+		<!-- This point cut instruments some of the methods in the class java.lang.String. -->
+		<urn:pointcut transactionStartPoint="true">
+			<urn:className>java.lang.String</urn:className>
+			<!-- Implements the method int hashCode() -->
+			<urn:method>
+				<urn:name>hashCode</urn:name>
+			</urn:method>
+			<!-- Implements the method boolean startsWith(String prefix) -->
+			<urn:method>
+				<urn:name>startsWith</urn:name>
+				<urn:parameters>
+					<urn:type>java.lang.String</urn:type>
+				</urn:parameters>
+			</urn:method>
+			<!-- Implements the method String valueOf(char[] data, int offset, int 
+				count) -->
+			<urn:method>
+				<urn:name>valueOf</urn:name>
+				<urn:parameters>
+					<!-- Be sure to use brackets for arrays. -->
+					<urn:type>char[]</urn:type>
+					<urn:type>int</urn:type>
+					<urn:type>int</urn:type>
+				</urn:parameters>
+			</urn:method>
+		</urn:pointcut>
+
+	</urn:instrumentation>
+</urn:extension>

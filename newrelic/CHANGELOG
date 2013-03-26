@@ -1,0 +1,431 @@
+CHANGELOG
+=========
+
+v2.16.0
+-------
+
+* Adds a stack trace in a transaction trace for methods taking longer than
+  the stack trace threshold setting (in seconds).
+  
+    transaction_tracer:
+      stack_trace_threshold: 1.0
+
+* Cross Application Tracing support for HttpURLConnection.
+
+  Adds request and response headers to external calls using the
+  HttpURLConnection library to provided better performance data
+  when calling applications monitored by other New Relic Agents
+  (Java, .NET, and Ruby, with others coming soon).
+
+* Fix: Cross Application Tracing does not correlate consistently when using
+  WebSphere, WebLogic, Resin, and Glassfish.
+ 
+  Cross Appplication Tracing did not correlate calling and called applications
+  when the HTTP response was large.
+
+* Queuing time more broadly supported.
+
+  The 'X-Queue-Start' and 'X-Request-Start' request headers for Heroku and other
+  front-end web servers are interpreted and reported.  Previously, queuing time
+  was not reported for Heroku.
+  
+* Adds a config setting to turn off class transforming after the given number
+  of seconds. This is a work-around for an Oracle JVM bug that in rare cases 
+  can cause native memory leaks.
+
+    class_transformer:
+      shutdownDelay: 3600
+  
+v2.15.1
+-------
+ 
+* Fix: Cross Application Tracing does not correlate consistently when using Tomcat 6+
+ 
+  Cross Appplication Tracing did not correlate calling and called applications
+  when the called application ran in Tomcat 6 or later and the HTTP response was
+  greater than about 7k.
+ 
+ v2.15.0
+-------
+
+* Cross Application Tracing
+
+  The Cross Application Tracing feature adds request and response headers to
+  external calls using the Apache HttpClient libraries to provided better
+  performance data when calling applications monitored by other New Relic
+  Agents (Java, .NET, and Ruby, with others coming soon).
+  
+  The 2.14.0 release links aggregated data across applications. This release
+  also links transaction traces.
+  
+  The configuration setting introduced in 2.14.0 to enable/disable Cross
+  Application Tracing in newrelic.yml has changed. The old setting:
+  'cross_application_tracing: true' is deprecated. The new setting is
+  
+  cross_application_tracer:
+    enabled: true
+    
+  The default setting is true. Set to false to disable Cross Application
+  Tracing.
+  
+* Instrumentation added for the AmazonS3Client version 1.x
+
+  The New Relic Agent now offers support for version 1.0 to current of the
+  com.amazonaws.services.s3.AmazonS3 interface. 
+
+* New Relic Java Agent support a daily roll over log
+
+  To roll over the agent log every day, set the property log_daily to true.
+  Set the property log_file_count to the number of day logs you would like to
+  keep.
+  
+* New Relic Java Agent now communicates with New Relic via HTTPS by default rather than HTTP
+
+  If you have an existing installation and wish to use HTTPS to communicate
+  with New Relic, edit your newrelic.yml file to include
+  
+  ssl: true
+  
+  in the common section. We recommend this for existing customers in order to
+  improve the security of your communications with New Relic.
+  
+* Java Agent installer improvements
+
+  The Java Agent installer now supports JBoss 7.x AS and JBoss 6.x EAP in
+  standalone mode. Instructions for manually installing the Java Agent on
+  JBoss 7.x AS and JBoss 6.x EAP can be found at
+  https://newrelic.com/docs/java/installing-the-java-agent-on-jboss
+  
+* Fix: Default hostname reported
+
+  This release reverts the change in 2.14.0 that effected the way that the
+  hostname is reported. With this release, the agent reports the default
+  hostname rather than short form in order to correlate with New Relic server
+  monitoring.
+  
+* Fix: Web transactions naming in Spring MVC version 3.x
+
+  This bug caused customers using Spring 3.0.1 and above to often have web
+  transactions named by the servlet rather than controller method. This has
+  been fixed such that a separate metric is created for each controller
+  method.
+
+  
+v2.14.1
+-------
+ 
+* Fix: Application errors using java.net.HttpURLConnection.
+  The bug, introduced in 2.14.0, could cause errors in code that uses java.net.HttpURLConnection.
+  Possible errors could occur in XML parsing, incorrect http response status, or BeanCreationException in Spring. 
+  As part of this fix the agent does not add a 'X-NewRelic-ID' header to outbound requests using java.net.HttpURLConnection.
+
+
+v2.14.0
+-------
+
+* Fix: New Relic includes property take_last_status to only grab the final http status code.
+
+    By default, New Relic reports any error status code. However, when this property is set to true, only
+    the last http status code will be reported. This property should be set when using Apache Felix.
+
+* Fix: New Relic now correctly patches Apache Felix ClassLoaders.
+
+* Fix: Time will now display correctly for the first hour of the day when using log4j.
+
+* Fix: RUM header was missing a semicolon at the end of the last statement.  Some browsers prefer semicolons everywhere.
+
+* Adds a 'X-NewRelic-ID' header to outbound requests using the Apache HttpClient or HttpURLConnection libraries.
+  This change helps improve the correlation of performance between services in a service-oriented architecture for a forthcoming feature.
+  In the meantime, if you wish to disable the header, set 'cross_application_tracing: false' in newrelic.yml.
+  
+* Fix: Java agent now reports hostnames consistent with the output of "hostname -s" to match all other agents
+
+* Add report of physical server memory (in addition to JVM memory) on Unix/Linux machines
+
+
+v2.13.0
+--------
+
+* Agent can be configured to not send JVM arguments to the New Relic server
+
+  The property send_jvm_props can be set to false, which will cause JVM arguments to no longer be sent to the server. Use this setting if you set sensitive system properties on the command line.
+ 
+* Agent reports full URL in external service calls for transaction traces
+
+  The agent now will provide the full URL if available in transaction traces for external calls.
+  
+* Fix: ResinServletTracerFactory no longer causing SkipServletTracerFactory errors
+
+  When hitting the ResinServletTracerFactory inside a transaction, a SkipServletTracerFactory excetion will no longer be thrown.
+  
+* Agent logging improvements
+
+  We have improved the clarity of logging messages, adjusted logging levels to be more appropriate, and increased logging performance.
+  
+
+v2.12.0
+-------
+* Agent reports jars used by applications to the Environments tab in the UI
+
+  The Environments tab in the New Relic UI now shows the jars used by your application.
+
+* Fix: In certain cases, auto-RUM of JSP broke HTML
+
+  An angle-bracket in quotes in a META tag causes the agent to produced invalid HTML for JSP. The agent now produces valid HTML for this case.
+
+* Fix: Key Transaction ApdexT value was not used
+
+  In v2.10 - v2.11, the application-level ApdexT value was used for Key Transactions rather than the ApdexT for the Key Transaction itself. In this release, the ApdexT for the Key Transaction is used as designed.
+
+* Fix: With OC4J using PolicyClassLoader, no metrics were displayed
+
+  In the case where OC4J uses the PolicyClassLoader, the agent generated a java.lang.StackOverflowError in the log and did not provide metrics. In this release, the error does not occur.
+
+* Fix: External metrics for HttpClient included port if host was an IP address
+
+  In the case where an external service call used HttpClient with an IP address rather than a hostname, the port number was also included. In this release, the port number is not displayed.
+
+
+v2.11.0
+  * Support Jetty Continuations
+  * Support Servlet 3.0 async API for WebSphere
+  * bug fix: java.lang.ClassCircularityError in JBoss
+  * bug fix: Agent does not detect Solr 4.0
+  * bug fix: NewRelicIgnoreApdex annotation ignored
+
+
+v2.10.1
+  * Remove stall detection
+
+
+v2.10.0
+  * XML-based custom instrumentation
+  * Support Servlet 3.0 async API (except WebSphere)
+  * Request attribute for setting app name should allow multiple app names
+  * bug fix: auto RUM inserts header and footer into script tags
+  * bug fix: Deadlock transforming classes in java.lang.reflect.Method.getAnnotation
+
+
+v2.9.0
+  * Support for Key Transactions. Key Transactions let you closely monitor these important key business transactions and receive alerts when they are performing poorly. For more information see https://newrelic.com/docs/site/key-transactions
+  * More metrics available in Custom Dashboards
+
+
+v2.8.0
+  * Supports basic proxy authentication for the case where there is a proxy server between the agent and the Internet. 
+    The configuration uses proxy_user and proxy_password settings.
+  * To avoid reporting the same transaction trace repeatedly, the agent reports a number of the slowest transactions.
+  * bug fix: Transaction trace reported to wrong app if enable_auto_app_naming and browser requested a transaction trace
+
+
+v2.7.0
+  * Add skipTransactionTrace element to @Trace annotation to tell Agent to drop method from transaction trace
+  * Add -Dnewrelic.bootstrap_classpath=true system property to append newrelic.jar to bootstrap classpath
+  * Support RUM reporting to multiple applications (RUM3)
+  * bug fix: Asynchronous processing time not reported correctly in Play 1.2.4
+  * bug fix: CXF transaction names not set to URI path if protocol is https
+
+
+v2.6.0
+  * Java 7: Native support for instrumenting classes compiled to Java 7 bytecode
+  * Audit Mode: mode which logs all data sent to New Relic in the newrelic_agent.log
+  * bug fix: Prevent agent instrumentation from changing the Serial Version UID (introduced in 2.2.0)
+  * bug fix: Prevent memory leak when client applications start and subsequently stop a thread before completing a transaction (introduced in 2.2.0)
+  * bug fix: Prevent stack overflow exception when executing queries using the Postgres 9.0.x JDBC driver
+  * bug fix: Fix dispatch handler instrumentation for Jetty 7.5.* (introduced in 2.5.0)
+  * bug fix: Set the application port correctly under Jetty 4.*
+  * bug fix: Make the transaction_tracer configuration settings respect command line and environment overrides
+
+
+v2.5.0
+  * Browser traces
+  * bug fix: OC4J does not start (introduced in 2.2.0)
+  * bug fix: AbstractMethodError calling getRemoteUser in Tomcat and GlassFish
+  * bug fix: Deployment does not use SSL port if SSL is configured (introduced in 2.2.0)
+  * bug fix: NullPointerException getting request URI in Jetty 4.x and 5.x
+  * bug fix: JSP compiler error with auto RUM in Tomcat 5
+  * bug fix: Transaction parameters removed if error is reported but response status < 400
+  * bug fix: No request parameters in Resin 3.x
+  * bug fix: AbstractMethodError calling getContextPath() with Tomcat 5.x (introduced in 2.2.0)
+  * bug fix: Ignore transaction before transaction started stops transaction reporting 
+
+
+v2.4.2
+  * bug fix: ClassLoader.loadClass deadlock (introduced in 2.4.0)
+
+
+v2.4.1
+  * bug fix: AssertionError in WebLogic (introduced in 2.2.0)
+
+
+v2.4.0
+  * bug fix: ClassNotFoundException with JBoss AS 7 (introduced in 2.2.0)
+  * bug fix: NoClassDefFoundError with GlassFish 3.1.2 (introduced in 2.2.0)
+  * bug fix: ClassCastException with GlassFish 3.1.1 (introduced in 2.2.0)
+  * bug fix: Agent stops reporting web transactions (introduced in 2.2.0)
+  * bug fix: possible unknown host for external call with HttpClient 3.0.1 (introduced in 2.3.0)
+  * bug fix: stall error reporting broken
+  * bug fix: agent_enabled setting not working
+  * add stall_threshold setting for reporting stall errors
+
+
+v2.3.1
+  * bug fix: Agent logging breaks web app log4j configuration (introduced in 2.3.0)
+
+
+v2.3.0
+  * Play! framework support
+  * create web transactions using custom instrumentation
+  * use log4j instead of Java API logging
+  * bug fix: RUM auto instrumentation fixes
+  * bug fix: multiple app names in app_name setting out of order (introduced in 2.2.0)
+  * bug fix: possible java.lang.IllegalArgumentException with parameterized SQL (introduced in 2.2.0)
+  * bug fix: WebSphere instrumentation broken (introduced in 2.2.0)
+
+
+v2.2.1
+  * bug fix: ClassFormatError and NoClassDefFoundError instrumenting proxy classes
+  * bug fix: transaction trace threshold not working (introduced in 2.2.0)
+  * bug fix: infinite loop instrumenting parameterized SQL statements
+
+
+v2.2.0
+  * performance improvements
+  * support server-side configuration
+  * bug fix: byte-code instrumentation causes class loading deadlock and OS memory explosion
+
+
+v2.1.2
+  * performance improvements
+  * bug fix: parse inner select SQL statements
+  * bug fix: execute SQL statement not recognized
+
+
+v2.1.0
+  * report slow SQL statements
+  * performance improvements
+  * continue to record metrics after transaction trace limit is reached
+  * bug fix: never drop data
+  * bug fix: Agent destructively reads request parameters in Resin
+  * bug fix: default transaction trace threshold should be apdex_f
+  * bug fix: Don't obfuscate digits in SQL statements that are part of table name
+
+
+v2.0.4
+  * bug fix: RUM: handle duplicate injection of our JS header and footer
+  * bug fix: fix the license key hint that is inserted into the auto-generated configuration file
+  * Allow logging to standard out
+  * Allow configuration of the agent via environment variables
+
+
+v2.0.3
+  * bug fix: RUM: Tag files not compiling in Jasper
+  * bug fix: RUM: header not always inserted after meta tags
+  * bug fix: NullPointerException if filter config is null
+  * bug fix: Fix IE measurement problem in RUM footer
+  * bug fix: API calls should not throw exceptions
+
+
+v2.0.2
+  * bug fix: Auto RUM compiler error instrumenting some JSPs
+  * bug fix: Auto RUM should inject header after meta tags
+  * bug fix: Installer does not modify start script if another javaagent switch is present
+  * bug fix: Agent breaks request URI parsing in Tomcat: JSESSIONID not removed (introduced in 1.4.0)
+  * bug fix: Some compilers unable to compile JSP with auto RUM
+  * Installer support for GlassFish
+
+
+v2.0.1
+  * bug fix: JBoss fails to start with JMX errors (introduced in 1.4.0)
+
+
+v2.0.0
+  * auto Real User Monitoring
+  * support for X-Request-Start, X-Queue-Start, and X-Queue-Time request headers
+  * bug fix: newrelic-api.jar does not work with Java 1.5
+  * bug fix: NullPointerException instrumenting HttpClient
+  * bug fix: setting request attribute "com.newrelic.agent.TRANSACTION_NAME" not working (broken in 1.4.0)
+  * bug fix: uncaught exceptions not logged during startup
+  * bug fix: thread profiling fails if CPU time not supported
+  * bug fix: error is ignored only if it is the root cause
+
+
+v1.4.0
+  * Real User Monitoring
+  * bug fix: setting 'ignore_status_codes' to a single value is ignored 
+v1.3.0
+  * component-based transaction naming
+  * agent API
+  * multiple applications enhancements
+  * send data to RPM in UTF-8 format
+  * bug fix: ClassCastException setting record_sql: off
+v1.2.9.2
+  * bug fix: don't depend on system property for trace logging
+v1.2.9.1
+  * bug fix: transaction not always cleared
+  * bug fix: change to log_level setting not dynamic (introduced in 1.2.9)
+v1.2.9
+  * obfuscate selected fields in SQL statements
+  * measure method invocation time in nanoseconds
+  * bug fix: report data to multiple app names broken in 1.2.008
+  * bug fix: NullPointerException instrumenting JRun 4.
+  * bug fix: Prevent Agent from starting more than once
+  * bug fix: Sample memory at least once per harvest
+  * bug fix: memory leak in Tomcat with Java logging and System.err  
+v1.2.008
+  * multiple applications
+  * get apdex_t from RPM
+  * remove built-in URL normalization rules
+  * record nested exceptions in error report
+  * support for HttpClient version 4
+  * bug fix: Solr JSON deserialization error in RPM
+  * bug fix: purge dead thread ids and catch uncaught exceptions in runnables
+v1.2.007
+  * added support for Oracle JDBC drivers
+  * added support for parameterized SQL
+  * added log_sql config property in transaction_tracer section to write SQL to log instead of sending to the RPM service
+  * enable_custom_tracing is true by default
+  * bug fix: root cause of exception not reported for custom exception handler
+  * bug fix: NullPointerException caused by java.lang.Throwable.getStackTrace() returning null
+  * bug fix: app server port not formatted correctly in log
+  * bug fix: java.lang.IncompatibleClassChangeError with Hibernate 3.5
+v1.2.006
+  * added install command to back up/edit start script on Tomcat, Jetty and JBoss 
+v1.2.005.3
+  * added support for prepared statements with Microsoft SQL Server JDBC driver and jTDS SQL Server and Sybase JDBC driver
+  * removed a synchronized call to get a handle to the agent from tracers
+v1.2.005.2
+  * fixed a problem related to Solr request names - urls were including parameters
+v1.2.005.1
+  * fixed a few problems related to WebSphere instrumentation
+v1.2.005
+  * added Solr support
+  * use a new method to connect to the RPM service
+v1.2.004.4
+  * allow Spring transactions to be named using the controller/method name
+  * do not ding apdex score for ignored errors (404s, for example)
+v1.2.004.2.
+  * fix explain plans
+  * report errors that have been routed to jsp error pages
+v1.2.004.
+  * web transactions break out Hibernate calls by entity operation
+  * added instrumentation for Solr autocommit background tasks
+  * added a tracer to Jersey resources so they show up in transaction breakdowns
+  * bug fix for MySql explain plans
+  * bug fix to prevent non-numeric numbers from funking up StatsImpl
+v1.2.001.
+  * enhanced PostgreSQL JDBC support
+  * added JSF instrumentation.  Lifecycle execute(..) and render(..) are broken out.  So is com.sun.faces.lifecycle.Phase.doPhase(..)
+  * upgraded to ASM 3.2  
+v1.2.000.
+  * show sql for callableStatements created with Connection.prepareCall
+  * bug fixes for Resin servlet container
+  * bug fixes related to http commons instrumentation
+  * fix custom instrumentation to support @Trace annotations on methods with array arguments
+  * instrument Connection.prepareCall() methods so that sql is captured for these invocations
+  * fix a bug that breaks tracer exclusive times when transaction tracing is turned off 
+v1.1.005.
+  * switched from org.JSON to JSON.simple for JSON serialization
+  * use a less verbose JSON format (more arrays, less hashes)
+  * make the log_level setting hot so the log level can be changed without restarting the agent
+  * improved Resin support.  Exception stacks are reported with traced errors
