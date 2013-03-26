@@ -8,8 +8,9 @@
 	<div class="post-meta">
 		<tags:voteFor item="${answer}" type="resposta" vote="${vote}"/>
 		<c:if test="${answer.question.author.id == currentUser.id}">
-			<a class="mark-as-solution requires-login"  href="${linkTo[AnswerController].markAsSolution[answer.id]}">
-				<span class="icon-ok-sign icon-2x icon-muted container ${answer.solution ? 'solution-mark' : ''}"></span>
+			<a class="mark-as-solution requires-login
+			icon-ok-sign icon-2x icon-muted container ${answer.solution ? 'solution-mark' : ''}" 
+			href="${linkTo[AnswerController].markAsSolution[answer.id]}">
 			</a>
 		</c:if>
 	</div>

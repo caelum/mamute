@@ -936,7 +936,8 @@ a.button.ask-a-question:hover{
 }
 
 /*SHOW QUESTION*/
-.mark-as-solution * {
+
+.mark-as-solution {
 	padding-top: 5px;
 	text-decoration: none;
 }

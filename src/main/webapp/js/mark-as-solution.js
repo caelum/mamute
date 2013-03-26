@@ -3,19 +3,19 @@ $(function(){
 	
 	function markAsSolution(event){
 		event.preventDefault();
-		var mark = $(this).find("span");
+		var mark = $(this);
+		var oldSolution = $(".solution-mark");
 		$.ajax({
-			url:$(this).attr("href"),
+			url:mark.attr("href"),
 			method: "POST",
-			success: function() {
-				$(".solution-mark").removeClass("solution-mark");
-				mark.addClass("solution-mark");
-			}, 
 			beforeSend: function() {
+				oldSolution.removeClass("solution-mark");
 				mark.addClass("solution-mark");
 			},
 			error: function() {
-				alert("Occorreu um erro");
+				mark.removeClass("solution-mark")
+				oldSolution.addClass("solution-mark");
+				errorPopup("Ocorreu um erro...", mark, "center-popup");
 			}
 		});
 	};

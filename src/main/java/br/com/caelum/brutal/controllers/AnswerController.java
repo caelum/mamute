@@ -6,7 +6,6 @@ import br.com.caelum.brutal.auth.LoggedAccess;
 import br.com.caelum.brutal.auth.rules.AuthorizationSystem;
 import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.dao.AnswerDAO;
-import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.AnswerInformation;
@@ -30,7 +29,6 @@ import br.com.caelum.vraptor.view.Results;
 public class AnswerController {
 	private final Result result;
 	private final AnswerDAO answers;
-	private final QuestionDAO questions;
 	private final LoggedUser currentUser;
 	private final Localization localization;
     private final KarmaCalculator calculator;
@@ -38,14 +36,13 @@ public class AnswerController {
 	private final AuthorizationSystem authorizationSystem;
 	private final Validator validator;
 
-	public AnswerController(Result result, AnswerDAO dao, User currentUser, 
-	        QuestionDAO questions, LoggedUser user, Localization localization,
+	public AnswerController(Result result, AnswerDAO dao, User currentUser,
+			LoggedUser user, Localization localization,
 	        KarmaCalculator calculator, MessageFactory messageFactory, 
 	        AuthorizationSystem authorizationSystem, Validator validator) {
 		this.result = result;
 		this.answers = dao;
 		this.currentUser = user;
-		this.questions = questions;
 		this.localization = localization;
         this.calculator = calculator;
 		this.messageFactory = messageFactory;

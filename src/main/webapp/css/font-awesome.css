@@ -36,9 +36,8 @@
   font-family: FontAwesome;
   font-weight: normal;
   font-style: normal;
-  text-decoration: inherit;
+  text-decoration: none;
   -webkit-font-smoothing: antialiased;
-
   /* sprites.less reset */
   display: inline;
   width: auto;
@@ -49,6 +48,10 @@
   background-position: 0% 0%;
   background-repeat: repeat;
   margin-top: 0;
+}
+[class^="icon-"]:hover,
+[class*=" icon-"]:hover {
+  text-decoration: none;
 }
 /* more sprites.less reset */
 .icon-white,
