@@ -35,7 +35,7 @@ $(".flag-it").click(function(e) {
 					callbacks[xhr.status].call();
 				}
 				else {
-					alert("something went wrong");
+					errorPopup("Algo estranho aconteceu.", modal, "center-popup");
 				}
 			},
 			data: form.serialize(),
