@@ -147,7 +147,7 @@ public class User implements Identifiable {
     }
 	
 	public void setAbout(String content) {
-		this.about = sanitize(content);
+		this.about = content == null? null : sanitize(content);
 		this.markedAbout = content == null ? null : sanitize(parse(content));
 	}
 	
