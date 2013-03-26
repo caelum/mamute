@@ -11,6 +11,9 @@ import java.util.Scanner;
 
 public class Main {
 	public static void main(String[] args) throws Exception {
+		String property = System.getProperty("vraptor.webappdir");
+		System.out.println(property);
+		
 		String webappDirLocation = getWebAppDir();
 		//WatchService service = FileSystems.getDefault().newWatchService();
 		

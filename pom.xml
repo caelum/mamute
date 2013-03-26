@@ -604,10 +604,7 @@
 						</executions>
 						<configuration>
 							<mainClass>br.com.caelum.vraptor.server.Main</mainClass>
-							<arguments>
-								<argument>-Dvraptor.webappdir=/home/ubuntu/brutal/target/brutal-1.0.0-SNAPSHOT</argument>
-								<argument>-javaagent:/home/ubuntu/brutal/newrelic/newrelic.jar</argument>
-							</arguments>
+							<commandlineArguments>-Dvraptor.webappdir=/home/ubuntu/brutal/target/brutal-1.0.0-SNAPSHOT -javaagent:/home/ubuntu/brutal/newrelic/newrelic.jar</commandlineArguments>
 						</configuration>
 					</plugin>
 				</plugins>
