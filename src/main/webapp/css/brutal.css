@@ -938,17 +938,10 @@ a.button.ask-a-question:hover{
 /*SHOW QUESTION*/
 .mark-as-solution * {
 	padding-top: 5px;
-}
-
-.solution .mark-as-solution * {
-	display: none;
+	text-decoration: none;
 }
 
 .solution-mark {
-	display: none !important;
-}
-
-.solution .solution-mark {
 	display: block !important;
 	color: #ADFF2F;
 	padding-top: 5px;

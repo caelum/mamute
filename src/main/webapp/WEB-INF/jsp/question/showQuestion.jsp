@@ -12,7 +12,7 @@
 		<c:forEach items="${answers.votes}" var="entry">
 			<c:set var="answer" value="${entry.key}" />
 			<c:set var="vote" value="${entry.value}" />
-			<li id="answer-${answer.id}" class="answer ${answer.solution ? 'solution' : ''}" data-id="${answer.id}">
+			<li id="answer-${answer.id}" class="answer" data-id="${answer.id}">
 				<tags:answerWith answer="${answer}" vote="${vote}"/>
 			</li>
 		</c:forEach>

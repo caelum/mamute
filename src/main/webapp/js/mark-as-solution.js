@@ -3,18 +3,21 @@ $(function(){
 	
 	function markAsSolution(event){
 		event.preventDefault();
-		var id = $(this).closest(".answer").data("id");
-		var mark = $(this);
-		$.post($(this).attr("href")+id,function(){updateMarks(mark)});
+		var mark = $(this).find("span");
+		$.ajax({
+			url:$(this).attr("href"),
+			method: "POST",
+			success: function() {
+				$(".solution-mark").removeClass("solution-mark");
+				mark.addClass("solution-mark");
+			}, 
+			beforeSend: function() {
+				mark.addClass("solution-mark");
+			},
+			error: function() {
+				alert("Occorreu um erro");
+			}
+		});
 	};
-	
-	function updateMarks(markOfCurrentSolution){
-		var solution = $(markOfCurrentSolution).closest(".answer"),
-		otherAnswers = solution.siblings();
-		
-		solution.addClass("solution");
-		
-		otherAnswers.removeClass("solution");
-	}
 	
 });
