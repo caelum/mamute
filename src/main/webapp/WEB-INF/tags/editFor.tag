@@ -6,7 +6,7 @@
 <%@attribute name="ajaxResult" required="true" %>
 <c:set var="editKey" value="${not empty currentUser and item.author.id eq currentUser.id ? 'edit' : 'suggest_edition'}" />
 <div class="edit-via-ajax">
-	<a class="requires-login requires-karma" data-author="${item.author.id eq currentUser.id }" data-karma="10" href="#"><fmt:message key="${editKey}"/></a>
+	<a class="requires-login requires-karma" data-author="${item.author.id eq currentUser.id }" href="#"><fmt:message key="${editKey}"/></a>
 	<div class="edit-form hidden">
 		<form action="<c:url value="/${item.typeName}/edit/${item.id}"/>" class="validated-form ajax hinted-form" data-ajax-result="${ajaxResult }">
 			<textarea class="required to-focus hintable text-input" minlength="15" name="${field}" data-hint-id="${ajaxResult }-hint">${value }</textarea>
