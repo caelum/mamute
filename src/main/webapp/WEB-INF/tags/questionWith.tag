@@ -31,14 +31,14 @@
 					<a class="post-action edit-question 
 							  requires-login requires-karma"
 							  data-author="${isAuthor}"
-							  data-karma="20" 
+							  data-karma="${EDIT_QUESTION}" 
 						href="${linkTo[QuestionController].edit[question.id]}">
 						<fmt:message key="edit" />
 					</a>
 				</li>
 				<li class="nav-item">
 					<c:if test="${currentUser != null && !question.alreadyFlaggedBy(currentUser)}">
-						<a href="#" data-author="${isAuthor}" data-karma="10"
+						<a href="#" data-author="${isAuthor}" data-karma="${CREATE_FLAG}"
 							data-modal-id="question-flag-modal${question.id}" 
 							class="post-action author-cant requires-login flag-it requires-karma">
 							<fmt:message key="flag" />
