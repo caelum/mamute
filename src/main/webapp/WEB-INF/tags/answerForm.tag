@@ -17,7 +17,14 @@
 
 <div class="form-hints">
 	<div id="newanswer-answer-hint" class="hint">
-		<p><fmt:message key="newanswer.answer.hint" /></p>
+		<c:choose> 
+			<c:when test='${question.author eq currentUser}'>
+				<p><fmt:message key="newanswer.answer.sameauthor.hint" /></p>
+			</c:when>
+			<c:otherwise>
+				<p><fmt:message key="newanswer.answer.hint" /></p>
+			</c:otherwise>
+		</c:choose>
 	</div>
 	
 	<c:if test='${not empty edit}'>

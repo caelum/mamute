@@ -131,6 +131,10 @@ a:hover{
 	margin-bottom: 1em
 }
 
+.hint-same-author {
+	color: #b70000;
+}
+
 .suggestion-accepted {
 	color: #FF0000;
 }
