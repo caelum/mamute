@@ -350,6 +350,7 @@
 				<configuration>
 					<gzip>true</gzip>
 					<nosuffix>true</nosuffix>
+					<linebreakpos>-1</linebreakpos>
 					<aggregations>
 						<aggregation>
 							<removeIncluded>true</removeIncluded>
