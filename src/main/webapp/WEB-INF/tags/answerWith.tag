@@ -21,14 +21,14 @@
 				<li class="nav-item">
 					<a class="post-action edit requires-login requires-karma"
 							data-author="${answer.question.author.id == currentUser.id}"
-							data-karma="20" 
+							data-karma="${EDIT_ANSWER}" 
 							href="${linkTo[AnswerController].answerEditForm[answer.id]}"><fmt:message key="edit" /></a>
 				</li>
 				<li class="nav-item">
 					<c:if test="${currentUser != null && !answer.alreadyFlaggedBy(currentUser)}">
 						<a href="#" data-author="${answer.author.id == currentUser.id}"
 							data-modal-id="answer-flag-modal${answer.id}" 
-							data-karma="10" class="post-action author-cant requires-login flag-it requires-karma">
+							data-karma="${CREATE_FLAG}" class="post-action author-cant requires-login flag-it requires-karma">
 							<fmt:message key="flag" />
 						</a>
 					</c:if>
