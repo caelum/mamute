@@ -123,8 +123,8 @@ public class User implements Identifiable {
 
 	public User(String name, String email) {
 		super();
-		setEmail(email);
 		setName(name);
+		setEmail(email);
 	}
 
 	public DateTime getNameLastTouchedAt() {
@@ -182,7 +182,7 @@ public class User implements Identifiable {
 	}
 
 	private void setEmail(String email) {
-		this.email = sanitize(email);
+		this.email = email;
 	}
 
 	void setKarma(long karma) {
