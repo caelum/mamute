@@ -587,28 +587,5 @@
 				</plugins>
 			</build>
 		</profile>
-		<profile>
-			<id>deploy-production</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>exec-maven-plugin</artifactId>
-						<version>1.2.1</version>
-						<executions>
-							<execution>
-								<goals>
-									<goal>java</goal>
-								</goals>
-							</execution>
-						</executions>
-						<configuration>
-							<mainClass>br.com.caelum.vraptor.server.Main</mainClass>
-							<commandlineArguments>-Dvraptor.webappdir=/home/ubuntu/brutal/target/brutal-1.0.0-SNAPSHOT -javaagent:/home/ubuntu/brutal/newrelic/newrelic.jar</commandlineArguments>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
 	</profiles>
 </project>
