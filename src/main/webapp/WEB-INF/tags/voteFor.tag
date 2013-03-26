@@ -9,7 +9,7 @@
 		      container ${(not empty vote and vote.countValue == 1) ? 'voted' : '' }" 
 		      data-value="positivo" data-author="${item.author.id == currentUser.id}"
 		      data-type="${type}" 
-		      data-karma="10" 
+		      data-karma="${VOTE_UP}" 
 		      data-id="${item.id}">
     	up
    	</a>
@@ -20,7 +20,7 @@
 	 		  data-value="negativo"  
 	 		  data-author="${item.author.id == currentUser.id}"
 	 		  data-type="${type}" 
-		      data-karma="50" 
+		      data-karma="${VOTE_DOWN}" 
 	 		  data-id="${item.id}"> 
 		down 
 	</a>
