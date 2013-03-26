@@ -555,23 +555,6 @@
 	</pluginRepositories>
 	<profiles>
 		<profile>
-			<id>remote-acceptance</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<version>2.5</version>
-						<configuration>
-							<systemPropertyVariables>
-								<vraptor.server_host>caelum-brutal-acceptance.herokuapp.com</vraptor.server_host>
-							</systemPropertyVariables>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
 			<id>acceptance-tests</id>
 			<build>
 				<plugins>
@@ -599,6 +582,32 @@
 							<excludes>
 								<exclude>**/*</exclude>
 							</excludes>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>deploy-production</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<version>1.2.1</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>java</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<mainClass>br.com.caelum.vraptor.server.Main</mainClass>
+							<arguments>
+								<argument>-Dvraptor.webappdir=/home/ubuntu/brutal/target/brutal-1.0.0-SNAPSHOT</argument>
+								<argument>-javaagent:/home/ubuntu/brutal/newrelic/newrelic.jar</argument>
+							</arguments>
 						</configuration>
 					</plugin>
 				</plugins>
