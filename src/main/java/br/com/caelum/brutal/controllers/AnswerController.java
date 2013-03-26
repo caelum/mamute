@@ -97,11 +97,7 @@ public class AnswerController {
 		Answer solution = answers.getById(solutionId);
 		Question question = solution.getQuestion();
         if (currentUser.getCurrent().isAuthorOf(question)) {
-            if (question.isSolved()) {
-                decreaseKarmaOfOldSolution(question);
-            }
-		    solution.markAsSolution();
-		    increaseKarmaOfUsersInvolved(solution);
+		    markOrRemove(solution);
 			result.nothing();
 		} else {
 			result.use(Results.status()).forbidden(localization.getMessage("answer.error.not_autor"));
@@ -110,10 +106,26 @@ public class AnswerController {
 		}
 	}
 
-    private void decreaseKarmaOfOldSolution(Question question) {
-        Answer solution = question.getSolution();
-        User author = solution.getAuthor();
-        author.descreaseKarma(calculator.karmaForSolutionAuthor(solution));
+    private void markOrRemove(Answer answer) {
+    	Question question = answer.getQuestion();
+    	if(answer.isSolution()){
+    		decreaseKarmaOfOldSolution(answer);
+    		answer.removeSolution();
+    	}else{
+			if (question.isSolved()) {
+    			decreaseKarmaOfOldSolution(question.getSolution());
+    		}
+    		answer.markAsSolution();
+    		increaseKarmaOfUsersInvolved(answer);
+    	}
+	}
+
+    
+    private void decreaseKarmaOfOldSolution(Answer solution) {
+    	int karmaForSolutionAuthor = calculator.karmaForSolutionAuthor(solution);
+    	int karmaForQuestionAuthorSolution = calculator.karmaForAuthorOfQuestionSolved(solution);
+    	solution.getAuthor().descreaseKarma(karmaForSolutionAuthor);
+    	solution.getQuestion().getAuthor().descreaseKarma(karmaForQuestionAuthorSolution);
     }
 
     private void increaseKarmaOfUsersInvolved(Answer solution) {

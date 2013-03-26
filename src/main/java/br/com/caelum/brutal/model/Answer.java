@@ -110,6 +110,10 @@ public class Answer extends Moderatable implements Votable, Commentable, Subscri
 	public void markAsSolution() {
 		this.question.markAsSolvedBy(this);
 	}
+
+	public void removeSolution() {
+		this.question.removeSolution();
+	}
 	
 	public boolean isSolution() {
 		return (this.question.isSolved() && this.question.getSolution().equals(this));

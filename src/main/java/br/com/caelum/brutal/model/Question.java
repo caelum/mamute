@@ -155,6 +155,10 @@ public class Question extends Moderatable implements Votable, Commentable, Touch
 		touchedBy(answer.getAuthor());
 	}
 
+	protected void removeSolution() {
+		this.solution = null;
+	}
+	
 	public Answer getSolution() {
 		return solution;
 	}
@@ -304,5 +308,6 @@ public class Question extends Moderatable implements Votable, Commentable, Touch
 		}
 		return false;
 	}
+
 
 }

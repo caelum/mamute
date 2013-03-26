@@ -9,12 +9,12 @@ $(function(){
 			url:mark.attr("href"),
 			method: "POST",
 			beforeSend: function() {
-				oldSolution.removeClass("solution-mark");
-				mark.addClass("solution-mark");
+				if(!mark.hasClass("solution-mark")) oldSolution.toggleClass("solution-mark");
+				mark.toggleClass("solution-mark");
 			},
 			error: function() {
-				mark.removeClass("solution-mark")
-				oldSolution.addClass("solution-mark");
+				if(oldSolution != mark) oldSolution.toggleClass("solution-mark");
+				mark.toggleClass("solution-mark")
 				errorPopup("Ocorreu um erro...", mark, "center-popup");
 			}
 		});
