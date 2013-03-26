@@ -30,11 +30,6 @@
 				</fmt:message>
 			</li>
 			<li>
-				<fmt:message key="about.reputation.comment">
-					<fmt:param value="${CREATE_COMMENT}"/>
-				</fmt:message>
-			</li>
-			<li>
 				<fmt:message key="about.reputation.downvote">
 					<fmt:param value="${VOTE_DOWN}"/>		
 				</fmt:message>
