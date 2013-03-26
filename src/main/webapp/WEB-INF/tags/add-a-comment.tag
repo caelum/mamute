@@ -13,8 +13,8 @@
 			<div class="post-meta comment-meta vote-container">
 				<a class="comment-meta-item container comment-option author-cant requires-login vote-option icon-chevron-up 
 					${(comment.voteCount > 0) ? 'voted' : '' }" 
-					data-value="up" data-author="${isCommentAuthor}" 
-					data-type="comment" data-id="${comment.id}">
+					data-value="positivo" data-author="${isCommentAuthor}" 
+					data-type="comentario" data-id="${comment.id}">
 				</a>
 				<span class="comment-meta-item vote-count comment-vote-count">${comment.voteCount}</span>
 				<c:if test="${currentUser != null && !comment.alreadyFlaggedBy(currentUser) && !isCommentAuthor}">
