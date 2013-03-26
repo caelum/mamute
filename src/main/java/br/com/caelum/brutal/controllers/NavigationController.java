@@ -14,20 +14,5 @@ import br.com.caelum.vraptor.Resource;
 public class NavigationController extends Controller{
 
 	@Get("/sobre")
-	public void about() {
-		ClassController<KarmaCalculator> mirrorOnKarma = new Mirror().on(KarmaCalculator.class);
-		List<Field> karmaCalculatorFields = mirrorOnKarma.reflectAll().fields();
-			
-		for (Field field : karmaCalculatorFields) {
-			include(field.getName(), mirrorOnKarma.get().field(field));
-		}
-		
-		ClassController<PermissionRulesConstants> mirrorOnPermissions = new Mirror().on(PermissionRulesConstants.class);
-		List<Field> permissionFields = mirrorOnPermissions.reflectAll().fields();
-		
-		for (Field field : permissionFields) {
-			include(field.getName(), mirrorOnPermissions.get().field(field));
-		}
-			
-	}
+	public void about() {}
 }
