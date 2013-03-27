@@ -28,8 +28,8 @@ import br.com.caelum.brutal.model.User;
 public class UserPersonalInfo {
 	private User user;
 	
+	@Length(min = NAME_MIN_LENGTH, max = NAME_MAX_LENGTH, message = NAME_LENGTH_MESSAGE)
 	@NotEmpty(message = NAME_REQUIRED)
-	@Length(min = NAME_MIN_LENGTH, max = NAME_MAX_LENGTH, message = REALNAME_LENGTH_MESSAGE)
 	private String name;
 	
 	@Length(min = EMAIL_MIN_LENGTH, max = EMAIL_MAX_LENGTH, message = EMAIL_LENGTH_MESSAGE)
@@ -47,7 +47,7 @@ public class UserPersonalInfo {
 	@Length(min = ABOUT_MIN_LENGTH, max = ABOUT_MAX_LENGTH ,  message = ABOUT_LENGTH_MESSAGE)
 	private String about;
 
-	@Length(min = NAME_MIN_LENGTH, max = NAME_MAX_LENGTH, message = NAME_LENGTH_MESSAGE)
+	@Length(min = NAME_MIN_LENGTH, max = NAME_MAX_LENGTH, message = REALNAME_LENGTH_MESSAGE)
 	private String realName;
 	
 	public UserPersonalInfo(User user, String name, String realName, String email,
