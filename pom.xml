@@ -76,9 +76,9 @@
 		<dependency>
 			<groupId>br.com.caelum</groupId>
 			<artifactId>vraptor</artifactId>
-			<version>3.4.1</version>
-		</dependency>
-		<dependency>
+			<version>3.5.0-SNAPSHOT</version>
+	    </dependency>
+   		<dependency>
 			<groupId>antlr</groupId>
 			<artifactId>antlr</artifactId>
 			<version>2.7.7</version>
@@ -530,7 +530,16 @@
 		</plugins>
 	</reporting>
 	<repositories>
-
+		<repository>
+			<id>sonatype-oss-snapshot</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
 		<repository>
 			<id>sonatype-oss-public</id>
 			<url>http://oss.sonatype.org/content/groups/public/</url>
