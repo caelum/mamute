@@ -126,7 +126,7 @@ public class User implements Identifiable {
 	public User(String name, String email) {
 		super();
 		setName(name);
-		setEmail(email);
+		this.email = email;
 	}
 
 	public DateTime getNameLastTouchedAt() {
@@ -148,43 +148,19 @@ public class User implements Identifiable {
     	this.id = id;
     }
 	
-	public void setAbout(String content) {
-		this.about = sanitize(content);
-		this.markedAbout = content == null ? null : sanitize(parse(content));
-	}
-	
 	public void setPhotoUri(URL storedUri) {
 		photoUri = storedUri.toString();
 	}
 	
 	public void setPersonalInformation(UserPersonalInfo info) {
-		setBirthDate(info.getBirthDate());
-		setRealName(info.getRealName());
+		this.birthDate = info.getBirthDate();
+		this.realName = info.getRealName();
 		setName(info.getName());
-		setEmail(info.getEmail());
-		setWebsite(info.getWebsite());
-		setLocation(info.getLocation());
-		setAbout(info.getAbout());
-	}
-
-	private void setBirthDate(DateTime birthDate) {
-		this.birthDate = birthDate;
-	}
-	
-	private void setRealName(String realName) {
-		this.realName = sanitize(realName);
-	}
-
-	private void setLocation(String location) {
-		this.location = sanitize(location);
-	}
-	
-	private void setWebsite(String website) {
-		this.website = sanitize(website);
-	}
-
-	private void setEmail(String email) {
-		this.email = email;
+		this.email = info.getEmail();
+		this.website = info.getWebsite();
+		this.location = info.getLocation();
+		this.about = info.getAbout();
+		this.markedAbout = info.getMarkedAbout();
 	}
 
 	void setKarma(long karma) {

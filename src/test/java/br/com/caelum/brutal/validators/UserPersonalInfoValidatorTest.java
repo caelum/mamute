@@ -13,7 +13,6 @@ import org.junit.Test;
 import br.com.caelum.brutal.dao.TestCase;
 import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.dto.UserPersonalInfo;
-import br.com.caelum.brutal.dto.UserPersonalInfoBuilder;
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.Validator;
@@ -44,11 +43,9 @@ public class UserPersonalInfoValidatorTest extends TestCase{
 	@Test
 	public void should_pass_validation_with_not_required_elements_null() {
 		User artur = user("artur com seis caracteres", validEmail);
-		UserPersonalInfo info = new UserPersonalInfoBuilder()
-				.withUser(artur)
+		UserPersonalInfo info = new UserPersonalInfo(artur)
 				.withName(artur.getName())
-				.withEmail(artur.getEmail())
-				.build();
+				.withEmail(artur.getEmail());
 		
 		assertTrue(infoValidator.validate(info));
 	}
@@ -57,12 +54,10 @@ public class UserPersonalInfoValidatorTest extends TestCase{
 	public void should_not_validate_under_twelve_years_old_user() {
 		User artur = user("artur com seis caracteres", validEmail);
 		DateTime hoje = DateTime.now();
-		UserPersonalInfo info = new UserPersonalInfoBuilder()
-				.withUser(artur)
+		UserPersonalInfo info = new UserPersonalInfo(artur)
 				.withName(artur.getName())
 				.withEmail(artur.getEmail())
-				.with(hoje)
-				.build();
+				.withBirthDate(hoje);
 		
 		assertFalse(infoValidator.validate(info));
 	}
@@ -71,11 +66,9 @@ public class UserPersonalInfoValidatorTest extends TestCase{
 	public void should_not_validate_user_trying_to_update_name_before_allowed_time() {
 		User artur = user("artur com seis caracteres", validEmail);
 		
-		UserPersonalInfo info = new UserPersonalInfoBuilder()
-				.withUser(artur)
+		UserPersonalInfo info = new UserPersonalInfo(artur)
 				.withName("newName")
-				.withEmail(artur.getEmail())
-				.build();
+				.withEmail(artur.getEmail());
 		
 		when(localization.getMessage("date.joda.simple.pattern")).thenReturn("dd/MM/YYYY");
 		assertFalse(infoValidator.validate(info));
@@ -86,11 +79,9 @@ public class UserPersonalInfoValidatorTest extends TestCase{
 		User artur = user("artur com seis caracteres", validEmail);
 		
 		DateTimeUtils.setCurrentMillisFixed(new DateTime().plusDays(31).getMillis());
-		UserPersonalInfo info = new UserPersonalInfoBuilder()
-				.withUser(artur)
+		UserPersonalInfo info = new UserPersonalInfo(artur)
 				.withName("newName")
-				.withEmail(artur.getEmail())
-				.build();
+				.withEmail(artur.getEmail());
 		
 		when(localization.getMessage("date.joda.simple.pattern")).thenReturn("dd/MM/YYYY");
 		assertTrue(infoValidator.validate(info));
@@ -99,9 +90,7 @@ public class UserPersonalInfoValidatorTest extends TestCase{
 	
 	@Test
 	public void should_not_validate_null_user(){
-		UserPersonalInfo info = new UserPersonalInfoBuilder()
-				.withUser(null)
-				.build();
+		UserPersonalInfo info = new UserPersonalInfo(null);
 		assertFalse(infoValidator.validate(info));
 	}
 	
@@ -109,10 +98,8 @@ public class UserPersonalInfoValidatorTest extends TestCase{
 	public void should_not_validate_invalid_mail() {
 		User artur = user("artur com seis caracteres", validEmail);
 		
-		UserPersonalInfo info = new UserPersonalInfoBuilder()
-				.withUser(artur)
-				.withEmail("invalidEmail")
-				.build();
+		UserPersonalInfo info = new UserPersonalInfo(artur)
+				.withEmail("invalidEmail");
 		
 		assertFalse(infoValidator.validate(info));
 	}

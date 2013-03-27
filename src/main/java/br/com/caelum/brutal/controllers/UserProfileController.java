@@ -92,7 +92,14 @@ public class UserProfileController {
 			website = correctWebsite(website);
 		}
 
-		UserPersonalInfo info = new UserPersonalInfo(user, name, realName, email, website, location, birthDate, description);
+		UserPersonalInfo info = new UserPersonalInfo(user)
+			.withName(name)
+			.withRealName(realName)
+			.withEmail(email)
+			.withWebsite(website)
+			.withLocation(location)
+			.withBirthDate(birthDate)
+			.withAbout(description);
 		
 		if (!infoValidator.validate(info)) {
 			infoValidator.onErrorRedirectTo(this).editProfile(user);

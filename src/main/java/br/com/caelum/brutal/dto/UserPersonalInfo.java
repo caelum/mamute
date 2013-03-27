@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.dto;
 
+import static br.com.caelum.brutal.sanitizer.HtmlSanitizer.sanitize;
+import static br.com.caelum.brutal.model.MarkDown.parse;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.ABOUT_LENGTH_MESSAGE;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.ABOUT_MAX_LENGTH;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.ABOUT_MIN_LENGTH;
@@ -9,6 +11,7 @@ import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.EMAIL_MI
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.EMAIL_NOT_VALID;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.LOCATION_LENGTH_MESSAGE;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.LOCATION_MAX_LENGTH;
+import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.MARKED_ABOUT_MAX_LENGTH;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.NAME_LENGTH_MESSAGE;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.NAME_MIN_LENGTH;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.NAME_MAX_LENGTH;
@@ -49,50 +52,84 @@ public class UserPersonalInfo {
 
 	@Length(min = NAME_MIN_LENGTH, max = NAME_MAX_LENGTH, message = REALNAME_LENGTH_MESSAGE)
 	private String realName;
+
+	@Length(min = ABOUT_MIN_LENGTH, max = MARKED_ABOUT_MAX_LENGTH ,  message = ABOUT_LENGTH_MESSAGE)
+	private String markedAbout;
 	
-	public UserPersonalInfo(User user, String name, String realName, String email,
-			String website, String location, DateTime birthDate,
-			String about) {
+	public UserPersonalInfo(User user) {
 		this.user = user;
-		this.name = name;
-		this.realName = realName;
-		this.email = email;
-		this.website = website;
-		this.location = location;
+	}
+
+	public UserPersonalInfo withBirthDate(DateTime birthDate) {
 		this.birthDate = birthDate;
+		return this;
+	}
+
+	public UserPersonalInfo withLocation(String location) {
+		this.location = sanitize(location);
+		return this;
+	}
+
+	public UserPersonalInfo withWebsite(String website) {
+		this.website = sanitize(website);
+		return this;
+	}
+
+	public UserPersonalInfo withEmail(String email) {
+		this.email = email;
+		return this;
+	}
+
+	public UserPersonalInfo withAbout(String about) {
 		this.about = about;
+		this.markedAbout = sanitize(parse(about));
+		return this;
+	}
+
+	public UserPersonalInfo withRealName(String realName) {
+		this.realName = sanitize(realName);
+		return this;
+	}
+	
+	public UserPersonalInfo withName(String name){
+		this.name = sanitize(name);
+		return this;
 	}
 	
 	public User getUser() {
-		return user;
+		return this.user;
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 	
 	public String getRealName() {
-		return realName;
+		return this.realName;
 	}
 
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
 	public String getWebsite() {
-		return website;
+		return this.website;
 	}
 
 	public String getLocation() {
-		return location;
+		return this.location;
 	}
 
 	public DateTime getBirthDate() {
-		return birthDate;
+		return this.birthDate;
 	}
 
 	public String getAbout() {
-		return about;
+		return this.about;
+	}
+	
+	public String getMarkedAbout() {
+		return this.markedAbout;
 	}
 
 
