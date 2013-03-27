@@ -35,7 +35,7 @@
     </appender>
 
     <category name="br.com.caelum.vraptor">
-        <priority value="WARN"/>
+        <priority value="INFO"/>
         <appender-ref ref="main"/>
     </category>
 
@@ -60,11 +60,16 @@
     </category>
 
     <category name="br.com.caelum.brutal">
-        <priority value="DEBUG"/>
+        <priority value="INFO"/>
         <appender-ref ref="main"/>
     </category>
     
     <category name="br.com.caelum.vraptor.simplemail.aws">
+        <priority value="INFO"/>
+        <appender-ref ref="main"/>
+    </category>
+    
+    <category name="br.com.caelum.vraptor.quartzjob">
         <priority value="INFO"/>
         <appender-ref ref="main"/>
     </category>
