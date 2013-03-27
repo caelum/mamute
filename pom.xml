@@ -77,8 +77,8 @@
 			<groupId>br.com.caelum</groupId>
 			<artifactId>vraptor</artifactId>
 			<version>3.4.1</version>
-	    </dependency>
-   		<dependency>
+		</dependency>
+		<dependency>
 			<groupId>antlr</groupId>
 			<artifactId>antlr</artifactId>
 			<version>2.7.7</version>
@@ -385,6 +385,17 @@
 						<configuration>
 							<sources>
 								<source>src/main/migrations</source>
+							</sources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>add-test-source</id>
+						<phase>generate-test-sources</phase>
+						<goals>
+							<goal>add-test-source</goal>
+						</goals>
+						<configuration>
+							<sources>
 								<source>src/integration/java</source>
 							</sources>
 						</configuration>
