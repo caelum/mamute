@@ -385,6 +385,7 @@
 						<configuration>
 							<sources>
 								<source>src/main/migrations</source>
+								<source>src/integration/java</source>
 							</sources>
 						</configuration>
 					</execution>
