@@ -25,6 +25,9 @@ public class QuestionRssEntryFactoryTest extends TestCase {
 			.withDescription("description")
 			.withId(1l)
 			.build();
+		
+		DateTimeUtils.setCurrentMillisSystem();
+		
 		InputStream is = this.getClass().getResourceAsStream("/rss/entry_example.xml");
 		String expected = new Scanner(is).useDelimiter("$$").next();
 		String xml = factory.entryOf(question);
