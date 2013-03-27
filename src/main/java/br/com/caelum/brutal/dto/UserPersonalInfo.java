@@ -81,7 +81,7 @@ public class UserPersonalInfo {
 	}
 
 	public UserPersonalInfo withAbout(String about) {
-		this.about = about;
+		this.about = sanitize(about);
 		this.markedAbout = sanitize(parse(about));
 		return this;
 	}
