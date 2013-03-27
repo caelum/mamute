@@ -1313,20 +1313,21 @@ a.button.ask-a-question:hover{
 
 .data-list {
 	float: left;
-	width: 30%;
+	width: 35%;
 	line-height: 1.5em;
 }
 
 .data-section-title {
 	float: left;
 	font-style: italic;
-	width: 15%;
+	width: 3em;
+	margin-right: .3em;
 }
 
 .data-list .data-section {
 	float: left;
 	color: #000;
-	width: 85%;
+	width: 21em;
 }
 
 .data-section .data-title,.data-section .data-description {
@@ -1335,8 +1336,9 @@ a.button.ask-a-question:hover{
 }
 
 .data-line {
+	display: inline-block;
 	margin-bottom: 3%;
-	display: block;
+	width: 100%;
 }
 
 .data-line * {
@@ -1345,12 +1347,13 @@ a.button.ask-a-question:hover{
 }
 
 .data-section .data-title {
-	width: 35%;
+	width: 6.7em;
 	clear: left;
+	margin-right: .3em;
 }
 
 .data-section .data-description {
-	width: 65%;
+	width: 14em;
 }
 
 .advanced-data-section {
@@ -1400,7 +1403,7 @@ a.button.ask-a-question:hover{
 
 .about-me {
 	float: right;
-	width: 48%;
+	width: 46%;
 	height: auto;
 	min-height: 247px;
 	padding: 0.7em;

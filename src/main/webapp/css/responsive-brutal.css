@@ -66,6 +66,17 @@
 	.info.answers, .info.votes{
 		width:100%;
 	}
+	
+	.about-me {
+		clear: both;
+		height: auto;
+		min-height: initial;
+		width: 100%;
+	}
+	.image-and-information {
+		overflow: visible;
+		margin-bottom: 3%;
+	}
 }
 
 @media only screen and (max-width: 700px) {
@@ -178,27 +189,15 @@
 	}
 	
 	.data-section .data-title {
-		width: 45%;
+		width: 31%;
 	}
 	
 	.data-section .data-description {
-		width: 55%;
+		width: 65%;
 	}
 	
 	.data-section-title {
 		width: 23%;
-	}
-	
-	.about-me {
-		clear: both;
-		height: auto;
-		min-height: initial;
-		width: 100%;
-	}
-	
-	.image-and-information {
-		overflow: visible;
-		margin-bottom: 3%;
 	}
 	
 	.modal-flag {
