@@ -1,4 +1,6 @@
-<tags:header title="metas.change_password.title"/>
+<fmt:message key="metas.change_password.title" var="title"/>
+<fmt:message key="metas.generic.title" var="genericTitle" />
+<tags:header title="${genericTitle} - ${title}"/>
 
 <h2 class="title page-title"><fmt:message key="change_password.form.title"/></h2>
 

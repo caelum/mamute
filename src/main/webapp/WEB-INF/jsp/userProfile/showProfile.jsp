@@ -1,4 +1,6 @@
-<tags:header title="metas.profile.title"/>
+<fmt:message key="metas.profile.title" var="title"/>
+<fmt:message key="metas.generic.title" var="genericTitle" />
+<tags:header title="${genericTitle} - ${title}"/>
 
 <section class="basic-user-data user-data">
 	<div class="subheader">

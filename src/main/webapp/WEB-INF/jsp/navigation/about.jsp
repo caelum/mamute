@@ -1,4 +1,6 @@
-<tags:header title="metas.about.title"/>
+<fmt:message key="metas.about.title" var="title"/>
+<fmt:message key="metas.generic.title" var="genericTitle" />
+<tags:header title="${genericTitle} - ${title}"/>
 
 <div class="about-section sub-header">
 	<h2 class="title about-title"><fmt:message key="about.title.welcome" /></h1>

@@ -1,4 +1,7 @@
-<tags:header facebookMetas="${true}" title="metas.home.title" description="metas.default.description"/>
+<fmt:message key="metas.home.title" var="title"/>
+<fmt:message key="metas.default.description" var="description"/>
+<fmt:message key="metas.generic.title" var="genericTitle" />
+<tags:header facebookMetas="${true}" title="${genericTitle} - ${title}" description="${description}"/>
 
 <section class="first-content">
 	<div class="subheader">

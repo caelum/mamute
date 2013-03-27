@@ -1,4 +1,6 @@
-<tags:header title="metas.question_edit.title"/>
+<fmt:message key="metas.question_edit.title" var="title"/>
+<fmt:message key="metas.generic.title" var="genericTitle" />
+<tags:header title="${genericTitle} - ${title}"/>
 
 <h2 class="title subheader page-title"><fmt:message key="question.edit_form.title"/></h2>
 

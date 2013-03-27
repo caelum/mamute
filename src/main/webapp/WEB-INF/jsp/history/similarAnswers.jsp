@@ -1,4 +1,6 @@
-<tags:header title="metas.moderate_answer.title"/>
+<fmt:message key="metas.moderate_answer.title" var="title"/>
+<fmt:message key="metas.generic.title" var="genericTitle" />
+<tags:header title="${genericTitle} - ${title}"/>
 
 <div class="history-original">
 	<a href="#" class="dropdown-trigger" data-target-id="question-original"><fmt:message key="moderation.show_question" /></a>

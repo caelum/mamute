@@ -1,4 +1,6 @@
-<tags:header title="metas.moderate_question.title"/>
+<fmt:message key="metas.moderate_question.title" var="title"/>
+<fmt:message key="metas.generic.title" var="genericTitle" />
+<tags:header title="${genericTitle} - ${title}"/>
 
 <div class="history-comparison">
 	<div class="history-current">

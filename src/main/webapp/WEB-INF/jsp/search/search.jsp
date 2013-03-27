@@ -1,4 +1,6 @@
-<tags:header title="metas.search.title"/>
+<fmt:message key="metas.search.title" var="title"/>
+<fmt:message key="metas.generic.title" var="genericTitle" />
+<tags:header title="${genericTitle} - ${title}"/>
 
 <div id="search-results"></div>
 

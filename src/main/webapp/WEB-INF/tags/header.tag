@@ -4,37 +4,20 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="env" uri="http://www.caelum.com.br/vraptor-environment/taglib"%>
-<%@attribute name="title" type="java.lang.String" required="false"%>
-<%@attribute name="plainTitle" type="java.lang.String" required="false"%>
+<%@attribute name="title" type="java.lang.String" required="true"%>
 <%@attribute name="description" type="java.lang.String" required="false"%>
-<%@attribute name="plainDescription" type="java.lang.String"
-	required="false"%>
-<%@attribute name="facebookMetas" type="java.lang.Boolean"
-	required="false"%>
+<%@attribute name="facebookMetas" type="java.lang.Boolean" required="false"%>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<c:if test="${not empty plainTitle}">
-	<title>${plainTitle}</title>
-</c:if>
-<c:if test="${empty plainTitle}">
-	<title><fmt:message key="metas.generic.title" /> - <fmt:message key="${title}" /></title>
-</c:if>
-<c:if test="${not empty plainDescription && empty description}">
-	<meta name="description" content="${plainDescription}">
-</c:if>
-<c:if test="${empty plainDescription && not empty description}">
+<title>${title}</title>
+<c:if test="${not empty description}">
 	<meta name="description" content="<fmt:message key="${description}"/>">
 </c:if>
 <c:if test="${not empty facebookMetas || facebookMetas == true}">
-	<c:if test="${not empty plainTitle}">
-		<meta property="og:title" content="${plainTitle}">
-	</c:if>
-	<c:if test="${empty plainTitle}">
-		<meta property="og:title" content="<fmt:message key="metas.generic.title" />">
-	</c:if>
+	<meta property="og:title" content="${title}">
 	<meta property="og:site_name" content="guj.com.br">
 	<meta property="og:url" content='<env:get key="host"/><env:get key="home.url"/>'>
 	<meta property="og:type" content="forum">

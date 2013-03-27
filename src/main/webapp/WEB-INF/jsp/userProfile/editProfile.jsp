@@ -1,4 +1,6 @@
-<tags:header title="metas.edit_profile.title"/>
+<fmt:message key="metas.edit_profile.title" var="title"/>
+<fmt:message key="metas.generic.title" var="genericTitle" />
+<tags:header title="${genericTitle} - ${title}"/>
 
 <div class="subheader">
 	<tags:userProfileLink user="${user}" htmlClass="title page-title" />
