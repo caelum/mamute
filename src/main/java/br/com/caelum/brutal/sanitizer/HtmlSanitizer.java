@@ -16,6 +16,6 @@ public class HtmlSanitizer {
 		    .toFactory();
 
 	public static String sanitize(String html){
-		return POLICY.sanitize(html);
+		return html == null ? null:POLICY.sanitize(html);
 	}
 }
