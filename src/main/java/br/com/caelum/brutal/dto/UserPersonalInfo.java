@@ -9,6 +9,7 @@ import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.EMAIL_NO
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.LOCATION_LENGTH_MESSAGE;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.LOCATION_MAX_LENGTH;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.NAME_LENGTH_MESSAGE;
+import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.NAME_MIN_LENGTH;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.NAME_MAX_LENGTH;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.NAME_REQUIRED;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.REALNAME_LENGTH_MESSAGE;
@@ -45,7 +46,7 @@ public class UserPersonalInfo {
 	@Length(min = ABOUT_MIN_LENGTH, max = ABOUT_MAX_LENGTH ,  message = ABOUT_LENGTH_MESSAGE)
 	private String about;
 
-	@Length(max = NAME_MAX_LENGTH, message = NAME_LENGTH_MESSAGE)
+	@Length(min = NAME_MIN_LENGTH, max = NAME_MAX_LENGTH, message = NAME_LENGTH_MESSAGE)
 	private String realName;
 	
 	public UserPersonalInfo(User user, String name, String realName, String email,
