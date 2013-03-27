@@ -7,6 +7,8 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
+import org.apache.log4j.Logger;
+
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
 import br.com.caelum.vraptor.Result;
@@ -20,6 +22,7 @@ import br.com.caelum.vraptor.resource.ResourceMethod;
 public class InternalErrorInterceptor implements Interceptor{
 	
 	private final Result result;
+	private static Logger log = Logger.getLogger(InternalErrorInterceptor.class);
 
 	public InternalErrorInterceptor(Result result) {
 		this.result = result;
@@ -42,16 +45,18 @@ public class InternalErrorInterceptor implements Interceptor{
 			
 			
 			Throwable cause = e.getCause();
-			e.printStackTrace(pw);
-			pw.printf("\n");
-			
 			if (cause instanceof ConstraintViolationException) {
 				Set<ConstraintViolation<?>> constraintViolations = ((ConstraintViolationException) cause).getConstraintViolations();
-				pw.printf("Constraint Violations: \n");
+				pw.printf("\nConstraint Violations: \n");
 				for (ConstraintViolation<?> constraintViolation : constraintViolations) {
 					pw.printf("\t" +constraintViolation.getConstraintDescriptor().getAnnotation()+"\n");
 				}
+				pw.printf("\n");
+				log.error(sw.toString());
 			}
+			
+			e.printStackTrace(pw);
+			
 			
 			pw.close();
 			result.include("stacktrace", sw.toString());
