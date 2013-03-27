@@ -73,6 +73,10 @@
 	    <param-name>org.eclipse.jetty.servlet.SessionIdPathParameterName</param-name>
 	    <param-value>none</param-value>
 	</context-param>
+	<context-param>
+		<param-name>org.eclipse.jetty.servlet.SessionCookie</param-name>
+		<param-value>JSESSIONBRUTAL</param-value>
+	</context-param>
 	
 	<session-config>
 		<tracking-mode>COOKIE</tracking-mode>
