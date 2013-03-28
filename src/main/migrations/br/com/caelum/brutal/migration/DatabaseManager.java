@@ -4,11 +4,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Scanner;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
 public class DatabaseManager {
 
 	private final Session session;
+	private static final Logger LOG = Logger.getLogger(DatabaseManager.class);
 
 	public DatabaseManager(Session session) {
 		this.session = session;
@@ -21,8 +23,7 @@ public class DatabaseManager {
 	public void importAll(String resourceName) {
 		run("SET foreign_key_checks = 0;");
 
-		try (InputStream stream = DatabaseManager.class
-				.getResourceAsStream(resourceName);
+		try (InputStream stream = DatabaseManager.class.getResourceAsStream(resourceName);
 				Scanner sc = new Scanner(stream)) {
 			StringBuilder fullQuery = new StringBuilder();
 			while (sc.hasNext()) {
@@ -35,7 +36,7 @@ public class DatabaseManager {
 					continue;
 				fullQuery.append(partial);
 				if (partial.endsWith(";")) {
-					System.out.println(fullQuery.toString());
+					LOG.debug("will execute query:" + fullQuery.toString());
 					session.createSQLQuery(fullQuery.toString())
 							.executeUpdate();
 					fullQuery.delete(0, fullQuery.length());
