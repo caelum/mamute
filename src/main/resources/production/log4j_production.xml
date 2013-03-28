@@ -12,6 +12,16 @@
             <param name="ConversionPattern" value="%d{HH:mm:ss} %5p [%-20c{1}] %m%n"/>
         </layout>
     </appender>
+    
+    <appender name="not_found" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="append" value="true" />
+        <param name="encoding" value="UTF-8" />
+        <param name="file" value="logs/notFound.log" />
+        <param name="DatePattern" value="'.'yyyy-MM-dd" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{HH:mm:ss} %5p [%-20c{1}] %m%n"/>
+        </layout>
+    </appender>
 
     <appender name="errorFile" class="org.apache.log4j.FileAppender">
         <param name="File" value="logs/errors.log"/>
@@ -62,6 +72,11 @@
     <category name="br.com.caelum.brutal">
         <priority value="INFO"/>
         <appender-ref ref="main"/>
+    </category>
+    
+    <category name="br.com.caelum.brutal.infra.BrutalResourceNotFoundHandler">
+        <priority value="INFO"/>
+        <appender-ref ref="not_found"/>
     </category>
     
     <category name="br.com.caelum.vraptor.simplemail.aws">
