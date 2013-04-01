@@ -80,7 +80,7 @@ public class Home extends PageObject{
 	}
 
 	public WithTagListPage toWithTagList(String tag) {
-		List<WebElement> tags = allByClassName("tag");
+		List<WebElement> tags = allByClassName("tag-brutal");
 		for (WebElement currentTag : tags) {
 			if(currentTag.getText().equals(tag)){
 				currentTag.click();

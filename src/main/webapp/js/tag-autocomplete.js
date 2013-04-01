@@ -3,7 +3,6 @@ $('.autocomplete').keyup(function(e){
 	var autoCompleteInput = $(this),
 	target = $("#"+autoCompleteInput.data("autocomplete-id")),
 	tagChunk = $(autoCompleteInput.val().split(" ")).last().get(0);
-	console.log(autoCompleteInput.val());
 
 	keyboardCtrlAutoCompleteBox = [13, 27, 37, 38, 39, 40];
 	
@@ -29,11 +28,14 @@ function suggestsAutoComplete(target, tagChunk, input){
 function showSuggestions(suggestions, target){
 	var suggestionElements = "";
 	$(suggestions).each(function(index, suggestion){
-		suggestionElements += "<li class='complete-tag'><a class='tag'>"+suggestion.name+"</a> x "+ suggestion.usageCount;
+		suggestionElements += "<li class='complete-tag'><a class='tag-brutal'>"+suggestion.name+"</a> x "+ suggestion.usageCount;
 		suggestionElements += "<div class='tag-description'>"+suggestion.description+"</div></li>";
 	});
 	$(target).html(suggestionElements).removeClass("hidden");
-	$('.autocompleted-tags .complete-tag').click(function(){insertTagIntoTextArea($(this).find(".tag").text())});
+	
+	$('.autocompleted-tags .complete-tag').click(function(){
+		insertTagIntoTextArea($(this).find(".tag-brutal").text());
+	});
 }
 
 var pos=-3;
@@ -60,10 +62,10 @@ $('.autocomplete').keydown(function(e){
 			break;
 			
 		case control.enter:
-			insertTagIntoTextArea(completeTag.eq(pos).find(".tag").text());
+			e.preventDefault();
+			completeTag.eq(pos).click();
 			pos=-3;
 			$('.autocompleted-tags').addClass('hidden');
-			e.preventDefault();
 			
 		case control.esc:
 			$('.autocompleted-tags').addClass('hidden');
@@ -77,10 +79,10 @@ $('.autocomplete').keydown(function(e){
 });
 
 function insertTagIntoTextArea(text) {
-	var input =$('input[name=tagNames]');
+	var input = $('input[name=tagNames]');
     var inputValue = input.val();
     var vetValue = inputValue.split(" ");
-    vetValue = vetValue.slice(0, vetValue.length - 1);
+    vetValue = vetValue.slice(0, vetValue.length - 1); // remove the last tag(that is incomplete)
     vetValue.push(text);
     input.val(vetValue.join(' ')+" ");
     $(input).valid();
