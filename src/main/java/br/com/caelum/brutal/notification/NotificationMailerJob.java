@@ -23,7 +23,9 @@ public class NotificationMailerJob implements CronTask {
 	private static final Logger LOG = Logger.getLogger(NotificationMailerJob.class);
 	private final Result result;
 
-    public NotificationMailerJob(AnswerDAO answers, CommentDAO comments, NotificationMailer notificationMailer, Environment env, Result result) {
+    public NotificationMailerJob(AnswerDAO answers, CommentDAO comments, 
+    		NotificationMailer notificationMailer, Environment env, 
+    		Result result) {
         this.answers = answers;
         this.comments = comments;
         this.notificationMailer = notificationMailer;
@@ -38,8 +40,9 @@ public class NotificationMailerJob implements CronTask {
         
         List<SubscribableDTO> recentSubscribables = answers.getSubscribablesAfter(threeHoursAgo);
         recentSubscribables.addAll(comments.getSubscribablesAfter(threeHoursAgo));
+        List<SubscribableEmail> emails = SubscribableEmail.buildSubscribableEmails(recentSubscribables);
         
-        notificationMailer.sendMails(recentSubscribables);
+        notificationMailer.sendEmails(emails);
         result.nothing();
     }
 

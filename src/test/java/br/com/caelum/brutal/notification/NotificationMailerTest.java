@@ -6,6 +6,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.mail.Email;
 import org.junit.Test;
@@ -44,7 +45,9 @@ public class NotificationMailerTest extends TestCase {
         subscribablesDTO.add(new SubscribableDTO(answer, questionAuthor, myQuestion));
         subscribablesDTO.add(new SubscribableDTO(answer, otherSubscribed, myQuestion));
         
-        notificationMailer.sendMails(subscribablesDTO);
+        List<SubscribableEmail> subscribableEmails = SubscribableEmail.buildSubscribableEmails(subscribablesDTO);
+        
+        notificationMailer.sendEmails(subscribableEmails);
         
         verify(mailer, times(2)).send(any(Email.class));
     }
@@ -57,8 +60,10 @@ public class NotificationMailerTest extends TestCase {
         subscribablesDTO.add(new SubscribableDTO(comment, questionAuthor, myQuestion));
         subscribablesDTO.add(new SubscribableDTO(new Comment(answerAuthor, "blablabla"), questionAuthor, myQuestion));
         
-        notificationMailer.sendMails(subscribablesDTO);
+        List<SubscribableEmail> subscribableEmails = SubscribableEmail.buildSubscribableEmails(subscribablesDTO);
         
+        notificationMailer.sendEmails(subscribableEmails);
+
         verify(mailer, times(1)).send(any(Email.class));
     }
     

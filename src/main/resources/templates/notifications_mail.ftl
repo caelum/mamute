@@ -5,7 +5,7 @@
 		<#list subscribablesDTO as subscribableDTO>
 			<tr>
 				<td style="padding: 5px 0; border: 1px solid #e6e6e6;">
-					<img style="float:left;" src="http://localhost:8080/images/icone.png" />
+					<img style="float:left;" src="http://guj.com.br/imgs/icone.png" />
 					<span style="display:block; padding-top:11px;">${dateFormat.print(subscribableDTO.getSubscribable().getCreatedAt())} 
 						<a href="${linkerHelper.questionLink(subscribableDTO.getQuestion())}" style="color: #4E82C2; text-decoration:none;">
 							${subscribableDTO.question.title}
