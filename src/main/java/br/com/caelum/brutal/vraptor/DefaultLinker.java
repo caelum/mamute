@@ -2,13 +2,14 @@ package br.com.caelum.brutal.vraptor;
 
 import java.lang.reflect.Method;
 
-import br.com.caelum.brutal.vraptor.Env;
 import br.com.caelum.vraptor.http.route.Router;
+import br.com.caelum.vraptor.ioc.ApplicationScoped;
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.proxy.MethodInvocation;
 import br.com.caelum.vraptor.proxy.Proxifier;
 import br.com.caelum.vraptor.proxy.SuperMethod;
 
+@ApplicationScoped
 @Component
 @SuppressWarnings({"rawtypes","unchecked"})
 public class DefaultLinker implements Linker {
