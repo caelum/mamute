@@ -58,7 +58,7 @@ public class NewQuestionPage extends PageObject {
 	}
 
 	private WebElement findAutoCompletedTag(String tag) {
-		String tagSelector = ".complete-tag .tag";
+		String tagSelector = ".complete-tag .tag-brutal";
         waitForElement(By.cssSelector(tagSelector), 10);
 		List<WebElement> autoCompletedTags = allByCSS(tagSelector);
 		WebElement rightAutoCompletedTag = null;
