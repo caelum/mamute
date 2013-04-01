@@ -9,16 +9,16 @@
 	</li>
 	<c:if test="${touchable.edited}">
 		<c:choose>
-			<c:when test="${(touchable.lastTouchedBy.id == touchable.author.id)}">
+			<c:when test="${(touchable.information.author.id == touchable.author.id)}">
 				<li class="touch">
 					<div class="complete-user">
-						<div class="when"><fmt:message key='touch.edited'/> <tags:prettyTime time="${touchable.lastUpdatedAt}"/></div>
+						<div class="when"><fmt:message key='touch.edited'/> <tags:prettyTime time="${touchable.information.createdAt}"/></div>
 					</div>
 				</li>
 			</c:when>
 			<c:otherwise>
 				<li class="touch">
-					<tags:completeUser touchText="touch.edited" user="${touchable.lastTouchedBy}" date="${touchable.lastUpdatedAt}"/>
+					<tags:completeUser touchText="touch.edited" user="${touchable.information.author}" date="${touchable.information.createdAt}"/>
 				</li>
 			</c:otherwise>
 		</c:choose>
