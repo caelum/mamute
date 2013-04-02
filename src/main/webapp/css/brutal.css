@@ -1280,7 +1280,7 @@ a.button.ask-a-question:hover{
 	padding-top: 2em;
 }
 
-.footer p {
+.footer p, .footer-caelum{
 	color: #fff;
 	margin-top: 10px;
 }
