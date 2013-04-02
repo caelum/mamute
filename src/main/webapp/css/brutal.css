@@ -573,14 +573,14 @@ textarea {
 
 .search-form input[type="submit"] {
 	display: none;
-	width: 30%;
+	width: 15%;
 }
 
-.dropdown-search-form  .text-input {
-	width: 70%;
+.dropdown-target .search-form  .text-input {
+	width: 85%;
 }
 
-.dropdown-search-form {
+.dropdown-target .search-form {
 	width: 47%;
 	margin-top: .3%;
 	float:left;

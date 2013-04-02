@@ -121,8 +121,9 @@
 		display: none;
 	}
 	
-	.dropdown-search-form,
-	.dropdown-search-form input[type="submit"],
+	
+	.dropdown-target .search-form,
+	.dropdown-target .search-form input[type="submit"],
 	.search-dropdown{
 		display:block;
 	}

@@ -96,21 +96,11 @@
 
 						</ul>
 					</nav>
-					<form class="search-form"
-						action="${linkTo[SearchController].search}" method="get">
-						<input class="text-input" name="query"
-							placeholder='<fmt:message key="search.placeholder"/>' type="text" />
-						<input type="submit" />
-					</form>
+					<tags:searchForm/>
 				</section>
 			</div>
 			<div class="container dropdown-target" id="dropdown-search-form">
-				<form class="dropdown-search-form search-form"
-					action="${linkTo[SearchController].search}" method="get">
-					<input class="text-input" name="query"
-						placeholder="<fmt:message key="search.placeholder"/>" type="text" />
-					<input type="submit" />
-				</form>
+				<tags:searchForm/>
 			</div>
 		</section>
 	</header>
