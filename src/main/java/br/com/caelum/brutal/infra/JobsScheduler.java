@@ -29,7 +29,9 @@ public class JobsScheduler {
 	@PostConstruct
 	public void makeRequest() throws HttpException, IOException {
 		String url = (env.get("host") + CONFIG_PATH);
-		new Thread(new StartQuartz(url)).start();
+		if ("production".equals(env.getName())) {
+			new Thread(new StartQuartz(url)).start();
+		}
 	}
 
 	class StartQuartz implements Runnable {
