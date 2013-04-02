@@ -8,7 +8,7 @@ $('.autocomplete').keyup(function(e){
 	
 	if($.inArray(e.which, keyboardCtrlAutoCompleteBox) < 0) { 
 		clearTimeout(autoCompleteId);
-		autoCompleteId = setTimeout(function(){suggestsAutoComplete(target, tagChunk, autoCompleteInput)},500);
+		autoCompleteId = setTimeout(function(){suggestsAutoComplete(target, tagChunk, autoCompleteInput)},100);
 	}
 });
 
