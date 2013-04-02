@@ -241,9 +241,8 @@ public class Question extends Moderatable implements Votable, Commentable, Touch
 	}
 
 	public void enqueueChange(QuestionInformation newInformation, UpdateStatus status) {
-		if(status.equals(UpdateStatus.NO_NEED_TO_APPROVE)) {
-			this.touchedBy(newInformation.getAuthor());
-			setInformation(newInformation);
+		if (status.equals(UpdateStatus.NO_NEED_TO_APPROVE)) {
+			updateApproved(newInformation);
 		}
 		newInformation.setQuestion(this);
         newInformation.setInitStatus(status);
@@ -254,16 +253,17 @@ public class Question extends Moderatable implements Votable, Commentable, Touch
 		return history;
 	}
 	
-	private void setInformation(QuestionInformation information) {
-		if(this.information != null){
+	private void setInformation(QuestionInformation newInformation) {
+		newInformation.setQuestion(this);
+		if (this.information != null) {
 			for (Tag tag : this.information.getTags()) {
 				tag.decrementUsage();
 			}
 		}
-		for (Tag tag : information.getTags()) {
+		for (Tag tag : newInformation.getTags()) {
 			tag.incrementUsage();
 		}
-        this.information = information;
+        this.information = newInformation;
     }
 	
 	public DateTime getCreatedAt() {
@@ -274,7 +274,7 @@ public class Question extends Moderatable implements Votable, Commentable, Touch
 	protected void updateApproved(Information approved) {
 		QuestionInformation approvedQuestion = (QuestionInformation) approved;
 		this.touchedBy(approvedQuestion.getAuthor());
-		this.information = approvedQuestion;		
+		setInformation(approvedQuestion);
 	}
 
 	@Override

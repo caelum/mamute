@@ -104,4 +104,16 @@ public class QuestionTest  extends TestCase{
 		assertFalse(q.alreadyFlaggedBy(other));
 	}
 	
+	@Test
+	public void should_update_information_and_tag_usage_count() throws Exception {
+		Tag ruby = tag("ruby");
+		Tag java = tag("java");
+		Question q = question.withTag(ruby).build();
+		QuestionInformation approved = new QuestionInformationBuilder().withTag(java).build();
+		q.updateApproved(approved);
+		
+		assertEquals(0l, ruby.getUsageCount().longValue());
+		assertEquals(1l, java.getUsageCount().longValue());
+	}
+	
 }
