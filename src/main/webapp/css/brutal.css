@@ -127,6 +127,10 @@ a:hover{
 	color: #735005;
 }
 
+.hint-warning {
+	color: #AE0000;
+}
+
 .hint-tips .hint-tip {
 	margin-bottom: 1em
 }
