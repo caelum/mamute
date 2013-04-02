@@ -13,14 +13,21 @@ import br.com.caelum.vraptor.validator.Outjector;
 import br.com.caelum.vraptor.view.ValidationViewsFactory;
 
 @Component
-public class CustomDefaultValidator extends DefaultValidator{
+public class CustomDefaultValidator extends DefaultValidator {
 
-	public CustomDefaultValidator(Result result,
+public CustomDefaultValidator(Result result,
 			ValidationViewsFactory factory, Outjector outjector,
-			Proxifier proxifier, CustomJSR303Validator customBeanValidator,
+			Proxifier proxifier, BeanValidator beanValidator,
 			Localization localization) {
-		super(result, factory, outjector, proxifier, list(customBeanValidator), localization);
+		super(result, factory, outjector, proxifier, beanValidator, localization);
 	}
+
+//	public CustomDefaultValidator(Result result,
+//			ValidationViewsFactory factory, Outjector outjector,
+//			Proxifier proxifier, CustomJSR303Validator customBeanValidator,
+//			Localization localization) {
+//		super(result, factory, outjector, proxifier, list(customBeanValidator), localization);
+//	}
 
 	private static List<BeanValidator> list(CustomJSR303Validator customBeanValidator) {
 		List<BeanValidator> r = new ArrayList<>();

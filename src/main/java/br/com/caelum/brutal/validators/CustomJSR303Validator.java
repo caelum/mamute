@@ -9,11 +9,11 @@ import javax.validation.Validator;
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.vraptor.core.Localization;
 import br.com.caelum.vraptor.ioc.Component;
-import br.com.caelum.vraptor.validator.JSR303Validator;
+import br.com.caelum.vraptor.validator.DefaultBeanValidator;
 import br.com.caelum.vraptor.validator.Message;
 
 @Component
-public class CustomJSR303Validator extends JSR303Validator{
+public class CustomJSR303Validator extends DefaultBeanValidator {
 
 	private MessageFactory messageFactory;
 
@@ -24,13 +24,23 @@ public class CustomJSR303Validator extends JSR303Validator{
 	}
 
 	@Override
-	public List<Message> validate(Object bean) {
-		List<Message> validationMessages = super.validate(bean);
+	public List<Message> validate(Object bean, Class<?>... groups) {
+		List<Message> validationMessages = super.validate(bean, groups);
+		return toI18n(validationMessages);
+	}
+
+	
+	@Override
+	public List<Message> validateProperties(Object bean, String... properties) {
+		List<Message> messages = super.validateProperties(bean, properties);
+		return toI18n(messages);
+	}
+
+	private ArrayList<Message> toI18n(List<Message> validationMessages) {
 		ArrayList<Message> messages = new ArrayList<Message>();
 		for (Message message : validationMessages) {
 			messages.add(messageFactory.build("error", message.getMessage()));
 		}
 		return messages;
 	}
-
 }
