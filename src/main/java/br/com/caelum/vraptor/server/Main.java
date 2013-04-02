@@ -7,7 +7,6 @@ import java.nio.file.StandardWatchEventKinds;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
-import java.util.Scanner;
 
 public class Main {
 	public static void main(String[] args) throws Exception {
@@ -21,7 +20,6 @@ public class Main {
 		//configureWatcher(vraptor,	 webappDirLocation, service);
 
 		//watchForChanges(service, vraptor);
-		commandLine(vraptor);
 	}
 
     private static String getWebXmlLocation(String webappDirLocation) {
@@ -29,26 +27,6 @@ public class Main {
 		webxml = webxml == null ? webappDirLocation + "/WEB-INF/web.xml" : webxml;
 		return webxml;
     }
-
-	private static void commandLine(final VRaptorServer vraptor) {
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				try (Scanner input = new Scanner(System.in)) {
-					while (true) {
-					    if (input.hasNext()) {
-    						String line = input.nextLine();
-    						if (line.equals("restart")) {
-    							vraptor.restartContexts();
-    						} else {
-    							System.err.println("I did not understand: " + line);
-    						}
-					    }
-					}
-				}
-			}
-		}).start();
-	}
 
 	private static void configureWatcher(VRaptorServer vraptor,
 			String webappDirLocation, WatchService service) throws IOException {
