@@ -2,6 +2,7 @@ package br.com.caelum.brutal.components;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 import org.hibernate.Session;
@@ -22,15 +23,15 @@ public class RecentTagsContainer {
 	
 	public RecentTagsContainer(SessionFactory sf) {
 		this.sf = sf;
-		
 	}
 
 	public List<TagUsage> getRecentTagsUsage() {
 		return recentTagsUsage;
 	}
 	
+	@PostConstruct
 	public void execute() {
-	    // we need to do this anyway, sorry
+	    // we need to do because of this class is app scoped
 	    Session session = sf.openSession();
 	    session.beginTransaction();
 	    update(session);
