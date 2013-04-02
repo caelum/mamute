@@ -742,7 +742,7 @@ a.button.ask-a-question:hover{
 
 .answers {
 	width: 40%;
-	color: #9A4444;
+	color: #994325;
 }
 
 .answers.answered {
@@ -758,7 +758,7 @@ a.button.ask-a-question:hover{
 }
 
 .votes {
-	color: #555;
+	color: #504355;
 }
 
 .views {
@@ -777,11 +777,11 @@ a.button.ask-a-question:hover{
 }
 
 .stats .reputation {
-	color: #444;
+	color: #545454;
 }
 
 .last-updated-at {
-	color: #999;
+	color: #9c9c9c;
 }
 
 .tags-usage .tags-item {
@@ -1131,7 +1131,7 @@ a.button.ask-a-question:hover{
 
 .post-vote-count {
 	font-size: 1.85em;
-	color: #555;
+	color: #504355;
 	height: 40px;
 	line-height: 40px;
 }
