@@ -131,6 +131,14 @@ a:hover{
 	margin-bottom: 1em
 }
 
+.link-tip {
+	margin-left: 2em;
+}
+
+.link-tip .hint-tip:not(:last-child) {
+	margin-bottom: 0.7em;
+}
+
 .hint-same-author {
 	color: #ae0000;
 }
