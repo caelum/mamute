@@ -489,11 +489,14 @@ textarea {
 	color: #fff;
 	display: block;
 	font-size: 1.1em;
-	padding: .4em 1.6em;
+	padding: .4em 1em;
 	text-decoration: none;
 	text-shadow: -1px -1px 1px #252c35;
 	vertical-align: middle;
-	width: 17em;
+	width: 100%;
+	float:left;
+	overflow:hidden;
+	line-height: 2em;
 }
 
 .face-button:before {
@@ -502,11 +505,16 @@ textarea {
 	font-size: 2.4em;
 	border-right: 1px solid #1a3c6c;
 	box-shadow: 1px 0 0 #627eba;
-	display: inline-block;
-	height: 33px;
-	margin-right: .8em;
-	padding-right: .7em;
+	display: block;
+	height: 100%;
+	margin-right: .4em;
+	padding-right: .5em;
 	vertical-align: middle;
+	float:left;
+}
+
+.login-or-signup .face-button{
+	line-height: inherit;
 }
 
 /*HEADER*/
