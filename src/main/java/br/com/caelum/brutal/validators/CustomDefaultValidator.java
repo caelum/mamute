@@ -22,6 +22,13 @@ public CustomDefaultValidator(Result result,
 		super(result, factory, outjector, proxifier, beanValidator, localization);
 	}
 
+//	public CustomDefaultValidator(Result result,
+//			ValidationViewsFactory factory, Outjector outjector,
+//			Proxifier proxifier, CustomJSR303Validator customBeanValidator,
+//			Localization localization) {
+//		super(result, factory, outjector, proxifier, list(customBeanValidator), localization);
+//	}
+
 	private static List<BeanValidator> list(CustomJSR303Validator customBeanValidator) {
 		List<BeanValidator> r = new ArrayList<>();
 		r.add(customBeanValidator);
