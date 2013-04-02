@@ -1,4 +1,6 @@
-<tags:header title="unauthorized.title"/>
+<fmt:message key="metas.unauthorized.title" var="title"/>
+<fmt:message key="metas.generic.title" var="genericTitle" />
+<tags:header title="${genericTitle} - ${title}"/>
 
 <div class="subheader">
 	<h2 class="title page-title"><fmt:message key="unauthorized.title"/></h2>

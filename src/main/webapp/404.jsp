@@ -1,4 +1,6 @@
-<tags:header title="not_found.title"/>
+<fmt:message key="not_found.title" var="title"/>
+<fmt:message key="metas.generic.title" var="genericTitle" />
+<tags:header title="${genericTitle} - ${title}"/>
 
 <div class="subheader">
 	<h2 class="title page-title"><fmt:message key="not_found.title"/></h2>
