@@ -23,6 +23,7 @@ import br.com.caelum.vraptor.Result;
 @Resource
 public class HistoryController {
 
+	private static final String MODEL_PACKAGE = "br.com.caelum.brutal.model.";
 	private final Result result;
     private final User currentUser;
     private final InformationDAO informations;
@@ -61,12 +62,23 @@ public class HistoryController {
 		}
 	}
 
-	@ModeratorOrKarmaAccess(PermissionRulesConstants.MODERATE_EDITS)
-	@Get("/historico/{moderatableType}/{moderatableId}/versoes")
-	public void similar(String moderatableType, Long moderatableId) {
+	private void similar(String moderatableType, Long moderatableId) {
 		Class<?> clazz = urlMapping.getClassFor(moderatableType);
 		result.include("histories", informations.pendingFor(moderatableId, clazz));
-		result.include("question", moderatables.getById(moderatableId, clazz));
+		result.include("post", moderatables.getById(moderatableId, clazz));
+		result.include("type", moderatableType);
+	}
+
+	@ModeratorOrKarmaAccess(PermissionRulesConstants.MODERATE_EDITS)
+	@Get("/historico/resposta/{moderatableId}/versoes")
+	public void similarAnswers(Long moderatableId) {
+		similar("resposta", moderatableId);
+	}
+	
+	@ModeratorOrKarmaAccess(PermissionRulesConstants.MODERATE_EDITS)
+	@Get("/historico/pergunta/{moderatableId}/versoes")
+	public void similarQuestions(Long moderatableId) {
+		similar("pergunta", moderatableId);
 	}
 	
 
@@ -75,7 +87,7 @@ public class HistoryController {
     public void publish(Long moderatableId, String moderatableType, Long aprovedInformationId,  String aprovedInformationType) {
         try {
         	Class<?> moderatableClass = urlMapping.getClassFor(moderatableType);
-			Class<?> aprovedInformationClass = urlMapping.getClassFor(aprovedInformationType);
+			Class<?> aprovedInformationClass = Class.forName(MODEL_PACKAGE + aprovedInformationType);
             
         	Information approved = informations.getById(aprovedInformationId, aprovedInformationClass);
             Moderatable moderatable = moderatables.getById(moderatableId, moderatableClass);
@@ -92,6 +104,8 @@ public class HistoryController {
             approved.getAuthor().increaseKarma(karma);
             
             result.redirectTo(this).unmoderated(moderatableType);
+        } catch (ClassNotFoundException e) {
+        	result.notFound();
         } catch (IllegalArgumentException e) {
             result.notFound();
         }
