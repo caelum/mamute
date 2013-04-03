@@ -1,5 +1,6 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@attribute name="value" required="false" type="java.lang.String"%>
 <%@attribute name="hintId" required="true" type="java.lang.String"%>
 <%@attribute name="htmlClass" required="false" type="java.lang.String"%>
@@ -31,7 +32,7 @@
 		data-hint-id="${hintId}" 
 		minlength="${minlength}"
 		maxlength="${maxlength}"
-		name="description">${value}</textarea>
+		name="description"><c:out value="${value}" escapeXml="true"/></textarea>
 	</div>
 	<div class="md-panel md-preview hidden"></div>
 </div>
