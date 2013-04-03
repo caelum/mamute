@@ -10,12 +10,11 @@ public class EditQuestionTest extends AuthenticatedAcceptanceTest {
 
     @Test
     public void should_edit_question_of_other_author() throws Exception {
-    	
-		loginRandomly();
-		home().toNewQuestionPage()
-				.newQuestion("Titulo Bonitao Lindo Maravilhso muito Bacana",
-						"descriptiondescriptiondescriptiondescriptiondescription",
-						"java");
+    	loginRandomly();
+    	home().toNewQuestionPage()
+        .newQuestion("Titulo Bonitao Lindo Maravilhso muito Bacana", 
+            "descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription", 
+            "java");
     	logout();
         loginWithALotOfKarma();
         QuestionPage questionPage = home().toFirstQuestionPage()
@@ -24,8 +23,7 @@ public class EditQuestionTest extends AuthenticatedAcceptanceTest {
                 "new description new description new description new description new description", 
                 "java");
         boolean containsConfirmationMessage = questionPage
-            .confirmationMessages()
-            .contains(message("status.pending"));
+            .containsConfirmationMessageLike(message("status.pending"));
         
         assertTrue(containsConfirmationMessage);
     }

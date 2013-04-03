@@ -62,20 +62,38 @@ public abstract class PageObject {
 	}
 
     public List<String> confirmationMessages() {
-        List<WebElement> confirmationElements = allByClassName("confirmation");
-        return elementsTexts(confirmationElements);
+        return elementsTexts("confirmation");
     }
     
-    public List<String> errorMessages() {
-    	List<WebElement> errorElements = allByClassName("error");
-    	return elementsTexts(errorElements);
+    private List<String> errorMessages() {
+    	return elementsTexts("error");
     }
 
-	private List<String> elementsTexts(List<WebElement> errorElements) {
-		List<String> confirmations = new ArrayList<>();
-		for (WebElement element : errorElements) {
-    		confirmations.add(element.getText());
+	public boolean containsErrorMessageLike(String message) {
+		List<String> errorMessages = errorMessages();
+		return containsMessageLike(message, errorMessages);
+	}
+
+	public boolean containsConfirmationMessageLike(String message) {
+		List<String> confirmationMessages = confirmationMessages();
+		return containsMessageLike(message, confirmationMessages);
+	}
+
+	
+	private boolean containsMessageLike(String message, List<String> messages) {
+		for (String errorMessage : messages) {
+			if(errorMessage.contains(message))
+				return true;
+		}
+		return false;
+	}
+
+	private List<String> elementsTexts(String className) {
+		List<WebElement> elements = allByClassName(className);
+		List<String> elementsTexts = new ArrayList<>();
+		for (WebElement element : elements) {
+    		elementsTexts.add(element.getText());
     	}
-    	return confirmations;
+    	return elementsTexts;
 	}
 }
