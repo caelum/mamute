@@ -501,7 +501,7 @@ textarea {
 	color: #fff;
 	display: inline-block;
 	font-size: 1.1em;
-	padding: .4em 1em;
+	padding: .5em 1em .5em;
 	text-decoration: none;
 	text-shadow: -1px -1px 1px #252c35;
 	vertical-align: middle;
@@ -520,6 +520,11 @@ textarea {
 	margin-right: .4em;
 	padding-right: .5em;
 	vertical-align: middle;
+}
+
+.face-button:hover {
+	text-decoration: none;
+	background-color: #195093;
 }
 
 /*HEADER*/
@@ -796,6 +801,7 @@ a.button.ask-a-question:hover{
 	border: 1px solid #eaeaea;
 	padding: 5px 9px 8px 9px;
 	border-bottom-color: #fff;
+	text-decoration: none;
 }
 
 .tabs a.selected {
