@@ -91,6 +91,11 @@ function errorPopup(text, target, clazz){
 	},1500);
 }
 
+
+function setLoading(target){
+	target.html("<img src="+CONTEXT_PATH+"/imgs/loading.gif>");
+}
+
 $(function() {
 	prettyPrint();
 	

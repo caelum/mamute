@@ -44,7 +44,6 @@ public class InternalErrorInterceptor implements Interceptor{
 			StringWriter sw = new StringWriter();
 			PrintWriter pw = new PrintWriter(sw);
 			
-			
 			Throwable cause = e.getCause();
 			if (cause instanceof ConstraintViolationException) {
 				Set<ConstraintViolation<?>> constraintViolations = ((ConstraintViolationException) cause).getConstraintViolations();
@@ -57,7 +56,6 @@ public class InternalErrorInterceptor implements Interceptor{
 			}
 			
 			e.printStackTrace(pw);
-			
 			
 			pw.close();
 			result.include("stacktrace", sw.toString());

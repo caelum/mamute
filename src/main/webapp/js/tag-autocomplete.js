@@ -3,14 +3,28 @@ $('.autocomplete').keyup(function(e){
 	var autoCompleteInput = $(this),
 	target = $("#"+autoCompleteInput.data("autocomplete-id")),
 	tagChunk = $(autoCompleteInput.val().split(" ")).last().get(0);
-
-	keyboardCtrlAutoCompleteBox = [13, 27, 37, 38, 39, 40];
 	
-	if($.inArray(e.which, keyboardCtrlAutoCompleteBox) < 0) { 
+	if(!tagChunk){
+		target.addClass("hidden");
+		return;
+	}
+		
+	if(isNotAControl(e.which)) { 
+		showAutoCompleteArea(target);
 		clearTimeout(autoCompleteId);
 		autoCompleteId = setTimeout(function(){suggestsAutoComplete(target, tagChunk, autoCompleteInput)},100);
 	}
 });
+
+function isNotAControl(key){
+	keyboardCtrlAutoCompleteBox = [13, 27, 37, 38, 39, 40];
+	return $.inArray(key, keyboardCtrlAutoCompleteBox) < 0
+}
+
+function showAutoCompleteArea(target){
+	target.removeClass("hidden");
+	setLoading(target);
+}
 
 $("*:not(.autocomplete)").click(function(){
 	$(".autocompleted-tags").addClass("hidden");
@@ -19,9 +33,11 @@ $("*:not(.autocomplete)").click(function(){
 function suggestsAutoComplete(target, tagChunk, input){
 	if(tagChunk == undefined || tagChunk == " " || !tagChunk) return;
 	$.get("/tags-similares/"+tagChunk,function(suggestions){
-		if(suggestions.length > 0){
+		if(suggestions.length != 0){
 			showSuggestions(suggestions, target);
-		} 
+		}else{
+			target.addClass("hidden");
+		}
 	});
 }
 
@@ -34,7 +50,8 @@ function showSuggestions(suggestions, target){
 	$(target).html(suggestionElements).removeClass("hidden");
 	
 	$('.autocompleted-tags .complete-tag').click(function(){
-		insertTagIntoTextArea($(this).find(".tag-brutal").text());
+		var self = $(this);
+		insertTagIntoTextArea(self.find(".tag-brutal").text());
 	});
 }
 
@@ -87,4 +104,5 @@ function insertTagIntoTextArea(text) {
     input.val(vetValue.join(' ')+" ");
     $(input).valid();
     input.focus();
+    $(".autocompleted-tags").html("");
 }
