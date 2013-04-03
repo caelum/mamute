@@ -39,10 +39,10 @@ public class CommentController {
 			result.notFound();
 			return;
 		}
-		if (validator.validate(comment)){
+		if (validator.validate(comment)) {
 			comments.load(type, id).add(comment);
 			comments.save(comment);
-			result.use(http()).body("<li class=\"comment\">" + message + "</li>");
+			result.use(http()).body("<li class=\"comment\">" + comment.getHtmlComment() + "</li>");
 		}
 		validator.onErrorUse(http()).body("<span class=\"error\">error</span>");
 	}
@@ -50,11 +50,11 @@ public class CommentController {
 	@Post("/comentario/editar/{id}")
 	public void edit(String comment, Long id) {
 		Comment original = comments.getById(id);
-		if(original.getAuthor().getId() != currentUser.getId()){
+		if (original.getAuthor().getId() != currentUser.getId()) {
 			result.use(status()).badRequest("comment.edit.not_author");
 			return;
 		}
-		if(validator.validate(comment)){
+		if (validator.validate(comment)) {
 			original.setComment(comment);
 			comments.save(original);
 			result.use(http()).body("<p>"+comment+"</p>");
