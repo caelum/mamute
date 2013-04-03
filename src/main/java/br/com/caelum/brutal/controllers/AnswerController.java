@@ -16,6 +16,7 @@ import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.reputation.rules.KarmaCalculator;
 import br.com.caelum.brutal.reputation.rules.ReputationEvent;
 import br.com.caelum.brutal.reputation.rules.ReputationEvents;
+import br.com.caelum.brutal.validators.AnsweredByValidator;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
@@ -35,11 +36,13 @@ public class AnswerController {
 	private final MessageFactory messageFactory;
 	private final AuthorizationSystem authorizationSystem;
 	private final Validator validator;
+	private final AnsweredByValidator answeredByValidator;
 
 	public AnswerController(Result result, AnswerDAO dao, User currentUser,
 			LoggedUser user, Localization localization,
 	        KarmaCalculator calculator, MessageFactory messageFactory, 
-	        AuthorizationSystem authorizationSystem, Validator validator) {
+	        AuthorizationSystem authorizationSystem, Validator validator,
+	        AnsweredByValidator answeredByValidator) {
 		this.result = result;
 		this.answers = dao;
 		this.currentUser = user;
@@ -48,6 +51,7 @@ public class AnswerController {
 		this.messageFactory = messageFactory;
 		this.authorizationSystem = authorizationSystem;
 		this.validator = validator;
+		this.answeredByValidator = answeredByValidator;
 	}
 
 
@@ -83,13 +87,18 @@ public class AnswerController {
 	@LoggedAccess
 	@ReputationEvent(ReputationEvents.NEW_ANSWER)
 	public void newAnswer(@Load Question question, String description) {
-        question.touchedBy(currentUser.getCurrent());
-
-        AnswerInformation information = new AnswerInformation(description, currentUser, "new answer");
-		Answer answer  = new Answer(information, question, currentUser.getCurrent());
-		answers.save(answer);
-        result.redirectTo(QuestionController.class).showQuestion(question,
-        		question.getSluggedTitle());
+		User current = currentUser.getCurrent();
+		boolean canAnswer = answeredByValidator.validate(question);
+		AnswerInformation information = new AnswerInformation(description, currentUser, "new answer");
+		Answer answer  = new Answer(information, question, current);
+		if(canAnswer){
+    		question.touchedBy(current);
+        	answers.save(answer);
+        	result.redirectTo(QuestionController.class).showQuestion(question, question.getSluggedTitle());
+        }else{
+        	result.include("answer", answer);
+        	answeredByValidator.onErrorRedirectTo(QuestionController.class).showQuestion(question, question.getSluggedTitle());
+        }
 	}
 	
 	@Post("/marcar-como-solucao/{solutionId}")
