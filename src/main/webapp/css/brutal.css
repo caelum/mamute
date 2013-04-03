@@ -499,15 +499,13 @@ textarea {
 	border-radius: 2px;
 	background: #315C99;
 	color: #fff;
-	display: block;
+	display: inline-block;
 	font-size: 1.1em;
 	padding: .4em 1em;
 	text-decoration: none;
 	text-shadow: -1px -1px 1px #252c35;
 	vertical-align: middle;
 	width: 100%;
-	float:left;
-	overflow:hidden;
 	line-height: 2em;
 }
 
@@ -517,16 +515,11 @@ textarea {
 	font-size: 2.4em;
 	border-right: 1px solid #1a3c6c;
 	box-shadow: 1px 0 0 #627eba;
-	display: block;
+	display: inline-block;
 	height: 100%;
 	margin-right: .4em;
 	padding-right: .5em;
 	vertical-align: middle;
-	float:left;
-}
-
-.login-or-signup .face-button{
-	line-height: inherit;
 }
 
 /*HEADER*/
