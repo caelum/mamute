@@ -33,6 +33,7 @@ public class Access implements ComponentFactory<User> {
 	    Cookie cookie = new Cookie(BRUTAL_SESSION, user.getSessionKey());
 	    cookie.setPath("/");
 	    cookie.setHttpOnly(true);
+	    cookie.setMaxAge(Integer.MAX_VALUE);
         response.addCookie(cookie);
 		this.user = user;
 		return user;
