@@ -946,6 +946,11 @@ a.button.ask-a-question:hover{
 	margin-bottom: 7%;
 }
 
+.about-tips li{
+	margin-bottom: 3%;
+	line-height: 2em;
+}
+
 .about-text .karma {
 	display: inline-block;
 	width: 2em;

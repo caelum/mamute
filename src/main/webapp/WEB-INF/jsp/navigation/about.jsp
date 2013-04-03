@@ -3,8 +3,20 @@
 <tags:header title="${genericTitle} - ${title}"/>
 
 <div class="about-section sub-header">
-	<h2 class="title about-title"><fmt:message key="about.title.welcome" /></h1>
+	<h2 class="title about-title"><fmt:message key="about.title.welcome" /></h2>
 	<p class="about-main"></p>
+</div>
+
+<div class="about-section">
+	<h2 class="title about-title"><fmt:message key="about.tips"/></h2>
+	<div class="about-text">
+		<ul class="about-tips">
+			<li><fmt:message key="about.tips.solved"/></li>
+			<li><fmt:message key="about.tips.avoid.thanks"/></li>
+			<li><fmt:message key="about.tips.kkk"/></li>
+			<li><fmt:message key="about.tips.greetings"/></li>
+		</ul>
+	</div>
 </div>
 
 <div class="about-section">
@@ -102,7 +114,6 @@
 	<h2 class="title about-title" id="faq"><fmt:message key="about.reputation.faq" /></h2>
 	<div class="about-text">
 		<ul class="about-faq">
-			
 			<li>
 				<p class="about-question"><fmt:message key="about.faq.what_to_ask.question"/></p>
 				<p class="about-answer"><fmt:message key="about.faq.what_to_ask.answer"/></p>
