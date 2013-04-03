@@ -1,4 +1,4 @@
-package br.com.caelum.brutal.providers;
+package br.com.caelum.brutal.interceptors;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -9,6 +9,7 @@ import javax.validation.ConstraintViolationException;
 
 import org.apache.log4j.Logger;
 
+import br.com.caelum.brutal.providers.GlobalInterceptor;
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
 import br.com.caelum.vraptor.Result;
