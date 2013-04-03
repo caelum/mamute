@@ -11,11 +11,11 @@ public class EditQuestionTest extends AuthenticatedAcceptanceTest {
     @Test
     public void should_edit_question_of_other_author() throws Exception {
     	
-    	loginRandomly();
-    	home().toNewQuestionPage()
-        .newQuestion("Titulo Bonitao Lindo Maravilhso muito Bacana", 
-            "descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription", 
-            "java");
+		loginRandomly();
+		home().toNewQuestionPage()
+				.newQuestion("Titulo Bonitao Lindo Maravilhso muito Bacana",
+						"descriptiondescriptiondescriptiondescriptiondescription",
+						"java");
     	logout();
         loginWithALotOfKarma();
         QuestionPage questionPage = home().toFirstQuestionPage()

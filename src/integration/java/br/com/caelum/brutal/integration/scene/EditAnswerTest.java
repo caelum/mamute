@@ -26,7 +26,7 @@ public class EditAnswerTest extends AuthenticatedAcceptanceTest {
     
     @Test
     public void should_edit_and_automatically_approve_author_edit() throws Exception {
-        loginWithALotOfKarma();
+        loginRandomly();
         
         QuestionPage questionPage = home().toNewQuestionPage()
             .newQuestion("question title question title question title", 
