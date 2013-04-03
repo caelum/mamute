@@ -83,4 +83,13 @@ public class NewQuestionPage extends PageObject {
         String display = byId("question-title-hint").getCssValue("display");
         return !display.equals("none");
     }
+
+	public boolean containsErrorMessageLike(String message) {
+		List<String> errorMessages = errorMessages();
+		for (String errorMessage : errorMessages) {
+			if(errorMessage.contains(message))
+				return true;
+		}
+		return false;
+	}
 }

@@ -78,7 +78,7 @@ public class CreateQuestionTest extends AuthenticatedAcceptanceTest {
 		        .typeTags("unexistant-tag-blabla");
 		newQuestionPage.submit();
 		String message = message("question.errors.tags.unexistant");
-		assertTrue(newQuestionPage.errorMessages().contains(message));
+		assertTrue(newQuestionPage.containsErrorMessageLike(message));
 	}
 
 }
