@@ -1,15 +1,19 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@attribute name="item" type="br.com.caelum.brutal.model.interfaces.Commentable" required="true" %>
 <%@attribute name="type" type="java.lang.String" required="true" %>
 
 <c:set var="ajaxResultName" value="new-comment-for-${type}-new-comment-${item.id}"/>
 
 <ul class="comment-list ${empty item.comments ? 'hidden' : ''}" id="${ajaxResultName }">
-	<c:forEach var="comment" items="${item.comments }">
+	<c:forEach var="comment" items="${item.comments }" varStatus="status">
 		<c:set var="isCommentAuthor" value="${comment.author.id == currentUser.id}"/>
-		<li class="comment">
+		<c:choose>
+			<c:when test="${status.count > 5}"><li class="comment collapsed hidden"></c:when>
+			<c:otherwise><li class="comment"></c:otherwise>
+		</c:choose>
 			<div class="post-meta comment-meta vote-container">
 				<a class="comment-meta-item container comment-option author-cant requires-login vote-option icon-chevron-up 
 					${(comment.voteCount > 0) ? 'voted' : '' }" 
@@ -39,6 +43,11 @@
 		<tags:flagItFor type="comentario" modalId="comment-flag-modal${comment.id}" flaggable="${comment}"/>
 	</c:forEach>
 </ul>
+
+<c:set var="commentsSize" value="${fn:length(item.comments)}"/>
+<c:if test="${commentsSize > 5}">
+	<span class="more-comments" size="${commentsSize}">Mostrar todos os <strong>${commentsSize}</strong> comentários</span>
+</c:if>
 
 <div class="edit-via-ajax">
 	<a href="#" class="requires-login post-action add-comment requires-karma" data-karma="${CREATE_COMMENT}">

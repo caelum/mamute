@@ -1022,15 +1022,19 @@ a.button.ask-a-question:hover{
 	margin-top: 10px;
 }
 
-.post-action {
+.post-action, .more-comments {
 	color: #888;
 	padding: .15em .25em;
 	line-height: 1.4em;
 }
 
-.post-action:hover {
+.post-action:hover, .more-comments:hover {
 	background-color: #777777;
 	color: #fff;
+}
+
+.more-comments:hover {
+	cursor: pointer;
 }
 
 

@@ -45,6 +45,7 @@
 	<script src="<c:url value="/js/pretty-text-diff.js"/>"></script>
 	<script src="<c:url value="/js/diff.js"/>"></script>
 	<script src="<c:url value="/js/flag-it.js"/>"></script>
+	<script src="<c:url value="/js/more-comments.js"/>"></script>
 	<script src="<c:url value="/js/button-hints.js"/>"></script>
 </c:if>
 <c:if test="${environment.name == 'production'}" >
