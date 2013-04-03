@@ -12,7 +12,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import br.com.caelum.pagpag.aceitacao.util.ServerInfo;
+import br.com.caelum.brutal.integration.util.ServerInfo;
 
 public class Home extends PageObject{
 	static final ServerInfo SERVER = new ServerInfo();

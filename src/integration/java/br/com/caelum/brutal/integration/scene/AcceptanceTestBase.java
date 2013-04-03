@@ -21,7 +21,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import br.com.caelum.brutal.integration.pages.Home;
 import br.com.caelum.brutal.integration.suite.AcceptanceTestsSuite;
 import br.com.caelum.brutal.integration.util.AppMessages;
-import br.com.caelum.pagpag.aceitacao.util.ServerInfo;
+import br.com.caelum.brutal.integration.util.ServerInfo;
 import br.com.caelum.vraptor.environment.DefaultEnvironment;
 import br.com.caelum.vraptor.environment.Environment;
 

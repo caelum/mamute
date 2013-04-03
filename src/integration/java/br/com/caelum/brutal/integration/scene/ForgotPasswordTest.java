@@ -12,8 +12,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import br.com.caelum.brutal.integration.pages.ResetPasswordPage;
+import br.com.caelum.brutal.integration.util.ServerInfo;
 import br.com.caelum.brutal.providers.SessionFactoryCreator;
-import br.com.caelum.pagpag.aceitacao.util.ServerInfo;
 
 public class ForgotPasswordTest extends AcceptanceTestBase implements ServerInfo.AcceptanceTest  {
     
