@@ -20,20 +20,35 @@ $(function(){
 	    "Esta data não é válida. Utilize uma data no formato dd/mm/yyyy"
 	);
 	
+	var tagsNotFound = [];
 	$.validator.addMethod(
 			"only-existent-tags",
 			function(value, element) {
-				var tags = $($(element).val().split(" ")),
-					valid = true;
-				tags.each(function(index, tag){
-					if(tag != "" && ALL_TAGS.indexOf(tag) < 0){
-						valid = false;
-					}
-				})
+				var tags = $($(element).val().split(" "));
+				tagsNotFound = verifyIfExists(tags, tagsNotFound);
+				var valid = tagsNotFound.length <= 0;
 				return valid;
 			},
-			"Use apenas tags que existem!"
+			function(){
+				return "Use apenas tags que existem! As seguintes tags não existem: "+ tagsNotFound;
+			}
 	);
+	
+	function verifyIfExists(tags, tagsNotFound){
+		tagsNotFound = [];
+		tags.each(function(index, tag){
+			if(tag != "" && notContains(ALL_TAGS, tag)){
+				if(notContains(tagsNotFound, tag)){
+					tagsNotFound.push(tag);
+				}
+			}
+		});
+		return tagsNotFound;
+	}
+	
+	function notContains(array, item){
+		return array.indexOf(item) < 0;
+	}
 	
 	$.validator.addMethod(
 			"brutal-url",
