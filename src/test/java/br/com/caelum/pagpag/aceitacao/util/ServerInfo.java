@@ -1,4 +1,4 @@
-package br.com.caelum.brutal.acceptance.util;
+package br.com.caelum.pagpag.aceitacao.util;
 
 public class ServerInfo {
 
