@@ -1,5 +1,8 @@
 package br.com.caelum.brutal.model;
 
+import static br.com.caelum.brutal.model.MarkDown.parse;
+import static br.com.caelum.brutal.sanitizer.HtmlSanitizer.sanitize;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +22,7 @@ import org.joda.time.DateTime;
 import br.com.caelum.brutal.model.interfaces.Flaggable;
 import br.com.caelum.brutal.model.interfaces.Subscribable;
 import br.com.caelum.brutal.model.interfaces.Votable;
+import br.com.caelum.brutal.sanitizer.HtmlSanitizer;
 
 @Entity
 public class Comment implements Subscribable, Votable, Flaggable {
@@ -71,7 +75,7 @@ public class Comment implements Subscribable, Votable, Flaggable {
 
 	public void setComment(String comment) {
 		this.comment = comment;
-        this.htmlComment = MarkDown.parse(comment);
+        this.htmlComment = sanitize(parse(comment));
 	}
     
     public User getAuthor() {
