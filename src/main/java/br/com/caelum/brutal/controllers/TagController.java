@@ -27,9 +27,9 @@ public class TagController {
 		result.use(json()).withoutRoot().from(suggestions).serialize();
 	}
 	
-	@Get("/tags/todos-nomes")
-	public void getAllTagNames(){
-		result.use(json()).withoutRoot().from(tags.allNames()).serialize();
+	@Get("/tags/todas-tags")
+	public void getAllTags(){
+		result.use(json()).withoutRoot().from(tags.all()).serialize();
 	}
 	
 }

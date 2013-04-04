@@ -55,9 +55,8 @@ public class TagDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<TagUsage> all() {
-		Query query = session.createQuery("select new br.com.caelum.brutal.model.TagUsage(tag, tag.usageCount) from Tag tag " +
-				" order by tag.usageCount desc");
+	public List<Tag> all() {
+		Query query = session.createQuery("from Tag tag order by tag.usageCount desc");
 		return query.list();
 	}
 
