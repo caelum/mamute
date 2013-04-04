@@ -5,7 +5,9 @@ import java.io.Serializable;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.AnswerAndVotes;
+import br.com.caelum.brutal.model.CommentsAndVotes;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.Vote;
@@ -40,6 +42,14 @@ public class VoteDAO {
 		query.setParameter("author", currentUser);
 		query.setParameter("question", question);
 		return new AnswerAndVotes(question, question.getAnswers(), query.list());
+	}
+	
+	@SuppressWarnings("unchecked")
+	public CommentsAndVotes previousVotesForComments(Answer answer, User currentUser) {
+		Query query = session.createQuery("select c,v from Answer as a join a.comments as c join c.votes as v where v.author = :author and a.id = :answer");
+		query.setParameter("author", currentUser);
+		query.setParameter("answer", answer.getId());
+		return new CommentsAndVotes(answer.getComments(), query.list());
 	}
 
     public void save(Vote vote) {
