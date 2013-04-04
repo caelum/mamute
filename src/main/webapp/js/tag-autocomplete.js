@@ -43,7 +43,7 @@ function getSuggestions(tagChunk){
 			return tag;
 		}
 	});
-	return suggestions;
+	return suggestions.slice(0, 9);
 }
 
 function showSuggestions(suggestions, target){
