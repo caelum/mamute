@@ -22,7 +22,6 @@ import org.joda.time.DateTime;
 import br.com.caelum.brutal.model.interfaces.Flaggable;
 import br.com.caelum.brutal.model.interfaces.Subscribable;
 import br.com.caelum.brutal.model.interfaces.Votable;
-import br.com.caelum.brutal.sanitizer.HtmlSanitizer;
 
 @Entity
 public class Comment implements Subscribable, Votable, Flaggable {

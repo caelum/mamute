@@ -405,6 +405,7 @@ input {
 
 input[type="submit"] {
 	margin: 5px 0;
+	cursor: pointer;
 }
 
 .text-input {
