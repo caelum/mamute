@@ -1254,8 +1254,9 @@ a.button.ask-a-question:hover{
 		rgba(255, 255, 255, 0.4) inset;
 	color: white;
 	font-size: 1em;
+	font-weight:normal;
 	margin: 4% 25%;
-	opacity: 0.3;
+	opacity: 0.5;
 	width: 50%;
 }
 
