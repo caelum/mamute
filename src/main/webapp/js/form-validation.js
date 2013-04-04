@@ -30,7 +30,7 @@ $(function(){
 				return valid;
 			},
 			function(){
-				return "Use apenas tags que existem! As seguintes tags não existem: "+ tagsNotFound;
+				return "Use apenas tags que existem! As seguintes tags não existem: <b>"+ tagsNotFound + "</b>";
 			}
 	);
 	
