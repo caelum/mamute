@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import br.com.caelum.brutal.integration.pages.Home;
 
-public class AnonymousTest extends AcceptanceTestBase{
+public class AnonymousTest extends AcceptanceTestBase {
 	Home home = home();
 
 	@Test

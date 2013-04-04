@@ -460,7 +460,7 @@
 								<exclude>**/*Test.java</exclude>
 							</excludes>
 							<includes>
-								<include>**/AcceptanceTestsSuite.java</include>
+								<include>**/scene/**/*Test.java</include>
 							</includes>
 						</configuration>
 					</execution>
@@ -468,7 +468,6 @@
 				<configuration>
 					<excludes>
 						<exclude>**/scene/**</exclude>
-						<exclude>**/AcceptanceTestsSuite.java</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
@@ -574,10 +573,10 @@
 								</goals>
 								<configuration>
 									<excludes>
-										<exclude>**/*Test.java</exclude>
+										<exclude>none</exclude>
 									</excludes>
 									<includes>
-										<include>**/AcceptanceTestsSuite.java</include>
+										<include>**/scene/**/*Test.java</include>
 									</includes>
 								</configuration>
 							</execution>
