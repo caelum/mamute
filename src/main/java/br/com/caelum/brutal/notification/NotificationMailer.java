@@ -1,7 +1,5 @@
 package br.com.caelum.brutal.notification;
 
-import static org.apache.commons.lang.CharEncoding.UTF_8;
-
 import java.util.List;
 import java.util.Locale;
 
@@ -47,7 +45,7 @@ public class NotificationMailer {
     					.with("localization", localization)
     					.with("linkerHelper", new LinkToHelper(linker))
     					.to(user.getName(), user.getEmail());
-    			email.setCharset(UTF_8);
+    			email.setCharset("utf-8");
     			mailer.send(email);
     		} catch (Exception e) {
     			LOG.error("Could not send notifications mail to: " + user.getEmail());
