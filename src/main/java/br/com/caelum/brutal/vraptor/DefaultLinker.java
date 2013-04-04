@@ -47,7 +47,12 @@ public class DefaultLinker implements Linker {
 	}
 	@Override
 	public String get() {
-		return env.getHostAndContext() + router.urlFor(controllerType, method, args);
+		return env.getHostAndContext() + getRelativePath();
+	}
+
+	@Override
+	public String getRelativePath() {
+		return router.urlFor(controllerType, method, args);
 	}
 
 }
