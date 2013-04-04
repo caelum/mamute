@@ -1,7 +1,6 @@
 package br.com.caelum.brutal.model;
 
 import static br.com.caelum.brutal.infra.NormalizerBrutal.toSlug;
-import static br.com.caelum.brutal.model.MarkDown.parse;
 import static br.com.caelum.brutal.sanitizer.HtmlSanitizer.sanitize;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.ABOUT_LENGTH_MESSAGE;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.ABOUT_MAX_LENGTH;
