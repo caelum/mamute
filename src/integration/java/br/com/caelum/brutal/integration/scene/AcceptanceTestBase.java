@@ -19,7 +19,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import br.com.caelum.brutal.integration.pages.Home;
-import br.com.caelum.brutal.integration.suite.AcceptanceTestsSuite;
+import br.com.caelum.brutal.integration.suite.AcceptanceTestsRunner;
 import br.com.caelum.brutal.integration.util.AppMessages;
 import br.com.caelum.brutal.integration.util.ServerInfo;
 import br.com.caelum.vraptor.environment.DefaultEnvironment;
@@ -41,7 +41,7 @@ public abstract class AcceptanceTestBase implements ServerInfo.AcceptanceTest {
 	
 	@AfterClass
 	public static void close() {
-		if (!AcceptanceTestsSuite.isRunning() && driver != null)
+		if (!AcceptanceTestsRunner.isRunning() && driver != null)
 			driver.close();
 	}
 
@@ -72,8 +72,8 @@ public abstract class AcceptanceTestBase implements ServerInfo.AcceptanceTest {
 
 	@BeforeClass
 	public static void getDriver() {
-		if (AcceptanceTestsSuite.isRunning()) {
-			driver = AcceptanceTestsSuite.getDriver();
+		if (AcceptanceTestsRunner.isRunning()) {
+			driver = AcceptanceTestsRunner.getDriver();
 		} else {
 			driver = new FirefoxDriver();
 		}

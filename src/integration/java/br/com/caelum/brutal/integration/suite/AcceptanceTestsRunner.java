@@ -1,10 +1,15 @@
 package br.com.caelum.brutal.integration.suite;
 
+import java.net.MalformedURLException;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import org.junit.runner.Description;
+import org.junit.runner.Runner;
+import org.junit.runner.notification.RunNotifier;
+import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.Suite.SuiteClasses;
+import org.junit.runners.model.InitializationError;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -32,15 +37,23 @@ import br.com.caelum.brutal.integration.scene.VoteUpDownTest;
 	SignupTest.class,
 	VoteUpDownTest.class
 })
-@RunWith(Suite.class)
-public class AcceptanceTestsSuite {
-	
+public class AcceptanceTestsRunner extends Runner {
+
 	private static WebDriver DRIVER = null;
 	private static boolean RUNNING = false;
-
+	private final BlockJUnit4ClassRunner delegate;
+	
+	public AcceptanceTestsRunner(Class<?> klass) throws InitializationError  {
+		delegate = new BlockJUnit4ClassRunner(klass);
+	}
+	
+	
 	@BeforeClass 
-	public static void setup() {
+	public static void setup() throws MalformedURLException {
 		RUNNING = true;
+//		DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+//		desiredCapabilities.setJavascriptEnabled(true);
+//		DRIVER = new RemoteWebDriver(new URL("http://localhost:8787"), desiredCapabilities);
 		DRIVER = new FirefoxDriver();
 	}
 	
@@ -61,5 +74,17 @@ public class AcceptanceTestsSuite {
 		}
 		return DRIVER;
 	}
-	
+
+
+	@Override
+	public Description getDescription() {
+		return delegate.getDescription();
+	}
+
+	@Override
+	public void run(RunNotifier notifier) {
+		delegate.run(notifier);
+	}
+
+
 }
