@@ -59,7 +59,7 @@ public class ListController {
 	
 	@Get("/tags")
 	public void listTags(){
-		result.include("tagsUsage", tags.all());
+		result.include("tags", tags.all());
 	}
 
 
