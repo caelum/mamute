@@ -32,27 +32,36 @@ $("*:not(.autocomplete)").click(function(){
 
 function suggestsAutoComplete(target, tagChunk, input){
 	if(tagChunk == undefined || tagChunk == " " || !tagChunk) return;
-	$.get("/tags-similares/"+tagChunk,function(suggestions){
-		if(suggestions.length != 0){
-			showSuggestions(suggestions, target);
-		}else{
-			target.addClass("hidden");
+	suggestions = getSuggestions(tagChunk);
+	showSuggestions(suggestions, target);
+}
+
+function getSuggestions(tagChunk){
+	var regex = new RegExp(".*"+tagChunk+".*");
+	var suggestions = $(ALL_TAGS).map(function(index, tag){
+		if(tag.name.match(regex)){
+			return tag;
 		}
 	});
+	return suggestions;
 }
 
 function showSuggestions(suggestions, target){
-	var suggestionElements = "";
-	$(suggestions).each(function(index, suggestion){
-		suggestionElements += "<li class='complete-tag'><a class='tag-brutal'>"+suggestion.name+"</a> x "+ suggestion.usageCount;
-		suggestionElements += "<div class='tag-description'>"+suggestion.description+"</div></li>";
-	});
-	$(target).html(suggestionElements).removeClass("hidden");
-	
-	$('.autocompleted-tags .complete-tag').click(function(){
-		var self = $(this);
-		insertTagIntoTextArea(self.find(".tag-brutal").text());
-	});
+	if(suggestions.length != 0){
+		var suggestionElements = "";
+		$(suggestions).each(function(index, suggestion){
+			suggestionElements += "<li class='complete-tag'><a class='tag-brutal'>"+suggestion.name+"</a> x "+ suggestion.usageCount;
+			suggestionElements += "<div class='tag-description'>"+suggestion.description+"</div></li>";
+		});
+		$(target).html(suggestionElements).removeClass("hidden");
+		
+		$('.autocompleted-tags .complete-tag').click(function(){
+			var self = $(this);
+			insertTagIntoTextArea(self.find(".tag-brutal").text());
+		});
+	}else{
+		target.addClass("hidden");
+	}
 }
 
 var pos=-3;

@@ -71,6 +71,7 @@ var MODERATOR = ${empty currentUser ? false : currentUser.moderator};
 var KARMA = ${empty currentUser ? 0 : currentUser.karma};
 var CONTEXT_PATH = "${contextPath}";
 var ALL_TAGS;
+var ALL_TAG_NAMES;
 
 // fix context path of ajax requests *cool* 
 $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
@@ -79,7 +80,14 @@ $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
 	}
 });
 
-$.get("/tags/todos-nomes", function(tags){ALL_TAGS = tags});
+$.get("/tags/todas-tags", function(tags){
+	ALL_TAGS = tags
+	ALL_TAG_NAMES = $.makeArray(
+		$(ALL_TAGS).map(function(index, element){
+			return element.name;
+		})
+	);
+});
 
 function errorPopup(text, target, clazz){
 	clazz = clazz || "";

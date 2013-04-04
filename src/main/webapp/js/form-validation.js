@@ -37,10 +37,8 @@ $(function(){
 	function verifyIfExists(tags, tagsNotFound){
 		tagsNotFound = [];
 		tags.each(function(index, tag){
-			if(tag != "" && notContains(ALL_TAGS, tag)){
-				if(notContains(tagsNotFound, tag)){
-					tagsNotFound.push(tag);
-				}
+			if(tag != "" && notContains(ALL_TAG_NAMES, tag) && notContains(tagsNotFound, tag)){
+				tagsNotFound.push(tag);
 			}
 		});
 		return tagsNotFound;

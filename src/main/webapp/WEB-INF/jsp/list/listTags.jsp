@@ -4,10 +4,10 @@
 
 <h2 class="title page-title replace"></h2>
 <ol class="tags-list complete-tags">
-	<c:forEach var="tagUsage" items="${tagsUsage}">
+	<c:forEach var="tag" items="${tags}">
 		<li class="complete-tag">
-			<tags:tag tag="${tagUsage.tag}"/> x ${tagUsage.usage}
-			<div class='tag-description'>${tagUsage.tag.description}</div>
+			<tags:tag tag="${tag}"/> x ${tag.usageCount}
+			<div class='tag-description'>${tag.description}</div>
 		</li>
 	</c:forEach>
 </ol>
