@@ -1156,16 +1156,16 @@ a.button.ask-a-question:hover{
 
 /*Comments*/
 .comment-list {
-	color: #444;
+	color: #666;
 	border-top: dotted 1px #aaa;
 	margin-bottom:2%;
 }
 
 .comment {
 	overflow: hidden;
-	padding: .4em 2em .4em 0;
+	padding: 0 2em 0.3em 0;
 	border-bottom: dotted 1px #ddd;
-	line-height: 20px;
+	line-height: 16px;
 }
 
 .comment p {
@@ -1270,6 +1270,11 @@ a.button.ask-a-question:hover{
 }
 
 /*EDIT VIA AJAX*/
+
+.comment .edit-via-ajax {
+	display: inline;
+	padding-left: 1%;
+}
 
 .edit-via-ajax .form-hints {
 	margin-top: 0px;
