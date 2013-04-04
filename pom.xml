@@ -365,6 +365,8 @@
 							<excludes>
 								<exclude>**/jquery.js</exclude>
 								<exclude>**/html5shiv.js</exclude>
+								<exclude>**/diff_match_patch.js</exclude>
+								<exclude>**/pretty-text-diff.js</exclude>
 							</excludes>
 						</aggregation>
 					</aggregations>

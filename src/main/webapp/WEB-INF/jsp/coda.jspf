@@ -20,6 +20,8 @@
 </footer>
 <script src="<c:url value="/js/jquery.js"/>"></script>
 <script src="<c:url value="/js/jquery-ui-1.10.2.custom.js"/>"></script>
+<script src="<c:url value="/js/diff_match_patch.js"/>"></script>
+<script src="<c:url value="/js/pretty-text-diff.js"/>"></script>
 <c:if test="${environment.name != 'production'}" >
 	<script src="<c:url value="/js/prettify.js"/>"></script>
 	<script src="<c:url value="/js/jquery.validate.min.js"/>"></script>
@@ -41,8 +43,6 @@
 	<script src="<c:url value="/js/dropdown.js"/>"></script>
 	<script src="<c:url value="/js/order-by.js"/>"></script>
 	<script src="<c:url value="/js/share.js"/>"></script>
-	<script src="<c:url value="/js/diff_match_patch.js"/>"></script>
-	<script src="<c:url value="/js/pretty-text-diff.js"/>"></script>
 	<script src="<c:url value="/js/diff.js"/>"></script>
 	<script src="<c:url value="/js/flag-it.js"/>"></script>
 	<script src="<c:url value="/js/more-comments.js"/>"></script>
