@@ -563,7 +563,7 @@
 				<plugins>
 					<plugin>
 						<artifactId>maven-surefire-plugin</artifactId>
-						<version>2.5</version>
+						<version>2.10</version>
 						<executions>
 							<execution>
 								<id>surefire-integration</id>
@@ -572,12 +572,22 @@
 									<goal>test</goal>
 								</goals>
 								<configuration>
+									<systemPropertyVariables>
+										<webdriver.chrome.driver>/home/csokol/downloads/chromedriver</webdriver.chrome.driver>
+									</systemPropertyVariables>
 									<excludes>
 										<exclude>none</exclude>
 									</excludes>
 									<includes>
 										<include>**/scene/**/*Test.java</include>
 									</includes>
+									<forkMode>once</forkMode>
+									<properties>
+										<property>
+											<name>listener</name>
+											<value>br.com.caelum.brutal.integration.util.FailFastListener</value>
+										</property>
+									</properties>
 								</configuration>
 							</execution>
 						</executions>
