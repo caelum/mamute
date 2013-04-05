@@ -4,6 +4,7 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 <%@attribute name="answer" type="br.com.caelum.brutal.model.Answer" required="true" %>
 <%@attribute name="vote" type="br.com.caelum.brutal.model.Vote" required="true" %>
+<c:set var="currentUserIsAuthor" value="${answer.author.id == currentUser.id}" />
 <section class="post-area">
 	<div class="post-meta">
 		<tags:voteFor item="${answer}" type="resposta" vote="${vote}"/>
@@ -15,7 +16,7 @@
 			<ul class="post-action-nav nav piped-nav">
 				<li class="nav-item">
 					<a class="post-action edit requires-login requires-karma"
-							data-author="${answer.question.author.id == currentUser.id}"
+							data-author="${currentUserIsAuthor}"
 							data-karma="${EDIT_ANSWER}" 
 							href="${linkTo[AnswerController].answerEditForm[answer.id]}"><fmt:message key="edit" /></a>
 				</li>
