@@ -1,6 +1,8 @@
 package br.com.caelum.brutal.integration.scene;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.httpclient.HttpClient;
@@ -15,6 +17,8 @@ import org.openqa.selenium.WebDriver.Navigation;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -49,6 +53,16 @@ public abstract class AcceptanceTestBase implements ServerInfo.AcceptanceTest {
 		driver.setJavascriptEnabled(true);
 		return driver;
 	}
+	
+	private static WebDriver ghostDriver() {
+		DesiredCapabilities capabilities = new DesiredCapabilities();
+		capabilities.setJavascriptEnabled(true);
+		try {
+			return new RemoteWebDriver(new URL("http://localhost:8787/"), capabilities);
+		} catch (MalformedURLException e) {
+			throw new RuntimeException("could not build ghost driver", e);
+		}
+	}
 
 	protected Navigation browser() {
 		return driver.navigate();
@@ -70,9 +84,15 @@ public abstract class AcceptanceTestBase implements ServerInfo.AcceptanceTest {
 	
 
 	@BeforeClass
-	public static void getDriver() {
+	public static void buildDriver() {
+//		driver = new ChromeDriver();
+//		driver = ghostDriver();
 		driver = new FirefoxDriver();
 		waitForFirstBodyPresence();
+	}
+	
+	public static WebDriver getDriver() {
+		return driver;
 	}
 	
 	@BeforeClass
