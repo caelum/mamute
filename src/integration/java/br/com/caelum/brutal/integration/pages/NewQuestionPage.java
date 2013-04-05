@@ -1,6 +1,7 @@
 package br.com.caelum.brutal.integration.pages;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -66,6 +67,9 @@ public class NewQuestionPage extends PageObject {
 			if (autoCompletedTag.getText().equals(tag)){
 				rightAutoCompletedTag = autoCompletedTag;
 			}
+		}
+		if (rightAutoCompletedTag == null) {
+			throw new NoSuchElementException("could not find tag named " + tag);
 		}
 		return rightAutoCompletedTag;
 	}
