@@ -31,7 +31,7 @@ public class FacebookLoginPage extends PageObject {
 	}
 	
 	public Home confirm() {
-		byName("__CONFIRM__").click();
+		byName("grant_clicked").click();
 		return new Home(driver);
 	}
 
