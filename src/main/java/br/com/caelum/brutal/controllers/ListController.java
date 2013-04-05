@@ -38,13 +38,13 @@ public class ListController {
 	@Get("/")
 	public void home() {
 		result.include("questions", questions.all());
-		result.include("tagsUsage", recentTagsContainer.getRecentTagsUsage());
+		result.include("recentTags", recentTagsContainer.getRecentTagsUsage());
 	}
 	
 	@Get("/nao-resolvido")
 	public void unsolved() {
 		result.include("questions", questions.unsolved());
-		result.include("recentTags", tags.getRecentTagsSince(new DateTime().minusMonths(3)));
+		result.include("recentTags", recentTagsContainer.getRecentTagsUsage());
 		result.use(page()).of(ListController.class).home();
 	}
 	
