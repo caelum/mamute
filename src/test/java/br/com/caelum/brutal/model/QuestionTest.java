@@ -105,6 +105,17 @@ public class QuestionTest  extends TestCase{
 	}
 	
 	@Test
+	public void should_verify_that_a_user_already_answered_question() throws Exception {
+		Question q = question.build();
+		User author = user("author", "author@brutal.com", 1l);
+		User other = user("other", "other@brutal.com", 2l);
+		answer("my answer", q, author);
+		
+		assertTrue(q.alreadyAnsweredBy(author));
+		assertFalse(q.alreadyAnsweredBy(other));
+	}
+	
+	@Test
 	public void should_update_information_and_tag_usage_count() throws Exception {
 		Tag ruby = tag("ruby");
 		Tag java = tag("java");
