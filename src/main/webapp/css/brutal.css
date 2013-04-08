@@ -1105,6 +1105,12 @@ a.button.ask-a-question:hover{
 	border-left: 1px solid #999;
 }
 
+/* Already Answered Alert */
+.already-answered{
+	background-color: #fefbb7;
+	padding:1.2em;
+	border-radius:5px;
+}
 
 /* Post Vote*/
 .post-meta, .post-container {

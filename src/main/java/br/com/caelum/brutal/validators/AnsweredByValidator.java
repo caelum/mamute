@@ -19,7 +19,7 @@ public class AnsweredByValidator {
 	}
 	
 	public boolean validate(Question question){
-		if(question.answeredBy(user.getCurrent())){
+		if(question.alreadyAnsweredBy(user.getCurrent())){
 			validator.add(factory.build("error", "answer.errors.already_answered"));
 		}
 		return !validator.hasErrors();

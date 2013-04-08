@@ -309,7 +309,7 @@ public class Question extends Moderatable implements Votable, Commentable, Touch
 		return false;
 	}
 
-	public boolean answeredBy(User user) {
+	public boolean alreadyAnsweredBy(User user) {
 		for (Answer answer : answers) {
 			if(answer.getAuthor().getId() == user.getId()){
 				return true;

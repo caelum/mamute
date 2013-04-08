@@ -17,8 +17,13 @@
 			</li>
 		</c:forEach>
 	</ul>
-	<c:if test="${not empty currentUser}">
+	<c:if test="${not empty currentUser && !question.alreadyAnsweredBy(currentUser)}">
 		<%@ include file="/WEB-INF/jsp/answer/answerForm.jsp"%>
+	</c:if>
+	<c:if test="${not empty currentUser && question.alreadyAnsweredBy(currentUser)}">
+		<div class="message alert already-answered">
+			<fmt:message key="answer.errors.already_answered"/>
+		</div>
 	</c:if>
 	<c:if test="${empty currentUser}">
 		<div class="login-or-signup">
