@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -13,6 +14,7 @@ import org.hibernate.Session;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
+import br.com.caelum.vraptor.Result;
 
 @Resource
 public class VerifyUsersController {
@@ -24,15 +26,20 @@ public class VerifyUsersController {
 		this.session = session;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Post("/asjkdjnjsaknfknsdklglas")
-	public void verify(){
+	public void verify(Result r){
 		List<User> users = session.createCriteria(User.class).list();
+		List<User> invalid = new ArrayList<>();
 		for (User user : users) {
-			validateUser(user);
+			if (!isValid(user)) {
+				invalid.add(user);
+			}
 		}
+		r.include("invalid", invalid);
 	}
 
-	private void validateUser(User user) {
+	private boolean isValid(User user) {
 		Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 		Set<ConstraintViolation<User>> errors = validator.validate(user);
 		if(!errors.isEmpty()){
@@ -42,7 +49,9 @@ public class VerifyUsersController {
 				LOG.warn(constraint);
 			}
 			LOG.warn("------------------------------------------------");
+			return false;
 		}
+		return true;
 	}
 
 }
