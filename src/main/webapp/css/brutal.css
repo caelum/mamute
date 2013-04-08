@@ -156,6 +156,7 @@ a:hover{
 	border: 2px dotted #CCC;
 	padding: 3px;
 	color: #000;
+	line-height:1.2em;
 }
 
 .md-preview ul, .md-preview ol,
@@ -1058,7 +1059,7 @@ a.button.ask-a-question:hover{
 
 .post-text {
 	font-size: 1.1em;
-	line-height: 17px;
+	line-height: 1.2em;
 	color: #000;
 	margin-bottom: 3%;
 }
