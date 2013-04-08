@@ -21,7 +21,7 @@ import com.google.gson.JsonParser;
 
 public class FacebookSignupTest extends AcceptanceTestBase {
 	
-	@Test @Ignore
+	@Test
 	public void should_signup_and_login_through_facebook() throws Exception {
 		String appToken = getAppToken();
 		FacebookUser facebookUser = createFacebookTestUser(appToken);
