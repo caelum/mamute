@@ -29,16 +29,19 @@ public class Comment implements Subscribable, Votable, Flaggable {
 	public static final int COMMENT_MIN_LENGTH = 15;
 	public static final String ERROR_NOT_EMPTY = "comment.errors.not_empty";
     public static final String ERROR_LENGTH = "comment.errors.length";
+	private static final int COMMENT_MAX_LENGTH = 600;
 
 	@Id @GeneratedValue
     private Long id;
     
     @Lob
     @NotEmpty(message = ERROR_NOT_EMPTY)
-    @Length(min = COMMENT_MIN_LENGTH, message = ERROR_LENGTH)
+    @Length(min = COMMENT_MIN_LENGTH, max = COMMENT_MAX_LENGTH , message = ERROR_LENGTH)
     private String comment;
 
     @Lob
+    @NotEmpty(message = ERROR_NOT_EMPTY)
+    @Length(min = COMMENT_MIN_LENGTH, max = COMMENT_MAX_LENGTH , message = ERROR_LENGTH)
     private String htmlComment;
 
     @ManyToOne(optional = false)

@@ -1198,6 +1198,15 @@ a.button.ask-a-question:hover{
 	background-color: #FAFAFA;
 }
 
+.comment-submit{
+	float:right;
+	width:25%;
+}
+
+.comment-textarea{
+	width:70%;	
+}
+
 .same-author {
 	background-color: #E0EAF1;
 	padding: .2em .35em;

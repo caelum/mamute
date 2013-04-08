@@ -53,16 +53,14 @@
 	<a href="#" class="requires-login post-action add-comment requires-karma" data-karma="${CREATE_COMMENT}">
 		<fmt:message key="comment.submit" />
 	</a>
-	<span>
+	<span class="post-container comment-container">
 		<form action="${linkTo[CommentController].comment[item.id][type]}" 
-			class="validated-form ajax hinted-form" data-ajax-result="${ajaxResultName}" 
+			class="validated-form ajax" data-ajax-result="${ajaxResultName}" 
 			data-ajax-on-callback="append">
 			<label for="comment"><fmt:message key="comment.label" /></label>
-			<textarea id="comment" class="text-input required to-focus hintable" minlength="15" name="message" data-hint-id="${ajaxResultName}-hint"></textarea>
+			<textarea id="comment" class="text-input required to-focus hintable comment-textarea" minlength="15" maxlength="600" name="message" data-hint-id="${ajaxResultName}-hint"></textarea>
 			<input type="submit" class="post-submit comment-submit" value="<fmt:message key="comment.submit"/>" />
 		</form>
-		<div class="form-hints">
-			<span class="hint" id="${ajaxResultName}-hint"><fmt:message key="comment.hint"/></span>
-		</div>
 	</span>
+	<span class="hint" id="${ajaxResultName}-hint"><fmt:message key="comment.hint"/></span>
 </div>
