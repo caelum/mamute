@@ -57,7 +57,7 @@ public class CommentController {
 		if (validator.validate(comment)) {
 			original.setComment(comment);
 			comments.save(original);
-			result.use(http()).body("<p>"+comment+"</p>");
+			result.use(http()).body("<p>"+original.getHtmlComment()+"</p>");
 		}
 		validator.onErrorUse(http()).body("<span class=\"error\">error</span>");
 	}
