@@ -18,7 +18,6 @@
 		<p><a class="footer-link" href="http://www.casadocodigo.com.br"><fmt:message key="footer.casa_do_codigo"/></a></p>		
 	</div>
 </footer>
-
 <!-- UserVoice JavaScript SDK (only needed once on a page) -->
 <script>(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/m3qDca7JFMjJaU9pVTfMkw.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})()</script>
 
@@ -27,16 +26,17 @@
 UserVoice = window.UserVoice || [];
 UserVoice.push(['showTab', 'classic_widget', {
   mode: 'full',
-  primary_color: '#244b69',
+  primary_color: '#cc6d00',
   link_color: '#007dbf',
   default_mode: 'support',
   forum_id: 200638,
-  tab_label: 'Feedback & Support',
+  tab_label: 'Ideias & Suporte',
   tab_color: '#cc6d00',
   tab_position: 'middle-right',
   tab_inverted: false
 }]);
 </script>
+
 <script src="<c:url value="/js/jquery.js"/>"></script>
 <script src="<c:url value="/js/jquery-ui-1.10.2.custom.js"/>"></script>
 <script src="<c:url value="/js/diff_match_patch.js"/>"></script>
