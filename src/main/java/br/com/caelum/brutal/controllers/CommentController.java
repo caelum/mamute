@@ -1,8 +1,6 @@
 package br.com.caelum.brutal.controllers;
 
 import static br.com.caelum.vraptor.view.Results.http;
-import static br.com.caelum.vraptor.view.Results.logic;
-import static br.com.caelum.vraptor.view.Results.page;
 import static br.com.caelum.vraptor.view.Results.status;
 import br.com.caelum.brutal.auth.rules.MinimumReputation;
 import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
@@ -14,7 +12,6 @@ import br.com.caelum.brutal.validators.CommentValidator;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.view.Results;
 
 @Resource
 public class CommentController {
@@ -60,7 +57,7 @@ public class CommentController {
 		if (validator.validate(comment)) {
 			original.setComment(comment);
 			comments.save(original);
-			result.redirectTo(TemplatesController.class).comment(original);
+			result.forwardTo(TemplatesController.class).comment(original);
 		}
 		validator.onErrorUse(http()).body("<span class=\"error\">error</span>");
 	}

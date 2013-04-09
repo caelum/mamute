@@ -4,11 +4,12 @@
 <%@attribute name="field" type="java.lang.String" required="true" %>
 <%@attribute name="value" required="true" %>
 <%@attribute name="ajaxResult" required="true" %>
+<%@attribute name="onCallback" type="java.lang.String" required="false" %>
 <c:set var="editKey" value="${not empty currentUser and item.author.id eq currentUser.id ? 'edit' : 'suggest_edition'}" />
 <div class="edit-via-ajax">
 	<a class="requires-login requires-karma" data-author="${item.author.id eq currentUser.id }" href="#"><fmt:message key="${editKey}"/></a>
 	<div class="edit-form hidden">
-		<form action="<c:url value="/comentario/editar/${item.id}"/>" class="validated-form ajax hinted-form" data-ajax-result="${ajaxResult }">
+		<form action="<c:url value="/comentario/editar/${item.id}"/>" class="validated-form ajax hinted-form" data-ajax-on-callback="${onCallback}" data-ajax-result="${ajaxResult }">
 			<textarea class="required to-focus hintable text-input" minlength="15" name="${field}" data-hint-id="${ajaxResult }-hint">
 				<c:out value="${value}" escapeXml="true"/>
 			</textarea>

@@ -22,13 +22,14 @@ $(function() {
 			if(jqhr.status==201) {
 				target.append("<span class='suggestion-accepted'>Sugest&atilde;o enviada!</span>");
 			} else {
-				var action = self.data("ajax-on-callback") || "replace";
-				if(action == "replace") {
+				var action = self.data("ajax-on-callback") || "replace-inner";
+				if(action == "replace-inner") {
 					target.html(response);
 				} else if(action == "append") {
 					target.append(response);
+				} else if(action == "replace"){
+					target.replaceWith(response);
 				}
-				target.removeClass("hidden");
 			}
 			self.find("textarea").val("");
 			var formParent = self.closest(".edit-via-ajax");

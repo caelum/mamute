@@ -5,7 +5,7 @@
 <%@attribute name="collapsed" type="java.lang.Boolean" required="true" %>
 
 <c:set var="isCommentAuthor" value="${comment.author.id == currentUser.id}"/>
-<li class="comment ${collapsed ? 'collapsed hidden' : ''}">
+<li class="comment ${collapsed ? 'collapsed hidden' : ''}" id="comment-${comment.id}">
 	<div class="post-meta comment-meta vote-container">
 		<a class="comment-meta-item container comment-option author-cant requires-login vote-option icon-chevron-up 
 			${(comment.voteCount > 0) ? 'voted' : '' }" 
@@ -20,7 +20,7 @@
 		</c:if>
 	</div>
 	<div class="post-container comment-container">
-		<span id="comment-${comment.id}">
+		<span>
 			${comment.htmlComment}
 		</span> &#8212;
 		
@@ -28,7 +28,7 @@
 		&nbsp;<tags:prettyTime time="${comment.lastUpdatedAt}"/>
 
 		<c:if test="${comment.author.id == currentUser.id}">
-			<tags:editFor item="${comment}" field="comment" value="${comment.comment}" ajaxResult="comment-${comment.id}" />
+			<tags:editFor onCallback="replace" item="${comment}" field="comment" value="${comment.comment}" ajaxResult="comment-${comment.id}" />
 		</c:if>
 	</div>	
 </li>
