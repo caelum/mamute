@@ -4,11 +4,12 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@attribute name="votes" type="br.com.caelum.brutal.model.CommentsAndVotes" required="true" %>
 
 <c:set var="ajaxResultName" value="new-comment-for-${type}-new-comment-${item.id}"/>
 <ul class="comment-list ${empty item.comments ? 'hidden' : ''}" id="${ajaxResultName }">
 	<c:forEach var="comment" items="${item.comments }" varStatus="status">
-		<tags:commentWith comment="${comment}" collapsed="${status.count > 5}"/>
+		<tags:commentWith comment="${comment}" collapsed="${status.count > 5}" currentUserVote="${votes.getVotes(comment)}"/>
 	</c:forEach>
 </ul>
 

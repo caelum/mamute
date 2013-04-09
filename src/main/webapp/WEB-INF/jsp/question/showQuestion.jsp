@@ -2,7 +2,7 @@
 
 <h1 class="title subheader question-title">${question.title}</h1>
 <section class="first-content">
-	<tags:questionWith question="${question}"/>
+	<tags:questionWith question="${question}" commentVotes="${commentsWithVotes}"/>
 	<div class="subheader">
 		<h2 class="title page-title">
 			${question.answersCount} <fmt:message key="question.list.answer.${question.answersCount > 1 ? 'plural' : 'singular' }"/>
@@ -13,7 +13,7 @@
 			<c:set var="answer" value="${entry.key}" />
 			<c:set var="vote" value="${entry.value}" />
 			<li id="answer-${answer.id}" class="answer" data-id="${answer.id}">
-				<tags:answerWith answer="${answer}" vote="${vote}"/>
+				<tags:answerWith answer="${answer}" vote="${vote}" commentVotes="${commentsWithVotes}"/>
 			</li>
 		</c:forEach>
 	</ul>
