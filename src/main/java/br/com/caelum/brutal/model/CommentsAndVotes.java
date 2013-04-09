@@ -8,7 +8,7 @@ public class CommentsAndVotes {
 	
 	private final Map<Comment, Vote> votes;
 	
-	public CommentsAndVotes(List<Comment> comments, List<Object[]> votes) {
+	public CommentsAndVotes(List<Object[]> votes) {
 		
 		CommentComparator comparator = new CommentComparator();
 		this.votes = new TreeMap<>(comparator);
@@ -18,16 +18,10 @@ public class CommentsAndVotes {
 			Vote vote = (Vote) objects[1];
 			this.votes.put(comment, vote);
 		}
-		
-		for (Comment comment : comments) {
-			if(!this.votes.containsKey(comment))
-				this.votes.put(comment, null);
-		}
-	
 	}
 	
-	public Map<Comment, Vote> getVotes() {
-		return this.votes;
+	public Vote getVotes(Comment comment) {
+		return this.votes.get(comment);
 	}
 
 }

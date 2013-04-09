@@ -1,11 +1,11 @@
 package br.com.caelum.brutal.dao;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.AnswerAndVotes;
 import br.com.caelum.brutal.model.CommentsAndVotes;
 import br.com.caelum.brutal.model.Question;
@@ -45,11 +45,16 @@ public class VoteDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public CommentsAndVotes previousVotesForComments(Answer answer, User currentUser) {
-		Query query = session.createQuery("select c,v from Answer as a join a.comments as c join c.votes as v where v.author = :author and a.id = :answer");
-		query.setParameter("author", currentUser);
-		query.setParameter("answer", answer.getId());
-		return new CommentsAndVotes(answer.getComments(), query.list());
+	public CommentsAndVotes previousVotesForComments(Question question, User currentUser) {
+		Query questionQuery = session.createQuery("select c,v from Question as q join q.comments as c join c.votes as v where v.author = :author and q = :question");
+		Query answerQuery = session.createQuery("select c,v from Question as q join q.answers as a join a.comments as c join c.votes as v where v.author = :author and q = :question");
+		questionQuery.setParameter("author", currentUser);
+		answerQuery.setParameter("author", currentUser);
+		questionQuery.setParameter("question", question);
+		answerQuery.setParameter("question", question);
+		List commentsAndVotesList = questionQuery.list();
+		commentsAndVotesList.addAll(answerQuery.list());
+		return new CommentsAndVotes(commentsAndVotesList);
 	}
 
     public void save(Vote vote) {
