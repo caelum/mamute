@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.controllers;
 
+import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 
@@ -12,5 +13,7 @@ public class TemplatesController {
 		this.result = result;
 	}
 	
-	public void comment(){}
+	public void comment(Comment comment){
+		result.include("comment", comment);
+	}
 }
