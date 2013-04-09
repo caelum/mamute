@@ -17,18 +17,11 @@
 	<span class="more-comments" size="${commentsSize}">Mostrar todos os <strong>${commentsSize}</strong> comentários</span>
 </c:if>
 
-<div class="edit-via-ajax">
+
+<fmt:message  key="comment.submit" var="submit"/>
+<tags:simpleAjaxFormWith action="${linkTo[CommentController].comment[item.id][type]}" 
+field="comment" onCallback="append" callbackTarget="${ajaxResultName}" submit="${submit}">
 	<a href="#" class="requires-login post-action add-comment requires-karma" data-karma="${CREATE_COMMENT}">
-		<fmt:message key="comment.submit" />
+		${submit}
 	</a>
-	<span class="post-container comment-container">
-		<form action="${linkTo[CommentController].comment[item.id][type]}" 
-			class="validated-form ajax" data-ajax-result="${ajaxResultName}" 
-			data-ajax-on-callback="append">
-			<label for="comment"><fmt:message key="comment.label" /></label>
-			<textarea id="comment" class="text-input required to-focus hintable comment-textarea" minlength="15" maxlength="600" name="message" data-hint-id="${ajaxResultName}-hint"></textarea>
-			<input type="submit" class="post-submit comment-submit" value="<fmt:message key="comment.submit"/>" />
-		</form>
-	</span>
-	<span class="hint" id="${ajaxResultName}-hint"><fmt:message key="comment.hint"/></span>
-</div>
+</tags:simpleAjaxFormWith>

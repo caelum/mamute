@@ -32,23 +32,23 @@ public class CommentController {
 
 	@MinimumReputation(PermissionRulesConstants.CREATE_COMMENT)
 	@Post("/{onWhat}/{id}/comentar")
-	public void comment(Long id, String onWhat, String message) {
-		Comment comment = new Comment(currentUser, message);
+	public void comment(Long id, String onWhat, String comment) {
+		Comment newComment = new Comment(currentUser, comment);
 		Class<?> type = getType(onWhat);
 		if (type == null) {
 			result.notFound();
 			return;
 		}
-		if (validator.validate(comment)) {
-			comments.load(type, id).add(comment);
-			comments.save(comment);
-			result.redirectTo(TemplatesController.class).comment(comment);
+		if (validator.validate(newComment)) {
+			comments.load(type, id).add(newComment);
+			comments.save(newComment);
+			result.redirectTo(TemplatesController.class).comment(newComment);
 		}
 		validator.onErrorUse(http()).body("<span class=\"error\">error</span>");
 	}
 
 	@Post("/comentario/editar/{id}")
-	public void edit(String comment, Long id) {
+	public void edit(Long id, String comment) {
 		Comment original = comments.getById(id);
 		if (original.getAuthor().getId() != currentUser.getId()) {
 			result.use(status()).badRequest("comment.edit.not_author");

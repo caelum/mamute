@@ -1,6 +1,7 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@attribute name="comment" type="br.com.caelum.brutal.model.Comment" required="true" %>
 <%@attribute name="collapsed" type="java.lang.Boolean" required="true" %>
 
@@ -27,9 +28,34 @@
 		<tags:userProfileLink user="${comment.author}" htmlClass="${comment.author.id eq item.author.id ? 'same-author' : ''}"/> 
 		&nbsp;<tags:prettyTime time="${comment.lastUpdatedAt}"/>
 
+	
+		<fmt:message  key="edit_form.submit" var="submit"/>
 		<c:if test="${comment.author.id == currentUser.id}">
-			<tags:editFor onCallback="replace" item="${comment}" field="comment" value="${comment.comment}" ajaxResult="comment-${comment.id}" />
+			<tags:simpleAjaxFormWith action="${linkTo[CommentController].edit[comment.id]}" 
+			field="comment" onCallback="replace" callbackTarget="comment-${comment.id}" 
+			submit="${submit}" value="${comment.comment}">
+				<a class="requires-login requires-karma" data-author="${item.author.id eq currentUser.id }" href="#">
+					${submit}
+				</a>
+			</tags:simpleAjaxFormWith>
 		</c:if>
+
+<%-- 		<c:if test="${comment.author.id == currentUser.id}"> --%>
+<%-- 			<tags:editFor onCallback="replace" item="${comment}" field="comment" value="${comment.comment}" ajaxResult="comment-${comment.id}" /> --%>
+<%-- 		</c:if> --%>
 	</div>	
 </li>
 <tags:flagItFor type="comentario" modalId="comment-flag-modal${comment.id}" flaggable="${comment}"/>
+
+
+
+
+
+
+
+
+
+
+
+
+

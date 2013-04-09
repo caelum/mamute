@@ -1,5 +1,5 @@
 $(function() {
-	$('body').on("click", ".edit-via-ajax a", function(e) {
+	$('body').on("click", ".simple-ajax-form a", function(e) {
 		e.preventDefault();
 		var father = $(this).parent();
 		var child = father.children();
