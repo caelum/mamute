@@ -1,5 +1,5 @@
 $(function() {
-	$('.edit-via-ajax a').click(function(e) {
+	$('body').on("click", ".edit-via-ajax a", function(e) {
 		e.preventDefault();
 		var father = $(this).parent();
 		var child = father.children();
@@ -8,7 +8,7 @@ $(function() {
 		return false;
 	});
 	
-	$('form.ajax').submit(function(e) {
+	$('body').on("submit", "form.ajax", function(e) {
 		e.preventDefault();
 		var self = $(this);
 		if(!self.valid()) return false;
