@@ -46,7 +46,7 @@ UserVoice.push(['showTab', 'classic_widget', {
 	<script src="<c:url value="/js/jquery.validate.min.js"/>"></script>
 	<script src="<c:url value="/js/form-validation.js"/>"></script>
 	<script src="<c:url value="/js/form-hints.js"/>"></script>
-	<script src="<c:url value="/js/simple-form-ajax.js"/>"></script>
+	<script src="<c:url value="/js/simple-ajax-form.js"/>"></script>
 	<script src="<c:url value="/js/mark-as-solution.js"/>"></script>
 	<script src="<c:url value="/js/Markdown.Converter.js"/>"></script>
 	<script src="<c:url value="/js/Markdown.Sanitizer.js"/>"></script>
