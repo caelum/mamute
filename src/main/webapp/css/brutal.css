@@ -104,7 +104,8 @@ a:hover{
 	font-weight:bold;
 }
 
-.hint {
+
+.hint-anchor {
 	display: none;
 }
 
@@ -114,17 +115,17 @@ a:hover{
 	float: left;
 }
 
-.hint-anchor {
-	display: none;
-}
-
 .hint {
+	display: none;
 	background-color: #FFEFC6;
 	border-radius: 5px;
 	padding: .6em;
-	width: 95%;
 	float: right;
 	color: #735005;
+}
+
+.form-hints .hint{
+	width: 95%;
 }
 
 .hint-tips .hint-tip {
@@ -1203,15 +1204,6 @@ a.button.ask-a-question:hover{
 
 .comment:hover, .to-flag {
 	background-color: #FAFAFA;
-}
-
-.comment-submit{
-	float:right;
-	width:25%;
-}
-
-.comment-textarea{
-	width:70%;	
 }
 
 .same-author {

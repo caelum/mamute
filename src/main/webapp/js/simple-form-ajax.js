@@ -5,7 +5,11 @@ $(function() {
 		var child = father.children();
 		child.toggle();
 		father.find(".to-focus").focus();
-		return false;
+	});
+
+	$('body').on("click", ".simple-ajax-form .cancel", function(e) {
+		e.preventDefault();
+		var father = $(this).closest(".simple-ajax-form").addClass("hidden");
 	});
 	
 	$('body').on("submit", "form.ajax", function(e) {

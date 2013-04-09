@@ -27,7 +27,6 @@
 		
 		<tags:userProfileLink user="${comment.author}" htmlClass="${comment.author.id eq item.author.id ? 'same-author' : ''}"/> 
 		&nbsp;<tags:prettyTime time="${comment.lastUpdatedAt}"/>
-
 	
 		<fmt:message  key="edit_form.submit" var="submit"/>
 		<c:if test="${comment.author.id == currentUser.id}">
