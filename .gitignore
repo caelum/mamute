@@ -17,3 +17,5 @@ PagPag.pem
 .project
 .settings
 *.swp
+vraptor-console.sh
+vraptor-console/
