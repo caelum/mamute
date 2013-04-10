@@ -10,7 +10,6 @@ import java.net.URLEncoder;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.URIException;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import br.com.caelum.brutal.auth.OAuthServiceCreator;
