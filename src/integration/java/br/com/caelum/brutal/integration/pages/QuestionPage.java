@@ -110,9 +110,9 @@ public class QuestionPage extends PageObject{
 
 	private void comment(String postContainer, String comment) {
 		byCSS(postContainer + " .add-comment").click();
-        waitForElement(By.cssSelector(postContainer + " #comment"), 2);
-        byCSS(postContainer + " #comment").sendKeys(comment);
-        byCSS(postContainer + " .edit-via-ajax form .comment-submit").click();
+        waitForElement(By.cssSelector(postContainer + " textarea[name=comment]"), 2);
+        byCSS(postContainer + " textarea[name=comment]").sendKeys(comment);
+        byCSS(postContainer + " .simple-ajax-form form .post-submit").click();
         waitForElement(By.cssSelector(postContainer + " .comment-container .comment"), 10);
 	}
 
