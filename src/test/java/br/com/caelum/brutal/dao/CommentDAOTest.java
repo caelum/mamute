@@ -107,5 +107,55 @@ public class CommentDAOTest extends DatabaseTestCase {
 		assertEquals(1, flagged.size());
 		
 	}
+    
+
+    @Test
+    public void should_not_find_unsubscribed_users() {
+        User artur = user("question author", "qauthor@gmail");
+        artur.setSubscribed(false);
+        User iFag = user("question author", "otherqauthor@gmail");
+        User valeriano = user("answer author", "aauthor@gmail");
+        valeriano.setSubscribed(false);
+        User alcoolatra = user("comment author", "cauthor@gmail");
+        Tag tagDefault = tag("default");
+        session.save(tagDefault);
+        QuestionBuilder question = new QuestionBuilder();        
+
+		Question beberFazMal = question
+			.withTitle("Por que dizem que beber demais faz mal?")
+			.withDescription("Alguem poderia me dizer o por que disso? Obrigado galera!")
+			.withAuthor(artur)
+			.withTag(tagDefault)
+			.build();
+		
+        Answer figadoVaiProSaco = answer("Por que seu figado vai pro saco", beberFazMal, valeriano);
+        
+        Question androidRuim = question
+				.withTitle("Por que a api de android é tão ruim?")
+				.withDescription("Alguem poderia me dizer o por que disso? Obrigado galera!")
+				.withAuthor(iFag)
+				.withTag(tagDefault)
+				.build();
+        
+        Answer naoEhRuby = answer("Por que não é ruby, ai não é bacana.", androidRuim, valeriano);
+        
+        Comment naoFazMal = new Comment(alcoolatra, "O que te levou a pensar que faz mal? Faz nada não.");
+        beberFazMal.add(naoFazMal);
+        
+        session.save(artur);
+        session.save(valeriano);
+        session.save(alcoolatra);
+        session.save(iFag);
+        session.save(naoFazMal);
+        session.save(beberFazMal);
+        session.save(figadoVaiProSaco);
+        session.save(androidRuim);
+        session.save(naoEhRuby);
+        
+        List<SubscribableDTO> recentComments = comments.getSubscribablesAfter(new DateTime().minusHours(3));
+        
+        assertEquals(0, recentComments.size());
+        
+    }
 
 }

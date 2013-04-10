@@ -317,7 +317,7 @@ em {
 	margin: -13px 0 0 0;
 }
 
-.validated-form .text-input, .validated-form input[type='text'] {
+.validated-form .text-input {
 	margin: 0 0 16px 0;
 }
 
@@ -438,6 +438,21 @@ textarea {
 form.inactive .submit{
 	opacity:0.5;
 	cursor:default;
+}
+
+.inline-box, .inline-label{
+	float:left;
+	margin-bottom:10%;
+	
+}
+
+.inline-box{
+	width:3%;
+}
+
+.inline-label{
+	width:97%;
+	margin-top:0;
 }
 
 /*ARROW*/

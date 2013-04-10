@@ -50,7 +50,6 @@ import br.com.caelum.brutal.model.interfaces.Moderatable;
 @Entity
 public class User implements Identifiable {
 
-
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
 	private final DateTime createdAt = new DateTime();
 	
@@ -110,6 +109,8 @@ public class User implements Identifiable {
 	@Email(message = EMAIL_NOT_VALID)
 	private String email;
 
+	private boolean isSubscribed = true;
+	
 	static {
 		GHOST = new User("", "");
 		GHOST.setId(1000l);
@@ -160,11 +161,16 @@ public class User implements Identifiable {
 		this.location = info.getLocation();
 		this.about = info.getAbout();
 		this.markedAbout = info.getMarkedAbout();
+		this.isSubscribed = info.isSubscribed();
 	}
 
 	void setKarma(long karma) {
         this.karma = karma;
     }
+
+	public boolean isSubscribed() {
+		return isSubscribed;
+	}
 	
 	public Long getId() {
 		return this.id;
@@ -271,6 +277,10 @@ public class User implements Identifiable {
 		this.moderator = true;
 		return this;
 	}
+	
+	public void setSubscribed(boolean isSubscribed){
+		this.isSubscribed = isSubscribed;
+	}
 
 	public String touchForgotPasswordToken() {
 		String tokenSource = Math.random() + System.currentTimeMillis() + getEmail() + getId();
@@ -318,7 +328,7 @@ public class User implements Identifiable {
     }
     
     public void confirmEmail(){
-    	confirmedEmail = true;
+    	isSubscribed = true;
 	}
     
 	public void add(LoginMethod brutalLogin) {

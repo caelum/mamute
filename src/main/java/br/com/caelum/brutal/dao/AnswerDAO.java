@@ -36,13 +36,13 @@ public class AnswerDAO {
         Query query = session.createQuery("select distinct new br.com.caelum.brutal.model.SubscribableDTO(answer, author, question) from Answer answer " +
                 "join answer.question question " +
         		"join question.answers ans " +
-        		"join ans.author author where (answer.createdAt) > :timeAgo and author!=answer.author");
+        		"join ans.author author where (answer.createdAt) > :timeAgo and author!=answer.author and author.isSubscribed = true");
         List<SubscribableDTO> results = query.setParameter("timeAgo", timeAgo).list();
         
         query = session.createQuery("select distinct new br.com.caelum.brutal.model.SubscribableDTO(answer, author, question) from Answer answer " +
                 "join answer.question question " +
         		"join question.author author " +
-        		"where (answer.createdAt) > :timeAgo and author!=answer.author");
+        		"where (answer.createdAt) > :timeAgo and author!=answer.author and author.isSubscribed = true");
         results.addAll(query.setParameter("timeAgo", timeAgo).list());
         
         return results;

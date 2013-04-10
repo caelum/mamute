@@ -55,6 +55,8 @@ public class UserPersonalInfo {
 
 	@Length(min = ABOUT_MIN_LENGTH, max = MARKED_ABOUT_MAX_LENGTH ,  message = ABOUT_LENGTH_MESSAGE)
 	private String markedAbout;
+
+	private boolean isSubscribed;
 	
 	public UserPersonalInfo(User user) {
 		this.user = user;
@@ -132,6 +134,12 @@ public class UserPersonalInfo {
 		return this.markedAbout;
 	}
 
+	public UserPersonalInfo withIsSubscribed(boolean isSubscribed) {
+		this.isSubscribed = isSubscribed;
+		return this;
+	}
 
-
+	public boolean isSubscribed() {
+		return isSubscribed;
+	}
 }

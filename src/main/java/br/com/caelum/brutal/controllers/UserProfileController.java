@@ -82,7 +82,7 @@ public class UserProfileController {
 	
 	@Post("/usuario/editar/{user.id:[0-9]+}")
 	public void editProfile(@Load User user, String name, String realName, String email, 
-			String website, String location, DateTime birthDate, String description) {
+			String website, String location, DateTime birthDate, String description, boolean isSubscribed) {
 		if (!user.getId().equals(currentUser.getCurrent().getId())){
 			result.redirectTo(ListController.class).home();
 			return;
@@ -99,7 +99,8 @@ public class UserProfileController {
 			.withWebsite(website)
 			.withLocation(location)
 			.withBirthDate(birthDate)
-			.withAbout(description);
+			.withAbout(description)
+			.withIsSubscribed(isSubscribed);
 		
 		if (!infoValidator.validate(info)) {
 			infoValidator.onErrorRedirectTo(this).editProfile(user);
