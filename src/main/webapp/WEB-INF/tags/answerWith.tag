@@ -5,6 +5,7 @@
 <%@attribute name="answer" type="br.com.caelum.brutal.model.Answer" required="true" %>
 <%@attribute name="vote" type="br.com.caelum.brutal.model.Vote" required="true" %>
 <c:set var="currentUserIsAuthor" value="${answer.author.id == currentUser.id}" />
+<%@attribute name="commentVotes" type="br.com.caelum.brutal.model.CommentsAndVotes" required="true" %>
 <section class="post-area">
 	<div class="post-meta">
 		<tags:voteFor item="${answer}" type="resposta" vote="${vote}"/>
@@ -33,6 +34,6 @@
 			</ul>
 			<tags:touchesFor touchable="${answer}" />
 		</div>
-		<tags:add-a-comment type="resposta" item="${answer}"/>
+		<tags:add-a-comment type="resposta" item="${answer}" votes="${commentVotes}"/>
 	</div>
 </section>

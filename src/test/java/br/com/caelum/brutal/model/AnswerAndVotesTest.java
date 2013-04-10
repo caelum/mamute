@@ -17,7 +17,7 @@ public class AnswerAndVotesTest  extends TestCase{
 	private QuestionBuilder question = new QuestionBuilder();
 	
 	@Test
-	public void should_fill_in_only_empty_spaces_with_null() {
+	public void should_fill_value_with_null_only_answers_that_has_no_currentUserVote() {
 		Question q = question.build();
 		
 		Object[] first = new Object[]{answerFor(q,1 ), mock(Vote.class)};

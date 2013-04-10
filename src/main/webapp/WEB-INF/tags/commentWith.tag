@@ -4,12 +4,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@attribute name="comment" type="br.com.caelum.brutal.model.Comment" required="true" %>
 <%@attribute name="collapsed" type="java.lang.Boolean" required="true" %>
+<%@attribute name="currentUserVote" type="br.com.caelum.brutal.model.Vote" required="true" %>
 
 <c:set var="isCommentAuthor" value="${comment.author.id == currentUser.id}"/>
 <li class="comment ${collapsed ? 'collapsed hidden' : ''}" id="comment-${comment.id}">
 	<div class="post-meta comment-meta vote-container">
 		<a class="comment-meta-item container comment-option author-cant requires-login vote-option icon-chevron-up 
-			${(comment.voteCount > 0) ? 'voted' : '' }" 
+			${(not empty currentUserVote) ? 'voted' : '' }" 
 			data-value="positivo" data-author="${isCommentAuthor}" 
 			data-type="comentario" data-id="${comment.id}">
 		</a>

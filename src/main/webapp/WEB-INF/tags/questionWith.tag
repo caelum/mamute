@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@attribute name="question" type="br.com.caelum.brutal.model.Question" required="true" %>
+<%@attribute name="commentVotes" type="br.com.caelum.brutal.model.CommentsAndVotes" required="true" %>
 <c:set var="isAuthor" value="${question.author.id == currentUser.id}" />
 <section class="post-area question-area">
 	<div class="post-meta">
@@ -49,6 +50,6 @@
 			</ul>
 			<tags:touchesFor touchable="${question}" />
 		</div>
-		<tags:add-a-comment type="pergunta" item="${question}" />
+		<tags:add-a-comment type="pergunta" item="${question}" votes="${commentVotes}"/>
 	</div>
 </section>

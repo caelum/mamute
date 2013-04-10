@@ -1,6 +1,9 @@
 package br.com.caelum.brutal.dao;
 
+import java.util.List;
+
 import net.vidageek.mirror.dsl.Mirror;
+import br.com.caelum.brutal.builder.QuestionBuilder;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.AnswerInformation;
 import br.com.caelum.brutal.model.Comment;
@@ -19,9 +22,19 @@ import br.com.caelum.brutal.model.VoteType;
  */
 public abstract class TestCase {
 
+	private QuestionBuilder questionBuilder = new QuestionBuilder();
+	
 	protected Answer answer(String description, Question question, User author) {
-		Answer q = new Answer(new AnswerInformation(description, new LoggedUser(author, null), "default comment"), question, author);
+		Answer q = new Answer(new AnswerInformation(description, new LoggedUser(author, null), "default commentdefault commentdefault commentdefault comment")
+							, question, author);
 		return q;
+	}
+	
+	protected Question question(User author, List<Tag> tags){
+		if(tags.isEmpty())
+			tags.add(tag("teste"));
+		Question question = questionBuilder.withAuthor(author).withTags(tags).build();
+		return question;
 	}
 	
 	protected User user(String name, String email) {

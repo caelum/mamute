@@ -109,9 +109,10 @@ public class QuestionController {
 			return;
 		}
 		viewCounter.ping(question);
-		User author = currentUser.getCurrent();
-		result.include("currentVote", votes.previousVoteFor(question.getId(), author, Question.class));
-		result.include("answers", votes.previousVotesForAnswers(question, author));
+		User voteAuthor = currentUser.getCurrent();
+		result.include("currentVote", votes.previousVoteFor(question.getId(), voteAuthor, Question.class));
+		result.include("answers", votes.previousVotesForAnswers(question, voteAuthor));
+		result.include("commentsWithVotes", votes.previousVotesForComments(question, voteAuthor));
 		result.include("questionTags", question.getInformation().getTags());
 		result.include("question", question);
 		linker.linkTo(this).showQuestion(question, sluggedTitle);
