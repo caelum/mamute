@@ -44,6 +44,12 @@ public class FacebookAuthController extends Controller{
 	
 	@Get("/cadastrar/facebook")
 	public void signupViaFacebook(String code, String state) {
+		
+		if (code == null){
+			redirectTo(ListController.class).home();
+			return;
+		}
+		
 		String rawToken = facebook.buildToken(code);
 		SignupInfo signupInfo = facebook.getSignupInfo();
 
