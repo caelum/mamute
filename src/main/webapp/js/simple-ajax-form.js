@@ -18,7 +18,7 @@ $(function() {
 		if(!self.valid()) return false;
 
 		var error = function() {
-			console.log("error");
+			errorPopup("Ocorreu um erro.", self, "center-popup");
 		};
 
 		var success = function(response, status, jqhr) {
