@@ -1,6 +1,6 @@
 package br.com.caelum.brutal.template;
 
-import br.com.caelum.brutal.controllers.TemplatesController;
+import br.com.caelum.brutal.controllers.BrutalTemplatesController;
 import br.com.caelum.vraptor.http.FormatResolver;
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.resource.ResourceMethod;
@@ -17,7 +17,7 @@ public class TemplatePathResolver extends DefaultPathResolver{
 	@Override
 	public String pathFor(ResourceMethod method) {
 		String pathFor = super.pathFor(method);
-		if(method.getResource().getType().isAssignableFrom(TemplatesController.class)){
+		if(method.getResource().getType().isAssignableFrom(BrutalTemplatesController.class)){
 			pathFor+="f";//jspf
 		}
 		return pathFor;
