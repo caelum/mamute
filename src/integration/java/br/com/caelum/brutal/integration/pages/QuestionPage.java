@@ -113,7 +113,7 @@ public class QuestionPage extends PageObject{
         waitForElement(By.cssSelector(postContainer + " textarea[name=comment]"), 2);
         byCSS(postContainer + " textarea[name=comment]").sendKeys(comment);
         byCSS(postContainer + " .simple-ajax-form form .post-submit").click();
-        waitForElement(By.cssSelector(postContainer + " .comment-container .comment"), 10);
+        waitForElement(By.cssSelector(postContainer + " .comment-container span"), 10);
 	}
 
 	public List<String> firstAnswerComments() {
@@ -122,7 +122,7 @@ public class QuestionPage extends PageObject{
 	}
 
 	public List<String> questionComments() {
-    	List<WebElement> commentsElements = allByCSS(".comment");
+    	List<WebElement> commentsElements = allByCSS(".comment-container span");
     	return toListString(commentsElements);
     }
 
