@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@attribute name="comment" type="br.com.caelum.brutal.model.Comment" required="true" %>
 <%@attribute name="collapsed" type="java.lang.Boolean" required="true" %>
-<%@attribute name="currentUserVote" type="br.com.caelum.brutal.model.Vote" required="true" %>
+<%@attribute name="currentUserVote" type="br.com.caelum.brutal.model.Vote" required="false" %>
 
 <c:set var="isCommentAuthor" value="${comment.author.id == currentUser.id}"/>
 <li class="comment ${collapsed ? 'collapsed hidden' : ''}" id="comment-${comment.id}">
