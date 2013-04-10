@@ -5,11 +5,11 @@ import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 
 @Resource
-public class TemplatesController {
+public class BrutalTemplatesController {
 
 	private final Result result;
 
-	public TemplatesController(Result result) {
+	public BrutalTemplatesController(Result result) {
 		this.result = result;
 	}
 	

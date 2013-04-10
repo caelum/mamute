@@ -42,7 +42,7 @@ public class CommentController {
 		if (validator.validate(newComment)) {
 			comments.load(type, id).add(newComment);
 			comments.save(newComment);
-			result.redirectTo(TemplatesController.class).comment(newComment);
+			result.forwardTo(BrutalTemplatesController.class).comment(newComment);
 		}
 		validator.onErrorUse(http()).body("<span class=\"error\">error</span>");
 	}
@@ -57,7 +57,7 @@ public class CommentController {
 		if (validator.validate(comment)) {
 			original.setComment(comment);
 			comments.save(original);
-			result.forwardTo(TemplatesController.class).comment(original);
+			result.forwardTo(BrutalTemplatesController.class).comment(original);
 		}
 		validator.onErrorUse(http()).body("<span class=\"error\">error</span>");
 	}
