@@ -34,7 +34,6 @@ public class RecentTagsContainer {
 		return recentTagsUsage;
 	}
 	
-	@PostConstruct
 	public void execute() {
 	    // we need to do because of this class is app scoped
 	    Session session = sf.openSession();
@@ -63,7 +62,6 @@ public class RecentTagsContainer {
 	    this.recentTagsUsage = tags.getRecentTagsSince(new DateTime().minusMonths(3));
 	}
 	
-	@PreDestroy
 	public void destroy() {
 		sf.close();
 	}

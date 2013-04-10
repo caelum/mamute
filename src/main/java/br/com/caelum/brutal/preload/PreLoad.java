@@ -1,6 +1,7 @@
 package br.com.caelum.brutal.preload;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 import br.com.caelum.brutal.components.RecentTagsContainer;
 import br.com.caelum.brutal.migration.MigrationRunner;
@@ -22,6 +23,11 @@ public class PreLoad {
 	public void execute() {
 		migrations.execute();
 		tagsContainer.execute();
+	}
+	
+	@PreDestroy
+	public void destroy(){
+		tagsContainer.destroy();
 	}
 	
 	
