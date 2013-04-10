@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.integration.pages;
 
+import java.util.NoSuchElementException;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -31,7 +33,13 @@ public class FacebookLoginPage extends PageObject {
 	}
 	
 	public Home confirm() {
-		byName("grant_clicked").click();
+		if (!driver.findElements(By.name("grant_clicked")).isEmpty()) {
+			byName("grant_clicked").click();
+		} else if (!driver.findElements(By.name("__CONFIRM__")).isEmpty()) {
+			byName("__CONFIRM__").click();
+		} else {
+			throw new NoSuchElementException("could not find facebook confrmation button, maybe they changed their page?");
+		}
 		return new Home(driver);
 	}
 
