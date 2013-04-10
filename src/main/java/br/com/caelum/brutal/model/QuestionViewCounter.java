@@ -28,6 +28,7 @@ public class QuestionViewCounter {
 		if (!recentlyViewed(question)) {
 			question.ping();
 			Cookie cookie = new Cookie(COOKIE_PREFIX + question.getId(), "1");
+			cookie.setHttpOnly(true);
 			linker.linkTo(QuestionController.class).showQuestion(question, question.getSluggedTitle());
 			cookie.setPath(linker.getRelativePath());
 			cookie.setMaxAge(Period.days(1).toStandardSeconds().getSeconds());
