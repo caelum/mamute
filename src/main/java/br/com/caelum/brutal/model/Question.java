@@ -152,7 +152,7 @@ public class Question extends Moderatable implements Votable, Commentable, Touch
 		if (!answer.getQuestion().equals(this))
 			throw new RuntimeException("Can not be solved by this answer");
 		this.solution = answer;
-		touchedBy(answer.getAuthor());
+		touchedBy(this.getAuthor());
 	}
 
 	protected void removeSolution() {

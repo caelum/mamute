@@ -39,7 +39,7 @@ public class QuestionTest  extends TestCase{
 
 		shouldILiveForever.markAsSolvedBy(yes);
 		
-		assertEquals(leo, shouldILiveForever.getLastTouchedBy());
+		assertEquals(shouldILiveForever.getAuthor(), shouldILiveForever.getLastTouchedBy());
 	}
 
 	@Test
