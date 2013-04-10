@@ -1,23 +1,29 @@
 $(function() {
-	$('body').on("click", ".simple-ajax-form a", function(e) {
+	bindAll();
+	function bindAll(){
+		$(".simple-ajax-form a").click(showForm);
+		$(".simple-ajax-form .cancel").click(hideForm);
+		$('form.ajax').submit(submitForm);
+	}
+	
+	function showForm(e){
 		e.preventDefault();
 		var father = $(this).parent();
 		var child = father.children();
 		child.toggle();
 		father.find(".to-focus").focus();
-	});
-
-	$('body').on("click", ".simple-ajax-form .cancel", function(e) {
+	}
+	
+	function hideForm(e){
 		e.preventDefault();
 		var father = $(this).closest(".simple-ajax-form").addClass("hidden");
-	});
+	}
 	
-	$('body').on("submit", "form.ajax", function(e) {
+	function submitForm(e) {
 		e.preventDefault();
 		var form = $(this);
 		executeAjax(form);
-
-	});
+	}
 	
 	function executeAjax(form){
 		if(!form.valid()||form.hasClass("inactive")) return false;
@@ -47,6 +53,7 @@ $(function() {
 			var formParent = form.closest(".edit-via-ajax");
 			formParent.children().toggle();
 			form.removeClass("inactive").addClass("hidden");
+			bindAll();
 		};
 	
 		var uri = form.attr("action");
