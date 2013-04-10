@@ -2,6 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
+<%@attribute name="tagList" fragment="true" required="false"%>
 <%@attribute name="information" type="br.com.caelum.brutal.model.Information" required="true" %>
 <%@attribute name="index" type="java.lang.Integer" required="true" %>
 <%@attribute name="type" type="java.lang.String" required="true" %>
@@ -14,9 +15,11 @@
 	<a href="#" class="toggle-version"><fmt:message key="moderation.formatted"/></a>
 	<a href="#" class="toggle-version hidden"><fmt:message key="moderation.diff"/></a>
 	<div class="history-version hidden">
-		<jsp:doBody/>	
+		<jsp:doBody/>
 	</div>
 	<div class="history-diff post-text"></div>
+	<div class="history-version"><jsp:invoke fragment="tagList"/></div>
+	
 
 	<ul class="post-touchs clear">
 		<li class="touch author-touch">
