@@ -14,19 +14,26 @@ $(function() {
 	
 	$('body').on("submit", "form.ajax", function(e) {
 		e.preventDefault();
-		var self = $(this);
-		if(!self.valid()) return false;
+		var form = $(this);
+		executeAjax(form);
+
+	});
+	
+	function executeAjax(form){
+		if(!form.valid()||form.hasClass("inactive")) return false;
+		form.addClass("inactive");
 
 		var error = function() {
-			errorPopup("Ocorreu um erro.", self, "center-popup");
+			errorPopup("Ocorreu um erro.", form, "center-popup");
+			form.removeClass("inactive").addClass("hidden");
 		};
-
+	
 		var success = function(response, status, jqhr) {
-			var target = $("#" + self.data("ajax-result"));
+			var target = $("#" + form.data("ajax-result"));
 			if(jqhr.status==201) {
 				target.append("<span class='suggestion-accepted'>Sugest&atilde;o enviada!</span>");
 			} else {
-				var action = self.data("ajax-on-callback") || "replace-inner";
+				var action = form.data("ajax-on-callback") || "replace-inner";
 				if(action == "replace-inner") {
 					target.html(response);
 				} else if(action == "append") {
@@ -34,20 +41,23 @@ $(function() {
 				} else if(action == "replace"){
 					target.replaceWith(response);
 				}
+				target.removeClass("hidden");
 			}
-			self.find("textarea").val("");
-			var formParent = self.closest(".edit-via-ajax");
+			form.find("textarea").val("");
+			var formParent = form.closest(".edit-via-ajax");
 			formParent.children().toggle();
+			form.removeClass("inactive").addClass("hidden");
 		};
-
-		var uri = self.attr("action");
+	
+		var uri = form.attr("action");
 		$.ajax(uri, {
 			success: success,
 			error: error,
 			dataType : 'html',
-			data : self.serialize(),
+			data : form.serialize(),
 			method: "POST"
 		});
 		return false;
-	});
+	}
 });
+	
