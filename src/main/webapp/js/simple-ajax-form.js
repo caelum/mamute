@@ -1,9 +1,15 @@
 $(function() {
 	bindAll();
-	function bindAll() {
-		$(".simple-ajax-form a").on("click", showForm);
-		$(".simple-ajax-form .cancel").on("click", hideForm);
-		$("form.ajax").on("submit", submitForm);
+	
+	function bindAll(){
+		bind($(".simple-ajax-form a"), "click", showForm);
+		bind($(".simple-ajax-form .cancel"), "click", hideForm);
+		bind($('form.ajax'), "submit", submitForm);
+	}
+
+	function bind(element, event ,callback){
+		element.off(event, callback);
+		element.on(event, callback);
 	}
 	
 	function showForm(e){
@@ -61,10 +67,7 @@ $(function() {
 				target.removeClass("hidden");
 			}
 			resetForm(form);
-			form.find("textarea").val("");
-			var formParent = form.closest(".edit-via-ajax");
-			formParent.children().toggle();
-			form.removeClass("inactive").addClass("hidden");
+			bindAll();
 		};
 		
 		var uri = form.attr("action");
