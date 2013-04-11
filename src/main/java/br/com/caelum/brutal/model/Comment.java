@@ -41,7 +41,7 @@ public class Comment implements Subscribable, Votable, Flaggable {
 
     @Lob
     @NotEmpty(message = ERROR_NOT_EMPTY)
-    @Length(min = COMMENT_MIN_LENGTH, max = COMMENT_MAX_LENGTH , message = ERROR_LENGTH)
+    @Length(min = COMMENT_MIN_LENGTH , message = ERROR_LENGTH)
     private String htmlComment;
 
     @ManyToOne(optional = false)

@@ -44,7 +44,7 @@ public class CommentController {
 			comments.save(newComment);
 			result.forwardTo(BrutalTemplatesController.class).comment(newComment);
 		}
-		validator.onErrorUse(http()).body("<span class=\"error\">error</span>");
+		validator.onErrorUse(http()).setStatusCode(400);
 	}
 
 	@Post("/comentario/editar/{id}")
