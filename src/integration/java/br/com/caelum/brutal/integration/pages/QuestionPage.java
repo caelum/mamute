@@ -117,7 +117,7 @@ public class QuestionPage extends PageObject{
 	}
 
 	public List<String> firstAnswerComments() {
-		List<WebElement> commentsElements = allByCSS(".answer .comment");
+		List<WebElement> commentsElements = allByCSS(".answer .comment span p");
 		return toListString(commentsElements);
 	}
 
