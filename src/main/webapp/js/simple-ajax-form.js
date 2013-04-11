@@ -42,13 +42,12 @@ $(function() {
 		form.addClass("inactive");
 
 		var error = function(jqXHR) {
-			form.removeClass("inactive").addClass("hidden");
+			resetForm(form);
 			if (jqXHR.status == 400) {
-				errorPopup("Ocorreu um erro de validação inesperado.", form, "center-popup");
+				errorPopup("Ocorreu um erro de validação inesperado.", form.parent(), "center-popup");
 				return;
 			}
-			errorPopup("Ocorreu um erro.", form, "center-popup");
-			resetForm(form);
+			errorPopup("Ocorreu um erro.", form.parent(), "center-popup");
 		};
 	
 		var success = function(response, status, jqhr) {
