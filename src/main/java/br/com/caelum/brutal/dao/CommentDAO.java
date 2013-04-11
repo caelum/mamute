@@ -35,7 +35,7 @@ public class CommentDAO {
                 "join question.comments comment " +
                 "join question.answers answer " +
                 "join answer.author author " +
-                "where (comment.createdAt) > :timeAgo and author.isSubscribed=true");
+                "where (comment.createdAt) > :timeAgo and author != comment.author and author.isSubscribed=true");
         List<SubscribableDTO> results = query.setParameter("timeAgo", timeAgo).list();
         
         query = session.createQuery("select distinct new br.com.caelum.brutal.model.SubscribableDTO(comment, author, question) from Question question " +

@@ -1,9 +1,13 @@
 package br.com.caelum.brutal.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import static org.hamcrest.Matchers.*;
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
@@ -157,5 +161,35 @@ public class CommentDAOTest extends DatabaseTestCase {
         assertEquals(0, recentComments.size());
         
     }
+    
+    @Test
+    public void should_not_return_dto_with_user_equals_comment_author() {
+    	User answerAuthor = user("user","user@x.com");	
+    	User questionAuthor = user("other", "other@x.com");
+    	
+    	Tag tag = tag("teste");
+    	Question question = question(questionAuthor, Arrays.asList(tag));
+    	
+    	Answer answer = answer("descriptiondescriptiondescriptiondescriptiondescriptiondescription", question, answerAuthor);
+    	Comment answerComment = comment(answerAuthor, "comentariocomentariocomentariocomentariocomentario");
+    	
+    	question.add(answerComment);
+    	
+    	session.save(questionAuthor);
+    	session.save(answerAuthor);
+    	session.save(answerComment);
+    	session.save(tag);
+    	session.save(question);
+    	session.save(answer);
+    	
+    	List<SubscribableDTO> recentComments = comments.getSubscribablesAfter(new DateTime().minusHours(3));
+    	List<User> users = new ArrayList<>();
+    	for (SubscribableDTO subscribableDTO : recentComments) {
+    		users.add(subscribableDTO.getUser());
+		}
+    	
+    	assertThat(users, not(containsInAnyOrder(answerAuthor)));
+    	
+	}
 
 }
