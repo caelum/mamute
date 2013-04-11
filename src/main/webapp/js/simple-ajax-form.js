@@ -1,28 +1,33 @@
 $(function() {
 	bindAll();
 	function bindAll(){
-		$(".simple-ajax-form a").click(showForm);
-		$(".simple-ajax-form .cancel").click(hideForm);
-		$('form.ajax').submit(submitForm);
+		$(".simple-ajax-form a").on("click", showForm);
+		$(".simple-ajax-form .cancel").on("click", hideForm);
+		$('form.ajax').on("submit", submitForm);
 	}
 	
 	function showForm(e){
 		e.preventDefault();
-		var father = $(this).parent();
-		var child = father.children();
-		child.toggle();
-		father.find(".to-focus").focus();
+		var formArea = $(this).siblings(".ajax-form");
+		formArea.toggleClass("hidden");
+		formArea.find(".to-focus").focus();
 	}
 	
 	function hideForm(e){
 		e.preventDefault();
-		var father = $(this).closest(".simple-ajax-form").addClass("hidden");
+		var form= $(this).closest("form.ajax");
+		resetForm(form)
 	}
 	
 	function submitForm(e) {
 		e.preventDefault();
-		var form = $(this);
-		executeAjax(form);
+		executeAjax($(this));
+	}
+	
+	function resetForm(form){
+		var formParent = form.parent();
+		form.removeClass("inactive").find("textarea").val("");
+		formParent.addClass("hidden");
 	}
 	
 	function executeAjax(form){
@@ -31,7 +36,7 @@ $(function() {
 
 		var error = function() {
 			errorPopup("Ocorreu um erro.", form, "center-popup");
-			form.removeClass("inactive").addClass("hidden");
+			resetForm(form);
 		};
 	
 		var success = function(response, status, jqhr) {
@@ -49,13 +54,10 @@ $(function() {
 				}
 				target.removeClass("hidden");
 			}
-			form.find("textarea").val("");
-			var formParent = form.closest(".edit-via-ajax");
-			formParent.children().toggle();
-			form.removeClass("inactive").addClass("hidden");
+			resetForm(form);
 			bindAll();
 		};
-	
+		
 		var uri = form.attr("action");
 		$.ajax(uri, {
 			success: success,
