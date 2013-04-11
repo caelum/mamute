@@ -59,7 +59,7 @@ public class CommentController {
 			comments.save(original);
 			result.forwardTo(BrutalTemplatesController.class).comment(original);
 		}
-		validator.onErrorUse(http()).body("<span class=\"error\">error</span>");
+		validator.onErrorUse(http()).setStatusCode(400);
 	}
 	
 	private Class<?> getType(String name) {
