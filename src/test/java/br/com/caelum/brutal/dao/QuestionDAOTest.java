@@ -34,7 +34,7 @@ public class QuestionDAOTest extends DatabaseTestCase {
 		session.save(author);
 		session.save(sal);
 		session.save(defaultTag);
-		this.questions = new QuestionDAO(session);
+		this.questions = new QuestionDAO(session, new InvisibleForUsersRule(author));
 	}
 	
 	
@@ -71,15 +71,27 @@ public class QuestionDAOTest extends DatabaseTestCase {
 	@Test
 	public void should_ignore_low_reputation_ones() {
 		Question salDaAzar = salDaAzar();
-				
-		assertTrue(questions.all().contains(salDaAzar));
+		assertTrue(questions.allVisible().contains(salDaAzar));
 		
 		session.createQuery("update Question as q set q.voteCount = -4").executeUpdate();
-		assertTrue(questions.all().contains(salDaAzar));
+		assertTrue(questions.allVisible().contains(salDaAzar));
 
 		session.createQuery("update Question as q set q.voteCount = -5").executeUpdate();
-		assertFalse(questions.all().contains(salDaAzar));
+		assertFalse(questions.allVisible().contains(salDaAzar));
 
+	}
+	
+	@Test
+	public void should_ignore_invisible_ones() {
+		Question salDaAzar = salDaAzar();
+		assertTrue(questions.allVisible().contains(salDaAzar));
+		assertTrue(questions.unsolvedVisible().contains(salDaAzar));
+		assertTrue(questions.withTagVisible(sal).contains(salDaAzar));
+
+		salDaAzar.remove();
+		assertFalse(questions.allVisible().contains(salDaAzar));
+		assertFalse(questions.unsolvedVisible().contains(salDaAzar));
+		assertFalse(questions.withTagVisible(sal).contains(salDaAzar));
 	}
 	
 	@Test
@@ -88,7 +100,7 @@ public class QuestionDAOTest extends DatabaseTestCase {
 		Question beberFazMal = beberFazMal();
 		Question androidRuim = androidRuim();
 		
-		List<Question> perguntasComSal = questions.withTag(sal);
+		List<Question> perguntasComSal = questions.withTagVisible(sal);
 
 		assertTrue(perguntasComSal.contains(salDaAzar));
 		assertFalse(perguntasComSal.contains(beberFazMal));

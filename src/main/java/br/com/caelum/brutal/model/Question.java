@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -77,6 +78,9 @@ public class Question extends Moderatable implements Votable, Commentable, Touch
 	@JoinTable(name = "Question_Flags")
 	@OneToMany
 	private final List<Flag> flags = new ArrayList<>();
+	
+	@Embedded
+	private final ModerationOptions moderationOptions = new ModerationOptions();
 	
 	
 	/**
@@ -290,7 +294,7 @@ public class Question extends Moderatable implements Votable, Commentable, Touch
     public Class<? extends Votable> getType() {
         return Question.class;
     }
-
+    
     public boolean wasMadeBy(User author) {
         return this.author.getId().equals(author.getId());
     }
@@ -316,6 +320,10 @@ public class Question extends Moderatable implements Votable, Commentable, Touch
 			}
 		}
 		return false;
+	}
+
+	public void remove() {
+		this.moderationOptions.remove();
 	}
 
 }

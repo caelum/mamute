@@ -37,13 +37,13 @@ public class ListController {
 	 */
 	@Get("/")
 	public void home() {
-		result.include("questions", questions.all());
+		result.include("questions", questions.allVisible());
 		result.include("recentTags", recentTagsContainer.getRecentTagsUsage());
 	}
 	
 	@Get("/nao-resolvido")
 	public void unsolved() {
-		result.include("questions", questions.unsolved());
+		result.include("questions", questions.unsolvedVisible());
 		result.include("recentTags", recentTagsContainer.getRecentTagsUsage());
 		result.use(page()).of(ListController.class).home();
 	}
@@ -51,7 +51,7 @@ public class ListController {
 	@Get("/tag/{tagName}")
 	public void withTag(String tagName) {
 		Tag tag = tags.findByName(tagName);
-		List<Question> questionsWithTag = questions.withTag(tag);
+		List<Question> questionsWithTag = questions.withTagVisible(tag);
 		result.include("recentTags", tags.getRecentTagsSince(new DateTime().minusMonths(3)));
 		result.include("questions", questionsWithTag);
 		result.use(page()).of(ListController.class).home();
