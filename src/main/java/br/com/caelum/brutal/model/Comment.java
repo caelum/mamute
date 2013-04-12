@@ -155,5 +155,10 @@ public class Comment implements Subscribable, Votable, Flaggable {
 	public boolean isInvisible(){
 		return moderationOptions.isInvisible();
 	}
+
+	public Comment remove() {
+		moderationOptions.remove();
+		return this;
+	}
 	
 }

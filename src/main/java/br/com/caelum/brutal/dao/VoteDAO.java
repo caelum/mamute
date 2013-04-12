@@ -46,8 +46,8 @@ public class VoteDAO {
 	
 	@SuppressWarnings("unchecked")
 	public CommentsAndVotes previousVotesForComments(Question question, User currentUser) {
-		Query questionQuery = session.createQuery("select c,v from Question as q join q.comments as c join c.votes as v where v.author = :author and q = :question");
-		Query answerQuery = session.createQuery("select c,v from Question as q join q.answers as a join a.comments as c join c.votes as v where v.author = :author and q = :question");
+		Query questionQuery = session.createQuery("select c,v from Question as q join q.comments.comments as c join c.votes as v where v.author = :author and q = :question");
+		Query answerQuery = session.createQuery("select c,v from Question as q join q.answers as a join a.comments.comments as c join c.votes as v where v.author = :author and q = :question");
 		questionQuery.setParameter("author", currentUser);
 		answerQuery.setParameter("author", currentUser);
 		questionQuery.setParameter("question", question);

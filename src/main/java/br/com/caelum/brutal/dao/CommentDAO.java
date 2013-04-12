@@ -32,7 +32,7 @@ public class CommentDAO {
 	@SuppressWarnings("unchecked")
     public List<SubscribableDTO> getSubscribablesAfter(DateTime timeAgo) {
         Query query = session.createQuery("select distinct new br.com.caelum.brutal.model.SubscribableDTO(comment, author, question) from Question question " +
-                "join question.comments comment " +
+                "join question.comments.comments comment " +
                 "join question.answers answer " +
                 "join answer.author author " +
                 "where (comment.createdAt) > :timeAgo and author != comment.author and author.isSubscribed=true");
@@ -40,7 +40,7 @@ public class CommentDAO {
         
         query = session.createQuery("select distinct new br.com.caelum.brutal.model.SubscribableDTO(comment, author, question) from Question question " +
         		"join question.author author " +
-        		"join question.comments comment " +
+        		"join question.comments.comments comment " +
         		"join comment.author comment_author " +
         		"where (comment.createdAt) > :timeAgo and author != comment_author and author.isSubscribed=true");
         results.addAll(query.setParameter("timeAgo", timeAgo).list());

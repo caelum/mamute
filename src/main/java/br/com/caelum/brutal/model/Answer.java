@@ -6,7 +6,6 @@ import static org.hibernate.annotations.CascadeType.SAVE_UPDATE;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -61,9 +60,8 @@ public class Answer extends Moderatable implements Votable, Commentable, Subscri
     @OneToMany
     private final List<Vote> votes = new ArrayList<>();
 
-	@JoinTable(name="Answer_Comments")
-	@OneToMany(cascade=CascadeType.ALL)
-    private final List<Comment> comments = new ArrayList<>();
+    @Embedded
+	private final AnswerCommentList comments = new AnswerCommentList();
     
 	private long voteCount= 0;
 
@@ -162,14 +160,7 @@ public class Answer extends Moderatable implements Votable, Commentable, Subscri
 	
 	@Override
 	public List<Comment> getVisibleCommentsFor(User user) {
-		ArrayList<Comment> visibleComments = new ArrayList<Comment>();
-		for (Comment comment : comments) {
-			boolean isVisible = !comment.isInvisible() || (user != null && user.isModerator());
-			if(isVisible){
-				visibleComments.add(comment);
-			}
-		}
-		return visibleComments;
+		return comments.getVisibleCommentsFor(user);
 	}
 	
 	public Answer setId(Long id) {
