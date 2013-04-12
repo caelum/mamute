@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -70,6 +71,9 @@ public class Answer extends Moderatable implements Votable, Commentable, Subscri
 	@OneToMany
 	private final List<Flag> flags = new ArrayList<>();
 	
+	@Embedded
+	private final ModerationOptions moderationOptions = new ModerationOptions();
+	
 	public Answer(AnswerInformation information, Question question, User author) {
 		this.question = question;
 		this.author = author;
@@ -117,6 +121,10 @@ public class Answer extends Moderatable implements Votable, Commentable, Subscri
 	
 	public boolean isSolution() {
 		return (this.question.isSolved() && this.question.getSolution().equals(this));
+	}
+	
+	public boolean isInvisible(){
+		return moderationOptions.isInvisible();
 	}
 
     @Override

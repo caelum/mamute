@@ -12,9 +12,11 @@
 		<c:forEach items="${answers.votes}" var="entry">
 			<c:set var="answer" value="${entry.key}" />
 			<c:set var="vote" value="${entry.value}" />
-			<li id="answer-${answer.id}" class="answer" data-id="${answer.id}">
-				<tags:answerWith answer="${answer}" vote="${vote}" commentVotes="${commentsWithVotes}"/>
-			</li>
+			<c:if test="${not answer.invisible || currentUser.moderator}">
+				<li id="answer-${answer.id}" class="answer" data-id="${answer.id}">
+					<tags:answerWith answer="${answer}" vote="${vote}" commentVotes="${commentsWithVotes}"/>
+				</li>
+			</c:if>
 		</c:forEach>
 	</ul>
 	<c:if test="${not empty currentUser && !question.alreadyAnsweredBy(currentUser)}">
