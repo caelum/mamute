@@ -8,8 +8,10 @@
 
 <c:set var="ajaxResultName" value="new-comment-for-${type}-new-comment-${item.id}"/>
 <ul class="comment-list ${empty item.comments ? 'hidden' : ''}" id="${ajaxResultName }">
-	<c:forEach var="comment" items="${item.comments }" varStatus="status">
-		<tags:commentWith comment="${comment}" collapsed="${status.count > 5}" currentUserVote="${votes.getVotes(comment)}"/>
+	<c:forEach var="comment" items="${item.comments}" varStatus="status">
+		<c:if test="${not comment.invisible || currentUser.moderator}">
+			<tags:commentWith comment="${comment}" collapsed="${status.count > 5}" currentUserVote="${votes.getVotes(comment)}"/>
+		</c:if>
 	</c:forEach>
 </ul>
 

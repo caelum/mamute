@@ -6,6 +6,7 @@ import static br.com.caelum.brutal.sanitizer.HtmlSanitizer.sanitize;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -62,6 +63,9 @@ public class Comment implements Subscribable, Votable, Flaggable {
 	@JoinTable(name = "Comment_Flags")
 	@OneToMany
 	private final List<Flag> flags = new ArrayList<>();
+	
+	@Embedded
+	private final ModerationOptions moderationOptions = new ModerationOptions();
 	
     /**
      * @deprecated hibernate eyes
@@ -148,4 +152,8 @@ public class Comment implements Subscribable, Votable, Flaggable {
 		return voteCount;
 	}
 
+	public boolean isInvisible(){
+		return moderationOptions.isInvisible();
+	}
+	
 }
