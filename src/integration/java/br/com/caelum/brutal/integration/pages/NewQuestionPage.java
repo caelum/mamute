@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.integration.pages;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -60,16 +61,19 @@ public class NewQuestionPage extends PageObject {
 
 	private WebElement findAutoCompletedTag(String tag) {
 		String tagSelector = ".complete-tag .tag-brutal";
-        waitForElement(By.cssSelector(tagSelector), 10);
+        waitForElement(By.cssSelector(tagSelector), 15);
+        List<String> tagsFound = new ArrayList<>();
 		List<WebElement> autoCompletedTags = allByCSS(tagSelector);
 		WebElement rightAutoCompletedTag = null;
 		for (WebElement autoCompletedTag : autoCompletedTags) {
-			if (autoCompletedTag.getText().equals(tag)){
+			String tagText = autoCompletedTag.getText();
+			tagsFound.add(tagText);
+			if (tagText.equals(tag)) {
 				rightAutoCompletedTag = autoCompletedTag;
 			}
 		}
 		if (rightAutoCompletedTag == null) {
-			throw new NoSuchElementException("could not find tag named " + tag);
+			throw new NoSuchElementException("could not find tag named " + tag + ", tags found: " + tagsFound);
 		}
 		return rightAutoCompletedTag;
 	}
