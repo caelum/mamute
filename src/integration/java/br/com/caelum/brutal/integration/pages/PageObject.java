@@ -9,6 +9,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -50,12 +51,19 @@ public abstract class PageObject {
 	}
 	
 	protected void waitForElement(final By by, int time) {
-	    try {
-	        new WebDriverWait(driver, time).until(ExpectedConditions.presenceOfElementLocated(by));
+	    waitFor(time, ExpectedConditions.presenceOfElementLocated(by), by.toString());
+	}
+	protected void waitForVisibleElement(WebElement element, int time) {
+		waitFor(time, ExpectedConditions.visibilityOf(element), element.toString());
+	}
+	private void waitFor(int time, ExpectedCondition<WebElement> expectedCondition, String elementName) {
+		try {
+	        new WebDriverWait(driver, time).until(expectedCondition);
         } catch (TimeoutException e) {
-            LOG.warn("waited for element " + by + " but it didn't show up");
+            LOG.warn("waited for element " + elementName + " but it didn't show up");
         }
 	}
+	
 	
 	protected void waitForTextIn(final By by, String text, int time) {
 	    new WebDriverWait(driver, time).until(ExpectedConditions.textToBePresentInElement(by, text));

@@ -83,12 +83,19 @@ public class NewQuestionPage extends PageObject {
 	}
 
     public boolean descriptionHintIsVisible() {
-        String display = byId("question-description-hint").getCssValue("display");
+    	String descriptionHintId = "question-description-hint";
+    	WebElement hint = byId(descriptionHintId);
+		waitForVisibleElement(hint, 5);
+		String display = hint.getCssValue("display");
         return !display.equals("none");
     }
     
-    public boolean titleHintIsVisible() {
-        String display = byId("question-title-hint").getCssValue("display");
+
+	public boolean titleHintIsVisible() {
+    	String titleHintId = "question-title-hint";
+        WebElement hint = byId(titleHintId);
+        waitForVisibleElement(hint, 5);
+		String display = hint.getCssValue("display");
         return !display.equals("none");
     }
 }
