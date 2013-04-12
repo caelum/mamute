@@ -87,8 +87,12 @@ public abstract class AcceptanceTestBase implements ServerInfo.AcceptanceTest {
 	public static void buildDriver() {
 //		System.setProperty("webdriver.chrome.driver", "/home/csokol/programas/chromedriver/chromedriver");
 //		driver = new ChromeDriver();
-//		driver = ghostDriver();
-		driver = new FirefoxDriver();
+		String localTest = System.getenv("LOCAL_TEST");
+		if ("true".equals(localTest)) {
+			driver = new FirefoxDriver();
+		} else {
+			driver = ghostDriver();
+		}
 		waitForFirstBodyPresence();
 	}
 	
