@@ -2,6 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 </div>
+
 <footer class="footer">
 	<div class="container">
 		<a class="tag-brutal" href="${linkTo[ListController].withTag['java']}">java</a>
@@ -66,6 +67,7 @@ UserVoice.push(['showTab', 'classic_widget', {
 	<script src="<c:url value="/js/flag-it.js"/>"></script>
 	<script src="<c:url value="/js/more-comments.js"/>"></script>
 	<script src="<c:url value="/js/button-hints.js"/>"></script>
+	<script src="<c:url value="/js/answer-form.js"/>"></script>
 </c:if>
 <c:if test="${environment.name == 'production'}" >
 	<script src="<c:url value="/js/all.js"/>"></script>
@@ -139,6 +141,5 @@ $(function() {
 });
 
 </script>
-
 </body>
 </html>

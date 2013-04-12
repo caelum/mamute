@@ -20,7 +20,7 @@
 		</c:forEach>
 	</ul>
 	<c:if test="${not empty currentUser && !question.alreadyAnsweredBy(currentUser)}">
-		<%@ include file="/WEB-INF/jsp/answer/answerForm.jsp"%>
+		<tags:answerForm uri="${linkTo[AnswerController].newAnswer[question]}" />
 	</c:if>
 	<c:if test="${not empty currentUser && question.alreadyAnsweredBy(currentUser)}">
 		<div class="message alert already-answered">

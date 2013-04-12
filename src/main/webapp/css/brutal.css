@@ -1521,3 +1521,19 @@ a.button.ask-a-question:hover{
 .hidden{
 	display:none;
 }
+
+.same-author-confirmation {
+	height: 210px;
+	width: 100%;
+	background-color: #eaeaea;
+	border: 1px solid black;
+	margin-bottom: 38px;
+	text-align: center;
+	padding: 16%;
+}
+
+.opaque {
+	opacity:0.2;
+}
+
+
