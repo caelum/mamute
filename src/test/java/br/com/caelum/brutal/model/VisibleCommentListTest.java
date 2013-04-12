@@ -9,25 +9,32 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.com.caelum.brutal.dao.TestCase;
+import br.com.caelum.brutal.dao.DatabaseTestCase;
 
-public class VisibleCommentListTest extends TestCase{
+public class VisibleCommentListTest extends DatabaseTestCase{
 	
 	private VisibleCommentList commentList;
 	private User leo;
 	private List<Comment> invisibleComments;
 	private User moderatorLeo;
+	private User author;
 
 	@Before
 	public void setup(){
 		commentList = new VisibleCommentList();
+		author = user("leonardo", "leo@leo.com");
 		leo = user("leonardo", "leo@leo.com");
 		moderatorLeo = user("moderator", "moderator@leo.com").asModerator();
-		invisibleComments = asList(comment(leo, "meu teste :)").remove());
+		Comment comment = comment(author, "meu teste de visibilidade de comentarios :)").remove();
+		invisibleComments = asList(comment);
+		session.save(leo);
+		session.save(moderatorLeo);
+		session.save(author);
+		session.save(comment);
 	}
 	
 	@Test
-	public void should_filter_comments_if_user_is_not_moderator() {
+	public void should_filter_comments_if_user_is_not_moderator_nor_author() {
 		List<Comment> visibleComments = commentList.getVisibleCommentsFor(leo, invisibleComments);
 		assertTrue(visibleComments.isEmpty());
 	}
@@ -35,6 +42,12 @@ public class VisibleCommentListTest extends TestCase{
 	@Test
 	public void should_not_filter_if_user_is_moderator() {
 		List<Comment> visibleComments = commentList.getVisibleCommentsFor(moderatorLeo, invisibleComments);
+		assertFalse(visibleComments.isEmpty());
+	}
+
+	@Test
+	public void should_not_filter_if_user_is_author() {
+		List<Comment> visibleComments = commentList.getVisibleCommentsFor(author, invisibleComments);
 		assertFalse(visibleComments.isEmpty());
 	}
 	

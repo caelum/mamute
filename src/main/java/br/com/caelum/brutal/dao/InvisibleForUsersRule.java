@@ -6,16 +6,23 @@ import br.com.caelum.vraptor.ioc.Component;
 @Component
 public class InvisibleForUsersRule {
 	
-	private boolean invisible;
+	private final User user;
 
 	public InvisibleForUsersRule(User user) {
-		this.invisible = user == null ? true : !user.isModerator();
+		this.user = user;
 	}
 	
 	public String getIsInvisibleOrNotFilter(String modelAlias){
+		boolean invisible = user == null || !user.isModerator();
+		String filter = "";
 		if(invisible){
-			return "and "+modelAlias+".moderationOptions.invisible = false";
+			filter = "and ("+modelAlias+".moderationOptions.invisible = false";
+			if(user != null){
+				filter += " or " + modelAlias + ".author.id = " + user.getId();
+			}
+			filter += ")";
 		}
-		return "";
+		return filter;
 	}
+
 }

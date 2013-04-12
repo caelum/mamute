@@ -334,5 +334,9 @@ public class User implements Identifiable {
 	public void add(LoginMethod brutalLogin) {
 		loginMethods.add(brutalLogin);
 	}
+
+	public boolean isAuthorOf(Comment comment) {
+		return id == comment.getAuthor().getId();
+	}
 	
 }
