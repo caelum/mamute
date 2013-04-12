@@ -22,76 +22,73 @@ public class QuestionDAOTest extends DatabaseTestCase {
 	private static final String INVALID_DESC = "Tiny desc";
 	private static final String VALID_DESC = "Description with more than 30 characters";
 	private static final String VALID_TITLE = "Title with more than 15 characters";
-	private QuestionDAO questions;
+	private QuestionDAO questionsBeingAuthor;
 	private QuestionBuilder question = new QuestionBuilder();
 	private User author;
 	private Tag sal = tag("sal");
 	private Tag defaultTag = tag("defaultTag");
+	private QuestionDAO questionsBeingModerator;
+	private User moderator;
+	private User anyone;
+	private QuestionDAO questionsNotBeingAuthorNorModerator;
 
 	@Before
 	public void setup() {
 		author = user("Leonardo", "leo@leo");
+		moderator = user("Leonardo", "leo@leo").asModerator();
+		anyone = user("Leonardo", "leo@leo");
 		session.save(author);
+		session.save(moderator);
+		session.save(anyone);
 		session.save(sal);
 		session.save(defaultTag);
-		this.questions = new QuestionDAO(session, new InvisibleForUsersRule(author));
+		this.questionsBeingAuthor = new QuestionDAO(session, new InvisibleForUsersRule(author));
+		this.questionsBeingModerator = new QuestionDAO(session, new InvisibleForUsersRule(moderator));
+		this.questionsNotBeingAuthorNorModerator = new QuestionDAO(session, new InvisibleForUsersRule(anyone));
 	}
 	
 	
 	@Test(expected=ConstraintViolationException.class)
 	public void should_throw_constraint_exception_if_description_is_null() {
 		Question myQuestion = question.withTitle(VALID_TITLE).withDescription(null).withAuthor(author).build();
-		questions.save(myQuestion );
+		questionsBeingAuthor.save(myQuestion );
 	}
 	
 	@Test(expected=ConstraintViolationException.class)
 	public void should_throw_constraint_exception_if_description_has_less_than_30_chars() {
 		Question myQuestion = question.withTitle(VALID_TITLE).withDescription(INVALID_DESC).withAuthor(author).build();
-		questions.save(myQuestion);
+		questionsBeingAuthor.save(myQuestion);
 	}
 	
 	@Test(expected=ConstraintViolationException.class)
 	public void should_throw_constraint_exception_if_title_is_null() {
 		Question myQuestion = question.withTitle(null).withDescription(VALID_DESC).withAuthor(author).build();
-		questions.save(myQuestion);
+		questionsBeingAuthor.save(myQuestion);
 	}
 	
 	@Test(expected=ConstraintViolationException.class)
 	public void should_throw_constraint_exception_if_title_has_less_than_15_chars() {
 		Question myQuestion = question.withTitle(INVALID_TITLE).withDescription(VALID_DESC).withAuthor(author).build();
-		questions.save(myQuestion );
+		questionsBeingAuthor.save(myQuestion );
 	}
 	
 	@Test(expected=ConstraintViolationException.class)
 	public void should_throw_constraint_exception_if_tags_is_empty() {
 		Question myQuestion = question.withTags(new ArrayList<Tag>()).withTitle(VALID_TITLE).withDescription(VALID_DESC).withAuthor(author).build();
-		questions.save(myQuestion );
+		questionsBeingAuthor.save(myQuestion );
 	}
 	
 	@Test
 	public void should_ignore_low_reputation_ones() {
 		Question salDaAzar = salDaAzar();
-		assertTrue(questions.allVisible().contains(salDaAzar));
+		assertTrue(questionsBeingAuthor.allVisible().contains(salDaAzar));
 		
 		session.createQuery("update Question as q set q.voteCount = -4").executeUpdate();
-		assertTrue(questions.allVisible().contains(salDaAzar));
+		assertTrue(questionsBeingAuthor.allVisible().contains(salDaAzar));
 
 		session.createQuery("update Question as q set q.voteCount = -5").executeUpdate();
-		assertFalse(questions.allVisible().contains(salDaAzar));
+		assertFalse(questionsBeingAuthor.allVisible().contains(salDaAzar));
 
-	}
-	
-	@Test
-	public void should_ignore_invisible_ones() {
-		Question salDaAzar = salDaAzar();
-		assertTrue(questions.allVisible().contains(salDaAzar));
-		assertTrue(questions.unsolvedVisible().contains(salDaAzar));
-		assertTrue(questions.withTagVisible(sal).contains(salDaAzar));
-
-		salDaAzar.remove();
-		assertFalse(questions.allVisible().contains(salDaAzar));
-		assertFalse(questions.unsolvedVisible().contains(salDaAzar));
-		assertFalse(questions.withTagVisible(sal).contains(salDaAzar));
 	}
 	
 	@Test
@@ -100,13 +97,53 @@ public class QuestionDAOTest extends DatabaseTestCase {
 		Question beberFazMal = beberFazMal();
 		Question androidRuim = androidRuim();
 		
-		List<Question> perguntasComSal = questions.withTagVisible(sal);
+		List<Question> perguntasComSal = questionsBeingAuthor.withTagVisible(sal);
 
 		assertTrue(perguntasComSal.contains(salDaAzar));
 		assertFalse(perguntasComSal.contains(beberFazMal));
 		assertFalse(perguntasComSal.contains(androidRuim));
 	}
 
+	@Test
+	public void should_not_ignore_invisible_ones_if_user_is_author() {
+		Question salDaAzar = salDaAzar();
+		assertContains(salDaAzar, questionsBeingAuthor);
+
+		salDaAzar.remove();
+		assertContains(salDaAzar, questionsBeingAuthor);
+	}
+	
+	@Test
+	public void should_not_ignore_invisible_ones_if_user_is_moderator() {
+		Question salDaAzar = salDaAzar();
+		assertContains(salDaAzar, questionsBeingModerator);
+		
+		salDaAzar.remove();
+		assertContains(salDaAzar, questionsBeingModerator);
+	}
+	
+	@Test
+	public void should_ignore_invisible_ones_if_user_is_not_moderator() {
+		Question salDaAzar = salDaAzar();
+		assertContains(salDaAzar, questionsNotBeingAuthorNorModerator);
+		
+		salDaAzar.remove();
+		assertNotContains(salDaAzar, questionsNotBeingAuthorNorModerator);
+	}
+
+
+	private void assertNotContains(Question salDaAzar, QuestionDAO dao) {
+		assertFalse(dao.allVisible().contains(salDaAzar));
+		assertFalse(dao.unsolvedVisible().contains(salDaAzar));
+		assertFalse(dao.withTagVisible(sal).contains(salDaAzar));
+	}
+	
+	private void assertContains(Question salDaAzar, QuestionDAO dao) {
+		assertTrue(dao.allVisible().contains(salDaAzar));
+		assertTrue(dao.unsolvedVisible().contains(salDaAzar));
+		assertTrue(dao.withTagVisible(sal).contains(salDaAzar));
+	}
+	
 	public Question beberFazMal(){
 		Question beberFazMal = question
 			.withTitle("Por que dizem que beber demais faz mal?")
