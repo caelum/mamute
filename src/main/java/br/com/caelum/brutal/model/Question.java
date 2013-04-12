@@ -20,15 +20,12 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
-import br.com.caelum.brutal.model.interfaces.Commentable;
-import br.com.caelum.brutal.model.interfaces.Flaggable;
 import br.com.caelum.brutal.model.interfaces.Moderatable;
 import br.com.caelum.brutal.model.interfaces.Taggable;
-import br.com.caelum.brutal.model.interfaces.Touchable;
 import br.com.caelum.brutal.model.interfaces.Votable;
 
 @Entity
-public class Question extends Moderatable implements Votable, Commentable, Touchable, Taggable, Flaggable {
+public class Question extends Moderatable implements Post, Taggable{
 	@Id
 	@GeneratedValue
 	private Long id;
