@@ -8,13 +8,14 @@
 
 <c:set var="sameAuthor" value="${question.author eq currentUser}" />
 <c:if test="${sameAuthor}">
+	<fmt:message key="answer.form.sameauthor.placeholder" var="placeholder" />
 	<div class="hidden same-author-confirmation hinted-form answer-form">
-		<button class="post-submit big-submit">Estou compartilhando uma solução</button>
+		<button class="post-submit big-submit">Desejo adicionar uma solução a minha pergunta</button>
 	</div>
 </c:if>
 
 <form action="${uri}" method="post" class="validated-form hinted-form answer-form" data-same-author="${sameAuthor}">
-	<tags:markDown value="${answer.description}" hintId="newanswer-answer-hint" htmlClass="required" minlength="30"/>
+	<tags:markDown placeholder="${placeholder}" value="${answer.description}" hintId="newanswer-answer-hint" htmlClass="required" minlength="30"/>
 	
 	<c:if test='${not empty edit}'>
 		<label for="comment"><fmt:message key="edit_form.comment.label" /></label>

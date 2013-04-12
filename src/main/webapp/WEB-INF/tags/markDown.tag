@@ -4,6 +4,7 @@
 <%@attribute name="value" required="false" type="java.lang.String"%>
 <%@attribute name="hintId" required="true" type="java.lang.String"%>
 <%@attribute name="htmlClass" required="false" type="java.lang.String"%>
+<%@attribute name="placeholder" required="false" type="java.lang.String"%>
 <%@attribute name="minlength" required="false" type="java.lang.Long"%>
 <%@attribute name="maxlength" required="false" type="java.lang.Long"%>
 
@@ -29,10 +30,11 @@
 			<div id="html-button-hint" class="button-hint-text"><fmt:message key="button_hint.html.hint"/></div>
 		</div> --%>
 		<textarea class="${htmlClass} hintable wmd-input text-input" id="wmd-input"
-		data-hint-id="${hintId}" 
-		minlength="${minlength}"
-		maxlength="${maxlength}"
-		name="description"><c:out value="${value}" escapeXml="true"/></textarea>
+			placeholder="${placeholder}"
+			data-hint-id="${hintId}" 
+			minlength="${minlength}"
+			maxlength="${maxlength}"
+			name="description"><c:out value="${value}" escapeXml="true"/></textarea>
 	</div>
 	<div class="md-panel md-preview hidden"></div>
 </div>
