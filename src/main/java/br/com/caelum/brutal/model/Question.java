@@ -324,7 +324,4 @@ public class Question extends Moderatable implements Votable, Commentable, Touch
 	public void remove() {
 		this.moderationOptions.remove();
 	}
-
-	
-
 }

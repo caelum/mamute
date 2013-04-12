@@ -45,6 +45,7 @@ import br.com.caelum.brutal.dto.UserPersonalInfo;
 import br.com.caelum.brutal.infra.Digester;
 import br.com.caelum.brutal.model.interfaces.Identifiable;
 import br.com.caelum.brutal.model.interfaces.Moderatable;
+import br.com.caelum.brutal.model.interfaces.Votable;
 
 @Table(name="Users")
 @Entity
@@ -310,10 +311,6 @@ public class User implements Identifiable {
 	    }
         return UpdateStatus.REFUSED;
 	}
-	
-	public boolean isAuthorOf(Question question){
-		return this.id == question.getAuthor().getId();  
-	}
 
 	public void descreaseKarma(int value) {
         this.karma -= value;
@@ -335,8 +332,8 @@ public class User implements Identifiable {
 		loginMethods.add(brutalLogin);
 	}
 
-	public boolean isAuthorOf(Comment comment) {
-		return id == comment.getAuthor().getId();
+	public boolean isAuthorOf(Votable votable) {
+		return id == votable.getAuthor().getId();
 	}
-	
+
 }
