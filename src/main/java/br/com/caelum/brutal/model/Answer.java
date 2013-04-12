@@ -161,10 +161,17 @@ public class Answer extends Moderatable implements Votable, Commentable, Subscri
 	}
 	
 	@Override
-	public List<Comment> getComments() {
-		return comments;
+	public List<Comment> getVisibleCommentsFor(User user) {
+		ArrayList<Comment> visibleComments = new ArrayList<Comment>();
+		for (Comment comment : comments) {
+			boolean isVisible = !comment.isInvisible() || (user != null && user.isModerator());
+			if(isVisible){
+				visibleComments.add(comment);
+			}
+		}
+		return visibleComments;
 	}
-
+	
 	public Answer setId(Long id) {
 		this.id = id;
 		return this;
@@ -264,4 +271,5 @@ public class Answer extends Moderatable implements Votable, Commentable, Subscri
 		}
 		return false;
 	}
+
 }

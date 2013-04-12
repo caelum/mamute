@@ -7,15 +7,13 @@
 <%@attribute name="votes" type="br.com.caelum.brutal.model.CommentsAndVotes" required="true" %>
 
 <c:set var="ajaxResultName" value="new-comment-for-${type}-new-comment-${item.id}"/>
-<ul class="comment-list ${empty item.comments ? 'hidden' : ''}" id="${ajaxResultName }">
-	<c:forEach var="comment" items="${item.comments}" varStatus="status">
-		<c:if test="${not comment.invisible || currentUser.moderator}">
-			<tags:commentWith comment="${comment}" collapsed="${status.count > 5}" currentUserVote="${votes.getVotes(comment)}"/>
-		</c:if>
+<ul class="comment-list ${empty item.getVisibleCommentsFor(currentUser) ? 'hidden' : ''}" id="${ajaxResultName }">
+	<c:forEach var="comment" items="${item.getVisibleCommentsFor(currentUser)}" varStatus="status">
+		<tags:commentWith comment="${comment}" collapsed="${status.count > 5}" currentUserVote="${votes.getVotes(comment)}"/>
 	</c:forEach>
 </ul>
 
-<c:set var="commentsSize" value="${fn:length(item.comments)}"/>
+<c:set var="commentsSize" value="${fn:length(item.getVisibleCommentsFor(currentUser))}"/>
 <c:if test="${commentsSize > 5}">
 	<span class="more-comments" size="${commentsSize}">Mostrar todos os <strong>${commentsSize}</strong> comentários</span>
 </c:if>

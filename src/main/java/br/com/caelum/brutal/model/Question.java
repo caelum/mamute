@@ -188,15 +188,24 @@ public class Question extends Moderatable implements Votable, Commentable, Touch
 	public User getAuthor() {
 		return author;
 	}
+	
 
 	@Override
 	public Comment add(Comment comment) {
 		this.comments.add(comment);
 		return comment;
 	}
-
-	public List<Comment> getComments() {
-		return comments;
+	
+	@Override
+	public List<Comment> getVisibleCommentsFor(User user) {
+		ArrayList<Comment> visibleComments = new ArrayList<Comment>();
+		for (Comment comment : comments) {
+			boolean isVisible = !comment.isInvisible() || (user != null && user.isModerator());
+			if(isVisible){
+				visibleComments.add(comment);
+			}
+		}
+		return visibleComments;
 	}
 
 	public String getTitle() {
@@ -325,5 +334,7 @@ public class Question extends Moderatable implements Votable, Commentable, Touch
 	public void remove() {
 		this.moderationOptions.remove();
 	}
+
+	
 
 }
