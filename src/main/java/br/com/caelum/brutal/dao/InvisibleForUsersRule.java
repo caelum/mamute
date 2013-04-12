@@ -9,7 +9,7 @@ public class InvisibleForUsersRule {
 	private boolean invisible;
 
 	public InvisibleForUsersRule(User user) {
-		this.invisible = user == null ? false : !user.isModerator();
+		this.invisible = user == null ? true : !user.isModerator();
 	}
 	
 	public String getIsInvisibleOrNotFilter(String modelAlias){
