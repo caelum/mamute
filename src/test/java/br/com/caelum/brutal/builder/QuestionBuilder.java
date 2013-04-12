@@ -71,8 +71,8 @@ public class QuestionBuilder extends ModelBuilder{
 	}
 
 	private void clear() {
-		title = null;
-		description = null;
+		title = "default title default title";
+		description = "default description default description default description";
 		author = null; 
 		tags = new ArrayList<Tag>(); 
 		id = null;
