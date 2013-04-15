@@ -109,9 +109,7 @@ public class AnswerDAOTest extends DatabaseTestCase {
         List<User> users = new ArrayList<>();
         List<SubscribableDTO> recentComments = answers.getSubscribablesAfter(new DateTime().minusHours(3));
         for (SubscribableDTO subscribableDTO : recentComments) {
-			User user = subscribableDTO.getUser();
-			users.add(user);
-			System.out.println(user);
+			users.add(subscribableDTO.getUser());
 		}
         assertThat(users, not(hasItem(artur)));
         assertThat(users, not(hasItem(valeriano)));
