@@ -85,9 +85,22 @@ public class QuestionPage extends PageObject{
 
 	public QuestionPage answer(String description) {
 		WebElement answerForm = byClassName("answer-form");
-		answerForm.findElement(By.name("description")).sendKeys(description);
+		byName("description").sendKeys(description);
+		if (elementPresent(By.cssSelector(".same-author-confirmation button"), answerForm)) {
+			answerForm.findElement(By.cssSelector(".same-author-confirmation button")).click();
+			byName("description").sendKeys(description);
+		}
 		answerForm.submit();
 		return new QuestionPage(driver);
+	}
+
+	private boolean elementPresent(By by, WebElement in) {
+		try {
+			in.findElement(by);
+			return true;
+		} catch (NoSuchElementException e) {
+			return false;
+		}
 	}
 
 	public boolean firstAnswerHasDescription(String newDescription) {
