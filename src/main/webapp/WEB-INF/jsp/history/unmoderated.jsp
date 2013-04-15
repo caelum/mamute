@@ -2,11 +2,7 @@
 <fmt:message key="metas.generic.title" var="genericTitle" />
 <tags:header title="${genericTitle} - ${title}"/>
 
-<tags:tabs titleKey="moderation">
-	<a href="${linkTo[HistoryController].unmoderated['pergunta']}"><fmt:message key="moderation.questions"/></a>
-	<a href="${linkTo[HistoryController].unmoderated['resposta']}"><fmt:message key="moderation.answers"/></a>
-	<a href="${linkTo[FlagController].topFlaggedComments}"><fmt:message key="moderation.flagged.comments"/></a>
-</tags:tabs>
+<tags:moderationTabs />
 
 <ul class="pending-questions">
 	<c:forEach var="entry" items="${pending.entrySet}">
