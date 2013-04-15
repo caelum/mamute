@@ -1,13 +1,14 @@
 package br.com.caelum.brutal.dao;
 
 import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.joda.time.DateTime;
 import org.junit.Before;
@@ -122,14 +123,12 @@ public class CommentDAOTest extends DatabaseTestCase {
         session.save(comoFaz);
         session.save(fazAssim);
         
-        List<User> users = new ArrayList<>();
+        Set<User> users = new HashSet<>();
         List<SubscribableDTO> recentComments = comments.getSubscribablesAfter(new DateTime().minusHours(3));
         for (SubscribableDTO subscribableDTO : recentComments) {
 			users.add(subscribableDTO.getUser());
 		}
-        assertThat(users, not(hasItem(artur)));
-        assertThat(users, not(hasItem(valeriano)));
-        assertThat(users, hasItems(alcoolatra, iFag, leo, chico));
+        assertThat(users, org.hamcrest.Matchers.containsInAnyOrder(alcoolatra, iFag, leo, chico));
     }
     
     @Test
