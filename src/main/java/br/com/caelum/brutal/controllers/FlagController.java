@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.controllers;
 
+import static br.com.caelum.vraptor.view.Results.page;
+
 import java.util.List;
 
 import br.com.caelum.brutal.auth.ModeratorOrKarmaAccess;
@@ -72,6 +74,7 @@ public class FlagController {
 		Class<?> model = urlMapping.getClassFor(flaggableType);
 		List<FlaggableAndFlagCount> flaggedComments = flaggables.flagged(model, 3l);
 		result.include("flaggedComments", flaggedComments);
+		result.use(page()).forwardTo("/WEB-INF/jsp/flag/topFlagged" + model.getSimpleName() + "s.jsp");
 	}
 	
 }
