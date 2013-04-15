@@ -161,7 +161,7 @@ public class CommentDAOTest extends DatabaseTestCase {
 			System.out.println(user);
 		}
     	
-    	assertThat(users, not(hasItems(answerAuthor)));
+    	assertThat(users, not(hasItem(answerAuthor)));
     	
 	}
 
