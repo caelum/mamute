@@ -11,15 +11,15 @@ public class ModerationOptionsTest {
 	@Test
 	public void should_become_invisible() {
 		assertFalse(moderationOptions.isInvisible());
-		moderationOptions.checkVisibility(ModerationOptions.VISIBILITY_THRESHOLD - 1);
+		moderationOptions.checkVisibility(ModerationOptions.VISIBILITY_THRESHOLD);
 		assertTrue(moderationOptions.isInvisible());
 	}
 	
 	@Test
 	public void should_become_visible() {
 		assertFalse(moderationOptions.isInvisible());
-		moderationOptions.checkVisibility(ModerationOptions.VISIBILITY_THRESHOLD - 1);
 		moderationOptions.checkVisibility(ModerationOptions.VISIBILITY_THRESHOLD);
+		moderationOptions.checkVisibility(ModerationOptions.VISIBILITY_THRESHOLD + 1);
 		assertFalse(moderationOptions.isInvisible());
 	}
 

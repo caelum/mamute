@@ -20,7 +20,7 @@ public class ModerationOptions {
 	}
 
 	public void checkVisibility(long voteCount) {
-		if (voteCount < VISIBILITY_THRESHOLD) {
+		if (voteCount <= VISIBILITY_THRESHOLD) {
 			remove();
 			return;
 		}
