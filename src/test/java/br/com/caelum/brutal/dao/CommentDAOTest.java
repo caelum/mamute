@@ -1,6 +1,7 @@
 package br.com.caelum.brutal.dao;
 
-import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
@@ -13,7 +14,6 @@ import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.com.caelum.brutal.builder.QuestionBuilder;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.Question;
@@ -38,23 +38,12 @@ public class CommentDAOTest extends DatabaseTestCase {
         User alcoolatra = user("comment author", "cauthor@gmail");
         Tag tagDefault = tag("default");
         session.save(tagDefault);
-        QuestionBuilder question = new QuestionBuilder();        
-
-		Question beberFazMal = question
-			.withTitle("Por que dizem que beber demais faz mal?")
-			.withDescription("Alguem poderia me dizer o por que disso? Obrigado galera!")
-			.withAuthor(artur)
-			.withTag(tagDefault)
-			.build();
+        
+        Question beberFazMal = question(artur, Arrays.asList(tagDefault));
 		
         Answer figadoVaiProSaco = answer("Por que seu figado vai pro saco", beberFazMal, valeriano);
         
-        Question androidRuim = question
-				.withTitle("Por que a api de android é tão ruim?")
-				.withDescription("Alguem poderia me dizer o por que disso? Obrigado galera!")
-				.withAuthor(iFag)
-				.withTag(tagDefault)
-				.build();
+        Question androidRuim = question(iFag, Arrays.asList(tagDefault));
         
         Answer naoEhRuby = answer("Por que não é ruby, ai não é bacana.", androidRuim, valeriano);
         
@@ -95,7 +84,7 @@ public class CommentDAOTest extends DatabaseTestCase {
         User alcoolatra = user("comment author", "alcoolatra@gmail.com");
         
         User leo = user("question author", "leo@gmail.com");
-        User chico = user("comment author", "chico@gmail.com");
+        User chico = user("answer author", "chico@gmail.com");
         
         session.save(artur);
         session.save(valeriano);
@@ -106,8 +95,6 @@ public class CommentDAOTest extends DatabaseTestCase {
         
         Tag tagDefault = tag("java");
         session.save(tagDefault);
-        
-        List<User> users = new ArrayList<>();
         
         //comment added to question but question and answer author should not be notified
 		Question beberFazMal = question(artur, Arrays.asList(tagDefault));
@@ -136,12 +123,14 @@ public class CommentDAOTest extends DatabaseTestCase {
         session.save(comoFaz);
         session.save(fazAssim);
         
+        List<User> users = new ArrayList<>();
         List<SubscribableDTO> recentComments = comments.getSubscribablesAfter(new DateTime().minusHours(3));
         for (SubscribableDTO subscribableDTO : recentComments) {
 			users.add(subscribableDTO.getUser());
 		}
-        assertThat(users, not(containsInAnyOrder(artur, valeriano)));
-        assertThat(users, containsInAnyOrder(alcoolatra, iFag, leo, chico));
+        assertThat(users, not(hasItem(artur)));
+        assertThat(users, not(hasItem(valeriano)));
+        assertThat(users, hasItems(alcoolatra, iFag, leo, chico));
     }
     
     @Test
@@ -167,10 +156,12 @@ public class CommentDAOTest extends DatabaseTestCase {
     	List<SubscribableDTO> recentComments = comments.getSubscribablesAfter(new DateTime().minusHours(3));
     	List<User> users = new ArrayList<>();
     	for (SubscribableDTO subscribableDTO : recentComments) {
-    		users.add(subscribableDTO.getUser());
+    		User user = subscribableDTO.getUser();
+			users.add(user);
+			System.out.println(user);
 		}
     	
-    	assertThat(users, not(containsInAnyOrder(answerAuthor)));
+    	assertThat(users, not(hasItems(answerAuthor)));
     	
 	}
 
