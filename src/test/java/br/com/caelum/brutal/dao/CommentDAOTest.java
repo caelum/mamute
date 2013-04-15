@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.dao;
 
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
@@ -7,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.Matchers.*;
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,8 +16,6 @@ import org.junit.Test;
 import br.com.caelum.brutal.builder.QuestionBuilder;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.Comment;
-import br.com.caelum.brutal.model.Flag;
-import br.com.caelum.brutal.model.FlagType;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.SubscribableDTO;
 import br.com.caelum.brutal.model.Tag;
@@ -84,34 +83,7 @@ public class CommentDAOTest extends DatabaseTestCase {
         assertEquals(beberFazMal.getId(), recentComments.get(0).getQuestion().getId());
     }
     
-    @Test
-	public void should_get_comments_with_three_flags() throws Exception {
-    	User author = user("author author", "author@brutal.com");
-		Comment comment = comment(author, "comment comment comment comment");
-		Comment other = comment(author, "comment comment comment comment");
-		Flag flag1 = flag(FlagType.RUDE, author);
-		Flag flag2 = flag(FlagType.RUDE, author);
-		Flag flag3 = flag(FlagType.RUDE, author);
-		Flag flag4 = flag(FlagType.RUDE, author);
-		
-		comment.add(flag1);
-		comment.add(flag2);
-		comment.add(flag3);
-		other.add(flag4);
-		
-		session.save(author);
-		session.save(flag1);
-		session.save(flag2);
-		session.save(flag3);
-		session.save(flag4);
-		session.save(comment);
-		session.save(other);
-		
-		List<Comment> flagged = comments.flagged(3l);
-		assertEquals(1, flagged.size());
-		
-	}
-    
+        
 
     @Test
     public void should_not_find_unsubscribed_users() {

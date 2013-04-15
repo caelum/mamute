@@ -8,8 +8,8 @@ import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.dao.CommentDAO;
 import br.com.caelum.brutal.dao.FlagDao;
 import br.com.caelum.brutal.dao.FlaggableDAO;
+import br.com.caelum.brutal.dto.CommentAndFlagCount;
 import br.com.caelum.brutal.infra.ModelUrlMapping;
-import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.Flag;
 import br.com.caelum.brutal.model.FlagType;
 import br.com.caelum.brutal.model.LoggedUser;
@@ -24,16 +24,14 @@ import br.com.caelum.vraptor.view.Results;
 public class FlagController {
 	
 	private final Result result;
-	private final CommentDAO comments;
 	private final FlagDao flags;
 	private final LoggedUser loggedUser;
-	private FlaggableDAO flaggables;
+	private final FlaggableDAO flaggables;
 	private final ModelUrlMapping urlMapping;
 
 	public FlagController(Result result, CommentDAO comments, FlagDao flags,
 			LoggedUser loggedUser, FlaggableDAO flaggables, ModelUrlMapping urlMapping) {
 		this.result = result;
-		this.comments = comments;
 		this.flags = flags;
 		this.loggedUser = loggedUser;
 		this.flaggables = flaggables;
@@ -69,9 +67,11 @@ public class FlagController {
 	}
 	
 	@ModeratorOrKarmaAccess
-	@Get("/comentarios/marcados")
-	public void topFlaggedComments() {
-		List<Comment> flaggedComments = comments.flagged(3l);
+	@Get("/{flaggableType}s/marcados")
+	public void topFlaggedComments(String flaggableType) {
+		Class<?> model = urlMapping.getClassFor(flaggableType);
+		List<CommentAndFlagCount> flaggedComments = flaggables.flagged(model, 3l);
 		result.include("flaggedComments", flaggedComments);
 	}
+	
 }

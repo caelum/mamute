@@ -9,9 +9,9 @@
 </tags:tabs>
 
 <ul>
-	<c:forEach items="${flaggedComments}" var="comment">
+	<c:forEach items="${flaggedComments}" var="commentAndFlag">
 		<li>
-			${comment.comment} - ${comment.author.name}
+			${commentAndFlag.comment.comment} - ${commentAndFlag.comment.author.name} - ${commentAndFlag.flagCount} <fmt:message key="moderation.flags"/> 
 		</li>
 	</c:forEach>
 </ul>
