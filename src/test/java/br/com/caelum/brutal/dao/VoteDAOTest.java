@@ -46,8 +46,6 @@ public class VoteDAOTest extends DatabaseTestCase{
 		
 		Answer answer = answer("blablablablablablablablablablbalblabla", question, currentUser);
 		
-		question.add(answer);
-		
 		Comment answerComment1 = comment(otherUser, "comentariocomentariocomentariocomentariocomentario");
 		Comment answerComment2 = comment(currentUser, "comentariocomentariocomentariocomentariocomentario");
 		Comment answerComment3 = comment(otherUser, "comentariocomentariocomentariocomentariocomentario");
