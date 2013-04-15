@@ -8,7 +8,7 @@ import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.dao.CommentDAO;
 import br.com.caelum.brutal.dao.FlagDao;
 import br.com.caelum.brutal.dao.FlaggableDAO;
-import br.com.caelum.brutal.dto.CommentAndFlagCount;
+import br.com.caelum.brutal.dto.FlaggableAndFlagCount;
 import br.com.caelum.brutal.infra.ModelUrlMapping;
 import br.com.caelum.brutal.model.Flag;
 import br.com.caelum.brutal.model.FlagType;
@@ -70,7 +70,7 @@ public class FlagController {
 	@Get("/{flaggableType}s/marcados")
 	public void topFlaggedComments(String flaggableType) {
 		Class<?> model = urlMapping.getClassFor(flaggableType);
-		List<CommentAndFlagCount> flaggedComments = flaggables.flagged(model, 3l);
+		List<FlaggableAndFlagCount> flaggedComments = flaggables.flagged(model, 3l);
 		result.include("flaggedComments", flaggedComments);
 	}
 	

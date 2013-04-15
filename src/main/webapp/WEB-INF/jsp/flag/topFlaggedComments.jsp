@@ -11,7 +11,7 @@
 <ul>
 	<c:forEach items="${flaggedComments}" var="commentAndFlag">
 		<li>
-			${commentAndFlag.comment.comment} - ${commentAndFlag.comment.author.name} - ${commentAndFlag.flagCount} <fmt:message key="moderation.flags"/> 
+			${commentAndFlag.flaggable.comment} - ${commentAndFlag.flaggable.author.name} - ${commentAndFlag.flagCount} <fmt:message key="moderation.flags"/> 
 		</li>
 	</c:forEach>
 </ul>

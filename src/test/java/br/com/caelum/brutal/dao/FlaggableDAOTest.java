@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import br.com.caelum.brutal.dto.CommentAndFlagCount;
+import br.com.caelum.brutal.dto.FlaggableAndFlagCount;
 import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.Flag;
 import br.com.caelum.brutal.model.FlagType;
@@ -38,7 +38,7 @@ public class FlaggableDAOTest extends DatabaseTestCase {
 		session.save(comment);
 		session.save(other);
 		
-		List<CommentAndFlagCount> flagged = flaggables.flagged(Comment.class, 3l);
+		List<FlaggableAndFlagCount> flagged = flaggables.flagged(Comment.class, 3l);
 		assertEquals(1, flagged.size());
 		assertEquals(3l, flagged.get(0).getFlagCount());
 		
