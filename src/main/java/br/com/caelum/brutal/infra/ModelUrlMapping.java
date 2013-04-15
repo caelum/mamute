@@ -22,8 +22,8 @@ public class ModelUrlMapping {
 	
 	public Class<?> getClassFor(String urlParam){
 		Class<?> clazz = classForUrl.get(urlParam);
-		if(clazz == null){
-			throw new IllegalArgumentException("There is no model mapped to that urlParam: "+ urlParam);
+		if (clazz == null) {
+			throw new NotFoundException("There is no model mapped to that urlParam: "+ urlParam);
 		}
 		return clazz;
 	}
