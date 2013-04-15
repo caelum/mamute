@@ -95,6 +95,7 @@ public class QuestionPage extends PageObject{
 	}
 
 	private boolean elementPresent(By by, WebElement in) {
+		waitForElement(by, 2);
 		try {
 			in.findElement(by);
 			return true;
