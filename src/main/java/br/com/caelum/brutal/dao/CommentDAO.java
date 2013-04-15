@@ -45,6 +45,20 @@ public class CommentDAO {
         		"where (comment.createdAt) > :timeAgo and author != comment_author and author.isSubscribed=true");
         results.addAll(query.setParameter("timeAgo", timeAgo).list());
         
+        query = session.createQuery("select distinct new br.com.caelum.brutal.model.SubscribableDTO(comment, author, question) from Question question " +
+        		"join question.author author " +
+        		"join question.answers answer " +
+        		"join answer.comments.comments comment "+
+        		"where (comment.createdAt) > :timeAgo and author != comment.author and author.isSubscribed=true");
+        results.addAll(query.setParameter("timeAgo", timeAgo).list());
+        
+        query = session.createQuery("select distinct new br.com.caelum.brutal.model.SubscribableDTO(comment, author, question) from Question question " +
+        		"join question.answers answer " +
+        		"join answer.author author "+
+        		"join answer.comments.comments comment "+
+        		"where (comment.createdAt) > :timeAgo and author != comment.author and author.isSubscribed=true");
+        results.addAll(query.setParameter("timeAgo", timeAgo).list());
+        
         return results;
     }
 
@@ -52,5 +66,10 @@ public class CommentDAO {
 		return (Comment) session.load(Comment.class, id);
 	}
 
+	public List<Comment> flagged(Long minFlagCount) {
+		String hql = "select comment from Comment comment left join comment.flags flags group by comment having count(flags) >= :min";
+		Query query = session.createQuery(hql);
+		return query.setParameter("min", minFlagCount).list();
+	}
 
 }
