@@ -5,5 +5,5 @@
 <tags:tabs titleKey="moderation">
 	<a href="${linkTo[HistoryController].unmoderated['pergunta']}"><fmt:message key="moderation.questions"/></a>
 	<a href="${linkTo[HistoryController].unmoderated['resposta']}"><fmt:message key="moderation.answers"/></a>
-	<a href="${linkTo[FlagController].topFlaggedComments}"><fmt:message key="moderation.flagged.comments"/></a>
+	<a href="${linkTo[FlagController].topFlaggedComments['comentario']}"><fmt:message key="moderation.flagged.comments"/></a>
 </tags:tabs>
