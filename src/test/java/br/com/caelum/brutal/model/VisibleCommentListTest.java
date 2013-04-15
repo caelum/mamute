@@ -20,12 +20,13 @@ public class VisibleCommentListTest extends DatabaseTestCase{
 	private User author;
 
 	@Before
-	public void setup(){
+	public void setup() {
 		commentList = new VisibleCommentList();
 		author = user("leonardo", "leo@leo.com");
 		leo = user("leonardo", "leo@leo.com");
 		moderatorLeo = user("moderator", "moderator@leo.com").asModerator();
-		Comment comment = comment(author, "meu teste de visibilidade de comentarios :)").remove();
+		Comment comment = comment(author, "meu teste de visibilidade de comentarios :)");
+		comment.remove();
 		invisibleComments = asList(comment);
 		session.save(leo);
 		session.save(moderatorLeo);

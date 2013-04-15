@@ -125,6 +125,7 @@ public class Answer extends Moderatable implements Post, Subscribable {
     @Override
     public void substitute(Vote previous,Vote vote) {
     	this.voteCount += vote.substitute(previous, votes);
+    	this.moderationOptions.checkVisibility(this.voteCount);
     }
 	
 	@Override
@@ -258,6 +259,10 @@ public class Answer extends Moderatable implements Post, Subscribable {
 				return true;
 		}
 		return false;
+	}
+	
+	public void remove() {
+		this.moderationOptions.remove();
 	}
 
 }
