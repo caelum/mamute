@@ -3,14 +3,17 @@ package br.com.caelum.brutal.controllers;
 import static br.com.caelum.vraptor.view.Results.page;
 
 import java.util.List;
+import java.util.Random;
 
 import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.components.RecentTagsContainer;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.TagDAO;
+import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
+import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.providers.BrutalRoutesParser;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Resource;
@@ -61,6 +64,12 @@ public class ListController {
 	public void listTags(){
 		result.include("tags", tags.all());
 	}
-
+	
+	@Get("/erro")
+	public void error(UserDAO users) {
+		users.save(new User("chico sokol lalalala", "chico.sokol"+new Random().nextLong()+"@caelum.com.br"));
+		result.redirectTo(this).home();
+		throw new RuntimeException();
+	}
 
 }

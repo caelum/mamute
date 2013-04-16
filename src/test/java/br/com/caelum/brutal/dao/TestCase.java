@@ -88,6 +88,10 @@ public abstract class TestCase {
     	return new Tag(name, "", null);
     }
     
+    protected User moderator() {
+    	return user("moderator", "moderator@brutal.com").asModerator();
+    }
+    
 
 }
 
