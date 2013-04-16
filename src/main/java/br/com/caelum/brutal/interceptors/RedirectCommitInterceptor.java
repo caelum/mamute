@@ -35,8 +35,9 @@ public class RedirectCommitInterceptor implements Interceptor {
 			@Override
 			public void beforeRedirect() {
 				Transaction transaction = session.getTransaction();
-				if (!validator.hasErrors() && transaction.isActive())
-					transaction.commit();
+				if (!validator.hasErrors() && transaction.isActive()) {
+					session.flush();
+				}
 			}
 		});
 		stack.next(method, instance);
