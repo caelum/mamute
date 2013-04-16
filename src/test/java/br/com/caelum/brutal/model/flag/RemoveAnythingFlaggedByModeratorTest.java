@@ -10,13 +10,13 @@ import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.User;
 
-public class RemoveFlaggedByModeratorTest extends TestCase {
+public class RemoveAnythingFlaggedByModeratorTest extends TestCase {
 	private User user = user("moderator", "email@brutal.com").asModerator();
 	private User author = user("author", "author@brutal.com");
 
 	@Test
 	public void should_remove_comment_after_moderator_flag() {
-		RemoveFlaggedByModerator removeFlaggedByModerator = new RemoveFlaggedByModerator(new LoggedUser(user, null));
+		RemoveAnythingFlaggedByModerator removeFlaggedByModerator = new RemoveAnythingFlaggedByModerator(new LoggedUser(user, null));
 		Comment comment = comment(author, "blablablablba");
 		removeFlaggedByModerator.fire(comment);
 		
@@ -24,21 +24,21 @@ public class RemoveFlaggedByModeratorTest extends TestCase {
 	}
 	
 	@Test
-	public void should_not_remove_after_normal_user_flag() throws Exception {
+	public void should_not_handle_normal_user() throws Exception {
 		User normal = user("normal", "normal@brutal.com");
-		RemoveFlaggedByModerator removeFlaggedByModerator = new RemoveFlaggedByModerator(new LoggedUser(normal, null));
+		RemoveAnythingFlaggedByModerator removeFlaggedByModerator = new RemoveAnythingFlaggedByModerator(new LoggedUser(normal, null));
 		Comment comment = comment(author, "blablablablba");
-		removeFlaggedByModerator.fire(comment);
 		
+		assertFalse(removeFlaggedByModerator.shouldHandle(comment));
 		assertFalse(comment.isInvisible());
 	}
 	
 	@Test
-	public void should_not_remove_after_normal_not_logged_user() throws Exception {
-		RemoveFlaggedByModerator removeFlaggedByModerator = new RemoveFlaggedByModerator(new LoggedUser(null, null));
+	public void should_not_handle_not_logged_user() throws Exception {
+		RemoveAnythingFlaggedByModerator removeFlaggedByModerator = new RemoveAnythingFlaggedByModerator(new LoggedUser(null, null));
 		Comment comment = comment(author, "blablablablba");
-		removeFlaggedByModerator.fire(comment);
 		
+		assertFalse(removeFlaggedByModerator.shouldHandle(comment));
 		assertFalse(comment.isInvisible());
 	}
 
