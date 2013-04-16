@@ -7,7 +7,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -39,11 +38,11 @@ public class CommentDAOTest extends DatabaseTestCase {
         Tag tagDefault = tag("default");
         session.save(tagDefault);
         
-        Question beberFazMal = question(artur, Arrays.asList(tagDefault));
+        Question beberFazMal = question(artur, tagDefault);
 		
         Answer figadoVaiProSaco = answer("Por que seu figado vai pro saco", beberFazMal, valeriano);
         
-        Question androidRuim = question(iFag, Arrays.asList(tagDefault));
+        Question androidRuim = question(iFag, tagDefault);
         
         Answer naoEhRuby = answer("Por que não é ruby, ai não é bacana.", androidRuim, valeriano);
         
@@ -97,7 +96,7 @@ public class CommentDAOTest extends DatabaseTestCase {
         session.save(tagDefault);
         
         //comment added to question but question and answer author should not be notified
-		Question beberFazMal = question(artur, Arrays.asList(tagDefault));
+		Question beberFazMal = question(artur, tagDefault);
         Answer figadoVaiProSaco = answer("Por que seu figado vai pro saco", beberFazMal, valeriano);
         Comment naoFazMal = new Comment(alcoolatra, "O que te levou a pensar que faz mal? Faz nada não.");
         beberFazMal.add(naoFazMal);
@@ -106,7 +105,7 @@ public class CommentDAOTest extends DatabaseTestCase {
         session.save(figadoVaiProSaco);
         
         //comment added to answer (question and answer author must be notified)
-        Question androidRuim = question(iFag, Arrays.asList(tagDefault));
+        Question androidRuim = question(iFag, tagDefault);
         Answer naoEhRuby = answer("Por que não é ruby, ai não é bacana.", androidRuim, alcoolatra);
         Comment naoEhNao = comment(valeriano, "nao eh ruim nao");
         naoEhRuby.add(naoEhNao);
@@ -115,7 +114,7 @@ public class CommentDAOTest extends DatabaseTestCase {
         session.save(naoEhRuby);
         
         //comment added to question (question and answer authors must be notified)
-        Question comoFaz = question(leo, Arrays.asList(tagDefault));
+        Question comoFaz = question(leo, tagDefault);
         Answer fazAssim = answer("faz assim faz assim faz assim faz assim faz assim", comoFaz, chico);
         Comment fazerOQue = comment(valeriano, "quer fazer o que?");
         comoFaz.add(fazerOQue);
@@ -139,7 +138,7 @@ public class CommentDAOTest extends DatabaseTestCase {
     	User questionAuthor = user("other", "other@x.com");
     	
     	Tag tag = tag("teste");
-    	Question question = question(questionAuthor, Arrays.asList(tag));
+    	Question question = question(questionAuthor, tag);
     	
     	Answer answer = answer("descriptiondescriptiondescriptiondescriptiondescriptiondescription", question, answerAuthor);
     	Comment answerComment = comment(answerAuthor, "comentariocomentariocomentariocomentariocomentario");

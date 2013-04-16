@@ -1,6 +1,7 @@
 package br.com.caelum.brutal.dao;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import net.vidageek.mirror.dsl.Mirror;
 import br.com.caelum.brutal.builder.QuestionBuilder;
@@ -30,10 +31,11 @@ public abstract class TestCase {
 		return q;
 	}
 	
-	protected Question question(User author, List<Tag> tags){
-		if(tags.isEmpty())
-			tags.add(tag("teste"));
-		Question question = questionBuilder.withAuthor(author).withTags(tags).build();
+	protected Question question(User author, Tag... tags){
+		ArrayList<Tag> tagsList = new ArrayList<>(Arrays.asList(tags));
+		if (tagsList.isEmpty())
+			tagsList.add(tag("teste"));
+		Question question = questionBuilder.withAuthor(author).withTags(tagsList).build();
 		return question;
 	}
 	

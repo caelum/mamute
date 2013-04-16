@@ -7,7 +7,6 @@ import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -67,7 +66,7 @@ public class AnswerDAOTest extends DatabaseTestCase {
         assertEquals(creativeQuestion.getId(), recentAnswers.get(0).getQuestion().getId());
     }
     
-    @Test
+    @Test @Deprecated
     public void should_not_find_unsubscribed_and_find_subscribed_users_for_answers() {
         User artur = user("question author", "artur@gmail.com");
         artur.setSubscribed(false);
@@ -92,7 +91,7 @@ public class AnswerDAOTest extends DatabaseTestCase {
         session.save(tagDefault);
         
         //new answer, but question and first answer author should not be notified
-		Question beberFazMal = question(artur, Arrays.asList(tagDefault));
+		Question beberFazMal = question(artur, tagDefault);
         Answer figadoVaiProSaco = answer("Por que seu figado vai pro saco", beberFazMal, valeriano);
         Answer figadoVaiProCeu = answer("Por que seu figado vai para o ceu", beberFazMal, leo);
         session.save(beberFazMal);
@@ -100,7 +99,7 @@ public class AnswerDAOTest extends DatabaseTestCase {
         session.save(figadoVaiProCeu);
         
         //new answer, question author must be notified
-        Question androidRuim = question(iFag, Arrays.asList(tagDefault));
+        Question androidRuim = question(iFag, tagDefault);
         Answer naoEhRuby = answer("Por que não é ruby, ai não é bacana.", androidRuim, chico);
         Answer ehAndroid = answer("Sabe por que? Porque é android manolo", androidRuim, artur);
         session.save(androidRuim);
