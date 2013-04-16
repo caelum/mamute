@@ -261,6 +261,7 @@ public class Answer extends Moderatable implements Post, Subscribable {
 		return false;
 	}
 	
+	@Override
 	public void remove() {
 		this.moderationOptions.remove();
 	}

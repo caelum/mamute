@@ -15,6 +15,7 @@ import br.com.caelum.brutal.infra.ModelUrlMapping;
 import br.com.caelum.brutal.model.Flag;
 import br.com.caelum.brutal.model.FlagType;
 import br.com.caelum.brutal.model.LoggedUser;
+import br.com.caelum.brutal.model.flag.FlagTrigger;
 import br.com.caelum.brutal.model.interfaces.Flaggable;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
@@ -30,21 +31,23 @@ public class FlagController {
 	private final LoggedUser loggedUser;
 	private final FlaggableDAO flaggables;
 	private final ModelUrlMapping urlMapping;
+	private final FlagTrigger flagTrigger;
 
 	public FlagController(Result result, CommentDAO comments, FlagDao flags,
-			LoggedUser loggedUser, FlaggableDAO flaggables, ModelUrlMapping urlMapping) {
+			LoggedUser loggedUser, FlaggableDAO flaggables, 
+			ModelUrlMapping urlMapping, FlagTrigger flagTrigger) {
 		this.result = result;
 		this.flags = flags;
 		this.loggedUser = loggedUser;
 		this.flaggables = flaggables;
 		this.urlMapping = urlMapping;
+		this.flagTrigger = flagTrigger;
 	}
 
 	@MinimumReputation(PermissionRulesConstants.CREATE_FLAG)
 	@Post("/{flaggableType}/{flaggableId}/marcar")
 	public void addFlag(String flaggableType, Long flaggableId, FlagType flagType, String reason) {
 		Class<?> clazz = urlMapping.getClassFor(flaggableType);
-
 		if (flagType == null) {
 			result.use(Results.http()).sendError(400);
 			return;
@@ -56,6 +59,7 @@ public class FlagController {
 		}
 		
 		Flaggable flaggable = flaggables.getById(flaggableId, clazz);
+		flagTrigger.fire(flaggable);
 
 		Flag flag = new Flag(flagType, loggedUser.getCurrent());
 		if (flagType.equals(FlagType.OTHER)) {

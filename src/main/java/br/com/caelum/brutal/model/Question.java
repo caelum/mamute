@@ -319,6 +319,7 @@ public class Question extends Moderatable implements Post, Taggable{
 		return false;
 	}
 
+	@Override
 	public void remove() {
 		this.moderationOptions.remove();
 	}
