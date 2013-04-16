@@ -42,7 +42,7 @@ public class VoteDAOTest extends DatabaseTestCase{
 		List<Tag> tags = new ArrayList<>();
 		tags.add(tag("bla"));
 		
-		Question question = question(currentUser, (Tag[]) tags.toArray());
+		Question question = question(currentUser, tags);
 		
 		Answer answer = answer("blablablablablablablablablablbalblabla", question, currentUser);
 		

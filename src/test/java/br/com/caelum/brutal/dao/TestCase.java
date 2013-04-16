@@ -2,6 +2,7 @@ package br.com.caelum.brutal.dao;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import net.vidageek.mirror.dsl.Mirror;
 import br.com.caelum.brutal.builder.QuestionBuilder;
@@ -37,6 +38,9 @@ public abstract class TestCase {
 			tagsList.add(tag("teste"));
 		Question question = questionBuilder.withAuthor(author).withTags(tagsList).build();
 		return question;
+	}
+	protected Question question(User author, List<Tag> tags){
+		return question(author, tags.toArray(new Tag[tags.size()]));
 	}
 	
 	protected User user(String name, String email) {
