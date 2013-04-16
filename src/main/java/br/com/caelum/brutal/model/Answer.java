@@ -123,9 +123,8 @@ public class Answer extends Moderatable implements Post, Subscribable {
 	}
 
     @Override
-    public void substitute(Vote previous,Vote vote) {
+    public void substitute(Vote previous, Vote vote) {
     	this.voteCount += vote.substitute(previous, votes);
-    	this.moderationOptions.checkVisibility(this.voteCount);
     }
 	
 	@Override

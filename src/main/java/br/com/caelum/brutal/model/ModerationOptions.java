@@ -15,15 +15,4 @@ public class ModerationOptions {
 		this.invisible = true;
 	}
 	
-	private void setVisible() {
-		this.invisible = false;
-	}
-
-	public void checkVisibility(long voteCount) {
-		if (voteCount <= VISIBILITY_THRESHOLD) {
-			remove();
-			return;
-		}
-		this.setVisible();
-	}
 }

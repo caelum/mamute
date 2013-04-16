@@ -15,6 +15,8 @@ import br.com.caelum.brutal.builder.QuestionBuilder;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.model.Vote;
+import br.com.caelum.brutal.model.VoteType;
 
 public class QuestionDAOTest extends DatabaseTestCase {
 
@@ -30,7 +32,7 @@ public class QuestionDAOTest extends DatabaseTestCase {
 	private QuestionDAO questionsBeingModerator;
 	private User moderator;
 	private User anyone;
-	private QuestionDAO questionsNotBeingAuthorNorModerator;
+	private QuestionDAO questionsForAnyone;
 
 	@Before
 	public void setup() {
@@ -44,7 +46,7 @@ public class QuestionDAOTest extends DatabaseTestCase {
 		session.save(defaultTag);
 		this.questionsBeingAuthor = new QuestionDAO(session, new InvisibleForUsersRule(author));
 		this.questionsBeingModerator = new QuestionDAO(session, new InvisibleForUsersRule(moderator));
-		this.questionsNotBeingAuthorNorModerator = new QuestionDAO(session, new InvisibleForUsersRule(anyone));
+		this.questionsForAnyone = new QuestionDAO(session, new InvisibleForUsersRule(anyone));
 	}
 	
 	
@@ -125,10 +127,25 @@ public class QuestionDAOTest extends DatabaseTestCase {
 	@Test
 	public void should_ignore_invisible_ones_if_user_is_not_moderator() {
 		Question salDaAzar = salDaAzar();
-		assertContains(salDaAzar, questionsNotBeingAuthorNorModerator);
+		assertContains(salDaAzar, questionsForAnyone);
 		
 		salDaAzar.remove();
-		assertNotContains(salDaAzar, questionsNotBeingAuthorNorModerator);
+		assertNotContains(salDaAzar, questionsForAnyone);
+	}
+	
+	@Test
+	public void should_list_question_with_low_vote_count_in_tag_listing() {
+		Question salDaAzar = salDaAzar();
+		for (int i = 0; i < -QuestionDAO.SPAM_BOUNDARY; i++) {
+			Vote vote = new Vote(null, VoteType.DOWN);
+			salDaAzar.substitute(null, vote);
+			session.save(vote);
+		}
+		List<Question> all = questionsForAnyone.allVisible();
+		List<Question> withTag = questionsForAnyone.withTagVisible(sal);
+		
+		assertFalse(all.contains(salDaAzar));
+		assertTrue(withTag.contains(salDaAzar));
 	}
 
 

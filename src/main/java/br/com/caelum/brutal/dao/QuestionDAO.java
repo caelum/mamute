@@ -53,7 +53,9 @@ public class QuestionDAO {
 	}
 
 	public List<Question> withTagVisible(Tag tag) {
-		List<Question> questions = session.createQuery("select q from Question as q join q.information.tags t where " + spamFilter() + " " + invisibleFilter() + " and t = :tag order by q.lastUpdatedAt desc")
+		List<Question> questions = session.createQuery("select q from Question as q " +
+				"join q.information.tags t " +
+				"where t = :tag " + invisibleFilter() + " order by q.lastUpdatedAt desc")
 				.setParameter("tag", tag)
 				.setMaxResults(50)
 				.list();
