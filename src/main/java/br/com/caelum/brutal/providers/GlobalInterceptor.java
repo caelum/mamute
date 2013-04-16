@@ -10,7 +10,6 @@ import org.joda.time.format.DateTimeFormat;
 import org.ocpsoft.prettytime.PrettyTime;
 
 import br.com.caelum.brutal.auth.Access;
-import br.com.caelum.brutal.infra.NotFoundException;
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
 import br.com.caelum.vraptor.Result;
@@ -50,7 +49,6 @@ public class GlobalInterceptor implements Interceptor{
 		result.include("literalFormatter", DateTimeFormat.forPattern(localization.getMessage("date.joda.pattern")).withLocale(localization.getLocale()));
 		result.include("currentUrl", getCurrentUrl());
 		result.include("contextPath", req.getContextPath());
-		result.on(NotFoundException.class).notFound();
 
 		logHeaders();
 		
