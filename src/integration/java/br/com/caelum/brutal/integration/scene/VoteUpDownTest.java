@@ -25,11 +25,6 @@ public class VoteUpDownTest extends AuthenticatedAcceptanceTest {
         questionPage = home().toFirstQuestionPage();
     }
     
-    @Override
-    public int implicitWaitSeconds() {
-    	return 10;
-    }
-    
 	@Test
     public void should_vote_question_up() throws Exception {
         int initialQuestionVoteCount = questionPage.questionVoteCount();
