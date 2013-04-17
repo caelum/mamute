@@ -328,4 +328,13 @@ public class Question extends Moderatable implements Post, Taggable{
 	public boolean isVisible() {
 		return this.moderationOptions.isVisible();
 	}
+
+	@Override
+	public boolean hasPendingEdits() {
+		for (QuestionInformation information : history) {
+			if(information.isPending()) return true;
+		}
+		return false;
+	}
+
 }

@@ -6,7 +6,6 @@ import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.Vote;
 
 public interface Votable {
-
 	void substitute(Vote previous, Vote current);
 	User getAuthor();
 	Serializable getId();

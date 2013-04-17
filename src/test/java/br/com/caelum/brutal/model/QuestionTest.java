@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.model;
 
+import static br.com.caelum.brutal.model.UpdateStatus.PENDING;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -126,6 +127,19 @@ public class QuestionTest  extends TestCase{
 		
 		assertEquals(0l, ruby.getUsageCount().longValue());
 		assertEquals(1l, java.getUsageCount().longValue());
+	}
+	
+	@Test
+	public void should_return_true_if_question_has_pending_edits() throws Exception {
+		Tag ruby = tag("ruby");
+		Tag java = tag("java");
+		Question q = question.withTag(ruby).build();
+		assertFalse(q.hasPendingEdits());
+
+		QuestionInformation approved = new QuestionInformationBuilder().withTag(java).build();
+		q.enqueueChange(approved, PENDING);
+		
+		assertTrue(q.hasPendingEdits());
 	}
 	
 }

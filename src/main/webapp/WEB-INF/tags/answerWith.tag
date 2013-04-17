@@ -1,11 +1,11 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@attribute name="answer" type="br.com.caelum.brutal.model.Answer" required="true" %>
 <%@attribute name="vote" type="br.com.caelum.brutal.model.Vote" required="true" %>
-<c:set var="currentUserIsAuthor" value="${answer.author.id == currentUser.id}" />
 <%@attribute name="commentVotes" type="br.com.caelum.brutal.model.CommentsAndVotes" required="true" %>
+<c:set var="currentUserIsAuthor" value="${answer.author.id == currentUser.id}" />
 <section class="post-area">
 	<div class="post-meta">
 		<tags:voteFor item="${answer}" type="resposta" vote="${vote}"/>
@@ -35,5 +35,8 @@
 			<tags:touchesFor touchable="${answer}" />
 		</div>
 		<tags:add-a-comment type="resposta" item="${answer}" votes="${commentVotes}"/>
+		<c:if test="${currentUser.moderator && answer.hasPendingEdits()}">
+			<a class="message alert" href="${linkTo[HistoryController].similarAnswers[answer.id]}"><fmt:message key="answer.warns.has_edits"/></a>
+		</c:if>
 	</div>
 </section>
