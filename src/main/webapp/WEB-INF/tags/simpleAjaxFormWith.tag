@@ -11,8 +11,8 @@
 	<div class="ajax-form hidden">
 		<form action="${action}" class="validated-form ajax" data-ajax-on-callback="${onCallback}" data-ajax-result="${callbackTarget}">
 			<textarea class="required to-focus hintable text-input" 
-			minlength="15" maxlength="600" name="${field}" 
-			data-hint-id="${callbackTarget}-hint"><c:out value="${value}" escapeXml="true"/></textarea>
+				minlength="15" maxlength="600" name="${field}" 
+				data-hint-id="${callbackTarget}-hint"><c:out value="${value}" escapeXml="true"/></textarea>
 			<input class="post-submit submit" type="submit" value="${submit}"/>
 			<button class="post-submit  submit cancel "><fmt:message key="cancel_button"/></button>
 		</form>

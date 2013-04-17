@@ -32,10 +32,10 @@
 		<fmt:message  key="edit_form.submit" var="submit"/>
 		<c:if test="${comment.author.id == currentUser.id}">
 			<tags:simpleAjaxFormWith action="${linkTo[CommentController].edit[comment.id]}" 
-			field="comment" onCallback="replace" callbackTarget="comment-${comment.id}" 
-			submit="${submit}" value="${comment.comment}">
+				field="comment" onCallback="replace" callbackTarget="comment-${comment.id}" 
+				submit="${submit}" value="${comment.comment}">
 				<a class="requires-login requires-karma" data-author="${item.author.id eq currentUser.id }" href="#">
-					${submit}
+					<fmt:message key="edit.link" />
 				</a>
 			</tags:simpleAjaxFormWith>
 		</c:if>
