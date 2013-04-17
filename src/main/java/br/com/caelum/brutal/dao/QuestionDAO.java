@@ -70,10 +70,6 @@ public class QuestionDAO {
 		return "q.voteCount > "+SPAM_BOUNDARY;
 	}
 	
-	private String invisibleFilter() {
-		return invisibleFilter("");
-	}
-	
 	private String invisibleFilter(String connective) {
 		return invisible.getInvisibleOrNotFilter("q", connective);
 	}

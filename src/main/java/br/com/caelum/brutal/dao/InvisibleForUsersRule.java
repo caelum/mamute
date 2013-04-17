@@ -29,20 +29,6 @@ public class InvisibleForUsersRule {
 			filter += ") "+connective;
 		}
 		
-//		if(hasAnotherFilter){
-//			filter += filterContinuator(filter);
-//		}
-		
-		return filter;
-	}
-	
-	private String filterContinuator(String invisibleFilter) {
-		String filter = "";
-		if(invisibleFilter.isEmpty()){
-			filter += "where";
-		}else{
-			filter += "and";
-		}
 		return filter;
 	}
 	
