@@ -16,7 +16,9 @@ import org.junit.Test;
 
 import br.com.caelum.brutal.dao.TestCase;
 import br.com.caelum.brutal.dao.UserDAO;
+import br.com.caelum.brutal.dto.UserAndSession;
 import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.model.UserSession;
 
 public class AccessTest extends TestCase {
 	
@@ -40,7 +42,7 @@ public class AccessTest extends TestCase {
 		Cookie[] cookies = new Cookie[]{anyCookie(), anyCookie(), brutalCookie, anyCookie(), anyCookie()};
 		
 		when(request.getCookies()).thenReturn(cookies);
-		when(users.findBySessionKey(sessionKey)).thenReturn(user);
+		when(users.findBySessionKey(sessionKey)).thenReturn(new UserAndSession(user, new UserSession(user, sessionKey)));
 		
 		Access access = new Access(response, request, users);
 		
