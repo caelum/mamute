@@ -17,7 +17,9 @@ public class RemoveSolutionFlaggedByModerator implements FlagAction {
 	@Override
 	public void fire(Flaggable flaggable) {
 		Answer answer = (Answer) flaggable;
-		answer.removeSolution();
+		if(answer.isSolution()){
+			answer.removeSolution();
+		}
 	}
 	
 	@Override

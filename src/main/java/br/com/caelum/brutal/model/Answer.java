@@ -111,6 +111,7 @@ public class Answer extends Moderatable implements Post, Subscribable {
 	}
 
 	public void removeSolution() {
+		if(!this.isSolution()) throw new IllegalStateException("The answer "+ this +"  must be a solution to call removeSolution() method");
 		this.question.removeSolution();
 	}
 	
