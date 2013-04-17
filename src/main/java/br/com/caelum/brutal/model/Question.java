@@ -151,7 +151,6 @@ public class Question extends Moderatable implements Post, Taggable{
 		if (!answer.getQuestion().equals(this))
 			throw new RuntimeException("Can not be solved by this answer");
 		this.solution = answer;
-		touchedBy(this.getAuthor());
 	}
 
 	protected void removeSolution() {
