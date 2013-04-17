@@ -62,5 +62,4 @@ public class ListController {
 		result.include("tags", tags.all());
 	}
 
-
 }

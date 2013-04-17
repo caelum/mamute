@@ -30,8 +30,9 @@ public class QuestionTest  extends TestCase{
 	}
 	
 	@Test
-	public void should_be_touched_when_marked_as_solved() {
+	public void should_not_be_touched_when_marked_as_solved() {
 		Question shouldILiveForever = question.build();
+		User touchedBy = shouldILiveForever.getLastTouchedBy();
 		User leo = user("", "");
 		Answer yes = answer("my answer", shouldILiveForever, leo);
 		
@@ -39,7 +40,7 @@ public class QuestionTest  extends TestCase{
 
 		shouldILiveForever.markAsSolvedBy(yes);
 		
-		assertEquals(shouldILiveForever.getAuthor(), shouldILiveForever.getLastTouchedBy());
+		assertEquals(touchedBy, shouldILiveForever.getLastTouchedBy());
 	}
 
 	@Test

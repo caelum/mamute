@@ -76,7 +76,9 @@ public class Question extends Moderatable implements Post, Taggable{
 	
 	@Embedded
 	private final ModerationOptions moderationOptions = new ModerationOptions();
-	
+
+    public static final long SPAM_BOUNDARY = -5;
+    
 	
 	/**
 	 * @deprecated hibernate eyes only
@@ -151,7 +153,6 @@ public class Question extends Moderatable implements Post, Taggable{
 		if (!answer.getQuestion().equals(this))
 			throw new RuntimeException("Can not be solved by this answer");
 		this.solution = answer;
-		touchedBy(this.getAuthor());
 	}
 
 	protected void removeSolution() {

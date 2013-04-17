@@ -50,7 +50,7 @@ public class QuestionPage extends PageObject{
         String voteTypeClass = type.name().toLowerCase() + "-vote";
         byCSS(".question-area ." + voteTypeClass).click();
         Integer finalVoteCount = voteCount + type.getCountValue();
-        waitForTextIn(By.cssSelector(questionVoteCountSelector()), finalVoteCount.toString(), 10);
+        waitForTextIn(By.cssSelector(questionVoteCountSelector()), finalVoteCount.toString(), 5);
         return this;
     }
 

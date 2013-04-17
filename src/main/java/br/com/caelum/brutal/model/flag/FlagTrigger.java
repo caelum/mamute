@@ -2,7 +2,6 @@ package br.com.caelum.brutal.model.flag;
 
 import java.util.List;
 
-import br.com.caelum.brutal.model.flag.FlagAction;
 import br.com.caelum.brutal.model.interfaces.Flaggable;
 import br.com.caelum.vraptor.ioc.Component;
 
@@ -18,7 +17,9 @@ public class FlagTrigger {
 
 	public void fire(Flaggable flaggable) {
 		for (FlagAction action : actions) {
-			action.fire(flaggable);
+			if (action.shouldHandle(flaggable)) {
+				action.fire(flaggable);
+			}
 		}
 	}
 

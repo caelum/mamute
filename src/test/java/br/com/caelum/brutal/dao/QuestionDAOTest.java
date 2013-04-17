@@ -1,7 +1,7 @@
 package br.com.caelum.brutal.dao;
 
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,20 +79,7 @@ public class QuestionDAOTest extends DatabaseTestCase {
 		Question myQuestion = question.withTags(new ArrayList<Tag>()).withTitle(VALID_TITLE).withDescription(VALID_DESC).withAuthor(author).build();
 		questionsBeingAuthor.save(myQuestion );
 	}
-	
-	@Test
-	public void should_ignore_low_reputation_ones() {
-		Question salDaAzar = salDaAzar();
-		assertTrue(questionsBeingAuthor.allVisible().contains(salDaAzar));
 		
-		session.createQuery("update Question as q set q.voteCount = -4").executeUpdate();
-		assertTrue(questionsBeingAuthor.allVisible().contains(salDaAzar));
-
-		session.createQuery("update Question as q set q.voteCount = -5").executeUpdate();
-		assertFalse(questionsBeingAuthor.allVisible().contains(salDaAzar));
-
-	}
-	
 	@Test
 	public void should_return_only_questions_with_the_provided_tag() {
 		Question salDaAzar = salDaAzar();
@@ -136,19 +123,18 @@ public class QuestionDAOTest extends DatabaseTestCase {
 	@Test
 	public void should_list_question_with_low_vote_count_in_tag_listing() {
 		Question salDaAzar = salDaAzar();
-		for (int i = 0; i < -QuestionDAO.SPAM_BOUNDARY; i++) {
-			Vote vote = new Vote(null, VoteType.DOWN);
-			salDaAzar.substitute(null, vote);
-			session.save(vote);
-		}
-		List<Question> all = questionsForAnyone.allVisible();
-		List<Question> withTag = questionsForAnyone.withTagVisible(sal);
+		assertTrue(questionsBeingAuthor.allVisible().contains(salDaAzar));
+		assertTrue(questionsBeingAuthor.withTagVisible(sal).contains(salDaAzar));
 		
-		assertFalse(all.contains(salDaAzar));
-		assertTrue(withTag.contains(salDaAzar));
+		session.createQuery("update Question as q set q.voteCount = -4").executeUpdate();
+		assertTrue(questionsBeingAuthor.allVisible().contains(salDaAzar));
+		assertTrue(questionsBeingAuthor.withTagVisible(sal).contains(salDaAzar));
+		
+		session.createQuery("update Question as q set q.voteCount = -5").executeUpdate();
+		assertFalse(questionsBeingAuthor.allVisible().contains(salDaAzar));
+		assertTrue(questionsBeingAuthor.withTagVisible(sal).contains(salDaAzar));
 	}
-
-
+	
 	private void assertNotContains(Question salDaAzar, QuestionDAO dao) {
 		assertFalse(dao.allVisible().contains(salDaAzar));
 		assertFalse(dao.unsolvedVisible().contains(salDaAzar));

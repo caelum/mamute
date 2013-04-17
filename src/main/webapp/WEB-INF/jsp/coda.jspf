@@ -54,6 +54,7 @@ UserVoice.push(['showTab', 'classic_widget', {
 	<script src="<c:url value="/js/Markdown.Editor.js"/>"></script>
 	<script src="<c:url value="/js/marked.js"/>"></script>
 	<script src="<c:url value="/js/form-markdown.js"/>"></script>
+	<script src="<c:url value="/js/modal.js"/>"></script>
 	<script src="<c:url value="/js/up-down-vote.js"/>"></script>
 	<script src="<c:url value="/js/links-behaviour.js"/>"></script>
 	<script src="<c:url value="/js/tag-autocomplete.js"/>"></script>
@@ -71,11 +72,18 @@ UserVoice.push(['showTab', 'classic_widget', {
 </c:if>
 <c:if test="${environment.name == 'production'}" >
 	<script src="<c:url value="/js/all.js"/>"></script>
+	
+	<%-- this script cannot be in all.js or will cause strange errors --%>
+	<script src="<c:url value="/js/links-behaviour.js"/>"></script>  
+	
 	<script type="text/javascript">
 	
 	  var _gaq = _gaq || [];
 	  _gaq.push(['_setAccount', 'UA-132222-1']);
 	  _gaq.push(['_trackPageview']);
+	  _gaq.push(['b._setAccount', 'UA-132222-7']);
+	  _gaq.push(['b._trackPageview']);
+	  
 	
 	  (function() {
 	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;

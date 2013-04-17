@@ -74,6 +74,7 @@ a:hover{
 
 .subheader-menu {
 	float: right;
+	line-height: 1.7em;
 }
 
 .subheader-menu a {
@@ -1296,10 +1297,17 @@ a.button.ask-a-question:hover{
 .modal-flag input[type="submit"]:active {
 	opacity: 1;
 }
+
 .comment-vote-count {
 	color: #9B764F;
 	font-size: 1.25em;
 	font-weight: bold;
+}
+
+.modal-close-button{
+	cursor:pointer;
+	font-size: 1.4em;
+	float:right;
 }
 
 /*EDIT VIA AJAX*/

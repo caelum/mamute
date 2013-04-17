@@ -15,33 +15,37 @@ import br.com.caelum.brutal.model.User;
 public class FlaggableDAOTest extends DatabaseTestCase {
 
 	@Test
-	public void should_get_comments_with_three_flags() throws Exception {
+	public void should_get_visible_comments_with_three_flags_() throws Exception {
 		FlaggableDAO flaggables = new FlaggableDAO(session);
     	User author = user("author author", "author@brutal.com");
 		Comment comment = comment(author, "comment comment comment comment");
 		Comment other = comment(author, "comment comment comment comment");
-		Flag flag1 = flag(FlagType.RUDE, author);
-		Flag flag2 = flag(FlagType.RUDE, author);
-		Flag flag3 = flag(FlagType.RUDE, author);
+		Comment flaggedInvisible = comment(author, "invisible invisible invisible invisible");
+		flaggedInvisible.remove();
 		Flag flag4 = flag(FlagType.RUDE, author);
 		
-		comment.add(flag1);
-		comment.add(flag2);
-		comment.add(flag3);
+		addFlags(comment, 3, author);
+		addFlags(flaggedInvisible, 3, author);
 		other.add(flag4);
 		
 		session.save(author);
-		session.save(flag1);
-		session.save(flag2);
-		session.save(flag3);
-		session.save(flag4);
 		session.save(comment);
+		session.save(flaggedInvisible);
 		session.save(other);
+		session.save(flag4);
 		
-		List<FlaggableAndFlagCount> flagged = flaggables.flagged(Comment.class, 3l);
+		List<FlaggableAndFlagCount> flagged = flaggables.flaggedButVisible(Comment.class, 3l);
 		assertEquals(1, flagged.size());
 		assertEquals(3l, flagged.get(0).getFlagCount());
 		
+	}
+
+	private void addFlags(Comment comment, int n, User author) {
+		for (int i = 0; i < n; i++) {
+			Flag flag = flag(FlagType.RUDE, author);
+			session.save(flag);
+			comment.add(flag);
+		}
 	}
 
 

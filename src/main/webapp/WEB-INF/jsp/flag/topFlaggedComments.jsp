@@ -5,7 +5,7 @@
 <tags:moderationTabs />
 
 <ul>
-	<c:forEach items="${flaggedComments}" var="commentAndFlag">
+	<c:forEach items="${flagged}" var="commentAndFlag">
 		<li>
 			${commentAndFlag.flaggable.comment} - ${commentAndFlag.flaggable.author.name} - ${commentAndFlag.flagCount} <fmt:message key="moderation.flags"/> 
 		</li>

@@ -27,9 +27,13 @@ public class FlaggableDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<FlaggableAndFlagCount> flagged(Class<?> model, Long minFlagCount) {
+	public List<FlaggableAndFlagCount> flaggedButVisible(Class<?> model, Long minFlagCount) {
 		String dtoName = FlaggableAndFlagCount.class.getName();
-		String hql = "select new " + dtoName + "(comment, count(flags)) from " + model.getSimpleName() + " comment left join comment.flags flags group by comment having count(flags) >= :min";
+		String hql = "select new " + dtoName + "(flaggable, count(flags)) from " + model.getSimpleName() + " flaggable " +
+				"left join flaggable.flags flags " +
+				"where flaggable.moderationOptions.invisible = false " +
+				"group by flaggable " +
+				"having count(flags) >= :min ";
 		Query query = session.createQuery(hql);
 		return query.setParameter("min", minFlagCount).list();
 	}
