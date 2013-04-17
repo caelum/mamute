@@ -174,9 +174,6 @@ public class Question extends Moderatable implements Post, Taggable{
 	@Override
 	public void substitute(Vote previous, Vote vote) {
 		this.voteCount += vote.substitute(previous, votes);
-		if(voteCount < SPAM_BOUNDARY){
-			remove();
-		}
 	}
 
 	@Override

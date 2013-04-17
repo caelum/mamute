@@ -123,19 +123,18 @@ public class QuestionDAOTest extends DatabaseTestCase {
 	@Test
 	public void should_list_question_with_low_vote_count_in_tag_listing() {
 		Question salDaAzar = salDaAzar();
-		for (int i = 0; i < -QuestionDAO.SPAM_BOUNDARY; i++) {
-			Vote vote = new Vote(null, VoteType.DOWN);
-			salDaAzar.substitute(null, vote);
-			session.save(vote);
-		}
-		List<Question> all = questionsForAnyone.allVisible();
-		List<Question> withTag = questionsForAnyone.withTagVisible(sal);
+		assertTrue(questionsBeingAuthor.allVisible().contains(salDaAzar));
+		assertTrue(questionsBeingAuthor.withTagVisible(sal).contains(salDaAzar));
 		
-		assertFalse(all.contains(salDaAzar));
-		assertTrue(withTag.contains(salDaAzar));
+		session.createQuery("update Question as q set q.voteCount = -4").executeUpdate();
+		assertTrue(questionsBeingAuthor.allVisible().contains(salDaAzar));
+		assertTrue(questionsBeingAuthor.withTagVisible(sal).contains(salDaAzar));
+		
+		session.createQuery("update Question as q set q.voteCount = -5").executeUpdate();
+		assertFalse(questionsBeingAuthor.allVisible().contains(salDaAzar));
+		assertTrue(questionsBeingAuthor.withTagVisible(sal).contains(salDaAzar));
 	}
-
-
+	
 	private void assertNotContains(Question salDaAzar, QuestionDAO dao) {
 		assertFalse(dao.allVisible().contains(salDaAzar));
 		assertFalse(dao.unsolvedVisible().contains(salDaAzar));

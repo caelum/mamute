@@ -13,10 +13,11 @@ public class InvisibleForUsersRule {
 	}
 	
 	public String getInvisibleOrNotFilter(String modelAlias){
-		return getInvisibleOrNotFilter(modelAlias, false, "");
+		return getInvisibleOrNotFilter(modelAlias, "");
 	}
 	
-	public String getInvisibleOrNotFilter(String modelAlias, boolean hasAnotherFilter, String connective){
+	public String getInvisibleOrNotFilter(String modelAlias, String connective){
+		boolean hasAnotherFilter = !connective.isEmpty();
 		boolean invisible = user == null || !user.isModerator();
 		String filter = "";
 		if(hasAnotherFilter){

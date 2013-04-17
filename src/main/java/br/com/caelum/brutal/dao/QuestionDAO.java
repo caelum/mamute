@@ -40,12 +40,12 @@ public class QuestionDAO {
 				" join fetch qi.tags t" +
 				" left join fetch q.solution s" +
 				" left join fetch q.solution.information si" +
-				" "+ invisibleFilter(false) +" order by q.lastUpdatedAt desc";
+				" "+ invisibleFilter("and") +" " + spamFilter() +" order by q.lastUpdatedAt desc";
 		return session.createQuery(hql).setMaxResults(50).list();
 	}
 
 	public List<Question> unsolvedVisible() {
-		return session.createQuery("from Question as q "+invisibleFilter(true, "and")+" (q.solution is null) order by q.lastUpdatedAt desc").setMaxResults(50).list();
+		return session.createQuery("from Question as q "+invisibleFilter("and")+" (q.solution is null) order by q.lastUpdatedAt desc").setMaxResults(50).list();
 	}
 
 	public Question load(Question question) {
@@ -55,7 +55,7 @@ public class QuestionDAO {
 	public List<Question> withTagVisible(Tag tag) {
 		List<Question> questions = session.createQuery("select q from Question as q " +
 				"join q.information.tags t " + 
-				invisibleFilter(true,  "and") + " t = :tag order by q.lastUpdatedAt desc")
+				invisibleFilter("and") + " t = :tag order by q.lastUpdatedAt desc")
 				.setParameter("tag", tag)
 				.setMaxResults(50)
 				.list();
@@ -66,14 +66,16 @@ public class QuestionDAO {
 		return withAuthor.by(user,orderByWhat);
 	}
 
-
-
-	private String invisibleFilter(boolean hasAnotherFilter) {
-		return invisibleFilter(hasAnotherFilter, "");
+	private String spamFilter() {
+		return "q.voteCount > "+SPAM_BOUNDARY;
 	}
 	
-	private String invisibleFilter(boolean hasAnotherFilter, String connective) {
-		return invisible.getInvisibleOrNotFilter("q", hasAnotherFilter, connective);
+	private String invisibleFilter() {
+		return invisibleFilter("");
+	}
+	
+	private String invisibleFilter(String connective) {
+		return invisible.getInvisibleOrNotFilter("q", connective);
 	}
 }
 
