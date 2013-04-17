@@ -12,5 +12,4 @@ public interface Votable {
 	Serializable getId();
 	long getVoteCount();
     Class<? extends Votable> getType();
-    void remove();
 }
