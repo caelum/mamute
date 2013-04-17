@@ -1145,7 +1145,7 @@ a.button.ask-a-question:hover{
 }
 
 .post-meta {
-	text-align: center;
+	text-align: right;
 	width: 10%;
 }
 
@@ -1165,7 +1165,6 @@ a.button.ask-a-question:hover{
 .vote-count{
 	display: block;
 	text-align: center;
-	width: 100%;
 }
 
 .post-vote-count {
@@ -1197,7 +1196,7 @@ a.button.ask-a-question:hover{
 
 .comment {
 	overflow: hidden;
-	padding: 0 2em 0.3em 0;
+	padding: .2em 2em .2em .5em;
 	border-bottom: dotted 1px #ddd;
 	line-height: 16px;
 }
@@ -1207,8 +1206,8 @@ a.button.ask-a-question:hover{
 }
 
 .comment-meta{
-	width:6%;
-	height:47px;
+	width:5%;
+	min-height:33px;
 }
 
 .comment .comment-meta-item{
@@ -1216,7 +1215,8 @@ a.button.ask-a-question:hover{
 }
 
 .comment:hover .comment-meta-item{
-	display:block;
+	display:inline-block;
+	vertical-align: top;
 }
 
 .comment-option{
