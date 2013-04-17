@@ -8,5 +8,6 @@ public interface Flaggable {
 	public void add(Flag flag);
 	public boolean alreadyFlaggedBy(User user);
 	public void remove();
+	public boolean isVisible();
 
 }

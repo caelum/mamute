@@ -119,7 +119,7 @@ public class Answer extends Moderatable implements Post, Subscribable {
 	}
 	
 	public boolean isInvisible(){
-		return moderationOptions.isInvisible();
+		return moderationOptions.isVisible();
 	}
 
     @Override
@@ -263,6 +263,11 @@ public class Answer extends Moderatable implements Post, Subscribable {
 	@Override
 	public void remove() {
 		this.moderationOptions.remove();
+	}
+	
+	@Override
+	public boolean isVisible() {
+		return this.moderationOptions.isVisible();
 	}
 
 }

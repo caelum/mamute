@@ -7,8 +7,8 @@ public class ModerationOptions {
 	static final long VISIBILITY_THRESHOLD = -5;
 	private boolean invisible = false;
 	
-	public boolean isInvisible() {
-		return invisible;
+	public boolean isVisible() {
+		return !invisible;
 	}
 
 	public void remove() {

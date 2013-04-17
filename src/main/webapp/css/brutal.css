@@ -730,11 +730,16 @@ a.button.ask-a-question:hover{
 .question-item {
 	border-bottom: 1px solid #EAEAEA;
 	padding-bottom: .8em;
-	margin-bottom: 2%;
+	padding-top: 2%;
 }
 
-.question-item:last-child {
-	margin-bottom: 0;
+
+.question-item:first-child {
+	padding-top: 0;
+}
+
+.invisible-question {
+	background-color: #fce4b4;
 }
 
 .summary {
