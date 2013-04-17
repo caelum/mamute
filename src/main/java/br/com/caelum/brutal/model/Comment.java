@@ -152,10 +152,6 @@ public class Comment implements Subscribable, Votable, Flaggable {
 		return voteCount;
 	}
 
-	public boolean isInvisible(){
-		return moderationOptions.isVisible();
-	}
-
 	@Override
 	public void remove() {
 		moderationOptions.remove();
@@ -165,5 +161,9 @@ public class Comment implements Subscribable, Votable, Flaggable {
 	public boolean isVisible() {
 		return this.moderationOptions.isVisible();
 	}
-	
+
+	@Override
+	public boolean isVisibleForModeratorAnd(User user) {
+		return !this.isVisible() && user != null && user.isModerator();
+	}
 }

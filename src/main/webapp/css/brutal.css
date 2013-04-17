@@ -58,7 +58,6 @@ a:hover{
 
 .subheader {
 	border-bottom: 1px solid #cccccc;
-	margin-bottom: 15px;
 	padding-bottom: .7em;
 	overflow: hidden;
 }
@@ -707,6 +706,15 @@ a.button.ask-a-question:hover{
 	padding: 0 1.5em;
 }
 
+.sidebar .section-title {
+	padding-top: 11%;
+	margin-bottom: 0;
+}
+
+.tags-usage {
+	padding-top: 11%;
+}
+
 /*BUTTON*/
 .button {
 	padding: 0 1.5em;
@@ -734,12 +742,7 @@ a.button.ask-a-question:hover{
 	padding-top: 2%;
 }
 
-
-.question-item:first-child {
-	padding-top: 0;
-}
-
-.invisible-question {
+.highlight-post {
 	background-color: #fce4b4;
 }
 
@@ -1006,6 +1009,7 @@ a.button.ask-a-question:hover{
 	overflow: hidden;
 	margin-bottom:2%;
 	padding-bottom: 1%;
+	padding-top: 15px;
 }
 
 .question-area {
@@ -1235,10 +1239,6 @@ a.button.ask-a-question:hover{
 .same-author {
 	background-color: #E0EAF1;
 	padding: 0 .35em;
-}
-
-.answer {
-	padding-bottom: 1em;
 }
 
 .comment .flag-it.selected,
@@ -1548,5 +1548,4 @@ a.button.ask-a-question:hover{
 .opaque {
 	opacity:0.2;
 }
-
 

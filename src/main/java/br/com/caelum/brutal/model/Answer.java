@@ -119,10 +119,6 @@ public class Answer extends Moderatable implements Post, Subscribable {
 		return (this.question.isSolved() && this.question.getSolution().equals(this));
 	}
 	
-	public boolean isInvisible(){
-		return moderationOptions.isVisible();
-	}
-
     @Override
     public void substitute(Vote previous, Vote vote) {
     	this.voteCount += vote.substitute(previous, votes);
@@ -271,4 +267,8 @@ public class Answer extends Moderatable implements Post, Subscribable {
 		return this.moderationOptions.isVisible();
 	}
 
+	@Override
+	public boolean isVisibleForModeratorAnd(User user) {
+		return !this.isVisible() && !user.isAuthorOf(this);
+	}
 }

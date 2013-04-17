@@ -7,7 +7,7 @@
 <%@attribute name="currentUserVote" type="br.com.caelum.brutal.model.Vote" required="false" %>
 
 <c:set var="isCommentAuthor" value="${comment.author.id == currentUser.id}"/>
-<li class="comment ${collapsed ? 'collapsed hidden' : ''}" id="comment-${comment.id}">
+<li class="comment ${collapsed ? 'collapsed hidden' : ''} ${comment.isVisibleForModeratorAnd(currentUser) ? 'highlight-post' : '' }" id="comment-${comment.id}">
 	<div class="post-meta comment-meta vote-container">
 		<a title="<fmt:message key="comment.list.upvote"/>"  class="comment-meta-item container comment-option author-cant requires-login vote-option icon-chevron-up 
 			${(not empty currentUserVote) ? 'voted' : '' }" 

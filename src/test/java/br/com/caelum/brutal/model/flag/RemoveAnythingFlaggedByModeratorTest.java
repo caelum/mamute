@@ -20,7 +20,7 @@ public class RemoveAnythingFlaggedByModeratorTest extends TestCase {
 		Comment comment = comment(author, "blablablablba");
 		removeFlaggedByModerator.fire(comment);
 		
-		assertTrue(comment.isInvisible());
+		assertFalse(comment.isVisible());
 	}
 	
 	@Test
@@ -30,7 +30,7 @@ public class RemoveAnythingFlaggedByModeratorTest extends TestCase {
 		Comment comment = comment(author, "blablablablba");
 		
 		assertFalse(removeFlaggedByModerator.shouldHandle(comment));
-		assertFalse(comment.isInvisible());
+		assertTrue(comment.isVisible());
 	}
 	
 	@Test
@@ -39,7 +39,7 @@ public class RemoveAnythingFlaggedByModeratorTest extends TestCase {
 		Comment comment = comment(author, "blablablablba");
 		
 		assertFalse(removeFlaggedByModerator.shouldHandle(comment));
-		assertFalse(comment.isInvisible());
+		assertTrue(comment.isVisible());
 	}
 
 }
