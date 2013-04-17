@@ -13,3 +13,6 @@ function Modal(modalElement){
 Modal.prototype.toggle = function(){
 	this.element.toggleClass('hidden');
 }
+Modal.prototype.hide = function(){
+	this.element.hide();
+}
