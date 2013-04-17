@@ -23,6 +23,7 @@ import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.model.UserSession;
 import br.com.caelum.brutal.model.Vote;
 import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.ioc.ApplicationScoped;
@@ -63,6 +64,7 @@ public class SessionFactoryCreator implements ComponentFactory<SessionFactory> {
 		cfg.addAnnotatedClass(QuestionInformation.class);
 		cfg.addAnnotatedClass(Flag.class);
 		cfg.addAnnotatedClass(LoginMethod.class);
+		cfg.addAnnotatedClass(UserSession.class);
 
 		init();
 	}

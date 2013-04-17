@@ -13,6 +13,7 @@ import br.com.caelum.brutal.infra.MD5;
 import br.com.caelum.brutal.model.LoginMethod;
 import br.com.caelum.brutal.model.MethodType;
 import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.model.UserSession;
 
 public class UserDAOTest extends DatabaseTestCase {
 
@@ -41,10 +42,10 @@ public class UserDAOTest extends DatabaseTestCase {
 	public void should_find_by_session_key() {
 	    User guilherme = user("Guilherme Silveira", "guilherme@caelum.com.br");
 	    users.save(guilherme);
-	    guilherme.setSessionKey();
-	    String sessionKey = guilherme.getSessionKey();
+	    UserSession userSession = guilherme.newSession();
+	    users.save(userSession);
 	    
-	    assertEquals(guilherme, users.findBySessionKey(sessionKey));
+	    assertEquals(guilherme, users.findBySessionKey(userSession.getSessionKey()).getUser());
 	    assertNull(users.findBySessionKey("12345"));
 	    assertNull(users.findBySessionKey(null));
 	}

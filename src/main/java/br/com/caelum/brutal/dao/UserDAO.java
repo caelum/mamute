@@ -5,9 +5,11 @@ import net.vidageek.mirror.dsl.Mirror;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import br.com.caelum.brutal.dto.UserAndSession;
 import br.com.caelum.brutal.infra.Digester;
 import br.com.caelum.brutal.model.MethodType;
 import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.model.UserSession;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
@@ -92,10 +94,11 @@ public class UserDAO {
 		return loadByName(name) != null;	
 	}
 
-    public User findBySessionKey(String key) {
-        Query query = session.createQuery("from User where sessionKey=:key");
-        return (User) query.setParameter("key", key).uniqueResult();
-        
+    public UserAndSession findBySessionKey(String key) {
+        Query query = session.createQuery("select new br.com.caelum.brutal.dto.UserAndSession(user, session) from UserSession session " +
+        		"join session.user user " +
+        		"where session.sessionKey=:key");
+        return (UserAndSession) query.setParameter("key", key).uniqueResult();
     }
 
 	public User findByEmailAndMethod(String email, MethodType... methods) {
@@ -106,5 +109,13 @@ public class UserDAO {
 		query.setParameter("email", email);
 		query.setParameterList("methods", methods);
 		return (User) query.uniqueResult();
+	}
+
+	public void save(UserSession userSession) {
+		session.save(userSession);
+	}
+
+	public void delete(UserSession userSession) {
+		session.delete(userSession);
 	}
 }

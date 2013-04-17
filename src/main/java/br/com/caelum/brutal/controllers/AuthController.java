@@ -36,7 +36,6 @@ public class AuthController extends Controller {
 	
 	@Post("/login")
 	public void login(String email, String password, String redirectUrl) {
-		
 		if (auth.authenticate(email, password)) {
 			redirectToRightUrl(redirectUrl);
 		} else {

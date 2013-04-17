@@ -117,7 +117,7 @@ public class AnswerController {
 
     private void markOrRemove(Answer answer) {
     	Question question = answer.getQuestion();
-    	if(answer.isSolution()){
+    	if (answer.isSolution()){
     		decreaseKarmaOfOldSolution(answer);
     		answer.removeSolution();
     	}else{

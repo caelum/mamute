@@ -26,14 +26,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Index;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
@@ -54,10 +52,6 @@ public class User implements Identifiable {
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
 	private final DateTime createdAt = new DateTime();
 	
-	@Index(name="session_key")
-	@Column(unique=true)
-	private String sessionKey;
-
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -134,9 +128,11 @@ public class User implements Identifiable {
 		return nameLastTouchedAt;
 	}
 
-	public void setSessionKey() {
+	public UserSession newSession() {
 	    Long currentTimeMillis = System.currentTimeMillis();
-	    this.sessionKey = Digester.encrypt(currentTimeMillis.toString() + this.id.toString());
+	    String sessionKey = Digester.encrypt(currentTimeMillis.toString() + this.id.toString());
+	    UserSession userSession = new UserSession(this, sessionKey);
+	    return userSession;
     }
 
     public void setName(String name) {
@@ -238,10 +234,6 @@ public class User implements Identifiable {
 		throw new IllegalStateException("this guy dont have a brutal login method!");
 	}
 	
-	public String getSessionKey() {
-		return sessionKey;
-	}
-
 	public String getPhoto(Integer width, Integer height) {
 		String size = width + "x" + height;
 		if (photoUri == null) {
@@ -318,10 +310,6 @@ public class User implements Identifiable {
 
     public void increaseKarma(int value) {
         this.karma += value;
-    }
-    
-    public void resetSession() {
-        sessionKey = null;
     }
     
     public void confirmEmail(){
