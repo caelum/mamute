@@ -5,9 +5,12 @@
 <tags:moderationTabs />
 
 <ul>
-	<c:forEach items="${flaggedComments}" var="questionAndFlag">
+	<c:forEach items="${flagged}" var="questionAndFlag">
 		<li>
-			${questionAndFlag.flaggable.information.title} - ${questionAndFlag.flaggable.author.name} - ${questionAndFlag.flagCount} <fmt:message key="moderation.flags"/> 
+			<c:set var="question" value="${questionAndFlag.flaggable}" />
+			<a href="${linkTo[QuestionController].showQuestion[question][question.sluggedTitle]}">
+				${questionAndFlag.flaggable.information.title}
+			</a> - ${question.author.name} - ${questionAndFlag.flagCount} <fmt:message key="moderation.flags"/> 
 		</li>
 	</c:forEach>
 </ul>
