@@ -2,8 +2,8 @@ package br.com.caelum.brutal.dao;
 
 import static br.com.caelum.brutal.dao.WithAuthorDAO.OrderType.ByDate;
 import static br.com.caelum.brutal.dao.WithAuthorDAO.OrderType.ByVotes;
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
