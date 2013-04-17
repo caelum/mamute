@@ -54,6 +54,7 @@ UserVoice.push(['showTab', 'classic_widget', {
 	<script src="<c:url value="/js/Markdown.Editor.js"/>"></script>
 	<script src="<c:url value="/js/marked.js"/>"></script>
 	<script src="<c:url value="/js/form-markdown.js"/>"></script>
+	<script src="<c:url value="/js/modal.js"/>"></script>
 	<script src="<c:url value="/js/up-down-vote.js"/>"></script>
 	<script src="<c:url value="/js/links-behaviour.js"/>"></script>
 	<script src="<c:url value="/js/tag-autocomplete.js"/>"></script>

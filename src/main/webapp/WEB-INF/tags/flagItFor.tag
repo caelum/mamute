@@ -6,6 +6,9 @@
 <%@attribute name="type" type="java.lang.String" required="true" %>
 
 <div class="hidden modal modal-flag" id="${modalId}">
+	<ul class="nav">
+		<li class="modal-close-button">x</li>
+	</ul>
 	<form class="validated-form" action="${linkTo[FlagController].addFlag[type][flaggable.id]}">
 		<input type="radio" value="RUDE" name="flagType" id="flag-type-rude" />
 		<label for="flag-type-rude"><fmt:message key="comment.flag.rude" /></label>

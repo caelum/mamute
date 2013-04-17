@@ -3,47 +3,47 @@ $(".flag-it").click(function(e) {
 	var link = $(this);
 	var commentOptions = link.parent();
 	var comment = link.parents('.comment');
-	var modal = $("#"+link.data("modal-id"))
-	var form = modal.find("form");
+	var modal = new Modal($("#" + link.data("modal-id")));
+	var form = modal.element.find("form");
 	var uri = form.attr("action");
-	
-	modal.toggleClass('hidden');
+
 	link.toggleClass('selected');
 	comment.toggleClass('to-flag');
-	
+
 	var callbacks = {};
 	callbacks["409"] = function() {
-		errorPopup("Você não pode fazer isso.", modal, "center-popup");
+		errorPopup("Você não pode fazer isso.", modal.element, "center-popup");
 	};
 	callbacks["400"] = function() {
-		errorPopup("Escolha uma opção.", modal, "center-popup");
+		errorPopup("Escolha uma opção.", modal.element, "center-popup");
 	};
 	callbacks["403"] = function() {
-		errorPopup("Você deve estar logado.", modal, "center-popup");
+		errorPopup("Você deve estar logado.", modal.element, "center-popup");
 	};
 	callbacks["200"] = function() {
 		modal.hide(200);
 		link.remove();
 	};
-	
+
 	form.submit(function(e) {
 		e.preventDefault();
 		$.ajax(uri, {
-			complete: function(xhr, textStatus) {
+			complete : function(xhr, textStatus) {
 				console.log(xhr.status);
 				if (callbacks[xhr.status] != undefined) {
 					callbacks[xhr.status].call();
-				}
-				else {
+				} else {
 					errorPopup("Ocorreu um erro.", modal, "center-popup");
 				}
 			},
-			data: form.serialize(),
-			headers: {Accept: "application/json"},
-			method: "POST"
+			data : form.serialize(),
+			headers : {
+				Accept : "application/json"
+			},
+			method : "POST"
 		});
 	});
-	
+
 });
 
 $(".other-option").change(function() {
