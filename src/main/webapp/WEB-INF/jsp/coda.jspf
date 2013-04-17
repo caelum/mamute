@@ -80,6 +80,9 @@ UserVoice.push(['showTab', 'classic_widget', {
 	  var _gaq = _gaq || [];
 	  _gaq.push(['_setAccount', 'UA-132222-1']);
 	  _gaq.push(['_trackPageview']);
+	  _gaq.push(['b._setAccount', 'UA-132222-7']);
+	  _gaq.push(['b._trackPageview']);
+	  
 	
 	  (function() {
 	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
