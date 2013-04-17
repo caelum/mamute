@@ -20,6 +20,9 @@
 		</#list>
 	</table>
 	<hr />
+	<span style="display:block; color: #aaa;">
+		${localization.getMessage("notifications_mail.footer_message")}
+	</span>
 	GUJ
 </body>
 </html>
