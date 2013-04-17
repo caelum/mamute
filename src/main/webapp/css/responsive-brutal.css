@@ -234,6 +234,12 @@
 	.center-popup {
 		margin: 4em 8em;
 	}
+	
+	.comment-meta {
+		height: 40px;
+		text-align:center;
+	}
+	
 }
 
 @media only screen and (max-width: 400px) {

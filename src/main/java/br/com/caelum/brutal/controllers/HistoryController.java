@@ -62,13 +62,6 @@ public class HistoryController {
 		}
 	}
 
-	private void similar(String moderatableType, Long moderatableId) {
-		Class<?> clazz = urlMapping.getClassFor(moderatableType);
-		result.include("histories", informations.pendingFor(moderatableId, clazz));
-		result.include("post", moderatables.getById(moderatableId, clazz));
-		result.include("type", moderatableType);
-	}
-
 	@ModeratorOrKarmaAccess(PermissionRulesConstants.MODERATE_EDITS)
 	@Get("/historico/resposta/{moderatableId}/versoes")
 	public void similarAnswers(Long moderatableId) {
@@ -81,6 +74,12 @@ public class HistoryController {
 		similar("pergunta", moderatableId);
 	}
 	
+	private void similar(String moderatableType, Long moderatableId) {
+		Class<?> clazz = urlMapping.getClassFor(moderatableType);
+		result.include("histories", informations.pendingFor(moderatableId, clazz));
+		result.include("post", moderatables.getById(moderatableId, clazz));
+		result.include("type", moderatableType);
+	}
 
 	@ModeratorOrKarmaAccess(PermissionRulesConstants.MODERATE_EDITS)
     @Post("/publicar/{moderatableType}")

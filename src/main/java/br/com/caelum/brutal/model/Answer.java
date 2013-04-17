@@ -271,4 +271,11 @@ public class Answer extends Moderatable implements Post, Subscribable {
 	public boolean isVisibleForModeratorAnd(User user) {
 		return !this.isVisible() && !user.isAuthorOf(this);
 	}
+	
+	public boolean hasPendingEdits() {
+		for (AnswerInformation information : history) {
+			if(information.isPending()) return true;
+		}
+		return false;
+	}
 }

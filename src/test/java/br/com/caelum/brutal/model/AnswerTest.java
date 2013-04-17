@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.model;
 
+import static br.com.caelum.brutal.model.UpdateStatus.PENDING;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -38,16 +39,28 @@ public class AnswerTest extends TestCase {
 		assertTrue(yes.isSolution());
 	}
 	
-	@Test
-    public void should_approve_answer_info() throws Exception {
-        Question myQuestion = question.withTitle("question title").withDescription("description").withAuthor(author).build();
-        Answer answer = answer("blablablab", myQuestion, author);
-        
-        Information approved = new AnswerInformation("blablabalblab", new LoggedUser(editUser, null), answer, "");
-        answer.approve(approved);
-        
-        assertEquals(approved, answer.getInformation());
-        assertEquals(editUser, answer.getLastTouchedBy());
-    }
 	
+	@Test
+	public void should_approve_answer_info() throws Exception {
+		Question myQuestion = question.withTitle("question title").withDescription("description").withAuthor(author).build();
+		Answer answer = answer("blablablab", myQuestion, author);
+		
+		Information approved = new AnswerInformation("blablabalblab", new LoggedUser(editUser, null), answer, "");
+		answer.approve(approved);
+		
+		assertEquals(approved, answer.getInformation());
+		assertEquals(editUser, answer.getLastTouchedBy());
+	}
+	
+	@Test
+	public void return_true_if_answer_has_pending_edits() throws Exception {
+		Question myQuestion = question.withTitle("question title").withDescription("description").withAuthor(author).build();
+		Answer answer = answer("blablablab", myQuestion, author);
+		assertFalse(answer.hasPendingEdits());
+		
+		AnswerInformation approved = new AnswerInformation("blablabalblab", new LoggedUser(editUser, null), answer, "");
+		answer.enqueueChange(approved, PENDING);
+		assertTrue(answer.hasPendingEdits());
+		
+	}
 }

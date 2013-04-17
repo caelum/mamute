@@ -10,6 +10,7 @@ public abstract class Moderatable implements Identifiable {
     protected abstract void updateApproved(Information approved);
     public abstract User getAuthor();
     public abstract String getTypeName();
+    public abstract boolean hasPendingEdits();
     
     public final UpdateStatus approve(Information approved) {
         if (!canBeUptadedWith(approved)) {

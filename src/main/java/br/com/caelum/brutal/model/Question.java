@@ -333,4 +333,12 @@ public class Question extends Moderatable implements Post, Taggable{
 	public boolean isVisibleForModeratorAnd(User user) {
 		return !this.isVisible() && !user.isAuthorOf(this);
 	}
+
+	@Override
+	public boolean hasPendingEdits() {
+		for (QuestionInformation information : history) {
+			if(information.isPending()) return true;
+		}
+		return false;
+	}
 }
