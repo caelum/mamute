@@ -74,6 +74,7 @@ a:hover{
 
 .subheader-menu {
 	float: right;
+	line-height: 1.7em;
 }
 
 .subheader-menu a {
