@@ -60,6 +60,7 @@ public class TagDAO {
 		return query.list();
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Tag> findAllWithoutRepeat(List<String> names) {
 		Query query = session.createQuery("select distinct tag from Tag tag where tag.name in (:listNames)").setParameterList("listNames", names);
 		return query.list();

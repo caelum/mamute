@@ -66,6 +66,7 @@ public class CommentDAO {
 		return (Comment) session.load(Comment.class, id);
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Comment> flagged(Long minFlagCount) {
 		String hql = "select comment from Comment comment left join comment.flags flags group by comment having count(flags) >= :min";
 		Query query = session.createQuery(hql);

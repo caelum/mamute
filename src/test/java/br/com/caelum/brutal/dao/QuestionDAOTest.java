@@ -15,8 +15,6 @@ import br.com.caelum.brutal.builder.QuestionBuilder;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
-import br.com.caelum.brutal.model.Vote;
-import br.com.caelum.brutal.model.VoteType;
 
 public class QuestionDAOTest extends DatabaseTestCase {
 

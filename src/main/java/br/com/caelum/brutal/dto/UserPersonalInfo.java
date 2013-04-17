@@ -1,7 +1,7 @@
 package br.com.caelum.brutal.dto;
 
-import static br.com.caelum.brutal.sanitizer.HtmlSanitizer.sanitize;
 import static br.com.caelum.brutal.model.MarkDown.parse;
+import static br.com.caelum.brutal.sanitizer.HtmlSanitizer.sanitize;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.ABOUT_LENGTH_MESSAGE;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.ABOUT_MAX_LENGTH;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.ABOUT_MIN_LENGTH;
@@ -13,8 +13,8 @@ import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.LOCATION
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.LOCATION_MAX_LENGTH;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.MARKED_ABOUT_MAX_LENGTH;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.NAME_LENGTH_MESSAGE;
-import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.NAME_MIN_LENGTH;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.NAME_MAX_LENGTH;
+import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.NAME_MIN_LENGTH;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.NAME_REQUIRED;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.REALNAME_LENGTH_MESSAGE;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.WEBSITE_LENGTH_MESSAGE;
