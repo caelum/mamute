@@ -76,7 +76,9 @@ public class Question extends Moderatable implements Post, Taggable{
 	
 	@Embedded
 	private final ModerationOptions moderationOptions = new ModerationOptions();
-	
+
+    public static final long SPAM_BOUNDARY = -5;
+    
 	
 	/**
 	 * @deprecated hibernate eyes only
@@ -172,6 +174,9 @@ public class Question extends Moderatable implements Post, Taggable{
 	@Override
 	public void substitute(Vote previous, Vote vote) {
 		this.voteCount += vote.substitute(previous, votes);
+		if(voteCount < SPAM_BOUNDARY){
+			remove();
+		}
 	}
 
 	@Override

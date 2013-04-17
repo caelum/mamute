@@ -12,17 +12,46 @@ public class InvisibleForUsersRule {
 		this.user = user;
 	}
 	
-	public String getIsInvisibleOrNotFilter(String modelAlias){
+	public String getInvisibleOrNotFilter(String modelAlias){
+		return getInvisibleOrNotFilter(modelAlias, false, "");
+	}
+	
+	public String getInvisibleOrNotFilter(String modelAlias, boolean hasAnotherFilter, String connective){
 		boolean invisible = user == null || !user.isModerator();
 		String filter = "";
+		if(hasAnotherFilter){
+			filter += "where";
+		}
 		if(invisible){
-			filter = "and ("+modelAlias+".moderationOptions.invisible = false";
-			if(user != null){
-				filter += " or " + modelAlias + ".author.id = " + user.getId();
-			}
-			filter += ")";
+			filter = whereInvisible(modelAlias);
+			if(user != null) filter += orAuthor(modelAlias);
+			filter += ") "+connective;
+		}
+		
+//		if(hasAnotherFilter){
+//			filter += filterContinuator(filter);
+//		}
+		
+		return filter;
+	}
+	
+	private String filterContinuator(String invisibleFilter) {
+		String filter = "";
+		if(invisibleFilter.isEmpty()){
+			filter += "where";
+		}else{
+			filter += "and";
 		}
 		return filter;
 	}
+	
+	private String whereInvisible(String modelAlias) {
+		return "where ("+modelAlias+".moderationOptions.invisible = false";
+	}
+
+	private String orAuthor(String modelAlias) {
+		return " or " + modelAlias + ".author.id = " + user.getId();
+	}
+
 
 }

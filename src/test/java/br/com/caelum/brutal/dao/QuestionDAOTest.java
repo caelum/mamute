@@ -79,20 +79,7 @@ public class QuestionDAOTest extends DatabaseTestCase {
 		Question myQuestion = question.withTags(new ArrayList<Tag>()).withTitle(VALID_TITLE).withDescription(VALID_DESC).withAuthor(author).build();
 		questionsBeingAuthor.save(myQuestion );
 	}
-	
-	@Test
-	public void should_ignore_low_reputation_ones() {
-		Question salDaAzar = salDaAzar();
-		assertTrue(questionsBeingAuthor.allVisible().contains(salDaAzar));
 		
-		session.createQuery("update Question as q set q.voteCount = -4").executeUpdate();
-		assertTrue(questionsBeingAuthor.allVisible().contains(salDaAzar));
-
-		session.createQuery("update Question as q set q.voteCount = -5").executeUpdate();
-		assertFalse(questionsBeingAuthor.allVisible().contains(salDaAzar));
-
-	}
-	
 	@Test
 	public void should_return_only_questions_with_the_provided_tag() {
 		Question salDaAzar = salDaAzar();
