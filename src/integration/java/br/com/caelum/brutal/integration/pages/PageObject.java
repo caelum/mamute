@@ -104,4 +104,15 @@ public abstract class PageObject {
     	}
     	return elementsTexts;
 	}
+
+	protected boolean isElementPresent(By by, WebElement in) {
+		waitForElement(by, 2);
+		try {
+			in.findElement(by);
+			return true;
+		} catch (NoSuchElementException e) {
+			return false;
+		}
+	}
+
 }
