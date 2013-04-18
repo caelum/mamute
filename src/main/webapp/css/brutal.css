@@ -1214,11 +1214,11 @@ a.button.ask-a-question:hover{
 	height:41px;
 }
 
-.comment .comment-meta-item{
+.comment .comment-meta-hidden{
 	display:none;
 }
 
-.comment:hover .comment-meta-item{
+.comment:hover .comment-meta-hidden{
 	display:block;
 }
 
@@ -1301,6 +1301,12 @@ a.button.ask-a-question:hover{
 	color: #9B764F;
 	font-size: 1.25em;
 	font-weight: bold;
+	display: block;
+	margin-top: 38%;
+}
+
+.comment:hover .comment-vote-count{
+	margin-top:0;
 }
 
 .modal-close-button{

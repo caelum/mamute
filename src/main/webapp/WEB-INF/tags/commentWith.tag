@@ -9,16 +9,16 @@
 <c:set var="isCommentAuthor" value="${comment.author.id == currentUser.id}"/>
 <li class="comment ${collapsed ? 'collapsed hidden' : ''} ${comment.isVisibleForModeratorAnd(currentUser) ? 'highlight-post' : '' }" id="comment-${comment.id}">
 	<div class="post-meta comment-meta vote-container">
-		<a title="<fmt:message key="comment.list.upvote"/>"  class="comment-meta-item container comment-option author-cant requires-login vote-option icon-chevron-up 
+		<a title="<fmt:message key="comment.list.upvote"/>"  class="comment-meta-hidden container comment-option author-cant requires-login vote-option icon-chevron-up 
 			${(not empty currentUserVote) ? 'voted' : '' }" 
 			data-value="positivo" data-author="${isCommentAuthor}" 
 			data-type="comentario" data-id="${comment.id}">
 		</a>
-		<span class="comment-meta-item vote-count comment-vote-count">${comment.voteCount}</span>
+		<span class="vote-count comment-vote-count">${comment.voteCount}</span>
 		<c:if test="${currentUser != null && !comment.alreadyFlaggedBy(currentUser) && !isCommentAuthor}">
 			<a title="<fmt:message key="flag"/>" href="#" data-author="${isCommentAuthor}"
 			data-modal-id="comment-flag-modal${comment.id}"
-			class="comment-meta-item container author-cant requires-login comment-option flag-it icon-flag"></a>
+			class="comment-meta-hidden container author-cant requires-login comment-option flag-it icon-flag"></a>
 		</c:if>
 	</div>
 	<div class="comment-container">
