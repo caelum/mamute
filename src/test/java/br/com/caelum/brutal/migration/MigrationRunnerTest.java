@@ -22,16 +22,16 @@ public class MigrationRunnerTest {
 
 	private MigrationExecutor executor;
 	private MigrationRunner runner;
-	private Migration m1;
-	private Migration m2;
+	private SimpleMigration m1;
+	private SimpleMigration m2;
 	private NumberExtractor extractor;
 
 	@Before
 	public void setup() throws IOException {
 		executor = mock(MigrationExecutor.class);
 
-		m1 = mock(Migration.class);
-		m2 = mock(Migration.class);
+		m1 = mock(SimpleMigration.class);
+		m2 = mock(SimpleMigration.class);
 
 		extractor = mock(NumberExtractor.class);
 		when(extractor.from(m1)).thenReturn(1);
@@ -86,7 +86,7 @@ public class MigrationRunnerTest {
 
 		runner.execute();
 
-		verify(executor, never()).run(any(Migration.class));
+		verify(executor, never()).run(any(SimpleMigration.class));
 	}
 
 	@Test

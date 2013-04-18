@@ -1,9 +1,9 @@
 package br.com.caelum.brutal.migration;
 
-public class M001TestMigration extends Migration {
+public class M001TestMigration extends SimpleMigration {
 
 	@Override
-	public String up() {
+	public String rawQuery() {
 		return "up";
 	}
 

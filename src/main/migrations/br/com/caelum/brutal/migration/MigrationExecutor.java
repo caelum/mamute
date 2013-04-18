@@ -1,6 +1,7 @@
 package br.com.caelum.brutal.migration;
 
 import java.math.BigInteger;
+import java.util.List;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
@@ -36,9 +37,9 @@ public class MigrationExecutor {
 		session.getTransaction().rollback();
 	}
 	
-	public void rollback(Migration m) {
-		if(m.hasDown()) {
-			runSqls(m.down());
+	public void rollback(SimpleMigration m) {
+		if (m.hasDown()) {
+			executeQueries(m.down());
 		}
 		rollback();
 	}
@@ -48,27 +49,27 @@ public class MigrationExecutor {
 	}
 
 	public int currentMigration() {
-		if(currentMigration == -1) {
+		if (currentMigration == -1) {
 			currentMigration = (int) session.createSQLQuery("select number from brutalmigration order by number desc limit 1").uniqueResult();
 		}
 		return currentMigration;
 	}
 
-	private void runSqls(String fullSql) {
-		String[] sqls = fullSql.split(Migration.SQL_SPLIT);
-		for(String sql : sqls) {
+	private void executeQueries(List<RawSQLMigration> queries) {
+		for (RawSQLMigration rawSQLMigration : queries) {
+			String sql = rawSQLMigration.up();
 			session.createSQLQuery(sql).executeUpdate();
 		}
 	}
 
-	public void run(Migration m) {
-		runSqls(m.up());
+	public void run(SimpleMigration m) {
+		executeQueries(m.up());
 	}
 
 	public void prepareTables() {
 		session.createSQLQuery("create table if not exists brutalmigration (number int(11))").executeUpdate();
 		BigInteger result = (BigInteger) session.createSQLQuery("select count(*) from brutalmigration").uniqueResult();
-		if(result.equals(BigInteger.ZERO)) {
+		if (result.equals(BigInteger.ZERO)) {
 			creator.createFromScratch();
 			session.createSQLQuery("insert into brutalmigration values(0)").executeUpdate();
 		}

@@ -1,15 +1,8 @@
 package br.com.caelum.brutal.migration;
 
-public abstract class Migration {
-	public static final String SQL_SPLIT = "#---";
+import java.util.List;
 
-	public abstract String up();
-	
-	public String down() {
-		return ""; 
-	}
-	
-	public boolean hasDown() {
-		return !down().equals("");
-	}
+public interface Migration {
+	public List<RawSQLMigration> up();
+	public List<RawSQLMigration> down();
 }
