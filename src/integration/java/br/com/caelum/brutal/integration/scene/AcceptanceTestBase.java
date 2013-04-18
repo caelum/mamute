@@ -23,6 +23,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import br.com.caelum.brutal.integration.pages.Home;
+import br.com.caelum.brutal.integration.pages.QuestionPage;
 import br.com.caelum.brutal.integration.util.AppMessages;
 import br.com.caelum.brutal.integration.util.ServerInfo;
 import br.com.caelum.vraptor.environment.DefaultEnvironment;
@@ -141,8 +142,8 @@ public abstract class AcceptanceTestBase implements ServerInfo.AcceptanceTest {
         return messages.getMessage(text);
     }
     
-    protected void createQuestion() {
-		home().toNewQuestionPage()
+    protected QuestionPage createQuestion() {
+		return home().toNewQuestionPage()
             .newQuestion("question title question title question title", 
                 "question description question description question description question description ", 
                 "java");

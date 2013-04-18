@@ -77,5 +77,5 @@ public class CreateQuestionTest extends AuthenticatedAcceptanceTest {
 		String message = message("question.errors.tags.unexistant");
 		assertTrue(newQuestionPage.containsErrorMessageLike(message));
 	}
-
+	
 }

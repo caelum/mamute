@@ -1,6 +1,8 @@
 package br.com.caelum.brutal.integration.pages;
 
 import static java.util.Arrays.asList;
+import static org.openqa.selenium.By.className;
+import static org.openqa.selenium.By.tagName;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,22 +88,12 @@ public class QuestionPage extends PageObject{
 	public QuestionPage answer(String description) {
 		WebElement answerForm = byClassName("answer-form");
 		byName("description").sendKeys(description);
-		if (elementPresent(By.cssSelector(".same-author-confirmation button"), answerForm)) {
+		if (isElementPresent(By.cssSelector(".same-author-confirmation button"), answerForm)) {
 			answerForm.findElement(By.cssSelector(".same-author-confirmation button")).click();
 			byName("description").sendKeys(description);
 		}
 		answerForm.submit();
 		return new QuestionPage(driver);
-	}
-
-	private boolean elementPresent(By by, WebElement in) {
-		waitForElement(by, 2);
-		try {
-			in.findElement(by);
-			return true;
-		} catch (NoSuchElementException e) {
-			return false;
-		}
 	}
 
 	public boolean firstAnswerHasDescription(String newDescription) {
@@ -130,24 +122,6 @@ public class QuestionPage extends PageObject{
         waitForElement(By.cssSelector(postContainer + " .comment-container span"), 10);
 	}
 
-	public List<String> firstAnswerComments() {
-		List<WebElement> commentsElements = allByCSS(".answer .comment span p");
-		return toListString(commentsElements);
-	}
-
-	public List<String> questionComments() {
-    	List<WebElement> commentsElements = allByCSS(".comment-container span");
-    	return toListString(commentsElements);
-    }
-
-	private List<String> toListString(List<WebElement> elements) {
-		List<String> listString = new ArrayList<>();
-		for (WebElement e : elements) {
-			listString.add(e.getText());
-		}
-		return listString;
-	}
-
 	public boolean isAnswerFormDisplayed() {
 		try{
 			byClassName("answer-form");
@@ -155,6 +129,29 @@ public class QuestionPage extends PageObject{
 		}catch(NoSuchElementException e){
 			return false;
 		}
+	}
+
+	public boolean editedTouchHasImage() {
+		WebElement edited = byClassName("post-touchs").findElement(By.cssSelector(".touch.edited-touch"));
+		return isElementPresent(tagName("img"), edited);
+	}
+	
+	public List<String> firstAnswerComments() {
+		List<WebElement> commentsElements = allByCSS(".answer .comment span p");
+		return toListString(commentsElements);
+	}
+	
+	public List<String> questionComments() {
+		List<WebElement> commentsElements = allByCSS(".comment-container span");
+		return toListString(commentsElements);
+	}
+	
+	private List<String> toListString(List<WebElement> elements) {
+		List<String> listString = new ArrayList<>();
+		for (WebElement e : elements) {
+			listString.add(e.getText());
+		}
+		return listString;
 	}
 	
 }

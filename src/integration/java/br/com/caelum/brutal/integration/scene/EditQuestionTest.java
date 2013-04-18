@@ -1,6 +1,8 @@
 package br.com.caelum.brutal.integration.scene;
 
+import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import junit.framework.Assert;
 
 import org.junit.Test;
 
@@ -66,6 +68,22 @@ public class EditQuestionTest extends AuthenticatedAcceptanceTest {
         questionPage.confirmationMessages().contains(message("status.no_need_to_approve"));
         questionPage.hasInformation(newTitle, newDescription, newTags);
         
+    }
+    
+    @Test
+    public void should_touch_question() throws Exception {
+    	String newTitle = "I'm the moderator, nigga";
+    	String newDescription = "yeah yeah yeah yeah yeah yeah yeah yeah";
+    	String newTags = "ruby";
+
+    	loginRandomly();
+    	boolean editedTouchHasImage = createQuestion().toEditQuestionPage()
+		.edit(newTitle, 
+				newDescription, 
+				newTags)
+		.editedTouchHasImage();
+    	
+    	assertFalse(editedTouchHasImage);
     }
 
 }
