@@ -6,7 +6,7 @@
 
 <form class="validated-form question-form hinted-form" action='${linkTo[QuestionController].edit[question.id]}' method="post" >
 	<label for="question-title"><fmt:message key="question.title.label"/></label>
-	<input id="question-title" type="text" class="required hintable text-input" value="${question.title}" data-hint-id="question-title-hint" minlength="15" maxlength="150" name="title">
+	<input id="question-title" type="text" class="required hintable text-input" value="<c:out value="${question.title}" escapeXml="true"/>" data-hint-id="question-title-hint" minlength="15" maxlength="150" name="title">
 	<tags:markDown value="${question.description}" hintId="question-description-hint" htmlClass="required" minlength="30"/>
 	<label for="tags"><fmt:message key="question.tags.label"/></label>
 	<ul class="tags autocompleted-tags hidden" id="question-tags-autocomplete"></ul>

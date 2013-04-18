@@ -15,22 +15,22 @@
 
 <form class="validated-form profile-edit-form" action="${linkTo[UserProfileController].editProfile[user]}" method="POST">
 	<label for="name" class="form-label"><fmt:message key="user_profile.edit.form.name.label" /></label>
-	<input type="text" name="name" class="text-input required" minlength="4" maxlength="100" value="${user.name}"/>
+	<input type="text" name="name" class="text-input required" minlength="4" maxlength="100" value="<c:out value="${user.name}" escapeXml="true"/>"/>
 	
 	<label for="email" class="form-label"><fmt:message key="user_profile.edit.form.email.label" /></label>
-	<input type="email" name="email" class="required text-input email" minlength="6" maxlength="100" value="${user.email}"/>
+	<input type="email" name="email" class="required text-input email" minlength="6" maxlength="100" value="<c:out value="${user.email}" escapeXml="true"/>"/>
 	
 	<label for="realName" class="form-label"><fmt:message key="user_profile.edit.form.real_name.label" /></label>
-	<input type="text" name="realName" class="text-input" maxlength="100" minlength="4" value="${user.realName}"/>
+	<input type="text" name="realName" class="text-input" maxlength="100" minlength="4" value="<c:out value="${user.realName}" escapeXml="true"/>"/>
 	
 	<label for="website" class="form-label"><fmt:message key="user_profile.edit.form.website.label" /></label>
-	<input type="text" name="website" class="text-input brutal-url" maxlength="200" value="${user.website}"/>
+	<input type="text" name="website" class="text-input brutal-url" maxlength="200" value="<c:out value="${user.website}" escapeXml="true"/>"/>
 	
 	<label for="birthDate" class="form-label"><fmt:message key="user_profile.edit.form.birth_date.label" /></label>
-	<input type="text" name="birthDate" id="datepicker" class="text-input date" maxlength="10" value="<tags:jodaTime pattern="dd/MM/YYYY" time="${user.birthDate}"></tags:jodaTime>" placeholder="dd/mm/yyyy"/>
+	<input type="text" name="birthDate" id="datepicker" class="text-input date" maxlength="10" value="<tags:jodaTime pattern="dd/MM/YYYY" time="${user.birthDate}"/>" placeholder="dd/mm/yyyy"/>
 	
 	<label for="location" class="form-label"><fmt:message key="user_profile.edit.form.location.label" /></label>
-	<input type="text" name="location" class="text-input" maxlength="100" value="${user.location}"/>
+	<input type="text" name="location" class="text-input" maxlength="100" value="<c:out value="${user.location}" escapeXml="true"/>"/>
 	
 	<label for="description" class="form-label"><fmt:message key="user_profile.edit.form.about.label" /></label>
 	<tags:markDown value="${user.about}" hintId="user-about-hint" minlength="6" maxlength="500" />
