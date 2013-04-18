@@ -8,10 +8,12 @@ import java.util.concurrent.TimeUnit;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.io.IOUtils;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriver.Navigation;
 import org.openqa.selenium.WebElement;
@@ -147,6 +149,24 @@ public abstract class AcceptanceTestBase implements ServerInfo.AcceptanceTest {
             .newQuestion("question title question title question title", 
                 "question description question description question description question description ", 
                 "java");
+	}
+    
+	protected void removeBindsFromElement(By by){
+		WebElement element = driver.findElement(by);
+		if(driver instanceof JavascriptExecutor){
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+			js.executeScript(getScript("/remove-binds.js"), element);
+		}
+	}
+
+	private String getScript(String file){
+		String script;
+		try {
+			script = IOUtils.toString(AcceptanceTestBase.class.getResourceAsStream(file));
+			return script;
+		} catch (IOException e) {
+			throw new RuntimeException("You need to create the file: '"+ file + "' at src/integration/resources");
+		}
 	}
     
     public int implicitWaitSeconds() {
