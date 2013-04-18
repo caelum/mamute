@@ -30,11 +30,24 @@ public class AnswerQuestionTest extends AuthenticatedAcceptanceTest{
 			"my description my description my description", "java");
 
 		logout();
-		boolean firstAnswerHasDescription = home()
+		boolean isAnswerFormDisplayed = home()
 			.toFirstQuestionPage()
 			.isAnswerFormDisplayed();
 
-		assertFalse(firstAnswerHasDescription);
+		assertFalse(isAnswerFormDisplayed);
+	}
+	
+	@Test
+	public void should_not_display_answer_form_when_already_answered(){
+		login();
+
+		String newDescription = "My very very awsome Answer big enough :)";
+		boolean isAnswerFormDisplayed = home().toNewQuestionPage()
+				.newQuestion("my question my question my question",
+				"my description my description my description", "java")
+				.answer(newDescription)		
+				.isAnswerFormDisplayed();
 		
+		assertFalse(isAnswerFormDisplayed);
 	}
 }
