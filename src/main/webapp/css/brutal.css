@@ -1211,7 +1211,7 @@ a.button.ask-a-question:hover{
 
 .comment-meta{
 	width:5%;
-	min-height:33px;
+	height:41px;
 }
 
 .comment .comment-meta-item{
@@ -1219,8 +1219,7 @@ a.button.ask-a-question:hover{
 }
 
 .comment:hover .comment-meta-item{
-	display:inline-block;
-	vertical-align: top;
+	display:block;
 }
 
 .comment-option{
