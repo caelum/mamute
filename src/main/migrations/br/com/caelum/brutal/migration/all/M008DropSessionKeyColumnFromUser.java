@@ -1,14 +1,27 @@
 package br.com.caelum.brutal.migration.all;
 
-import br.com.caelum.brutal.migration.SimpleMigration;
+import java.util.List;
 
-//@Component
-//@ApplicationScoped
-public class M008DropSessionKeyColumnFromUser extends SimpleMigration {
+import br.com.caelum.brutal.migration.Migration;
+import br.com.caelum.brutal.migration.MigrationOperation;
+import br.com.caelum.brutal.migration.RawSQLOperation;
+import br.com.caelum.vraptor.ioc.ApplicationScoped;
+import br.com.caelum.vraptor.ioc.Component;
+
+@Component
+@ApplicationScoped
+public class M008DropSessionKeyColumnFromUser implements Migration {
 
 	@Override
-	public String rawQuery() {
-		return "alter table User drop column sessionKey";
+	public List<MigrationOperation> up() {
+		String dropColumn = "alter table Users drop column sessionKey";
+		return RawSQLOperation.forSqls(dropColumn);
+	}
+
+	@Override
+	public List<MigrationOperation> down() {
+		String recreateColumn = "alter table Users add column sessionKey varchar(255) DEFAULT NULL";
+		return RawSQLOperation.forSqls(recreateColumn);
 	}
 
 }
