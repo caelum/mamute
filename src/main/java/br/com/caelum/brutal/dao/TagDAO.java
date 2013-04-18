@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -62,6 +63,8 @@ public class TagDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<Tag> findAllWithoutRepeat(List<String> names) {
+		if(names.isEmpty())
+			return new ArrayList<Tag>();
 		Query query = session.createQuery("select distinct tag from Tag tag where tag.name in (:listNames)").setParameterList("listNames", names);
 		return query.list();
 	}

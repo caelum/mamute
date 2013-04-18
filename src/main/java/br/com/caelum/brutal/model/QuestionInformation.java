@@ -43,12 +43,12 @@ public class QuestionInformation implements Information, Taggable {
 
 	@Lob
 	@Length(min = TITLE_MIN_LENGTH, max = TITLE_MAX_LENGTH, message = "question.errors.title.length")
-	@NotEmpty
+	@NotEmpty(message = "question.errors.title.length")
 	private String title;
 
 	@Lob
 	@Length(min = DESCRIPTION_MIN_LENGTH, message = "question.errors.description.length")
-	@NotEmpty
+	@NotEmpty(message = "question.errors.description.length")
 	private String description;
 
 	@Type(type = "text")

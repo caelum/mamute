@@ -125,18 +125,18 @@ public class QuestionController {
 	@ReputationEvent(ReputationEvents.NEW_QUESTION)
 	public void newQuestion(String title, String description, String tagNames) {
 		List<String> splitedTags = splitTags(tagNames);
-		if(tagsValidator.validate(splitedTags)){
-			List<Tag> foundTags = tags.findAllWithoutRepeat(splitedTags);
-			QuestionInformation information = new QuestionInformation(title, description, currentUser, foundTags, "new question");
-			Question question = new Question(information, currentUser.getCurrent());
-			
-			result.include("question", question);
-			validator.validate(information);
-			validate(foundTags, splitedTags);
+		List<Tag> foundTags = tags.findAllWithoutRepeat(splitedTags);
+		QuestionInformation information = new QuestionInformation(title, description, currentUser, foundTags, "new question");
+		Question question = new Question(information, currentUser.getCurrent());
 		
+		result.include("question", question);
+		validator.validate(information);
+
+		if(!validator.hasErrors() && validate(foundTags, splitedTags)){
 			questions.save(question);
 			result.redirectTo(this).showQuestion(question, question.getSluggedTitle());
 		}
+	
 		validator.onErrorRedirectTo(this).questionForm();
 	}
 
