@@ -15,7 +15,6 @@ public class TagsInserter {
 	private ScriptSessionFactoryCreator sessionProvider = new ScriptSessionFactoryCreator();
 	private Session session;
     private static final Logger LOG = Logger.getLogger(TagsInserter.class); 
-
 	
 	public TagsInserter() {
 		session = sessionProvider.getSession();

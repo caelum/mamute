@@ -31,5 +31,6 @@ public class TagController {
 	public void getAllTags(){
 		result.use(json()).withoutRoot().from(tags.all()).serialize();
 	}
+
 	
 }
