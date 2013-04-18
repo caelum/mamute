@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.migration.all;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,9 +27,9 @@ public class M007CopySessionKeyToUserSessionTable implements Migration {
 				SQLQuery sqlQuery = session.createSQLQuery("select u.id,u.sessionKey from Users u where sessionKey is not null");
 				List<Object[]> userIdsAndKeys = sqlQuery.list();
 				for (Object[] userIdAndKey : userIdsAndKeys) {
-					Long userId = (Long) userIdAndKey[0];
-					String sessionKey = (String) userIdAndKey[0];
-					User user = (User) session.load(User.class, userId);
+					BigInteger userId = (BigInteger) userIdAndKey[0];
+					String sessionKey = (String) userIdAndKey[1];
+					User user = (User) session.load(User.class, userId.longValue());
 					session.save(new UserSession(user, sessionKey));
 				}
 			}
