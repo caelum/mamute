@@ -14,7 +14,7 @@ import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 @ApplicationScoped
-public class M008InsertTags implements Migration {
+public class M009InsertTags implements Migration {
 
 	@Override
 	public List<MigrationOperation> up() {
