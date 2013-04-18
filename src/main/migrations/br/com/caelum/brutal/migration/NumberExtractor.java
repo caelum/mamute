@@ -7,7 +7,7 @@ import br.com.caelum.vraptor.ioc.Component;
 @ApplicationScoped
 public class NumberExtractor {
 
-	public int from(SimpleMigration clazz) {
+	public int from(Migration clazz) {
 		try {
 			return Integer.parseInt(clazz.getClass().getSimpleName().substring(1, 4));
 		} catch (Exception e) {

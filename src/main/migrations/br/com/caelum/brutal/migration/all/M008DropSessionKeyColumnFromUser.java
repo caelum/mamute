@@ -4,7 +4,7 @@ import br.com.caelum.brutal.migration.SimpleMigration;
 
 //@Component
 //@ApplicationScoped
-public class M006AddTableUserSession extends SimpleMigration {
+public class M008DropSessionKeyColumnFromUser extends SimpleMigration {
 
 	@Override
 	public String rawQuery() {

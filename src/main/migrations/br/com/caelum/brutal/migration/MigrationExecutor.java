@@ -37,10 +37,8 @@ public class MigrationExecutor {
 		session.getTransaction().rollback();
 	}
 	
-	public void rollback(SimpleMigration m) {
-		if (m.hasDown()) {
-			executeQueries(m.down());
-		}
+	public void rollback(Migration m) {
+		executeQueries(m.down());
 		rollback();
 	}
 
@@ -55,14 +53,13 @@ public class MigrationExecutor {
 		return currentMigration;
 	}
 
-	private void executeQueries(List<RawSQLMigration> queries) {
-		for (RawSQLMigration rawSQLMigration : queries) {
-			String sql = rawSQLMigration.up();
-			session.createSQLQuery(sql).executeUpdate();
+	private void executeQueries(List<MigrationOperation> queries) {
+		for (MigrationOperation rawSQLMigration : queries) {
+			rawSQLMigration.execute(session);
 		}
 	}
 
-	public void run(SimpleMigration m) {
+	public void run(Migration m) {
 		executeQueries(m.up());
 	}
 

@@ -6,7 +6,7 @@ import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 @ApplicationScoped
-public class M001AddColumnAnswerCountIntoQuestion extends SimpleMigration{
+public class M001AddColumnAnswerCountIntoQuestion extends SimpleMigration {
 
 	@Override
 	public String rawQuery() {

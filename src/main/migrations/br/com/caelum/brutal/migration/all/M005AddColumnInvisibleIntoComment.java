@@ -6,7 +6,7 @@ import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 @ApplicationScoped
-public class M005AddColumnInvisibleIntoComment extends SimpleMigration{
+public class M005AddColumnInvisibleIntoComment extends SimpleMigration {
 
 	@Override
 	public String rawQuery() {
