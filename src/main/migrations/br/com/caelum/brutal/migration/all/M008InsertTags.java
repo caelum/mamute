@@ -21,7 +21,7 @@ public class M008InsertTags implements Migration {
 		MigrationOperation insertTags = new MigrationOperation() {
 			@Override
 			public void execute(Session session) {
-				List<String> tags = asList("arredondamento", "C", "linha-de-comando",
+				List<String> tags = asList("arredondamento", "linha-de-comando",
 						"bashscript", "compressão", "script", "linux");
 				for (String tagName : tags) {
 					session.save(new Tag(tagName, "", null));
