@@ -17,10 +17,15 @@ public class TagsValidator {
 		this.messageFactory = messageFactory;
 	}
 	
-	public boolean validate(List<Tag> found, List<String> wanted) {
-		if(wanted.isEmpty()){
+	public boolean validate(List<String> tags) {
+		if(tags.isEmpty()){
 			validator.add(messageFactory.build("error", "question.errors.tags.empty"));
 		}
+		return !validator.hasErrors();
+	}
+	
+	public boolean validate(List<Tag> found, List<String> wanted) {
+		validate(wanted);
 		for (String name : wanted) {
 			if (!isPresent(name, found)) {
 				validator.add(messageFactory.build("error", "tag.errors.doesnt_exist", name));
