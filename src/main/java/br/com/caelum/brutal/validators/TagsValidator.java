@@ -18,6 +18,9 @@ public class TagsValidator {
 	}
 	
 	public boolean validate(List<Tag> found, List<String> wanted) {
+		if(wanted.isEmpty()){
+			validator.add(messageFactory.build("error", "question.errors.tags.empty"));
+		}
 		for (String name : wanted) {
 			if (!isPresent(name, found)) {
 				validator.add(messageFactory.build("error", "tag.errors.doesnt_exist", name));

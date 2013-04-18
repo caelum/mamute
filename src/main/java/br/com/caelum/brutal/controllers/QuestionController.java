@@ -2,6 +2,7 @@ package br.com.caelum.brutal.controllers;
 
 import static java.util.Arrays.asList;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -138,7 +139,7 @@ public class QuestionController {
 	}
 
 	private List<String> splitTags(String tagNames) {
-		return asList(tagNames.split("\\s+"));
+		return tagNames == null ? new ArrayList<String>() : asList(tagNames.split("\\s+"));
 	}
 
 	private boolean validate(List<Tag> foundTags, List<String> splitedTags) {
