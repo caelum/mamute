@@ -993,14 +993,17 @@ a.button.ask-a-question:hover{
 
 /*SHOW QUESTION*/
 
-.mark-as-solution {
+.mark-as-solution,
+.solution-mark{
 	padding-top: 5px;
 	text-decoration: none;
-	display: block !important;
+}
+
+.mark-as-solution {
 	color: #c9e2ab;
 }
 
-.mark-as-solution.solution-mark {
+.solution-mark {
 	color: #84bc41;
 }
 
@@ -1149,7 +1152,7 @@ a.button.ask-a-question:hover{
 }
 
 .post-meta {
-	text-align: right;
+	text-align: center;
 	width: 10%;
 }
 
