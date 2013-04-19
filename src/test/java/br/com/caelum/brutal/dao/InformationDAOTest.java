@@ -13,11 +13,11 @@ import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.AnswerInformation;
 import br.com.caelum.brutal.model.Information;
 import br.com.caelum.brutal.model.LoggedUser;
+import br.com.caelum.brutal.model.ModeratableAndPendingHistory;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.QuestionInformationBuilder;
 import br.com.caelum.brutal.model.Tag;
-import br.com.caelum.brutal.model.ModeratableAndPendingHistory;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.interfaces.Moderatable;
 
@@ -74,6 +74,23 @@ public class InformationDAOTest extends DatabaseTestCase {
         List<Information> pendingQuestion3 = pending.pendingInfoFor(questions.get(1));
         assertEquals(3, pendingQuestion3.size());
     }
+    
+    @Test
+    public void should_get_pending_count() {
+        InformationDAO informations = new InformationDAO(session);
+        
+        Question question = newQuestion(author);
+        
+        Answer answer = answer("info1 info1 info1 info1 info1 info1 info1 ", question, author);
+        session.save(answer);
+        newPendingChanges(answer, 2);
+        newPendingChanges(question, 3);
+        
+        Long count = informations.pendingCount();
+        
+        assertEquals(5l, count.longValue());
+    }
+    
 
 
 	private void newPendingChanges(Question question, int times) {

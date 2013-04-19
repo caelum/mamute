@@ -5,8 +5,10 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import br.com.caelum.brutal.model.AnswerInformation;
 import br.com.caelum.brutal.model.Information;
 import br.com.caelum.brutal.model.ModeratableAndPendingHistory;
+import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.vraptor.ioc.Component;
 
@@ -45,5 +47,17 @@ public class InformationDAO {
     public Information getById(Long id, Class<?> clazz) {
         return (Information) session.load(clazz, id);
     }
+
+	public Long pendingCount() {
+		Long pendingQuestions = pendingCountFor(QuestionInformation.class);
+		Long pendingAnswer = pendingCountFor(AnswerInformation.class);
+		return pendingAnswer + pendingQuestions;
+	}
+
+	private Long pendingCountFor(Class<? extends Information> clazz) {
+		String hql = "select count(*) from " + clazz.getSimpleName() + " qi where qi.status = :pending";
+		Long uniqueResult = (Long) session.createQuery(hql).setParameter("pending", UpdateStatus.PENDING).uniqueResult();
+		return uniqueResult;
+	}
 
 }
