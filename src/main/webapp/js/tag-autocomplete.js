@@ -8,13 +8,23 @@ $('.autocomplete').keyup(function(e){
 		target.addClass("hidden");
 		return;
 	}
-		
+	
+	
 	if(isNotAControl(e.which)) { 
 		showAutoCompleteArea(target);
 		clearTimeout(autoCompleteId);
-		autoCompleteId = setTimeout(function(){suggestsAutoComplete(target, tagChunk, autoCompleteInput)},100);
+		autoCompleteId = setTimeout(function(){suggestsAutoComplete(target, escapeSpecialCharacter(tagChunk), autoCompleteInput)},100);
 	}
 });
+
+function escapeSpecialCharacter(tagChunk){
+   specialCharacters = ['+','.','|','$','*','^','(',')','[',']'];
+   pattern = specialCharacters.join("");
+   
+   tagChunk = tagChunk.replace(new RegExp("([" + pattern + "])", 'g'), "\\$1");
+   
+   return tagChunk;
+}
 
 function isNotAControl(key){
 	keyboardCtrlAutoCompleteBox = [13, 27, 37, 38, 39, 40];
