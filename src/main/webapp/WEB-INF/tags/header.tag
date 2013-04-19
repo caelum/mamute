@@ -24,8 +24,8 @@
 	<meta property="og:image" content="<c:url value="/imgs/guj-logo.png"/>">
 </c:if>
 
+<link rel="stylesheet" href="<c:url value="/css/reset.css"/>">
 <c:if test="${environment.name != 'production'}" >
-	<link rel="stylesheet" href="<c:url value="/css/reset.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/font-awesome.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/joyride-2.0.3.css" />">
 	<link rel="stylesheet" href="<c:url value="/css/pagedown.css"/>">
