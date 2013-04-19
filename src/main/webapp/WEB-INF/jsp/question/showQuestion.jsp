@@ -1,6 +1,6 @@
 <tags:header facebookMetas="${true}" title="${question.mostImportantTag} - ${question.title}" />
 
-<h1 class="title subheader question-title">${question.title}</h1>
+<h1 class="title subheader question-title"><c:out value="${question.title}" escapeXml="${true}"/></h1>
 <section class="first-content">
 	<tags:questionWith question="${question}" commentVotes="${commentsWithVotes}"/>
 	<div class="subheader">
