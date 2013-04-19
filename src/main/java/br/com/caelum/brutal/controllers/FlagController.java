@@ -76,7 +76,7 @@ public class FlagController {
 	@Get("/{flaggableType}s/marcados")
 	public void topFlaggedComments(String flaggableType) {
 		Class<?> model = urlMapping.getClassFor(flaggableType);
-		List<FlaggableAndFlagCount> flaggedAndCount = flaggables.flaggedButVisible(model, 3l);
+		List<FlaggableAndFlagCount> flaggedAndCount = flaggables.flaggedButVisible(model);
 		result.include("flagged", flaggedAndCount);
 		result.use(page()).forwardTo("/WEB-INF/jsp/flag/topFlagged" + model.getSimpleName() + "s.jsp");
 	}
