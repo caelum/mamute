@@ -80,7 +80,7 @@
 								<c:if test="${currentUser.moderator }">
 									<li class="nav-item"><a
 										href="${linkTo[HistoryController].history}"><fmt:message
-												key="moderation.link" /></a></li>
+												key="moderation.link" /> (${pendingForModeratorCount})</a></li>
 								</c:if>
 								<li class="nav-item"><a class="logout"
 									href="${linkTo[AuthController].logout}"><fmt:message
