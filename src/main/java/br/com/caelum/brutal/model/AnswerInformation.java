@@ -125,8 +125,12 @@ public class AnswerInformation implements Information {
     }
     
     public Moderatable getModeratable() {
-        return answer;
+        return getAnswer();
     }
+    
+	public Answer getAnswer() {
+		return answer;
+	}
 
     @Override
     public Long getId() {
@@ -156,7 +160,7 @@ public class AnswerInformation implements Information {
 
 	@Override
 	public boolean isBeforeCurrent() {
-		return createdAt.isBefore(answer.getInformation().createdAt);
+		return createdAt.isBefore(getAnswer().getInformation().createdAt);
 	}
 
 }

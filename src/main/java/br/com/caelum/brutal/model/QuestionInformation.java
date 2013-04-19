@@ -189,8 +189,12 @@ public class QuestionInformation implements Information, Taggable {
     }
 	
 	public Moderatable getModeratable() {
-        return question;
+        return getQuestion();
     }
+	
+	public Question getQuestion() {
+		return question;
+	}
 	
 	public UpdateStatus getStatus() {
 		return status;
