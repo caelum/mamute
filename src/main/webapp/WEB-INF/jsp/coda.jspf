@@ -5,16 +5,7 @@
 
 <footer class="footer">
 	<div class="container">
-		<a class="tag-brutal" href="${linkTo[ListController].withTag['java']}">java</a>
-		<a class="tag-brutal" href="${linkTo[ListController].withTag['android']}">android</a>
-		<a class="tag-brutal" href="${linkTo[ListController].withTag['c%23']}">c#</a>
-		<a class="tag-brutal" href="${linkTo[ListController].withTag['.net']}">.net</a>
-		<a class="tag-brutal" href="${linkTo[ListController].withTag['javascript']}">javascript</a>
-		<a class="tag-brutal" href="${linkTo[ListController].withTag['php']}">php</a>
-		<a class="tag-brutal" href="${linkTo[ListController].withTag['jquery']}">jquery</a>
-		<a class="tag-brutal" href="${linkTo[ListController].withTag['html']}">html</a>
-		<a class="tag-brutal" href="${linkTo[ListController].withTag['sql']}">sql</a>
-		
+		<%@include file="mainTags.jsp" %>
 		<p><fmt:message key="footer.powered_by"><fmt:param value="http://www.caelum.com.br"/></fmt:message></p>		
 		<p><a class="footer-link" href="http://www.casadocodigo.com.br"><fmt:message key="footer.casa_do_codigo"/></a></p>		
 	</div>

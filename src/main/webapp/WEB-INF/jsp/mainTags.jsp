@@ -1,0 +1,9 @@
+<a class="tag-brutal" href="${linkTo[ListController].withTag['java']}">java</a>
+<a class="tag-brutal" href="${linkTo[ListController].withTag['android']}">android</a>
+<a class="tag-brutal" href="${linkTo[ListController].withTag['c%23']}">c#</a>
+<a class="tag-brutal" href="${linkTo[ListController].withTag['.net']}">.net</a>
+<a class="tag-brutal" href="${linkTo[ListController].withTag['javascript']}">javascript</a>
+<a class="tag-brutal" href="${linkTo[ListController].withTag['php']}">php</a>
+<a class="tag-brutal" href="${linkTo[ListController].withTag['jquery']}">jquery</a>
+<a class="tag-brutal" href="${linkTo[ListController].withTag['html']}">html</a>
+<a class="tag-brutal" href="${linkTo[ListController].withTag['sql']}">sql</a>

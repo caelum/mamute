@@ -716,7 +716,7 @@ a.button.ask-a-question:hover{
 }
 
 .tags-usage {
-	padding-top: 11%;
+	padding: 11% 0 11%;
 }
 
 /*BUTTON*/
@@ -909,6 +909,10 @@ a.button.ask-a-question:hover{
 
 .tag-brutal:hover {
 	background-color: #e0eaf1;
+}
+
+.main-tags .tag-brutal {
+	margin-bottom:.5em;	
 }
 
 .tag-description {
