@@ -996,12 +996,12 @@ a.button.ask-a-question:hover{
 .mark-as-solution {
 	padding-top: 5px;
 	text-decoration: none;
+	display: block !important;
+	color: #c9e2ab;
 }
 
-.solution-mark {
-	display: block !important;
+.mark-as-solution.solution-mark {
 	color: #84bc41;
-	padding-top: 5px;
 }
 
 .post-area {
