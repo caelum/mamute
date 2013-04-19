@@ -60,6 +60,7 @@ public class GlobalInterceptor implements Interceptor {
 		result.include("literalFormatter", DateTimeFormat.forPattern(localization.getMessage("date.joda.pattern")).withLocale(localization.getLocale()));
 		result.include("currentUrl", getCurrentUrl());
 		result.include("contextPath", req.getContextPath());
+		result.include("deployTimestamp", deployTimestamp());
 		result.on(NotFoundException.class).notFound();
 		
 		if (loggedUser.isModerator()) {
@@ -71,6 +72,10 @@ public class GlobalInterceptor implements Interceptor {
 		logHeaders();
 		
 		stack.next(method, resourceInstance);
+	}
+
+	private String deployTimestamp() {
+		return System.getProperty("deploy.timestamp", "");
 	}
 
 	private String getCurrentUrl() {

@@ -71,7 +71,7 @@ UserVoice.push(['showTab', 'classic_widget', {
 	<script src="<c:url value="/js/answer-form.js"/>"></script>
 </c:if>
 <c:if test="${environment.name == 'production'}" >
-	<script src="<c:url value="/js/all.js"/>"></script>
+	<script src="<c:url value="/js/all${deployTimestamp}.js"/>"></script>
 	
 	<%-- this script cannot be in all.js or will cause strange errors --%>
 	<script src="<c:url value="/js/links-behaviour.js"/>"></script>  

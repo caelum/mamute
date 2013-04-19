@@ -391,7 +391,7 @@
 					<aggregations>
 						<aggregation>
 							<removeIncluded>true</removeIncluded>
-							<output>${project.build.directory}/${project.build.finalName}/js/all.js</output>
+							<output>${project.build.directory}/${project.build.finalName}/js/all${deploy.timestamp}.js</output>
 							<!-- files to include, path relative to output's directory or absolute 
 								path -->
 							<!--inputDir>base directory for non absolute includes, default to 
@@ -409,9 +409,9 @@
 						</aggregation>
 						<aggregation>
 							<removeIncluded>true</removeIncluded>
-							<output>${project.build.directory}/${project.build.finalName}/css/all.css</output>
+							<output>${project.build.directory}/${project.build.finalName}/css/all${deploy.timestamp}.css</output>
 							<excludes>
-								<exclude>**/reset.css</exclude>
+								<exclude>**/reset.${VERSION}.css</exclude>
 							</excludes>
 							<includes>
 								<include>**/*.css</include>
