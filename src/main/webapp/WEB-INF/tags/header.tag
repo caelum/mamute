@@ -23,14 +23,20 @@
 	<meta property="og:type" content="forum">
 	<meta property="og:image" content="<c:url value="/imgs/guj-logo.png"/>">
 </c:if>
-<link rel="stylesheet" href="<c:url value="/css/reset.css"/>">
-<link rel="stylesheet" href="<c:url value="/css/font-awesome.css"/>">
-<link rel="stylesheet" href="<c:url value="/css/joyride-2.0.3.css" />">
-<link rel="stylesheet" href="<c:url value="/css/pagedown.css"/>">
-<link rel="stylesheet" href="<c:url value="/css/prettify.css"/>">
-<link rel="stylesheet" href="<c:url value="/css/brutal.css"/>">
-<link rel="stylesheet" href="<c:url value="/css/responsive-brutal.css"/>">
-<link rel="stylesheet" href="<c:url value="/css/jquery-ui-1.10.2.custom.css"/>">
+
+<c:if test="${environment.name != 'production'}" >
+	<link rel="stylesheet" href="<c:url value="/css/reset.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/font-awesome.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/joyride-2.0.3.css" />">
+	<link rel="stylesheet" href="<c:url value="/css/pagedown.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/prettify.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/brutal.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/responsive-brutal.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/jquery-ui-1.10.2.custom.css"/>">
+</c:if>
+<c:if test="${environment.name == 'production'}" >
+	<link rel="stylesheet" href="<c:url value="/css/all.css"/>">
+</c:if>
 <!--[if lt IE 9]>
 	<script src="<c:url value="/js/html5shiv.js"/>"></script>
 <![endif]-->

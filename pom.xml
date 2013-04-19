@@ -407,6 +407,13 @@
 								<exclude>**/pretty-text-diff.js</exclude>
 							</excludes>
 						</aggregation>
+						<aggregation>
+							<removeIncluded>true</removeIncluded>
+							<output>${project.build.directory}/${project.build.finalName}/css/all.css</output>
+							<includes>
+								<include>**/*.css</include>
+							</includes>
+						</aggregation>
 					</aggregations>
 				</configuration>
 			</plugin>
