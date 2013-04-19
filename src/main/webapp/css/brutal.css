@@ -1211,7 +1211,7 @@ a.button.ask-a-question:hover{
 
 .comment-meta{
 	width:5%;
-	height:41px;
+	min-height:33px;
 }
 
 .comment .comment-meta-hidden{
@@ -1219,7 +1219,8 @@ a.button.ask-a-question:hover{
 }
 
 .comment:hover .comment-meta-hidden{
-	display:block;
+	display:inline-block;
+	vertical-align: top;
 }
 
 .comment-option{
@@ -1301,12 +1302,8 @@ a.button.ask-a-question:hover{
 	color: #9B764F;
 	font-size: 1.25em;
 	font-weight: bold;
-	display: block;
-	margin-top: 38%;
-}
-
-.comment:hover .comment-vote-count{
-	margin-top:0;
+	margin-top:10%;
+	float:left;
 }
 
 .modal-close-button{
