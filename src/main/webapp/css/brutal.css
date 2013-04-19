@@ -308,6 +308,10 @@ em {
 	color: #e7b403;
 }
 
+.moderator-alert {
+	color: #f00;
+}
+
 /*Validations*/
 .validated-form .error{
 	color: #8e0000;

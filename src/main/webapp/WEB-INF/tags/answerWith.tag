@@ -36,7 +36,7 @@
 		</div>
 		<tags:add-a-comment type="resposta" item="${answer}" votes="${commentVotes}"/>
 		<c:if test="${currentUser.moderator && answer.hasPendingEdits()}">
-			<a class="message alert" href="${linkTo[HistoryController].similarAnswers[answer.id]}"><fmt:message key="answer.warns.has_edits"/></a>
+			<a class="message moderator-alert" href="${linkTo[HistoryController].similarAnswers[answer.id]}"><fmt:message key="answer.warns.has_edits"/></a>
 		</c:if>
 	</div>
 </section>
