@@ -8,36 +8,36 @@ import java.util.TreeMap;
 
 import br.com.caelum.brutal.model.interfaces.Moderatable;
 
-public class UpdatablesAndPendingHistory {
+public class ModeratableAndPendingHistory {
 
-    private TreeMap<Moderatable, List<Information>> informationsByUpdatable;
+    private TreeMap<Moderatable, List<Information>> informationsByModeratable;
 
-    public UpdatablesAndPendingHistory(List<Object[]> questionAndInformations) {
+    public ModeratableAndPendingHistory(List<Object[]> questionAndInformations) {
         ModeratableComparator comparator = new ModeratableComparator();
-        informationsByUpdatable = new TreeMap<>(comparator);
+        informationsByModeratable = new TreeMap<>(comparator);
         for (Object[] moderatableAndInformation : questionAndInformations) {
             Moderatable moderatable = (Moderatable) moderatableAndInformation[0]; 
             Information questionInformation = (Information) moderatableAndInformation[1];
             
-            List<Information> informations = informationsByUpdatable.get(moderatable);
+            List<Information> informations = informationsByModeratable.get(moderatable);
             if (informations == null) {
                 informations = new ArrayList<>();
             }
             informations.add(questionInformation);
-            informationsByUpdatable.put(moderatable, informations);
+            informationsByModeratable.put(moderatable, informations);
         }
     }
     
     public List<Moderatable> moderatables() {
-        return new ArrayList<Moderatable>(informationsByUpdatable.keySet());
+        return new ArrayList<Moderatable>(informationsByModeratable.keySet());
     }
     
     public Set<Entry<Moderatable, List<Information>>> getEntrySet() {
-        return informationsByUpdatable.entrySet();
+        return informationsByModeratable.entrySet();
     }
 
     public List<Information> pendingInfoFor(Moderatable moderatable) {
-        return informationsByUpdatable.get(moderatable);
+        return informationsByModeratable.get(moderatable);
     }
 
 }

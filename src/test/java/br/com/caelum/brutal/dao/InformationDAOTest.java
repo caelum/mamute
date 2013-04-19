@@ -17,7 +17,7 @@ import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.QuestionInformationBuilder;
 import br.com.caelum.brutal.model.Tag;
-import br.com.caelum.brutal.model.UpdatablesAndPendingHistory;
+import br.com.caelum.brutal.model.ModeratableAndPendingHistory;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.interfaces.Moderatable;
 
@@ -46,7 +46,7 @@ public class InformationDAOTest extends DatabaseTestCase {
         session.save(answer);
         newPendingChanges(answer, 2);
         
-        UpdatablesAndPendingHistory pendingByUpdatables = informations.pendingByUpdatables(Answer.class);
+        ModeratableAndPendingHistory pendingByUpdatables = informations.pendingByUpdatables(Answer.class);
         
         List<Information> pendingInfoForAnswer = pendingByUpdatables.pendingInfoFor(answer);
         assertEquals(2, pendingInfoForAnswer.size());
@@ -64,7 +64,7 @@ public class InformationDAOTest extends DatabaseTestCase {
         Question question3 = newQuestion(author);
         newPendingChanges(question3, 3);
         
-        UpdatablesAndPendingHistory pending = informations.pendingByUpdatables(Question.class);
+        ModeratableAndPendingHistory pending = informations.pendingByUpdatables(Question.class);
         List<Moderatable> questions = pending.moderatables();
         
         assertEquals(2, questions.size());

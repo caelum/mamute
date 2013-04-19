@@ -32,7 +32,7 @@ public class UpdatablesAndPendingHistoryTest extends TestCase {
         updatableAndInformations.add(new Object[]{question2, info3});
         updatableAndInformations.add(new Object[]{question2, info4});
         
-        UpdatablesAndPendingHistory updatablesAndPendingHistory = new UpdatablesAndPendingHistory(updatableAndInformations);
+        ModeratableAndPendingHistory updatablesAndPendingHistory = new ModeratableAndPendingHistory(updatableAndInformations);
         
         List<Information> pendingInfoForQ1 = updatablesAndPendingHistory.pendingInfoFor(question1);
         List<Information> pendingInfoForQ2 = updatablesAndPendingHistory.pendingInfoFor(question2);

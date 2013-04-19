@@ -10,7 +10,7 @@ import br.com.caelum.brutal.dao.InformationDAO;
 import br.com.caelum.brutal.dao.ModeratableDao;
 import br.com.caelum.brutal.infra.ModelUrlMapping;
 import br.com.caelum.brutal.model.Information;
-import br.com.caelum.brutal.model.UpdatablesAndPendingHistory;
+import br.com.caelum.brutal.model.ModeratableAndPendingHistory;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.interfaces.Moderatable;
@@ -53,7 +53,7 @@ public class HistoryController {
 	public void unmoderated(String moderatableType) {
 		try{
 			Class<?> clazz = urlMapping.getClassFor(moderatableType);
-			UpdatablesAndPendingHistory pending = informations.pendingByUpdatables(clazz);
+			ModeratableAndPendingHistory pending = informations.pendingByUpdatables(clazz);
 			
 			result.include("pending", pending);
 			result.include("type", moderatableType);
