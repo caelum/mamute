@@ -98,4 +98,23 @@ public class NewQuestionPage extends PageObject {
 		String display = hint.getCssValue("display");
         return !display.equals("none");
     }
-}
+	
+	public boolean hasInformation(String title, String description, String tags) {
+		return hasTitle(title) && hasDescription(description) && hasTags(tags);
+	}
+
+	private boolean hasTitle(String questionTitle) {
+		String actual = byName("title").getAttribute("value");
+		return questionTitle.equals(actual);
+	}
+	
+	private boolean hasDescription(String questionDescription) {
+		WebElement textArea = byName("description");
+		String actual = textArea.getText();
+		return questionDescription.equals(actual);
+	}
+	
+	private boolean hasTags(String tags) {
+		String actual = byName("tagNames").getAttribute("value");
+		return tags.equals(actual);
+	}}

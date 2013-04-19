@@ -1,7 +1,6 @@
 package br.com.caelum.brutal.integration.pages;
 
 import static java.util.Arrays.asList;
-import static org.openqa.selenium.By.className;
 import static org.openqa.selenium.By.tagName;
 
 import java.util.ArrayList;

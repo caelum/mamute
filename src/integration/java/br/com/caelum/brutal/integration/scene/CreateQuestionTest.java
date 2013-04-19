@@ -2,6 +2,7 @@ package br.com.caelum.brutal.integration.scene;
 
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
+import static org.openqa.selenium.By.className;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -77,5 +78,20 @@ public class CreateQuestionTest extends AuthenticatedAcceptanceTest {
 		String message = message("question.errors.tags.unexistant");
 		assertTrue(newQuestionPage.containsErrorMessageLike(message));
 	}
+	
+	@Test
+	public void should_return_question_data_from_server_side() {
+		String title = "";
+		String description = "description description description description description";
+		String tags = "java";
+		NewQuestionPage newQuestionPage = home()
+				.toNewQuestionPage();
+		removeBindsFromElement(className("validated-form"));
+		newQuestionPage.newQuestion(title, description, tags);
+		
+		assertTrue(newQuestionPage.hasInformation(title, description, tags));
+		
+	}
+
 	
 }
