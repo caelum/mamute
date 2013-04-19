@@ -409,9 +409,18 @@
 						</aggregation>
 						<aggregation>
 							<removeIncluded>true</removeIncluded>
-							<output>${project.build.directory}/${project.build.finalName}/css/all${deploy.timestamp}.css</output>
+							<output>${project.build.directory}/${project.build.finalName}/css/all-brutal${deploy.timestamp}.css</output>
+							<includes>
+								<include>**/brutal.css</include>
+								<include>**/responsive-brutal.css</include>
+							</includes>
+						</aggregation>
+						<aggregation>
+							<removeIncluded>true</removeIncluded>
+							<output>${project.build.directory}/${project.build.finalName}/css/all-deps${deploy.timestamp}.css</output>
 							<excludes>
-								<exclude>**/reset.${VERSION}.css</exclude>
+								<exclude>**/brutal.css</exclude>
+								<exclude>**/responsive-brutal.css</exclude>
 							</excludes>
 							<includes>
 								<include>**/*.css</include>

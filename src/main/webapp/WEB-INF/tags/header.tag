@@ -35,7 +35,8 @@
 	<link rel="stylesheet" href="<c:url value="/css/jquery-ui-1.10.2.custom.css"/>">
 </c:if>
 <c:if test="${environment.name == 'production'}" >
-	<link rel="stylesheet" href="<c:url value="/css/all${deployTimestamp}.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/all-deps${deployTimestamp}.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/all-brutal${deployTimestamp}.css"/>">
 </c:if>
 <!--[if lt IE 9]>
 	<script src="<c:url value="/js/html5shiv.js"/>"></script>
