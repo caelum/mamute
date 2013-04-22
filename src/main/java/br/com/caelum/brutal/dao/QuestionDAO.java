@@ -36,7 +36,6 @@ public class QuestionDAO {
 	}
 	
 	public List<Question> allVisible(Integer page) {
-		page = page == null ? 1 : page;
 		String hql = "from Question as q join fetch q.information qi" +
 				" join fetch q.author qa" +
 				" join fetch q.lastTouchedBy qa" +
@@ -58,11 +57,12 @@ public class QuestionDAO {
 		return getById(question.getId());
 	}
 
-	public List<Question> withTagVisible(Tag tag) {
+	public List<Question> withTagVisible(Tag tag, Integer page) {
 		List<Question> questions = session.createQuery("select q from Question as q " +
 				"join q.information.tags t " + 
 				invisibleFilter("and") + " t = :tag order by q.lastUpdatedAt desc")
 				.setParameter("tag", tag)
+				.setFirstResult(PAGE_SIZE * (page-1))
 				.setMaxResults(50)
 				.list();
 		return questions;
@@ -86,11 +86,23 @@ public class QuestionDAO {
 	
 	public long numberOfPages() {
 		String hql = "select count(*) from Question q " + invisibleFilter("and") + " " + spamFilter();
-		Long count = (Long) session.createQuery(hql).uniqueResult();
+		Long totalItems = (Long) session.createQuery(hql).uniqueResult();
+		long result = calculatePages(totalItems);
+		return result;
+	}
+
+	private long calculatePages(Long count) {
 		long result = count/PAGE_SIZE.longValue();
 		if (count % PAGE_SIZE.longValue() != 0) {
 			result++;
 		}
+		return result;
+	}
+
+	public long numberOfPages(Tag tag) {
+		String hql = "select count(q.id) from Question q join q.information.tags tag " + invisibleFilter("and") + " " + spamFilter() + " and tag=:tag";
+		Long totalItems = (Long) session.createQuery(hql).setParameter("tag", tag).uniqueResult();
+		long result = calculatePages(totalItems);
 		return result;
 	}
 }

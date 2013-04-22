@@ -85,7 +85,7 @@ public class QuestionDAOTest extends DatabaseTestCase {
 		Question beberFazMal = beberFazMal();
 		Question androidRuim = androidRuim();
 		
-		List<Question> perguntasComSal = questionsBeingAuthor.withTagVisible(sal);
+		List<Question> perguntasComSal = questionsBeingAuthor.withTagVisible(sal, 1);
 
 		assertTrue(perguntasComSal.contains(salDaAzar));
 		assertFalse(perguntasComSal.contains(beberFazMal));
@@ -123,15 +123,15 @@ public class QuestionDAOTest extends DatabaseTestCase {
 	public void should_list_question_with_low_vote_count_in_tag_listing() {
 		Question salDaAzar = salDaAzar();
 		assertTrue(questionsBeingAuthor.allVisible(1).contains(salDaAzar));
-		assertTrue(questionsBeingAuthor.withTagVisible(sal).contains(salDaAzar));
+		assertTrue(questionsBeingAuthor.withTagVisible(sal, 1).contains(salDaAzar));
 		
 		session.createQuery("update Question as q set q.voteCount = -4").executeUpdate();
 		assertTrue(questionsBeingAuthor.allVisible(1).contains(salDaAzar));
-		assertTrue(questionsBeingAuthor.withTagVisible(sal).contains(salDaAzar));
+		assertTrue(questionsBeingAuthor.withTagVisible(sal, 1).contains(salDaAzar));
 		
 		session.createQuery("update Question as q set q.voteCount = -5").executeUpdate();
 		assertFalse(questionsBeingAuthor.allVisible(1).contains(salDaAzar));
-		assertTrue(questionsBeingAuthor.withTagVisible(sal).contains(salDaAzar));
+		assertTrue(questionsBeingAuthor.withTagVisible(sal, 1).contains(salDaAzar));
 	}
 	
 	@Test
@@ -143,24 +143,33 @@ public class QuestionDAOTest extends DatabaseTestCase {
 		saveQuestions(49);
 		assertEquals(3l, questionsForAnyone.numberOfPages());
 	}
+	
+	@Test
+	public void should_calculate_number_of_pages_by_tags() {
+		saveQuestions(100, sal);
+		assertEquals(2l, questionsForAnyone.numberOfPages(sal));
+		saveQuestions(100, defaultTag, sal);
+		assertEquals(4l, questionsForAnyone.numberOfPages(sal));
+		assertEquals(2l, questionsForAnyone.numberOfPages(defaultTag));
+	}
 
 
-	private void saveQuestions(int total) {
+	private void saveQuestions(int total, Tag... tags) {
 		for (int i = 0; i < total; i++) {
-			questionsForAnyone.save(question(author));
+			questionsForAnyone.save(question(author, tags));
 		}
 	}
 	
 	private void assertNotContains(Question salDaAzar, QuestionDAO dao) {
 		assertFalse(dao.allVisible(1).contains(salDaAzar));
 		assertFalse(dao.unsolvedVisible().contains(salDaAzar));
-		assertFalse(dao.withTagVisible(sal).contains(salDaAzar));
+		assertFalse(dao.withTagVisible(sal, 1).contains(salDaAzar));
 	}
 	
 	private void assertContains(Question salDaAzar, QuestionDAO dao) {
 		assertTrue(dao.allVisible(1).contains(salDaAzar));
 		assertTrue(dao.unsolvedVisible().contains(salDaAzar));
-		assertTrue(dao.withTagVisible(sal).contains(salDaAzar));
+		assertTrue(dao.withTagVisible(sal, 1).contains(salDaAzar));
 	}
 	
 	private Question beberFazMal(){

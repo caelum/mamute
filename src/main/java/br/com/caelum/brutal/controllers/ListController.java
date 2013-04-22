@@ -38,7 +38,8 @@ public class ListController {
 	 */
 	@Get("/")
 	public void home(Integer p) {
-		List<Question> visible = questions.allVisible(p);
+		Integer page = getPage(p);
+		List<Question> visible = questions.allVisible(page);
 		if (visible.isEmpty()) {
 			result.notFound();
 			return;
@@ -46,7 +47,12 @@ public class ListController {
 		result.include("questions", visible);
 		result.include("recentTags", recentTagsContainer.getRecentTagsUsage());
 		result.include("totalPages", questions.numberOfPages());
-		result.include("currentPage", p);
+		result.include("currentPage", page);
+	}
+
+	private Integer getPage(Integer p) {
+		Integer page = p == null ? 1 : p;
+		return page;
 	}
 	
 	@Get("/nao-resolvido")
@@ -57,11 +63,14 @@ public class ListController {
 	}
 	
 	@Get("/tag/{tagName}")
-	public void withTag(String tagName) {
+	public void withTag(String tagName, Integer p) {
+		Integer page = getPage(p);
 		Tag tag = tags.findByName(tagName);
-		List<Question> questionsWithTag = questions.withTagVisible(tag);
+		List<Question> questionsWithTag = questions.withTagVisible(tag, page);
+		result.include("totalPages", questions.numberOfPages(tag));
 		result.include("recentTags", tags.getRecentTagsSince(new DateTime().minusMonths(3)));
 		result.include("questions", questionsWithTag);
+		result.include("currentPage", page);
 		result.use(page()).of(ListController.class).home(null);
 	}
 	
