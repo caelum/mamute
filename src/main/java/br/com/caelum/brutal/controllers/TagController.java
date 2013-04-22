@@ -40,8 +40,9 @@ public class TagController {
 	public void saveTags(String stringTags){
 		List<String> tagList = splitTags(stringTags);
 		for (String tag : tagList) {
-			System.out.println(tag);
-			tags.save(new Tag(tag, "", null));
+			if(tags.findByName(tag) == null){
+				tags.save(new Tag(tag, "", null));
+			}
 		}
 		result.nothing();
 	}
