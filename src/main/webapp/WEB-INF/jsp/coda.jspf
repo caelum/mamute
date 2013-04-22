@@ -60,6 +60,7 @@ UserVoice.push(['showTab', 'classic_widget', {
 	<script src="<c:url value="/js/more-comments.js"/>"></script>
 	<script src="<c:url value="/js/button-hints.js"/>"></script>
 	<script src="<c:url value="/js/answer-form.js"/>"></script>
+	<script src="<c:url value="/js/jquery.joyride-2.0.3.js"/>"></script>
 </c:if>
 <c:if test="${environment.name == 'production'}" >
 	<script src="<c:url value="/js/all${deployTimestamp}.js"/>"></script>
@@ -125,8 +126,15 @@ function setLoading(target){
 	target.html("<img src="+CONTEXT_PATH+"/imgs/loading.gif>");
 }
 
+function intro(){
+	$("#intro").joyride({});	
+}
+
 $(function() {
+	intro();
 	prettyPrint();
+	
+	console.log(CONTEXT_PATH);
 	
 	$("#datepicker").datepicker(
 		{dateFormat: "dd/mm/yy",

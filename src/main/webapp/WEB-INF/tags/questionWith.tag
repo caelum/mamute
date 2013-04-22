@@ -56,3 +56,6 @@
 		</c:if>
 	</div>
 </section>
+<ol id="intro">
+	<li data-class="post-meta" data-options="tipLocation:right" class="brutal-intro">Você vai ver essas setas em qualquer página de pergunta. Com elas, você pode dizer se uma pergunta ou uma resposta foram relevantes para você ou se apenas te atrapalharam</li>
+</ol>

@@ -732,6 +732,10 @@ a.button.ask-a-question:hover{
 }
 
 /*HOME*/
+#intro {
+	display:none;
+}
+
 .question-item,.question-information,.summary {
 	overflow: hidden;
 }
@@ -1595,3 +1599,23 @@ a.button.ask-a-question:hover{
 	background-color: #E0EAF1;
 }
 
+.joyride-tip-guide.brutal-intro{
+	top: 88px;
+}
+
+.joyride-tip-guide.brutal-intro .joyride-next-tip {
+	display:block;
+	margin-top: 1em;
+	width: 5em;
+}
+
+.joyride-tip-guide.brutal-intro p {
+	display: block;
+	margin-right: 1em;
+}
+
+.joyride-tip-guide.brutal-intro .joyride-close-tip {
+	position: absolute;
+	right: 4px;
+	top: 4px;
+}
