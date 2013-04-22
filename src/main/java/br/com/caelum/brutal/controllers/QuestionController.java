@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.controllers;
 
+import static br.com.caelum.vraptor.view.Results.page;
 import static java.util.Arrays.asList;
 
 import java.util.ArrayList;

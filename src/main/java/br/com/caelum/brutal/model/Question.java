@@ -341,4 +341,8 @@ public class Question extends Moderatable implements Post, Taggable{
 		}
 		return false;
 	}
+	
+	public void subtractAnswer(){
+		answerCount--;
+	}
 }

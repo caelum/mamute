@@ -260,6 +260,7 @@ public class Answer extends Moderatable implements Post, Subscribable {
 	@Override
 	public void remove() {
 		this.moderationOptions.remove();
+		question.subtractAnswer();
 	}
 	
 	@Override
