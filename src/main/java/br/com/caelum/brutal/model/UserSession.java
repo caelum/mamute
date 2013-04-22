@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Index;
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
 
 @Entity
 public class UserSession {
@@ -21,6 +23,9 @@ public class UserSession {
 	
 	@ManyToOne
 	private User user;
+	
+	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+	private final DateTime createdAt = new DateTime();
 	
 	/**
 	 * @deprecated
