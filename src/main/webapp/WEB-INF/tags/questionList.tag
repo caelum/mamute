@@ -23,7 +23,7 @@
 	<ul class="pager">
 		<c:forEach begin="1" end="${totalPages}" var="p">
 			<li class="page-item ${p == currentPage ? 'current' : ''}">
-				<a href="${linkTo[ListController].home}?p=${p}">${p}</a>
+				<a href="${httpServletRequest.requestURI}?p=${p}">${p}</a>
 			</li>
 		</c:forEach>
 	</ul>
