@@ -33,19 +33,27 @@ public class ListController {
 
 	/**
 	 * actually, this path will not be used, we use the path defined in the current environment
+	 * be careful when modifying its signature
 	 * @see BrutalRoutesParser
 	 */
 	@Get("/")
-	public void home() {
-		result.include("questions", questions.allVisible());
+	public void home(Integer p) {
+		List<Question> visible = questions.allVisible(p);
+		if (visible.isEmpty()) {
+			result.notFound();
+			return;
+		}
+		result.include("questions", visible);
 		result.include("recentTags", recentTagsContainer.getRecentTagsUsage());
+		result.include("totalPages", questions.numberOfPages());
+		result.include("currentPage", p);
 	}
 	
 	@Get("/nao-resolvido")
 	public void unsolved() {
 		result.include("questions", questions.unsolvedVisible());
 		result.include("recentTags", recentTagsContainer.getRecentTagsUsage());
-		result.use(page()).of(ListController.class).home();
+		result.use(page()).of(ListController.class).home(null);
 	}
 	
 	@Get("/tag/{tagName}")
@@ -54,7 +62,7 @@ public class ListController {
 		List<Question> questionsWithTag = questions.withTagVisible(tag);
 		result.include("recentTags", tags.getRecentTagsSince(new DateTime().minusMonths(3)));
 		result.include("questions", questionsWithTag);
-		result.use(page()).of(ListController.class).home();
+		result.use(page()).of(ListController.class).home(null);
 	}
 	
 	@Get("/tags")

@@ -17,6 +17,13 @@
 	<c:if test="${empty questions}">
 		<h2 class="title section-title"><fmt:message key="questions.empty_list" /></h2>
 	</c:if>
+	<ul class="pager">
+		<c:forEach begin="1" end="${totalPages}" var="p">
+			<li class="page-item ${p == currentPage ? 'current' : ''}">
+				<a href="${linkTo[ListController].home}?p=${p}">${p}</a>
+			</li>
+		</c:forEach>
+	</ul>
 </section>
 <aside class="sidebar">
 	<div class="subheader">

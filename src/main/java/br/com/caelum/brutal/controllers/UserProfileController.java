@@ -76,7 +76,7 @@ public class UserProfileController {
 	@Get("/usuario/editar/{user.id:[0-9]+}")
 	public void editProfile(@Load User user){
 		if (!user.getId().equals(currentUser.getCurrent().getId())){
-			result.redirectTo(ListController.class).home();
+			result.redirectTo(ListController.class).home(null);
 			return;
 		}
 		result.include("user", user);
@@ -86,7 +86,7 @@ public class UserProfileController {
 	public void editProfile(@Load User user, String name, String realName, String email, 
 			String website, String location, DateTime birthDate, String description, boolean isSubscribed) {
 		if (!user.getId().equals(currentUser.getCurrent().getId())){
-			result.redirectTo(ListController.class).home();
+			result.redirectTo(ListController.class).home(null);
 			return;
 		}
 		

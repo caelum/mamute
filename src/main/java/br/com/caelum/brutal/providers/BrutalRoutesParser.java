@@ -26,7 +26,7 @@ public class BrutalRoutesParser extends PathAnnotationRoutesParser {
 
 	private Method getHomeMethod() {
 		try {
-			return homeClazz.getMethod("home");
+			return homeClazz.getMethod("home", Integer.class);
 		} catch (NoSuchMethodException | SecurityException e) {
 			throw new RuntimeException();
 		}

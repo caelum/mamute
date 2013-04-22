@@ -59,7 +59,7 @@ public class SignupController {
 		    result.include("messages", Arrays.asList(
 		    			messageFactory.build("confirmation", "signup.confirmation")
 		    		));
-		    linker.linkTo(ListController.class).home();
+		    linker.linkTo(ListController.class).home(null);
 		    result.forwardTo(AuthController.class).login(email, password, linker.get());
 		} else {
 		    result.include("email", email);

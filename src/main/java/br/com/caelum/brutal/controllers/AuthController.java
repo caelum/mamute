@@ -48,7 +48,7 @@ public class AuthController extends Controller {
 	@Get("/logout")
 	public void logout() {
 		auth.signout();
-		redirectTo(ListController.class).home();
+		redirectTo(ListController.class).home(null);
 	}
 	
 	private void redirectToRightUrl(String redirectUrl) {
@@ -59,7 +59,7 @@ public class AuthController extends Controller {
         if (redirectUrl != null && !redirectUrl.isEmpty() && valid) {
             redirectTo(redirectUrl);
         } else {
-            redirectTo(ListController.class).home();
+            redirectTo(ListController.class).home(null);
         }
 	}
 }

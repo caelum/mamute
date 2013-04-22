@@ -92,7 +92,7 @@ public class ForgotPasswordController {
 		result.include("messages", Arrays.asList(
 					messageFactory.build("confirmation", "forgot_password.password_changed")
 				));
-		linker.linkTo(ListController.class).home();
+		linker.linkTo(ListController.class).home(null);
 	    result.forwardTo(AuthController.class).login(user.getEmail(), password, linker.get());
 	}
 	

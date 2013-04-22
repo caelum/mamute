@@ -46,7 +46,7 @@ public class FacebookAuthController extends Controller{
 	public void signupViaFacebook(String code, String state) {
 		
 		if (code == null){
-			redirectTo(ListController.class).home();
+			redirectTo(ListController.class).home(null);
 			return;
 		}
 		
@@ -79,7 +79,7 @@ public class FacebookAuthController extends Controller{
         if (state != null && !state.isEmpty() && valid) {
             redirectTo(state);
         } else {
-            redirectTo(ListController.class).home();
+            redirectTo(ListController.class).home(null);
         }
 	}
 

@@ -1562,3 +1562,28 @@ a.button.ask-a-question:hover{
 	opacity:0.2;
 }
 
+.pager {
+	margin-top:2%;
+}
+
+.page-item {
+	display: inline-block;
+}
+
+.page-item a {
+	border: 1px solid #ADC2D0;;
+	color: #3E6D8E;
+	padding: 0.5em;
+	display: block;
+	background-color: #F8F8F8;
+}
+
+.page-item:hover a {
+	background-color: #edf3f7;
+}
+
+.current a {
+	font-weight: bold;
+	background-color: #E0EAF1;
+}
+

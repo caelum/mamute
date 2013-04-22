@@ -2,6 +2,7 @@ package br.com.caelum.brutal.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 import br.com.caelum.brutal.dao.WithAuthorDAO.OrderType;
@@ -14,7 +15,8 @@ import br.com.caelum.vraptor.ioc.Component;
 @SuppressWarnings("unchecked")
 public class QuestionDAO {
 	
-    public static final long SPAM_BOUNDARY = -5;
+    private static final Integer PAGE_SIZE = 50;
+	public static final long SPAM_BOUNDARY = -5;
 	private final Session session;
     private final WithAuthorDAO<Question> withAuthor;
 	private final InvisibleForUsersRule invisible;
@@ -33,7 +35,8 @@ public class QuestionDAO {
 		return (Question) session.load(Question.class, questionId);
 	}
 	
-	public List<Question> allVisible() {
+	public List<Question> allVisible(Integer page) {
+		page = page == null ? 1 : page;
 		String hql = "from Question as q join fetch q.information qi" +
 				" join fetch q.author qa" +
 				" join fetch q.lastTouchedBy qa" +
@@ -41,7 +44,10 @@ public class QuestionDAO {
 				" left join fetch q.solution s" +
 				" left join fetch q.solution.information si" +
 				" "+ invisibleFilter("and") +" " + spamFilter() +" order by q.lastUpdatedAt desc";
-		return session.createQuery(hql).setMaxResults(50).list();
+		Query query = session.createQuery(hql);
+		return query.setMaxResults(PAGE_SIZE)
+			.setFirstResult(PAGE_SIZE * (page-1))
+			.list();
 	}
 
 	public List<Question> unsolvedVisible() {
@@ -76,6 +82,16 @@ public class QuestionDAO {
 
 	public Long countWithAuthor(User user) {
 		return withAuthor.count(user);
+	}
+	
+	public long numberOfPages() {
+		String hql = "select count(*) from Question q " + invisibleFilter("and") + " " + spamFilter();
+		Long count = (Long) session.createQuery(hql).uniqueResult();
+		long result = count/PAGE_SIZE.longValue();
+		if (count % PAGE_SIZE.longValue() != 0) {
+			result++;
+		}
+		return result;
 	}
 }
 
