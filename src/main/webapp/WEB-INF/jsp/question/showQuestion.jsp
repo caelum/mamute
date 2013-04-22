@@ -14,7 +14,7 @@
 			<c:set var="vote" value="${entry.value}" />
 			<c:if test="${answer.visible || currentUser.moderator || currentUser.isAuthorOf(answer)}">
 				<li id="answer-${answer.id}" 
-					class="answer ${answer.isVisibleForModeratorAnd(currentUser) ? 'highlight-post' : '' }" 
+					class="answer" 
 					data-id="${answer.id}">
 					<tags:answerWith answer="${answer}" vote="${vote}" commentVotes="${commentsWithVotes}"/>
 				</li>

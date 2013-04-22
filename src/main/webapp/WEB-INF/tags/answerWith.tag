@@ -6,7 +6,7 @@
 <%@attribute name="vote" type="br.com.caelum.brutal.model.Vote" required="true" %>
 <%@attribute name="commentVotes" type="br.com.caelum.brutal.model.CommentsAndVotes" required="true" %>
 <c:set var="currentUserIsAuthor" value="${answer.author.id == currentUser.id}" />
-<section class="post-area">
+<section class="post-area ${answer.isVisibleForModeratorAnd(currentUser) ? 'highlight-post' : '' }">
 	<div class="post-meta">
 		<tags:voteFor item="${answer}" type="resposta" vote="${vote}"/>
 		<tags:solutionMarkFor answer="${answer}"/>
