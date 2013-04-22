@@ -29,6 +29,12 @@ public class WithAuthorDAO<T> {
 				.list();
 		return items;
 	}
+
+	public Long count(User user) {
+		return (Long) session.createQuery("select count(p) from "+ clazz.getSimpleName() +" as p join p.author a where a = :user ")
+						.setParameter("user", user)
+						.uniqueResult();
+	}
 	
 	public enum OrderType {
 		ByDate {
@@ -45,5 +51,6 @@ public class WithAuthorDAO<T> {
 
 		public abstract String getOrder();
 	}
+
 
 }

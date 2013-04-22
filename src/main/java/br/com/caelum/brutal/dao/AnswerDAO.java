@@ -49,8 +49,12 @@ public class AnswerDAO {
 	}
 	
 
-	public List<Answer> withAuthorBy(User user, OrderType orderByWhat) {
-		return withAuthor.by(user,orderByWhat);
+	public List<Answer> allWithAuthorBy(User user, OrderType orderByWhat) {
+		return withAuthor.by(user, orderByWhat);
+	}
+
+	public Long countWithAuthor(User user) {
+		return withAuthor.count(user);
 	}
 }
 

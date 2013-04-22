@@ -73,5 +73,9 @@ public class QuestionDAO {
 	private String invisibleFilter(String connective) {
 		return invisible.getInvisibleOrNotFilter("q", connective);
 	}
+
+	public Long countWithAuthor(User user) {
+		return withAuthor.count(user);
+	}
 }
 

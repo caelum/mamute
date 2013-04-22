@@ -54,7 +54,9 @@ public class UserProfileController {
 		
 		result.include("isCurrentUser", currentUser.getCurrent().getId().equals(user.getId()));
 		result.include("questionsByVotes", questions.withAuthorBy(user, ByVotes));
-		result.include("answersByVotes", answers.withAuthorBy(user, ByVotes));
+		result.include("questionsCount", questions.countWithAuthor(user));
+		result.include("answersByVotes", answers.allWithAuthorBy(user, ByVotes));
+		result.include("answersCount", answers.countWithAuthor(user));
 		result.include("mainTags", tags.findMainTagsOfUser(user));
 		result.include("selectedUser", user);
 	}
@@ -68,7 +70,7 @@ public class UserProfileController {
 	@Get("/usuario/{id}/{sluggedName}/respostas/{orderByWhat}")
 	public void answersByVotesWith(Long id, String sluggedName, OrderType orderByWhat){
 		User author = users.findById(id);
-		result.use(json()).withoutRoot().from(answers.withAuthorBy(author, orderByWhat)).include("question", "question.information").serialize();
+		result.use(json()).withoutRoot().from(answers.allWithAuthorBy(author, orderByWhat)).include("question", "question.information").serialize();
 	}
 		
 	@Get("/usuario/editar/{user.id:[0-9]+}")
