@@ -18,11 +18,9 @@ $('.autocomplete').keyup(function(e){
 });
 
 function escapeSpecialCharacter(tagChunk){
-   specialCharacters = ['+','.','|','$','*','^','(',')','[',']'];
+   specialCharacters = ['+','.','|','$','*','^','(',')'];
    pattern = specialCharacters.join("");
-   
    tagChunk = tagChunk.replace(new RegExp("([" + pattern + "])", 'g'), "\\$1");
-   
    return tagChunk;
 }
 
