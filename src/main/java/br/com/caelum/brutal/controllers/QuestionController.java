@@ -1,9 +1,7 @@
 package br.com.caelum.brutal.controllers;
 
-import static br.com.caelum.vraptor.view.Results.page;
-import static java.util.Arrays.asList;
+import static br.com.caelum.brutal.util.TagsSplitter.splitTags;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -141,9 +139,7 @@ public class QuestionController {
 		validator.onErrorRedirectTo(this).questionForm();
 	}
 
-	private List<String> splitTags(String tagNames) {
-		return tagNames == null ? new ArrayList<String>() : asList(tagNames.split("\\s+"));
-	}
+	
 
 	private boolean validate(List<Tag> foundTags, List<String> splitedTags) {
 		return tagsValidator.validate(foundTags, splitedTags);

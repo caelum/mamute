@@ -73,4 +73,8 @@ public class TagDAO {
 	public List<String> allNames() {
 		return session.createQuery("select t.name from Tag t").list();
 	}
+
+	public void save(Tag tag) {
+		session.save(tag);
+	}
 }
