@@ -20,7 +20,7 @@
 </section>
 <aside class="sidebar">
 	<div class="subheader">
-		<h3 class="title page-title">Tags Principais</h3>
+		<h3 class="title page-title"><fmt:message key="tags.main"/></h3>
 	</div>
 	<ol class="main-tags tags-usage">
 		<%@include file="../mainTags.jsp" %>
