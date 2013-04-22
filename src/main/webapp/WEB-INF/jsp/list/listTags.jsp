@@ -2,7 +2,7 @@
 <fmt:message key="metas.generic.title" var="genericTitle" />
 <tags:header title="${genericTitle} - ${title}"/>
 
-<h2 class="title page-title replace"></h2>
+<h2 class="title page-title subheader"><fmt:message key="menu.tags"/></h2>
 <ol class="tags-list complete-tags">
 	<c:forEach var="tag" items="${tags}">
 		<li class="complete-tag">

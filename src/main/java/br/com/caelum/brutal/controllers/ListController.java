@@ -1,7 +1,5 @@
 package br.com.caelum.brutal.controllers;
 
-import static br.com.caelum.vraptor.view.Results.page;
-
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -49,17 +47,11 @@ public class ListController {
 		result.include("totalPages", questions.numberOfPages());
 		result.include("currentPage", page);
 	}
-
-	private Integer getPage(Integer p) {
-		Integer page = p == null ? 1 : p;
-		return page;
-	}
 	
 	@Get("/nao-resolvido")
 	public void unsolved() {
 		result.include("questions", questions.unsolvedVisible());
 		result.include("recentTags", recentTagsContainer.getRecentTagsUsage());
-		result.use(page()).of(ListController.class).home(null);
 	}
 	
 	@Get("/tag/{tagName}")
@@ -71,12 +63,16 @@ public class ListController {
 		result.include("recentTags", tags.getRecentTagsSince(new DateTime().minusMonths(3)));
 		result.include("questions", questionsWithTag);
 		result.include("currentPage", page);
-		result.use(page()).of(ListController.class).home(null);
 	}
 	
 	@Get("/tags")
 	public void listTags(){
 		result.include("tags", tags.all());
+	}
+
+	private Integer getPage(Integer p) {
+		Integer page = p == null ? 1 : p;
+		return page;
 	}
 
 }
