@@ -105,5 +105,11 @@ public class QuestionDAO {
 		long result = calculatePages(totalItems);
 		return result;
 	}
+
+	public List<Question> orderedByCreationDate(int maxResults) {
+		String hql = "select q from Question q order by q.createdAt desc";
+		Query query = session.createQuery(hql);
+		return query.setMaxResults(maxResults).list();
+	}
 }
 

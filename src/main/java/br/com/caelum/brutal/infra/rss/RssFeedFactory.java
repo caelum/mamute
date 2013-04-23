@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.infra.rss;
 
+import static br.com.caelum.brutal.infra.rss.RssEntryBuilder.RSS_DATE_FORMATTER;
+
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.List;
@@ -7,7 +9,9 @@ import java.util.List;
 import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.model.Question;
+import br.com.caelum.vraptor.ioc.Component;
 
+@Component
 public class RssFeedFactory {
 	QuestionRssEntryFactory entryFactory = new QuestionRssEntryFactory();
 	private PrintStream stream;
@@ -31,8 +35,8 @@ public class RssFeedFactory {
 				+ "<title>GUJ respostas</title>\n"
 				+ "<description>Últimas perguntas do GUJ respostas</description>\n"
 				+ "<link>http://guj.com.br/perguntas</link>\n"
-				+ "<lastBuildDate>" + dateTime + "</lastBuildDate>\n"
-				+ "<pubDate>" + dateTime + "</pubDate>\n" 
+				+ "<lastBuildDate>" + RSS_DATE_FORMATTER.print(dateTime) + "</lastBuildDate>\n"
+				+ "<pubDate>" + RSS_DATE_FORMATTER.print(dateTime) + "</pubDate>\n" 
 				+ "<ttl>1800</ttl>\n\n");
 	}
 
