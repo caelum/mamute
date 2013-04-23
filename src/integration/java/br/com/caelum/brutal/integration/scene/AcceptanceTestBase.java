@@ -1,6 +1,7 @@
 package br.com.caelum.brutal.integration.scene;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
@@ -153,7 +154,7 @@ public abstract class AcceptanceTestBase implements ServerInfo.AcceptanceTest {
     
 	protected void removeBindsFromElement(By by){
 		WebElement element = driver.findElement(by);
-		if(driver instanceof JavascriptExecutor){
+		if (driver instanceof JavascriptExecutor) {
 			JavascriptExecutor js = (JavascriptExecutor) driver;
 			js.executeScript(getScript("/remove-binds.js"), element);
 		}
@@ -162,7 +163,8 @@ public abstract class AcceptanceTestBase implements ServerInfo.AcceptanceTest {
 	private String getScript(String file){
 		String script;
 		try {
-			script = IOUtils.toString(AcceptanceTestBase.class.getResourceAsStream(file));
+			InputStream is = AcceptanceTestBase.class.getResourceAsStream(file);
+			script = IOUtils.toString(is);
 			return script;
 		} catch (IOException e) {
 			throw new RuntimeException("You need to create the file: '"+ file + "' at src/integration/resources");
