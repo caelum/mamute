@@ -44,6 +44,6 @@ public class RssEntryBuilder {
 	}
 	
 	private String CData(String content) {
-		return "![CDATA[" + content + "]]";
+		return "<![CDATA[" + content + "]]>";
 	}
 }
