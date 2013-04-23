@@ -15,12 +15,12 @@ public class RssEntryBuilder {
 	static final DateTimeFormatter RSS_DATE_FORMATTER = DateTimeFormat.forPattern(PATTERN);
 
 	public RssEntryBuilder withAuthor(String name) {
-		this.name = CData(name)	;
+		this.name = name;
 		return this;
 	}
 
 	public RssEntryBuilder withTitle(String title) {
-		this.title = CData(title);
+		this.title = title;
 		return this;
 	}
 
@@ -43,7 +43,4 @@ public class RssEntryBuilder {
 		return new RssEntry(title, link, guid, RSS_DATE_FORMATTER.print(date), name);
 	}
 	
-	private String CData(String content) {
-		return "<![CDATA[" + content + "]]>";
-	}
 }

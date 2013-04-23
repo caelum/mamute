@@ -34,8 +34,8 @@ public class QuestionRssEntryFactoryTest extends TestCase {
 		String xml = new String(output.toByteArray());
 		
 		assertTrue(xml.contains("<link>http://guj.com.br/perguntas/1-question-title</link>"));
-		assertTrue(xml.contains("<title>question title</title>"));
-		assertTrue(xml.contains("<author>author</author>"));
+		assertTrue(xml.contains("<title><![CDATA[question title]]></title>"));
+		assertTrue(xml.contains("<author><![CDATA[author]]></author>"));
 	}
 
 }
