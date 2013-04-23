@@ -104,17 +104,25 @@ public class NewQuestionPage extends PageObject {
 	}
 
 	private boolean hasTitle(String questionTitle) {
-		String actual = byName("title").getAttribute("value");
+		String actual = formField("title").getAttribute("value");
 		return questionTitle.equals(actual);
 	}
 	
 	private boolean hasDescription(String questionDescription) {
-		WebElement textArea = byName("description");
+		WebElement textArea = formField("description");
 		String actual = textArea.getText();
 		return questionDescription.equals(actual);
 	}
 	
+	private WebElement questionForm() {
+		return byClassName("question-form");
+	}
+	
+	private WebElement formField(String name) {
+		return questionForm().findElement(By.name(name));
+	}
+	
 	private boolean hasTags(String tags) {
-		String actual = byName("tagNames").getAttribute("value");
-		return tags.equals(actual);
+		String actual = formField("tagNames").getAttribute("value");
+		return tags.equals(actual.trim());
 	}}
