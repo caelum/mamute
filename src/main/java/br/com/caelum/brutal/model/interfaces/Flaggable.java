@@ -9,6 +9,6 @@ public interface Flaggable {
 	public boolean alreadyFlaggedBy(User user);
 	public void remove();
 	public boolean isVisible();
-	public boolean isVisibleForModeratorAnd(User user);
+	public boolean isVisibleForModeratorAndNotAuthor(User user);
 	
 }

@@ -5,7 +5,7 @@
 <%@attribute name="question" type="br.com.caelum.brutal.model.Question" required="true" %>
 <%@attribute name="commentVotes" type="br.com.caelum.brutal.model.CommentsAndVotes" required="true" %>
 <c:set var="isAuthor" value="${question.author.id == currentUser.id}" />
-<section class="post-area question-area ${question.isVisibleForModeratorAnd(currentUser) ? 'highlight-post' : '' }">
+<section class="post-area question-area ${question.isVisibleForModeratorAndNotAuthor(currentUser) ? 'highlight-post' : '' }">
 	<div class="post-meta">
 		<tags:voteFor item="${question}" type="pergunta" vote="${currentVote}"/>
 	</div>

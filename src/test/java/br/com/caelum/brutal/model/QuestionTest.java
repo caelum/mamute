@@ -141,5 +141,37 @@ public class QuestionTest  extends TestCase{
 		
 		assertTrue(q.hasPendingEdits());
 	}
+
+	@Test
+	public void should_verify_if_is_visible_for_author() {
+		User author = user("leo", "leo@leo");
+		Question shouldILiveForever = question.withAuthor(author).build();
+		shouldILiveForever.remove();
+		boolean isVisibleForAuthor = shouldILiveForever.isVisibleFor(author);
+		assertTrue(isVisibleForAuthor);
+	}
+	
+	@Test
+	public void should_verify_if_is_visible_for_moderator() {
+		Question shouldILiveForever = question.build();
+		shouldILiveForever.remove();
+		boolean isVisibleForModerator = shouldILiveForever.isVisibleFor(user("leo", "leo@leo").asModerator());
+		assertTrue(isVisibleForModerator);
+	}
+	
+	@Test
+	public void should_verify_if_is_visible_for_null() {
+		Question shouldILiveForever = question.build();
+		shouldILiveForever.remove();
+		boolean isVisibleForNull = shouldILiveForever.isVisibleFor(null);
+		assertFalse(isVisibleForNull);
+	}
+	
+	@Test
+	public void should_verify_if_is_visible_when_visible() {
+		Question shouldILiveForever = question.build();
+		boolean isVisibleForModerator = shouldILiveForever.isVisibleFor(null);
+		assertTrue(isVisibleForModerator);
+	}
 	
 }

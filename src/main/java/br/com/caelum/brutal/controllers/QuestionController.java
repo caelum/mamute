@@ -103,20 +103,28 @@ public class QuestionController {
 	
 	@Get("/{question.id:[0-9]+}-{sluggedTitle}")
 	public void showQuestion(@Load Question question, String sluggedTitle){
+		redirectToRightUrl(question, sluggedTitle);
+		User author = currentUser.getCurrent();
+		if(question.isVisibleFor(author)){
+			viewCounter.ping(question);
+			result.include("currentVote", votes.previousVoteFor(question.getId(), author, Question.class));
+			result.include("answers", votes.previousVotesForAnswers(question, author));
+			result.include("commentsWithVotes", votes.previousVotesForComments(question, author));
+			result.include("questionTags", question.getInformation().getTags());
+			result.include("question", question);
+			linker.linkTo(this).showQuestion(question, sluggedTitle);
+			result.include("facebookUrl", facebook.getOauthUrl(linker.get()));
+		}else{
+			result.notFound();
+		}
+	}
+
+	private void redirectToRightUrl(Question question, String sluggedTitle) {
 		if (!question.getSluggedTitle().equals(sluggedTitle)) {
 			result.redirectTo(this).showQuestion(question,
 					question.getSluggedTitle());
 			return;
 		}
-		viewCounter.ping(question);
-		User voteAuthor = currentUser.getCurrent();
-		result.include("currentVote", votes.previousVoteFor(question.getId(), voteAuthor, Question.class));
-		result.include("answers", votes.previousVotesForAnswers(question, voteAuthor));
-		result.include("commentsWithVotes", votes.previousVotesForComments(question, voteAuthor));
-		result.include("questionTags", question.getInformation().getTags());
-		result.include("question", question);
-		linker.linkTo(this).showQuestion(question, sluggedTitle);
-		result.include("facebookUrl", facebook.getOauthUrl(linker.get()));
 	}
 
 	@Post("/perguntar")

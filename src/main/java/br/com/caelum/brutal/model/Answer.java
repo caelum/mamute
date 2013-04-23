@@ -269,7 +269,7 @@ public class Answer extends Moderatable implements Post, Subscribable {
 	}
 
 	@Override
-	public boolean isVisibleForModeratorAnd(User user) {
+	public boolean isVisibleForModeratorAndNotAuthor(User user) {
 		return !this.isVisible() && !user.isAuthorOf(this);
 	}
 	

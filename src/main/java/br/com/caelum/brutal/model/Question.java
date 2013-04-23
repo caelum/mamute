@@ -330,8 +330,12 @@ public class Question extends Moderatable implements Post, Taggable{
 	}
 	
 	@Override
-	public boolean isVisibleForModeratorAnd(User user) {
-		return !this.isVisible() && !user.isAuthorOf(this);
+	public boolean isVisibleForModeratorAndNotAuthor(User user) {
+		return !this.isVisible() && user != null && !user.isAuthorOf(this);
+	}
+	
+	public boolean isVisibleFor(User user) {
+		return this.isVisible() || (user != null && (user.isModerator() || user.isAuthorOf(this)));
 	}
 
 	@Override

@@ -163,7 +163,7 @@ public class Comment implements Subscribable, Votable, Flaggable {
 	}
 
 	@Override
-	public boolean isVisibleForModeratorAnd(User user) {
+	public boolean isVisibleForModeratorAndNotAuthor(User user) {
 		return !this.isVisible() && user != null && user.isModerator();
 	}
 }
