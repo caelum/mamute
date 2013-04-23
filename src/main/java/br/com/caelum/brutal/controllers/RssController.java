@@ -33,6 +33,7 @@ public class RssController {
 		int maxResults = 30;
 		List<Question> orderedByDate = questions.orderedByCreationDate(maxResults);
 		OutputStream outputStream = response.getOutputStream();
+		response.setContentType("text/xml");
 		rssFactory.build(orderedByDate, outputStream);
 		result.nothing();
 	}
