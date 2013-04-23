@@ -21,7 +21,7 @@ public class QuestionRssEntryFactory {
 				.withAuthor(question.getAuthor().getName())
 				.withTitle(question.getTitle())
 				.withLink(
-						"http://guj.com.br/perguntas/" + question.getId() + "-"
+						"http://guj.com.br/" + question.getId() + "-"
 								+ question.getSluggedTitle())
 				.withId(question.getId().toString())
 				.withDate(question.getCreatedAt()).build();

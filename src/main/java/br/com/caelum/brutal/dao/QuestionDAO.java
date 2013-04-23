@@ -107,7 +107,7 @@ public class QuestionDAO {
 	}
 
 	public List<Question> orderedByCreationDate(int maxResults) {
-		String hql = "select q from Question q order by q.createdAt desc";
+		String hql = "select q from Question q where q.moderationOptions.invisible = false order by q.createdAt desc";
 		Query query = session.createQuery(hql);
 		return query.setMaxResults(maxResults).list();
 	}
