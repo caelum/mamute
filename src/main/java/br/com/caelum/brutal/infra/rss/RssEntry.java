@@ -9,12 +9,14 @@ public class RssEntry {
 	private final String link;
 	private final String guid;
 	private final String pubDate;
+	private final String author;
 
-	public RssEntry(String title, String link, String guid, String pubDate) {
+	public RssEntry(String title, String link, String guid, String pubDate, String authorName) {
 		this.title = title;
 		this.link = link;
 		this.guid = guid;
 		this.pubDate = pubDate;
+		this.author = authorName;
 	}
 
 

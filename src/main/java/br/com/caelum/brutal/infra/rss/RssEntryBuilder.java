@@ -36,7 +36,7 @@ public class RssEntryBuilder {
 	}
 
 	public RssEntry build() {
-		return new RssEntry(title, link, guid, date.toString());
+		return new RssEntry(title, link, guid, date.toString(), name);
 	}
 	
 }

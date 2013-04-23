@@ -1,9 +1,6 @@
 package br.com.caelum.brutal.infra.rss;
 
-import static org.junit.Assert.assertEquals;
-
-import java.io.InputStream;
-import java.util.Scanner;
+import static org.junit.Assert.assertTrue;
 
 import org.joda.time.DateTimeUtils;
 import org.junit.Test;
@@ -11,6 +8,8 @@ import org.junit.Test;
 import br.com.caelum.brutal.builder.QuestionBuilder;
 import br.com.caelum.brutal.dao.TestCase;
 import br.com.caelum.brutal.model.Question;
+
+import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 
 public class QuestionRssEntryFactoryTest extends TestCase {
 
@@ -28,11 +27,14 @@ public class QuestionRssEntryFactoryTest extends TestCase {
 		
 		DateTimeUtils.setCurrentMillisSystem();
 		
-		InputStream is = this.getClass().getResourceAsStream("/rss/entry_example.xml");
-		String expected = new Scanner(is).useDelimiter("$$").next();
-		String xml = factory.entryOf(question);
+		ByteOutputStream output = new ByteOutputStream();
+		factory.writeEntry(question, output);
+		output.close();
+		String xml = new String(output.getBytes());
 		
-		assertEquals(expected, xml);
+		assertTrue(xml.contains("<link>http://guj.com.br/perguntas/1-question-title</link>"));
+		assertTrue(xml.contains("<title>question title</title>"));
+		assertTrue(xml.contains("<author>author</author>"));
 	}
 
 }
