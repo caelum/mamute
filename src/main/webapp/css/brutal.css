@@ -911,6 +911,10 @@ a.button.ask-a-question:hover{
 	background-color: #e0eaf1;
 }
 
+.main-tags{
+	padding: 15px 0;
+}
+
 .main-tags li{
 	display: inline-block;
 }

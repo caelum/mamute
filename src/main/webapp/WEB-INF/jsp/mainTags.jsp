@@ -1,4 +1,4 @@
-<ol class="main-tags tags-usage">
+<ol class="main-tags">
 	<li><a class="tag-brutal" href="${linkTo[ListController].withTag['java']}">java</a></li>
 	<li><a class="tag-brutal" href="${linkTo[ListController].withTag['android']}">android</a></li>
 	<li><a class="tag-brutal" href="${linkTo[ListController].withTag['c%23']}">c#</a></li>
