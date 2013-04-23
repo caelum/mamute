@@ -57,5 +57,8 @@
 	</div>
 </section>
 <ol id="intro">
-	<li data-class="post-meta" data-options="tipLocation:right" class="brutal-intro">Você vai ver essas setas em qualquer página de pergunta. Com elas, você pode dizer se uma pergunta ou uma resposta foram relevantes para você ou se apenas te atrapalharam</li>
+	<li data-class="post-meta" data-options="tipLocation:right" class="brutal-intro">Você vai ver essas setas em qualquer página de pergunta. Com elas, você pode dizer se uma	 pergunta ou uma resposta foram relevantes ou não</li>
+	<li data-class="edit-question" data-options="tipLocation:bottom" class="brutal-intro">Edite sua pergunta ou resposta caso queira alterar ou adicionar detalhes.</li>
+	<li data-class="add-comment" data-options="tipLocation:bottom" class="brutal-intro">Para agradecimentos e caso haja alguma dúvida sobre a pergunta, adicione um comentário. O espaço de respostas deve ser utilizado apenas para responder a pergunta.	</li>
+	<li data-class="solution-mark" data-options="tipLocation:right" class="brutal-intro">Se o autor da pergunta marcar uma resposta como solucionada, esta marca aparecerá</li>
 </ol>
