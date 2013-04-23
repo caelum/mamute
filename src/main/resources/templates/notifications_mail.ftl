@@ -14,7 +14,7 @@
 					<span style="color: #aaa">
 						${localization.getMessage(subscribableDTO.getSubscribable().getTypeNameKey())}
 					</span>
-					${subscribableDTO.subscribable.trimmedContent}
+					${sanitizer.sanitize(subscribableDTO.subscribable.trimmedContent)}
 				</td>
 			</tr>
 		</#list>

@@ -7,6 +7,8 @@ import org.apache.commons.mail.Email;
 import org.apache.log4j.Logger;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.owasp.html.HtmlPolicyBuilder;
+import org.owasp.html.PolicyFactory;
 
 import br.com.caelum.brutal.controllers.QuestionController;
 import br.com.caelum.brutal.model.Question;
@@ -25,6 +27,7 @@ public class NotificationMailer {
     private final Localization localization;
     private final Linker linker;
     private static final Logger LOG = Logger.getLogger(NotificationMailer.class);
+    private static final PolicyFactory POLICY = new HtmlPolicyBuilder().allowElements("p", "br").toFactory();
 
     public NotificationMailer(Mailer mailer, TemplateMailer templates, Localization localization, Linker linker) {
         this.mailer = mailer;
@@ -42,6 +45,7 @@ public class NotificationMailer {
     			Email email = templates.template("notifications_mail")
     					.with("subscribablesDTO", subscribableEmail.getSubscribables())
     					.with("dateFormat", dateFormat)
+    					.with("sanitizer", POLICY)
     					.with("localization", localization)
     					.with("linkerHelper", new LinkToHelper(linker))
     					.to(user.getName(), user.getEmail());
