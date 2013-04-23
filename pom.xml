@@ -456,7 +456,6 @@
 						<configuration>
 							<sources>
 								<source>src/integration/java</source>
-								<source>src/integration/resources</source>
 							</sources>
 						</configuration>
 					</execution>
@@ -680,7 +679,6 @@
 								<configuration>
 									<sources>
 										<source>src/integration/java</source>
-										<source>src/integration/resources</source>
 										<source>src/main/migrations</source>
 									</sources>
 								</configuration>
