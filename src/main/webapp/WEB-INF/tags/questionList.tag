@@ -32,9 +32,7 @@
 	<div class="subheader">
 		<h3 class="title page-title"><fmt:message key="tags.main"/></h3>
 	</div>
-	<ol class="main-tags tags-usage">
-		<%@include file="../jsp/mainTags.jsp" %>
-	</ol>
+	<%@include file="../jsp/mainTags.jsp" %>
 	<div class="subheader">
 		<h3 class="title page-title"><fmt:message key="tags.recent"/></h3>
 	</div>

@@ -911,6 +911,10 @@ a.button.ask-a-question:hover{
 	background-color: #e0eaf1;
 }
 
+.main-tags li{
+	display: inline-block;
+}
+
 .main-tags .tag-brutal {
 	margin-bottom:.5em;	
 }
