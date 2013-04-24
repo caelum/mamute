@@ -127,7 +127,7 @@ function setLoading(target){
 }
 
 function intro(){
-	$("#intro").joyride({});	
+	$("#intro").joyride({});
 }
 
 $(function() {
