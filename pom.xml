@@ -419,6 +419,7 @@
 							<removeIncluded>true</removeIncluded>
 							<output>${project.build.directory}/${project.build.finalName}/css/all-deps${deploy.timestamp}.css</output>
 							<excludes>
+								<exclude>**/all-brutal${deploy.timestamp}.css</exclude>
 								<exclude>**/brutal.css</exclude>
 								<exclude>**/responsive-brutal.css</exclude>
 							</excludes>
