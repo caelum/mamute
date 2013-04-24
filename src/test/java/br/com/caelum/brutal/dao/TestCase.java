@@ -80,7 +80,7 @@ public abstract class TestCase {
     	return new Comment(author, comment);
     }
     
-    private void setId(Object o, Long id) {
+    protected void setId(Object o, Long id) {
         new Mirror().on(o).set().field("id").withValue(id);
     }
 
