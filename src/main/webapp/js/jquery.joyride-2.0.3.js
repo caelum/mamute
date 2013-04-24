@@ -451,21 +451,23 @@
         methods.show('init');
         }
       },
-
+      
+      
       pos_default : function (init) {
         var half_fold = Math.ceil(settings.$window.height() / 2),
             tip_position = settings.$next_tip.offset(),
             $nub = $('.joyride-nub', settings.$next_tip),
-            nub_width = Math.ceil($nub.outerWidth() / 2),
-            nub_height = Math.ceil($nub.outerHeight() / 2),
-            toggle = init || false;
+        	toggle = init || false;
 
         // tip must not be "display: none" to calculate position
         if (toggle) {
           settings.$next_tip.css('visibility', 'hidden');
           settings.$next_tip.show();
         }
-
+        
+        var nub_width = Math.ceil($nub.outerWidth() / 2),
+        nub_height = Math.ceil($nub.outerHeight() / 2);
+        
         if (!/body/i.test(settings.$target.selector)) {
 
             if (methods.bottom()) {
