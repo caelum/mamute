@@ -631,7 +631,7 @@
 											<value>br.com.caelum.brutal.integration.util.FailFastListener</value>
 										</property>
 									</properties>
-									<runOrder>alphabetical</runOrder>
+<!-- 									<runOrder>alphabetical</runOrder> -->
 								</configuration>
 							</execution>
 						</executions>
