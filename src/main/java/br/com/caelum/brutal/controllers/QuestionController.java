@@ -8,7 +8,6 @@ import java.util.List;
 import br.com.caelum.brutal.auth.FacebookAuthService;
 import br.com.caelum.brutal.auth.LoggedAccess;
 import br.com.caelum.brutal.auth.rules.AuthorizationSystem;
-import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.dao.VoteDAO;
@@ -74,7 +73,7 @@ public class QuestionController {
 	@Get("/pergunta/editar/{questionId}")
 	public void questionEditForm(Long questionId) {
 		Question question = questions.getById(questionId);
-		authorizationSystem.canEdit(question, PermissionRulesConstants.EDIT_QUESTION);
+		authorizationSystem.canEdit(question, authorizationSystem.ruleForQuestionEdit());
 		
 		result.include("question",  questions.getById(questionId));
 	}
@@ -82,7 +81,7 @@ public class QuestionController {
 	@Post("/pergunta/editar/{id}")
 	public void edit(Long id, String title, String description, String tagNames, String comment) {
 		Question original = questions.getById(id);
-		authorizationSystem.canEdit(original, PermissionRulesConstants.EDIT_QUESTION);
+		authorizationSystem.canEdit(original, authorizationSystem.ruleForQuestionEdit());
 		
 		List<String> splitedTags = splitTags(tagNames);
 		List<Tag> loadedTags = tags.findAllWithoutRepeat(splitedTags);

@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 import br.com.caelum.brutal.auth.LoggedAccess;
 import br.com.caelum.brutal.auth.rules.AuthorizationSystem;
-import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.dao.AnswerDAO;
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.Answer;
@@ -58,7 +57,7 @@ public class AnswerController {
 	@Get("/resposta/editar/{id}")
 	public void answerEditForm(Long id) {
 		Answer answer = answers.getById(id);
-		authorizationSystem.canEdit(answer, PermissionRulesConstants.EDIT_ANSWER);
+		authorizationSystem.canEdit(answer, authorizationSystem.ruleForAnswerEdit());
 		
 		result.include("answer",  answers.getById(id));
 	}
@@ -66,7 +65,7 @@ public class AnswerController {
 	@Post("/resposta/editar/{id}")
 	public void edit(Long id, String description, String comment) {
 		Answer original = answers.getById(id);
-		authorizationSystem.canEdit(original, PermissionRulesConstants.EDIT_ANSWER);
+		authorizationSystem.canEdit(original, authorizationSystem.ruleForAnswerEdit());
 		
 		AnswerInformation information = new AnswerInformation(description, currentUser, comment);
 
