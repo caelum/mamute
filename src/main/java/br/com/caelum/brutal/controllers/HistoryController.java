@@ -108,8 +108,12 @@ public class HistoryController {
         } catch (IllegalArgumentException e) {
             result.notFound();
         }
-    	
     }
+	
+	@Post("/rejeitar/{typeName}/{informationId}")
+	public void reject(Long informationId, String typeName) {
+		throw new UnsupportedOperationException();
+	}
 
     private void refusePending(Long aprovedHistoryId, List<Information> pending) {
         for (Information refused : pending) {
@@ -118,5 +122,6 @@ public class HistoryController {
 	        }
         }
     }
+    
 	
 }
