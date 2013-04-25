@@ -60,5 +60,5 @@
 	<li data-class="post-meta" data-options="tipLocation:right"><fmt:message key="intro.question.post_meta" /></li>
 	<li data-class="edit-question" data-options="tipLocation:bottom"><fmt:message key="intro.question.edit_question" /></li>
 	<li data-class="add-comment" data-options="tipLocation:bottom"><fmt:message key="intro.question.add_comment" /></li>
-	<li data-class="solution-mark" data-options="tipLocation:right"><fmt:message key="intro.question.solution_mark" /></li>
+	<li data-class="solution-tick" data-options="tipLocation:right"><fmt:message key="intro.question.solution_mark" /></li>
 </ol>
