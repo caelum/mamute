@@ -40,7 +40,6 @@
 </aside>
 <ol id="intro">
 	<!--   <li data-id="newHeader">Tip content...</li> -->
-	<li data-class="votes" data-options="tipLocation:top" class="brutal-intro">Esse é o contador de votos. Perguntas com -5 não aparecem mais na página inicial</li>
-	<li data-class="answers" data-options="tipLocation:top" class="brutal-intro">Content...</li>
-	<li data-class="views" data-options="tipLocation:top" class="brutal-intro">Content...</li>
+	<li data-class="votes" data-options="tipLocation:top" class="brutal-intro"><fmt:message key="intro.home.votes" /></li>
+	<li data-class="answers" data-options="tipLocation:top" class="brutal-intro"><fmt:message key="intro.home.answers" /></li>
 </ol>
