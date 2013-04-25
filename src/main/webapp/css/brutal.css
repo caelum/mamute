@@ -1146,26 +1146,32 @@ a.button.ask-a-question:hover{
 }
 
 /*Answers*/
-.mark-as-solution,
-.solution-mark{
+.solution-tick{
 	margin-top: 5px;
 	padding: 2px 0;
 	text-decoration: none;
-}
-
-.mark-as-solution {
 	border-radius:3px;
 	color: #c9e2ab;
 }
 
-.solution-mark {
+.solution-container .solution-tick, 
+.mark-as-solution-subtitle {
 	color: #84bc41;
 }
 
-.answer:hover .mark-as-solution:not(.solution-mark){
+.mark-as-solution-subtitle {
+	display:none;
+}
+
+.answer:hover .not-solution-container .mark-as-solution-subtitle{
+	display:block;
+}
+
+.answer:hover .not-solution-container .solution-tick{
 	background-color:#ebf4e0;
 	color:#9dca67;
 }
+
 
 /* Already Answered Alert */
 .already-answered{
