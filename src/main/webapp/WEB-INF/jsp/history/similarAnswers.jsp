@@ -14,10 +14,10 @@
 	</div>
 	
 	<div class="history-edited">
-		<c:if test="${empty history}">
+		<c:if test="${empty histories}">
 			<h2 class="alert"><fmt:message key="moderation.no_versions" /></h2>
 		</c:if>
-		<c:if test="${!empty history}">
+		<c:if test="${!empty histories}">
 			<tags:historiesSelect histories="${histories}" />
 			<c:forEach items="${histories}" var="information" varStatus="status">
 				<tags:historyForm index="${status.index}" information="${information}" type="${type}">		
