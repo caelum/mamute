@@ -26,12 +26,6 @@
 				<dd class="data-description ellipsis"><a rel='nofollow' href='<c:out value="${selectedUser.website}" escapeXml="true"/>'><c:out value="${selectedUser.website}" escapeXml="true"/></a></dd>
 				<dt class="data-title ellipsis"><fmt:message key="user_profile.location"/></dt>
 				<dd class="data-description ellipsis"><c:out value="${selectedUser.location}" escapeXml="true"/></dd>
-				<c:if test="${isCurrentUser}">
-					<dt class="data-title ellipsis"><fmt:message key="user_profile.email"/></dt>
-					<dd class="data-description ellipsis profile-email">${selectedUser.email}</dd>
-					<dt class="data-title ellipsis"><fmt:message key="user_profile.real_name"/></dt>
-					<dd class="data-description ellipsis">${selectedUser.realName}</dd>
-				</c:if>
 				<dt class="data-title ellipsis"><fmt:message key="user_profile.age"/></dt>
 				<dd class="data-description ellipsis">${selectedUser.age}</dd>
 			</dl>
@@ -43,6 +37,17 @@
 				<dd class="data-description ellipsis"><tags:prettyTime time="${selectedUser.createdAt}"/></dd>
 			</dl>
 		</li>
+		<c:if test="${isCurrentUser}">
+		<li class="data-line">
+			<h5 class="data-section-title ellipsis"><fmt:message key="user_profile.private" /></h5>
+			<dl class="data-section">
+				<dt class="data-title ellipsis"><fmt:message key="user_profile.email"/></dt>
+				<dd class="data-description ellipsis profile-email">${selectedUser.email}</dd>
+				<dt class="data-title ellipsis"><fmt:message key="user_profile.real_name"/></dt>
+				<dd class="data-description ellipsis">${selectedUser.realName}</dd>
+			</dl>
+		</li>
+		</c:if>
 	</ul>
 	
 	<div class="about-me">
