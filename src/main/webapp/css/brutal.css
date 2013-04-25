@@ -158,6 +158,7 @@ a:hover{
 	padding: 3px;
 	color: #000;
 	line-height:1.2em;
+	margin-bottom: 1em;
 }
 
 .md-preview ul, .md-preview ol,
@@ -321,7 +322,7 @@ em {
 	margin: -13px 0 0 0;
 }
 
-.validated-form .text-input {
+.validated-form .text-input , .validated-form .wmd-input{
 	margin: 0 0 16px 0;
 }
 
