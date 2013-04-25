@@ -5,6 +5,10 @@
 
 <footer class="footer">
 	<div class="container">
+		<p class="footer-menu">
+			<a href="${linkTo[ListController].unsolved}"><fmt:message key="menu.unsolved"/></a>
+			<a href="${linkTo[ListController].unanswered}"><fmt:message	key="menu.unanswered"/></a>
+		</p>
 		<%@include file="mainTags.jsp" %>
 		<p><fmt:message key="footer.powered_by"><fmt:param value="http://www.caelum.com.br"/></fmt:message></p>		
 		<p><a class="footer-link" href="http://www.casadocodigo.com.br"><fmt:message key="footer.casa_do_codigo"/></a></p>		

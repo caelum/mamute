@@ -1377,15 +1377,24 @@ a.button.ask-a-question:hover{
 .footer {
 	border-top: 8px solid #000000;
 	background-color: #244B6A;
-	height: 150px;
+	height: 180px;
 	margin-top: 50px;
 	text-align: center;
 	padding-top: 2em;
 }
 
-.footer p, .footer-caelum{
+.footer p:not(.footer-menu), .footer-caelum {
 	color: #fff;
 	margin-top: 10px;
+}
+
+.footer-menu a {
+	color: #fff;
+	font-weight: bold;
+}
+
+.footer-menu a:not(:last-child) {
+	padding-right: 1.3em;
 }
 
 .footer-link {

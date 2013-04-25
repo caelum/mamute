@@ -54,6 +54,12 @@ public class ListController {
 		result.include("recentTags", recentTagsContainer.getRecentTagsUsage());
 	}
 	
+	@Get("/sem-respostas")
+	public void unanswered() {
+		result.include("questions", questions.noAnswers());
+		result.include("recentTags", recentTagsContainer.getRecentTagsUsage());
+	}
+	
 	@Get("/tag/{tagName}")
 	public void withTag(String tagName, Integer p) {
 		Integer page = getPage(p);

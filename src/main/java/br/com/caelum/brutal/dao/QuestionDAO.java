@@ -52,6 +52,10 @@ public class QuestionDAO {
 	public List<Question> unsolvedVisible() {
 		return session.createQuery("from Question as q "+invisibleFilter("and")+" (q.solution is null) order by q.lastUpdatedAt desc").setMaxResults(50).list();
 	}
+	
+	public List<Question> noAnswers() {
+		return session.createQuery("from Question as q " +invisibleFilter("and")+" q.answerCount = 0 order by q.lastUpdatedAt desc").setMaxResults(50).list();
+	}
 
 	public Question load(Question question) {
 		return getById(question.getId());

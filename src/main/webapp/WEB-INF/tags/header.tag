@@ -55,9 +55,9 @@
 						<li class="nav-item"><a class="button"
 							href="${linkTo[ListController].listTags}"><fmt:message
 									key="menu.tags" /></a></li>
-						<li class="nav-item"><a class="button unsolved"
-							href="${linkTo[ListController].unsolved}"><fmt:message
-									key="menu.unsolved" /></a></li>
+						<li class="nav-item"><a class="button unanswered"
+							href="${linkTo[ListController].unanswered}"><fmt:message
+									key="menu.unanswered" /></a></li>
 						<li class="ask nav-item"><a class="button ask-a-question"
 							href='${linkTo[QuestionController].newQuestion}'><fmt:message
 									key="menu.question.ask" /></a></li>
