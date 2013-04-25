@@ -8,6 +8,8 @@
 	<div class="post-text">
 		${questionInformation.markedDescription}
 	</div>
+	<tags:tagsFor taggable="${questionInformation}"/>
+	
 </c:if>
 <c:if test="${not empty answerInformation}">
 	<h2 class="title question-title"><tags:questionLinkFor answer="${answerInformation.answer}"/></h2>

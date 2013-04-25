@@ -12,6 +12,9 @@
 		
 		<c:forEach items="${histories}" var="information" varStatus="status">
 			<tags:historyForm index="${status.index}" information="${information}" type="${type}">
+				<jsp:attribute name="tagList">
+					<tags:tagsFor taggable="${information}"/>
+				</jsp:attribute>
 				<jsp:body><tags:simpleVersionFor questionInformation="${information}"/></jsp:body>
 			</tags:historyForm>
 		</c:forEach>
