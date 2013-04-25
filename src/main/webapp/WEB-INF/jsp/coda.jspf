@@ -127,14 +127,16 @@ function setLoading(target){
 }
 
 function intro(){
-	$("#intro").joyride({});
+	$("#intro").joyride({});		
 }
 
 $(function() {
 	intro();
-	prettyPrint();
 	
-	console.log(CONTEXT_PATH);
+	$(".intro").click(function(){
+		intro()
+	});
+	prettyPrint();
 	
 	$("#datepicker").datepicker(
 		{dateFormat: "dd/mm/yy",

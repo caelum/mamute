@@ -29,10 +29,10 @@
 	<link rel="stylesheet" href="<c:url value="/css/font-awesome.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/pagedown.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/prettify.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/joyride-2.0.3.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/brutal.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/responsive-brutal.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/jquery-ui-1.10.2.custom.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/joyride-2.0.3.css"/>">
 </c:if>
 <c:if test="${environment.name == 'production'}" >
 	<link rel="stylesheet" href="<c:url value="/css/all-deps${deployTimestamp}.css"/>">

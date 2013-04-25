@@ -39,7 +39,6 @@
 	<tags:recentTagsUsage tagsUsage="${recentTags}"/>
 </aside>
 <ol id="intro">
-	<!--   <li data-id="newHeader">Tip content...</li> -->
-	<li data-class="votes" data-options="tipLocation:top" class="brutal-intro"><fmt:message key="intro.home.votes" /></li>
-	<li data-class="answers" data-options="tipLocation:top" class="brutal-intro"><fmt:message key="intro.home.answers" /></li>
+	<li data-class="votes" data-options="tipLocation:top"><fmt:message key="intro.home.votes" /></li>
+	<li data-class="answers" data-options="tipLocation:top"><fmt:message key="intro.home.answers" /></li>
 </ol>
