@@ -29,10 +29,10 @@
 	<link rel="stylesheet" href="<c:url value="/css/font-awesome.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/pagedown.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/prettify.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/joyride-2.0.3.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/brutal.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/responsive-brutal.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/jquery-ui-1.10.2.custom.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/joyride-2.0.3.css"/>">
 </c:if>
 <c:if test="${environment.name == 'production'}" >
 	<link rel="stylesheet" href="<c:url value="/css/all-deps${deployTimestamp}.css"/>">
@@ -97,6 +97,18 @@
 								href="${linkTo[NavigationController].about}"> <fmt:message
 										key="about.link" />
 							</a></li>
+							<c:if test="${not empty currentUser }">
+								<li class="nav-item">
+									<c:choose>
+										<c:when test="${currentUser.karma > 12}" >
+											<a class="intro" href="#"><fmt:message key="metas.intro.title" /></a>
+										</c:when>
+										<c:otherwise>
+											<a class="intro new-users" href="#"><fmt:message key="metas.intro.new_users_title" /></a>
+										</c:otherwise>
+									</c:choose>
+								</li>
+							</c:if>
 							<li class="nav-item"><a href="#"
 								class="search-dropdown dropdown-trigger"
 								data-target-id="dropdown-search-form">Procurar</a></li>

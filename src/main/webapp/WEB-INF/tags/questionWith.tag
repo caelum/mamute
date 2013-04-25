@@ -57,8 +57,8 @@
 	</div>
 </section>
 <ol id="intro">
-	<li data-class="post-meta" data-options="tipLocation:right" class="brutal-intro intro-post-meta"><fmt:message key="intro.question.post_meta" /></li>
-	<li data-class="edit-question" data-options="tipLocation:bottom" class="brutal-intro intro-edit-question"><fmt:message key="intro.question.edit_question" /></li>
-	<li data-class="add-comment" data-options="tipLocation:bottom" class="brutal-intro intro-add-comment"><fmt:message key="intro.question.add_comment" /></li>
-	<li data-class="solution-mark" data-options="tipLocation:right" class="brutal-intro intro-solution-mark"><fmt:message key="intro.question.solution_mark" /></li>
+	<li data-class="post-meta" data-options="tipLocation:right"><fmt:message key="intro.question.post_meta" /></li>
+	<li data-class="edit-question" data-options="tipLocation:bottom"><fmt:message key="intro.question.edit_question" /></li>
+	<li data-class="add-comment" data-options="tipLocation:bottom"><fmt:message key="intro.question.add_comment" /></li>
+	<li data-class="solution-mark" data-options="tipLocation:right"><fmt:message key="intro.question.solution_mark" /></li>
 </ol>
