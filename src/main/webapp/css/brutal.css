@@ -1463,7 +1463,7 @@ a.button.ask-a-question:hover{
 .data-list .data-section {
 	float: left;
 	color: #000;
-	width: 21em;
+	width: 22.8em;
 }
 
 .data-section .data-title,.data-section .data-description {
@@ -1485,11 +1485,11 @@ a.button.ask-a-question:hover{
 .data-section .data-title {
 	width: 6.7em;
 	clear: left;
-	margin-right: .3em;
+	margin-right: .5em;
 }
 
 .data-section .data-description {
-	width: 14em;
+	width: 15.6em;
 }
 
 .advanced-data-section {
