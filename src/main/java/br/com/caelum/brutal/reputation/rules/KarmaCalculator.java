@@ -14,7 +14,7 @@ public class KarmaCalculator {
     static final int QUESTION_VOTED_DOWN = ANSWER_VOTED_DOWN;
     static final int QUESTION_VOTED_UP = 5;
     static final int APPROVED_INFORMATION = 2;
-    static final int COMMENT_VOTED_UP = 2;
+    static final int COMMENT_VOTED_UP = 1;
 	static final int ASKED_QUESTION = 2;
 	static final int ANSWERED_QUESTION = 2;
     
