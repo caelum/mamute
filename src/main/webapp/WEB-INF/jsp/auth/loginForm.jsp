@@ -6,7 +6,7 @@
 
 <div class="login-or-signup">
 	<div class="login">
-		<tags:loginForm redirectUrl="${currentUrl}" />
+		<tags:loginForm redirectUrl="${redirectUrl}" />
 	</div>
 	<div class="signup">
 		<tags:signupForm />
