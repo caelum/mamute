@@ -97,6 +97,18 @@
 								href="${linkTo[NavigationController].about}"> <fmt:message
 										key="about.link" />
 							</a></li>
+							<c:if test="${not empty currentUser }">
+								<li class="nav-item">
+									<c:choose>
+										<c:when test="${currentUser.karma > 12}" >
+											<a class="intro" href="#"><fmt:message key="metas.intro.title" /></a>
+										</c:when>
+										<c:otherwise>
+											<a class="intro new-users" href="#"><fmt:message key="metas.intro.new_users_title" /></a>
+										</c:otherwise>
+									</c:choose>
+								</li>
+							</c:if>
 							<li class="nav-item"><a href="#"
 								class="search-dropdown dropdown-trigger"
 								data-target-id="dropdown-search-form">Procurar</a></li>
