@@ -14,12 +14,16 @@
 	</div>
 	
 	<div class="history-edited">
-		<tags:historiesSelect histories="${histories}" />
-		
-		<c:forEach items="${histories}" var="information" varStatus="status">
-			<tags:historyForm index="${status.index}" information="${information}" type="${type}">		
-				<tags:simpleVersionFor answerInformation="${information}"/>
-			</tags:historyForm>
-		</c:forEach>
+		<c:if test="${empty history}">
+			<h2 class="alert"><fmt:message key="moderation.no_versions" /></h2>
+		</c:if>
+		<c:if test="${!empty history}">
+			<tags:historiesSelect histories="${histories}" />
+			<c:forEach items="${histories}" var="information" varStatus="status">
+				<tags:historyForm index="${status.index}" information="${information}" type="${type}">		
+					<tags:simpleVersionFor answerInformation="${information}"/>
+				</tags:historyForm>
+			</c:forEach>
+		</c:if>
 	</div>
 </div>

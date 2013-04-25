@@ -16,6 +16,7 @@ import br.com.caelum.vraptor.ioc.Component;
 public class InformationDAO {
 
     private final Session session;
+    private static final String MODEL_PACKAGE = "br.com.caelum.brutal.model.";
 
     public InformationDAO(Session session) {
         this.session = session;
@@ -58,6 +59,15 @@ public class InformationDAO {
 		String hql = "select count(*) from " + clazz.getSimpleName() + " qi where qi.status = :pending";
 		Long uniqueResult = (Long) session.createQuery(hql).setParameter("pending", UpdateStatus.PENDING).uniqueResult();
 		return uniqueResult;
+	}
+
+	public Information getById(Long informationId, String typeName) {
+		try {
+			Class<?> clazz = Class.forName(MODEL_PACKAGE + typeName);
+			return getById(informationId, clazz);
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 }

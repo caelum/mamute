@@ -9,8 +9,10 @@ import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.dao.InformationDAO;
 import br.com.caelum.brutal.dao.ModeratableDao;
 import br.com.caelum.brutal.infra.ModelUrlMapping;
+import br.com.caelum.brutal.model.AnswerInformation;
 import br.com.caelum.brutal.model.Information;
 import br.com.caelum.brutal.model.ModeratableAndPendingHistory;
+import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.interfaces.Moderatable;
@@ -23,7 +25,6 @@ import br.com.caelum.vraptor.Result;
 @Resource
 public class HistoryController {
 
-	private static final String MODEL_PACKAGE = "br.com.caelum.brutal.model.";
 	private final Result result;
     private final User currentUser;
     private final InformationDAO informations;
@@ -84,35 +85,35 @@ public class HistoryController {
 	@ModeratorOrKarmaAccess(PermissionRulesConstants.MODERATE_EDITS)
     @Post("/publicar/{moderatableType}")
     public void publish(Long moderatableId, String moderatableType, Long aprovedInformationId,  String aprovedInformationType) {
-        try {
-        	Class<?> moderatableClass = urlMapping.getClassFor(moderatableType);
-			Class<?> aprovedInformationClass = Class.forName(MODEL_PACKAGE + aprovedInformationType);
-            
-        	Information approved = informations.getById(aprovedInformationId, aprovedInformationClass);
-            Moderatable moderatable = moderatables.getById(moderatableId, moderatableClass);
-            List<Information> pending = informations.pendingFor(moderatableId, moderatableClass);
-            
-            if (!approved.isPending()) {
-            	result.use(http()).sendError(403);
-            	return;
-            }
-            
-            refusePending(aprovedInformationId, pending);
-            currentUser.approve(moderatable, approved);
-            int karma = calculator.karmaForApprovedInformation(approved);
-            approved.getAuthor().increaseKarma(karma);
-            
-            result.redirectTo(this).unmoderated(moderatableType);
-        } catch (ClassNotFoundException e) {
-        	result.notFound();
-        } catch (IllegalArgumentException e) {
-            result.notFound();
+    	Class<?> moderatableClass = urlMapping.getClassFor(moderatableType);
+    	Information approved = informations.getById(aprovedInformationId, aprovedInformationType);
+    	
+        Moderatable moderatable = moderatables.getById(moderatableId, moderatableClass);
+        List<Information> pending = informations.pendingFor(moderatableId, moderatableClass);
+        
+        if (!approved.isPending()) {
+        	result.use(http()).sendError(403);
+        	return;
         }
+        
+        refusePending(aprovedInformationId, pending);
+        currentUser.approve(moderatable, approved);
+        int karma = calculator.karmaForApprovedInformation(approved);
+        approved.getAuthor().increaseKarma(karma);
+        
+        result.redirectTo(this).unmoderated(moderatableType);
     }
 	
 	@Post("/rejeitar/{typeName}/{informationId}")
 	public void reject(Long informationId, String typeName) {
-		throw new UnsupportedOperationException();
+		Information informationRefused = informations.getById(informationId, typeName);
+		informationRefused.moderate(currentUser, UpdateStatus.REFUSED);
+		Long moderatableId = informationRefused.getModeratable().getId();
+		if (typeName.equals(AnswerInformation.class.getSimpleName())) {
+			result.redirectTo(this).similarAnswers(moderatableId);
+		} else if (typeName.equals(QuestionInformation.class.getSimpleName())) {
+			result.redirectTo(this).similarQuestions(moderatableId);
+		}
 	}
 
     private void refusePending(Long aprovedHistoryId, List<Information> pending) {
