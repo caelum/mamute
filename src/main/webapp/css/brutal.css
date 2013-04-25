@@ -60,6 +60,11 @@ a:hover{
 	border-bottom: 1px solid #cccccc;
 	padding-bottom: .7em;
 	overflow: hidden;
+	margin-bottom: 2%;
+}
+
+.first-content .subheader {
+	margin-bottom: 0;
 }
 
 .subheader-with-tab {
@@ -1033,6 +1038,7 @@ a.button.ask-a-question:hover{
 
 .question-area {
 	border: none;
+	padding-top: 0;
 }
 
 .post-area .tags {
