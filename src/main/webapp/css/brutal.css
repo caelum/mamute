@@ -1013,20 +1013,6 @@ a.button.ask-a-question:hover{
 
 /*SHOW QUESTION*/
 
-.mark-as-solution,
-.solution-mark{
-	padding-top: 5px;
-	text-decoration: none;
-}
-
-.mark-as-solution {
-	color: #c9e2ab;
-}
-
-.solution-mark {
-	color: #84bc41;
-}
-
 .post-area {
 	border-bottom: 1px solid #aaa;
 	overflow: hidden;
@@ -1157,6 +1143,28 @@ a.button.ask-a-question:hover{
 
 .login-or-signup .signup {
 	border-left: 1px solid #999;
+}
+
+/*Answers*/
+.mark-as-solution,
+.solution-mark{
+	margin-top: 5px;
+	padding: 2px 0;
+	text-decoration: none;
+}
+
+.mark-as-solution {
+	border-radius:3px;
+	color: #c9e2ab;
+}
+
+.solution-mark {
+	color: #84bc41;
+}
+
+.answer:hover .mark-as-solution:not(.solution-mark){
+	background-color:#ebf4e0;
+	color:#9dca67;
 }
 
 /* Already Answered Alert */
