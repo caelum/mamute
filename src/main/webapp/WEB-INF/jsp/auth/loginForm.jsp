@@ -4,4 +4,11 @@
 
 <h2 class="title page-title subheader">Login</h2>
 
-<tags:loginForm redirectUrl="${redirectUrl}"/>
+<div class="login-or-signup">
+	<div class="login">
+		<tags:loginForm redirectUrl="${currentUrl}" />
+	</div>
+	<div class="signup">
+		<tags:signupForm />
+	</div>
+</div>

@@ -412,7 +412,9 @@ input[type="submit"] {
 
 .text-input {
 	padding: 0.25em;
-	border: 1px solid #999;
+	border: 1px solid #eaeaea;
+	background-color: #f6f6f6;
+	height: 2.5em;
 }
 
 label {
@@ -515,8 +517,13 @@ form.inactive .submit{
 }
 
 .user-form input[type="submit"] {
-	height: 32px;
+	display: block;
+	width: 100%;
+/* 	line-height: 1.5em; */
 }
+
+/*fundo input #fbfbfb*/
+/*input #f4f4f4*/
 
 .face-button {
 	border-radius: 2px;
@@ -602,6 +609,8 @@ form.inactive .submit{
 	border-top: 1px solid #ccc;
 	border-left: 1px solid #ccc;
 	width: 100%;
+	background-color: #fff;
+	height: 22px;
 }
 
 .search-form input[type="submit"] {
