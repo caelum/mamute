@@ -51,7 +51,14 @@ function getSuggestions(tagChunk){
 			return tag;
 		}
 	});
-	return suggestions.slice(0, 9);
+		
+	return sortAndTrim(suggestions, tagChunk);
+}
+
+function sortAndTrim(array, tagChunk){
+	return array.sort(function(tagA, tagB){
+		return  tagA.name.indexOf(tagChunk) - tagB.name.indexOf(tagChunk);
+	}).slice(0, 9);
 }
 
 function showSuggestions(suggestions, target){
