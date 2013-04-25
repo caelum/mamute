@@ -131,7 +131,10 @@ function setLoading(target){
 }
 
 function intro(){
-	$("#intro").joyride({});		
+	if($("#intro")[0] == null){
+		$(".intro").css('visibility', 'hidden');
+	}
+	$("#intro").joyride({});
 }
 
 $(function() {
