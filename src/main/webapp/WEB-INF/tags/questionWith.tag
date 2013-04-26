@@ -5,7 +5,8 @@
 <%@attribute name="question" type="br.com.caelum.brutal.model.Question" required="true" %>
 <%@attribute name="commentVotes" type="br.com.caelum.brutal.model.CommentsAndVotes" required="true" %>
 <c:set var="isAuthor" value="${question.author.id == currentUser.id}" />
-<section class="post-area question-area ${question.isVisibleForModeratorAndNotAuthor(currentUser) ? 'highlight-post' : '' }">
+<section itemscope itemtype="http://schema.org/Article" class="post-area question-area ${question.isVisibleForModeratorAndNotAuthor(currentUser) ? 'highlight-post' : '' }" >
+	<h1 itemprop="name" class="title subheader question-title"><c:out value="${question.title}" escapeXml="${true}"/></h1>
 	<div class="post-meta">
 		<tags:voteFor item="${question}" type="pergunta" vote="${currentVote}"/>
 	</div>

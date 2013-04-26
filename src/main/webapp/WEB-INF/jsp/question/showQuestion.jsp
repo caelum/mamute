@@ -1,6 +1,4 @@
 <tags:header facebookMetas="${true}" title="${question.mostImportantTag} - ${question.title}" />
-
-<h1 class="title subheader question-title"><c:out value="${question.title}" escapeXml="${true}"/></h1>
 <section class="first-content">
 	<tags:questionWith question="${question}" commentVotes="${commentsWithVotes}"/>
 	<div class="subheader">
@@ -41,6 +39,6 @@
 	</c:if>
 </section>
 <aside class="sidebar">
-	<h3 class="title section-title"><fmt:message key="question.tags"/></h3>
+	<h3 class="title page-title"><fmt:message key="question.tags"/></h3>
 	<tags:tagsUsage tags="${questionTags}"/>
 </aside>

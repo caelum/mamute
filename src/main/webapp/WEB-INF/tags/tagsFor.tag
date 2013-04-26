@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@attribute name="taggable" type="br.com.caelum.brutal.model.interfaces.Taggable" required="true" %>
-<ul class="tags">
+<ul class="tags" itemprop="keywords">
 	<c:forEach items="${taggable.tags}" var="tag">
 		<li class="tags-item"><tags:tag tag="${tag}"/></li>
 	</c:forEach>
