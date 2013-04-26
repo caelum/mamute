@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.auth.rules;
 
+import javax.annotation.Nullable;
+
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.interfaces.Moderatable;
 import br.com.caelum.vraptor.ioc.Component;
@@ -9,7 +11,7 @@ public class AuthorizationSystem {
 
 	private User user;
 
-	public AuthorizationSystem(User user) {
+	public AuthorizationSystem(@Nullable User user) {
 		this.user = user;
 	}
 	

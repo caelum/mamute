@@ -4,7 +4,7 @@
 <%@attribute name="name" type="java.lang.String" required="false" %>
 <%@attribute name="email" type="java.lang.String" required="false" %>
 
-<form action="${linkTo[SignupController].signup}" method="POST" class="validated-form user-form">
+<form action="${linkTo[SignupController].signup[null][null][null][null]}" method="POST" class="validated-form user-form">
 	<label for="name"><fmt:message key="signup.form.username.label" /></label>
 	<input id="name" type="text" name="name" class="required text-input" maxlength="100" value="${name}"/>
 

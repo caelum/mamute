@@ -20,7 +20,7 @@
 
 
 <fmt:message  key="comment.submit" var="submit"/>
-<tags:simpleAjaxFormWith action="${linkTo[CommentController].comment[item.id][type]}" 
+<tags:simpleAjaxFormWith action="${linkTo[CommentController].comment[item.id][type][null]}" 
 field="comment" onCallback="append" callbackTarget="${ajaxResultName}" submit="${submit}">
 	<a href="#" class="requires-login post-action add-comment requires-karma" data-karma="${CREATE_COMMENT}">
 		${submit}

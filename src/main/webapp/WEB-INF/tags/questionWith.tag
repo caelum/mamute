@@ -31,10 +31,10 @@
 				</li>
 				<li class="nav-item">
 					<a class="post-action edit-question 
-							  requires-login requires-karma"
-							  data-author="${isAuthor}"
-							  data-karma="${EDIT_QUESTION}" 
-						href="${linkTo[QuestionController].edit[question.id]}">
+					    requires-login requires-karma"
+					    data-author="${isAuthor}"
+					    data-karma="${EDIT_QUESTION}" 
+					    href="<c:url value="/pergunta/editar/${question.id}" />">
 						<fmt:message key="edit" />
 					</a>
 				</li>

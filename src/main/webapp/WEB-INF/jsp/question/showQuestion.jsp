@@ -20,7 +20,7 @@
 		</c:forEach>
 	</ul>
 	<c:if test="${not empty currentUser && !question.alreadyAnsweredBy(currentUser)}">
-		<tags:answerForm uri="${linkTo[AnswerController].newAnswer[question]}" />
+		<tags:answerForm uri="${linkTo[AnswerController].newAnswer[question][null]}" />
 	</c:if>
 	<c:if test="${not empty currentUser && question.alreadyAnsweredBy(currentUser)}">
 		<div class="message alert already-answered">

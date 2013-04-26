@@ -1,1 +1,1 @@
-<tags:answerForm uri="${linkTo[AnswerController].newAnswer[question]}" />
+<tags:answerForm uri="${linkTo[AnswerController].newAnswer[question][null]}" />
