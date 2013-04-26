@@ -2,4 +2,4 @@
 <fmt:message key="metas.generic.title" var="genericTitle" />
 <tags:header title="${genericTitle} - ${title}"/>
 
-<tags:questionForm uri="${linkTo[QuestionController].newQuestion}" />
+<tags:questionForm uri="${linkTo[QuestionController].newQuestion[null][null][null]}" />

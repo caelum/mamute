@@ -47,10 +47,10 @@
 		<section class="second-header">
 			<div class="container">
 				<a class="logo big-logo sprite"
-					href="${linkTo[ListController].home}">GUJ</a>
+					href="${linkTo[ListController].home[null]}">GUJ</a>
 				<nav class="nav main-nav piped-nav">
 					<ul class="nav-items">
-						<li class="nav-item"><a class="button" href="${linkTo[ListController].home}">
+						<li class="nav-item"><a class="button" href="${linkTo[ListController].home[null]}">
 							<fmt:message key="menu.questions"/></a></li>
 						<li class="nav-item"><a class="button"
 							href="${linkTo[ListController].listTags}"><fmt:message
@@ -59,7 +59,7 @@
 							href="${linkTo[ListController].unanswered}"><fmt:message
 									key="menu.unanswered" /></a></li>
 						<li class="ask nav-item"><a class="button ask-a-question"
-							href='${linkTo[QuestionController].newQuestion}'><fmt:message
+							href='${linkTo[QuestionController].questionForm}'><fmt:message
 									key="menu.question.ask" /></a></li>
 					</ul>
 				</nav>

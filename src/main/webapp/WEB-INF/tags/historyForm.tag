@@ -6,8 +6,7 @@
 <%@attribute name="information" type="br.com.caelum.brutal.model.Information" required="true" %>
 <%@attribute name="index" type="java.lang.Integer" required="true" %>
 <%@attribute name="type" type="java.lang.String" required="true" %>
-
-<form method="post" class="history-form moderate-form ${index != 0 ? 'hidden' : ''}" action="${linkTo[HistoryController].publish}${type}">
+<form method="post" class="history-form moderate-form ${index != 0 ? 'hidden' : ''}" action="${linkTo[HistoryController].publish[null][type][null][null]}">
 	<c:if test="${information.beforeCurrent}">
 		<p class="alert"><fmt:message key="moderation.version_before_current"/></p>
 	</c:if>
