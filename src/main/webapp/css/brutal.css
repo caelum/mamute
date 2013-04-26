@@ -1676,7 +1676,7 @@ a.new-users {
 	font-size: 1.7em;
 	color: #F87217;
 	text-align: right;
-	margin-left: 1em;
+	float: right;
 }
 
 
