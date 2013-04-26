@@ -747,9 +747,6 @@ a.button.ask-a-question:hover{
 }
 
 /*HOME*/
-#intro {
-	display:none;
-}
 
 .question-item,.question-information,.summary {
 	overflow: hidden;
@@ -1639,6 +1636,14 @@ a.button.ask-a-question:hover{
 }
 
 /* INTRO */
+
+#intro {
+	display:none;
+}
+
+.intro {
+	visibility: hidden;
+}
 
 .joyride-tip-guide .joyride-next-tip {
 	display:block;

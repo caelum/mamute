@@ -131,9 +131,8 @@ function setLoading(target){
 }
 
 function intro(){
-	if(!$("#intro")[0]){
-		$(".intro").css('visibility', 'hidden');
-		return;
+	if($("#intro")[0]){
+		$(".intro").css('visibility', 'visible');
 	}
 	$("#intro").joyride({});
 }
