@@ -23,10 +23,4 @@ public class SignupPage extends PageObject{
 		return new Home(driver);
 	}
 
-	public FacebookLoginPage signupWithFacebook() {
-		WebElement faceButton = byClassName("face-button");
-		faceButton.click();
-		return new FacebookLoginPage(driver);
-	}
-
 }

@@ -24,7 +24,7 @@ public class FacebookSignupTest extends AcceptanceTestBase {
 	public void should_signup_and_login_through_facebook() throws Exception {
 		String appToken = getAppToken();
 		FacebookUser facebookUser = createFacebookTestUser(appToken);
-		FacebookLoginPage signupWithFacebook = home().toSignUpPage().signupWithFacebook();
+		FacebookLoginPage signupWithFacebook = home().toLoginPage().signupWithFacebook();
 		Home home = signupWithFacebook
 			.writeEmail(facebookUser.email)
 			.writePassword(facebookUser.password)
@@ -48,7 +48,6 @@ public class FacebookSignupTest extends AcceptanceTestBase {
 				"&name=TESTUSER" +
 				"&method=post" +
 				"&access_token=" + URLEncoder.encode(appToken));
-		System.out.println(method.getURI());
 		int status = client.executeMethod(method);
 		if (status != 200) {
 			fail("could not create test user, facebook sent " + status + " status code");
