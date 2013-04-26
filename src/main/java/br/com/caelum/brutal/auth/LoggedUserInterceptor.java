@@ -2,6 +2,7 @@ package br.com.caelum.brutal.auth;
 
 import static java.util.Arrays.asList;
 
+import javax.annotation.Nullable;
 import javax.servlet.http.HttpServletRequest;
 
 import br.com.caelum.brutal.auth.rules.MinimumReputation;
@@ -23,7 +24,7 @@ public class LoggedUserInterceptor implements Interceptor {
 	private final HttpServletRequest req;
 	private MessageFactory messageFactory;
     
-    public LoggedUserInterceptor(User currentUser, Result result, HttpServletRequest req, MessageFactory messageFactory) {
+    public LoggedUserInterceptor(@Nullable User currentUser, Result result, HttpServletRequest req, MessageFactory messageFactory) {
         this.currentUser = currentUser;
         this.result = result;
 		this.req = req;

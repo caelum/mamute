@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.dao;
 
+import javax.annotation.Nullable;
+
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.ioc.Component;
 
@@ -8,7 +10,7 @@ public class InvisibleForUsersRule {
 	
 	private final User user;
 
-	public InvisibleForUsersRule(User user) {
+	public InvisibleForUsersRule(@Nullable User user) {
 		this.user = user;
 	}
 	

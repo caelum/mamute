@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.reputation.rules;
 
+import javax.annotation.Nullable;
+
 import br.com.caelum.brutal.auth.LoggedUserInterceptor;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.InterceptionException;
@@ -14,7 +16,7 @@ public class ReputationEventInterceptor implements Interceptor {
 	private final User currentUser;
 	private final KarmaCalculator karmaCalculator;
 
-	public ReputationEventInterceptor(KarmaCalculator karmaCalculator, User currentUser) {
+	public ReputationEventInterceptor(KarmaCalculator karmaCalculator, @Nullable User currentUser) {
 		this.karmaCalculator = karmaCalculator;
 		this.currentUser = currentUser;
 	}

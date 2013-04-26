@@ -1,6 +1,9 @@
 package br.com.caelum.brutal.auth;
 
 import static br.com.caelum.vraptor.view.Results.http;
+
+import javax.annotation.Nullable;
+
 import br.com.caelum.brutal.auth.rules.ComposedRule;
 import br.com.caelum.brutal.auth.rules.MinimumKarmaRule;
 import br.com.caelum.brutal.auth.rules.ModeratorRule;
@@ -21,7 +24,7 @@ public class ModeratorOrEnoughKarmaInterceptor implements Interceptor {
     private final User currentUser;
     private final Result result;
     
-    public ModeratorOrEnoughKarmaInterceptor(User currentUser, Result result) {
+    public ModeratorOrEnoughKarmaInterceptor(@Nullable User currentUser, Result result) {
         this.currentUser = currentUser;
         this.result = result;
     }

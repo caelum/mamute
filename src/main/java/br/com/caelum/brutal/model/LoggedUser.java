@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.model;
 
+import javax.annotation.Nullable;
 import javax.servlet.http.HttpServletRequest;
 
 import br.com.caelum.vraptor.ioc.Component;
@@ -10,7 +11,7 @@ public class LoggedUser {
 	private final User user;
 	private final HttpServletRequest request;
 
-	public LoggedUser(User user, HttpServletRequest request) {
+	public LoggedUser(@Nullable User user, HttpServletRequest request) {
 		this.user = user;
 		this.request = request;
 	}
