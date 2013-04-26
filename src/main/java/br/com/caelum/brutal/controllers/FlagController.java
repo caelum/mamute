@@ -12,9 +12,12 @@ import br.com.caelum.brutal.dao.FlagDao;
 import br.com.caelum.brutal.dao.FlaggableDAO;
 import br.com.caelum.brutal.dto.FlaggableAndFlagCount;
 import br.com.caelum.brutal.infra.ModelUrlMapping;
+import br.com.caelum.brutal.model.Answer;
+import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.Flag;
 import br.com.caelum.brutal.model.FlagType;
 import br.com.caelum.brutal.model.LoggedUser;
+import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.flag.FlagTrigger;
 import br.com.caelum.brutal.model.interfaces.Flaggable;
 import br.com.caelum.vraptor.Get;
@@ -73,9 +76,24 @@ public class FlagController {
 	}
 	
 	@ModeratorOrKarmaAccess
-	@Get("/{flaggableType}s/marcados")
-	public void topFlaggedComments(String flaggableType) {
-		Class<?> model = urlMapping.getClassFor(flaggableType);
+	@Get("/perguntas/marcados")
+	public void topFlaggedQuestions() {
+		topFlagged(Question.class);
+	}
+	
+	@ModeratorOrKarmaAccess
+	@Get("/comentarios/marcados")
+	public void topFlaggedComments() {
+		topFlagged(Comment.class);
+	}
+	
+	@ModeratorOrKarmaAccess
+	@Get("/respostas/marcados")
+	public void topFlaggedAnswers() {
+		topFlagged(Answer.class);
+	}
+
+	private void topFlagged(Class<?> model) {
 		List<FlaggableAndFlagCount> flaggedAndCount = flaggables.flaggedButVisible(model);
 		result.include("flagged", flaggedAndCount);
 		result.use(page()).forwardTo("/WEB-INF/jsp/flag/topFlagged" + model.getSimpleName() + "s.jsp");
