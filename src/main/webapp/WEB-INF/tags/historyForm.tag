@@ -6,7 +6,10 @@
 <%@attribute name="information" type="br.com.caelum.brutal.model.Information" required="true" %>
 <%@attribute name="index" type="java.lang.Integer" required="true" %>
 <%@attribute name="type" type="java.lang.String" required="true" %>
-<form method="post" class="history-form moderate-form ${index != 0 ? 'hidden' : ''}" action="${linkTo[HistoryController].publish[null][type][null][null]}">
+
+<form method="post" class="history-form moderate-form ${index != 0 ? 'hidden' : ''}" 
+	action="<c:url value='/publicar/${type}'/>" >
+	
 	<c:if test="${information.beforeCurrent}">
 		<p class="alert"><fmt:message key="moderation.version_before_current"/></p>
 	</c:if>
@@ -40,7 +43,7 @@
 	<input type="hidden" name="aprovedInformationId" value="${information.id}"/>
 	<input type="submit" class="post-submit big-submit" value='<fmt:message key="moderation.accept" />' />
 </form>
-<form method="post" action="${linkTo[HistoryController].reject[information.id][information.typeName]}">
+<form method="post" action="<c:url value="/rejeitar/${information.typeName}/${information.id}" />">
 	<input type="submit" class="post-submit big-submit" value='<fmt:message key="moderation.reject" />' />
 </form>
 
