@@ -6,7 +6,7 @@
 <footer class="footer">
 	<div class="container">
 		<p class="footer-menu">
-			<a href="${linkTo[ListController].unsolved}"><fmt:message key="menu.unsolved"/></a>
+			<a href="${linkTo[ListController].unsolved}" class="unsolved-link"><fmt:message key="menu.unsolved"/></a>
 			<a href="${linkTo[ListController].unanswered}"><fmt:message	key="menu.unanswered"/></a>
 		</p>
 		<%@include file="mainTags.jsp" %>

@@ -70,7 +70,7 @@ public class Home extends PageObject{
 	}
 
 	public UnsolvedListPage toUnsolvedList() {
-		byClassName("main-nav").findElement(By.className("unsolved")).click();
+		byClassName("footer").findElement(By.className("unsolved-link")).click();
 		return new UnsolvedListPage(driver);
 	}
 
