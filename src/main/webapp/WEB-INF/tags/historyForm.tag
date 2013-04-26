@@ -32,6 +32,9 @@
 		${information.comment}
 	</p>
 	
+	<c:if test="${information.beforeCurrent}">
+		<p class="alert"><fmt:message key="moderation.version_before_current"/></p>
+	</c:if>
 
 	<input type="hidden" name="aprovedInformationType" value="${information.typeName}"/>
 	<input type="hidden" name="moderatableId" value="${information.moderatable.id}"/>
