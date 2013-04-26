@@ -1,0 +1,5 @@
+#NOTE: This is an internal implementation file, its format can be changed without prior notice.
+#Thu Apr 25 18:04:24 BRT 2013
+vraptor-hibernate-1.0.0.jar>=
+vraptor-hibernate-1.0.0.jar>sonatype-oss-public=
+vraptor-hibernate-1.0.0.pom>sonatype-oss-public=
