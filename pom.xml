@@ -547,6 +547,29 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<configuration>
+					<verbose>true</verbose>
+					<filesets>
+						<fileset>
+							<directory>src/main/webapp/WEB-INF/lib</directory>
+							<followSymlinks>false</followSymlinks>
+							<includes>
+								<include>*</include>
+							</includes>
+						</fileset>
+						<fileset>
+							<directory>src/main/webapp/WEB-INF/classes</directory>
+							<followSymlinks>false</followSymlinks>
+							<includes>
+								<include>*</include>
+							</includes>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 	<reporting>
@@ -631,7 +654,7 @@
 											<value>br.com.caelum.brutal.integration.util.FailFastListener</value>
 										</property>
 									</properties>
-<!-- 									<runOrder>alphabetical</runOrder> -->
+									<!-- <runOrder>alphabetical</runOrder> -->
 								</configuration>
 							</execution>
 						</executions>
