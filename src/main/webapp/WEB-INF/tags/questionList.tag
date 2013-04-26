@@ -5,10 +5,14 @@
 <%@attribute name="title" type="java.lang.String" required="true"%>
 <%@attribute name="recentTags" type="java.util.List" required="true"%>
 <%@attribute name="questions" type="java.util.List" required="true"%>
+<%@attribute name="rssUrl" type="java.lang.String" required="false"%>
 
 <section class="first-content">
 	<div class="subheader">
 		<h2 class="title page-title">${title}</h2>
+		<c:if test="${not empty rssUrl}">
+			<a href="${rssUrl}" class="rss-link"><i class="icon-rss"></i></a>
+		</c:if>
 	</div>
 	<c:if test="${not empty questions}">
 		<ol class="question-list">

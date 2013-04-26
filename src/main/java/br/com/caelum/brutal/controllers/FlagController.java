@@ -76,7 +76,7 @@ public class FlagController {
 	}
 	
 	@ModeratorOrKarmaAccess
-	@Get("/perguntas/marcados")
+	@Get("/perguntas/marcadas")
 	public void topFlaggedQuestions() {
 		topFlagged(Question.class);
 	}
