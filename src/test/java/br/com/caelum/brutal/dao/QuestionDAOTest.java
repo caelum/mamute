@@ -157,6 +157,7 @@ public class QuestionDAOTest extends DatabaseTestCase {
 	public void should_find_questions_visible_and_order_by_creation_date() throws Exception {
 		Question question1 = question(author, sal);
 		Question question2 = question(author, sal);
+		question2.remove();
 		session.save(question1);
 		session.save(question2);
 		List<Question> questions = questionsForAnyone.orderedByCreationDate(5);
