@@ -132,7 +132,12 @@ function setLoading(target){
 
 function intro(){
 	if($("#intro")[0]){
-		$(".intro").css('visibility', 'visible');
+		$(".intro").css('visibility', 'visible').click(function(){
+			intro();
+		});
+		if($(".automatically-joyride")[0]){
+			$("#intro").joyride({});
+		}
 	}
 	$("#intro").joyride({});
 }
@@ -140,9 +145,6 @@ function intro(){
 $(function() {
 	intro();
 	
-	$(".intro").click(function(){
-		intro()
-	});
 	prettyPrint();
 	
 	$("#datepicker").datepicker(

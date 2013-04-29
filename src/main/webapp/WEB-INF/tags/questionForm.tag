@@ -23,7 +23,7 @@
 	<div id="question-description-hint" class="hint"><fmt:message key="question.description.hint" /></div>
 	<div id="question-tags-hint" class="hint"><fmt:message key="question.tags.hint" /></div>
 </div>
-<ol id="intro">
+<ol class="${currentUser.current.karma <= 0 ? 'automatically-joyride' : ''}" id="intro">
 	<tags:joyrideTip className="question-title-input" options="tipLocation:bottom" key="intro.new_question.title" />
 	<tags:joyrideTip className="question-description-input" options="tipLocation:bottom" key="intro.new_question.description" />
 	<tags:joyrideTip className="question-tags-input" options="tipLocation:bottom" key="intro.new_question.tags" />
