@@ -117,19 +117,13 @@
 							</li>
 							<c:if test="${currentUser.loggedIn}">
 								<li class="nav-item">
-									<c:choose>
-										<c:when test="${currentUser.current.karma > 12}" >
-											<a class="intro" href="#"><fmt:message key="metas.intro.title" /></a>
-										</c:when>
-										<c:otherwise>
-											<a class="intro new-users" href="#"><fmt:message key="metas.intro.new_users_title" /></a>
-										</c:otherwise>
-									</c:choose>
+									<a class="intro ${currentUser.current.karma <= 12 ? 'new-users' : ''}" href="#"><fmt:message key="metas.intro.title" /></a>
 								</li>
 							</c:if>
-							<li class="nav-item"><a href="#"
-								class="search-dropdown dropdown-trigger"
-								data-target-id="dropdown-search-form">Procurar</a></li>
+							<li class="nav-item">
+								<a href="#"	class="search-dropdown dropdown-trigger"
+								data-target-id="dropdown-search-form">Procurar</a>
+							</li>
 
 						</ul>
 					</nav>
