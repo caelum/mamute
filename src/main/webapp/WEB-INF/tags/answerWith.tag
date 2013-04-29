@@ -5,7 +5,7 @@
 <%@attribute name="answer" type="br.com.caelum.brutal.model.Answer" required="true" %>
 <%@attribute name="vote" type="br.com.caelum.brutal.model.Vote" required="true" %>
 <%@attribute name="commentVotes" type="br.com.caelum.brutal.model.CommentsAndVotes" required="true" %>
-<section class="post-area ${answer.isVisibleForModeratorAndNotAuthor(currentUser) ? 'highlight-post' : '' }">
+<section class="post-area ${answer.isVisibleForModeratorAndNotAuthor(currentUser.current) ? 'highlight-post' : '' }">
 	<div class="post-meta">
 		<tags:voteFor item="${answer}" type="resposta" vote="${vote}"/>
 		<tags:solutionMarkFor answer="${answer}"/>
@@ -21,7 +21,7 @@
 							href="${linkTo[AnswerController].answerEditForm[answer.id]}"><fmt:message key="edit" /></a>
 				</li>
 				<li class="nav-item">
-					<c:if test="${currentUser != null && !answer.alreadyFlaggedBy(currentUser)}">
+					<c:if test="${currentUser.loggedIn && !answer.alreadyFlaggedBy(currentUser.current)}">
 						<a href="#" data-author="${currentUser.current.isAuthorOf(answer)}"
 							data-modal-id="answer-flag-modal${answer.id}" 
 							data-karma="${CREATE_FLAG}" class="post-action author-cant requires-login flag-it requires-karma">
