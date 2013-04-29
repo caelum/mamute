@@ -50,17 +50,26 @@
 					href="${linkTo[ListController].home}">GUJ</a>
 				<nav class="nav main-nav piped-nav">
 					<ul class="nav-items">
-						<li class="nav-item"><a class="button" href="${linkTo[ListController].home}">
-							<fmt:message key="menu.questions"/></a></li>
-						<li class="nav-item"><a class="button"
-							href="${linkTo[ListController].listTags}"><fmt:message
-									key="menu.tags" /></a></li>
-						<li class="nav-item"><a class="button unanswered"
-							href="${linkTo[ListController].unanswered}"><fmt:message
-									key="menu.unanswered" /></a></li>
-						<li class="ask nav-item"><a class="button ask-a-question"
-							href='${linkTo[QuestionController].newQuestion}'><fmt:message
-									key="menu.question.ask" /></a></li>
+						<li class="nav-item">
+							<a class="button" href="${linkTo[ListController].home}">
+								<fmt:message key="menu.questions"/>
+							</a>
+						</li>
+						<li class="nav-item list-tags">
+							<a class="button" href="${linkTo[ListController].listTags}">
+								<fmt:message key="menu.tags" />
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="button unanswered" href="${linkTo[ListController].unanswered}">
+								<fmt:message key="menu.unanswered" />
+							</a>
+						</li>
+						<li class="ask nav-item">
+							<a class="button ask-a-question" href='${linkTo[QuestionController].newQuestion}'>
+								<fmt:message key="menu.question.ask" />
+							</a>
+						</li>
 					</ul>
 				</nav>
 			</div>
@@ -72,31 +81,40 @@
 					<nav class="nav">
 						<ul class="nav-items">
 							<c:if test="${!currentUser.loggedIn}">
-								<li class="nav-item user-item"><a class="login"
-									href="${linkTo[AuthController].loginForm[currentUrl]}?redirectUrl=${currentUrl}">
+								<li class="nav-item user-item">
+									<a class="login" href="${linkTo[AuthController].loginForm[currentUrl]}?redirectUrl=${currentUrl}">
 										<fmt:message key="auth.login_form_link" />
-								</a></li>
-								<li class="nav-item"><a class="signup"
-									href="${linkTo[SignupController].signupForm}"><fmt:message
-											key="signup.link" /></a></li>
+									</a>
+								</li>
+								<li class="nav-item">
+									<a class="signup" href="${linkTo[SignupController].signupForm}">
+										<fmt:message key="signup.link" />
+									</a>
+								</li>
 							</c:if>
 							<c:if test="${currentUser.loggedIn}">
-								<li class="nav-item user-item"><tags:userProfileLink
-										user="${currentUser.current}" htmlClass="user-name" /> <span
-									class="reputation">(${currentUser.current.karma})</span></li>
+								<li class="nav-item user-item">
+									<tags:userProfileLink user="${currentUser.current}" htmlClass="user-name" />
+									<span class="reputation">(${currentUser.current.karma})</span>
+								</li>
 								<c:if test="${currentUser.moderator }">
-									<li class="nav-item"><a
-										href="${linkTo[HistoryController].history}"><fmt:message
-												key="moderation.link" /> (${pendingForModeratorCount})</a></li>
+									<li class="nav-item">
+										<a href="${linkTo[HistoryController].history}">
+											<fmt:message key="moderation.link" /> (${pendingForModeratorCount})
+										</a>
+									</li>
 								</c:if>
-								<li class="nav-item"><a class="logout"
-									href="${linkTo[AuthController].logout}"><fmt:message
-											key="auth.logout_link" /></a></li>
+								<li class="nav-item">
+									<a class="logout" href="${linkTo[AuthController].logout}">
+										<fmt:message key="auth.logout_link" />
+									</a>
+								</li>
 							</c:if>
-							<li class="nav-item"><a
-								href="${linkTo[NavigationController].about}"> <fmt:message
-										key="about.link" />
-							</a></li>
+							<li class="nav-item">
+								<a href="${linkTo[NavigationController].about}">
+									<fmt:message key="about.link" />
+								</a>
+							</li>
 							<c:if test="${currentUser.loggedIn}">
 								<li class="nav-item">
 									<c:choose>

@@ -121,10 +121,16 @@
 	}
 	
 	/*Header*/
-	.big-logo, .search-form{
+	.search-form{
 		display: none;
 	}
 	
+	.big-logo{
+		background-image: url('../imgs/guj-logo-mini.png');
+		height:40px;
+		width:130px;
+		margin-top:6px;
+	}
 	
 	.dropdown-target .search-form,
 	.dropdown-target .search-form input[type="submit"],
@@ -239,8 +245,15 @@
 		height: 40px;
 		text-align:center;
 	}
-	
+
 }
+
+@media only screen and (max-width: 500px){
+	.list-tags{
+		display:none;
+	}
+}
+
 
 @media only screen and (max-width: 400px) {
 	.complete-tag{
@@ -250,4 +263,6 @@
 	.modal-flag {
 		width: 60%;
 	}
+	
+	
 }	
