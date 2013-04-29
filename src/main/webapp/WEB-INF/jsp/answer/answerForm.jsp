@@ -1,1 +1,1 @@
-<tags:answerForm uri="<c:url value="/responder/${question.id}" />" />
+<tags:answerForm uri="${linkTo[AnswerController].newAnswer[question][null]}" />
