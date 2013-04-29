@@ -18,4 +18,7 @@
 	<input id="password-confirmation" name="passwordConfirmation" type="password" minlength="6" maxlength="100" class="required text-input"/>
 	
 	<input class="post-submit big-submit" type="submit" value="<fmt:message key="signup.form.submit.label" />"/>
+
+	<p class="or">&#8212; <fmt:message key="auth.or" /> &#8212;</p>
+	<a href="${facebookUrl}" class="face-button"><fmt:message key="signup.facebook" /></a>
 </form>
