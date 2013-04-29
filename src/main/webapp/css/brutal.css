@@ -1669,8 +1669,8 @@ a.button.ask-a-question:hover{
 	padding-right: 15px;
 }
 
-a.new-users {
-	color: #a02103;
+.nav-item .new-users {
+	color: #ccfed0;
 	font-weight: bold;
 }
 
