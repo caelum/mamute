@@ -5,7 +5,6 @@
 <%@attribute name="answer" type="br.com.caelum.brutal.model.Answer" required="true" %>
 <%@attribute name="vote" type="br.com.caelum.brutal.model.Vote" required="true" %>
 <%@attribute name="commentVotes" type="br.com.caelum.brutal.model.CommentsAndVotes" required="true" %>
-<c:set var="currentUserIsAuthor" value="${answer.author.id == currentUser.id}" />
 <section class="post-area ${answer.isVisibleForModeratorAndNotAuthor(currentUser) ? 'highlight-post' : '' }">
 	<div class="post-meta">
 		<tags:voteFor item="${answer}" type="resposta" vote="${vote}"/>
@@ -17,13 +16,13 @@
 			<ul class="post-action-nav nav piped-nav">
 				<li class="nav-item">
 					<a class="post-action edit requires-login requires-karma"
-							data-author="${currentUserIsAuthor}"
+							data-author="${currentUser.current.isAuthorOf(answer)}"
 							data-karma="${EDIT_ANSWER}" 
 							href="${linkTo[AnswerController].answerEditForm[answer.id]}"><fmt:message key="edit" /></a>
 				</li>
 				<li class="nav-item">
 					<c:if test="${currentUser != null && !answer.alreadyFlaggedBy(currentUser)}">
-						<a href="#" data-author="${answer.author.id == currentUser.id}"
+						<a href="#" data-author="${currentUser.current.isAuthorOf(answer)}"
 							data-modal-id="answer-flag-modal${answer.id}" 
 							data-karma="${CREATE_FLAG}" class="post-action author-cant requires-login flag-it requires-karma">
 							<fmt:message key="flag" />

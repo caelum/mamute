@@ -10,7 +10,7 @@
 		<c:forEach items="${answers.votes}" var="entry">
 			<c:set var="answer" value="${entry.key}" />
 			<c:set var="vote" value="${entry.value}" />
-			<c:if test="${answer.visible || currentUser.moderator || currentUser.isAuthorOf(answer)}">
+			<c:if test="${answer.visible || currentUser.moderator || currentUser.current.isAuthorOf(answer)}">
 				<li id="answer-${answer.id}" 
 					class="answer" 
 					data-id="${answer.id}">

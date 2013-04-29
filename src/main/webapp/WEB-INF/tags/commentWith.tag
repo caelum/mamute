@@ -5,18 +5,16 @@
 <%@attribute name="comment" type="br.com.caelum.brutal.model.Comment" required="true" %>
 <%@attribute name="collapsed" type="java.lang.Boolean" required="true" %>
 <%@attribute name="currentUserVote" type="br.com.caelum.brutal.model.Vote" required="false" %>
-
-<c:set var="isCommentAuthor" value="${comment.author.id == currentUser.id}"/>
 <li class="comment ${collapsed ? 'collapsed hidden' : ''} ${comment.isVisibleForModeratorAndNotAuthor(currentUser) ? 'highlight-post' : '' }" id="comment-${comment.id}">
 	<div class="post-meta comment-meta vote-container">
 		<span class="vote-count comment-vote-count ${comment.voteCount == 0 ? 'comment-meta-hidden' : '' }">${comment.voteCount}</span>
 		<a title="<fmt:message key="comment.list.upvote"/>"  class="comment-meta-hidden container comment-option author-cant requires-login vote-option icon-chevron-up 
 			${(not empty currentUserVote) ? 'voted' : '' }" 
-			data-value="positivo" data-author="${isCommentAuthor}" 
+			data-value="positivo" data-author="${currentUser.current.isAuthorOf(comment)}" 
 			data-type="comentario" data-id="${comment.id}">
 		</a>
-		<c:if test="${currentUser != null && !comment.alreadyFlaggedBy(currentUser) && !isCommentAuthor}">
-			<a title="<fmt:message key="flag"/>" href="#" data-author="${isCommentAuthor}"
+		<c:if test="${currentUser.loggedIn && !comment.alreadyFlaggedBy(currentUser) && !currentUser.current.isAuthorOf(comment)}}">
+			<a title="<fmt:message key="flag"/>" href="#" data-author="${currentUser.current.isAuthorOf(comment)}}"
 			data-modal-id="comment-flag-modal${comment.id}"
 			class="comment-meta-hidden container author-cant requires-login comment-option flag-it icon-flag"></a>
 		</c:if>
@@ -30,19 +28,15 @@
 		&nbsp;<tags:prettyTime time="${comment.lastUpdatedAt}"/>
 	
 		<fmt:message  key="edit_form.submit" var="submit"/>
-		<c:if test="${comment.author.id == currentUser.id}">
+		<c:if test="${currentUser.current.isAuthorOf(comment)}}">
 			<tags:simpleAjaxFormWith action="${linkTo[CommentController].edit[comment.id]}" 
 				field="comment" onCallback="replace" callbackTarget="comment-${comment.id}" 
 				submit="${submit}" value="${comment.comment}">
-				<a class="requires-login requires-karma" data-author="${item.author.id eq currentUser.id }" href="#">
+				<a class="requires-login requires-karma" data-author="${currentUser.current.isAuthorOf(item) }" href="#">
 					<fmt:message key="edit.link" />
 				</a>
 			</tags:simpleAjaxFormWith>
 		</c:if>
-
-<%-- 		<c:if test="${comment.author.id == currentUser.id}"> --%>
-<%-- 			<tags:editFor onCallback="replace" item="${comment}" field="comment" value="${comment.comment}" ajaxResult="comment-${comment.id}" /> --%>
-<%-- 		</c:if> --%>
 	</div>	
 </li>
 <tags:flagItFor type="comentario" modalId="comment-flag-modal${comment.id}" flaggable="${comment}"/>

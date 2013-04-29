@@ -83,7 +83,7 @@
 							<c:if test="${currentUser.loggedIn}">
 								<li class="nav-item user-item"><tags:userProfileLink
 										user="${currentUser}" htmlClass="user-name" /> <span
-									class="reputation">(${currentUser.karma})</span></li>
+									class="reputation">(${currentUser.current.karma})</span></li>
 								<c:if test="${currentUser.moderator }">
 									<li class="nav-item"><a
 										href="${linkTo[HistoryController].history}"><fmt:message
@@ -100,7 +100,7 @@
 							<c:if test="${currentUser.loggedIn}">
 								<li class="nav-item">
 									<c:choose>
-										<c:when test="${currentUser.karma > 12}" >
+										<c:when test="${currentUser.current.karma > 12}" >
 											<a class="intro" href="#"><fmt:message key="metas.intro.title" /></a>
 										</c:when>
 										<c:otherwise>

@@ -4,7 +4,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@attribute name="question" type="br.com.caelum.brutal.model.Question" required="true" %>
 <%@attribute name="commentVotes" type="br.com.caelum.brutal.model.CommentsAndVotes" required="true" %>
-<c:set var="isAuthor" value="${question.author.id == currentUser.id}" />
 <section itemscope itemtype="http://schema.org/Article" class="post-area question-area ${question.isVisibleForModeratorAndNotAuthor(currentUser) ? 'highlight-post' : '' }" >
 	<h1 itemprop="name" class="title subheader question-title"><c:out value="${question.title}" escapeXml="${true}"/></h1>
 	<div class="post-meta">
@@ -32,7 +31,7 @@
 				<li class="nav-item">
 					<a class="post-action edit-question 
 					    requires-login requires-karma"
-					    data-author="${isAuthor}"
+					    data-author="${currentUser.current.isAuthorOf(question)}"
 					    data-karma="${EDIT_QUESTION}" 
 					    href="<c:url value="/pergunta/editar/${question.id}" />">
 						<fmt:message key="edit" />
@@ -40,7 +39,7 @@
 				</li>
 				<li class="nav-item">
 					<c:if test="${currentUser != null && !question.alreadyFlaggedBy(currentUser)}">
-						<a href="#" data-author="${isAuthor}" data-karma="${CREATE_FLAG}"
+						<a href="#" data-author="${currentUser.current.isAuthorOf(question)}" data-karma="${CREATE_FLAG}"
 							data-modal-id="question-flag-modal${question.id}" 
 							class="post-action author-cant requires-login flag-it requires-karma">
 							<fmt:message key="flag" />
