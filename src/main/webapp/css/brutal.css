@@ -1649,6 +1649,8 @@ a.button.ask-a-question:hover{
 	display:block;
 	margin-top: 1em;
 	width: 5em;
+	padding-left: 9px;
+	padding-right: 9px;
 }
 
 .joyride-tip-guide p {

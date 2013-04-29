@@ -43,6 +43,6 @@
 	<tags:recentTagsUsage tagsUsage="${recentTags}"/>
 </aside>
 <ol id="intro">
-	<li data-class="votes" data-options="tipLocation:top"><fmt:message key="intro.home.votes" /></li>
-	<li data-class="answers" data-options="tipLocation:top"><fmt:message key="intro.home.answers" /></li>
+	<tags:joyrideTip className="votes" options="tipLocation:top" key="intro.home.votes" />
+	<tags:joyrideTip className="answers" options="tipLocation:top" key="intro.home.answers" />
 </ol>

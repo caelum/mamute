@@ -57,8 +57,8 @@
 	</div>
 </section>
 <ol id="intro">
-	<li data-class="post-meta" data-options="tipLocation:right"><fmt:message key="intro.question.post_meta" /></li>
-	<li data-class="edit-question" data-options="tipLocation:bottom"><fmt:message key="intro.question.edit_question" /></li>
-	<li data-class="add-comment" data-options="tipLocation:bottom"><fmt:message key="intro.question.add_comment" /></li>
-	<li data-class="solution-tick" data-options="tipLocation:right"><fmt:message key="intro.question.solution_mark" /></li>
+	<tags:joyrideTip className="post-meta" options="tipLocation:right" key="intro.question.post_meta" />
+	<tags:joyrideTip className="edit-question" options="tipLocation:bottom" key="intro.question.edit_question" />
+	<tags:joyrideTip className="add-comment" options="tipLocation:bottom" key="intro.question.add_comment" />
+	<tags:joyrideTip className="solution-tick" options="tipLocation:right" key="intro.question.solution_mark" />
 </ol>
