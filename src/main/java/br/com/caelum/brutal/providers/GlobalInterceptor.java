@@ -9,11 +9,9 @@ import org.apache.log4j.Logger;
 import org.joda.time.format.DateTimeFormat;
 import org.ocpsoft.prettytime.PrettyTime;
 
-import br.com.caelum.brutal.dao.FlaggableDAO;
-import br.com.caelum.brutal.dao.InformationDAO;
+import br.com.caelum.brutal.infra.MenuInfo;
 import br.com.caelum.brutal.infra.NotFoundException;
 import br.com.caelum.brutal.model.LoggedUser;
-import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
 import br.com.caelum.vraptor.Result;
@@ -34,28 +32,23 @@ public class GlobalInterceptor implements Interceptor {
 	private final HttpServletRequest req;
 	private final Localization localization;
 	private static final Logger LOG = Logger.getLogger(GlobalInterceptor.class);
-	private final FlaggableDAO flaggables;
-	private final InformationDAO informations;
-	private final LoggedUser loggedUser;
-	private final User user;
+	private final MenuInfo menuInfo;
 
 	public GlobalInterceptor(Environment env, Result result, 
-			HttpServletRequest req, Localization localization, InformationDAO informations, 
-			ServletContext servletContext, FlaggableDAO flaggables, LoggedUser loggedUser, User user) {
+			HttpServletRequest req, Localization localization,  
+			ServletContext servletContext, LoggedUser loggedUser,
+			MenuInfo menuInfo) {
 		this.env = env;
 		this.result = result;
 		this.req = req;
 		this.localization = localization;
-		this.informations = informations;
-		this.flaggables = flaggables;
-		this.loggedUser = loggedUser;
-		this.user = user;
+		this.menuInfo = menuInfo;
 	}
 
 	public void intercept(InterceptorStack stack, ResourceMethod method,
 			Object resourceInstance) throws InterceptionException {
+		menuInfo.include();
 		result.include("env", env);
-		result.include("currentUser", user);
 		result.include("prettyTimeFormatter", new PrettyTime(localization.getLocale()));
 		result.include("literalFormatter", DateTimeFormat.forPattern(localization.getMessage("date.joda.pattern")).withLocale(localization.getLocale()));
 		result.include("currentUrl", getCurrentUrl());
@@ -63,12 +56,6 @@ public class GlobalInterceptor implements Interceptor {
 		result.include("deployTimestamp", deployTimestamp());
 		result.on(NotFoundException.class).notFound();
 		
-		if (loggedUser.isModerator()) {
-			Long pendingCount = informations.pendingCount();
-			Long flaggedCount = flaggables.flaggedButVisibleCount();
-			result.include("pendingForModeratorCount", pendingCount + flaggedCount);
-		}
-
 		logHeaders();
 		
 		stack.next(method, resourceInstance);

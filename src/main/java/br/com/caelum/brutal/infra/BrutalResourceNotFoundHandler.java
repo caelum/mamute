@@ -14,11 +14,18 @@ import br.com.caelum.vraptor.resource.ResourceNotFoundHandler;
 
 @Component
 public class BrutalResourceNotFoundHandler implements ResourceNotFoundHandler {
+	
+	private final MenuInfo menuInfo;
+
+	public BrutalResourceNotFoundHandler(MenuInfo menuInfo) {
+		this.menuInfo = menuInfo;
+	}
 
 	private static final Logger LOG = Logger.getLogger(BrutalResourceNotFoundHandler.class);
 	
 	@Override
 	public void couldntFind(RequestInfo request) {
+		menuInfo.include();
 		LOG.warn("Got 404 at url:" + request.getRequestedUri());
 		FilterChain chain = request.getChain();
 		try {
