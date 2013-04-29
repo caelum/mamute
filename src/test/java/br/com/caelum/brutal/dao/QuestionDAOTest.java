@@ -157,10 +157,22 @@ public class QuestionDAOTest extends DatabaseTestCase {
 	public void should_find_questions_visible_and_order_by_creation_date() throws Exception {
 		Question question1 = question(author, sal);
 		Question question2 = question(author, sal);
-		question2.remove();
 		session.save(question1);
 		session.save(question2);
 		List<Question> questions = questionsForAnyone.orderedByCreationDate(5);
+		assertEquals(1, questions.size());
+	}
+	
+	@Test
+	public void should_find_questions_visible_and_order_by_creation_date_of_a_tag() throws Exception {
+		Question question1 = question(author, sal);
+		Question question2 = question(author, defaultTag);
+		Question invisible = question(author, defaultTag);
+		invisible.remove();
+		session.save(question1);
+		session.save(question2);
+		session.save(invisible);
+		List<Question> questions = questionsForAnyone.orderedByCreationDate(30, defaultTag);
 		assertEquals(1, questions.size());
 	}
 

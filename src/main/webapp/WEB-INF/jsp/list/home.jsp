@@ -4,5 +4,6 @@
 <tags:header facebookMetas="${true}" title="${genericTitle} - ${title}" description="${description}"/>
 
 <fmt:message key="menu.questions" var="title"/>
+<c:url value="/rss" var="rssUrl" />
 <tags:questionList recentTags="${recentTags}" 
-	questions="${questions}" title="${title}" rssUrl="${linkTo[RssController].rss}"/>
+	questions="${questions}" title="${title}" rssUrl="${rssUrl}"/>

@@ -115,5 +115,11 @@ public class QuestionDAO {
 		Query query = session.createQuery(hql);
 		return query.setMaxResults(maxResults).list();
 	}
+	
+	public List<Question> orderedByCreationDate(int maxResults, Tag tag) {
+		String hql = "select q from Question q join q.information.tags tags where q.moderationOptions.invisible = false and tags=:tag order by q.createdAt desc";
+		Query query = session.createQuery(hql);
+		return query.setParameter("tag", tag).setMaxResults(maxResults).list();
+	}
 }
 
