@@ -20,7 +20,8 @@
 		</c:forEach>
 	</ul>
 	<c:if test="${currentUser.loggedIn && !question.alreadyAnsweredBy(currentUser.current)}">
-		<tags:answerForm uri="${linkTo[AnswerController].newAnswer[question][null]}" />
+		<c:url var="uri" value="/responder/${question.id}"/>
+		<tags:answerForm uri="${uri}" />
 	</c:if>
 	<c:if test="${currentUser.loggedIn && question.alreadyAnsweredBy(currentUser.current)}">
 		<div class="message alert already-answered">

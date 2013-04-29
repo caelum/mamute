@@ -5,7 +5,7 @@
 <%@attribute name="comment" type="br.com.caelum.brutal.model.Comment" required="true" %>
 <%@attribute name="collapsed" type="java.lang.Boolean" required="true" %>
 <%@attribute name="currentUserVote" type="br.com.caelum.brutal.model.Vote" required="false" %>
-<li class="comment ${collapsed ? 'collapsed hidden' : ''} ${comment.isVisibleForModeratorAndNotAuthor(currentUser) ? 'highlight-post' : '' }" id="comment-${comment.id}">
+<li class="comment ${collapsed ? 'collapsed hidden' : ''} ${comment.isVisibleForModeratorAndNotAuthor(currentUser.current) ? 'highlight-post' : '' }" id="comment-${comment.id}">
 	<div class="post-meta comment-meta vote-container">
 		<span class="vote-count comment-vote-count ${comment.voteCount == 0 ? 'comment-meta-hidden' : '' }">${comment.voteCount}</span>
 		<a title="<fmt:message key="comment.list.upvote"/>"  class="comment-meta-hidden container comment-option author-cant requires-login vote-option icon-chevron-up 
@@ -13,7 +13,7 @@
 			data-value="positivo" data-author="${currentUser.current.isAuthorOf(comment)}" 
 			data-type="comentario" data-id="${comment.id}">
 		</a>
-		<c:if test="${currentUser.loggedIn && !comment.alreadyFlaggedBy(currentUser) && !currentUser.current.isAuthorOf(comment)}}">
+		<c:if test="${currentUser.loggedIn && !comment.alreadyFlaggedBy(currentUser.current) && !currentUser.current.isAuthorOf(comment)}}">
 			<a title="<fmt:message key="flag"/>" href="#" data-author="${currentUser.current.isAuthorOf(comment)}}"
 			data-modal-id="comment-flag-modal${comment.id}"
 			class="comment-meta-hidden container author-cant requires-login comment-option flag-it icon-flag"></a>
@@ -28,11 +28,11 @@
 		&nbsp;<tags:prettyTime time="${comment.lastUpdatedAt}"/>
 	
 		<fmt:message  key="edit_form.submit" var="submit"/>
-		<c:if test="${currentUser.current.isAuthorOf(comment)}}">
+		<c:if test="${currentUser.current.isAuthorOf(comment)}">
 			<tags:simpleAjaxFormWith action="${linkTo[CommentController].edit[comment.id]}" 
 				field="comment" onCallback="replace" callbackTarget="comment-${comment.id}" 
 				submit="${submit}" value="${comment.comment}">
-				<a class="requires-login requires-karma" data-author="${currentUser.current.isAuthorOf(item) }" href="#">
+				<a class="requires-login requires-karma" data-author="${currentUser.current.isAuthorOf(comment)}" href="#">
 					<fmt:message key="edit.link" />
 				</a>
 			</tags:simpleAjaxFormWith>
