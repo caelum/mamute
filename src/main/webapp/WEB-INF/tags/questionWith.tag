@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@attribute name="question" type="br.com.caelum.brutal.model.Question" required="true" %>
 <%@attribute name="commentVotes" type="br.com.caelum.brutal.model.CommentsAndVotes" required="true" %>
-<section itemscope itemtype="http://schema.org/Article" class="post-area question-area ${question.isVisibleForModeratorAndNotAuthor(currentUser) ? 'highlight-post' : '' }" >
+<section itemscope itemtype="http://schema.org/Article" class="post-area question-area ${question.isVisibleForModeratorAndNotAuthor(currentUser.current) ? 'highlight-post' : '' }" >
 	<h1 itemprop="name" class="title subheader question-title"><c:out value="${question.title}" escapeXml="${true}"/></h1>
 	<div class="post-meta">
 		<tags:voteFor item="${question}" type="pergunta" vote="${currentVote}"/>
@@ -38,7 +38,7 @@
 					</a>
 				</li>
 				<li class="nav-item">
-					<c:if test="${currentUser != null && !question.alreadyFlaggedBy(currentUser)}">
+					<c:if test="${currentUser.loggedIn && !question.alreadyFlaggedBy(currentUser.current)}">
 						<a href="#" data-author="${currentUser.current.isAuthorOf(question)}" data-karma="${CREATE_FLAG}"
 							data-modal-id="question-flag-modal${question.id}" 
 							class="post-action author-cant requires-login flag-it requires-karma">

@@ -82,7 +82,7 @@
 							</c:if>
 							<c:if test="${currentUser.loggedIn}">
 								<li class="nav-item user-item"><tags:userProfileLink
-										user="${currentUser}" htmlClass="user-name" /> <span
+										user="${currentUser.current}" htmlClass="user-name" /> <span
 									class="reputation">(${currentUser.current.karma})</span></li>
 								<c:if test="${currentUser.moderator }">
 									<li class="nav-item"><a
