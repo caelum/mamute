@@ -2,13 +2,12 @@ package br.com.caelum.brutal.auth;
 
 import static java.util.Arrays.asList;
 
-import javax.annotation.Nullable;
 import javax.servlet.http.HttpServletRequest;
 
 import br.com.caelum.brutal.auth.rules.MinimumReputation;
 import br.com.caelum.brutal.controllers.AuthController;
 import br.com.caelum.brutal.factory.MessageFactory;
-import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
 import br.com.caelum.vraptor.Result;
@@ -19,14 +18,14 @@ import br.com.caelum.vraptor.resource.ResourceMethod;
 @Intercepts
 public class LoggedUserInterceptor implements Interceptor {
 
-    private final User currentUser;
     private final Result result;
 	private final HttpServletRequest req;
 	private MessageFactory messageFactory;
+	private final LoggedUser currentUser;
     
-    public LoggedUserInterceptor(@Nullable User currentUser, Result result, HttpServletRequest req, MessageFactory messageFactory) {
+    public LoggedUserInterceptor(LoggedUser currentUser, Result result, HttpServletRequest req, MessageFactory messageFactory) {
         this.currentUser = currentUser;
-        this.result = result;
+		this.result = result;
 		this.req = req;
 		this.messageFactory = messageFactory;
     }
@@ -39,7 +38,7 @@ public class LoggedUserInterceptor implements Interceptor {
     @Override
     public void intercept(InterceptorStack stack, ResourceMethod method, Object instance)
             throws InterceptionException {
-        if (currentUser == null) {
+        if (!currentUser.isLoggedIn()) {
 			result.include("messages", asList(messageFactory.build("alert", "auth.access.denied")));
             String redirectUrl = req.getRequestURL().toString();
             result.redirectTo(AuthController.class).loginForm(redirectUrl);

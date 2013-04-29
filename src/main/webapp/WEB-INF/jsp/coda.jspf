@@ -91,7 +91,7 @@ UserVoice.push(['showTab', 'classic_widget', {
 </c:if>
 <script type="text/javascript">
 // UI flags 
-var LOGGED_IN = ${not empty currentUser};
+var LOGGED_IN = ${currentUser.loggedIn};
 var MODERATOR = ${empty currentUser ? false : currentUser.moderator};
 var KARMA = ${empty currentUser ? 0 : currentUser.karma};
 var CONTEXT_PATH = "${contextPath}";

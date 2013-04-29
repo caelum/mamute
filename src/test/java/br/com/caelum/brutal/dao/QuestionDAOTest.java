@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.brutal.builder.QuestionBuilder;
+import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
@@ -43,9 +44,9 @@ public class QuestionDAOTest extends DatabaseTestCase {
 		session.save(anyone);
 		session.save(sal);
 		session.save(defaultTag);
-		this.questionsBeingAuthor = new QuestionDAO(session, new InvisibleForUsersRule(author));
-		this.questionsBeingModerator = new QuestionDAO(session, new InvisibleForUsersRule(moderator));
-		this.questionsForAnyone = new QuestionDAO(session, new InvisibleForUsersRule(anyone));
+		this.questionsBeingAuthor = new QuestionDAO(session, new InvisibleForUsersRule(new LoggedUser(author, null)));
+		this.questionsBeingModerator = new QuestionDAO(session, new InvisibleForUsersRule(new LoggedUser(moderator, null)));
+		this.questionsForAnyone = new QuestionDAO(session, new InvisibleForUsersRule(new LoggedUser(anyone, null)));
 	}
 	
 	

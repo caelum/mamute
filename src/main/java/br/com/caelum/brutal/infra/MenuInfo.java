@@ -22,7 +22,7 @@ public class MenuInfo {
 	}
 	
 	public void include() {
-		result.include("currentUser", loggedUser.getCurrent());
+		result.include("currentUser", loggedUser);
 		if (loggedUser.isModerator()) {
 			Long pendingCount = informations.pendingCount();
 			Long flaggedCount = flaggables.flaggedButVisibleCount();

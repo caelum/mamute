@@ -19,10 +19,10 @@
 			</c:if>
 		</c:forEach>
 	</ul>
-	<c:if test="${not empty currentUser && !question.alreadyAnsweredBy(currentUser)}">
+	<c:if test="${currentUser.loggedIn && !question.alreadyAnsweredBy(currentUser)}">
 		<tags:answerForm uri="${linkTo[AnswerController].newAnswer[question][null]}" />
 	</c:if>
-	<c:if test="${not empty currentUser && question.alreadyAnsweredBy(currentUser)}">
+	<c:if test="${currentUser.loggedIn && question.alreadyAnsweredBy(currentUser)}">
 		<div class="message alert already-answered">
 			<fmt:message key="answer.errors.already_answered"/>
 		</div>

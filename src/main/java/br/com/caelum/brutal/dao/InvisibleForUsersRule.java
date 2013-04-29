@@ -1,17 +1,16 @@
 package br.com.caelum.brutal.dao;
 
-import javax.annotation.Nullable;
-
-import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class InvisibleForUsersRule {
 	
-	private final User user;
 
-	public InvisibleForUsersRule(@Nullable User user) {
-		this.user = user;
+	private final LoggedUser currentUser;
+
+	public InvisibleForUsersRule(LoggedUser currentUser) {
+		this.currentUser = currentUser;
 	}
 	
 	public String getInvisibleOrNotFilter(String modelAlias){
@@ -20,14 +19,14 @@ public class InvisibleForUsersRule {
 	
 	public String getInvisibleOrNotFilter(String modelAlias, String connective){
 		boolean hasAnotherFilter = !connective.isEmpty();
-		boolean invisible = user == null || !user.isModerator();
+		boolean invisible = !currentUser.isLoggedIn() || !currentUser.isModerator();
 		String filter = "";
 		if(hasAnotherFilter){
 			filter += "where";
 		}
 		if(invisible){
 			filter = whereInvisible(modelAlias);
-			if(user != null) filter += orAuthor(modelAlias);
+			if(currentUser.isLoggedIn()) filter += orAuthor(modelAlias);
 			filter += ") "+connective;
 		}
 		
@@ -39,7 +38,7 @@ public class InvisibleForUsersRule {
 	}
 
 	private String orAuthor(String modelAlias) {
-		return " or " + modelAlias + ".author.id = " + user.getId();
+		return " or " + modelAlias + ".author.id = " + currentUser.getCurrent().getId();
 	}
 
 

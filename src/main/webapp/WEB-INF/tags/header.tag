@@ -71,7 +71,7 @@
 				<section class="user-area">
 					<nav class="nav">
 						<ul class="nav-items">
-							<c:if test="${empty currentUser }">
+							<c:if test="${!currentUser.loggedIn}">
 								<li class="nav-item user-item"><a class="login"
 									href="${linkTo[AuthController].loginForm[currentUrl]}?redirectUrl=${currentUrl}">
 										<fmt:message key="auth.login_form_link" />
@@ -80,7 +80,7 @@
 									href="${linkTo[SignupController].signupForm}"><fmt:message
 											key="signup.link" /></a></li>
 							</c:if>
-							<c:if test="${not empty currentUser }">
+							<c:if test="${currentUser.loggedIn}">
 								<li class="nav-item user-item"><tags:userProfileLink
 										user="${currentUser}" htmlClass="user-name" /> <span
 									class="reputation">(${currentUser.karma})</span></li>
@@ -97,7 +97,7 @@
 								href="${linkTo[NavigationController].about}"> <fmt:message
 										key="about.link" />
 							</a></li>
-							<c:if test="${not empty currentUser }">
+							<c:if test="${currentUser.loggedIn}">
 								<li class="nav-item">
 									<c:choose>
 										<c:when test="${currentUser.karma > 12}" >
