@@ -8,6 +8,8 @@ import br.com.caelum.brutal.dao.CommentDAO;
 import br.com.caelum.brutal.infra.ModelUrlMapping;
 import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.LoggedUser;
+import br.com.caelum.brutal.model.interfaces.Commentable;
+import br.com.caelum.brutal.notification.NotificationManager;
 import br.com.caelum.brutal.validators.CommentValidator;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
@@ -21,13 +23,16 @@ public class CommentController {
 	private final CommentValidator validator;
 	private final ModelUrlMapping urlMapping;
 	private final LoggedUser currentUser;
+	private final NotificationManager notificationManager;
 
-	public CommentController(Result result, LoggedUser currentUser, CommentDAO comments, CommentValidator validator, ModelUrlMapping urlMapping) {
+	public CommentController(Result result, LoggedUser currentUser, CommentDAO comments,
+			CommentValidator validator, ModelUrlMapping urlMapping, NotificationManager notificationManager) {
 		this.result = result;
 		this.currentUser = currentUser;
 		this.comments = comments;
 		this.validator = validator;
 		this.urlMapping = urlMapping;
+		this.notificationManager = notificationManager;
 	}
 
 	@MinimumReputation(PermissionRulesConstants.CREATE_COMMENT)
@@ -40,9 +45,11 @@ public class CommentController {
 			return;
 		}
 		if (validator.validate(newComment)) {
-			comments.load(type, id).add(newComment);
+			Commentable commentable = comments.load(type, id);
+			commentable.add(newComment);
 			comments.save(newComment);
 			result.forwardTo(BrutalTemplatesController.class).comment(newComment);
+			notificationManager.sendEmailsFor(commentable.getQuestion(), newComment);
 		}
 		validator.onErrorUse(http()).setStatusCode(400);
 	}

@@ -1,9 +1,9 @@
 package br.com.caelum.brutal.notification;
 
-import java.util.List;
 import java.util.Locale;
 
 import org.apache.commons.mail.Email;
+import org.apache.commons.mail.EmailException;
 import org.apache.log4j.Logger;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -36,28 +36,26 @@ public class NotificationMailer {
         this.linker = linker;
     }
 
-    public void sendEmails(List<SubscribableEmail> subscribablesEmails) {
-    	for (SubscribableEmail subscribableEmail : subscribablesEmails) {
-    		User user = subscribableEmail.getUser();
-    		try {
-    			DateTimeFormatter dateFormat = DateTimeFormat.forPattern("MMM, dd").withLocale(new Locale("pt", "br"));
-    			
-    			Email email = templates.template("notifications_mail")
-    					.with("subscribablesDTO", subscribableEmail.getSubscribables())
-    					.with("dateFormat", dateFormat)
-    					.with("sanitizer", POLICY)
-    					.with("localization", localization)
-    					.with("linkerHelper", new LinkToHelper(linker))
-    					.to(user.getName(), user.getEmail());
-    			email.setCharset("utf-8");
-    			mailer.send(email);
-    		} catch (Exception e) {
-    			LOG.error("Could not send notifications mail to: " + user.getEmail());
-    		}
-    	}
-    }
+
+	public void send(NotificationMail notificationMail){
+		DateTimeFormatter dateFormat = DateTimeFormat.forPattern("MMM, dd").withLocale(new Locale("pt", "br"));
+		User to = notificationMail.getTo();
+		Email email = templates.template(notificationMail.getEmailTemplate())
+				.with("question", notificationMail.getQuestion())
+				.with("dateFormat", dateFormat)
+				.with("sanitizer", POLICY)
+				.with("localization", localization)
+				.with("linkerHelper", new LinkToHelper(linker))
+				.to(to.getName(), to.getEmail());
+		email.setCharset("utf-8");
+		try {
+			mailer.send(email);
+		} catch (EmailException e) {
+			LOG.error("Could not send notifications mail to: " + to.getEmail());
+		}
+	}
     
-    public class LinkToHelper {
+	public class LinkToHelper {
         private Linker linker;
 
         public LinkToHelper(Linker linker) {
@@ -70,6 +68,5 @@ public class NotificationMailer {
         }
         
     }
-
 
 }

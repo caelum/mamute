@@ -12,6 +12,7 @@ import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.notification.NotificationManager;
 import br.com.caelum.brutal.reputation.rules.KarmaCalculator;
 import br.com.caelum.brutal.reputation.rules.ReputationEvent;
 import br.com.caelum.brutal.reputation.rules.ReputationEvents;
@@ -36,12 +37,13 @@ public class AnswerController {
 	private final AuthorizationSystem authorizationSystem;
 	private final Validator validator;
 	private final AnsweredByValidator answeredByValidator;
+	private final NotificationManager notificationManager;
 
 	public AnswerController(Result result, AnswerDAO dao, 
 			LoggedUser user, Localization localization,
 	        KarmaCalculator calculator, MessageFactory messageFactory, 
 	        AuthorizationSystem authorizationSystem, Validator validator,
-	        AnsweredByValidator answeredByValidator) {
+	        AnsweredByValidator answeredByValidator, NotificationManager notificationManager) {
 		this.result = result;
 		this.answers = dao;
 		this.currentUser = user;
@@ -51,6 +53,7 @@ public class AnswerController {
 		this.authorizationSystem = authorizationSystem;
 		this.validator = validator;
 		this.answeredByValidator = answeredByValidator;
+		this.notificationManager = notificationManager;
 	}
 
 
@@ -94,10 +97,12 @@ public class AnswerController {
     		question.touchedBy(current);
         	answers.save(answer);
         	result.redirectTo(QuestionController.class).showQuestion(question, question.getSluggedTitle());
+        	notificationManager.sendEmailsFor(question, answer);
         }else{
         	result.include("answer", answer);
         	answeredByValidator.onErrorRedirectTo(QuestionController.class).showQuestion(question, question.getSluggedTitle());
         }
+		
 	}
 	
 	@Post("/marcar-como-solucao/{solutionId}")
