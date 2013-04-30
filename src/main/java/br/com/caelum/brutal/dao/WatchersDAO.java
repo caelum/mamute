@@ -32,6 +32,14 @@ public class WatchersDAO {
 	public void add(Watch watch) {
 		session.save(watch);
 	}
+
+	public void ping(Question question, User user) {
+		Watch watch = (Watch) session.createQuery("from Watch where watchedQuestion = :question and watcher = :user")
+				.setParameter("question", question)
+				.setParameter("user", user)
+				.uniqueResult();
+		watch.innactivate();
+	}
 	
 
 }

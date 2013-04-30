@@ -11,6 +11,7 @@ import br.com.caelum.brutal.auth.rules.AuthorizationSystem;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.dao.VoteDAO;
+import br.com.caelum.brutal.dao.WatchersDAO;
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.Question;
@@ -19,6 +20,7 @@ import br.com.caelum.brutal.model.QuestionViewCounter;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.model.watch.Watch;
 import br.com.caelum.brutal.reputation.rules.ReputationEvent;
 import br.com.caelum.brutal.reputation.rules.ReputationEvents;
 import br.com.caelum.brutal.validators.TagsValidator;
@@ -46,11 +48,13 @@ public class QuestionController {
 	private final FacebookAuthService facebook;
 	private final QuestionViewCounter viewCounter;
 	private Linker linker;
+	private final WatchersDAO watchers;
 
 	public QuestionController(Result result, QuestionDAO questionDAO, TagDAO tags, 
 			VoteDAO votes, LoggedUser currentUser, FacebookAuthService facebook,
 			TagsValidator tagsValidator, MessageFactory messageFactory,
-			AuthorizationSystem authorizationSystem, Validator validator, QuestionViewCounter viewCounter, Linker linker) {
+			AuthorizationSystem authorizationSystem, Validator validator, 
+			QuestionViewCounter viewCounter, Linker linker, WatchersDAO watchers) {
 		this.result = result;
 		this.questions = questionDAO;
 		this.tags = tags;
@@ -63,6 +67,7 @@ public class QuestionController {
 		this.validator = validator;
 		this.viewCounter = viewCounter;
 		this.linker = linker;
+		this.watchers = watchers;
 	}
 
 	@Get("/perguntar")
@@ -103,12 +108,13 @@ public class QuestionController {
 	@Get("/{question.id:[0-9]+}-{sluggedTitle}")
 	public void showQuestion(@Load Question question, String sluggedTitle){
 		redirectToRightUrl(question, sluggedTitle);
-		User author = currentUser.getCurrent();
-		if(question.isVisibleFor(author)){
+		User current = currentUser.getCurrent();
+		if(question.isVisibleFor(current)){
 			viewCounter.ping(question);
-			result.include("currentVote", votes.previousVoteFor(question.getId(), author, Question.class));
-			result.include("answers", votes.previousVotesForAnswers(question, author));
-			result.include("commentsWithVotes", votes.previousVotesForComments(question, author));
+			watchers.ping(question, current);
+			result.include("currentVote", votes.previousVoteFor(question.getId(), current, Question.class));
+			result.include("answers", votes.previousVotesForAnswers(question, current));
+			result.include("commentsWithVotes", votes.previousVotesForComments(question, current));
 			result.include("questionTags", question.getInformation().getTags());
 			result.include("question", question);
 			linker.linkTo(this).showQuestion(question, sluggedTitle);
