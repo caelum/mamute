@@ -24,8 +24,9 @@
 
 		<div id="other-reason" class="hidden">
 			<label for="reason-text"><fmt:message key="comment.flag.other.reason" /></label>
-			<textarea id="reason-text" minlength="6" name="reason"></textarea>
+			<textarea id="reason-text" name="reason"></textarea>
 		</div>
+		<label class="error"></label>
 	
 		<input type="submit" value="<fmt:message key="flag.submit" />"/>
 	</form>

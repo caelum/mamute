@@ -24,16 +24,32 @@ $(".flag-it").click(function(e) {
 		modal.hide(200);
 		link.remove();
 	};
+	
+	var errors = form.find(".error");
+	
+	form.change(function(){
+		errors.text("");
+	});
 
 	form.submit(function(e) {
 		e.preventDefault();
+		var checked = form.find("input:radio:checked");
+		if (isEmpty(checked)) {
+			errors.text("Escolha um motivo").show();
+			return;
+		}
+		reason = form.find("textarea");
+		if (checked.val() == "OTHER" && isEmpty(reason.val())) {
+			errors.text("Descreva o motivo").show();
+			return;
+		}
 		$.ajax(uri, {
 			complete : function(xhr, textStatus) {
-				console.log(xhr.status);
 				if (callbacks[xhr.status] != undefined) {
 					callbacks[xhr.status].call();
 				} else {
 					errorPopup("Ocorreu um erro.", modal, "center-popup");
+					console.log(xhr);
 				}
 			},
 			data : form.serialize(),
@@ -54,3 +70,7 @@ $(".other-option").change(function() {
 $(".modal input:not(.other-option)").change(function() {
 	$(".modal #other-reason").hide();
 });
+
+function isEmpty(el) {
+	return el.length == 0;
+}
