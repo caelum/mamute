@@ -2,13 +2,10 @@ package br.com.caelum.brutal.dao;
 
 import java.util.List;
 
-import org.hibernate.Query;
 import org.hibernate.Session;
-import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.dao.WithAuthorDAO.OrderType;
 import br.com.caelum.brutal.model.Answer;
-import br.com.caelum.brutal.model.SubscribableDTO;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.ioc.Component;
 
@@ -29,23 +26,6 @@ public class AnswerDAO {
 
 	public void save(Answer answer) {
 		this.session.save(answer);
-	}
-	
-	@SuppressWarnings("unchecked")
-    public List<SubscribableDTO> getSubscribablesAfter(DateTime timeAgo) {
-        Query query = session.createQuery("select distinct new br.com.caelum.brutal.model.SubscribableDTO(answer, author, question) from Answer answer " +
-                "join answer.question question " +
-        		"join question.answers ans " +
-        		"join ans.author author where (answer.createdAt) > :timeAgo and author!=answer.author and author.isSubscribed = true");
-        List<SubscribableDTO> results = query.setParameter("timeAgo", timeAgo).list();
-        
-        query = session.createQuery("select distinct new br.com.caelum.brutal.model.SubscribableDTO(answer, author, question) from Answer answer " +
-                "join answer.question question " +
-        		"join question.author author " +
-        		"where (answer.createdAt) > :timeAgo and author!=answer.author and author.isSubscribed = true");
-        results.addAll(query.setParameter("timeAgo", timeAgo).list());
-        
-        return results;
 	}
 	
 
