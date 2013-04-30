@@ -1159,12 +1159,14 @@ a.button.ask-a-question:hover{
 }
 
 /*Answers*/
-.solution-tick{
+.mark-as-solution{
+	color: #c9e2ab;
+	border-radius:3px;
+	display:block;
 	margin-top: 5px;
+	margin-bottom: 26px;
 	padding: 2px 0;
 	text-decoration: none;
-	border-radius:3px;
-	color: #c9e2ab;
 }
 
 .solution-container .solution-tick, 
@@ -1174,17 +1176,21 @@ a.button.ask-a-question:hover{
 
 .mark-as-solution-subtitle {
 	display:none;
+	text-decoration: none;
+}
+
+.answer:hover .not-solution-container .mark-as-solution{
+	background-color:#ebf4e0;
+	margin-bottom: 0;
+}
+
+.answer:hover .not-solution-container .solution-tick{
+	color:#9dca67;
 }
 
 .answer:hover .not-solution-container .mark-as-solution-subtitle{
 	display:block;
 }
-
-.answer:hover .not-solution-container .solution-tick{
-	background-color:#ebf4e0;
-	color:#9dca67;
-}
-
 
 /* Already Answered Alert */
 .already-answered{

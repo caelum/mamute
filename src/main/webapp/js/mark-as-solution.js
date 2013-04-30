@@ -6,7 +6,7 @@ $(function(){
 		var mark = $(this);
 		var markParent = $(mark).parent();
 		var oldSolutionParent = $(".solution-container");
-		var oldSolution = $(oldSolutionParent).find(".solution-tick");
+		var oldSolution = $(oldSolutionParent).find(".mark-as-solution");
 		
 		$.ajax({
 			url:mark.attr("href"),
