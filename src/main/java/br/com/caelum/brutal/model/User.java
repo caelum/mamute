@@ -259,7 +259,7 @@ public class User implements Identifiable {
 
 	@Override
 	public String toString() {
-		return "[User " + email + ", "+ name +"]";
+		return "[User " + email + ", "+ name +", "+ id +"]";
 	}
 	
 	public boolean isModerator() {

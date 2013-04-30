@@ -32,5 +32,10 @@ public class LoggedUser {
 		return user != null;
 	}
 	
+	@Override
+	public String toString() {
+		return user.toString() + "Ip:"+getIp();
+	}
+	
 
 }
