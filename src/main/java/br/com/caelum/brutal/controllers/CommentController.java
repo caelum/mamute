@@ -7,11 +7,11 @@ import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.dao.CommentDAO;
 import br.com.caelum.brutal.dao.WatchDAO;
 import br.com.caelum.brutal.infra.ModelUrlMapping;
+import br.com.caelum.brutal.mail.action.EmailAction;
 import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
-import br.com.caelum.brutal.model.interfaces.Commentable;
 import br.com.caelum.brutal.model.watch.Watch;
 import br.com.caelum.brutal.notification.NotificationManager;
 import br.com.caelum.brutal.validators.CommentValidator;
@@ -53,12 +53,12 @@ public class CommentController {
 			return;
 		}
 		if (validator.validate(newComment)) {
-			Commentable commentable = comments.load(type, id);
+			br.com.caelum.brutal.model.Post commentable = comments.load(type, id);
 			commentable.add(newComment);
 			comments.save(newComment);
 			result.forwardTo(BrutalTemplatesController.class).comment(newComment);
 			Question question = commentable.getQuestion();
-			notificationManager.sendEmailsAndActivate(question, newComment);
+			notificationManager.sendEmailsAndActivate(new EmailAction(newComment, commentable, question));
         	watches.add(new Watch(current, question));
 		}
 		validator.onErrorUse(http()).setStatusCode(400);

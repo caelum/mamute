@@ -40,7 +40,7 @@ public class NotificationMailer {
 		DateTimeFormatter dateFormat = DateTimeFormat.forPattern("MMM, dd").withLocale(new Locale("pt", "br"));
 		User to = notificationMail.getTo();
 		Email email = templates.template(notificationMail.getEmailTemplate())
-				.with("question", notificationMail.getQuestion())
+				.with("emailAction", notificationMail.getAction())
 				.with("dateFormat", dateFormat)
 				.with("sanitizer", POLICY)
 				.with("localization", localization)

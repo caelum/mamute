@@ -6,7 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import br.com.caelum.brutal.model.Comment;
-import br.com.caelum.brutal.model.interfaces.Commentable;
+import br.com.caelum.brutal.model.Post;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
@@ -19,8 +19,8 @@ public class CommentDAO {
 		this.session = session;
 	}
 
-	public Commentable load(Class type, Long id) {
-		return (Commentable) session.load(type, id);
+	public Post load(Class type, Long id) {
+		return (Post) session.load(type, id);
 	}
 
 	public void save(Comment comment) {

@@ -7,6 +7,7 @@ import br.com.caelum.brutal.auth.rules.AuthorizationSystem;
 import br.com.caelum.brutal.dao.AnswerDAO;
 import br.com.caelum.brutal.dao.WatchDAO;
 import br.com.caelum.brutal.factory.MessageFactory;
+import br.com.caelum.brutal.mail.action.EmailAction;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.AnswerInformation;
 import br.com.caelum.brutal.model.LoggedUser;
@@ -102,7 +103,8 @@ public class AnswerController {
     		question.touchedBy(current);
         	answers.save(answer);
         	result.redirectTo(QuestionController.class).showQuestion(question, question.getSluggedTitle());
-        	notificationManager.sendEmailsAndActivate(question, answer);
+			notificationManager.sendEmailsAndActivate(new EmailAction(answer, question, question));
+
         	watchers.add(new Watch(current, question));
         }else{
         	result.include("answer", answer);
