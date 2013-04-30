@@ -15,10 +15,11 @@ import br.com.caelum.vraptor.environment.Environment;
 
 @SuppressWarnings("unchecked")
 public abstract class DatabaseTestCase extends TestCase {
-
 	private static final SessionFactory factory;
-
 	private static final SessionFactoryCreator creator;
+	protected Session session;
+	protected User loggedUser;
+
 	static {
 		try {
 			Environment testing = new DefaultEnvironment("testing");
@@ -33,10 +34,6 @@ public abstract class DatabaseTestCase extends TestCase {
 		session.save(obj);
 		return obj;
 	}
-
-
-	protected Session session;
-	protected User loggedUser;
 
 	@Before
 	public void beforeDatabase() {
@@ -57,6 +54,4 @@ public abstract class DatabaseTestCase extends TestCase {
 		session.evict(obj);
 		return (T) session.load(obj.getClass(), obj.getId());
 	}
-
-
 }

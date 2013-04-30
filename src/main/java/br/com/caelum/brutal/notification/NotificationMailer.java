@@ -36,7 +36,6 @@ public class NotificationMailer {
         this.linker = linker;
     }
 
-
 	public void send(NotificationMail notificationMail){
 		DateTimeFormatter dateFormat = DateTimeFormat.forPattern("MMM, dd").withLocale(new Locale("pt", "br"));
 		User to = notificationMail.getTo();
