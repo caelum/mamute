@@ -45,4 +45,8 @@ public class Watch {
 		return watcher;
 	}
 
+	public boolean isActive() {
+		return active;
+	}
+
 }

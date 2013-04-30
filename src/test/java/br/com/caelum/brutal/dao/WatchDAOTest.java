@@ -2,7 +2,7 @@ package br.com.caelum.brutal.dao;
 
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.not;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -64,6 +64,18 @@ public class WatchDAOTest extends DatabaseTestCase{
 	@Test
 	public void should_not_get_not_watchers_of_a_question() {
 		assertThat(watchers.of(question), empty());
+	}
+	
+	@Test
+	public void should_innactivate_watcher() {
+		User subscribedWatcher = user("watcher", "watcher@watcher.com");
+		session.save(subscribedWatcher);
+		Watch watch = new Watch(subscribedWatcher, question);
+		watchers.add(watch);
+		
+		watchers.ping(question, subscribedWatcher);
+		
+		assertFalse(watch.isActive());
 	}
 
 }
