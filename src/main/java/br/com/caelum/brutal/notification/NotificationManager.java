@@ -24,7 +24,7 @@ public class NotificationManager {
 		List<Watch> watchList = watchers.of(question);
 		for (Watch watch : watchList) {
 			mailer.send(new NotificationMail(emailAction, watch.getWatcher()));
-			watch.activate();
+			watch.innactivate();
 		}
 		
 	}

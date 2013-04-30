@@ -71,11 +71,12 @@ public class WatchDAOTest extends DatabaseTestCase{
 		User subscribedWatcher = user("watcher", "watcher@watcher.com");
 		session.save(subscribedWatcher);
 		Watch watch = new Watch(subscribedWatcher, question);
+		watch.innactivate();
 		watchers.add(watch);
 		
 		watchers.ping(question, subscribedWatcher);
 		
-		assertFalse(watch.isActive());
+		assertTrue(watch.isActive());
 	}
 
 }

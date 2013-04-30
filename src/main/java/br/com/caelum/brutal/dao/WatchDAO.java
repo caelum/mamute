@@ -36,7 +36,7 @@ public class WatchDAO {
 
 	public void ping(Question question, User user) {
 		Watch watch = findByQuestionAndUser(question, user);
-		if(watch != null) watch.innactivate();
+		if(watch != null) watch.activate();
 	}
 
 	private Watch findByQuestionAndUser(Question question, User user) {
