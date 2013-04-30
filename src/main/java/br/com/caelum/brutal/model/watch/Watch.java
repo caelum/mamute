@@ -41,12 +41,17 @@ public class Watch {
 		active = true;
 	}
 
+
+	public boolean isActive() {
+		return active;
+	}
+
 	public User getWatcher() {
 		return watcher;
 	}
 
-	public boolean isActive() {
-		return active;
+	public Question getWatchedQuestion() {
+		return watchedQuestion;
 	}
 
 }
