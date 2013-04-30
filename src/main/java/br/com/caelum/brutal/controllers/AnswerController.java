@@ -37,7 +37,7 @@ public class AnswerController {
 	private final Validator validator;
 	private final AnsweredByValidator answeredByValidator;
 
-	public AnswerController(Result result, AnswerDAO dao, User currentUser,
+	public AnswerController(Result result, AnswerDAO dao, 
 			LoggedUser user, Localization localization,
 	        KarmaCalculator calculator, MessageFactory messageFactory, 
 	        AuthorizationSystem authorizationSystem, Validator validator,
