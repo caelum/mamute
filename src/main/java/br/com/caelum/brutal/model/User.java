@@ -44,6 +44,7 @@ import br.com.caelum.brutal.infra.Digester;
 import br.com.caelum.brutal.model.interfaces.Identifiable;
 import br.com.caelum.brutal.model.interfaces.Moderatable;
 import br.com.caelum.brutal.model.interfaces.Votable;
+import br.com.caelum.brutal.model.watch.Watch;
 
 @Table(name="Users")
 @Entity
@@ -96,7 +97,7 @@ public class User implements Identifiable {
 	private DateTime nameLastTouchedAt;
 
 	@OneToMany(mappedBy="user")
-	private List<LoginMethod> loginMethods = new ArrayList<>();
+	private final List<LoginMethod> loginMethods = new ArrayList<>();
 
 	static final User GHOST;
 
@@ -105,6 +106,9 @@ public class User implements Identifiable {
 	private String email;
 
 	private boolean isSubscribed = true;
+	
+	@OneToMany(mappedBy = "watcher")
+	private final List<Watch> watches = new ArrayList<>();
 	
 	static {
 		GHOST = new User("", "");
@@ -313,7 +317,7 @@ public class User implements Identifiable {
     }
     
     public void confirmEmail(){
-    	isSubscribed = true;
+    	confirmedEmail = true;
 	}
     
 	public void add(LoginMethod brutalLogin) {

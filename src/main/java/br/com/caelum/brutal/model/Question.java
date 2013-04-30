@@ -23,6 +23,7 @@ import org.joda.time.DateTime;
 import br.com.caelum.brutal.model.interfaces.Moderatable;
 import br.com.caelum.brutal.model.interfaces.Taggable;
 import br.com.caelum.brutal.model.interfaces.Votable;
+import br.com.caelum.brutal.model.watch.Watch;
 
 @Entity
 public class Question extends Moderatable implements Post, Taggable{
@@ -77,6 +78,9 @@ public class Question extends Moderatable implements Post, Taggable{
 	@Embedded
 	private final ModerationOptions moderationOptions = new ModerationOptions();
 
+	@OneToMany(mappedBy = "watchedQuestion")
+	private final List<Watch> watchers = new ArrayList<>();
+	
     public static final long SPAM_BOUNDARY = -5;
     
 	
@@ -145,6 +149,11 @@ public class Question extends Moderatable implements Post, Taggable{
 		return answers;
 	}
 
+	@Override
+	public Question getQuestion() {
+		return this; //sorry, I need to get a Question from a Comment.
+	}
+	
 	void ping() {
 		this.views++;
 	}
@@ -349,4 +358,6 @@ public class Question extends Moderatable implements Post, Taggable{
 	public void subtractAnswer(){
 		answerCount--;
 	}
+
+
 }
