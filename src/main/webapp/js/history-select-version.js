@@ -1,6 +1,6 @@
 $(".history-select-version").change(function(event) {
 	var selected = $(this).val();
-	$(".history-form").addClass("hidden").eq(selected).removeClass("hidden");
+	$(".history-forms-area").addClass("hidden").eq(selected).removeClass("hidden");
 });
 
 $(".toggle-version").click(function(){
