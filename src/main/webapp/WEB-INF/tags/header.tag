@@ -82,7 +82,7 @@
 						<ul class="nav-items">
 							<c:if test="${!currentUser.loggedIn}">
 								<li class="nav-item user-item">
-									<a class="login" href="${linkTo[AuthController].loginForm[currentUrl]}?redirectUrl=${currentUrl}">
+									<a class="login" href="<c:url value="/login" />?redirectUrl=${currentUrl}">
 										<fmt:message key="auth.login_form_link" />
 									</a>
 								</li>
