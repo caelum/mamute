@@ -5,6 +5,7 @@ import java.util.Arrays;
 import br.com.caelum.brutal.auth.LoggedAccess;
 import br.com.caelum.brutal.auth.rules.AuthorizationSystem;
 import br.com.caelum.brutal.dao.AnswerDAO;
+import br.com.caelum.brutal.dao.WatchDAO;
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.AnswerInformation;
@@ -12,6 +13,7 @@ import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.model.watch.Watch;
 import br.com.caelum.brutal.notification.NotificationManager;
 import br.com.caelum.brutal.reputation.rules.KarmaCalculator;
 import br.com.caelum.brutal.reputation.rules.ReputationEvent;
@@ -38,12 +40,14 @@ public class AnswerController {
 	private final Validator validator;
 	private final AnsweredByValidator answeredByValidator;
 	private final NotificationManager notificationManager;
+	private final WatchDAO watchers;
 
 	public AnswerController(Result result, AnswerDAO dao, 
 			LoggedUser user, Localization localization,
 	        KarmaCalculator calculator, MessageFactory messageFactory, 
 	        AuthorizationSystem authorizationSystem, Validator validator,
-	        AnsweredByValidator answeredByValidator, NotificationManager notificationManager) {
+	        AnsweredByValidator answeredByValidator, NotificationManager notificationManager,
+	        WatchDAO watchers) {
 		this.result = result;
 		this.answers = dao;
 		this.currentUser = user;
@@ -54,6 +58,7 @@ public class AnswerController {
 		this.validator = validator;
 		this.answeredByValidator = answeredByValidator;
 		this.notificationManager = notificationManager;
+		this.watchers = watchers;
 	}
 
 
@@ -97,7 +102,8 @@ public class AnswerController {
     		question.touchedBy(current);
         	answers.save(answer);
         	result.redirectTo(QuestionController.class).showQuestion(question, question.getSluggedTitle());
-        	notificationManager.sendEmailsFor(question, answer);
+        	notificationManager.sendEmailsAndActivate(question, answer);
+        	watchers.add(new Watch(current, question));
         }else{
         	result.include("answer", answer);
         	answeredByValidator.onErrorRedirectTo(QuestionController.class).showQuestion(question, question.getSluggedTitle());

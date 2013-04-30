@@ -11,7 +11,7 @@ import br.com.caelum.brutal.auth.rules.AuthorizationSystem;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.dao.VoteDAO;
-import br.com.caelum.brutal.dao.WatchersDAO;
+import br.com.caelum.brutal.dao.WatchDAO;
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.Question;
@@ -20,7 +20,6 @@ import br.com.caelum.brutal.model.QuestionViewCounter;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
-import br.com.caelum.brutal.model.watch.Watch;
 import br.com.caelum.brutal.reputation.rules.ReputationEvent;
 import br.com.caelum.brutal.reputation.rules.ReputationEvents;
 import br.com.caelum.brutal.validators.TagsValidator;
@@ -48,13 +47,13 @@ public class QuestionController {
 	private final FacebookAuthService facebook;
 	private final QuestionViewCounter viewCounter;
 	private Linker linker;
-	private final WatchersDAO watchers;
+	private final WatchDAO watchers;
 
 	public QuestionController(Result result, QuestionDAO questionDAO, TagDAO tags, 
 			VoteDAO votes, LoggedUser currentUser, FacebookAuthService facebook,
 			TagsValidator tagsValidator, MessageFactory messageFactory,
 			AuthorizationSystem authorizationSystem, Validator validator, 
-			QuestionViewCounter viewCounter, Linker linker, WatchersDAO watchers) {
+			QuestionViewCounter viewCounter, Linker linker, WatchDAO watchers) {
 		this.result = result;
 		this.questions = questionDAO;
 		this.tags = tags;

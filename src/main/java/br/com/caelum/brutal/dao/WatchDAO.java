@@ -11,16 +11,16 @@ import br.com.caelum.brutal.model.watch.Watch;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
-public class WatchersDAO {
+public class WatchDAO {
 
 	private final Session session;
 
-	public WatchersDAO(Session session) {
+	public WatchDAO(Session session) {
 		this.session = session;
 	}
 
-	public List<User> of(Question question) {
-		String query = "select watcher from Watch watch join watch.watcher watcher" +
+	public List<Watch> of(Question question) {
+		String query = "select watch from Watch watch join watch.watcher watcher" +
 				" where watch.active = true and" +
 				" watcher.isSubscribed = true and" +
 				" watch.watchedQuestion = :question";
@@ -40,6 +40,4 @@ public class WatchersDAO {
 				.uniqueResult();
 		watch.innactivate();
 	}
-	
-
 }

@@ -12,9 +12,9 @@ import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.watch.Watch;
 
-public class WatchersDAOTest extends DatabaseTestCase{
+public class WatchDAOTest extends DatabaseTestCase{
 
-	private WatchersDAO watchers;
+	private WatchDAO watchers;
 	private Question question;
 
 
@@ -26,7 +26,7 @@ public class WatchersDAOTest extends DatabaseTestCase{
 		session.save(java);
 		question = question(leo, java);
 		session.save(question);
-		watchers = new WatchersDAO(session);
+		watchers = new WatchDAO(session);
 	}
 	
 	@Test

@@ -36,4 +36,13 @@ public class Watch {
 	public void innactivate() {
 		active = false;
 	}
+
+	public void activate() {
+		active = true;
+	}
+
+	public User getWatcher() {
+		return watcher;
+	}
+
 }
