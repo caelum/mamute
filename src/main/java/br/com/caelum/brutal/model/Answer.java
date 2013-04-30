@@ -20,11 +20,11 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.model.interfaces.Moderatable;
-import br.com.caelum.brutal.model.interfaces.Subscribable;
+import br.com.caelum.brutal.model.interfaces.Notifiable;
 import br.com.caelum.brutal.model.interfaces.Votable;
 
 @Entity
-public class Answer extends Moderatable implements Post, Subscribable {
+public class Answer extends Moderatable implements Post, Notifiable {
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -278,5 +278,10 @@ public class Answer extends Moderatable implements Post, Subscribable {
 			if(information.isPending()) return true;
 		}
 		return false;
+	}
+
+	@Override
+	public String getEmailTemplate() {
+		return "answer_notification_mail";
 	}
 }

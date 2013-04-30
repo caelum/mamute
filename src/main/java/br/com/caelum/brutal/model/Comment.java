@@ -21,11 +21,11 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.model.interfaces.Flaggable;
-import br.com.caelum.brutal.model.interfaces.Subscribable;
+import br.com.caelum.brutal.model.interfaces.Notifiable;
 import br.com.caelum.brutal.model.interfaces.Votable;
 
 @Entity
-public class Comment implements Subscribable, Votable, Flaggable {
+public class Comment implements Notifiable, Votable, Flaggable {
     
 	public static final int COMMENT_MIN_LENGTH = 15;
 	public static final String ERROR_NOT_EMPTY = "comment.errors.not_empty";
@@ -165,5 +165,10 @@ public class Comment implements Subscribable, Votable, Flaggable {
 	@Override
 	public boolean isVisibleForModeratorAndNotAuthor(User user) {
 		return !this.isVisible() && user != null && user.isModerator();
+	}
+
+	@Override
+	public String getEmailTemplate() {
+		return "comment_notification_mail";
 	}
 }
