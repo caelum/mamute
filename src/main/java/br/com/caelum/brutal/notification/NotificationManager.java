@@ -19,12 +19,12 @@ public class NotificationManager {
 		this.mailer = notificationMailer;
 	}
 	
-	public void sendEmailsAndActivate(EmailAction emailAction) {
+	public void sendEmailsAndInactivate(EmailAction emailAction) {
 		Question question = emailAction.getQuestion();
 		List<Watcher> watchList = watchers.of(question);
-		for (Watcher watch : watchList) {
-			mailer.send(new NotificationMail(emailAction, watch.getWatcher()));
-			watch.innactivate();
+		for (Watcher watcher : watchList) {
+			mailer.send(new NotificationMail(emailAction, watcher.getWatcher()));
+			watcher.inactivate();
 		}
 		
 	}

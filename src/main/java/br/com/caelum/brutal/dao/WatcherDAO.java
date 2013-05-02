@@ -21,7 +21,7 @@ public class WatcherDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<Watcher> of(Question question) {
-		String query = "select watch from Watch watch join watch.watcher watcher" +
+		String query = "select watch from Watcher watch join watch.watcher watcher" +
 				" where watch.active = true and" +
 				" watcher.isSubscribed = true and" +
 				" watch.watchedQuestion = :question";
@@ -30,18 +30,19 @@ public class WatcherDAO {
 		return selectWatchers.list();
 	}
 
-	public void add(Watcher watch) {
-		if(findByQuestionAndUser(watch.getWatchedQuestion(), watch.getWatcher()) == null)
-			session.save(watch);
+	public void add(Watcher watcher) {
+		if (findByQuestionAndUser(watcher.getWatchedQuestion(), watcher.getWatcher()) == null)
+			session.save(watcher);
 	}
 
 	public void ping(Question question, User user) {
-		Watcher watch = findByQuestionAndUser(question, user);
-		if(watch != null) watch.activate();
+		Watcher watcher = findByQuestionAndUser(question, user);
+		if (watcher != null) 
+			watcher.activate();
 	}
 
 	private Watcher findByQuestionAndUser(Question question, User user) {
-		Watcher watch = (Watcher) session.createQuery("from Watch where watchedQuestion = :question and watcher = :user")
+		Watcher watch = (Watcher) session.createQuery("from Watcher where watchedQuestion = :question and watcher = :user")
 				.setParameter("question", question)
 				.setParameter("user", user)
 				.uniqueResult();

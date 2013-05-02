@@ -10,7 +10,6 @@ import br.com.caelum.brutal.model.Post;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
-@SuppressWarnings("rawtypes")
 public class CommentDAO {
 
 	private final Session session;
@@ -19,7 +18,7 @@ public class CommentDAO {
 		this.session = session;
 	}
 
-	public Post load(Class type, Long id) {
+	public Post loadCommentable(Class<?> type, Long id) {
 		return (Post) session.load(type, id);
 	}
 

@@ -11,7 +11,6 @@ public class NotificationMail {
 	public NotificationMail(EmailAction emailAction, User watcher) {
 		this.emailAction = emailAction;
 		this.watcher = watcher;
-		
 	}
 
 	public EmailAction getAction() {

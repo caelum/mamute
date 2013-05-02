@@ -33,7 +33,7 @@ public class Watcher {
 		this.watchedQuestion = watchedQuestion;
 	}
 
-	public void innactivate() {
+	public void inactivate() {
 		active = false;
 	}
 

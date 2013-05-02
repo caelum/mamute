@@ -55,7 +55,7 @@ public class WatcherDAOTest extends DatabaseTestCase{
 		session.save(subscribedWatcher);
 		
 		Watcher watch = new Watcher(subscribedWatcher, question);
-		watch.innactivate();
+		watch.inactivate();
 		watchers.add(watch);
 		
 		assertThat(watchers.of(question), empty());
@@ -71,7 +71,7 @@ public class WatcherDAOTest extends DatabaseTestCase{
 		User subscribedWatcher = user("watcher", "watcher@watcher.com");
 		session.save(subscribedWatcher);
 		Watcher watch = new Watcher(subscribedWatcher, question);
-		watch.innactivate();
+		watch.inactivate();
 		watchers.add(watch);
 		
 		watchers.ping(question, subscribedWatcher);
