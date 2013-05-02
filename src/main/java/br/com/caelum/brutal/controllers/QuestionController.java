@@ -142,16 +142,15 @@ public class QuestionController {
 		User author = currentUser.getCurrent();
 		Question question = new Question(information, author);
 		
-		result.include("question", question);
 		validator.validate(information);
-
-		if (!validator.hasErrors() && validate(foundTags, splitedTags)){
-			questions.save(question);
-			watchers.add(new Watcher(author, question));
-			result.redirectTo(this).showQuestion(question, question.getSluggedTitle());
-		}
-	
+		validate(foundTags, splitedTags);
+		result.include("question", question);
 		validator.onErrorRedirectTo(this).questionForm();
+		
+		questions.save(question);
+		watchers.add(new Watcher(author, question));
+		result.redirectTo(this).showQuestion(question, question.getSluggedTitle());
+
 	}
 
 	
