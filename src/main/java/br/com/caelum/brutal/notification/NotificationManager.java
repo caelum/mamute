@@ -25,7 +25,6 @@ public class NotificationManager {
 	
 	public void sendEmailsAndInactivate(EmailAction emailAction) {
 		Question question = emailAction.getQuestion();
-		String s = "asdasasd";
 		List<Watcher> watchList = watchers.of(question);
 		
 		ArrayList<NotificationMail> mails = buildMails(emailAction, watchList);
