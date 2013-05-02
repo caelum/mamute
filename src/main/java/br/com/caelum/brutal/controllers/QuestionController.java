@@ -20,6 +20,7 @@ import br.com.caelum.brutal.model.QuestionViewCounter;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.model.watch.Watcher;
 import br.com.caelum.brutal.reputation.rules.ReputationEvent;
 import br.com.caelum.brutal.reputation.rules.ReputationEvents;
 import br.com.caelum.brutal.validators.TagsValidator;
@@ -108,7 +109,7 @@ public class QuestionController {
 	public void showQuestion(@Load Question question, String sluggedTitle){
 		redirectToRightUrl(question, sluggedTitle);
 		User current = currentUser.getCurrent();
-		if(question.isVisibleFor(current)){
+		if (question.isVisibleFor(current)){
 			viewCounter.ping(question);
 			watchers.ping(question, current);
 			result.include("currentVote", votes.previousVoteFor(question.getId(), current, Question.class));
@@ -138,13 +139,15 @@ public class QuestionController {
 		List<String> splitedTags = splitTags(tagNames);
 		List<Tag> foundTags = tags.findAllWithoutRepeat(splitedTags);
 		QuestionInformation information = new QuestionInformation(title, description, currentUser, foundTags, "new question");
-		Question question = new Question(information, currentUser.getCurrent());
+		User author = currentUser.getCurrent();
+		Question question = new Question(information, author);
 		
 		result.include("question", question);
 		validator.validate(information);
 
-		if(!validator.hasErrors() && validate(foundTags, splitedTags)){
+		if (!validator.hasErrors() && validate(foundTags, splitedTags)){
 			questions.save(question);
+			watchers.add(new Watcher(author, question));
 			result.redirectTo(this).showQuestion(question, question.getSluggedTitle());
 		}
 	
