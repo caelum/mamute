@@ -37,7 +37,7 @@ public class NotificationMailer {
         this.linker = linker;
     }
 
-	public void send(NotificationMail notificationMail){
+	public void send(NotificationMail notificationMail) {
 		User to = notificationMail.getTo();
 		Email email = buildEmail(notificationMail);
 		email.setCharset("utf-8");
