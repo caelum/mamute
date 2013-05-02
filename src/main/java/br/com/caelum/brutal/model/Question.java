@@ -359,5 +359,10 @@ public class Question extends Moderatable implements Post, Taggable{
 		answerCount--;
 	}
 
+	@Override
+	public String getTypeNameKey() {
+		return "question.type_name";
+	}
+
 
 }
