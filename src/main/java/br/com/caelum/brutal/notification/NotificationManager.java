@@ -23,8 +23,11 @@ public class NotificationManager {
 		Question question = emailAction.getQuestion();
 		List<Watcher> watchList = watchers.of(question);
 		for (Watcher watcher : watchList) {
-			mailer.send(new NotificationMail(emailAction, watcher.getWatcher()));
-			watcher.inactivate();
+			boolean sameAuthor = watcher.getWatcher().getId().equals(emailAction.getWhat().getAuthor().getId());
+			if (!sameAuthor) {
+				mailer.send(new NotificationMail(emailAction, watcher.getWatcher()));
+				watcher.inactivate();
+			}
 		}
 		
 	}

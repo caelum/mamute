@@ -2,7 +2,8 @@ package br.com.caelum.brutal.dao;
 
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.not;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +17,6 @@ public class WatcherDAOTest extends DatabaseTestCase{
 
 	private WatcherDAO watchers;
 	private Question question;
-
 
 	@Before
 	public void set_up(){
