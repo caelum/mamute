@@ -4,16 +4,13 @@ import br.com.caelum.brutal.model.Post;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.interfaces.Notifiable;
 
-public class EmailAction{
+public class EmailAction {
 	private final Notifiable notifiable;
 	private final Post post;
-	private final Question question;
 
-	public EmailAction(Notifiable notifiable, Post post, Question question) {
+	public EmailAction(Notifiable notifiable, Post post) {
 		this.notifiable = notifiable;
 		this.post = post;
-		this.question = question;
-		
 	}
 
 	public Notifiable getWhat() {
@@ -25,7 +22,7 @@ public class EmailAction{
 	}
 
 	public Question getQuestion() {
-		return question;
+		return post.getQuestion();
 	}
 
 }

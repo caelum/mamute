@@ -44,7 +44,7 @@ import br.com.caelum.brutal.infra.Digester;
 import br.com.caelum.brutal.model.interfaces.Identifiable;
 import br.com.caelum.brutal.model.interfaces.Moderatable;
 import br.com.caelum.brutal.model.interfaces.Votable;
-import br.com.caelum.brutal.model.watch.Watch;
+import br.com.caelum.brutal.model.watch.Watcher;
 
 @Table(name="Users")
 @Entity
@@ -108,7 +108,7 @@ public class User implements Identifiable {
 	private boolean isSubscribed = true;
 	
 	@OneToMany(mappedBy = "watcher")
-	private final List<Watch> watches = new ArrayList<>();
+	private final List<Watcher> watches = new ArrayList<>();
 	
 	static {
 		GHOST = new User("", "");

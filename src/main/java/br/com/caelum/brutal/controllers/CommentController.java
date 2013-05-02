@@ -5,14 +5,15 @@ import static br.com.caelum.vraptor.view.Results.status;
 import br.com.caelum.brutal.auth.rules.MinimumReputation;
 import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.dao.CommentDAO;
-import br.com.caelum.brutal.dao.WatchDAO;
+import br.com.caelum.brutal.dao.WatcherDAO;
 import br.com.caelum.brutal.infra.ModelUrlMapping;
+import br.com.caelum.brutal.infra.NotFoundException;
 import br.com.caelum.brutal.mail.action.EmailAction;
 import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
-import br.com.caelum.brutal.model.watch.Watch;
+import br.com.caelum.brutal.model.watch.Watcher;
 import br.com.caelum.brutal.notification.NotificationManager;
 import br.com.caelum.brutal.validators.CommentValidator;
 import br.com.caelum.vraptor.Post;
@@ -28,18 +29,18 @@ public class CommentController {
 	private final ModelUrlMapping urlMapping;
 	private final LoggedUser currentUser;
 	private final NotificationManager notificationManager;
-	private final WatchDAO watches;
+	private final WatcherDAO watchers;
 
 	public CommentController(Result result, LoggedUser currentUser, CommentDAO comments,
 			CommentValidator validator, ModelUrlMapping urlMapping,
-			NotificationManager notificationManager, WatchDAO watches) {
+			NotificationManager notificationManager, WatcherDAO watchers) {
 		this.result = result;
 		this.currentUser = currentUser;
 		this.comments = comments;
 		this.validator = validator;
 		this.urlMapping = urlMapping;
 		this.notificationManager = notificationManager;
-		this.watches = watches;
+		this.watchers = watchers;
 	}
 
 	@MinimumReputation(PermissionRulesConstants.CREATE_COMMENT)
@@ -48,20 +49,18 @@ public class CommentController {
 		User current = currentUser.getCurrent();
 		Comment newComment = new Comment(current, comment);
 		Class<?> type = getType(onWhat);
-		if (type == null) {
-			result.notFound();
-			return;
-		}
-		if (validator.validate(newComment)) {
-			br.com.caelum.brutal.model.Post commentable = comments.load(type, id);
-			commentable.add(newComment);
-			comments.save(newComment);
-			result.forwardTo(BrutalTemplatesController.class).comment(newComment);
-			Question question = commentable.getQuestion();
-			notificationManager.sendEmailsAndActivate(new EmailAction(newComment, commentable, question));
-        	watches.add(new Watch(current, question));
-		}
+		
+		validator.validate(newComment);
 		validator.onErrorUse(http()).setStatusCode(400);
+		
+		br.com.caelum.brutal.model.Post commentable = comments.loadCommentable(type, id);
+		commentable.add(newComment);
+		comments.save(newComment);
+		Question question = commentable.getQuestion();
+		notificationManager.sendEmailsAndInactivate(new EmailAction(newComment, commentable));
+    	watchers.add(new Watcher(current, question));
+    	
+    	result.forwardTo(BrutalTemplatesController.class).comment(newComment);
 	}
 
 	@Post("/comentario/editar/{id}")
@@ -83,7 +82,7 @@ public class CommentController {
 		try {
 			return urlMapping.getClassFor(name);
 		} catch (IllegalArgumentException e) {
-			return null;
+			throw new NotFoundException(e);
 		}
 	}
 }

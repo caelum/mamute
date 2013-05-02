@@ -11,7 +11,7 @@ import br.com.caelum.brutal.auth.rules.AuthorizationSystem;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.dao.VoteDAO;
-import br.com.caelum.brutal.dao.WatchDAO;
+import br.com.caelum.brutal.dao.WatcherDAO;
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.Question;
@@ -20,6 +20,7 @@ import br.com.caelum.brutal.model.QuestionViewCounter;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.model.watch.Watcher;
 import br.com.caelum.brutal.reputation.rules.ReputationEvent;
 import br.com.caelum.brutal.reputation.rules.ReputationEvents;
 import br.com.caelum.brutal.validators.TagsValidator;
@@ -47,13 +48,13 @@ public class QuestionController {
 	private final FacebookAuthService facebook;
 	private final QuestionViewCounter viewCounter;
 	private Linker linker;
-	private final WatchDAO watchers;
+	private final WatcherDAO watchers;
 
 	public QuestionController(Result result, QuestionDAO questionDAO, TagDAO tags, 
 			VoteDAO votes, LoggedUser currentUser, FacebookAuthService facebook,
 			TagsValidator tagsValidator, MessageFactory messageFactory,
 			AuthorizationSystem authorizationSystem, Validator validator, 
-			QuestionViewCounter viewCounter, Linker linker, WatchDAO watchers) {
+			QuestionViewCounter viewCounter, Linker linker, WatcherDAO watchers) {
 		this.result = result;
 		this.questions = questionDAO;
 		this.tags = tags;
@@ -108,7 +109,7 @@ public class QuestionController {
 	public void showQuestion(@Load Question question, String sluggedTitle){
 		redirectToRightUrl(question, sluggedTitle);
 		User current = currentUser.getCurrent();
-		if(question.isVisibleFor(current)){
+		if (question.isVisibleFor(current)){
 			viewCounter.ping(question);
 			watchers.ping(question, current);
 			result.include("currentVote", votes.previousVoteFor(question.getId(), current, Question.class));
@@ -138,17 +139,18 @@ public class QuestionController {
 		List<String> splitedTags = splitTags(tagNames);
 		List<Tag> foundTags = tags.findAllWithoutRepeat(splitedTags);
 		QuestionInformation information = new QuestionInformation(title, description, currentUser, foundTags, "new question");
-		Question question = new Question(information, currentUser.getCurrent());
+		User author = currentUser.getCurrent();
+		Question question = new Question(information, author);
 		
-		result.include("question", question);
 		validator.validate(information);
-
-		if(!validator.hasErrors() && validate(foundTags, splitedTags)){
-			questions.save(question);
-			result.redirectTo(this).showQuestion(question, question.getSluggedTitle());
-		}
-	
+		validate(foundTags, splitedTags);
+		result.include("question", question);
 		validator.onErrorRedirectTo(this).questionForm();
+		
+		questions.save(question);
+		watchers.add(new Watcher(author, question));
+		result.redirectTo(this).showQuestion(question, question.getSluggedTitle());
+
 	}
 
 	

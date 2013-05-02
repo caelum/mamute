@@ -11,6 +11,7 @@ import org.owasp.html.HtmlPolicyBuilder;
 import org.owasp.html.PolicyFactory;
 
 import br.com.caelum.brutal.controllers.QuestionController;
+import br.com.caelum.brutal.mail.action.EmailAction;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.vraptor.Linker;
@@ -27,7 +28,7 @@ public class NotificationMailer {
     private final Localization localization;
     private final Linker linker;
     private static final Logger LOG = Logger.getLogger(NotificationMailer.class);
-    private static final PolicyFactory POLICY = new HtmlPolicyBuilder().allowElements("p", "br").toFactory();
+    private static final PolicyFactory POLICY = new HtmlPolicyBuilder().toFactory();
 
     public NotificationMailer(Mailer mailer, TemplateMailer templates, Localization localization, Linker linker) {
         this.mailer = mailer;
@@ -37,21 +38,30 @@ public class NotificationMailer {
     }
 
 	public void send(NotificationMail notificationMail){
-		DateTimeFormatter dateFormat = DateTimeFormat.forPattern("MMM, dd").withLocale(new Locale("pt", "br"));
 		User to = notificationMail.getTo();
-		Email email = templates.template(notificationMail.getEmailTemplate())
-				.with("emailAction", notificationMail.getAction())
-				.with("dateFormat", dateFormat)
-				.with("sanitizer", POLICY)
-				.with("localization", localization)
-				.with("linkerHelper", new LinkToHelper(linker))
-				.to(to.getName(), to.getEmail());
+		Email email = buildEmail(notificationMail);
 		email.setCharset("utf-8");
 		try {
 			mailer.send(email);
 		} catch (EmailException e) {
 			LOG.error("Could not send notifications mail to: " + to.getEmail());
 		}
+	}
+
+	public Email buildEmail(NotificationMail notificationMail) {
+		DateTimeFormatter dateFormat = DateTimeFormat.forPattern("MMM, dd").withLocale(new Locale("pt", "br"));
+		EmailAction action = notificationMail.getAction();
+		User to = notificationMail.getTo();
+		Email email = templates.template(notificationMail.getEmailTemplate())
+				.with("emailAction", action)
+				.with("dateFormat", dateFormat)
+				.with("sanitizer", POLICY)
+				.with("localization", localization)
+				.with("watcher", to)
+				.with("linkerHelper", new LinkToHelper(linker))
+				.to(to.getName(), to.getEmail())
+				.setSubject(localization.getMessage("answer_notification_mail", action.getQuestion().getTitle()));
+		return email;
 	}
     
 	public class LinkToHelper {

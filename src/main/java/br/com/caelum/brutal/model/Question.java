@@ -23,7 +23,7 @@ import org.joda.time.DateTime;
 import br.com.caelum.brutal.model.interfaces.Moderatable;
 import br.com.caelum.brutal.model.interfaces.Taggable;
 import br.com.caelum.brutal.model.interfaces.Votable;
-import br.com.caelum.brutal.model.watch.Watch;
+import br.com.caelum.brutal.model.watch.Watcher;
 
 @Entity
 public class Question extends Moderatable implements Post, Taggable{
@@ -79,7 +79,7 @@ public class Question extends Moderatable implements Post, Taggable{
 	private final ModerationOptions moderationOptions = new ModerationOptions();
 
 	@OneToMany(mappedBy = "watchedQuestion")
-	private final List<Watch> watchers = new ArrayList<>();
+	private final List<Watcher> watchers = new ArrayList<>();
 	
     public static final long SPAM_BOUNDARY = -5;
     
@@ -357,6 +357,11 @@ public class Question extends Moderatable implements Post, Taggable{
 	
 	public void subtractAnswer(){
 		answerCount--;
+	}
+
+	@Override
+	public String getTypeNameKey() {
+		return "question.type_name";
 	}
 
 
