@@ -10,11 +10,11 @@ import org.junit.Test;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
-import br.com.caelum.brutal.model.watch.Watch;
+import br.com.caelum.brutal.model.watch.Watcher;
 
-public class WatchDAOTest extends DatabaseTestCase{
+public class WatcherDAOTest extends DatabaseTestCase{
 
-	private WatchDAO watchers;
+	private WatcherDAO watchers;
 	private Question question;
 
 
@@ -26,14 +26,14 @@ public class WatchDAOTest extends DatabaseTestCase{
 		session.save(java);
 		question = question(leo, java);
 		session.save(question);
-		watchers = new WatchDAO(session);
+		watchers = new WatcherDAO(session);
 	}
 	
 	@Test
 	public void should_get_subscribed_users_of_a_question() {
 		User subscribedWatcher = user("watcher", "watcher@watcher.com");
 		session.save(subscribedWatcher);
-		watchers.add(new Watch(subscribedWatcher, question));
+		watchers.add(new Watcher(subscribedWatcher, question));
 		
 		assertThat(watchers.of(question), not(empty()));
 	}
@@ -44,7 +44,7 @@ public class WatchDAOTest extends DatabaseTestCase{
 		unsubscribedWatcher.setSubscribed(false);
 		session.save(unsubscribedWatcher);
 
-		watchers.add(new Watch(unsubscribedWatcher, question));
+		watchers.add(new Watcher(unsubscribedWatcher, question));
 		
 		assertThat(watchers.of(question), empty());
 	}
@@ -54,7 +54,7 @@ public class WatchDAOTest extends DatabaseTestCase{
 		User subscribedWatcher = user("watcher", "watcher@watcher.com");
 		session.save(subscribedWatcher);
 		
-		Watch watch = new Watch(subscribedWatcher, question);
+		Watcher watch = new Watcher(subscribedWatcher, question);
 		watch.innactivate();
 		watchers.add(watch);
 		
@@ -70,7 +70,7 @@ public class WatchDAOTest extends DatabaseTestCase{
 	public void should_innactivate_watcher() {
 		User subscribedWatcher = user("watcher", "watcher@watcher.com");
 		session.save(subscribedWatcher);
-		Watch watch = new Watch(subscribedWatcher, question);
+		Watcher watch = new Watcher(subscribedWatcher, question);
 		watch.innactivate();
 		watchers.add(watch);
 		

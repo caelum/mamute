@@ -9,7 +9,7 @@ import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
 
 @Entity
-public class Watch {
+public class Watcher {
 	@GeneratedValue @Id
 	private Long id;
 	
@@ -24,11 +24,11 @@ public class Watch {
 	/**
 	 * @deprecated hibernate eyes only
 	 */
-	public Watch() {
+	public Watcher() {
 		this(null, null);
 	}
 	
-	public Watch(User watcher, Question watchedQuestion){
+	public Watcher(User watcher, Question watchedQuestion){
 		this.watcher = watcher;
 		this.watchedQuestion = watchedQuestion;
 	}

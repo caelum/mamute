@@ -5,14 +5,14 @@ import static br.com.caelum.vraptor.view.Results.status;
 import br.com.caelum.brutal.auth.rules.MinimumReputation;
 import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.dao.CommentDAO;
-import br.com.caelum.brutal.dao.WatchDAO;
+import br.com.caelum.brutal.dao.WatcherDAO;
 import br.com.caelum.brutal.infra.ModelUrlMapping;
 import br.com.caelum.brutal.mail.action.EmailAction;
 import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
-import br.com.caelum.brutal.model.watch.Watch;
+import br.com.caelum.brutal.model.watch.Watcher;
 import br.com.caelum.brutal.notification.NotificationManager;
 import br.com.caelum.brutal.validators.CommentValidator;
 import br.com.caelum.vraptor.Post;
@@ -28,11 +28,11 @@ public class CommentController {
 	private final ModelUrlMapping urlMapping;
 	private final LoggedUser currentUser;
 	private final NotificationManager notificationManager;
-	private final WatchDAO watches;
+	private final WatcherDAO watches;
 
 	public CommentController(Result result, LoggedUser currentUser, CommentDAO comments,
 			CommentValidator validator, ModelUrlMapping urlMapping,
-			NotificationManager notificationManager, WatchDAO watches) {
+			NotificationManager notificationManager, WatcherDAO watches) {
 		this.result = result;
 		this.currentUser = currentUser;
 		this.comments = comments;
@@ -59,7 +59,7 @@ public class CommentController {
 			result.forwardTo(BrutalTemplatesController.class).comment(newComment);
 			Question question = commentable.getQuestion();
 			notificationManager.sendEmailsAndActivate(new EmailAction(newComment, commentable, question));
-        	watches.add(new Watch(current, question));
+        	watches.add(new Watcher(current, question));
 		}
 		validator.onErrorUse(http()).setStatusCode(400);
 	}
