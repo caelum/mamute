@@ -9,7 +9,7 @@ public class PermissionRulesConstants {
 	/**
 	 * to vote down anything
 	 */
-	public static final int VOTE_DOWN = 50;
+	public static final int VOTE_DOWN = 100;
 	
 	/**
 	 * to flag anything
