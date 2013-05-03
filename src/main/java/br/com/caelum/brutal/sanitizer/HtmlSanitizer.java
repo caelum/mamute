@@ -6,7 +6,7 @@ import org.owasp.html.PolicyFactory;
 public class HtmlSanitizer {
 	private static final PolicyFactory 
 		POLICY = new HtmlPolicyBuilder()
-		    .allowElements("a", "blockquote", "code", "em", "h2", "hr", "img", 
+		    .allowElements("a", "blockquote", "code", "em", "h1", "h2", "hr", "img", 
 		    		"kbd", "li", "ol", "p", "pre", "strong", "ul")
 		    .allowUrlProtocols("https", "http")
 		    .allowAttributes("href").onElements("a")

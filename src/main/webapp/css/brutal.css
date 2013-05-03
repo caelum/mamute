@@ -184,9 +184,14 @@ a:hover{
 	list-style: decimal inside;
 }
 
-.md-preview h2, .md-preview h1,
-.post-text h2, .post-test h1,
-.about-me h2, .about-me h1 {
+.md-preview h1, .post-text h1,
+.about-me h1 {
+	font-size: 1.45em;
+	margin: 1em 0;
+}
+
+.md-preview h2, .post-text h2, 
+.about-me h2 {
 	font-size: 1.3em;
 	margin: 1em 0;
 }
