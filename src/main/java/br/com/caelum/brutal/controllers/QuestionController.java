@@ -111,19 +111,20 @@ public class QuestionController {
 		User current = currentUser.getCurrent();
 		if (question.isVisibleFor(current)){
 			viewCounter.ping(question);
-			watchers.ping(question, current);
+			boolean isWatching = watchers.ping(question, current);
 			result.include("currentVote", votes.previousVoteFor(question.getId(), current, Question.class));
 			result.include("answers", votes.previousVotesForAnswers(question, current));
 			result.include("commentsWithVotes", votes.previousVotesForComments(question, current));
 			result.include("questionTags", question.getInformation().getTags());
 			result.include("question", question);
+			result.include("isWatching", isWatching);
 			linker.linkTo(this).showQuestion(question, sluggedTitle);
 			result.include("facebookUrl", facebook.getOauthUrl(linker.get()));
 		}else{
 			result.notFound();
 		}
 	}
-
+	
 	private void redirectToRightUrl(Question question, String sluggedTitle) {
 		if (!question.getSluggedTitle().equals(sluggedTitle)) {
 			result.redirectTo(this).showQuestion(question,
@@ -151,6 +152,16 @@ public class QuestionController {
 		watchers.add(new Watcher(author, question));
 		result.redirectTo(this).showQuestion(question, question.getSluggedTitle());
 
+	}
+	
+	@Post("/watch/{questionId}")
+	@LoggedAccess
+	public void watch(Long questionId) {
+		Question question = questions.getById(questionId);
+		User user = currentUser.getCurrent();
+		Watcher watcher = new Watcher(user, question);
+		watchers.addOrRemove(watcher);
+		result.nothing();
 	}
 
 	

@@ -31,14 +31,17 @@ public class WatcherDAO {
 	}
 
 	public void add(Watcher watcher) {
-		if (findByQuestionAndUser(watcher.getWatchedQuestion(), watcher.getWatcher()) == null)
+		if (!alreadyWatching(watcher))
 			session.save(watcher);
 	}
 
-	public void ping(Question question, User user) {
+	public boolean ping(Question question, User user) {
 		Watcher watcher = findByQuestionAndUser(question, user);
-		if (watcher != null) 
+		if (watcher != null) { 
 			watcher.activate();
+			return true;
+		}
+		return false;
 	}
 
 	private Watcher findByQuestionAndUser(Question question, User user) {
@@ -49,4 +52,20 @@ public class WatcherDAO {
 		return watch;
 	}
 
+	public void addOrRemove(Watcher watcher) {
+		if(!alreadyWatching(watcher)) {
+			add(watcher);
+		} else {
+			remove(watcher);
+		}
+	}
+
+	private void remove(Watcher watcher) {
+		Watcher managed = findByQuestionAndUser(watcher.getWatchedQuestion(), watcher.getWatcher());
+		session.delete(managed);
+	}
+
+	private boolean alreadyWatching(Watcher watcher) {
+		return findByQuestionAndUser(watcher.getWatchedQuestion(), watcher.getWatcher()) != null;
+	}
 }
