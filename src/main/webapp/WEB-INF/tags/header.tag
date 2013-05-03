@@ -111,7 +111,7 @@
 								</li>
 							</c:if>
 							<li class="nav-item">
-								<a href="${linkTo[NavigationController].about}">
+								<a class="about" href="${linkTo[NavigationController].about}">
 									<fmt:message key="about.link" />
 								</a>
 							</li>

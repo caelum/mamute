@@ -31,4 +31,5 @@
 	<tags:joyrideTip className="question-title-input" options="tipLocation:bottom" key="intro.new_question.title" />
 	<tags:joyrideTip className="question-description-input" options="tipLocation:bottom" key="intro.new_question.description" />
 	<tags:joyrideTip className="question-tags-input" options="tipLocation:bottom" key="intro.new_question.tags" />
+	<tags:joyrideTip className="about" options="tipLocation:bottom" key="intro.about" />
 </ol>

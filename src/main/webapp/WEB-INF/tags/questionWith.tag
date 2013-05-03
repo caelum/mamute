@@ -61,4 +61,5 @@
 	<tags:joyrideTip className="edit-question" options="tipLocation:bottom" key="intro.question.edit_question" />
 	<tags:joyrideTip className="add-comment" options="tipLocation:bottom" key="intro.question.add_comment" />
 	<tags:joyrideTip className="solution-tick" options="tipLocation:right" key="intro.question.solution_mark" />
+	<tags:joyrideTip className="about" options="tipLocation:bottom" key="intro.about" />
 </ol>

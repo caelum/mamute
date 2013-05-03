@@ -46,4 +46,5 @@
 	<tags:joyrideTip className="votes" options="tipLocation:top" key="intro.home.votes" />
 	<tags:joyrideTip className="answers" options="tipLocation:top" key="intro.home.answers" />
 	<tags:joyrideTip className="main-tags" options="tipLocation:left" key="intro.home.tags" />
+	<tags:joyrideTip className="about" options="tipLocation:bottom" key="intro.about" />
 </ol>
