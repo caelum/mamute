@@ -19,7 +19,7 @@
 <c:if test="${not empty facebookMetas || facebookMetas == true}">
 	<meta property="og:title" content="${title}">
 	<meta property="og:site_name" content="guj.com.br">
-	<meta property="og:url" content='<env:get key="host"/><env:get key="home.url"/>'>
+	<meta property="og:url" content='${currentUrl}'>
 	<meta property="og:type" content="website">
 	<meta property="og:image" content="<env:get key="host"/><c:url value="/imgs/guj-logo.png"/>">
 </c:if>
