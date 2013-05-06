@@ -99,13 +99,13 @@ public class AnswerController {
 		boolean canAnswer = answeredByValidator.validate(question);
 		AnswerInformation information = new AnswerInformation(description, currentUser, "new answer");
 		Answer answer  = new Answer(information, question, current);
-		if(canAnswer){
+		if (canAnswer) {
     		question.touchedBy(current);
         	answers.save(answer);
         	result.redirectTo(QuestionController.class).showQuestion(question, question.getSluggedTitle());
 			notificationManager.sendEmailsAndInactivate(new EmailAction(answer, question));
         	watchers.add(new Watcher(current, question));
-        }else{
+        } else {
         	result.include("answer", answer);
         	answeredByValidator.onErrorRedirectTo(QuestionController.class).showQuestion(question, question.getSluggedTitle());
         }

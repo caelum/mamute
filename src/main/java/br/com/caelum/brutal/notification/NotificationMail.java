@@ -24,4 +24,9 @@ public class NotificationMail {
 	public String getEmailTemplate() {
 		return emailAction.getWhat().getEmailTemplate();
 	}
+	
+	@Override
+	public String toString() {
+		return "email to " + watcher;
+	}
 }
