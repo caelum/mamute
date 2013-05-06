@@ -48,6 +48,7 @@ $(function() {
 				return;
 			}
 			errorPopup("Ocorreu um erro.", form.parent(), "center-popup");
+			console.log(jqXHR);
 		};
 	
 		var success = function(response, status, jqhr) {

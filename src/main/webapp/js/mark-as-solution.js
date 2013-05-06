@@ -14,9 +14,10 @@ $(function(){
 			beforeSend: function() {
 				toggleAll();
 			},
-			error: function() {
+			error: function(jqXHR) {
 				toggleAll();
 				errorPopup("Ocorreu um erro...", mark, "center-popup");
+				console.log(jqXHR);
 			}
 		});
 		

@@ -12,8 +12,9 @@ $(function(){
 			beforeSend: function() {
 				toggleClassOf(icon);
 			},
-			error: function() {
+			error: function(jqXHR) {
 				errorPopup("Ocorreu um erro...", post, "center-popup");
+				console.log(jqXHR);
 			}
 		});
 		

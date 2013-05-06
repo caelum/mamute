@@ -18,6 +18,7 @@ function vote(link) {
 				errorPopup(jqXHR.responseText, link);
 			} else {
 				errorPopup("Ocorreu um erro", link);
+				console.log(jqXHR);
 			}
 		},
 		accepts: "application/json",
