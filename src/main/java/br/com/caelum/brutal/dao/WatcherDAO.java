@@ -60,7 +60,7 @@ public class WatcherDAO {
 		}
 	}
 
-	private void remove(Watcher watcher) {
+	public void remove(Watcher watcher) {
 		Watcher managed = findByQuestionAndUser(watcher.getWatchedQuestion(), watcher.getWatcher());
 		session.delete(managed);
 	}

@@ -94,7 +94,7 @@ public class AnswerController {
 	@Post("/responder/{question.id}")
 	@LoggedAccess
 	@ReputationEvent(ReputationEvents.NEW_ANSWER)
-	public void newAnswer(@Load Question question, String description) {
+	public void newAnswer(@Load Question question, String description, boolean watching) {
 		User current = currentUser.getCurrent();
 		boolean canAnswer = answeredByValidator.validate(question);
 		AnswerInformation information = new AnswerInformation(description, currentUser, "new answer");
@@ -104,7 +104,9 @@ public class AnswerController {
         	answers.save(answer);
         	result.redirectTo(QuestionController.class).showQuestion(question, question.getSluggedTitle());
 			notificationManager.sendEmailsAndInactivate(new EmailAction(answer, question));
-        	watchers.add(new Watcher(current, question));
+			if(watching) {
+				watchers.add(new Watcher(current, question));
+			}
         } else {
         	result.include("answer", answer);
         	answeredByValidator.onErrorRedirectTo(QuestionController.class).showQuestion(question, question.getSluggedTitle());

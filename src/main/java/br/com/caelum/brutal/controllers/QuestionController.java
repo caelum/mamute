@@ -136,7 +136,7 @@ public class QuestionController {
 	@Post("/perguntar")
 	@LoggedAccess
 	@ReputationEvent(ReputationEvents.NEW_QUESTION)
-	public void newQuestion(String title, String description, String tagNames) {
+	public void newQuestion(String title, String description, String tagNames, boolean watching) {
 		List<String> splitedTags = splitTags(tagNames);
 		List<Tag> foundTags = tags.findAllWithoutRepeat(splitedTags);
 		QuestionInformation information = new QuestionInformation(title, description, currentUser, foundTags, "new question");
@@ -149,12 +149,14 @@ public class QuestionController {
 		validator.onErrorRedirectTo(this).questionForm();
 		
 		questions.save(question);
-		watchers.add(new Watcher(author, question));
+		if(watching) {
+			watchers.add(new Watcher(author, question));
+		}
 		result.redirectTo(this).showQuestion(question, question.getSluggedTitle());
 
 	}
 	
-	@Post("/watch/{questionId}")
+	@Post("/acompanhar/{questionId}")
 	@LoggedAccess
 	public void watch(Long questionId) {
 		Question question = questions.getById(questionId);

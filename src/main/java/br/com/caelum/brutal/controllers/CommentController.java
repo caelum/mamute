@@ -45,7 +45,7 @@ public class CommentController {
 
 	@MinimumReputation(PermissionRulesConstants.CREATE_COMMENT)
 	@Post("/{onWhat}/{id}/comentar")
-	public void comment(Long id, String onWhat, String comment) {
+	public void comment(Long id, String onWhat, String comment, boolean watching) {
 		User current = currentUser.getCurrent();
 		Comment newComment = new Comment(current, comment);
 		Class<?> type = getType(onWhat);
@@ -58,7 +58,11 @@ public class CommentController {
 		comments.save(newComment);
 		Question question = commentable.getQuestion();
 		notificationManager.sendEmailsAndInactivate(new EmailAction(newComment, commentable));
-    	watchers.add(new Watcher(current, question));
+		if(watching) {
+			watchers.add(new Watcher(current, question));
+		} else {
+			watchers.remove(new Watcher(current, question));
+		}
     	
     	result.forwardTo(BrutalTemplatesController.class).comment(newComment);
 	}

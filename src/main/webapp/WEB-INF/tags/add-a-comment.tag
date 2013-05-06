@@ -15,7 +15,11 @@
 
 <c:set var="commentsSize" value="${fn:length(item.getVisibleCommentsFor(currentUser.current))}"/>
 <c:if test="${commentsSize > 5}">
-	<span class="more-comments" size="${commentsSize}">Mostrar todos os <strong>${commentsSize}</strong> comentários</span>
+	<span class="more-comments" size="${commentsSize}">
+		<fmt:message key="comment.show_all">
+			<fmt:param value="<strong>${commentsSize}</strong>"/>
+		</fmt:message>
+	</span>
 </c:if>
 
 

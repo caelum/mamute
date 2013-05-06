@@ -15,6 +15,8 @@
 	<label for="tags"><fmt:message key="question.tags.label"/></label>
 	<ul class="tags autocompleted-tags complete-tags hidden" id="newquestion-tags-autocomplete"></ul>
 	<input id="tags" type="text" autocomplete="off" name="tagNames" class="question-tags-input hintable autocomplete only-existent-tags text-input required" value="${question.tagsAsString }" data-hint-id="question-tags-hint" data-autocomplete-id="newquestion-tags-autocomplete"/>
+	
+	<tags:checkbox-watch/>
 
 	<input class="post-submit big-submit" type="submit" value="<fmt:message key="question.new_form.submit"/>" />
 </form>

@@ -472,6 +472,17 @@ form.inactive .submit{
 	margin-top:0;
 }
 
+/*WATCH*/
+.form-watch {
+	float: right;
+	width: 45%;
+}
+
+.form-watch input[type="checkbox"] {
+	width: 10%;
+	vertical-align: middle;
+}
+
 /*ARROW*/
 .arrow {
 	width: 0;
