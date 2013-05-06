@@ -219,6 +219,8 @@ public class QuestionInformation implements Information, Taggable {
 
 	@Override
 	public boolean isBeforeCurrent() {
-		return createdAt.isBefore(question.getInformation().createdAt);
+		System.out.println("current:        " + question.getInformation().getCreatedAt());
+		System.out.println("this.createdAt: " + this.createdAt);
+		return createdAt.isBefore(question.getInformation().getCreatedAt());
 	}
 }
