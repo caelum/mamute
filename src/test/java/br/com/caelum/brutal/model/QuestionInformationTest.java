@@ -21,9 +21,9 @@ public class QuestionInformationTest {
 	}
 	
 	@Test
-	public void should_verify_if_is_before_current_information() {
-		
+	public void should_verify_if_is_before_current_information() throws InterruptedException {
 		QuestionInformation version = builder.build();
+		Thread.sleep(100);
 		ruby.enqueueChange(version, PENDING);
 		QuestionInformation infoByModerator = builder.build();
 		ruby.approve(infoByModerator);
@@ -32,10 +32,10 @@ public class QuestionInformationTest {
 	}
 	
 	@Test
-	public void should_verify_if_is_not_before_current_information() {
-		
+	public void should_verify_if_is_not_before_current_information() throws InterruptedException {
 		QuestionInformation infoByModerator = builder.build();
 		ruby.approve(infoByModerator);
+		Thread.sleep(100);
 		QuestionInformation version = builder.build();
 		ruby.enqueueChange(version, PENDING);
 		
