@@ -5,13 +5,26 @@
 
 <footer class="footer">
 	<div class="container">
+		
+		<ul class="footer-list">
+			<li class="sponsor-box">
+				<a class="footer-logo guj-logo" href="http://www.guj.com.br">GUJ</a>
+				<ul class="footer-sub-list">
+					<li>publicidade@guj.com.br</li>
+				</ul>
+			</li>
+			<li class="sponsor-box"><a class="footer-logo caelum-logo" href="http://www.caelum.com.br">Caelum</a></li>
+			<li class="sponsor-box"><a class="footer-logo cdc-logo" href="http://www.casadocodigo.com.br/">Casa do Código</a></li>
+			<li class="sponsor-box"><a class="footer-logo online-logo" href="#">Caelum Online</a></li>
+		</ul>
+		<%-- <p><fmt:message key="footer.powered_by"><fmt:param value="http://www.caelum.com.br"/></fmt:message></p>		
+		<p><a class="footer-link" href="http://www.casadocodigo.com.br"><fmt:message key="footer.casa_do_codigo"/></a></p> --%>		
+		<%@include file="mainTags.jsp" %>
 		<p class="footer-menu">
+			<a href="<c:url value="/forums/list.java" />" ><fmt:message key="menu.forum" /></a>
 			<a href="${linkTo[ListController].unsolved}" class="unsolved-link"><fmt:message key="menu.unsolved"/></a>
 			<a href="${linkTo[ListController].unanswered}"><fmt:message	key="menu.unanswered"/></a>
 		</p>
-		<%@include file="mainTags.jsp" %>
-		<p><fmt:message key="footer.powered_by"><fmt:param value="http://www.caelum.com.br"/></fmt:message></p>		
-		<p><a class="footer-link" href="http://www.casadocodigo.com.br"><fmt:message key="footer.casa_do_codigo"/></a></p>		
 	</div>
 </footer>
 <!-- UserVoice JavaScript SDK (only needed once on a page) -->
