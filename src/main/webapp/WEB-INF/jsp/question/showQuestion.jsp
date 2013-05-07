@@ -38,6 +38,7 @@
 			</div>
 		</div>
 	</c:if>
+	<tags:notice isLogged="${currentUser.loggedIn}" tags="${questionTags}"/>
 </section>
 <aside class="sidebar">
 	<h3 class="title page-title"><fmt:message key="question.tags"/></h3>

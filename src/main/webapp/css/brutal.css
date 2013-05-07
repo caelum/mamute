@@ -1413,6 +1413,12 @@ a.button.ask-a-question:hover{
 	padding: 0.8em 0;
 }
 
+.notice {
+	float: left;
+	margin-top: 2em;
+	font-size: 1.4em;
+}
+
 /*Footer*/
 .footer {
 	border-top: 8px solid #000000;
