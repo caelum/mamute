@@ -33,7 +33,7 @@ a:hover{
 	display: block;
 }
 
-.big-logo , .footer-logo.big-logo{
+.big-logo {
 	background-image: url('../imgs/guj-logo.png');
 	background-position: 0px 0px;
 	width: 250px;
@@ -1501,7 +1501,7 @@ a.button.ask-a-question:hover{
 
 .footer-sub-list li:not(:last-child){
 	padding-right:.4em;
-	border-right: 1px solid white;
+	border-right: 1px solid #cfcfcf;
 }
 
 .footer .main-tags {
