@@ -1412,7 +1412,7 @@ a.button.ask-a-question:hover{
 .footer {
 	border-top: 8px solid #000000;
 	background-color: #244B6A;
-	height: 360px;
+	height: 265px;
 	margin-top: 50px;
 	text-align: center;
 	padding-top: 2em;
@@ -1437,15 +1437,15 @@ a.button.ask-a-question:hover{
 }
 
 .footer-list {
-	height: auto;
-	text-align: left
+	text-align: left;
+	margin-bottom: 4%;
 }
 
 .footer-list .sponsor-box{
 	display: inline-block;
-	width: 24.6%;	
-	vertical-align: middle;
-	text-align: left;
+	width: 33%;	
+	vertical-align: top;
+	text-align: center;
 }
 
 .footer-logo {
@@ -1454,7 +1454,8 @@ a.button.ask-a-question:hover{
 	background-image: url("../imgs/footer-sprite.png");
 	background-repeat: no-repeat;
 	vertical-align: top;
-	margin-bottom: 10%;
+	margin-bottom: 5%;
+	height: 66px;
 }
 
 .footer-list .big-logo{
@@ -1463,27 +1464,28 @@ a.button.ask-a-question:hover{
 
 .footer-list .guj-logo{
 	background-position: 0px -66px;
-	height: 57px;
 	width: 174px;
 }
 
 .footer-list .caelum-logo{
-	background-position: 0px -123px;
-	height: 53px;
+	background-position: 0px -132px;
 	width: 170px;
 }
 
 .footer-list .cdc-logo{
 	background-position: 0px 0px;
-	height: 66px;
 	width: 228px;
 }
 
-.footer-sub-list {
-	margin-left: 1.3em;
-	list-style: disc;
+.footer-sub-list li, .footer-sub-list a{
 	color: #fff;
-	font-weight: bold;
+	line-height: 1.1em;
+	display: inline;
+}
+
+.footer-sub-list li:not(:last-child){
+	padding-right:.4em;
+	border-right: 1px solid white;
 }
 
 /*USER PROFILE*/

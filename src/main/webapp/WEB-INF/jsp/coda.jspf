@@ -13,9 +13,21 @@
 					<li>publicidade@guj.com.br</li>
 				</ul>
 			</li>
-			<li class="sponsor-box"><a class="footer-logo caelum-logo" href="http://www.caelum.com.br">Caelum</a></li>
-			<li class="sponsor-box"><a class="footer-logo cdc-logo" href="http://www.casadocodigo.com.br/">Casa do Código</a></li>
-			<li class="sponsor-box"><a class="footer-logo online-logo" href="#">Caelum Online</a></li>
+			<li class="sponsor-box">
+				<a class="footer-logo caelum-logo" href="http://www.caelum.com.br">CAELUM</a>
+				<ul class="footer-sub-list">
+					<li><a href="http://www.caelum.com.br/cursos/java/">Java</a></li>
+					<li><a href="http://www.caelum.com.br/cursos/mobile/">Mobile</a></li>
+					<li><a href="http://www.caelum.com.br/cursos/web/">Front-End</a></li>
+					<li><a href="http://www.caelum.com.br/cursos/agile/">Agile</a></li>
+					<li><a href="http://www.caelum.com.br/cursos/rails/">Rails</a></li>
+					<li><a href="http://www.caelum.com.br/cursos/dotnet/">.NET</a></li>
+				</ul>
+			</li>
+			<li class="sponsor-box">
+				<a class="footer-logo cdc-logo" href="http://www.casadocodigo.com.br/">CASA DO CÓDIGO</a>
+			</li>
+		<!-- 	<li class="sponsor-box"><a class="footer-logo online-logo" href="#">Caelum Online</a></li> -->
 		</ul>
 		<%-- <p><fmt:message key="footer.powered_by"><fmt:param value="http://www.caelum.com.br"/></fmt:message></p>		
 		<p><a class="footer-link" href="http://www.casadocodigo.com.br"><fmt:message key="footer.casa_do_codigo"/></a></p> --%>		
