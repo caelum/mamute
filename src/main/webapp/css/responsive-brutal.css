@@ -114,7 +114,7 @@
 		font-size: 1.5em;
 		font-weight: bold;
 	}
-
+	
 	/*Tag list*/
 	.complete-tag{
 		font-size:1.2em;
@@ -222,6 +222,16 @@
 	.center-popup {
 		margin: 4em 6em;
 	}
+	
+	/*Footer*/
+	
+	.footer-list .sponsor-box{
+		width: 49%;
+	}
+	
+	.sponsor-box:first-child{
+		display: none;
+	}
 }
 
 @media only screen and (max-width: 550px) {
@@ -245,7 +255,6 @@
 		height: 40px;
 		text-align:center;
 	}
-
 }
 
 @media only screen and (max-width: 500px){
@@ -264,5 +273,13 @@
 		width: 60%;
 	}
 	
+	.footer-list .sponsor-box{
+		width: 100%;
+		margin-bottom: 3em;
+	}
+	
+	.footer-logo{
+		margin-bottom: 4%;
+	}
 	
 }	
