@@ -8,13 +8,13 @@
 		
 		<ul class="footer-list">
 			<li class="sponsor-box">
-				<a class="footer-logo guj-logo" href="http://www.guj.com.br">GUJ</a>
+				<a class="footer-logo guj-logo" href="http://www.guj.com.br"><fmt:message key="footer.guj" /></a>
 				<ul class="footer-sub-list">
-					<li>Contato: publicidade@guj.com.br</li>
+					<li><fmt:message key="footer.guj.content" /></li>
 				</ul>
 			</li>
 			<li class="sponsor-box">
-				<a class="footer-logo caelum-logo" href="http://www.caelum.com.br">CAELUM</a>
+				<a class="footer-logo caelum-logo" href="http://www.caelum.com.br"><fmt:message key="footer.caelum"/></a>
 				<ul class="footer-sub-list">
 					<li><a class="footer-link" href="http://www.caelum.com.br/cursos/java/">Java</a></li>
 					<li><a class="footer-link" href="http://www.caelum.com.br/cursos/mobile/">Mobile</a></li>
@@ -25,9 +25,9 @@
 				</ul>
 			</li>
 			<li class="sponsor-box">
-				<a class="footer-logo cdc-logo" href="http://www.casadocodigo.com.br/">CASA DO CÓDIGO</a>
+				<a class="footer-logo cdc-logo" href="http://www.casadocodigo.com.br/"><fmt:message key="footer.casa_do_codigo"/></a>
 				<ul class="footer-sub-list">
-					<li>Livros para o programador</li>
+					<li><fmt:message key="footer.casa_do_codigo.content"/></li>
 				</ul>
 			</li>
 		<!-- 	<li class="sponsor-box"><a class="footer-logo online-logo" href="#">Caelum Online</a></li> -->
