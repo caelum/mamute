@@ -10,7 +10,8 @@
 		      data-value="positivo" data-author="${currentUser.current.isAuthorOf(item)}"
 		      data-type="${type}" 
 		      data-karma="${VOTE_UP}" 
-		      data-id="${item.id}">
+		      data-id="${item.id}"
+		      title="<fmt:message key='${type}.upvote'/>">
     	up
    	</a>
 	<span class="vote-count post-vote-count">${item.voteCount}</span>
@@ -21,7 +22,8 @@
 	 		  data-author="${currentUser.current.isAuthorOf(item)}"
 	 		  data-type="${type}" 
 		      data-karma="${VOTE_DOWN}" 
-	 		  data-id="${item.id}"> 
+	 		  data-id="${item.id}"
+	 		  title="<fmt:message key='${type}.downvote'/>"> 
 		down 
 	</a>
 </div>
