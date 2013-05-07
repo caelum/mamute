@@ -473,12 +473,17 @@ form.inactive .submit{
 }
 
 /*WATCH*/
+.watch .icon-eye-open {
+	color: #84BC41;
+}
+
 .form-watch {
 	float: right;
 	width: 45%;
 }
 
 .form-watch input[type="checkbox"] {
+	height: 1em;
 	width: 10%;
 	vertical-align: middle;
 }

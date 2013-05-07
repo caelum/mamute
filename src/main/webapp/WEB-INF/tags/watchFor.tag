@@ -1,8 +1,20 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@attribute name="question" type="br.com.caelum.brutal.model.Question" required="true" %>
 <div>
 	<a class="watch requires-login" href="${linkTo[QuestionController].watch[question.id]}">
-		<span class="icon-eye-open icon-2x container ${!isWatching ? 'icon-muted' : '' }"></span>
+		<c:choose>
+			<c:when test="${isWatching}">
+				<span class="icon-eye-open icon-2x container" 
+				      title="<fmt:message key='watch.enabled.tooltip'/>">
+				</span>
+			</c:when>
+			<c:otherwise>
+				<span class="icon-eye-close icon-muted icon-2x container" 
+				      title="<fmt:message key='watch.disabled.tooltip'/>">
+				</span>
+			</c:otherwise>
+		</c:choose>
 	</a>
 </div>
