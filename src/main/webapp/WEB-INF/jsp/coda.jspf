@@ -34,9 +34,9 @@
 		</ul>
 		<%@include file="mainTags.jsp" %>
 		<span class="footer-menu">
-			<a href="<c:url value="/forums/list.java" />" ><fmt:message key="menu.forum" /></a>
 			<a href="${linkTo[ListController].unsolved}" class="unsolved-link"><fmt:message key="menu.unsolved"/></a>
 			<a href="${linkTo[ListController].unanswered}"><fmt:message	key="menu.unanswered"/></a>
+			<a href="<c:url value="/forums/list.java" />" ><fmt:message key="menu.forum" /></a>
 		</span>
 		<span class="footer-muted-message"><fmt:message key="footer.powered_by"><fmt:param value="http://www.caelum.com.br"/></fmt:message></span>
 	</div>
