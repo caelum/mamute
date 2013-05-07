@@ -16,7 +16,7 @@ import br.com.caelum.vraptor.ioc.Component;
 @Component
 public class FlaggableDAO {
 
-	private static final long MIN_FLAGS = 3l;
+	private static final long MIN_FLAGS = 2l;
 	private final Session session;
 
 	public FlaggableDAO(Session session) {
