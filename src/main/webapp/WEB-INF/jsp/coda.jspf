@@ -5,13 +5,40 @@
 
 <footer class="footer">
 	<div class="container">
-		<p class="footer-menu">
+		
+		<ul class="footer-list">
+			<li class="sponsor-box">
+				<a class="footer-logo guj-logo" href="http://www.guj.com.br">GUJ</a>
+				<ul class="footer-sub-list">
+					<li>publicidade@guj.com.br</li>
+				</ul>
+			</li>
+			<li class="sponsor-box">
+				<a class="footer-logo caelum-logo" href="http://www.caelum.com.br">CAELUM</a>
+				<ul class="footer-sub-list">
+					<li><a class="footer-link" href="http://www.caelum.com.br/cursos/java/">Java</a></li>
+					<li><a class="footer-link" href="http://www.caelum.com.br/cursos/mobile/">Mobile</a></li>
+					<li><a class="footer-link" href="http://www.caelum.com.br/cursos/web/">Front-End</a></li>
+					<li><a class="footer-link" href="http://www.caelum.com.br/cursos/agile/">Agile</a></li>
+					<li><a class="footer-link" href="http://www.caelum.com.br/cursos/rails/">Rails</a></li>
+					<li><a class="footer-link" href="http://www.caelum.com.br/cursos/dotnet/">.NET</a></li>
+				</ul>
+			</li>
+			<li class="sponsor-box">
+				<a class="footer-logo cdc-logo" href="http://www.casadocodigo.com.br/">CASA DO CÓDIGO</a>
+				<ul class="footer-sub-list">
+					<li>Livros para o programador</li>
+				</ul>
+			</li>
+		<!-- 	<li class="sponsor-box"><a class="footer-logo online-logo" href="#">Caelum Online</a></li> -->
+		</ul>
+		<%@include file="mainTags.jsp" %>
+		<span class="footer-menu">
+			<a href="<c:url value="/forums/list.java" />" ><fmt:message key="menu.forum" /></a>
 			<a href="${linkTo[ListController].unsolved}" class="unsolved-link"><fmt:message key="menu.unsolved"/></a>
 			<a href="${linkTo[ListController].unanswered}"><fmt:message	key="menu.unanswered"/></a>
-		</p>
-		<%@include file="mainTags.jsp" %>
-		<p><fmt:message key="footer.powered_by"><fmt:param value="http://www.caelum.com.br"/></fmt:message></p>		
-		<p><a class="footer-link" href="http://www.casadocodigo.com.br"><fmt:message key="footer.casa_do_codigo"/></a></p>		
+		</span>
+		<span class="footer-muted-message"><fmt:message key="footer.powered_by"><fmt:param value="http://www.caelum.com.br"/></fmt:message></span>
 	</div>
 </footer>
 <!-- UserVoice JavaScript SDK (only needed once on a page) -->
