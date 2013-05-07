@@ -5,6 +5,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.vidageek.mirror.dsl.Mirror;
+
+import org.joda.time.DateTimeUtils;
+import org.junit.Before;
+
 import br.com.caelum.brutal.builder.QuestionBuilder;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.AnswerInformation;
@@ -23,6 +27,11 @@ import br.com.caelum.brutal.model.VoteType;
  * Constructor from this class should not be used anywhere beside tests.
  */
 public abstract class TestCase {
+	
+	@Before
+	public void fixTime() {
+		DateTimeUtils.setCurrentMillisSystem();
+	}
 
 	private QuestionBuilder questionBuilder = new QuestionBuilder();
 	
@@ -92,6 +101,5 @@ public abstract class TestCase {
     	return user("moderator", "moderator@brutal.com").asModerator();
     }
     
-
 }
 

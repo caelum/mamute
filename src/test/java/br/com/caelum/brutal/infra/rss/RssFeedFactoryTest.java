@@ -13,7 +13,7 @@ import br.com.caelum.brutal.dao.TestCase;
 import br.com.caelum.brutal.model.Question;
 
 public class RssFeedFactoryTest extends TestCase {
-
+	
 	@Test
 	public void should_generate_feed() throws IOException {
 		RssFeedFactory rssFeedFactory = new RssFeedFactory();
@@ -38,5 +38,6 @@ public class RssFeedFactoryTest extends TestCase {
 		String xml = new String(output.toByteArray());
 		xml.contains("first question");
 		xml.contains("second question");
+		DateTimeUtils.setCurrentMillisSystem();
 	}
 }
