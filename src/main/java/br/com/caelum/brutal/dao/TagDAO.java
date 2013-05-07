@@ -41,7 +41,7 @@ public class TagDAO {
 				"join question.information.tags tag " +
 				"where question.lastUpdatedAt > :since  group by tag order by count(question) desc");
 		query.setParameter("since", since);
-		return query.list();
+		return query.setMaxResults(75).list();
 	}
 	
 	@SuppressWarnings("unchecked")
