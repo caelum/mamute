@@ -55,8 +55,8 @@ public class FlaggableDAOTest extends DatabaseTestCase {
 		Comment comment = comment();
 		addFlags(comment, 10, author);
 		session.save(comment);
-		Long count = flaggables.flaggedButVisibleCount(Comment.class);
-		assertEquals(2l, count.longValue());
+		int count = flaggables.flaggedButVisibleCount(Comment.class);
+		assertEquals(2, count);
 	}
 	
 	@Test
@@ -67,8 +67,8 @@ public class FlaggableDAOTest extends DatabaseTestCase {
 		session.save(tag);
 		session.save(question);
 		session.save(other);
-		Long count = flaggables.flaggedButVisibleCount(Question.class);
-		assertEquals(1l, count.longValue());
+		int count = flaggables.flaggedButVisibleCount(Question.class);
+		assertEquals(1, count);
 	}
 	
 	@Test
@@ -81,8 +81,8 @@ public class FlaggableDAOTest extends DatabaseTestCase {
 		session.save(question);
 		session.save(other);
 		session.save(flagged);
-		Long count = flaggables.flaggedButVisibleCount(Answer.class);
-		assertEquals(1l, count.longValue());
+		int count = flaggables.flaggedButVisibleCount(Answer.class);
+		assertEquals(1, count);
 	}
 
 	private void addFlags(Flaggable comment, int n, User author) {

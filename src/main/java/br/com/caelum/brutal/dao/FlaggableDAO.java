@@ -42,21 +42,21 @@ public class FlaggableDAO {
 		return query.setParameter("min", MIN_FLAGS).list();
 	}
 	
-	public Long flaggedButVisibleCount() {
-		Long comments = flaggedButVisibleCount(Comment.class);
-		Long questions = flaggedButVisibleCount(Question.class);
-		Long answers = flaggedButVisibleCount(Answer.class);
+	public int flaggedButVisibleCount() {
+		int comments = flaggedButVisibleCount(Comment.class);
+		int questions = flaggedButVisibleCount(Question.class);
+		int answers = flaggedButVisibleCount(Answer.class);
 		return comments + questions + answers;
 	}
 
-	Long flaggedButVisibleCount(Class<? extends Flaggable> model) {
-		String hql = "select count(*) from "+model.getSimpleName()+" c where c in (select flaggable from " + model.getSimpleName() + " flaggable " +
-				"left join flaggable.flags flags " +
+	Integer flaggedButVisibleCount(Class<? extends Flaggable> model) {
+		String hql = "select flaggable.id from " + model.getSimpleName() + " flaggable " +
+				"join flaggable.flags flags " +
 				"where flaggable.moderationOptions.invisible = false " +
 				"group by flaggable " +
-				"having count(flags) >= :min)";
+				"having count(flags) >= :min";
 		Query query = session.createQuery(hql);
-		return (Long) query.setParameter("min", MIN_FLAGS).uniqueResult();
+		return (Integer) query.setParameter("min", MIN_FLAGS).list().size();
 	}
 
 
