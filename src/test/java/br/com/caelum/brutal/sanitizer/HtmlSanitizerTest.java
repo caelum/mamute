@@ -19,6 +19,14 @@ public class HtmlSanitizerTest {
 	}
 	
 	@Test
+	public void should_remove_textarea() {
+		String html = "<textarea>";
+		String expected = "";
+		String sanitized = sanitize(html);
+		assertEquals(expected, sanitized);
+	}
+	
+	@Test
 	public void shouldAddNoFollowIntoLinks() {
 		String html = "<a href=\"http://www.teste.com.br\">teste</a>";
 		String expected = "<a href=\"http://www.teste.com.br\" rel=\"nofollow\">teste</a>";
