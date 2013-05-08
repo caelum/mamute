@@ -3,6 +3,7 @@ package br.com.caelum.brutal.providers;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import br.com.caelum.brutal.infra.AfterSuccessfulTransaction;
 import br.com.caelum.vraptor.Intercepts;
 import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.core.InterceptorStack;
@@ -14,10 +15,12 @@ public class TransactionInterceptor implements Interceptor {
 
 	private final Session session;
 	private final Validator validator;
+	private final AfterSuccessfulTransaction afterTransaction;
 
-	public TransactionInterceptor(Session session, Validator validator) {
+	public TransactionInterceptor(Session session, Validator validator, AfterSuccessfulTransaction afterTransaction) {
 		this.session = session;
 		this.validator = validator;
+		this.afterTransaction = afterTransaction;
     }
 	
 	public void intercept(InterceptorStack stack, ResourceMethod method, Object instance) {
@@ -27,6 +30,7 @@ public class TransactionInterceptor implements Interceptor {
 			stack.next(method, instance);
 			if (!validator.hasErrors() && transaction.isActive()) {
 				transaction.commit();
+				afterTransaction.run();
 			}
 		} finally {
 			if (transaction != null && transaction.isActive()) {
