@@ -56,13 +56,15 @@ public class WatcherDAO {
 		if(!alreadyWatching(watcher)) {
 			add(watcher);
 		} else {
-			remove(watcher);
+			removeIfWatching(watcher);
 		}
 	}
 
-	public void remove(Watcher watcher) {
+	public void removeIfWatching(Watcher watcher) {
 		Watcher managed = findByQuestionAndUser(watcher.getWatchedQuestion(), watcher.getWatcher());
-		session.delete(managed);
+		if (managed != null) {
+			session.delete(managed);
+		}
 	}
 
 	private boolean alreadyWatching(Watcher watcher) {

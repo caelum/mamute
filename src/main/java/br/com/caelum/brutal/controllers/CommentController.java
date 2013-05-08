@@ -61,7 +61,7 @@ public class CommentController {
 		if(watching) {
 			watchers.add(new Watcher(current, question));
 		} else {
-			watchers.remove(new Watcher(current, question));
+			watchers.removeIfWatching(new Watcher(current, question));
 		}
     	
     	result.forwardTo(BrutalTemplatesController.class).comment(newComment);
