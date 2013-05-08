@@ -10,15 +10,15 @@ import br.com.caelum.vraptor.ioc.RequestScoped;
 @Component
 public class AfterSuccessfulTransaction {
 
-	private List<PostTransactionAction> actions = new ArrayList<>();
+	private List<Runnable> actions = new ArrayList<>();
 	
-	public void execute(PostTransactionAction action) {
+	public void execute(Runnable action) {
 		actions.add(action);
 	}
 	
 	public void run() {
-		for (PostTransactionAction action : actions) {
-			action.execute();
+		for (Runnable action : actions) {
+			action.run();
 		}
 	}
 

@@ -7,7 +7,6 @@ import org.apache.log4j.Logger;
 
 import br.com.caelum.brutal.dao.WatcherDAO;
 import br.com.caelum.brutal.infra.AfterSuccessfulTransaction;
-import br.com.caelum.brutal.infra.PostTransactionAction;
 import br.com.caelum.brutal.infra.ThreadPoolContainer;
 import br.com.caelum.brutal.mail.action.EmailAction;
 import br.com.caelum.brutal.model.Question;
@@ -36,9 +35,9 @@ public class NotificationManager {
 		List<Watcher> watchList = watchers.of(question);
 		
 		final List<NotificationMail> mails = buildMails(emailAction, watchList);
-		afterTransaction.execute(new PostTransactionAction() {
+		afterTransaction.execute(new Runnable() {
 			@Override
-			public void execute() {
+			public void run() {
 				NotificationManager.this.sendMailsAsynchronously(mails);
 			}
 		});
