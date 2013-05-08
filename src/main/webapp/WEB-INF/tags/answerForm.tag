@@ -15,7 +15,7 @@
 	</div>
 </c:if>
 
-<form action="${uri}" method="post" class="validated-form hinted-form answer-form" data-same-author="${sameAuthor}">
+<form action="${uri}" method="post" class="validated-form hinted-form answer-form disable-on-submit" data-same-author="${sameAuthor}">
 	<tags:markDown placeholder="${placeholder}" value="${answer.description}" hintId="newanswer-answer-hint" htmlClass="required" minlength="30"/>
 	
 	<c:choose>
@@ -28,7 +28,7 @@
 		</c:otherwise>
 	</c:choose>
 	
-	<input class="post-submit big-submit" value="<fmt:message key="newanswer.answer.submit"/>" type="submit" />
+	<input class="post-submit big-submit submit" value="<fmt:message key="newanswer.answer.submit"/>" type="submit" />
 </form>
 
 
