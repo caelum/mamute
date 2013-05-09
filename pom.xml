@@ -562,6 +562,20 @@
 				</executions>
 			</plugin>
 			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>src/main/webapp/WEB-INF/lib</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
 				<configuration>
 					<verbose>true</verbose>
@@ -592,7 +606,7 @@
 						<phase>compile</phase>
 						<configuration>
 							<tasks>
-								<echo message="Hibernate path: ${vraptor.hibernate.path}"/>
+								<echo message="Hibernate path: ${vraptor.hibernate.path}" />
 								<copy file="${vraptor.hibernate.path}" todir="src/main/webapp/WEB-INF/lib/" />
 							</tasks>
 						</configuration>
