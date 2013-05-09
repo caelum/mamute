@@ -10,10 +10,10 @@ import org.junit.Test;
 public class HtmlSanitizerTest {
 
 	
-	@Test @Ignore
+	@Test 
 	public void should_escape_LTGT_wehen_possible() {
 		String html = "< bla >";
-		String expected = "&lt;bla&gt;";
+		String expected = "&lt; bla &gt;";
 		String sanitized = sanitize(html);
 		assertEquals(expected, sanitized);
 	}
@@ -25,6 +25,15 @@ public class HtmlSanitizerTest {
 		String sanitized = sanitize(html);
 		assertEquals(expected, sanitized);
 	}
+	
+	@Test
+	public void should_remove_javascript_from_href() {
+		String html = "<a href=\"javascript:\">";
+		String expected = "";
+		String sanitized = sanitize(html);
+		assertEquals(expected, sanitized);
+	}
+	
 	
 	@Test
 	public void shouldAddNoFollowIntoLinks() {
