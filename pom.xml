@@ -234,7 +234,7 @@
 		<dependency>
 			<groupId>br.com.caelum.vraptor</groupId>
 			<artifactId>vraptor-error-control</artifactId>
-			<version>1.1.0</version>
+			<version>1.1.1</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.mockito</groupId>
