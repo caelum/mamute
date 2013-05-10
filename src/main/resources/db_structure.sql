@@ -532,6 +532,27 @@ CREATE TABLE `Vote` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+
+CREATE TABLE `Question_Flags` (
+  `Question_id` bigint(20) NOT NULL,
+  `flags_id` bigint(20) NOT NULL,
+  UNIQUE KEY `flags_id` (`flags_id`),
+  KEY `FK51F364EEED5AAFF2` (`flags_id`),
+  KEY `FK51F364EED6CA1D2D` (`Question_id`),
+  CONSTRAINT `FK51F364EED6CA1D2D` FOREIGN KEY (`Question_id`) REFERENCES `Question` (`id`),
+  CONSTRAINT `FK51F364EEED5AAFF2` FOREIGN KEY (`flags_id`) REFERENCES `Flag` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `Answer_Flags` (
+  `Answer_id` bigint(20) NOT NULL,
+  `flags_id` bigint(20) NOT NULL,
+  UNIQUE KEY `flags_id` (`flags_id`),
+  KEY `FKC7B3AEC6D3D1EED` (`Answer_id`),
+  KEY `FKC7B3AEC6ED5AAFF2` (`flags_id`),
+  CONSTRAINT `FKC7B3AEC6D3D1EED` FOREIGN KEY (`Answer_id`) REFERENCES `Answer` (`id`),
+  CONSTRAINT `FKC7B3AEC6ED5AAFF2` FOREIGN KEY (`flags_id`) REFERENCES `Flag` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 --
 -- Dumping data for table `Vote`
 --
