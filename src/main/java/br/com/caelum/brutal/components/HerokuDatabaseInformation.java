@@ -23,8 +23,8 @@ public class HerokuDatabaseInformation {
 	}
 
 	public void exportToSystem() {
-		logger.info("Using " + url());
-		System.setProperty("heroku_database", url());
+		logger.info("Using " + mysqlUrl());
+		System.setProperty("heroku_database", mysqlUrl());
 
 		String[] userInfo = userInfo();
 		logger.info("Using " + user(userInfo));
@@ -45,14 +45,14 @@ public class HerokuDatabaseInformation {
 		return userInfo[0];
 	}
 
-	private String url() {
-		return "jdbc:postgresql://" + database.getHost() + ":" + database.getPort() + database.getPath();
+	private String mysqlUrl() {
+		return "jdbc:mysql://" + database.getHost() + database.getPath() + "?" + database.getQuery();
 	}
 
 	public Properties exportToProperties() {
 		Properties p = new Properties();
-		logger.info("Using " + url());
-		p.put("hibernate.connection.url", url());
+		logger.info("Using " + mysqlUrl());
+		p.put("hibernate.connection.url", mysqlUrl());
 
 		String[] userInfo = userInfo();
 		logger.info("Using " + user(userInfo));
