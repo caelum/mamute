@@ -6,7 +6,7 @@
 	<h2 class="title page-title"><fmt:message key="internal_error.title"/></h2>
 </div>
 
-<c:if test="${env.name == 'development'}">	
+<c:if test="${env.name != 'production'}">	
 		<pre class="stacktrace">${stacktrace}</pre>
 </c:if>
 <c:if test="${env.name == 'production'}">
