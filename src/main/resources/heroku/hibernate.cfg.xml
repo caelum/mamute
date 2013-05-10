@@ -18,8 +18,8 @@
 		<property name="connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
 		<property name="c3p0.acquire_increment">1</property>
 		<property name="c3p0.idle_test_period">100</property>
-		<property name="c3p0.max_size">100</property>
-		<property name="c3p0.min_size">10</property>
+		<property name="c3p0.max_size">10</property>
+		<property name="c3p0.min_size">2</property>
 		<property name="c3p0.timeout">100</property>
 		
 
