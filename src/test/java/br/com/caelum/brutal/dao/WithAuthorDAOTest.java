@@ -54,7 +54,7 @@ public class WithAuthorDAOTest extends DatabaseTestCase{
 		
 		Question salDaAzar = salDaAzar();
 		
-		List<Question> perguntasDoAuthor = questionsWithUser.by(author, ByVotes);
+		List<Question> perguntasDoAuthor = questionsWithUser.by(author, ByVotes, 1);
 
 		assertTrue(perguntasDoAuthor.contains(salDaAzar));
 		assertTrue(perguntasDoAuthor.contains(beberFazMal));
@@ -84,7 +84,7 @@ public class WithAuthorDAOTest extends DatabaseTestCase{
 		session.save(ehMuito);
 		session.save(nemEh);
 		
-		List<Answer> respostasDoAuthor = answersWithUser.by(author, ByVotes);
+		List<Answer> respostasDoAuthor = answersWithUser.by(author, ByVotes, 1);
 		
 		assertTrue(respostasDoAuthor.contains(maisOuMenos));
 		assertTrue(respostasDoAuthor.contains(ehMuito));
@@ -106,7 +106,7 @@ public class WithAuthorDAOTest extends DatabaseTestCase{
 
 		Question salDaAzar = salDaAzar();
 		
-		List<Question> perguntasDoAuthor = questionsWithUser.by(author, ByDate);
+		List<Question> perguntasDoAuthor = questionsWithUser.by(author, ByDate, 1);
 		
 		assertTrue(perguntasDoAuthor.contains(salDaAzar));
 		assertTrue(perguntasDoAuthor.contains(beberFazMal));

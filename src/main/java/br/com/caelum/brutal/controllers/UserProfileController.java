@@ -53,24 +53,30 @@ public class UserProfileController {
 		}
 		
 		result.include("isCurrentUser", currentUser.getCurrent().getId().equals(user.getId()));
-		result.include("questionsByVotes", questions.withAuthorBy(user, ByVotes));
+		result.include("questionsByVotes", questions.withAuthorBy(user, ByVotes, 1));
 		result.include("questionsCount", questions.countWithAuthor(user));
-		result.include("answersByVotes", answers.allWithAuthorBy(user, ByVotes));
+		result.include("answersByVotes", answers.allWithAuthorBy(user, ByVotes, 1));
 		result.include("answersCount", answers.countWithAuthor(user));
+		
+		result.include("questionsPageTotal", questions.numberOfPagesTo(user));
+		result.include("answersPageTotal", answers.countPagesTo(user));
+		
 		result.include("mainTags", tags.findMainTagsOfUser(user));
 		result.include("selectedUser", user);
 	}
-	
+
 	@Get("/usuario/{id}/{sluggedName}/perguntas/{orderByWhat}")
-	public void questionsByVotesWith(Long id, String sluggedName, OrderType orderByWhat){
+	public void questionsByVotesWith(Long id, String sluggedName, OrderType orderByWhat, Integer p){
 		User author = users.findById(id);
-		result.use(json()).withoutRoot().from(questions.withAuthorBy(author, orderByWhat)).include("information").serialize();
+		Integer page = p == null ? 1 : p;
+		result.use(json()).withoutRoot().from(questions.withAuthorBy(author, orderByWhat, page)).include("information").serialize();
 	}
 	
 	@Get("/usuario/{id}/{sluggedName}/respostas/{orderByWhat}")
-	public void answersByVotesWith(Long id, String sluggedName, OrderType orderByWhat){
+	public void answersByVotesWith(Long id, String sluggedName, OrderType orderByWhat, Integer p){
 		User author = users.findById(id);
-		result.use(json()).withoutRoot().from(answers.allWithAuthorBy(author, orderByWhat)).include("question", "question.information").serialize();
+		Integer page = p == null ? 1 : p;
+		result.use(json()).withoutRoot().from(answers.allWithAuthorBy(author, orderByWhat, page)).include("question", "question.information").serialize();
 	}
 		
 	@Get("/usuario/editar/{user.id:[0-9]+}")

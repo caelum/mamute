@@ -72,8 +72,12 @@ public class QuestionDAO {
 		return questions;
 	}
 	
-	public List<Question> withAuthorBy(User user, OrderType orderByWhat) {
-		return withAuthor.by(user,orderByWhat);
+	public List<Question> withAuthorBy(User user, OrderType orderByWhat, Integer page) {
+		return withAuthor.by(user,orderByWhat, page);
+	}
+	
+	public long numberOfPagesTo(User user) {
+		return withAuthor.numberOfPagesTo(user);
 	}
 
 	private String spamFilter() {

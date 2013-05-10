@@ -29,12 +29,16 @@ public class AnswerDAO {
 	}
 	
 
-	public List<Answer> allWithAuthorBy(User user, OrderType orderByWhat) {
-		return withAuthor.by(user, orderByWhat);
+	public List<Answer> allWithAuthorBy(User user, OrderType orderByWhat, Integer page) {
+		return withAuthor.by(user, orderByWhat, page);
 	}
-
+	
 	public Long countWithAuthor(User user) {
 		return withAuthor.count(user);
+	}
+	
+	public Long countPagesTo(User user) {
+		return withAuthor.numberOfPagesTo(user);
 	}
 }
 

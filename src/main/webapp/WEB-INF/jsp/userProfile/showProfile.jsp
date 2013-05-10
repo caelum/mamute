@@ -60,13 +60,13 @@
 </section>
 <section class="advanced-user-data user-data">
 	<div class="advanced-data-line-wrapper">
-		<tags:userProfileAdvancedData count="${questionsCount}" i18n="questions" list="${questionsByVotes}" type="perguntas" orderOptions="true">
+		<tags:userProfileAdvancedData pages="${questionsPageTotal}" count="${questionsCount}" i18n="questions" list="${questionsByVotes}" type="perguntas" orderOptions="true">
 			<c:forEach var="question" items="${questionsByVotes}">
 				<li class="ellipsis advanced-data-line"><span class="counter">${question.voteCount}</span> <tags:questionLinkFor question="${question}"/></li>
 			</c:forEach>
 		</tags:userProfileAdvancedData>
 		
-		<tags:userProfileAdvancedData count="${answersCount}" i18n="answers" list="${answersByVotes}" type="respostas" orderOptions="true">
+		<tags:userProfileAdvancedData pages="${answersPageTotal}" count="${answersCount}" i18n="answers" list="${answersByVotes}" type="respostas" orderOptions="true">
 			<c:forEach var="answer" items="${answersByVotes}">
 				<li class="ellipsis advanced-data-line"><span class="counter">${answer.voteCount}</span> <tags:questionLinkFor answer="${answer}"/></li>
 			</c:forEach>

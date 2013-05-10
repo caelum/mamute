@@ -1610,6 +1610,10 @@ a.button.ask-a-question:hover{
 	font-weight: bold;
 }
 
+.advanced-data-section .fixed-height {
+	height: 10em;
+}
+
 .advanced-data-line-wrapper{
 	height:auto;
 	overflow:hidden;

@@ -8,6 +8,7 @@ import br.com.caelum.brutal.model.User;
 
 public class WithAuthorDAO<T> {
 
+	private static final Integer PAGE_SIZE = 5;
 	private final Session session;
 	private final Class<T> clazz;
 
@@ -16,24 +17,40 @@ public class WithAuthorDAO<T> {
 		this.clazz = clazz;
 	}
 
-	public List<T> by(User user, OrderType orderByWhat) {
-		List<T> items = fiveWithUserBy(user, orderByWhat.getOrder());
+	public List<T> by(User user, OrderType orderByWhat, Integer page) {
+		List<T> items = withUserBy(user, orderByWhat.getOrder(), page);
 		return items;		
 	}
 	
 	@SuppressWarnings("unchecked")
-	private List<T> fiveWithUserBy(User user, String order) {
+	private List<T> withUserBy(User user, String order, Integer page) {
 		List<T> items = session.createQuery("select p from "+ clazz.getSimpleName() +" as p join p.author a where a = :user " + order)
 				.setParameter("user", user)
-				.setMaxResults(5)
+				.setMaxResults(PAGE_SIZE)
+				.setFirstResult(PAGE_SIZE * (page-1))
 				.list();
 		return items;
 	}
+	
+	
 
 	public Long count(User user) {
 		return (Long) session.createQuery("select count(p) from "+ clazz.getSimpleName() +" as p join p.author a where a = :user ")
 						.setParameter("user", user)
 						.uniqueResult();
+	}
+	
+	public long numberOfPagesTo(User user) {
+		Long count = count(user);
+		return calculatePages(count);
+	}
+	
+	private long calculatePages(Long count) {
+		long result = count/PAGE_SIZE.longValue();
+		if (count % PAGE_SIZE.longValue() != 0) {
+			result++;
+		}
+		return result;
 	}
 	
 	public enum OrderType {

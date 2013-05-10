@@ -8,6 +8,9 @@
 <%@attribute name="i18n" type="java.lang.String" required="true" %>
 <%@attribute name="orderOptions" type="java.lang.Boolean" required="true" %>
 <%@attribute name="count" type="java.lang.Long" required="false" %>
+<%@attribute name="pages" type="java.lang.Long" required="false" %>
+
+
 <section class="user-questions advanced-data-section">
 	<div class="subheader">
 		<h3 class="title section-title"><span class="counter">${count == null ? fn:length(list) : count}</span><tags:pluralize key="user_profile.${i18n}" count="${fn:length(list)}" /></h3>
@@ -15,7 +18,10 @@
 			<tags:ordersFor type="${type}" user="${selectedUser}" targetId="user-${type}"/>
 		</c:if>
 	</div>
-	<ul id="user-${type}">
+	<ul id="user-${type}" class="fixed-height">
 		<jsp:doBody/>
 	</ul>
+	<c:if test="${orderOptions}">
+		<tags:pagination type="${type}" targetId="user-${type}" totalPages="${pages}" url="/usuario/${user.id}/${user.sluggedName}/${type}/ByVotes"/>
+	</c:if>
 </section>
