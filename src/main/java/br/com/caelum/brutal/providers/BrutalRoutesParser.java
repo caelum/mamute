@@ -2,6 +2,8 @@ package br.com.caelum.brutal.providers;
 
 import java.lang.reflect.Method;
 
+import org.apache.log4j.Logger;
+
 import br.com.caelum.brutal.controllers.ListController;
 import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.http.route.PathAnnotationRoutesParser;
@@ -17,15 +19,19 @@ public class BrutalRoutesParser extends PathAnnotationRoutesParser {
 	private Method homeMethod;
 	private String homePath;
 	private boolean shouldHack = false;
+	private static final Logger LOG = Logger.getLogger(BrutalRoutesParser.class);
 
 	public BrutalRoutesParser(Router router, Environment env) {
 		super(router);
 		String hack = env.get("use.routes.parser.hack");
 		if ("true".equals(hack)) {
+			LOG.info("Using hacked version of the PathAnnotationRoutesParser");
 			shouldHack = true;
 			homeClazz = ListController.class;
 			homeMethod = getHomeMethod();
 			homePath = env.get("home.url");
+		} else {
+			LOG.info("Not using hacked version of the PathAnnotationRoutesParser");
 		}
 	}
 
