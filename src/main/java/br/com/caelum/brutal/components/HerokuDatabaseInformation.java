@@ -46,7 +46,7 @@ public class HerokuDatabaseInformation {
 	}
 
 	private String url() {
-		return "jdbc:postgresql://" + database.getHost() + ":" + database.getPort() + database.getPath();
+		return "jdbc:mysql://" + database.getHost() + ":" + database.getPort() + database.getPath();
 	}
 
 	public Properties exportToProperties() {
