@@ -7,6 +7,9 @@ function vote(link) {
 	var type = link.data("type");
 	var id = link.data("id");
 	var params = "/"+ type +"/"+ id +"/voto/"+ vote;
+
+	fakeUpdate(link, vote);
+	
 	$.ajax(""+ params, {
 		complete: function(jqXHR, textStatus) {
 			if (jqXHR.status == "200") {
@@ -34,6 +37,18 @@ function updateCount(link, count) {
 	var voteCount = $(link).closest(".vote-container").find(".vote-count");
 	voteCount.text(count);
 }
+
+function fakeUpdate(link, vote) {
+	var value;
+	var countWithoutAjax = parseInt($(link).closest(".vote-container").find(".vote-count").html());
+	var alreadyVoted = link.siblings().hasClass("voted");
+	
+	if(vote == "positivo") value = countWithoutAjax + 1 + alreadyVoted;
+	else value = countWithoutAjax - 1 - alreadyVoted;
+	
+	voteSuccess(link, value);
+}
+
 
 function voteSuccess(link, count) {
 	highlight(link);
