@@ -13,15 +13,20 @@ import br.com.caelum.vraptor.ioc.Component;
 @ApplicationScoped
 public class BrutalRoutesParser extends PathAnnotationRoutesParser {
 
-	private final Class<ListController> homeClazz;
-	private final Method homeMethod;
-	private final String homePath;
+	private Class<ListController> homeClazz;
+	private Method homeMethod;
+	private String homePath;
+	private boolean shouldHack = false;
 
 	public BrutalRoutesParser(Router router, Environment env) {
 		super(router);
-		homeClazz = ListController.class;
-		homeMethod = getHomeMethod();
-		homePath = env.get("home.url");
+		String hack = env.get("use.routes.parser.hack");
+		if ("true".equals(hack)) {
+			shouldHack = true;
+			homeClazz = ListController.class;
+			homeMethod = getHomeMethod();
+			homePath = env.get("home.url");
+		}
 	}
 
 	private Method getHomeMethod() {
@@ -34,7 +39,7 @@ public class BrutalRoutesParser extends PathAnnotationRoutesParser {
 
 	@Override
 	protected String[] getURIsFor(Method javaMethod, Class<?> type) {
-		if (type.equals(homeClazz) && javaMethod.equals(homeMethod)) {
+		if (shouldHack && type.equals(homeClazz) && javaMethod.equals(homeMethod)) {
 			return new String[] {homePath}; 
 		}
 		return super.getURIsFor(javaMethod, type);
