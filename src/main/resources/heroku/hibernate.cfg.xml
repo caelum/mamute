@@ -4,7 +4,6 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
 	<session-factory>
-		<property name="connection.url">jdbc:mysql://localhost/brutal_development</property>
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 		<property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
 		<property name="connection.username">root</property>
@@ -18,9 +17,9 @@
 		
 		<property name="connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
 		<property name="c3p0.acquire_increment">1</property>
-		<property name="c3p0.idle_test_period">100</property>
-		<property name="c3p0.max_size">100</property>
-		<property name="c3p0.min_size">10</property>
+		<property name="c3p0.idle_test_period">80</property>
+		<property name="c3p0.max_size">9</property>
+		<property name="c3p0.min_size">2</property>
 		<property name="c3p0.timeout">100</property>
 		
 

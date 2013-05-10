@@ -46,7 +46,7 @@ public class HerokuDatabaseInformation {
 	}
 
 	private String mysqlUrl() {
-		return "jdbc:mysql://" + database.getHost() + database.getPath() + "?" + database.getQuery();
+		return "jdbc:mysql://" + database.getHost() + database.getPath();
 	}
 
 	public Properties exportToProperties() {

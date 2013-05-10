@@ -1,0 +1,44 @@
+<%@ page language="java" pageEncoding="UTF-8"
+	contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<footer class="footer">
+	<div class="container">
+		
+		<ul class="footer-list">
+			<li class="sponsor-box">
+				<a class="footer-logo guj-logo" href="http://www.guj.com.br"><fmt:message key="footer.guj" /></a>
+				<ul class="footer-sub-list">
+					<li><fmt:message key="footer.guj.content" /></li>
+				</ul>
+			</li>
+			<li class="sponsor-box">
+				<a class="footer-logo caelum-logo" href="http://www.caelum.com.br"><fmt:message key="footer.caelum"/></a>
+				<ul class="footer-sub-list">
+					<li><a class="footer-link" href="http://www.caelum.com.br/cursos/java/">Java</a></li>
+					<li><a class="footer-link" href="http://www.caelum.com.br/cursos/mobile/">Mobile</a></li>
+					<li><a class="footer-link" href="http://www.caelum.com.br/cursos/web/">Front-End</a></li>
+					<li><a class="footer-link" href="http://www.caelum.com.br/cursos/agile/">Agile</a></li>
+					<li><a class="footer-link" href="http://www.caelum.com.br/cursos/rails/">Rails</a></li>
+					<li><a class="footer-link" href="http://www.caelum.com.br/cursos/dotnet/">.NET</a></li>
+				</ul>
+			</li>
+			<li class="sponsor-box">
+				<a class="footer-logo cdc-logo" href="http://www.casadocodigo.com.br/"><fmt:message key="footer.casa_do_codigo"/></a>
+				<ul class="footer-sub-list">
+					<li><fmt:message key="footer.casa_do_codigo.content"/></li>
+				</ul>
+			</li>
+		<!-- 	<li class="sponsor-box"><a class="footer-logo online-logo" href="#">Caelum Online</a></li> -->
+		</ul>
+		<tags:brutal-include value="mainTags"/>
+		<span class="footer-menu">
+			<a href="${linkTo[ListController].unsolved}" class="unsolved-link"><fmt:message key="menu.unsolved"/></a>
+			<a href="${linkTo[ListController].unanswered}"><fmt:message	key="menu.unanswered"/></a>
+			<a href="<c:url value="/forums/list.java" />" ><fmt:message key="menu.forum" /></a>
+		</span>
+		<span class="footer-muted-message"><fmt:message key="footer.powered_by"><fmt:param value="http://www.caelum.com.br"/></fmt:message></span>
+	</div>
+</footer>
