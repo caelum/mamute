@@ -28,6 +28,7 @@
 			<fmt:message key="answer.errors.already_answered"/>
 		</div>
 	</c:if>
+	<tags:notice isLogged="${currentUser.loggedIn}" tags="${questionTags}"/>
 	<c:if test="${!currentUser.loggedIn}">
 		<div class="login-or-signup">
 			<div class="login">
@@ -38,7 +39,6 @@
 			</div>
 		</div>
 	</c:if>
-	<tags:notice isLogged="${currentUser.loggedIn}" tags="${questionTags}"/>
 </section>
 <aside class="sidebar">
 	<h3 class="title page-title"><fmt:message key="question.tags"/></h3>

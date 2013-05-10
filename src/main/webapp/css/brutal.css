@@ -1415,7 +1415,7 @@ a.button.ask-a-question:hover{
 
 .notice {
 	float: left;
-	margin-top: 2em;
+	margin: 1em 0;
 	font-size: 1.4em;
 }
 
