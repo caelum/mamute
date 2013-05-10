@@ -8,9 +8,9 @@
 <% 
 File customTemplate = new File(application.getRealPath("/WEB-INF/jsp/theme/custom/" + value));
 if (customTemplate.exists()) { %>
-	<jsp:include page="/WEB-INF/jsp/theme/custom/${value}" />
+	<jsp:include page="/WEB-INF/jsp/theme/custom/${value}.jspf" />
 <%
 } else { %>
-	<jsp:include page="/WEB-INF/jsp/theme/default/${value}" />
+	<jsp:include page="/WEB-INF/jsp/theme/default/${value}.jspf" />
 <%
 } %>

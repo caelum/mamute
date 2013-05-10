@@ -44,7 +44,7 @@
 </head>
 <body>
 
-	<tags:brutal-include value="header.jspf" />
+	<tags:brutal-include value="header" />
 	
 	<div class="container">
 		<tags:messages messagesList="${messages}" />

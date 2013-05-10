@@ -3,44 +3,8 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 </div>
 
-<footer class="footer">
-	<div class="container">
-		
-		<ul class="footer-list">
-			<li class="sponsor-box">
-				<a class="footer-logo guj-logo" href="http://www.guj.com.br"><fmt:message key="footer.guj" /></a>
-				<ul class="footer-sub-list">
-					<li><fmt:message key="footer.guj.content" /></li>
-				</ul>
-			</li>
-			<li class="sponsor-box">
-				<a class="footer-logo caelum-logo" href="http://www.caelum.com.br"><fmt:message key="footer.caelum"/></a>
-				<ul class="footer-sub-list">
-					<li><a class="footer-link" href="http://www.caelum.com.br/cursos/java/">Java</a></li>
-					<li><a class="footer-link" href="http://www.caelum.com.br/cursos/mobile/">Mobile</a></li>
-					<li><a class="footer-link" href="http://www.caelum.com.br/cursos/web/">Front-End</a></li>
-					<li><a class="footer-link" href="http://www.caelum.com.br/cursos/agile/">Agile</a></li>
-					<li><a class="footer-link" href="http://www.caelum.com.br/cursos/rails/">Rails</a></li>
-					<li><a class="footer-link" href="http://www.caelum.com.br/cursos/dotnet/">.NET</a></li>
-				</ul>
-			</li>
-			<li class="sponsor-box">
-				<a class="footer-logo cdc-logo" href="http://www.casadocodigo.com.br/"><fmt:message key="footer.casa_do_codigo"/></a>
-				<ul class="footer-sub-list">
-					<li><fmt:message key="footer.casa_do_codigo.content"/></li>
-				</ul>
-			</li>
-		<!-- 	<li class="sponsor-box"><a class="footer-logo online-logo" href="#">Caelum Online</a></li> -->
-		</ul>
-		<%@include file="mainTags.jsp" %>
-		<span class="footer-menu">
-			<a href="${linkTo[ListController].unsolved}" class="unsolved-link"><fmt:message key="menu.unsolved"/></a>
-			<a href="${linkTo[ListController].unanswered}"><fmt:message	key="menu.unanswered"/></a>
-			<a href="<c:url value="/forums/list.java" />" ><fmt:message key="menu.forum" /></a>
-		</span>
-		<span class="footer-muted-message"><fmt:message key="footer.powered_by"><fmt:param value="http://www.caelum.com.br"/></fmt:message></span>
-	</div>
-</footer>
+<tags:brutal-include value="footer"/>
+
 <!-- UserVoice JavaScript SDK (only needed once on a page) -->
 <script>(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/m3qDca7JFMjJaU9pVTfMkw.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})()</script>
 
