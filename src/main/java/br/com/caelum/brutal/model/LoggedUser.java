@@ -34,7 +34,7 @@ public class LoggedUser {
 	
 	@Override
 	public String toString() {
-		return "[user = " + user.toString() + ", ip = " + getIp() + "]";
+		return "[user = " + user + ", ip = " + getIp() + "]";
 	}
 	
 
