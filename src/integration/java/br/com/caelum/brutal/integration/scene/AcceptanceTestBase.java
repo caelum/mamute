@@ -52,6 +52,7 @@ public abstract class AcceptanceTestBase implements ServerInfo.AcceptanceTest {
 			driver.close();
 	}
 
+	@SuppressWarnings("unused")
 	private static WebDriver htmlUnitDriver() {
 		HtmlUnitDriver driver = new HtmlUnitDriver(BrowserVersion.FIREFOX_3_6);
 		driver.setJavascriptEnabled(true);
