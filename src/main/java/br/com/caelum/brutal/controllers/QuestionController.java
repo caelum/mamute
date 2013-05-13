@@ -107,9 +107,9 @@ public class QuestionController {
 	
 	@Get("/{question.id:[0-9]+}-{sluggedTitle}")
 	public void showQuestion(@Load Question question, String sluggedTitle){
-		redirectToRightUrl(question, sluggedTitle);
 		User current = currentUser.getCurrent();
 		if (question.isVisibleFor(current)){
+			redirectToRightUrl(question, sluggedTitle);
 			viewCounter.ping(question);
 			boolean isWatching = watchers.ping(question, current);
 			result.include("currentVote", votes.previousVoteFor(question.getId(), current, Question.class));
@@ -120,7 +120,7 @@ public class QuestionController {
 			result.include("isWatching", isWatching);
 			linker.linkTo(this).showQuestion(question, sluggedTitle);
 			result.include("facebookUrl", facebook.getOauthUrl(linker.get()));
-		}else{
+		} else {
 			result.notFound();
 		}
 	}
