@@ -6,7 +6,7 @@
 <%@attribute name="value" type="java.lang.String" required="true" %>
 
 <% 
-File customTemplate = new File(application.getRealPath("/WEB-INF/jsp/theme/custom/" + value));
+File customTemplate = new File(application.getRealPath("/WEB-INF/jsp/theme/custom/" + value + ".jspf"));
 if (customTemplate.exists()) { %>
 	<jsp:include page="/WEB-INF/jsp/theme/custom/${value}.jspf" />
 <%
