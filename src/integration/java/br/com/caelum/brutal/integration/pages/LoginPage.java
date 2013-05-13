@@ -38,5 +38,15 @@ public class LoginPage extends PageObject {
 		faceButton.click();
 		return new FacebookLoginPage(driver);
 	}
+
+	public Home signUp(String name, String email, String password) {
+		WebElement signupForm = byCSS(".signup form");
+		signupForm.findElement(By.name("name")).sendKeys(name);
+		signupForm.findElement(By.name("email")).sendKeys(email);
+		signupForm.findElement(By.name("password")).sendKeys(password);
+		signupForm.findElement(By.name("passwordConfirmation")).sendKeys(password);
+		signupForm.submit();
+		return new Home(driver);
+	}
 	
 }

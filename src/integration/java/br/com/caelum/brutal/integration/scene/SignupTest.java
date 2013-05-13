@@ -19,7 +19,7 @@ public class SignupTest extends AcceptanceTestBase {
 	@Test
 	public void should_sign_up(){
 		boolean loggedIn = home().toSignUpPage()
-				.signUp("leonardo", "leo"+new Random().nextLong()+"@leo.com.br", "123456", "123456")
+				.signUp("leonardo", randomEmail(), "123456", "123456")
 				.isLoggedInAs("leonardo");
 		assertTrue(loggedIn);
 	}
@@ -35,17 +35,29 @@ public class SignupTest extends AcceptanceTestBase {
 	@Test
 	public void should_not_sign_up_with_wrong_password(){
 		boolean loggedIn = home().toSignUpPage()
-				.signUp("leonardo", "leo"+new Random().nextLong()+"@leo.com.br", "123456", "wrong_pass")
+				.signUp("leonardo", randomEmail(), "123456", "wrong_pass")
 				.isLoggedIn();
 		assertFalse(loggedIn);
+	}
+
+	private String randomEmail() {
+		return "leo"+new Random().nextLong()+"@leo.com.br";
 	}
 	
 	@Test
 	public void should_not_sign_up_with_an_existent_email(){
 		boolean loggedIn = home().toSignUpPage()
-				.signUp("leonardo", "leonardo.wolter@caelum.com.br", "123456", "123456")
+				.signUp("leonardo", randomEmail(), "123456", "123456")
 				.isLoggedIn();
 		assertFalse(loggedIn);
+	}
+	
+	@Test
+	public void should_sign_up_through_login_page(){
+		boolean loggedIn = home().toLoginPage()
+					.signUp("leonardo", randomEmail(), "123456")
+					.isLoggedIn();
+		assertTrue(loggedIn);
 	}
 
 }
