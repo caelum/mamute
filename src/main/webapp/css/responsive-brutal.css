@@ -239,6 +239,7 @@
 		width:33%;
 	}
 	
+	
 	.modal-flag {
 		width: 53%;
 	}
@@ -254,6 +255,10 @@
 	.comment-meta {
 		height: 40px;
 		text-align:center;
+	}
+	
+	.profile-image {
+		width: 98%;
 	}
 }
 
