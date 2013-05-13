@@ -10,7 +10,7 @@ public class EditAnswerTest extends AuthenticatedAcceptanceTest {
 
     @Test
     public void should_edit_answer_of_other_author() throws Exception {
-        loginRandomly();
+        loginWithALotOfKarma();
         
         QuestionPage questionPage = home().toFirstQuestionWithAnswerPage()
             .toEditFirstAnswerPage()
