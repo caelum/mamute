@@ -19,3 +19,4 @@ PagPag.pem
 *.swp
 vraptor-console.sh
 .vraptor-console/
+logs/
