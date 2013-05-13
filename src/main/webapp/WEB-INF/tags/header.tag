@@ -12,12 +12,12 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${title}</title>
+<title><c:out value="${title}" escapeXml="true" /></title>
 <c:if test="${not empty description}">
 	<meta name="description" content="${description}">
 </c:if>
 <c:if test="${not empty facebookMetas || facebookMetas == true}">
-	<meta property="og:title" content="${title}">
+	<meta property="og:title" content="<c:out value="${title}" escapeXml="true" />">
 	<meta property="og:site_name" content="guj.com.br">
 	<meta property="og:url" content='${currentUrl}'>
 	<meta property="og:type" content="website">
