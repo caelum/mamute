@@ -23,13 +23,13 @@ public class BrutalRoutesParser extends PathAnnotationRoutesParser {
 
 	public BrutalRoutesParser(Router router, Environment env) {
 		super(router);
-		String hack = env.get("use.routes.parser.hack");
+		String hack = env.get("use.routes.parser.hack", "false");
 		if ("true".equals(hack)) {
 			LOG.info("Using hacked version of the PathAnnotationRoutesParser");
 			shouldHack = true;
 			homeClazz = ListController.class;
 			homeMethod = getHomeMethod();
-			homePath = env.get("home.url");
+			homePath = env.get("home.url", "/");
 		} else {
 			LOG.info("Not using hacked version of the PathAnnotationRoutesParser");
 		}
