@@ -79,5 +79,10 @@
 				<li class="ellipsis advanced-data-line tag-line"><span class="counter tag-usage">${tagUsage.usage}</span> <tags:tag tag="${tagUsage.tag}"/></li>
 			</c:forEach>
 		</tags:userProfileAdvancedData>
+		<tags:userProfileAdvancedData pages="${watchedQuestionsPageTotal}" count="${watchedQuestionsCount}" list="${watchedQuestions}" i18n="watched_questions" type="acompanhadas" orderOptions="true">
+			<c:forEach var="question" items="${watchedQuestions}">
+				<li class="ellipsis advanced-data-line"><span class="counter">${question.voteCount}</span><tags:questionLinkFor question="${question}"/></li>
+			</c:forEach>
+		</tags:userProfileAdvancedData>
 	</div>
 </section>

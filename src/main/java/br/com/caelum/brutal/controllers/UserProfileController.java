@@ -9,6 +9,7 @@ import br.com.caelum.brutal.dao.AnswerDAO;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.dao.UserDAO;
+import br.com.caelum.brutal.dao.WatcherDAO;
 import br.com.caelum.brutal.dao.WithUserDAO.OrderType;
 import br.com.caelum.brutal.dto.UserPersonalInfo;
 import br.com.caelum.brutal.model.LoggedUser;
@@ -31,9 +32,10 @@ public class UserProfileController {
 	private UserPersonalInfoValidator infoValidator;
     private final TagDAO tags;
 	private static final String HTTP = "http://";
+	private final WatcherDAO watchers;
 
     public UserProfileController(Result result, UserDAO users, LoggedUser currentUser,
-            QuestionDAO questions, AnswerDAO answers, TagDAO tags,
+            QuestionDAO questions, AnswerDAO answers, TagDAO tags, WatcherDAO watchers,
             UserPersonalInfoValidator infoValidator) {
 		this.result = result;
 		this.users = users;
@@ -41,6 +43,7 @@ public class UserProfileController {
 		this.answers = answers;
 		this.questions = questions;
 		this.tags = tags;
+		this.watchers = watchers;
 		this.infoValidator = infoValidator;
 	}
 	
@@ -55,11 +58,14 @@ public class UserProfileController {
 		result.include("isCurrentUser", currentUser.getCurrent().getId().equals(user.getId()));
 		result.include("questionsByVotes", questions.withAuthorBy(user, ByVotes, 1));
 		result.include("questionsCount", questions.countWithAuthor(user));
-		result.include("answersByVotes", answers.allWithAuthorBy(user, ByVotes, 1));
+		result.include("answersByVotes", answers.withAuthorBy(user, ByVotes, 1));
 		result.include("answersCount", answers.countWithAuthor(user));
+		result.include("watchedQuestions", watchers.questionsWatchedBy(user, 1));
+		result.include("watchedQuestionsCount", watchers.countWithAuthor(user));
 		
 		result.include("questionsPageTotal", questions.numberOfPagesTo(user));
-		result.include("answersPageTotal", answers.countPagesTo(user));
+		result.include("answersPageTotal", answers.numberOfPagesTo(user));
+		result.include("watchedQuestionsPageTotal", watchers.numberOfPagesTo(user));
 		
 		result.include("mainTags", tags.findMainTagsOfUser(user));
 		result.include("selectedUser", user);
@@ -76,7 +82,14 @@ public class UserProfileController {
 	public void answersByVotesWith(Long id, String sluggedName, OrderType orderByWhat, Integer p){
 		User author = users.findById(id);
 		Integer page = p == null ? 1 : p;
-		result.use(json()).withoutRoot().from(answers.allWithAuthorBy(author, orderByWhat, page)).include("question", "question.information").serialize();
+		result.use(json()).withoutRoot().from(answers.withAuthorBy(author, orderByWhat, page)).include("question", "question.information").serialize();
+	}
+	
+	@Get("/usuario/{id}/{sluggedName}/acompanhadas/{orderByWhat}")
+	public void watchersByDateWith(Long id, String sluggedName, OrderType orderByWhat, Integer p){
+		User user = users.findById(id);
+		Integer page = p == null ? 1 : p;
+		result.use(json()).withoutRoot().from(watchers.questionsWatchedBy(user, page)).include("information").serialize();
 	}
 		
 	@Get("/usuario/editar/{user.id:[0-9]+}")

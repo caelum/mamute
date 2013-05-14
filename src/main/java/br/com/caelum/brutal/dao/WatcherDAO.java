@@ -76,7 +76,7 @@ public class WatcherDAO {
 		return findByQuestionAndUser(watcher.getWatchedQuestion(), watcher.getWatcher()) != null;
 	}
 
-	public List<Question> questionsWatched(User user, Integer page) {
+	public List<Question> questionsWatchedBy(User user, Integer page) {
 		List<Watcher> watchers = withUser.by(user, OrderType.ByDate, page);
 		ArrayList<Question> questions = new ArrayList<>();
 		for (Watcher watcher : watchers) {
