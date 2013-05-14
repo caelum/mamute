@@ -34,8 +34,6 @@ public class WithUserDAO<T> {
 		return items;
 	}
 	
-	
-
 	public Long count(User user) {
 		return (Long) session.createQuery("select count(p) from "+ clazz.getSimpleName() +" as p join p."+ role +" r where r = :user ")
 						.setParameter("user", user)

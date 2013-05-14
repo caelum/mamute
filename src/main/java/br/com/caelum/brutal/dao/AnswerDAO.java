@@ -14,7 +14,7 @@ import br.com.caelum.vraptor.ioc.Component;
 public class AnswerDAO {
 
 	private final Session session;
-	private WithUserDAO<Answer> withAuthor;
+	private final WithUserDAO<Answer> withAuthor;
 
 	public AnswerDAO(Session session) {
 		this.session = session;
@@ -30,7 +30,7 @@ public class AnswerDAO {
 	}
 	
 
-	public List<Answer> allWithAuthorBy(User user, OrderType orderByWhat, Integer page) {
+	public List<Answer> withAuthorBy(User user, OrderType orderByWhat, Integer page) {
 		return withAuthor.by(user, orderByWhat, page);
 	}
 	
@@ -38,7 +38,7 @@ public class AnswerDAO {
 		return withAuthor.count(user);
 	}
 	
-	public Long countPagesTo(User user) {
+	public Long numberOfPagesTo(User user) {
 		return withAuthor.numberOfPagesTo(user);
 	}
 }
