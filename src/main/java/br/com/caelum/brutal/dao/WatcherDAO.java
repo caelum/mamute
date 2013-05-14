@@ -1,10 +1,13 @@
 package br.com.caelum.brutal.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import br.com.caelum.brutal.dao.WithUserDAO.OrderType;
+import br.com.caelum.brutal.dao.WithUserDAO.UserRole;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.watch.Watcher;
@@ -14,9 +17,11 @@ import br.com.caelum.vraptor.ioc.Component;
 public class WatcherDAO {
 
 	private final Session session;
+	private final WithUserDAO<Watcher> withUser;
 
 	public WatcherDAO(Session session) {
 		this.session = session;
+		this.withUser = new WithUserDAO<>(session, Watcher.class, UserRole.WATCHER);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -70,4 +75,22 @@ public class WatcherDAO {
 	private boolean alreadyWatching(Watcher watcher) {
 		return findByQuestionAndUser(watcher.getWatchedQuestion(), watcher.getWatcher()) != null;
 	}
+
+	public List<Question> questionsWatched(User user, Integer page) {
+		List<Watcher> watchers = withUser.by(user, OrderType.ByDate, page);
+		ArrayList<Question> questions = new ArrayList<>();
+		for (Watcher watcher : watchers) {
+			questions.add(watcher.getWatchedQuestion());
+		}
+		return questions;
+	}
+
+	public Long countWithAuthor(User user) {
+		return withUser.count(user);
+	}
+
+	public Long numberOfPagesTo(User user) {
+		return withUser.numberOfPagesTo(user);
+	}
+	
 }
