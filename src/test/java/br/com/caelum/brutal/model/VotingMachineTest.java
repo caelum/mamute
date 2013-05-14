@@ -63,14 +63,28 @@ public class VotingMachineTest extends TestCase {
         assertEquals(-1, votable.getVoteCount()); 
     }
     
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void should_disallow_author_to_vote() throws Exception {
         Vote newVote = new Vote(author, VoteType.DOWN);
-        try {
-            votingMachine.register(votable, newVote, Question.class);
-            fail("should throw illegal argument exception");
-        } catch(IllegalArgumentException e) {
-        }
+        votingMachine.register(votable, newVote, Question.class);
+        fail("should throw illegal argument exception");
+    }
+    
+    @Test
+	public void should_decrese_karma_of_downvoter() throws Exception {
+    	Vote newVote = new Vote(voter, VoteType.DOWN);
+    	votingMachine.register(votable, newVote, Question.class);
+    	assertEquals(-2l, voter.getKarma());
+	}
+    
+    @Test
+    public void should_recalculate_karma_of_downvoter() throws Exception {
+    	Vote previousVote = new Vote(voter, VoteType.DOWN);
+		votingMachine.register(votable, previousVote, Question.class);
+    	when(votes.previousVoteFor(votable.getId(), voter, Question.class)).thenReturn(previousVote);
+    	assertEquals(-2l, voter.getKarma());
+    	votingMachine.register(votable, new Vote(voter, VoteType.UP), Question.class);
+    	assertEquals(0l, voter.getKarma());
     }
 
 }

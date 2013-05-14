@@ -9,7 +9,7 @@ import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.VoteType;
 import br.com.caelum.brutal.model.interfaces.Votable;
 
-public class VoteEvent implements KarmaRewardEvent {
+public class ReceivedVoteEvent implements KarmaRewardEvent {
 	
 	private static final Map<Class<? extends Votable>, VotableRule> map = new HashMap<>();
 	private final VotableRule rule;
@@ -20,7 +20,7 @@ public class VoteEvent implements KarmaRewardEvent {
 		map.put(Comment.class, new CommentVoteRule());
 	}
 	
-	public VoteEvent(VoteType type, Votable votable) {
+	public ReceivedVoteEvent(VoteType type, Votable votable) {
 		this.type = type;
 		this.rule = map.get(votable.getType());
 	}

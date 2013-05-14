@@ -3,7 +3,8 @@ package br.com.caelum.brutal.model;
 import br.com.caelum.brutal.dao.VoteDAO;
 import br.com.caelum.brutal.model.interfaces.Votable;
 import br.com.caelum.brutal.reputation.rules.KarmaCalculator;
-import br.com.caelum.brutal.reputation.rules.VoteEvent;
+import br.com.caelum.brutal.reputation.rules.ReceivedVoteEvent;
+import br.com.caelum.brutal.reputation.rules.VotedAtSomethingEvent;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
@@ -26,11 +27,13 @@ public class VotingMachine {
         Vote previous = votes.previousVoteFor(votable.getId(), voter, votableType);
 
         if (previous != null) {
-            votableAuthor.descreaseKarma(karmaCalculator.karmaFor(new VoteEvent(previous.getType(), votable)));
+            votableAuthor.descreaseKarma(karmaCalculator.karmaFor(new ReceivedVoteEvent(previous.getType(), votable)));
+            voter.descreaseKarma(karmaCalculator.karmaFor(new VotedAtSomethingEvent(previous)));
         }
         votable.substitute(previous, current);
         
-        votableAuthor.increaseKarma(karmaCalculator.karmaFor(new VoteEvent(current.getType(), votable)));
+        votableAuthor.increaseKarma(karmaCalculator.karmaFor(new ReceivedVoteEvent(current.getType(), votable)));
+        voter.increaseKarma(karmaCalculator.karmaFor(new VotedAtSomethingEvent(current)));
     }
 
 }

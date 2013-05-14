@@ -17,6 +17,7 @@ public class KarmaCalculator {
     static final int COMMENT_VOTED_UP = 1;
 	static final int ASKED_QUESTION = 2;
 	static final int ANSWERED_QUESTION = 2;
+	static final int DOWNVOTED_QUESTION_OR_ANSWER = -2;
     
     public int karmaFor(KarmaRewardEvent voteEvent) {
     	return voteEvent.reward();
@@ -32,6 +33,7 @@ public class KarmaCalculator {
         }
         return SOLUTION_AUTHOR;
     }
+    
     /**
      * karma won by the author of a question that was marked as solved
      * @param solution the answer marked as solution
@@ -46,6 +48,5 @@ public class KarmaCalculator {
     public int karmaForApprovedInformation(Information approved) {
         return APPROVED_INFORMATION;
     }
-
     
 }

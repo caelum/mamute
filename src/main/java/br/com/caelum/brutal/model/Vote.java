@@ -87,6 +87,14 @@ public class Vote {
     VoteType getType() {
         return type;
     }
+    
+    public boolean isUp() {
+    	return type.equals(VoteType.UP);
+    }
+
+	public boolean isDown() {
+		return type.equals(VoteType.DOWN);
+	}
 	
     
 }

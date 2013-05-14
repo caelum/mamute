@@ -26,11 +26,11 @@ public class KarmaCalculatorTest extends TestCase {
 
     @Test
     public void should_calculate_karma_for_votes() {
-        assertEquals(QUESTION_VOTED_UP, karmaCalculator.karmaFor(new VoteEvent(VoteType.UP, question)));
-        assertEquals(QUESTION_VOTED_DOWN, karmaCalculator.karmaFor(new VoteEvent(VoteType.DOWN, answer)));
+        assertEquals(QUESTION_VOTED_UP, karmaCalculator.karmaFor(new ReceivedVoteEvent(VoteType.UP, question)));
+        assertEquals(QUESTION_VOTED_DOWN, karmaCalculator.karmaFor(new ReceivedVoteEvent(VoteType.DOWN, answer)));
 
-        assertEquals(ANSWER_VOTED_UP, karmaCalculator.karmaFor(new VoteEvent(VoteType.UP, answer)));
-        assertEquals(ANSWER_VOTED_DOWN, karmaCalculator.karmaFor(new VoteEvent(VoteType.DOWN, question)));
+        assertEquals(ANSWER_VOTED_UP, karmaCalculator.karmaFor(new ReceivedVoteEvent(VoteType.UP, answer)));
+        assertEquals(ANSWER_VOTED_DOWN, karmaCalculator.karmaFor(new ReceivedVoteEvent(VoteType.DOWN, question)));
     }
 
     @Test
