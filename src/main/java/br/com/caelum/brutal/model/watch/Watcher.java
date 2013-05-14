@@ -5,6 +5,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
 
@@ -21,6 +24,9 @@ public class Watcher {
 	@ManyToOne
 	private final Question watchedQuestion;
 
+	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+	private final DateTime createdAt;
+
 	/**
 	 * @deprecated hibernate eyes only
 	 */
@@ -31,6 +37,7 @@ public class Watcher {
 	public Watcher(User watcher, Question watchedQuestion){
 		this.watcher = watcher;
 		this.watchedQuestion = watchedQuestion;
+		this.createdAt = new DateTime();
 	}
 
 	public void inactivate() {
@@ -52,6 +59,10 @@ public class Watcher {
 
 	public Question getWatchedQuestion() {
 		return watchedQuestion;
+	}
+	
+	public DateTime getCreatedAt() {
+		return createdAt;
 	}
 
 }
