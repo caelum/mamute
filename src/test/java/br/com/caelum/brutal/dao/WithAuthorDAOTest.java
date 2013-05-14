@@ -1,7 +1,7 @@
 package br.com.caelum.brutal.dao;
 
-import static br.com.caelum.brutal.dao.WithAuthorDAO.OrderType.ByDate;
-import static br.com.caelum.brutal.dao.WithAuthorDAO.OrderType.ByVotes;
+import static br.com.caelum.brutal.dao.WithUserDAO.OrderType.ByDate;
+import static br.com.caelum.brutal.dao.WithUserDAO.OrderType.ByVotes;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -23,8 +23,8 @@ import br.com.caelum.brutal.model.VoteType;
 public class WithAuthorDAOTest extends DatabaseTestCase{
 
 	private User author = user("Leonardo", "leo@leo");
-	private WithAuthorDAO<Question> questionsWithUser;
-	private WithAuthorDAO<Answer> answersWithUser;
+	private WithUserDAO<Question> questionsWithUser;
+	private WithUserDAO<Answer> answersWithUser;
 	private QuestionBuilder question = new QuestionBuilder();
 	
 	private Vote upVote = new Vote(author, VoteType.UP);
@@ -39,8 +39,8 @@ public class WithAuthorDAOTest extends DatabaseTestCase{
 		session.save(upVote2);
 		session.save(upVote3);
 		session.save(defaultTag);
-		questionsWithUser = new WithAuthorDAO<Question>(session, Question.class);
-		answersWithUser = new WithAuthorDAO<Answer>(session, Answer.class);
+		questionsWithUser = new WithUserDAO<Question>(session, Question.class);
+		answersWithUser = new WithUserDAO<Answer>(session, Answer.class);
 	}
 	
 	@Test

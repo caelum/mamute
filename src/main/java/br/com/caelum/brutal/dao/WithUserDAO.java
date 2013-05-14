@@ -6,15 +6,17 @@ import org.hibernate.Session;
 
 import br.com.caelum.brutal.model.User;
 
-public class WithAuthorDAO<T> {
+public class WithUserDAO<T> {
 
 	private static final Integer PAGE_SIZE = 5;
 	private final Session session;
 	private final Class<T> clazz;
+	private final String role;
 
-	public WithAuthorDAO(Session session, Class<T> clazz) {
+	public WithUserDAO(Session session, Class<T> clazz, UserRole role) {
 		this.session = session;
 		this.clazz = clazz;
+		this.role = role.getRole();
 	}
 
 	public List<T> by(User user, OrderType orderByWhat, Integer page) {
@@ -24,7 +26,7 @@ public class WithAuthorDAO<T> {
 	
 	@SuppressWarnings("unchecked")
 	private List<T> withUserBy(User user, String order, Integer page) {
-		List<T> items = session.createQuery("select p from "+ clazz.getSimpleName() +" as p join p.author a where a = :user " + order)
+		List<T> items = session.createQuery("select p from "+ clazz.getSimpleName() +" as p join p."+ role +" r where r = :user " + order)
 				.setParameter("user", user)
 				.setMaxResults(PAGE_SIZE)
 				.setFirstResult(PAGE_SIZE * (page-1))
@@ -35,7 +37,7 @@ public class WithAuthorDAO<T> {
 	
 
 	public Long count(User user) {
-		return (Long) session.createQuery("select count(p) from "+ clazz.getSimpleName() +" as p join p.author a where a = :user ")
+		return (Long) session.createQuery("select count(p) from "+ clazz.getSimpleName() +" as p join p."+ role +" r where r = :user ")
 						.setParameter("user", user)
 						.uniqueResult();
 	}
@@ -53,7 +55,7 @@ public class WithAuthorDAO<T> {
 		return result;
 	}
 	
-	public enum OrderType {
+	public static enum OrderType {
 		ByDate {
 			@Override
 			public String getOrder() {
@@ -68,6 +70,22 @@ public class WithAuthorDAO<T> {
 
 		public abstract String getOrder();
 	}
-
-
+	
+	public static enum UserRole {
+		AUTHOR {
+			@Override
+			public String getRole() {
+				return "author";
+			}
+		},
+		WATCHER {
+			@Override
+			public String getRole() {
+				return "watcher";
+			}
+		};
+		
+		public abstract String getRole();
+	}
+	
 }

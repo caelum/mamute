@@ -4,7 +4,8 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import br.com.caelum.brutal.dao.WithAuthorDAO.OrderType;
+import br.com.caelum.brutal.dao.WithUserDAO.OrderType;
+import br.com.caelum.brutal.dao.WithUserDAO.UserRole;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.ioc.Component;
@@ -13,11 +14,11 @@ import br.com.caelum.vraptor.ioc.Component;
 public class AnswerDAO {
 
 	private final Session session;
-	private WithAuthorDAO<Answer> withAuthor;
+	private WithUserDAO<Answer> withAuthor;
 
 	public AnswerDAO(Session session) {
 		this.session = session;
-		withAuthor = new WithAuthorDAO<Answer>(session, Answer.class);
+		withAuthor = new WithUserDAO<Answer>(session, Answer.class, UserRole.AUTHOR);
 	}
 	
 	public Answer getById(Long id) {

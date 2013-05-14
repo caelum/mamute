@@ -5,7 +5,8 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-import br.com.caelum.brutal.dao.WithAuthorDAO.OrderType;
+import br.com.caelum.brutal.dao.WithUserDAO.OrderType;
+import br.com.caelum.brutal.dao.WithUserDAO.UserRole;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
@@ -18,13 +19,13 @@ public class QuestionDAO {
     private static final Integer PAGE_SIZE = 50;
 	public static final long SPAM_BOUNDARY = -5;
 	private final Session session;
-    private final WithAuthorDAO<Question> withAuthor;
+    private final WithUserDAO<Question> withAuthor;
 	private final InvisibleForUsersRule invisible;
 
     public QuestionDAO(Session session, InvisibleForUsersRule invisible) {
         this.session = session;
 		this.invisible = invisible;
-		this.withAuthor = new WithAuthorDAO<Question>(session, Question.class);
+		this.withAuthor = new WithUserDAO<Question>(session, Question.class, UserRole.AUTHOR);
     }
     
     public void save(Question q) {
