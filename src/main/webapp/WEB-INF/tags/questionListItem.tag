@@ -17,7 +17,7 @@
 		<tags:tagsFor taggable="${question}"/>
 		<div class="stats">
 			<span class="last-updated-at"><tags:prettyTime time="${question.lastUpdatedAt }" /></span>
-			<tags:userProfileLink user="${question.lastTouchedBy}"></tags:userProfileLink>
+			<tags:userProfileLink user="${question.lastTouchedBy}" isPrivate="false"/>
 			<span class="reputation">${question.lastTouchedBy.karma}</span>
 		</div>
 	</div>		

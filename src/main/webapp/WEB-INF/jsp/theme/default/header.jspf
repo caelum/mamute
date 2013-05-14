@@ -55,8 +55,9 @@
 							</c:if>
 							<c:if test="${currentUser.loggedIn}">
 								<li class="nav-item user-item">
-									<tags:userProfileLink user="${currentUser.current}" htmlClass="user-name" />
-									<span class="reputation">(${currentUser.current.karma})</span>
+									<tags:userProfileLink user="${currentUser.current}" htmlClass="user-name" isPrivate="true">
+										<span class="reputation" >(${currentUser.current.karma})</span>
+									</tags:userProfileLink>
 								</li>
 								<c:if test="${currentUser.moderator }">
 									<li class="nav-item">

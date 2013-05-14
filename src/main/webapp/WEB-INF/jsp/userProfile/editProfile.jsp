@@ -3,7 +3,7 @@
 <tags:header title="${genericTitle} - ${title}"/>
 
 <div class="subheader">
-	<tags:userProfileLink user="${user}" htmlClass="title page-title" />
+	<tags:userProfileLink user="${user}" htmlClass="title page-title" isPrivate="true"/>
 	<ul class="subheader-menu">
 		<a href="${linkTo[UserProfileController].editProfile[user]}"><fmt:message key="user_profile.edit" /></a>
 	</ul>
@@ -39,5 +39,5 @@
 	<label for="isSubscribed" class="form-label inline-label"><fmt:message key="user_profile.edit.form.subscribe.label" /></label>
 	
 	<input type="submit" class="post-submit big-submit" value="<fmt:message key="user_profile.edit.form.submit" />"/>
-	<tags:userProfileLink user="${user}" value="user_profile.edit.cancel" />
+	<tags:userProfileLink user="${user}" value="user_profile.edit.cancel" isPrivate="true"/>
 </form>

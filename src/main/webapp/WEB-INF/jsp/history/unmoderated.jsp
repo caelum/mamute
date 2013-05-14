@@ -23,7 +23,7 @@
 			<div class="stats">
 				<c:set var="information" value="${entry.value[fn:length(entry.value)-1]}"/>
 				<span class="last-updated-at"><tags:prettyTime time="${information.createdAt}" /></span>
-				<tags:userProfileLink user="${information.author}"></tags:userProfileLink>
+				<tags:userProfileLink user="${information.author}" isPrivate="false"></tags:userProfileLink>
 			</div>
 		</li>
 	</c:forEach>
