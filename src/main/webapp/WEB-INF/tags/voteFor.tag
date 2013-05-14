@@ -23,7 +23,10 @@
 	 		  data-type="${type}" 
 		      data-karma="${VOTE_DOWN}" 
 	 		  data-id="${item.id}"
-	 		  title="<fmt:message key='${type}.downvote'/>"> 
+	 		  title="<fmt:message key='${type}.downvote'>
+	 		  			<fmt:param value="${MY_ANSWER_VOTED_DOWN}"/>
+	 		  			<fmt:param value="${DOWNVOTED_QUESTION_OR_ANSWER}"/>
+	 		  		</fmt:message>"> 
 		down 
 	</a>
 </div>
