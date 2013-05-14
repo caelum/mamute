@@ -1,6 +1,6 @@
 package br.com.caelum.brutal.controllers;
 
-import static br.com.caelum.brutal.dao.WithAuthorDAO.OrderType.ByVotes;
+import static br.com.caelum.brutal.dao.WithUserDAO.OrderType.ByVotes;
 import static br.com.caelum.vraptor.view.Results.json;
 
 import org.joda.time.DateTime;
@@ -9,7 +9,7 @@ import br.com.caelum.brutal.dao.AnswerDAO;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.dao.UserDAO;
-import br.com.caelum.brutal.dao.WithAuthorDAO.OrderType;
+import br.com.caelum.brutal.dao.WithUserDAO.OrderType;
 import br.com.caelum.brutal.dto.UserPersonalInfo;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.User;
