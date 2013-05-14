@@ -12,11 +12,6 @@
 	<img class="user-image" src="${user.smallPhoto}"/>
 	<div class="user-info">
 		<tags:userProfileLink user="${user}" htmlClass="user-name ellipsis" isPrivate="false"/>
-		<div class="user-karma">${user.karma} 
-		<c:choose>
-			<c:when test="${user.karma == 1}"><fmt:message key="touch.karma.singular" /></c:when>
-			<c:otherwise><fmt:message key="touch.karma.plural" /></c:otherwise>
-		</c:choose>
-		</div>
+		<div class="user-karma">${user.karma}<tags:pluralize key="touch.karma" count="${user.karma}" /></div>
 	</div>
 </div>
