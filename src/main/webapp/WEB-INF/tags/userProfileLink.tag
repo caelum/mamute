@@ -12,7 +12,7 @@
 			<fmt:message key="${value}"/>
 		</c:when>
 		<c:when test="${isPrivate}">
-			${user.realName}
+			${not empty user.realName ? user.realName : user.name}
 		</c:when>
 		<c:otherwise>
 			${user.name}
