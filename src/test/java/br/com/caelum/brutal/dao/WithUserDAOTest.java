@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.brutal.builder.QuestionBuilder;
+import br.com.caelum.brutal.dao.WithUserDAO.UserRole;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
@@ -20,7 +21,7 @@ import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.Vote;
 import br.com.caelum.brutal.model.VoteType;
 
-public class WithAuthorDAOTest extends DatabaseTestCase{
+public class WithUserDAOTest extends DatabaseTestCase{
 
 	private User author = user("Leonardo", "leo@leo");
 	private WithUserDAO<Question> questionsWithUser;
@@ -39,8 +40,8 @@ public class WithAuthorDAOTest extends DatabaseTestCase{
 		session.save(upVote2);
 		session.save(upVote3);
 		session.save(defaultTag);
-		questionsWithUser = new WithUserDAO<Question>(session, Question.class);
-		answersWithUser = new WithUserDAO<Answer>(session, Answer.class);
+		questionsWithUser = new WithUserDAO<Question>(session, Question.class, UserRole.AUTHOR);
+		answersWithUser = new WithUserDAO<Answer>(session, Answer.class, UserRole.AUTHOR);
 	}
 	
 	@Test
