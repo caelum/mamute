@@ -19,8 +19,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -70,9 +68,8 @@ public class QuestionInformation implements Information, Taggable {
 	@Embedded
 	private Moderation moderation;
 
-	@ManyToMany
+	@ManyToMany(fetch=EAGER)
 	@NotEmpty(message = "question.errors.tags.empty")
-	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Tag> tags;
 	
 	@Lob

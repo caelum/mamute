@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
@@ -55,6 +56,7 @@ public class Question extends Moderatable implements Post, Taggable{
 	@ManyToOne(fetch = EAGER)
 	private User author;
 
+	@BatchSize(size = 10)
 	@OneToMany(mappedBy = "question")
 	private final List<Answer> answers = new ArrayList<>();
 

@@ -39,7 +39,6 @@ public class QuestionDAO {
 		String hql = "from Question as q join fetch q.information qi" +
 				" join fetch q.author qa" +
 				" join fetch q.lastTouchedBy qa" +
-				" join fetch qi.tags t" +
 				" left join fetch q.solution s" +
 				" left join fetch q.solution.information si" +
 				" "+ invisibleFilter("and") +" " + spamFilter() +" order by q.lastUpdatedAt desc";
