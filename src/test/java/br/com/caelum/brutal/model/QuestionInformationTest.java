@@ -39,7 +39,6 @@ public class QuestionInformationTest {
 		QuestionInformation version = builder.build();
 		ruby.enqueueChange(version, PENDING);
 		
-		System.out.println("this.createdAt should be after");
 		assertFalse(version.isBeforeCurrent());
 	}
 
