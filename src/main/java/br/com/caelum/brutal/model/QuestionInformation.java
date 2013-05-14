@@ -8,6 +8,7 @@ import static javax.persistence.FetchType.EAGER;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -27,6 +28,7 @@ import org.joda.time.DateTime;
 import br.com.caelum.brutal.model.interfaces.Moderatable;
 import br.com.caelum.brutal.model.interfaces.Taggable;
 
+@Cacheable
 @Entity
 public class QuestionInformation implements Information, Taggable {
 

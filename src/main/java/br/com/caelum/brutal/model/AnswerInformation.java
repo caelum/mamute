@@ -4,6 +4,7 @@ import static br.com.caelum.brutal.model.MarkDown.parse;
 import static br.com.caelum.brutal.sanitizer.HtmlSanitizer.sanitize;
 import static javax.persistence.FetchType.EAGER;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -21,6 +22,7 @@ import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.model.interfaces.Moderatable;
 
+@Cacheable
 @Entity
 public class AnswerInformation implements Information {
 

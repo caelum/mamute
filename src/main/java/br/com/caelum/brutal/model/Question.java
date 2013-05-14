@@ -7,6 +7,7 @@ import static org.hibernate.annotations.CascadeType.SAVE_UPDATE;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +18,8 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
@@ -26,6 +29,8 @@ import br.com.caelum.brutal.model.interfaces.Taggable;
 import br.com.caelum.brutal.model.interfaces.Votable;
 import br.com.caelum.brutal.model.watch.Watcher;
 
+@Cacheable
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE, region="cache")
 @Entity
 public class Question extends Moderatable implements Post, Taggable{
 	@Id
