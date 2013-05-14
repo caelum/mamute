@@ -2,7 +2,6 @@ package br.com.caelum.brutal.providers;
 
 import java.util.Enumeration;
 
-import javax.annotation.Nullable;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
