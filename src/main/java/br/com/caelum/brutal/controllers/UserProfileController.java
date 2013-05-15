@@ -71,22 +71,24 @@ public class UserProfileController {
 		result.include("selectedUser", user);
 	}
 
-	@Get("/usuario/{id}/{sluggedName}/perguntas/{orderByWhat}")
-	public void questionsByVotesWith(Long id, String sluggedName, OrderType orderByWhat, Integer p){
+	@Get("/usuario/{id}/{sluggedName}/perguntas")
+	public void questionsByVotesWith(Long id, String sluggedName, OrderType order, Integer p){
 		User author = users.findById(id);
+		order = order == null ? ByVotes : order;
 		Integer page = p == null ? 1 : p;
-		result.use(json()).withoutRoot().from(questions.withAuthorBy(author, orderByWhat, page)).include("information").serialize();
+		result.use(json()).withoutRoot().from(questions.withAuthorBy(author, order, page)).include("information").serialize();
 	}
 	
-	@Get("/usuario/{id}/{sluggedName}/respostas/{orderByWhat}")
-	public void answersByVotesWith(Long id, String sluggedName, OrderType orderByWhat, Integer p){
+	@Get("/usuario/{id}/{sluggedName}/respostas")
+	public void answersByVotesWith(Long id, String sluggedName, OrderType order, Integer p){
 		User author = users.findById(id);
+		OrderType orderType = order == null ? ByVotes : order;
 		Integer page = p == null ? 1 : p;
-		result.use(json()).withoutRoot().from(answers.withAuthorBy(author, orderByWhat, page)).include("question", "question.information").serialize();
+		result.use(json()).withoutRoot().from(answers.withAuthorBy(author, orderType, page)).include("question", "question.information").serialize();
 	}
 	
-	@Get("/usuario/{id}/{sluggedName}/acompanhadas/{orderByWhat}")
-	public void watchersByDateWith(Long id, String sluggedName, OrderType orderByWhat, Integer p){
+	@Get("/usuario/{id}/{sluggedName}/acompanhadas")
+	public void watchersByDateWith(Long id, String sluggedName, Integer p){
 		User user = users.findById(id);
 		Integer page = p == null ? 1 : p;
 		result.use(json()).withoutRoot().from(watchers.questionsWatchedBy(user, page)).include("information").serialize();

@@ -7,6 +7,7 @@
 <%@attribute name="type" type="java.lang.String" required="true" %>
 <%@attribute name="i18n" type="java.lang.String" required="true" %>
 <%@attribute name="orderOptions" type="java.lang.Boolean" required="true" %>
+<%@attribute name="withPagination" type="java.lang.Boolean" required="true" %>
 <%@attribute name="count" type="java.lang.Long" required="false" %>
 <%@attribute name="pages" type="java.lang.Long" required="false" %>
 
@@ -21,7 +22,7 @@
 	<ul id="user-${type}" class="fixed-height">
 		<jsp:doBody/>
 	</ul>
-	<c:if test="${orderOptions}">
-		<tags:pagination type="${type}" targetId="user-${type}" totalPages="${pages}" url="/usuario/${user.id}/${user.sluggedName}/${type}/ByVotes"/>
+	<c:if test="${withPagination}">
+		<tags:pagination type="${type}" targetId="user-${type}" totalPages="${pages}" url="/usuario/${user.id}/${user.sluggedName}/${type}"/>
 	</c:if>
 </section>

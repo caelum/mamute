@@ -1,6 +1,7 @@
 $(function(){
 	var ANSWER = "respostas",
-		QUESTION = "perguntas";
+		QUESTION = "perguntas"
+		WATCHED = "acompanhadas";
 	
 	$(".order-by").click(function(event){
 		event.preventDefault();
@@ -8,6 +9,7 @@ $(function(){
 		var href = self.attr("href");
 		$.get(href, function(list){
 			repopulateWith("#"+self.data("target-id"), list, self.data("type"));
+			console.log(list);
 			selectMenu(self);
 			changePagerUrl(self, href);
 		});
@@ -44,6 +46,7 @@ $(function(){
 	
 	function getHref(type, question, item){
 		var answerAnchor;
+		console.log(question);
 		if(type == ANSWER){
 			answerAnchor = "#answer-"+item.id;
 		}
@@ -51,7 +54,7 @@ $(function(){
 	}
 	
 	function getQuestion(type, item){
-		if(type == QUESTION){
+		if(type == QUESTION || type == WATCHED){
 			return item;
 		}else if(type == ANSWER){
 			return item.question;
@@ -63,7 +66,7 @@ $(function(){
 		pager.find("a").each(function(i,item){
 			$(item).parent().removeClass("current");
 			if(i == 0) $(item).parent().addClass("current");  
-			$(item).attr("href", url + "?p=" + (i+1));
+			$(item).attr("href", url + "&p=" + (i+1));
 		});
 	}
 });
