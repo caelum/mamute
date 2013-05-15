@@ -29,7 +29,7 @@ public class Home extends PageObject{
 	}
 
 	public boolean isLoggedInAs(String name) {
-		return isLoggedIn() && byClassName("user-name").getText().startsWith(name);
+		return isLoggedIn() && byClassName("user-name").getText().contains(name);
 	}
 
 	public boolean isLoggedIn() {
