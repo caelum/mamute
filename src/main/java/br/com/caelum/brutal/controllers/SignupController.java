@@ -1,7 +1,6 @@
 package br.com.caelum.brutal.controllers;
 
-import java.util.Arrays;
-
+import static java.util.Arrays.asList;
 import br.com.caelum.brutal.auth.FacebookAuthService;
 import br.com.caelum.brutal.dao.LoginMethodDAO;
 import br.com.caelum.brutal.dao.UserDAO;
@@ -50,20 +49,15 @@ public class SignupController {
 		LoginMethod brutalLogin = LoginMethod.brutalLogin(newUser, email, password);
 		newUser.add(brutalLogin);
 		
-		boolean valid = validator.validate(newUser, password, passwordConfirmation);
+		validator.validate(newUser, password, passwordConfirmation);
+		result.include("email", email);
+		result.include("name", name);
 		validator.onErrorRedirectTo(this).signupForm();
 		
-		if (valid) {
-		    users.save(newUser);
-		    loginMethods.save(brutalLogin);
-		    result.include("messages", Arrays.asList(
-		    			messageFactory.build("confirmation", "signup.confirmation")
-		    		));
-		    linker.linkTo(ListController.class).home(null);
-		    result.forwardTo(AuthController.class).login(email, password, linker.get());
-		} else {
-		    result.include("email", email);
-		    result.include("name", name);
-		}
+	    users.save(newUser);
+	    loginMethods.save(brutalLogin);
+	    result.include("messages", asList(messageFactory.build("confirmation", "signup.confirmation")));
+	    linker.linkTo(ListController.class).home(null);
+	    result.forwardTo(AuthController.class).login(email, password, linker.get());
 	}
 }
