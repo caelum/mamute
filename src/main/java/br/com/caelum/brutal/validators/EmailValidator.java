@@ -18,9 +18,12 @@ public class EmailValidator {
 		this.messageFactory = messageFactory;
 	}
 	
-	public boolean validate(String email){
+	public boolean validate(String email) {
 		if (users.existsWithEmail(email)) {
 			validator.add(messageFactory.build("error", "user.errors.email.used"));
+		}
+		if (email == null) {
+			validator.add(messageFactory.build("error", "user.errors.email.required"));
 		}
 		
 		return !validator.hasErrors();

@@ -69,7 +69,7 @@ public class UserDAO {
 	}
 
     public boolean existsWithEmail(String email) {
-        return loadByEmail(email) != null;
+        return email != null && loadByEmail(email) != null;
     }
 
     public User findByMailAndLegacyPasswordAndUpdatePassword(String email, String password) {
