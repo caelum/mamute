@@ -88,7 +88,7 @@
 			</li>
 			<li>
 				<fmt:message key="about.reputation.gain.question_and_answer.voted_down">
-					<fmt:param value="${ANSWER_VOTED_DOWN}"/>
+					<fmt:param value="${MY_ANSWER_VOTED_DOWN}"/>
 				</fmt:message>
 			</li>
 			<li>
