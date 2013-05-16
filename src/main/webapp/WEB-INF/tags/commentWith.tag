@@ -14,7 +14,7 @@
 			data-type="comentario" data-id="${comment.id}">
 		</a>
 		<c:if test="${currentUser.loggedIn && !comment.alreadyFlaggedBy(currentUser.current) && !currentUser.current.isAuthorOf(comment)}">
-			<a title="<fmt:message key="flag"/>" href="#" data-author="${currentUser.current.isAuthorOf(comment)}}"
+			<a title="<fmt:message key="flag"/>" href="#" data-author="${currentUser.current.isAuthorOf(comment)}"
 			data-modal-id="comment-flag-modal${comment.id}"
 			class="comment-meta-hidden container author-cant requires-login comment-option flag-it icon-flag"></a>
 		</c:if>
