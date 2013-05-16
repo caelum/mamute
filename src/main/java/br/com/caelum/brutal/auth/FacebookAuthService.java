@@ -34,7 +34,7 @@ public class FacebookAuthService {
 	}
 	
 	public SignupInfo getSignupInfo() {
-		OAuthRequest request = new OAuthRequest(Verb.GET, "https://graph.facebook.com/me");
+		OAuthRequest request = new OAuthRequest(Verb.GET, "https://graph.facebook.com/me?fields=name,email,location");
 		service.signRequest(accessToken, request);
 		Response response = request.send();
 		
