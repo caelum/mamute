@@ -422,6 +422,7 @@
 							<includes>
 								<include>**/brutal.css</include>
 								<include>**/responsive-brutal.css</include>
+								<include>**/custom.css</include>
 							</includes>
 						</aggregation>
 						<aggregation>

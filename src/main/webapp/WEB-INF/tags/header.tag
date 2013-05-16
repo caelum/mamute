@@ -38,7 +38,6 @@
 <c:if test="${environment.name == 'production'}" >
 	<link rel="stylesheet" href="<c:url value="/css/all-deps${deployTimestamp}.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/all-brutal${deployTimestamp}.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/custom${deployTimestamp}.css"/>">
 </c:if>
 <!--[if lt IE 9]>
 	<script src="<c:url value="/js/html5shiv.js"/>"></script>
