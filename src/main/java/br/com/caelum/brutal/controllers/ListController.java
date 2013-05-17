@@ -38,7 +38,7 @@ public class ListController {
 	public void home(Integer p) {
 		Integer page = getPage(p);
 		List<Question> visible = questions.allVisible(page);
-		if (visible.isEmpty() && p != 1) {
+		if (visible.isEmpty() && page != 1) {
 			result.notFound();
 			return;
 		}
