@@ -8,7 +8,7 @@
 <ul class="pager">
 	<c:forEach begin="1" end="${totalPages}" var="p">
 		<li class="page-item ${(p == currentPage || p == 1) ? 'current' : ''}">
-			<a href="${url}?p=${p}" data-type="${type}" data-target-id="${targetId}">${p}</a>
+			<a rel="nofollow" href="${url}?p=${p}" data-type="${type}" data-target-id="${targetId}">${p}</a>
 		</li>
 	</c:forEach>
 </ul>

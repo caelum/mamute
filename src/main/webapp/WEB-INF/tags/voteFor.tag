@@ -4,7 +4,7 @@
 <%@attribute name="item" type="br.com.caelum.brutal.model.interfaces.Votable" required="true" %>
 <%@attribute type="br.com.caelum.brutal.model.Vote" name="vote" required="true" %>
 <div class="vote-container post-vote container">
-	<a class="requires-login requires-karma author-cant
+	<a rel="nofollow" class="requires-login requires-karma author-cant
 		      up-vote up-arrow arrow vote-option 
 		      container ${(not empty vote and vote.countValue == 1) ? 'voted' : '' }" 
 		      data-value="positivo" data-author="${currentUser.current.isAuthorOf(item)}"
@@ -15,7 +15,7 @@
     	up
    	</a>
 	<span class="vote-count post-vote-count">${item.voteCount}</span>
-	<a class="requires-login author-cant down-vote down-arrow
+	<a rel="nofollow" class="requires-login author-cant down-vote down-arrow
 	 		  arrow vote-option container requires-karma
 	 		  ${(not empty vote and vote.countValue == -1) ? 'voted' : '' }" 
 	 		  data-value="negativo"  
