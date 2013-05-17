@@ -44,15 +44,6 @@ CREATE TABLE `Answer` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Answer`
---
-
-LOCK TABLES `Answer` WRITE;
-/*!40000 ALTER TABLE `Answer` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Answer` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `AnswerInformation`
 --
 
@@ -85,11 +76,6 @@ CREATE TABLE `AnswerInformation` (
 -- Dumping data for table `AnswerInformation`
 --
 
-LOCK TABLES `AnswerInformation` WRITE;
-/*!40000 ALTER TABLE `AnswerInformation` DISABLE KEYS */;
-/*!40000 ALTER TABLE `AnswerInformation` ENABLE KEYS */;
-UNLOCK TABLES;
-
 --
 -- Table structure for table `Answer_Comments`
 --
@@ -109,15 +95,6 @@ CREATE TABLE `Answer_Comments` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Answer_Comments`
---
-
-LOCK TABLES `Answer_Comments` WRITE;
-/*!40000 ALTER TABLE `Answer_Comments` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Answer_Comments` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `Answer_Votes`
 --
 
@@ -134,15 +111,6 @@ CREATE TABLE `Answer_Votes` (
   CONSTRAINT `FKC896CB08D3D1EED` FOREIGN KEY (`Answer_id`) REFERENCES `Answer` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Answer_Votes`
---
-
-LOCK TABLES `Answer_Votes` WRITE;
-/*!40000 ALTER TABLE `Answer_Votes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Answer_Votes` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `Comment`
@@ -166,15 +134,6 @@ CREATE TABLE `Comment` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Comment`
---
-
-LOCK TABLES `Comment` WRITE;
-/*!40000 ALTER TABLE `Comment` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Comment` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `Comment_Flags`
 --
 
@@ -191,15 +150,6 @@ CREATE TABLE `Comment_Flags` (
   CONSTRAINT `FKEB33FC671F1F1C7` FOREIGN KEY (`Comment_id`) REFERENCES `Comment` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Comment_Flags`
---
-
-LOCK TABLES `Comment_Flags` WRITE;
-/*!40000 ALTER TABLE `Comment_Flags` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Comment_Flags` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `Comment_Votes`
@@ -220,15 +170,6 @@ CREATE TABLE `Comment_Votes` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Comment_Votes`
---
-
-LOCK TABLES `Comment_Votes` WRITE;
-/*!40000 ALTER TABLE `Comment_Votes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Comment_Votes` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `Flag`
 --
 
@@ -245,44 +186,6 @@ CREATE TABLE `Flag` (
   CONSTRAINT `FK21738CE5155ACD` FOREIGN KEY (`author_id`) REFERENCES `Users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Flag`
---
-
-LOCK TABLES `Flag` WRITE;
-/*!40000 ALTER TABLE `Flag` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Flag` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `LoginMethod`
---
-
-DROP TABLE IF EXISTS `LoginMethod`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `LoginMethod` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `serviceEmail` varchar(100) DEFAULT NULL,
-  `token` varchar(255) DEFAULT NULL,
-  `type` varchar(255) DEFAULT NULL,
-  `user_id` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `serviceEmail` (`serviceEmail`),
-  KEY `FKA6B9618A845C688D` (`user_id`),
-  CONSTRAINT `FKA6B9618A845C688D` FOREIGN KEY (`user_id`) REFERENCES `Users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `LoginMethod`
---
-
-LOCK TABLES `LoginMethod` WRITE;
-/*!40000 ALTER TABLE `LoginMethod` DISABLE KEYS */;
-/*!40000 ALTER TABLE `LoginMethod` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `Question`
@@ -312,15 +215,6 @@ CREATE TABLE `Question` (
   CONSTRAINT `FKBE5CA006E5155ACD` FOREIGN KEY (`author_id`) REFERENCES `Users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Question`
---
-
-LOCK TABLES `Question` WRITE;
-/*!40000 ALTER TABLE `Question` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Question` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `QuestionInformation`
@@ -354,15 +248,6 @@ CREATE TABLE `QuestionInformation` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `QuestionInformation`
---
-
-LOCK TABLES `QuestionInformation` WRITE;
-/*!40000 ALTER TABLE `QuestionInformation` DISABLE KEYS */;
-/*!40000 ALTER TABLE `QuestionInformation` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `QuestionInformation_Tag`
 --
 
@@ -378,15 +263,6 @@ CREATE TABLE `QuestionInformation_Tag` (
   CONSTRAINT `FKC479C10176BB2988` FOREIGN KEY (`tags_id`) REFERENCES `Tag` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `QuestionInformation_Tag`
---
-
-LOCK TABLES `QuestionInformation_Tag` WRITE;
-/*!40000 ALTER TABLE `QuestionInformation_Tag` DISABLE KEYS */;
-/*!40000 ALTER TABLE `QuestionInformation_Tag` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `Question_Comments`
@@ -407,15 +283,6 @@ CREATE TABLE `Question_Comments` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Question_Comments`
---
-
-LOCK TABLES `Question_Comments` WRITE;
-/*!40000 ALTER TABLE `Question_Comments` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Question_Comments` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `Question_Votes`
 --
 
@@ -432,15 +299,6 @@ CREATE TABLE `Question_Votes` (
   CONSTRAINT `FK52D681302A7767EE` FOREIGN KEY (`votes_id`) REFERENCES `Vote` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Question_Votes`
---
-
-LOCK TABLES `Question_Votes` WRITE;
-/*!40000 ALTER TABLE `Question_Votes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Question_Votes` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `Tag`
@@ -462,15 +320,6 @@ CREATE TABLE `Tag` (
   CONSTRAINT `FK1477AE5155ACD` FOREIGN KEY (`author_id`) REFERENCES `Users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Tag`
---
-
-LOCK TABLES `Tag` WRITE;
-/*!40000 ALTER TABLE `Tag` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Tag` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `Users`
@@ -505,13 +354,24 @@ CREATE TABLE `Users` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Users`
+-- Table structure for table `LoginMethod`
 --
 
-LOCK TABLES `Users` WRITE;
-/*!40000 ALTER TABLE `Users` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Users` ENABLE KEYS */;
-UNLOCK TABLES;
+DROP TABLE IF EXISTS `LoginMethod`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `LoginMethod` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `serviceEmail` varchar(100) DEFAULT NULL,
+  `token` varchar(255) DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `user_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `serviceEmail` (`serviceEmail`),
+  KEY `FKA6B9618A845C688D` (`user_id`),
+  CONSTRAINT `FKA6B9618A845C688D` FOREIGN KEY (`user_id`) REFERENCES `Users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `Vote`
@@ -553,14 +413,6 @@ CREATE TABLE `Answer_Flags` (
   CONSTRAINT `FKC7B3AEC6ED5AAFF2` FOREIGN KEY (`flags_id`) REFERENCES `Flag` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `Vote`
---
-
-LOCK TABLES `Vote` WRITE;
-/*!40000 ALTER TABLE `Vote` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Vote` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -570,5 +422,3 @@ UNLOCK TABLES;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2013-03-07 16:22:47
