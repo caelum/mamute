@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.dao;
 
+import java.util.List;
+
 import net.vidageek.mirror.dsl.Mirror;
 
 import org.hibernate.Query;
@@ -13,8 +15,10 @@ import br.com.caelum.brutal.model.UserSession;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
+@SuppressWarnings("unchecked")
 public class UserDAO {
 
+	private static final Integer PAGE_SIZE = 40;
 	private final Session session;
 
 	public UserDAO(Session session) {
@@ -117,5 +121,27 @@ public class UserDAO {
 
 	public void delete(UserSession userSession) {
 		session.delete(userSession);
+	}
+
+	public List<User> getRank(Integer page) {
+		return session.createQuery("from User u order by u.karma desc")
+				.setMaxResults(PAGE_SIZE)
+				.setFirstResult(PAGE_SIZE * (page-1))
+				.list();
+	}
+	
+	public long numberOfPages() {
+		String hql = "select count(*) from User";
+		Long totalItems = (Long) session.createQuery(hql).uniqueResult();
+		long result = calculatePages(totalItems);
+		return result;
+	}
+
+	private long calculatePages(Long count) {
+		long result = count/PAGE_SIZE.longValue();
+		if (count % PAGE_SIZE.longValue() != 0) {
+			result++;
+		}
+		return result;
 	}
 }

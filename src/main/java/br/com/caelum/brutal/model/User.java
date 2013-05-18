@@ -186,6 +186,10 @@ public class User implements Identifiable {
 	    return getPhoto(32, 32);
 	}
 	
+	public String getRankingPhoto() {
+		return getPhoto(50, 50);
+	}
+	
 	public String getMediumPhoto() {
 		return getPhoto(128, 128);
 	}

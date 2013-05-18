@@ -530,6 +530,37 @@ form.inactive .submit{
 	float: left;
 }
 
+/* RANKING */
+
+.ranking {
+	display: inline-block;
+}
+
+.ranking li:nth-child(4n+1){
+	width: 15em;
+	clear: both;
+	margin: 1em;
+}
+
+.ranking li:nth-child(4n+4){
+	clear: right;
+	margin: 1em;
+}
+
+.ranking li{
+	float: left;
+	width: 15em;
+	margin: 1em;
+}
+
+.ranking-user {
+	display: block;
+}
+
+.ranking-user > *{
+	display: inline-block;
+}
+
 /*LOGIN*/
 .user-form {
 	width: 35%;
