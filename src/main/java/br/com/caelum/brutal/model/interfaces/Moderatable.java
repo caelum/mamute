@@ -1,6 +1,7 @@
 package br.com.caelum.brutal.model.interfaces;
 
 import br.com.caelum.brutal.model.Information;
+import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
 
@@ -11,6 +12,7 @@ public abstract class Moderatable implements Identifiable {
     public abstract User getAuthor();
     public abstract String getTypeName();
     public abstract boolean hasPendingEdits();
+    public abstract Question getQuestion();
     
     public final UpdateStatus approve(Information approved) {
         if (!canBeUptadedWith(approved)) {

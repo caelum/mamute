@@ -1,7 +1,6 @@
 package br.com.caelum.brutal.reputation.rules;
 
 import br.com.caelum.brutal.model.Answer;
-import br.com.caelum.brutal.model.Information;
 import br.com.caelum.brutal.model.ReputationEvent;
 import br.com.caelum.vraptor.ioc.Component;
 
@@ -46,8 +45,4 @@ public class KarmaCalculator {
         return SOLVED_QUESTION_AUTHOR;
     }
 
-    public int karmaForApprovedInformation(Information approved) {
-        return APPROVED_INFORMATION;
-    }
-    
 }
