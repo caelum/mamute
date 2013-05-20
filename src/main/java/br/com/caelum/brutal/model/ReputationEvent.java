@@ -20,5 +20,8 @@ public class ReputationEvent {
 
 	@ManyToOne
 	private Question questionInvolved;
+	
+	@ManyToOne
+	private User user;
 
 }
