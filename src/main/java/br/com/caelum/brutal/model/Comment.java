@@ -171,4 +171,10 @@ public class Comment implements Notifiable, Votable, Flaggable {
 	public String getEmailTemplate() {
 		return "comment_notification_mail";
 	}
+
+	@Override
+	public Question getQuestion() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

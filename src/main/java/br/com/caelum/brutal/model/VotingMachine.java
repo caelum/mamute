@@ -27,13 +27,17 @@ public class VotingMachine {
         Vote previous = votes.previousVoteFor(votable.getId(), voter, votableType);
 
         if (previous != null) {
-            votableAuthor.descreaseKarma(karmaCalculator.karmaFor(new ReceivedVoteEvent(previous.getType(), votable)));
-            voter.descreaseKarma(karmaCalculator.karmaFor(new VotedAtSomethingEvent(previous)));
+            ReputationEvent receivedVote = new ReceivedVoteEvent(previous.getType(), votable).reputationEvent();
+			votableAuthor.descreaseKarma(karmaCalculator.karmaFor(receivedVote));
+			ReputationEvent votedAtSomething = new VotedAtSomethingEvent(previous, votable).reputationEvent();
+            voter.descreaseKarma(karmaCalculator.karmaFor(votedAtSomething));
         }
         votable.substitute(previous, current);
         
-        votableAuthor.increaseKarma(karmaCalculator.karmaFor(new ReceivedVoteEvent(current.getType(), votable)));
-        voter.increaseKarma(karmaCalculator.karmaFor(new VotedAtSomethingEvent(current)));
+        ReputationEvent receivedVote = new ReceivedVoteEvent(current.getType(), votable).reputationEvent();
+        votableAuthor.increaseKarma(karmaCalculator.karmaFor(receivedVote));
+        ReputationEvent votedAtSomething = new VotedAtSomethingEvent(previous, votable).reputationEvent();
+        voter.increaseKarma(karmaCalculator.karmaFor(votedAtSomething));
     }
 
 }

@@ -2,6 +2,7 @@ package br.com.caelum.brutal.reputation.rules;
 
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.Information;
+import br.com.caelum.brutal.model.ReputationEvent;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
@@ -19,8 +20,8 @@ public class KarmaCalculator {
 	public static final int ANSWERED_QUESTION = 2;
 	public static final int DOWNVOTED_QUESTION_OR_ANSWER = -2;
     
-    public int karmaFor(KarmaRewardEvent voteEvent) {
-    	return voteEvent.reward();
+    public int karmaFor(ReputationEvent voteEvent) {
+    	return voteEvent.getKarmaReward();
     }
     
     /**
