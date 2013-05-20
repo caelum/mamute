@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class ReputationEvent {
+	
 	@Id @GeneratedValue
 	private Long id;
 	
@@ -24,4 +25,19 @@ public class ReputationEvent {
 	@ManyToOne
 	private User user;
 
+	@Deprecated
+	ReputationEvent() {
+	}
+
+	public ReputationEvent(EventType type, Question questionInvolved, User user) {
+		this.type = type;
+		this.karmaReward = type.reward();
+		this.questionInvolved = questionInvolved;
+		this.user = user;
+	}
+	
+	public int getKarmaReward() {
+		return karmaReward;
+	}
+	
 }

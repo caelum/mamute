@@ -9,20 +9,21 @@ import br.com.caelum.brutal.auth.FacebookAuthService;
 import br.com.caelum.brutal.auth.LoggedAccess;
 import br.com.caelum.brutal.auth.rules.AuthorizationSystem;
 import br.com.caelum.brutal.dao.QuestionDAO;
+import br.com.caelum.brutal.dao.ReputationEventDAO;
 import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.dao.VoteDAO;
 import br.com.caelum.brutal.dao.WatcherDAO;
 import br.com.caelum.brutal.factory.MessageFactory;
+import br.com.caelum.brutal.model.EventType;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.QuestionViewCounter;
+import br.com.caelum.brutal.model.ReputationEvent;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.watch.Watcher;
-import br.com.caelum.brutal.reputation.rules.GeneratesReputationEvent;
-import br.com.caelum.brutal.reputation.rules.ReputationEvents;
 import br.com.caelum.brutal.validators.TagsValidator;
 import br.com.caelum.brutal.vraptor.Linker;
 import br.com.caelum.vraptor.Get;
@@ -49,12 +50,13 @@ public class QuestionController {
 	private final QuestionViewCounter viewCounter;
 	private Linker linker;
 	private final WatcherDAO watchers;
+	private final ReputationEventDAO reputationEvents;
 
 	public QuestionController(Result result, QuestionDAO questionDAO, TagDAO tags, 
 			VoteDAO votes, LoggedUser currentUser, FacebookAuthService facebook,
 			TagsValidator tagsValidator, MessageFactory messageFactory,
 			AuthorizationSystem authorizationSystem, Validator validator, 
-			QuestionViewCounter viewCounter, Linker linker, WatcherDAO watchers) {
+			QuestionViewCounter viewCounter, Linker linker, WatcherDAO watchers, ReputationEventDAO reputationEvents) {
 		this.result = result;
 		this.questions = questionDAO;
 		this.tags = tags;
@@ -68,6 +70,7 @@ public class QuestionController {
 		this.viewCounter = viewCounter;
 		this.linker = linker;
 		this.watchers = watchers;
+		this.reputationEvents = reputationEvents;
 	}
 
 	@Get("/perguntar")
@@ -135,7 +138,6 @@ public class QuestionController {
 
 	@Post("/perguntar")
 	@LoggedAccess
-	@GeneratesReputationEvent(ReputationEvents.NEW_QUESTION)
 	public void newQuestion(String title, String description, String tagNames, boolean watching) {
 		List<String> splitedTags = splitTags(tagNames);
 		List<Tag> foundTags = tags.findAllWithoutRepeat(splitedTags);
@@ -149,7 +151,10 @@ public class QuestionController {
 		validator.onErrorRedirectTo(this).questionForm();
 		
 		questions.save(question);
-		if(watching) {
+		ReputationEvent reputationEvent = new ReputationEvent(EventType.CREATED_QUESTION, question, author);
+		author.increaseKarma(reputationEvent.getKarmaReward());
+		reputationEvents.save(reputationEvent);
+		if (watching) {
 			watchers.add(new Watcher(author, question));
 		}
 		result.redirectTo(this).showQuestion(question, question.getSluggedTitle());

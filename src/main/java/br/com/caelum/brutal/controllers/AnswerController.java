@@ -5,20 +5,21 @@ import java.util.Arrays;
 import br.com.caelum.brutal.auth.LoggedAccess;
 import br.com.caelum.brutal.auth.rules.AuthorizationSystem;
 import br.com.caelum.brutal.dao.AnswerDAO;
+import br.com.caelum.brutal.dao.ReputationEventDAO;
 import br.com.caelum.brutal.dao.WatcherDAO;
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.mail.action.EmailAction;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.AnswerInformation;
+import br.com.caelum.brutal.model.EventType;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.Question;
+import br.com.caelum.brutal.model.ReputationEvent;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.watch.Watcher;
 import br.com.caelum.brutal.notification.NotificationManager;
 import br.com.caelum.brutal.reputation.rules.KarmaCalculator;
-import br.com.caelum.brutal.reputation.rules.GeneratesReputationEvent;
-import br.com.caelum.brutal.reputation.rules.ReputationEvents;
 import br.com.caelum.brutal.validators.AnsweredByValidator;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
@@ -42,13 +43,14 @@ public class AnswerController {
 	private final AnsweredByValidator answeredByValidator;
 	private final NotificationManager notificationManager;
 	private final WatcherDAO watchers;
+	private final ReputationEventDAO reputationEvents;
 
 	public AnswerController(Result result, AnswerDAO dao, 
 			LoggedUser user, Localization localization,
 	        KarmaCalculator calculator, MessageFactory messageFactory, 
 	        AuthorizationSystem authorizationSystem, Validator validator,
 	        AnsweredByValidator answeredByValidator, NotificationManager notificationManager,
-	        WatcherDAO watchers) {
+	        WatcherDAO watchers, ReputationEventDAO reputationEvents) {
 		this.result = result;
 		this.answers = dao;
 		this.currentUser = user;
@@ -60,6 +62,7 @@ public class AnswerController {
 		this.answeredByValidator = answeredByValidator;
 		this.notificationManager = notificationManager;
 		this.watchers = watchers;
+		this.reputationEvents = reputationEvents;
 	}
 
 
@@ -93,7 +96,6 @@ public class AnswerController {
 	
 	@Post("/responder/{question.id}")
 	@LoggedAccess
-	@GeneratesReputationEvent(ReputationEvents.NEW_ANSWER)
 	public void newAnswer(@Load Question question, String description, boolean watching) {
 		User current = currentUser.getCurrent();
 		boolean canAnswer = answeredByValidator.validate(question);
@@ -102,9 +104,12 @@ public class AnswerController {
 		if (canAnswer) {
     		question.touchedBy(current);
         	answers.save(answer);
+        	ReputationEvent reputationEvent = new ReputationEvent(EventType.CREATED_ANSWER, question, current);
+        	reputationEvents.save(reputationEvent);
+    		current.increaseKarma(reputationEvent.getKarmaReward());
         	result.redirectTo(QuestionController.class).showQuestion(question, question.getSluggedTitle());
 			notificationManager.sendEmailsAndInactivate(new EmailAction(answer, question));
-			if(watching) {
+			if (watching) {
 				watchers.add(new Watcher(current, question));
 			}
         } else {
