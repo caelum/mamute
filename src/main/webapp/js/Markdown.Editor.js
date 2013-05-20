@@ -1471,7 +1471,7 @@
             buttons.quote = makeButton("wmd-quote-button", getString("quote"), "-60px", bindCommand("doBlockquote"));
             buttons.code = makeButton("wmd-code-button", getString("code"), "-80px", bindCommand("doCode"));
             buttons.image = makeButton("wmd-image-button", getString("image"), "-100px", bindCommand(function (chunk, postProcessing) {
-                return this.doLinkOrImage(chunk, postProcessing, true);
+                return this.doImage(chunk, postProcessing);
             }));
             makeSpacer(2);
             buttons.olist = makeButton("wmd-olist-button", getString("olist"), "-120px", bindCommand(function (chunk, postProcessing) {
@@ -1762,7 +1762,7 @@
 
                     if (!chunk.selection) {
                         if (isImage) {
-                            chunk.selection = that.getString("imagedescription");
+                            chunk.selection = link;
                         }
                         else {
                             chunk.selection = that.getString("linkdescription");
@@ -1775,8 +1775,7 @@
             background = ui.createBackground();
 
             if (isImage) {
-                if (!this.hooks.insertImageDialog(linkEnteredCallback))
-                    ui.prompt(this.getString("imagedialog"), imageDefaultText, linkEnteredCallback);
+            	linkEnteredCallback(link);
             }
             else {
                 ui.prompt(this.getString("linkdialog"), linkDefaultText, linkEnteredCallback);
@@ -1787,7 +1786,7 @@
     
     commandProto.doImage = function (chunk, postProcessing){
     	filepicker.setKey('A9UgH5nqtSwezTFGjRxj4z');
-    	var fp, imageLink;
+    	var fp;
 		var featherEditor = new Aviary.Feather({
 			apiKey: 'et9pkf3wlm9299uk',
 			apiVersion: 2,
@@ -1802,14 +1801,13 @@
 						fp,
 						{url: newURL},
 						function(FPFile){
-							console.log(FPFile.url);
+							commandProto.doLinkOrImage(chunk, postProcessing, true, FPFile.url);
 						}
 				);
 			},
 			appendTo: 'web_demo_pane'
 		});
 		
-    	//Placeholder image for Aviary
     	var preview = document.getElementById('web_demo_preview');
     	
       	filepicker.pick({
@@ -1825,8 +1823,7 @@
 					 image: preview,
 					 url: fpfile.url
 				 });
-			 }
-		);
+			 });
     };
 
     // When making a list, hitting shift-enter will put your cursor on the next line
