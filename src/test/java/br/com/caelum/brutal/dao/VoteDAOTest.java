@@ -33,7 +33,7 @@ public class VoteDAOTest extends DatabaseTestCase{
 		otherUser = user("Other User", "otherUser@caelum.com");
 		session.save(otherUser);
 		session.save(currentUser);
-		votingMachine = new VotingMachine(votes, new KarmaCalculator());
+		votingMachine = new VotingMachine(votes, new KarmaCalculator(), new ReputationEventDAO(session));
 	}
 	
 	@Test
