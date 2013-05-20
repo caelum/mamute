@@ -1701,9 +1701,8 @@
             return title ? link + ' "' + title + '"' : link;
         });
     }
-
-    commandProto.doLinkOrImage = function (chunk, postProcessing, isImage) {
-
+    
+    commandProto.doLinkOrImage = function (chunk, postProcessing, isImage, link) {
         chunk.trimWhitespace();
         chunk.findTags(/\s*!?\[/, /\][ ]?(?:\n[ ]*)?(\[.*?\])?/);
         var background;
@@ -1784,6 +1783,50 @@
             }
             return true;
         }
+    };
+    
+    commandProto.doImage = function (chunk, postProcessing){
+    	filepicker.setKey('A9UgH5nqtSwezTFGjRxj4z');
+    	var fp, imageLink;
+		var featherEditor = new Aviary.Feather({
+			apiKey: 'et9pkf3wlm9299uk',
+			apiVersion: 2,
+			tools: 'crop,resize,draw',
+			onClose: function(isDirty){
+				if(isDirty){
+					filepicker.remove(fp);
+				}
+			},
+			onSave: function(imageID, newURL) {
+				filepicker.write(
+						fp,
+						{url: newURL},
+						function(FPFile){
+							console.log(FPFile.url);
+						}
+				);
+			},
+			appendTo: 'web_demo_pane'
+		});
+		
+    	//Placeholder image for Aviary
+    	var preview = document.getElementById('web_demo_preview');
+    	
+      	filepicker.pick({
+			 mimetype: 'image/*',
+			 container: 'modal',
+			 service: 'COMPUTER'
+			 },
+			 
+			 function(fpfile){
+				 fp = fpfile;
+				 preview.src = fpfile.url;
+				 featherEditor.launch({
+					 image: preview,
+					 url: fpfile.url
+				 });
+			 }
+		);
     };
 
     // When making a list, hitting shift-enter will put your cursor on the next line

@@ -37,4 +37,7 @@
 			name="description"><c:out value="${value}" escapeXml="true"/></textarea>
 	</div>
 	<div class="md-panel md-preview hidden"></div>
+	<div id="web_demo_pane">
+		<img id="web_demo_preview" alt="Preview" style="display: none">
+	</div>
 </div>

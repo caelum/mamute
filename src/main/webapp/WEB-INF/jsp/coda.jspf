@@ -57,6 +57,8 @@ UserVoice.push(['showTab', 'classic_widget', {
 	<script src="<c:url value="/js/button-hints.js"/>"></script>
 	<script src="<c:url value="/js/answer-form.js"/>"></script>
 	<script src="<c:url value="/js/jquery.joyride-2.0.3.js"/>"></script>
+	<script src="<c:url value="/js/feather.js"/>"></script>
+	<script src="<c:url value="/js/filepicker.js"/>"></script>
 </c:if>
 <c:if test="${environment.name == 'production'}" >
 	<script src="<c:url value="/js/all${deployTimestamp}.js"/>"></script>
