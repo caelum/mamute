@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.hibernate.StatelessSession;
 
 import br.com.caelum.brutal.migration.Migration;
 import br.com.caelum.brutal.migration.MigrationOperation;
@@ -23,7 +24,7 @@ public class M007CopySessionKeyToUserSessionTable implements Migration {
 		MigrationOperation copySessionKey = new MigrationOperation() {
 			@SuppressWarnings("unchecked")
 			@Override
-			public void execute(Session session) {
+			public void execute(Session session, StatelessSession statelessSession) {
 				SQLQuery sqlQuery = session.createSQLQuery("select u.id,u.sessionKey from Users u where sessionKey is not null");
 				List<Object[]> userIdsAndKeys = sqlQuery.list();
 				for (Object[] userIdAndKey : userIdsAndKeys) {

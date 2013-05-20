@@ -5,6 +5,7 @@ import static java.util.Arrays.asList;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.StatelessSession;
 
 import br.com.caelum.brutal.migration.Migration;
 import br.com.caelum.brutal.migration.MigrationOperation;
@@ -21,7 +22,7 @@ public class M013AddColumnCreatedAtIntoWatcher implements Migration{
 		List<MigrationOperation> operations = RawSQLOperation.forSqls("alter table Watcher add column createdAt datetime");
 		operations.add(new MigrationOperation() {
 			@Override
-			public void execute(Session session) {
+			public void execute(Session session, StatelessSession statelessSession) {
 				session.createSQLQuery("update Watcher set createdAt = now();").executeUpdate();
 			}
 		});

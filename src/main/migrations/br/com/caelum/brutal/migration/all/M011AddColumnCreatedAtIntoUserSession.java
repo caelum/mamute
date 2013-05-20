@@ -6,6 +6,7 @@ import static java.util.Arrays.asList;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.StatelessSession;
 
 import br.com.caelum.brutal.migration.Migration;
 import br.com.caelum.brutal.migration.MigrationOperation;
@@ -21,7 +22,7 @@ public class M011AddColumnCreatedAtIntoUserSession implements Migration {
 		List<MigrationOperation> ops = forSqls("alter table UserSession add column createdAt datetime");
 		ops.add(new MigrationOperation() {
 			@Override
-			public void execute(Session session) {
+			public void execute(Session session, StatelessSession statelessSession) {
 				session.createSQLQuery("update UserSession set createdAt = now();").executeUpdate();
 			}
 		});

@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.StatelessSession;
 import org.hibernate.classic.Session;
 
 import br.com.caelum.brutal.providers.SessionFactoryCreator;
@@ -18,6 +19,7 @@ public class MigrationExecutor {
 	private int currentMigration = -1;
 	private Session session;
 	private final SessionFactoryCreator creator;
+	private StatelessSession statelessSession;
 
 	public MigrationExecutor(SessionFactory sf, SessionFactoryCreator creator) {
 		this.sf = sf;
@@ -26,11 +28,14 @@ public class MigrationExecutor {
 
 	public void begin() {
 		session = sf.openSession();
+		statelessSession = sf.openStatelessSession();
+		statelessSession.beginTransaction();
 		session.beginTransaction();
 	}
 
 	public void end() {
 		session.getTransaction().commit();
+		statelessSession.getTransaction().commit();
 	}
 
 	public void rollback() {
@@ -55,7 +60,7 @@ public class MigrationExecutor {
 
 	private void executeQueries(List<MigrationOperation> queries) {
 		for (MigrationOperation rawSQLMigration : queries) {
-			rawSQLMigration.execute(session);
+			rawSQLMigration.execute(session, statelessSession);
 		}
 	}
 

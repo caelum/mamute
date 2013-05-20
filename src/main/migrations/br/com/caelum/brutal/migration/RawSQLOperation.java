@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.StatelessSession;
 
 public class RawSQLOperation implements MigrationOperation {
 	
@@ -14,7 +15,7 @@ public class RawSQLOperation implements MigrationOperation {
 	}
 
 	@Override
-	public void execute(Session session) {
+	public void execute(Session session, StatelessSession statelessSession) {
 		session.createSQLQuery(sql).executeUpdate();
 	}
 

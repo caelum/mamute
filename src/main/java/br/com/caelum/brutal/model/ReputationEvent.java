@@ -8,6 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+
 @Entity
 public class ReputationEvent {
 
@@ -26,6 +29,9 @@ public class ReputationEvent {
 	
 	@ManyToOne
 	private User user;
+	
+	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+	private DateTime date = new DateTime();
 
 	@Deprecated
 	ReputationEvent() {
