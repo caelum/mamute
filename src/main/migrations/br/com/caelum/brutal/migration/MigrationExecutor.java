@@ -43,7 +43,6 @@ public class MigrationExecutor {
 	}
 	
 	public void rollback(Migration m) {
-		executeQueries(m.down());
 		rollback();
 	}
 

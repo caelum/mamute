@@ -11,7 +11,6 @@ import org.hibernate.StatelessSession;
 
 import br.com.caelum.brutal.migration.Migration;
 import br.com.caelum.brutal.migration.MigrationOperation;
-import br.com.caelum.brutal.migration.RawSQLOperation;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.EventType;
 import br.com.caelum.brutal.model.ReputationEvent;
@@ -45,7 +44,7 @@ public class M015InsertAnswerVoteReputationEvents implements Migration {
 
 	@Override
 	public List<MigrationOperation> down() {
-		return RawSQLOperation.forSqls("drop table ReputationEvent");
+		return asList();
 	}
 
 }
