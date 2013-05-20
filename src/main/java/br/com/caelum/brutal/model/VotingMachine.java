@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.model;
 
+import br.com.caelum.brutal.dao.ReputationEventDAO;
 import br.com.caelum.brutal.dao.VoteDAO;
 import br.com.caelum.brutal.model.interfaces.Votable;
 import br.com.caelum.brutal.reputation.rules.KarmaCalculator;
@@ -11,10 +12,12 @@ import br.com.caelum.vraptor.ioc.Component;
 public class VotingMachine {
     private VoteDAO votes;
     private final KarmaCalculator karmaCalculator;
+	private final ReputationEventDAO reputationEvents;
 
-    public VotingMachine(VoteDAO votes, KarmaCalculator karmaCalculator) {
+    public VotingMachine(VoteDAO votes, KarmaCalculator karmaCalculator, ReputationEventDAO reputationEvents) {
         this.votes = votes;
         this.karmaCalculator = karmaCalculator;
+		this.reputationEvents = reputationEvents;
     }
 
     public void register(Votable votable, Vote current, Class<?> votableType) {
@@ -31,13 +34,17 @@ public class VotingMachine {
 			votableAuthor.descreaseKarma(karmaCalculator.karmaFor(receivedVote));
 			ReputationEvent votedAtSomething = new VotedAtSomethingEvent(previous, votable).reputationEvent();
             voter.descreaseKarma(karmaCalculator.karmaFor(votedAtSomething));
+            reputationEvents.delete(receivedVote);
+            reputationEvents.delete(votedAtSomething);
         }
         votable.substitute(previous, current);
         
         ReputationEvent receivedVote = new ReceivedVoteEvent(current.getType(), votable).reputationEvent();
         votableAuthor.increaseKarma(karmaCalculator.karmaFor(receivedVote));
-        ReputationEvent votedAtSomething = new VotedAtSomethingEvent(previous, votable).reputationEvent();
+        ReputationEvent votedAtSomething = new VotedAtSomethingEvent(current, votable).reputationEvent();
         voter.increaseKarma(karmaCalculator.karmaFor(votedAtSomething));
+        reputationEvents.save(receivedVote);
+        reputationEvents.save(votedAtSomething);
     }
 
 }

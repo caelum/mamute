@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class ReputationEvent {
-	
+
 	public static final ReputationEvent VOID_EVENT = new ReputationEvent(EventType.VOID, null, null);
 
 	@Id @GeneratedValue
@@ -40,6 +40,22 @@ public class ReputationEvent {
 	
 	public int getKarmaReward() {
 		return karmaReward;
+	}
+	
+	public Long getId() {
+		return id;
+	}
+	
+	public EventType getType() {
+		return type;
+	}
+	
+	public Question getQuestionInvolved() {
+		return questionInvolved;
+	}
+	
+	public User getUser() {
+		return user;
 	}
 	
 }
