@@ -23,13 +23,13 @@ public class ReputationEventInterceptor implements Interceptor {
 
 	@Override
 	public boolean accepts(ResourceMethod method) {
-		return method.containsAnnotation(ReputationEvent.class);
+		return method.containsAnnotation(GeneratesReputationEvent.class);
 	}
 
 	@Override
 	public void intercept(InterceptorStack stack, ResourceMethod method,
 			Object resourceInstance) throws InterceptionException {
-		ReputationEvent annotation = method.getMethod().getAnnotation(ReputationEvent.class);
+		GeneratesReputationEvent annotation = method.getMethod().getAnnotation(GeneratesReputationEvent.class);
 		ReputationEvents event = annotation.value();
 		int karmaAwarded = karmaCalculator.karmaFor(event);
 		currentUser.increaseKarma(karmaAwarded);

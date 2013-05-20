@@ -21,7 +21,7 @@ import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.watch.Watcher;
-import br.com.caelum.brutal.reputation.rules.ReputationEvent;
+import br.com.caelum.brutal.reputation.rules.GeneratesReputationEvent;
 import br.com.caelum.brutal.reputation.rules.ReputationEvents;
 import br.com.caelum.brutal.validators.TagsValidator;
 import br.com.caelum.brutal.vraptor.Linker;
@@ -135,7 +135,7 @@ public class QuestionController {
 
 	@Post("/perguntar")
 	@LoggedAccess
-	@ReputationEvent(ReputationEvents.NEW_QUESTION)
+	@GeneratesReputationEvent(ReputationEvents.NEW_QUESTION)
 	public void newQuestion(String title, String description, String tagNames, boolean watching) {
 		List<String> splitedTags = splitTags(tagNames);
 		List<Tag> foundTags = tags.findAllWithoutRepeat(splitedTags);

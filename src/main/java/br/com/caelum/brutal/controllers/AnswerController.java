@@ -17,7 +17,7 @@ import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.watch.Watcher;
 import br.com.caelum.brutal.notification.NotificationManager;
 import br.com.caelum.brutal.reputation.rules.KarmaCalculator;
-import br.com.caelum.brutal.reputation.rules.ReputationEvent;
+import br.com.caelum.brutal.reputation.rules.GeneratesReputationEvent;
 import br.com.caelum.brutal.reputation.rules.ReputationEvents;
 import br.com.caelum.brutal.validators.AnsweredByValidator;
 import br.com.caelum.vraptor.Get;
@@ -93,7 +93,7 @@ public class AnswerController {
 	
 	@Post("/responder/{question.id}")
 	@LoggedAccess
-	@ReputationEvent(ReputationEvents.NEW_ANSWER)
+	@GeneratesReputationEvent(ReputationEvents.NEW_ANSWER)
 	public void newAnswer(@Load Question question, String description, boolean watching) {
 		User current = currentUser.getCurrent();
 		boolean canAnswer = answeredByValidator.validate(question);

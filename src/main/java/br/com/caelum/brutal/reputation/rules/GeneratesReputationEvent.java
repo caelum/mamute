@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ReputationEvent {
+public @interface GeneratesReputationEvent {
 
 	ReputationEvents value();
 }
