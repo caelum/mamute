@@ -24,7 +24,7 @@
 	<c:if test="${empty questions}">
 		<h2 class="title section-title"><fmt:message key="questions.empty_list" /></h2>
 	</c:if>
-	<tags:pagination startingAt="1" totalPages="${totalPages}" url="${currentUrl}"/>
+	<tags:pagination url="${currentUrl}" currentPage="${currentPage}" totalPages="${totalPages}" delta="2"/>
 </section>
 <aside class="sidebar">
 	<div class="subheader">

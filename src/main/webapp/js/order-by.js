@@ -9,7 +9,6 @@ $(function(){
 		var href = self.attr("href");
 		$.get(href, function(list){
 			repopulateWith("#"+self.data("target-id"), list, self.data("type"));
-			console.log(list);
 			selectMenu(self);
 			changePagerUrl(self, href);
 		});

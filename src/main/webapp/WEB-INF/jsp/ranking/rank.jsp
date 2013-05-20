@@ -11,4 +11,4 @@
 	<li><tags:RankingUser user="${user}"/></li>
 </c:forEach>
 </ul>
-<tags:pagination url="${linkTo[RankingController].rank}" startingAt="${actualPage}" totalPages="${pages}" delta="2"/>
+<tags:pagination url="${linkTo[RankingController].rank}" currentPage="${currentPage}" totalPages="${pages}" delta="2"/>

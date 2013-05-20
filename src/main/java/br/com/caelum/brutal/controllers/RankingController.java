@@ -21,6 +21,6 @@ public class RankingController {
 		int page = p == null ? 1 : p;
 		result.include("topUsers", users.getRank(page));
 		result.include("pages", users.numberOfPages());
-		result.include("actualPage", Integer.valueOf(page));
+		result.include("currentPage", Integer.valueOf(page));
 	}
 }
