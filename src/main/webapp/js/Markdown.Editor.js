@@ -1798,8 +1798,8 @@
 			},
 			onSave: function(imageID, newURL) {
 				console.log(newURL);
-				filepicker.store(
-						{url: newURL},
+				filepicker.storeUrl(
+						newURL,
 						function(FPFile){
 							filepicker.remove(
 								fp,
