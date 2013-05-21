@@ -1813,6 +1813,7 @@
       	filepicker.pick({
 			 mimetype: 'image/*',
 			 container: 'modal',
+			 maxSize: 400*1024,
 			 service: 'COMPUTER'
 			 },
 			 
