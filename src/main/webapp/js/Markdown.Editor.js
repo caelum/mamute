@@ -1791,6 +1791,7 @@
 			apiKey: 'et9pkf3wlm9299uk',
 			apiVersion: 2,
 			tools: 'crop,resize,draw',
+			minimumStyling: true,
 			onClose: function(isDirty){
 				if(isDirty){
 					filepicker.remove(fp);
@@ -1804,16 +1805,16 @@
 							commandProto.doLinkOrImage(chunk, postProcessing, true, FPFile.url);
 						}
 				);
-			},
-			appendTo: 'web_demo_pane'
+				featherEditor.close();
+			}
 		});
 		
-    	var preview = document.getElementById('web_demo_preview');
+    	var preview = document.getElementById('image-editor-preview');
     	
       	filepicker.pick({
 			 mimetype: 'image/*',
 			 container: 'modal',
-			 service: 'COMPUTER'
+			 service: 'COMPUTER';
 			 },
 			 
 			 function(fpfile){
