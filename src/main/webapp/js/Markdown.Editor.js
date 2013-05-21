@@ -1791,7 +1791,6 @@
 			apiKey: 'et9pkf3wlm9299uk',
 			apiVersion: 2,
 			tools: 'crop,resize,draw',
-			minimumStyling: true,
 			onClose: function(isDirty){
 				if(isDirty){
 					filepicker.remove(fp);
