@@ -13,8 +13,7 @@ $(function(){
 		var subheaderHTML = subheader[0].outerHTML;
 		$.get(href, function(list){
 			target.html(subheaderHTML + list);
-			changePagerUrl(self, href);
-			console.log(subheader);
+			changePagerUrl(target, href);
 		});
 	});
 
@@ -30,7 +29,6 @@ $(function(){
 	});
 	
 	function selectMenu(selectedMenu){
-		console.log($(selectedMenu).closest(".nav").find(".order-by"));
 		$(selectedMenu).closest(".nav").find(".order-by").removeClass("selected");
 		$(selectedMenu).addClass("selected");
 	}
@@ -70,9 +68,10 @@ $(function(){
 	function changePagerUrl(self, url){
 		var pager = $(self).closest(".user-questions").find(".pager");
 		pager.find("a").each(function(i,item){
-			$(item).parent().removeClass("current");
-			if(i == 0) $(item).parent().addClass("current");  
-			$(item).attr("href", url + "&p=" + (i+1));
+			var parent = $(item).parent();
+			parent.removeClass("current");
+			if(i == 0) parent.addClass("current");  
+			$(item).attr("href", url + "&p=" + ($(item).html()));
 		});
 	}
 });
