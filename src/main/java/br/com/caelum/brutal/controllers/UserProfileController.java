@@ -1,7 +1,6 @@
 package br.com.caelum.brutal.controllers;
 
 import static br.com.caelum.brutal.dao.WithUserDAO.OrderType.ByVotes;
-import static br.com.caelum.vraptor.view.Results.json;
 
 import org.joda.time.DateTime;
 
@@ -76,7 +75,7 @@ public class UserProfileController {
 		User author = users.findById(id);
 		order = order == null ? ByVotes : order;
 		Integer page = p == null ? 1 : p;
-		result.use(json()).withoutRoot().from(questions.withAuthorBy(author, order, page)).include("information").serialize();
+		result.forwardTo(BrutalTemplatesController.class).paginateQuestion(questions, author, order, page);
 	}
 	
 	@Get("/usuario/{id}/{sluggedName}/respostas")
@@ -84,14 +83,14 @@ public class UserProfileController {
 		User author = users.findById(id);
 		OrderType orderType = order == null ? ByVotes : order;
 		Integer page = p == null ? 1 : p;
-		result.use(json()).withoutRoot().from(answers.withAuthorBy(author, orderType, page)).include("question", "question.information").serialize();
+		result.forwardTo(BrutalTemplatesController.class).paginateAnswer(answers, author, orderType, page);
 	}
 	
 	@Get("/usuario/{id}/{sluggedName}/acompanhadas")
 	public void watchersByDateWith(Long id, String sluggedName, Integer p){
 		User user = users.findById(id);
 		Integer page = p == null ? 1 : p;
-		result.use(json()).withoutRoot().from(watchers.questionsWatchedBy(user, page)).include("information").serialize();
+		result.forwardTo(BrutalTemplatesController.class).paginateWatch(watchers, user, page);
 	}
 		
 	@Get("/usuario/editar/{user.id:[0-9]+}")

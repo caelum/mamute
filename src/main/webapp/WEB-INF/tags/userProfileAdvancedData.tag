@@ -23,6 +23,6 @@
 		<jsp:doBody/>
 	</ul>
 	<c:if test="${withPagination}">
-	    <tags:pagination url="/usuario/${user.id}/${user.sluggedName}/${type}" type="${type}" targetId="user-${type}" totalPages="${pages}" delta="2"/>
+	    <tags:pagination url="/usuario/${user.id}/${user.sluggedName}/${type}" type="${type}" targetId="user-${type}" totalPages="${pages}" delta="2" currentPage="1"/>
 	</c:if>
 </section>

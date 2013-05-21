@@ -1,0 +1,9 @@
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<ul id="user-${type}" class="fixed-height">
+	<c:forEach var="answer" items="${answers}">
+		<li class="ellipsis advanced-data-line"><span class="counter">${answer.voteCount}</span> <tags:questionLinkFor answer="${answer}"/></li>
+	</c:forEach>
+</ul>
+<tags:pagination url="${currentUrl}" currentPage="${currentPage}" totalPages="${totalPages}" delta="2" type="${type}" targetId="user-${type}"/>

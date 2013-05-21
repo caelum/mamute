@@ -3,27 +3,34 @@ $(function(){
 		QUESTION = "perguntas"
 		WATCHED = "acompanhadas";
 	
-	$(".order-by").click(function(event){
+	$(".advanced-data-section").on("click", ".order-by" , function(event){
 		event.preventDefault();
 		var self = $(this);
 		var href = self.attr("href");
+		var target = $("#" + self.data("target-id")).parent();
+		var subheader = target.find(".subheader");
+		selectMenu(self);
+		var subheaderHTML = subheader[0].outerHTML;
 		$.get(href, function(list){
-			repopulateWith("#"+self.data("target-id"), list, self.data("type"));
-			selectMenu(self);
+			target.html(subheaderHTML + list);
 			changePagerUrl(self, href);
+			console.log(subheader);
 		});
 	});
-	
-	$(".advanced-user-data .pager a").click(function(event){
+
+	$(".advanced-data-section").on("click", ".pager a", function(event){
 		event.preventDefault();
 		var self = $(this);
+		var target = $("#" + self.data("target-id")).parent();
+		var subheader = target.find(".subheader")[0].outerHTML;
 		$.get(self.attr("href"), function(list) {
-			repopulateWith("#"+self.data("target-id"), list, self.data("type"));
+			target.html(subheader + list);
 			selectPage(self.parent());
 		});
 	});
 	
 	function selectMenu(selectedMenu){
+		console.log($(selectedMenu).closest(".nav").find(".order-by"));
 		$(selectedMenu).closest(".nav").find(".order-by").removeClass("selected");
 		$(selectedMenu).addClass("selected");
 	}
