@@ -25,6 +25,7 @@ public class VoteDAOTest extends DatabaseTestCase{
 	private User currentUser;
 	private User otherUser;
 	private VotingMachine votingMachine;
+	private List<Tag> tags = new ArrayList<>();
 	
 	@Before
 	public void beforeTest() {
@@ -33,14 +34,15 @@ public class VoteDAOTest extends DatabaseTestCase{
 		otherUser = user("Other User", "otherUser@caelum.com");
 		session.save(otherUser);
 		session.save(currentUser);
+		tags.add(tag("bla"));
+		for (Tag tag : tags) {
+			session.save(tag);
+		}
 		votingMachine = new VotingMachine(votes, new KarmaCalculator(), new ReputationEventDAO(session));
 	}
 	
 	@Test
 	public void should_return_right_comments_and_currentUser_votes_map() {
-		
-		List<Tag> tags = new ArrayList<>();
-		tags.add(tag("bla"));
 		
 		Question question = question(currentUser, tags);
 		
@@ -69,9 +71,6 @@ public class VoteDAOTest extends DatabaseTestCase{
 		upvote(answerComment2, otherUser);
 		upvote(questionComment2, otherUser);
 		
-		for (Tag tag : tags) {
-			session.save(tag);
-		}
 		session.save(question);
 		session.save(answer);
 		session.save(answerComment1);
@@ -88,6 +87,23 @@ public class VoteDAOTest extends DatabaseTestCase{
 		
 		assertEquals(null, commentsAndVotes.getVotes(questionComment3));
 		assertEquals(null, commentsAndVotes.getVotes(answerComment3));
+	}
+	
+	@Test
+	public void should_find_question_from_votable() throws Exception {
+		Question question = question(currentUser, tags);
+		Answer answer = answer("answer answer answer answer answer", question, currentUser);
+		Comment comment = comment(currentUser, "blabla blabla blabla blabla blabla blabla");
+		question.add(comment);
+		
+		session.save(question);
+		session.save(answer);
+		session.save(comment);
+		
+		assertEquals(question, votes.questionOf(question));
+		assertEquals(question, votes.questionOf(answer));
+		assertEquals(question, votes.questionOf(comment));
+		
 	}
 
 	private Vote upvote(Comment comment, User user) {

@@ -172,9 +172,9 @@ public class Comment implements Notifiable, Votable, Flaggable {
 		return "comment_notification_mail";
 	}
 
+	@Deprecated
 	@Override
 	public Question getQuestion() {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 }
