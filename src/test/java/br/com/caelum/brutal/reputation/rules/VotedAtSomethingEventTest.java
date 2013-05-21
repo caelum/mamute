@@ -11,13 +11,13 @@ public class VotedAtSomethingEventTest {
 
 	@Test
 	public void should_calculate_karma_for_downvote() {
-		VotedAtSomethingEvent votedAtSomething = new VotedAtSomethingEvent(new Vote(null, VoteType.DOWN), null);
+		VotedAtSomethingEvent votedAtSomething = new VotedAtSomethingEvent(new Vote(null, VoteType.DOWN), null, null);
 		assertEquals(KarmaCalculator.DOWNVOTED_QUESTION_OR_ANSWER, votedAtSomething.reward());
 	}
 	
 	@Test
 	public void should_calculate_karma_for_upvote() {
-		VotedAtSomethingEvent votedAtSomething = new VotedAtSomethingEvent(new Vote(null, VoteType.UP), null);
+		VotedAtSomethingEvent votedAtSomething = new VotedAtSomethingEvent(new Vote(null, VoteType.UP), null, null);
 		assertEquals(0, votedAtSomething.reward());
 	}
 
