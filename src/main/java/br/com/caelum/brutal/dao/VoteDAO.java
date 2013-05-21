@@ -7,6 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import br.com.caelum.brutal.model.AnswerAndVotes;
+import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.CommentsAndVotes;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
@@ -55,6 +56,23 @@ public class VoteDAO {
 		List commentsAndVotesList = questionQuery.list();
 		commentsAndVotesList.addAll(answerQuery.list());
 		return new CommentsAndVotes(commentsAndVotesList);
+	}
+	
+	public Question questionOf(Votable votable) {
+		boolean isQuestionOrAnswer = !Comment.class.isAssignableFrom(votable.getClass());
+		if (isQuestionOrAnswer) {
+			return votable.getQuestion();
+		}
+		Question question = (Question) session
+				.createQuery("select q from Question q join q.comments.comments c where c=:comment")
+				.setParameter("comment", votable).uniqueResult();
+		if (question != null) {
+			return question;
+		}
+		question = (Question) session
+				.createQuery("select a.question from Answer a join a.comments.comments c where c=:comment")
+				.setParameter("comment", votable).uniqueResult();
+		return question;
 	}
 
     public void save(Vote vote) {

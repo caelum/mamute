@@ -25,7 +25,8 @@ public class VoteController {
 	private final VoteDAO votes;
 	private final VotingMachine votingMachine;
 
-	public VoteController(Result result, User currentUser, VoteDAO voteDAO, VotingMachine votingMachine) {
+	public VoteController(Result result, User currentUser, 
+			VoteDAO voteDAO, VotingMachine votingMachine) {
 		this.result = result;
 		this.currentUser = currentUser;
 		this.votes = voteDAO;

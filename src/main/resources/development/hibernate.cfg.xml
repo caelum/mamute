@@ -13,9 +13,9 @@
 		<property name="format_sql">false</property>
 
         <property name="hibernate.cache.region.factory_class">net.sf.ehcache.hibernate.EhCacheRegionFactory</property>
-		<property name="hibernate.cache.use_query_cache">true</property>
-		<property name="hibernate.cache.use_second_level_cache">true</property>
-		<property name="hibernate.generate_statistics">true</property>
+		<property name="hibernate.cache.use_query_cache">false</property>
+		<property name="hibernate.cache.use_second_level_cache">false</property>
+		<property name="hibernate.generate_statistics">false</property>
 		
 		<property name="connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
 		<property name="c3p0.acquire_increment">1</property>

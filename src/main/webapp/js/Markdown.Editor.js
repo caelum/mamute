@@ -1471,7 +1471,7 @@
             buttons.quote = makeButton("wmd-quote-button", getString("quote"), "-60px", bindCommand("doBlockquote"));
             buttons.code = makeButton("wmd-code-button", getString("code"), "-80px", bindCommand("doCode"));
             buttons.image = makeButton("wmd-image-button", getString("image"), "-100px", bindCommand(function (chunk, postProcessing) {
-                return this.doLinkOrImage(chunk, postProcessing, true);
+                return this.doImage(chunk, postProcessing);
             }));
             makeSpacer(2);
             buttons.olist = makeButton("wmd-olist-button", getString("olist"), "-120px", bindCommand(function (chunk, postProcessing) {
@@ -1701,9 +1701,8 @@
             return title ? link + ' "' + title + '"' : link;
         });
     }
-
-    commandProto.doLinkOrImage = function (chunk, postProcessing, isImage) {
-
+    
+    commandProto.doLinkOrImage = function (chunk, postProcessing, isImage, link) {
         chunk.trimWhitespace();
         chunk.findTags(/\s*!?\[/, /\][ ]?(?:\n[ ]*)?(\[.*?\])?/);
         var background;
@@ -1763,7 +1762,7 @@
 
                     if (!chunk.selection) {
                         if (isImage) {
-                            chunk.selection = that.getString("imagedescription");
+                            chunk.selection = link;
                         }
                         else {
                             chunk.selection = that.getString("linkdescription");
@@ -1776,14 +1775,64 @@
             background = ui.createBackground();
 
             if (isImage) {
-                if (!this.hooks.insertImageDialog(linkEnteredCallback))
-                    ui.prompt(this.getString("imagedialog"), imageDefaultText, linkEnteredCallback);
+            	linkEnteredCallback(link);
             }
             else {
                 ui.prompt(this.getString("linkdialog"), linkDefaultText, linkEnteredCallback);
             }
             return true;
         }
+    };
+    
+    commandProto.doImage = function (chunk, postProcessing){
+    	filepicker.setKey('A9UgH5nqtSwezTFGjRxj4z');
+    	var fp;
+		var featherEditor = new Aviary.Feather({
+			apiKey: 'et9pkf3wlm9299uk',
+			apiVersion: 2,
+			tools: 'crop,resize,draw,text',
+			fileFormat: 'jpg',
+			onClose: function(isDirty){
+				if(isDirty){
+					filepicker.remove(fp);
+				}
+			},
+			onSave: function(imageID, newURL) {
+				filepicker.storeUrl(
+						newURL,
+						function(FPFile){
+							filepicker.remove(
+								fp,
+								function(){
+									commandProto.doLinkOrImage(chunk, postProcessing, true, FPFile.url);
+								}
+							);
+						}
+				);
+			
+				featherEditor.close();
+			},
+			
+			language: 'pt_BR'
+		});
+		
+    	var preview = document.getElementById('image-editor-preview');
+    	
+      	filepicker.pick({
+			 mimetype: 'image/*',
+			 container: 'modal',
+			 maxSize: 400*1024,
+			 services: ['COMPUTER', 'URL']
+			 },
+			 
+			 function(fpfile){
+				 fp = fpfile;
+				 preview.src = fpfile.url;
+				 featherEditor.launch({
+					 image: preview,
+					 url: fpfile.url
+				 });
+			 });
     };
 
     // When making a list, hitting shift-enter will put your cursor on the next line

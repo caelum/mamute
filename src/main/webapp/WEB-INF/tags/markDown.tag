@@ -29,6 +29,7 @@
 			<div id="codes-button-hint" class="button-hint-text"><fmt:message key="button_hint.codes.hint"/></div>
 			<div id="html-button-hint" class="button-hint-text"><fmt:message key="button_hint.html.hint"/></div>
 		</div> --%>
+		<img id="image-editor-preview" alt="Preview" style="display: none">
 		<textarea class="${htmlClass} hintable wmd-input" id="wmd-input"
 			placeholder="${placeholder}"
 			data-hint-id="${hintId}" 

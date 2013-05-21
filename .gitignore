@@ -20,3 +20,4 @@ PagPag.pem
 vraptor-console.sh
 .vraptor-console/
 logs/
+target90*

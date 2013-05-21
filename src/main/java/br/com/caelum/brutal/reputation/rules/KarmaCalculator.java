@@ -1,26 +1,26 @@
 package br.com.caelum.brutal.reputation.rules;
 
 import br.com.caelum.brutal.model.Answer;
-import br.com.caelum.brutal.model.Information;
+import br.com.caelum.brutal.model.ReputationEvent;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class KarmaCalculator {
 
-    static final int SOLVED_QUESTION_AUTHOR = 5;
-    static final int SOLUTION_AUTHOR = 20;
-    static final int ANSWER_VOTED_UP = 10;
-    static final int MY_ANSWER_VOTED_DOWN = -2;
-    static final int MY_QUESTION_VOTED_DOWN = MY_ANSWER_VOTED_DOWN;
-    static final int QUESTION_VOTED_UP = 5;
-    static final int APPROVED_INFORMATION = 2;
-    static final int COMMENT_VOTED_UP = 1;
-	static final int ASKED_QUESTION = 2;
-	static final int ANSWERED_QUESTION = 2;
-	static final int DOWNVOTED_QUESTION_OR_ANSWER = -2;
+    public static final int SOLVED_QUESTION_AUTHOR = 5;
+    public static final int SOLUTION_AUTHOR = 20;
+    public static final int MY_ANSWER_VOTED_UP = 10;
+    public static final int MY_ANSWER_VOTED_DOWN = -2;
+    public static final int MY_QUESTION_VOTED_DOWN = MY_ANSWER_VOTED_DOWN;
+    public static final int MY_QUESTION_VOTED_UP = 5;
+    public static final int APPROVED_INFORMATION = 2;
+    public static final int COMMENT_VOTED_UP = 1;
+	public static final int ASKED_QUESTION = 2;
+	public static final int ANSWERED_QUESTION = 2;
+	public static final int DOWNVOTED_QUESTION_OR_ANSWER = -2;
     
-    public int karmaFor(KarmaRewardEvent voteEvent) {
-    	return voteEvent.reward();
+    public int karmaFor(ReputationEvent voteEvent) {
+    	return voteEvent.getKarmaReward();
     }
     
     /**
@@ -45,8 +45,4 @@ public class KarmaCalculator {
         return SOLVED_QUESTION_AUTHOR;
     }
 
-    public int karmaForApprovedInformation(Information approved) {
-        return APPROVED_INFORMATION;
-    }
-    
 }

@@ -8,11 +8,14 @@ import br.com.caelum.brutal.auth.ModeratorOrKarmaAccess;
 import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.dao.InformationDAO;
 import br.com.caelum.brutal.dao.ModeratableDao;
+import br.com.caelum.brutal.dao.ReputationEventDAO;
 import br.com.caelum.brutal.infra.ModelUrlMapping;
 import br.com.caelum.brutal.model.AnswerInformation;
+import br.com.caelum.brutal.model.EventType;
 import br.com.caelum.brutal.model.Information;
 import br.com.caelum.brutal.model.ModeratableAndPendingHistory;
 import br.com.caelum.brutal.model.QuestionInformation;
+import br.com.caelum.brutal.model.ReputationEvent;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.interfaces.Moderatable;
@@ -31,16 +34,19 @@ public class HistoryController {
 	private final ModeratableDao moderatables;
     private final KarmaCalculator calculator;
 	private final ModelUrlMapping urlMapping;
+	private final ReputationEventDAO reputationEvents;
 
 	public HistoryController(Result result, User currentUser,
 			InformationDAO informations, ModeratableDao moderatables,
-			KarmaCalculator calculator, ModelUrlMapping urlMapping) {
+			KarmaCalculator calculator, ModelUrlMapping urlMapping,
+			ReputationEventDAO reputationEvents) {
 		this.result = result;
         this.currentUser = currentUser;
         this.informations = informations;
 		this.moderatables = moderatables;
         this.calculator = calculator;
 		this.urlMapping = urlMapping;
+		this.reputationEvents = reputationEvents;
 	}
 	
 	@ModeratorOrKarmaAccess(PermissionRulesConstants.MODERATE_EDITS)
@@ -96,10 +102,13 @@ public class HistoryController {
         	return;
         }
         
+        User approvedAuthor = approved.getAuthor();
         refusePending(aprovedInformationId, pending);
         currentUser.approve(moderatable, approved);
-        int karma = calculator.karmaForApprovedInformation(approved);
-        approved.getAuthor().increaseKarma(karma);
+        ReputationEvent editAppoved = new ReputationEvent(EventType.EDIT_APPROVED, moderatable.getQuestion(), approvedAuthor);
+        int karma = calculator.karmaFor(editAppoved);
+        approvedAuthor.increaseKarma(karma);
+        reputationEvents.save(editAppoved);
         
         result.redirectTo(this).unmoderated(moderatableType);
     }
