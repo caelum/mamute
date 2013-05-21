@@ -1797,13 +1797,19 @@
 				}
 			},
 			onSave: function(imageID, newURL) {
-				filepicker.write(
-						fp,
+				console.log(newURL);
+				filepicker.store(
 						{url: newURL},
 						function(FPFile){
-							commandProto.doLinkOrImage(chunk, postProcessing, true, FPFile.url);
+							filepicker.remove(
+								fp,
+								function(){
+									commandProto.doLinkOrImage(chunk, postProcessing, true, FPFile.url);
+								}
+							);
 						}
 				);
+			
 				featherEditor.close();
 			},
 			
@@ -1816,12 +1822,13 @@
 			 mimetype: 'image/*',
 			 container: 'modal',
 			 maxSize: 400*1024,
-			 service: 'COMPUTER'
+			 services: ['COMPUTER', 'URL']
 			 },
 			 
 			 function(fpfile){
 				 fp = fpfile;
 				 preview.src = fpfile.url;
+				 console.log(fpfile);
 				 featherEditor.launch({
 					 image: preview,
 					 url: fpfile.url
