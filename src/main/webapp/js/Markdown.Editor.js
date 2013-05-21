@@ -1814,7 +1814,7 @@
       	filepicker.pick({
 			 mimetype: 'image/*',
 			 container: 'modal',
-			 service: 'COMPUTER';
+			 service: 'COMPUTER'
 			 },
 			 
 			 function(fpfile){
