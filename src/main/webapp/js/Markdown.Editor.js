@@ -1791,13 +1791,13 @@
 			apiKey: 'et9pkf3wlm9299uk',
 			apiVersion: 2,
 			tools: 'crop,resize,draw,text',
+			fileFormat: 'jpg',
 			onClose: function(isDirty){
 				if(isDirty){
 					filepicker.remove(fp);
 				}
 			},
 			onSave: function(imageID, newURL) {
-				console.log(newURL);
 				filepicker.storeUrl(
 						newURL,
 						function(FPFile){
@@ -1828,7 +1828,6 @@
 			 function(fpfile){
 				 fp = fpfile;
 				 preview.src = fpfile.url;
-				 console.log(fpfile);
 				 featherEditor.launch({
 					 image: preview,
 					 url: fpfile.url
