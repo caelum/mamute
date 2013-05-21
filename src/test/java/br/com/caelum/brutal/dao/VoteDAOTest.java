@@ -64,7 +64,6 @@ public class VoteDAOTest extends DatabaseTestCase{
 		question.add(questionComment2);
 		question.add(questionComment3);
 		
-		
 		Vote currentUserUpVote1 = upvote(answerComment1, currentUser);
 		Vote currentUserUpVote2 = upvote(questionComment1, currentUser);
 		
@@ -108,6 +107,7 @@ public class VoteDAOTest extends DatabaseTestCase{
 
 	private Vote upvote(Comment comment, User user) {
 		Vote vote = new Vote(user, VoteType.UP);
+		session.save(comment);
 		session.save(vote);
 		votingMachine.register(comment, vote, Comment.class);
 		return vote;
