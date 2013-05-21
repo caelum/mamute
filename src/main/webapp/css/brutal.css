@@ -1778,3 +1778,9 @@ a.button.ask-a-question:hover{
 	text-align: right;
 	float: right;
 }
+
+.avpw_is_fullscreen #avpw_controls{
+	bottom: 100% !important;
+	height: 67%;
+	width: 73%;
+}
