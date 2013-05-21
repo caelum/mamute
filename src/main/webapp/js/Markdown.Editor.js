@@ -1790,7 +1790,7 @@
 		var featherEditor = new Aviary.Feather({
 			apiKey: 'et9pkf3wlm9299uk',
 			apiVersion: 2,
-			tools: 'crop,resize,draw',
+			tools: 'crop,resize,draw,text',
 			onClose: function(isDirty){
 				if(isDirty){
 					filepicker.remove(fp);
@@ -1805,7 +1805,9 @@
 						}
 				);
 				featherEditor.close();
-			}
+			},
+			
+			language: 'pt_BR'
 		});
 		
     	var preview = document.getElementById('image-editor-preview');
