@@ -17,21 +17,23 @@ public class ReceivedVoteEvent {
 	private final VotableRule rule;
 	private final VoteType type;
 	private final Votable votable;
+	private final Question questionInvolved;
 	{
 		map.put(Question.class, new QuestionVoteRule());
 		map.put(Answer.class, new AnswerVoteRule());
 		map.put(Comment.class, new CommentVoteRule());
 	}
 	
-	public ReceivedVoteEvent(VoteType type, Votable votable) {
+	public ReceivedVoteEvent(VoteType type, Votable votable, Question questionInvolved) {
 		this.type = type;
 		this.votable = votable;
+		this.questionInvolved = questionInvolved;
 		this.rule = map.get(votable.getType());
 	}
 	
 	public ReputationEvent reputationEvent() {
 		EventType eventType = rule.eventType(type);
-		return new ReputationEvent(eventType, votable.getQuestion(), votable.getAuthor());
+		return new ReputationEvent(eventType, questionInvolved, votable.getAuthor());
 	}
 	
 	

@@ -23,6 +23,7 @@ public class VotingMachine {
     public void register(Votable votable, Vote current, Class<?> votableType) {
         User voter = current.getAuthor();
         User votableAuthor = votable.getAuthor();
+        Question questionInvolved = votes.questionOf(votable);
         if (votable.getAuthor().getId().equals(voter.getId())) {
             throw new IllegalArgumentException("an author can't vote its own votable");
         }
@@ -30,18 +31,18 @@ public class VotingMachine {
         Vote previous = votes.previousVoteFor(votable.getId(), voter, votableType);
 
         if (previous != null) {
-            ReputationEvent receivedVote = new ReceivedVoteEvent(previous.getType(), votable).reputationEvent();
+            ReputationEvent receivedVote = new ReceivedVoteEvent(previous.getType(), votable, questionInvolved).reputationEvent();
 			votableAuthor.descreaseKarma(karmaCalculator.karmaFor(receivedVote));
-			ReputationEvent votedAtSomething = new VotedAtSomethingEvent(previous, votable).reputationEvent();
+			ReputationEvent votedAtSomething = new VotedAtSomethingEvent(previous, votable, questionInvolved).reputationEvent();
             voter.descreaseKarma(karmaCalculator.karmaFor(votedAtSomething));
             reputationEvents.delete(receivedVote);
             reputationEvents.delete(votedAtSomething);
         }
         votable.substitute(previous, current);
         
-        ReputationEvent receivedVote = new ReceivedVoteEvent(current.getType(), votable).reputationEvent();
+        ReputationEvent receivedVote = new ReceivedVoteEvent(current.getType(), votable, questionInvolved).reputationEvent();
         votableAuthor.increaseKarma(karmaCalculator.karmaFor(receivedVote));
-        ReputationEvent votedAtSomething = new VotedAtSomethingEvent(current, votable).reputationEvent();
+        ReputationEvent votedAtSomething = new VotedAtSomethingEvent(current, votable, questionInvolved).reputationEvent();
         voter.increaseKarma(karmaCalculator.karmaFor(votedAtSomething));
         reputationEvents.save(receivedVote);
         reputationEvents.save(votedAtSomething);

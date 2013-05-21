@@ -63,8 +63,16 @@ public class VoteDAO {
 		if (isQuestionOrAnswer) {
 			return votable.getQuestion();
 		}
-		Query query = session.createQuery("select q from Question q join q.comments.comments c where c=:comment");
-		return (Question) query.setParameter("comment", votable).uniqueResult();
+		Question question = (Question) session
+				.createQuery("select q from Question q join q.comments.comments c where c=:comment")
+				.setParameter("comment", votable).uniqueResult();
+		if (question != null) {
+			return question;
+		}
+		question = (Question) session
+				.createQuery("select a.question from Answer a join a.comments.comments c where c=:comment")
+				.setParameter("comment", votable).uniqueResult();
+		return question;
 	}
 
     public void save(Vote vote) {

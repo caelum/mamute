@@ -4,6 +4,7 @@ import static br.com.caelum.vraptor.view.Results.http;
 import static br.com.caelum.vraptor.view.Results.json;
 import br.com.caelum.brutal.auth.rules.MinimumReputation;
 import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
+import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.VoteDAO;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.Comment;
@@ -24,12 +25,15 @@ public class VoteController {
 	private final User currentUser;
 	private final VoteDAO votes;
 	private final VotingMachine votingMachine;
+	private final QuestionDAO questions;
 
-	public VoteController(Result result, User currentUser, VoteDAO voteDAO, VotingMachine votingMachine) {
+	public VoteController(Result result, User currentUser, 
+			VoteDAO voteDAO, VotingMachine votingMachine, QuestionDAO questions) {
 		this.result = result;
 		this.currentUser = currentUser;
 		this.votes = voteDAO;
         this.votingMachine = votingMachine;
+		this.questions = questions;
 	}
 
 	@MinimumReputation(PermissionRulesConstants.VOTE_UP)
