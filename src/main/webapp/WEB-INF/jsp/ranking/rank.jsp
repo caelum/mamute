@@ -3,8 +3,9 @@
 <fmt:message key="metas.generic.title" var="genericTitle" />
 <tags:header facebookMetas="${true}" title="${genericTitle} - ${title}" description="${description}"/>
 
-<fmt:message key="menu.questions" var="title"/>
-<c:url value="/rss" var="rssUrl" />
+<h2 class="title page-title subheader">
+	<fmt:message key="users.ranking"/>
+</h2>
 
 <ul class="ranking">
 <c:forEach items="${topUsers}" var="user">

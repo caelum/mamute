@@ -6,4 +6,4 @@
 		<li class="ellipsis advanced-data-line"><span class="counter">${question.voteCount}</span> <tags:questionLinkFor question="${question}"/></li>
 	</c:forEach>
 </ul>
-<tags:pagination url="${currentUrl}" currentPage="${currentPage}" totalPages="${totalPages}" delta="2" type="${type}" targetId="user-${type}" />
+<tags:pagination url="${currentUrl}" currentPage="${currentPage}" totalPages="${totalPages}" delta="2" type="${type}" targetId="user-${type}" order="${order}"/>
