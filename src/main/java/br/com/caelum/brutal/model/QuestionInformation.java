@@ -222,4 +222,17 @@ public class QuestionInformation implements Information, Taggable {
 	public boolean isBeforeCurrent() {
 		return createdAt.isBefore(question.getInformation().getCreatedAt());
 	}
+
+	public DateTime moderatedAt() {
+		return moderation.getModeratedAt();
+	}
+
+	@Override
+	public String toString() {
+		return "QuestionInformation [id=" + id + ", author=" + author
+				+ ", status=" + status + ", question=" + question + "]";
+	}
+
+	
+	
 }

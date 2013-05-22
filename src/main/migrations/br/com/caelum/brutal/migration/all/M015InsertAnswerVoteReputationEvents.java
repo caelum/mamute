@@ -8,6 +8,7 @@ import net.vidageek.mirror.dsl.Mirror;
 
 import org.hibernate.Session;
 import org.hibernate.StatelessSession;
+import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.migration.Migration;
 import br.com.caelum.brutal.migration.MigrationOperation;
@@ -29,12 +30,15 @@ public class M015InsertAnswerVoteReputationEvents implements Migration {
 			@Override
 			@SuppressWarnings("unchecked")
 			public void execute(Session session, StatelessSession statelessSession) {
-				List<Answer> answers = session.createQuery("select a from Answer a join fetch a.votes").list();
+				List<Answer> answers = session.createQuery("select distinct a from Answer a join fetch a.votes").list();
 				for (Answer answer : answers) {
 					List<Vote> votes = (List<Vote>) new Mirror().on(answer).get().field("votes");
 					for (Vote vote : votes) {
 						EventType type = vote.isDown() ? EventType.ANSWER_DOWNVOTE : EventType.ANSWER_UPVOTE;
-						statelessSession.insert(new ReputationEvent(type, answer.getQuestion(), answer.getAuthor()));
+						DateTime createdAt = vote.getCreatedAt();
+						ReputationEvent reputationEvent = new ReputationEvent(type, answer.getQuestion(), answer.getAuthor());
+						new Mirror().on(reputationEvent).set().field("date").withValue(createdAt);
+						statelessSession.insert(reputationEvent);
 					}
 				}
 			}

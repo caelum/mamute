@@ -4,6 +4,8 @@ import static java.util.Arrays.asList;
 
 import java.util.List;
 
+import net.vidageek.mirror.dsl.Mirror;
+
 import org.hibernate.Session;
 import org.hibernate.StatelessSession;
 
@@ -16,6 +18,7 @@ import br.com.caelum.brutal.model.EventType;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.ReputationEvent;
+import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.ioc.ApplicationScoped;
 import br.com.caelum.vraptor.ioc.Component;
@@ -35,8 +38,11 @@ public class M017InsertAcceptededEditsReputationEvents implements Migration {
 					Question question = information.getQuestion();
 					User questionAuthor = question.getAuthor();
 					User editAuthor = information.getAuthor();
-					if (!questionAuthor.getId().equals(editAuthor.getId())) {
-						statelessSession.insert(new ReputationEvent(EventType.EDIT_APPROVED, question, editAuthor));
+					if (!questionAuthor.getId().equals(editAuthor.getId()) && information.getStatus().equals(UpdateStatus.APPROVED)) {
+						information.getStatus();
+						ReputationEvent reputationEvent = new ReputationEvent(EventType.EDIT_APPROVED, question, editAuthor);
+						new Mirror().on(reputationEvent).set().field("date").withValue(information.moderatedAt());
+						statelessSession.insert(reputationEvent);
 					}
 				}
 				List<AnswerInformation> answerInformations = session.createCriteria(AnswerInformation.class).list();
@@ -44,8 +50,10 @@ public class M017InsertAcceptededEditsReputationEvents implements Migration {
 					Answer answer = answerInformation.getAnswer();
 					User answerAuthor = answer.getAuthor();
 					User editAuthor = answerInformation.getAuthor();
-					if (!answerAuthor.getId().equals(editAuthor.getId())) {
-						statelessSession.insert(new ReputationEvent(EventType.EDIT_APPROVED, answer.getQuestion(), editAuthor));
+					if (!answerAuthor.getId().equals(editAuthor.getId()) && answerInformation.getStatus().equals(UpdateStatus.APPROVED)) {
+						ReputationEvent reputationEvent = new ReputationEvent(EventType.EDIT_APPROVED, answer.getQuestion(), editAuthor);
+						new Mirror().on(reputationEvent).set().field("date").withValue(answerInformation.moderatedAt());
+						statelessSession.insert(reputationEvent);
 					}
 				}
 				

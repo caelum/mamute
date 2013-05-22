@@ -96,5 +96,8 @@ public class Vote {
 		return type.equals(VoteType.DOWN);
 	}
 	
+	public DateTime getCreatedAt() {
+		return createdAt;
+	}
     
 }

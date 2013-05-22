@@ -8,20 +8,23 @@ import net.vidageek.mirror.dsl.Mirror;
 
 import org.hibernate.Session;
 import org.hibernate.StatelessSession;
+import org.joda.time.DateTime;
 
+import br.com.caelum.brutal.dao.VoteDAO;
 import br.com.caelum.brutal.migration.Migration;
 import br.com.caelum.brutal.migration.MigrationOperation;
 import br.com.caelum.brutal.migration.RawSQLOperation;
-import br.com.caelum.brutal.model.Answer;
+import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.EventType;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.ReputationEvent;
+import br.com.caelum.brutal.model.Vote;
 import br.com.caelum.vraptor.ioc.ApplicationScoped;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 @ApplicationScoped
-public class M018InsertCreatedQuestionAndAnswerReputationEvents implements Migration {
+public class M019CommentUpvoteReputationEvents implements Migration {
 
 	@Override
 	public List<MigrationOperation> up() {
@@ -29,17 +32,17 @@ public class M018InsertCreatedQuestionAndAnswerReputationEvents implements Migra
 			@Override
 			@SuppressWarnings("unchecked")
 			public void execute(Session session, StatelessSession statelessSession) {
-				List<Question> questions = session.createCriteria(Question.class).list();
-				for (Question question : questions) {
-					ReputationEvent reputationEvent = new ReputationEvent(EventType.CREATED_QUESTION, question, question.getAuthor());
-					new Mirror().on(reputationEvent).set().field("date").withValue(question.getCreatedAt());
-					statelessSession.insert(reputationEvent);
-				}
-				List<Answer> answers = session.createCriteria(Answer.class).list();
-				for (Answer answer : answers) {
-					ReputationEvent reputationEvent = new ReputationEvent(EventType.CREATED_ANSWER, answer.getQuestion(), answer.getAuthor());
-					new Mirror().on(reputationEvent).set().field("date").withValue(answer.getCreatedAt());
-					statelessSession.insert(reputationEvent);
+				List<Comment> comments = session.createCriteria(Comment.class).list();
+				VoteDAO voteDAO = new VoteDAO(session);
+				for (Comment comment : comments) {
+					Question question = voteDAO.questionOf(comment);
+					List<Vote> votes = comment.getVotes();
+					for (Vote vote : votes) {
+						ReputationEvent reputationEvent = new ReputationEvent(EventType.COMMENT_UPVOTE, question, comment.getAuthor());
+						DateTime createdAt = vote.getCreatedAt();
+						new Mirror().on(reputationEvent).set().field("date").withValue(createdAt);
+						statelessSession.insert(reputationEvent);
+					}
 				}
 			}
 		};
