@@ -18,6 +18,14 @@
 	.modal-flag textarea {
 		width: 88%;
 	}
+	
+	.ranking li{
+		width: 13em;
+	}
+	
+	.ranking-user .user-info {
+		width: 60%;
+	}
 }
 
 @media only screen and (max-width: 840px) {
@@ -80,6 +88,14 @@
 	
 	#uvTab {
 		display:none !important;
+	}
+	
+	.ranking li{
+		width: 12em;
+	}
+	
+	.ranking-user .user-info {
+		width: 55%;
 	}
 }
 
@@ -260,6 +276,32 @@
 	.profile-image {
 		width: 98%;
 	}
+	
+	.ranking-user .user-info {
+		width: 70%;
+	}
+	
+	.ranking li:nth-child(4n+4), .ranking li:nth-child(4n+1){
+		width: 13em;
+		clear: none;		
+	}
+	
+	.ranking li:nth-child(2n+2), .ranking li:nth-child(2n+1) {
+		width: 13em;
+		clear: none;
+	}
+	
+	.ranking li:nth-child(3n+1){
+		width: 13em;
+		clear: none;
+		margin: 1em;
+	}
+
+	.ranking li:nth-child(3n+3){
+		width: 13em;
+		clear: none;
+		margin: 1em;
+	}
 }
 
 @media only screen and (max-width: 500px){
@@ -285,6 +327,28 @@
 	
 	.footer-logo{
 		margin-bottom: 4%;
+	}
+	
+	.ranking li:nth-child(4n+4), .ranking li:nth-child(4n+1){
+		clear: none;		
+	}
+	
+	.ranking li:nth-child(3n+3), .ranking li:nth-child(3n+1){
+		clear: none;		
+	}
+	
+	.ranking li:nth-child(2n+1){
+		clear: both;
+		margin: 1em;
+	}
+
+	.ranking li:nth-child(2n+2){
+		clear: right;
+		margin: 1em;
+	}
+	
+	.ranking-user .user-info {
+		width: 60%;
 	}
 	
 }	

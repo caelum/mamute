@@ -18,7 +18,7 @@ import br.com.caelum.vraptor.ioc.Component;
 @SuppressWarnings("unchecked")
 public class UserDAO {
 
-	private static final Integer PAGE_SIZE = 40;
+	private static final Integer PAGE_SIZE = 36;
 	private final Session session;
 
 	public UserDAO(Session session) {
