@@ -10,11 +10,12 @@ import br.com.caelum.brutal.dao.WithUserDAO.OrderType;
 import br.com.caelum.brutal.dao.WithUserDAO.UserRole;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.model.interfaces.PaginatableDAO;
 import br.com.caelum.brutal.model.watch.Watcher;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
-public class WatcherDAO {
+public class WatcherDAO implements PaginatableDAO{
 
 	private final Session session;
 	private final WithUserDAO<Watcher> withUser;
@@ -76,7 +77,7 @@ public class WatcherDAO {
 		return findByQuestionAndUser(watcher.getWatchedQuestion(), watcher.getWatcher()) != null;
 	}
 
-	public List<Question> questionsWatchedBy(User user, Integer page) {
+	public List<Question> postsToPaginateBy(User user, OrderType orderType, Integer page) {
 		List<Watcher> watchers = withUser.by(user, OrderType.ByDate, page);
 		ArrayList<Question> questions = new ArrayList<>();
 		for (Watcher watcher : watchers) {
@@ -84,7 +85,7 @@ public class WatcherDAO {
 		}
 		return questions;
 	}
-
+	
 	public Long countWithAuthor(User user) {
 		return withUser.count(user);
 	}

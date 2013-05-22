@@ -10,11 +10,12 @@ import br.com.caelum.brutal.dao.WithUserDAO.UserRole;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.model.interfaces.PaginatableDAO;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 @SuppressWarnings("unchecked")
-public class QuestionDAO {
+public class QuestionDAO implements PaginatableDAO{
 	
     private static final Integer PAGE_SIZE = 50;
 	public static final long SPAM_BOUNDARY = -5;
@@ -72,11 +73,11 @@ public class QuestionDAO {
 		return questions;
 	}
 	
-	public List<Question> withAuthorBy(User user, OrderType orderByWhat, Integer page) {
+	public List<Question> postsToPaginateBy(User user, OrderType orderByWhat, Integer page) {
 		return withAuthor.by(user,orderByWhat, page);
 	}
 	
-	public long numberOfPagesTo(User user) {
+	public Long numberOfPagesTo(User user) {
 		return withAuthor.numberOfPagesTo(user);
 	}
 

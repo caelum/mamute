@@ -8,10 +8,11 @@ import br.com.caelum.brutal.dao.WithUserDAO.OrderType;
 import br.com.caelum.brutal.dao.WithUserDAO.UserRole;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.model.interfaces.PaginatableDAO;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
-public class AnswerDAO {
+public class AnswerDAO implements PaginatableDAO{
 
 	private final Session session;
 	private final WithUserDAO<Answer> withAuthor;
@@ -30,7 +31,7 @@ public class AnswerDAO {
 	}
 	
 
-	public List<Answer> withAuthorBy(User user, OrderType orderByWhat, Integer page) {
+	public List<Answer> postsToPaginateBy(User user, OrderType orderByWhat, Integer page) {
 		return withAuthor.by(user, orderByWhat, page);
 	}
 	

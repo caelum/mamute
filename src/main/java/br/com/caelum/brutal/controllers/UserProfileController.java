@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.controllers;
 
+import static br.com.caelum.brutal.dao.WithUserDAO.OrderType.ByDate;
 import static br.com.caelum.brutal.dao.WithUserDAO.OrderType.ByVotes;
 
 import org.joda.time.DateTime;
@@ -55,11 +56,11 @@ public class UserProfileController {
 		}
 		
 		result.include("isCurrentUser", currentUser.getCurrent().getId().equals(user.getId()));
-		result.include("questionsByVotes", questions.withAuthorBy(user, ByVotes, 1));
+		result.include("questionsByVotes", questions.postsToPaginateBy(user, ByVotes, 1));
 		result.include("questionsCount", questions.countWithAuthor(user));
-		result.include("answersByVotes", answers.withAuthorBy(user, ByVotes, 1));
+		result.include("answersByVotes", answers.postsToPaginateBy(user, ByVotes, 1));
 		result.include("answersCount", answers.countWithAuthor(user));
-		result.include("watchedQuestions", watchers.questionsWatchedBy(user, 1));
+		result.include("watchedQuestions", watchers.postsToPaginateBy(user, ByDate, 1));
 		result.include("watchedQuestionsCount", watchers.countWithAuthor(user));
 		
 		result.include("questionsPageTotal", questions.numberOfPagesTo(user));
@@ -75,7 +76,7 @@ public class UserProfileController {
 		User author = users.findById(id);
 		order = order == null ? ByVotes : order;
 		Integer page = p == null ? 1 : p;
-		result.forwardTo(BrutalTemplatesController.class).paginateQuestion(questions, author, order, page);
+		result.forwardTo(BrutalTemplatesController.class).userProfilePagination(questions, author, order, page, "perguntas");
 	}
 	
 	@Get("/usuario/{id}/{sluggedName}/respostas")
@@ -83,14 +84,14 @@ public class UserProfileController {
 		User author = users.findById(id);
 		OrderType orderType = order == null ? ByVotes : order;
 		Integer page = p == null ? 1 : p;
-		result.forwardTo(BrutalTemplatesController.class).paginateAnswer(answers, author, orderType, page);
+		result.forwardTo(BrutalTemplatesController.class).userProfilePagination(answers, author, orderType, page, "respostas");
 	}
 	
 	@Get("/usuario/{id}/{sluggedName}/acompanhadas")
 	public void watchersByDateWith(Long id, String sluggedName, Integer p){
 		User user = users.findById(id);
 		Integer page = p == null ? 1 : p;
-		result.forwardTo(BrutalTemplatesController.class).paginateWatch(watchers, user, page);
+		result.forwardTo(BrutalTemplatesController.class).userProfilePagination(watchers, user, ByDate, page, "acompanhadas");
 	}
 		
 	@Get("/usuario/editar/{user.id:[0-9]+}")
