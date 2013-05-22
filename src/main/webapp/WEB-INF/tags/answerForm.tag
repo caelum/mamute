@@ -6,7 +6,7 @@
 
 <h2 class="title page-title subheader"><fmt:message key="newanswer.answer.your_answer"/></h2>
 
-<c:set var="sameAuthor" value="${question.author eq currentUser}" />
+<c:set var="sameAuthor" value="${question.author eq currentUser.current}" />
 <fmt:message key="answer.form.placeholder" var="placeholder" />
 <c:if test="${sameAuthor}">
 	<fmt:message key="answer.form.sameauthor.placeholder" var="placeholder" />
