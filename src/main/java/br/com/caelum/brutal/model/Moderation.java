@@ -24,5 +24,9 @@ public class Moderation {
 
 	@ManyToOne(optional = true)
 	private User moderatedBy;
+	
+	public DateTime getModeratedAt() {
+		return moderatedAt;
+	}
 
 }

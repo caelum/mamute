@@ -4,6 +4,7 @@ import static br.com.caelum.brutal.model.MarkDown.parse;
 import static br.com.caelum.brutal.sanitizer.HtmlSanitizer.sanitize;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.Embedded;
@@ -176,5 +177,9 @@ public class Comment implements Notifiable, Votable, Flaggable {
 	@Override
 	public Question getQuestion() {
 		throw new UnsupportedOperationException();
+	}
+	
+	public List<Vote> getVotes() {
+		return Collections.unmodifiableList(votes);
 	}
 }

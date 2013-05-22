@@ -165,4 +165,12 @@ public class AnswerInformation implements Information {
 		return createdAt.isBefore(getAnswer().getInformation().createdAt);
 	}
 
+	public DateTime moderatedAt() {
+		return moderation.getModeratedAt();
+	}
+	
+	public UpdateStatus getStatus() {
+		return status;
+	}
+
 }
