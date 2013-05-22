@@ -29,7 +29,7 @@ public class M016InsertQuestionVoteReputationEvents implements Migration {
 			@Override
 			@SuppressWarnings("unchecked")
 			public void execute(Session session, StatelessSession statelessSession) {
-				List<Question> questions = session.createQuery("select a from Question a join fetch a.votes").list();
+				List<Question> questions = session.createQuery("select distinct a from Question a join fetch a.votes").list();
 				for (Question question : questions) {
 					List<Vote> votes = (List<Vote>) new Mirror().on(question).get().field("votes");
 					for (Vote vote : votes) {
