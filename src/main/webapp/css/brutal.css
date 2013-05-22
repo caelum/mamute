@@ -1481,6 +1481,13 @@ a.button.ask-a-question:hover{
 	padding: 15px 0;
 	display: inline-block;
 }
+.footer-menu ~ .footer-menu{
+	margin-left: 1em;
+}
+
+.footer-menu-label{
+	margin-right: .3em;
+}
 
 .footer-menu a {
 	color: #fff;
@@ -1488,7 +1495,7 @@ a.button.ask-a-question:hover{
 }
 
 .footer-menu a:not(:last-child) {
-	padding-right: 1.3em;
+	padding-right: 1em;
 }
 
 .footer-muted-message {
@@ -1546,11 +1553,6 @@ a.button.ask-a-question:hover{
 .footer-sub-list li:not(:last-child){
 	padding-right:.4em;
 	border-right: 1px solid #cfcfcf;
-}
-
-.footer .main-tags {
-	display: inline-block;
-	margin-right: 2%;
 }
 
 /*USER PROFILE*/
