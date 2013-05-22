@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@attribute name="question" type="br.com.caelum.brutal.model.Question" required="true" %>
 <div>
-	<a class="watch requires-login" href="${linkTo[QuestionController].watch[question.id]}">
+	<a rel="nofollow" class="watch requires-login" href="${linkTo[QuestionController].watch[question.id]}">
 		<c:choose>
 			<c:when test="${isWatching}">
 				<span class="icon-eye-open icon-2x container" 
