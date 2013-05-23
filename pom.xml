@@ -414,6 +414,8 @@
 								<exclude>**/html5shiv.js</exclude>
 								<exclude>**/diff_match_patch.js</exclude>
 								<exclude>**/pretty-text-diff.js</exclude>
+								<exclude>**/filepicker.js</exclude>
+								<exclude>**/feather.js</exclude>
 							</excludes>
 						</aggregation>
 						<aggregation>
