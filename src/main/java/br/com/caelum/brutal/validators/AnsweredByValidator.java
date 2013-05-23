@@ -19,6 +19,11 @@ public class AnsweredByValidator {
 	}
 	
 	public boolean validate(Question question){
+		if(question.getAuthor().equals(user.getCurrent())) {
+			if(!user.getCurrent().hasKarmaToAnswerOwn(question)) {
+				validator.add(factory.build("error", "answer.validation.errors.not_enough_karma"));	
+			}
+		} 
 		if(question.alreadyAnsweredBy(user.getCurrent())){
 			validator.add(factory.build("error", "answer.errors.already_answered"));
 		}

@@ -44,6 +44,11 @@
 				</fmt:message>
 			</li>
 			<li>
+				<fmt:message key="about.reputation.answer_own_question">
+					<fmt:param value="${ANSWER_OWN_QUESTION}"/>
+				</fmt:message>
+			</li>
+			<li>
 				<fmt:message key="about.reputation.downvote">
 					<fmt:param value="${VOTE_DOWN}"/>		
 				</fmt:message>
@@ -62,21 +67,6 @@
 	<div class="about-text">
 		<ul class="rules-list">
 			<li>
-				<fmt:message key="about.reputation.gain.question.answered">
-					<fmt:param value="${ANSWERED_QUESTION}"/>
-				</fmt:message>
-			</li>
-			<li>
-				<fmt:message key="about.reputation.gain.question.asked">
-					<fmt:param value="${ASKED_QUESTION}"/>
-				</fmt:message>
-			</li>
-			<li>
-				<fmt:message key="about.reputation.gain.question.solution" >
-					<fmt:param value="${SOLVED_QUESTION_AUTHOR}"/>
-				</fmt:message>
-			</li>
-			<li>
 				<fmt:message key="about.reputation.gain.answer.solution">
 					<fmt:param value="${SOLUTION_AUTHOR}"/>
 				</fmt:message>
@@ -87,13 +77,23 @@
 				</fmt:message>
 			</li>
 			<li>
-				<fmt:message key="about.reputation.gain.question_and_answer.voted_down">
-					<fmt:param value="${MY_ANSWER_VOTED_DOWN}"/>
+				<fmt:message key="about.reputation.gain.question.voted_up">
+					<fmt:param value="${MY_QUESTION_VOTED_UP}"/>
 				</fmt:message>
 			</li>
 			<li>
-				<fmt:message key="about.reputation.gain.question.voted_up">
-					<fmt:param value="${MY_QUESTION_VOTED_UP}"/>
+				<fmt:message key="about.reputation.gain.question.solution" >
+					<fmt:param value="${SOLVED_QUESTION_AUTHOR}"/>
+				</fmt:message>
+			</li>
+			<li>
+				<fmt:message key="about.reputation.gain.question.answered">
+					<fmt:param value="${ANSWERED_QUESTION}"/>
+				</fmt:message>
+			</li>
+			<li>
+				<fmt:message key="about.reputation.gain.question.asked">
+					<fmt:param value="${ASKED_QUESTION}"/>
 				</fmt:message>
 			</li>
 			<li>
@@ -106,6 +106,16 @@
 					<fmt:param value="${COMMENT_VOTED_UP}"/>
 				</fmt:message>
 			</li>
+			<li>
+				<fmt:message key="about.reputation.gain.question_and_answer.voted_down">
+					<fmt:param value="${MY_ANSWER_VOTED_DOWN}"/>
+				</fmt:message>
+			</li>
+			<li>
+				<fmt:message key="about.reputation.gain.question_and_answer.voted_down.me">
+					<fmt:param value="${DOWNVOTED_QUESTION_OR_ANSWER}"/>
+				</fmt:message>
+			</li>			
 		</ul>
 	</div><!-- about-text -->
 </div><!-- about-section -->

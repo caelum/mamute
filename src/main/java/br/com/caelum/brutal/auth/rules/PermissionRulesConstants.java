@@ -12,6 +12,11 @@ public class PermissionRulesConstants {
 	public static final int VOTE_DOWN = 100;
 	
 	/**
+	 * to answer own question
+	 */
+	public static final int ANSWER_OWN_QUESTION = 50;
+	
+	/**
 	 * to flag anything
 	 */
 	public static final int CREATE_FLAG = 10;

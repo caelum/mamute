@@ -42,6 +42,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 import org.joda.time.Years;
 
+import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.dto.UserPersonalInfo;
 import br.com.caelum.brutal.infra.Digester;
 import br.com.caelum.brutal.model.interfaces.Identifiable;
@@ -336,5 +337,8 @@ public class User implements Identifiable {
 	public boolean isAuthorOf(Votable votable) {
 		return id == votable.getAuthor().getId();
 	}
-
+	
+	public boolean hasKarmaToAnswerOwn(Question question) {
+		return 	this.karma >= PermissionRulesConstants.ANSWER_OWN_QUESTION; 
+	}
 }

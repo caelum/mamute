@@ -19,15 +19,8 @@
 			</c:if>
 		</c:forEach>
 	</ul>
-	<c:if test="${currentUser.loggedIn && !question.alreadyAnsweredBy(currentUser.current)}">
-		<c:url var="uri" value="/responder/${question.id}"/>
-		<tags:answerForm uri="${uri}" />
-	</c:if>
-	<c:if test="${currentUser.loggedIn && question.alreadyAnsweredBy(currentUser.current)}">
-		<div class="message alert already-answered">
-			<fmt:message key="answer.errors.already_answered"/>
-		</div>
-	</c:if>
+	<tags:canAnswer uri="/responder/${question.id}" question="${question}"/>
+	
 	<tags:notice isLogged="${currentUser.loggedIn}" tags="${questionTags}"/>
 	<c:if test="${!currentUser.loggedIn}">
 		<div class="login-or-signup">
