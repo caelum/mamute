@@ -87,9 +87,7 @@ public class AnswerController {
 		UpdateStatus status = original.updateWith(information);
 		answers.save(original);
 
-		result.include("messages", Arrays.asList(
-					messageFactory.build("confirmation", status.getMessage())
-				));
+		result.include("messages", Arrays.asList(messageFactory.build("confirmation", status.getMessage())));
 		Question originalQuestion = original.getQuestion();
 		result.redirectTo(QuestionController.class).showQuestion(originalQuestion, originalQuestion.getSluggedTitle());
 	}

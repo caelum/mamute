@@ -10,9 +10,15 @@ public class EditAnswerTest extends AuthenticatedAcceptanceTest {
 
     @Test
     public void should_edit_answer_of_other_author() throws Exception {
+    	loginAsModerator();
+    	home().toNewQuestionPage().newQuestion("question question question question", 
+    			"description description description description description", "java")
+    			.answer("answer answer answer answer answer answer answer answer");
+    	logout();
+    	
         loginWithALotOfKarma();
         
-        QuestionPage questionPage = home().toFirstQuestionWithAnswerPage()
+        QuestionPage questionPage = home().toFirstQuestionPage()
             .toEditFirstAnswerPage()
             .edit("new answer with more than 30 characters aw  yeah !!!", 
                 "any comment");
@@ -26,7 +32,7 @@ public class EditAnswerTest extends AuthenticatedAcceptanceTest {
     
     @Test
     public void should_edit_and_automatically_approve_author_edit() throws Exception {
-        loginRandomly();
+        loginWithALotOfKarma();
         
         QuestionPage questionPage = home().toNewQuestionPage()
             .newQuestion("question title question title question title", 
@@ -45,7 +51,7 @@ public class EditAnswerTest extends AuthenticatedAcceptanceTest {
     
     @Test
     public void should_edit_and_automatically_approve_moderator() throws Exception {
-        loginRandomly();
+    	loginWithALotOfKarma();
         home().toNewQuestionPage()
             .newQuestion("question title question title question title", 
                 "question description question description question description question description ", 
