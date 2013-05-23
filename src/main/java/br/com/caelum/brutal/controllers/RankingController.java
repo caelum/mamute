@@ -16,7 +16,7 @@ public class RankingController {
 		this.users = users;
 	}
 
-	@Get("/users/rank")
+	@Get("/ranking")
 	public void rank(Integer p) {
 		int page = p == null ? 1 : p;
 		result.include("topUsers", users.getRank(page));
