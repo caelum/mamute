@@ -18,7 +18,7 @@ public class RemoveSolutionFlaggedByModerator implements FlagAction {
 	public void fire(Flaggable flaggable) {
 		Answer answer = (Answer) flaggable;
 		if(answer.isSolution()){
-			answer.removeSolution();
+			answer.uncheckAsSolution();
 		}
 	}
 	

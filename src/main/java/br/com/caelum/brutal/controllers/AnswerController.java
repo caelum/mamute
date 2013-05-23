@@ -123,44 +123,70 @@ public class AnswerController {
 	public void markAsSolution(Long solutionId) {
 		Answer solution = answers.getById(solutionId);
 		Question question = solution.getQuestion();
-        if (currentUser.getCurrent().isAuthorOf(question)) {
-		    markOrRemove(solution);
-			result.nothing();
-		} else {
+        if (!currentUser.getCurrent().isAuthorOf(question)) {
 			result.use(Results.status()).forbidden(localization.getMessage("answer.error.not_autor"));
 			result.redirectTo(QuestionController.class).showQuestion(question,
-	                question.getSluggedTitle());
-		}
+					question.getSluggedTitle());
+			return;
+		} 
+        markOrRemoveSolution(solution);
+        result.nothing();
 	}
 
-    private void markOrRemove(Answer answer) {
+    private void markOrRemoveSolution(Answer answer) {
     	Question question = answer.getQuestion();
-    	if (answer.isSolution()){
+    	if (answer.isSolution()) {
     		decreaseKarmaOfOldSolution(answer);
-    		answer.removeSolution();
-    	}else{
-			if (question.isSolved()) {
-    			decreaseKarmaOfOldSolution(question.getSolution());
-    		}
-    		answer.markAsSolution();
-    		increaseKarmaOfUsersInvolved(answer);
-    	}
+    		answer.uncheckAsSolution();
+    		return;
+    	} 
+		if (question.isSolved()) {
+			decreaseKarmaOfOldSolution(question.getSolution());
+		}
+		answer.markAsSolution();
+		increaseKarmaOfUsersInvolved(answer);
 	}
 
     
     private void decreaseKarmaOfOldSolution(Answer solution) {
-    	int karmaForSolutionAuthor = calculator.karmaForSolutionAuthor(solution);
-    	int karmaForQuestionAuthorSolution = calculator.karmaForAuthorOfQuestionSolved(solution);
-    	solution.getAuthor().descreaseKarma(karmaForSolutionAuthor);
-    	solution.getQuestion().getAuthor().descreaseKarma(karmaForQuestionAuthorSolution);
+    	if (!solution.isTheSameAuthorOfQuestion()) {
+	    	ReputationEvent solvedQuestion = solvedQuestionEvent(solution);
+	    	int karmaForSolutionAuthor = calculator.karmaFor(solvedQuestion);
+	    	
+	    	ReputationEvent markedSolution = markedSolutionEvent(solution);
+	    	int karmaForQuestionAuthorSolution = calculator.karmaFor(markedSolution);
+	    	
+	    	reputationEvents.delete(solvedQuestion);
+	    	reputationEvents.delete(markedSolution);
+	    	
+	    	solution.getAuthor().descreaseKarma(karmaForSolutionAuthor);
+	    	solution.getQuestion().getAuthor().descreaseKarma(karmaForQuestionAuthorSolution);
+    	}
     }
 
     private void increaseKarmaOfUsersInvolved(Answer solution) {
-        int karmaForSolutionAuthor = calculator.karmaForSolutionAuthor(solution);
-        int karmaForQuestionAuthorSolution = calculator.karmaForAuthorOfQuestionSolved(solution);
-        solution.getAuthor().increaseKarma(karmaForSolutionAuthor);
-        solution.getQuestion().getAuthor().increaseKarma(karmaForQuestionAuthorSolution);
+    	if (!solution.isTheSameAuthorOfQuestion()) {
+	    	ReputationEvent solvedQuestion = solvedQuestionEvent(solution);
+	        int karmaForSolutionAuthor = calculator.karmaFor(solvedQuestion);
+	        
+	        ReputationEvent markedSolution = markedSolutionEvent(solution);
+	        int karmaForQuestionAuthorSolution = calculator.karmaFor(markedSolution);
+	        
+	        reputationEvents.save(solvedQuestion);
+	        reputationEvents.save(markedSolution);
+	        solution.getAuthor().increaseKarma(karmaForSolutionAuthor);
+	        solution.getQuestion().getAuthor().increaseKarma(karmaForQuestionAuthorSolution);
+    	}
     }
 
+    private ReputationEvent solvedQuestionEvent(Answer solution) {
+    	return new ReputationEvent(EventType.SOLVED_QUESTION, 
+    			solution.getQuestion(), solution.getAuthor());
+    }
+    
+    private ReputationEvent markedSolutionEvent(Answer solution) {
+    	return new ReputationEvent(EventType.MARKED_SOLUTION, 
+    			solution.getQuestion(), solution.getAuthor());
+    }
 
 }
