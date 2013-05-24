@@ -1262,6 +1262,7 @@ a.button.ask-a-question:hover{
 
 .not-enough-karma {
 	margin-top: 1.1em;
+	line-height: 1.3em;
 }
 
 /* Post Vote*/
