@@ -1,6 +1,5 @@
 package br.com.caelum.brutal.reputation.rules;
 
-import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.ReputationEvent;
 import br.com.caelum.vraptor.ioc.Component;
 
@@ -21,28 +20,6 @@ public class KarmaCalculator {
     
     public int karmaFor(ReputationEvent voteEvent) {
     	return voteEvent.getKarmaReward();
-    }
-    
-    /**
-     * karma won by the author of a answer marked as solution 
-     * @param solution the answer marked as solution
-     */
-    public int karmaForSolutionAuthor(Answer solution) {
-        if (solution.isTheSameAuthorOfQuestion()) {
-            return 0;
-        }
-        return SOLUTION_AUTHOR;
-    }
-    
-    /**
-     * karma won by the author of a question that was marked as solved
-     * @param solution the answer marked as solution
-     */
-    public int karmaForAuthorOfQuestionSolved(Answer solution) {
-        if (solution.isTheSameAuthorOfQuestion()) {
-            return 0;
-        }
-        return SOLVED_QUESTION_AUTHOR;
     }
 
 }

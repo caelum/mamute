@@ -14,7 +14,7 @@ import org.joda.time.DateTime;
 @Entity
 public class ReputationEvent {
 
-	public static final ReputationEvent VOID_EVENT = new ReputationEvent(EventType.VOID, null, null);
+	public static final ReputationEvent IGNORED_EVENT = new ReputationEvent(EventType.IGNORED, null, null);
 
 	@Id @GeneratedValue
 	private Long id;

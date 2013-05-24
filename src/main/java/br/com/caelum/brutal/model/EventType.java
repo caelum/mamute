@@ -67,11 +67,22 @@ public enum EventType implements KarmaRewardEvent {
 			return KarmaCalculator.DOWNVOTED_QUESTION_OR_ANSWER;
 		}
 	}, 
-	VOID {
+	IGNORED {
 		@Override
 		public int reward() {
-			// TODO Auto-generated method stub
 			return 0;
+		}
+	}, 
+	SOLVED_QUESTION {
+		@Override
+		public int reward() {
+			return KarmaCalculator.SOLUTION_AUTHOR;
+		}
+	}, 
+	MARKED_SOLUTION {
+		@Override
+		public int reward() {
+			return KarmaCalculator.SOLVED_QUESTION_AUTHOR;
 		}
 	};
 

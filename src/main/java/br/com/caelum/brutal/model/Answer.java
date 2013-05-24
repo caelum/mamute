@@ -115,8 +115,10 @@ public class Answer extends Moderatable implements Post, Notifiable {
 		this.question.markAsSolvedBy(this);
 	}
 
-	public void removeSolution() {
-		if(!this.isSolution()) throw new IllegalStateException("The answer "+ this +"  must be a solution to call removeSolution() method");
+	public void uncheckAsSolution() {
+		if (!this.isSolution()) { 
+			throw new IllegalStateException("The answer "+ this +"  must be a solution to call removeSolution() method");
+		}
 		this.question.removeSolution();
 	}
 	

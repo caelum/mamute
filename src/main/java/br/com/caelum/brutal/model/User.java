@@ -339,6 +339,6 @@ public class User implements Identifiable {
 	}
 	
 	public boolean hasKarmaToAnswerOwn(Question question) {
-		return 	this.karma >= PermissionRulesConstants.ANSWER_OWN_QUESTION; 
+		return (this.karma >= PermissionRulesConstants.ANSWER_OWN_QUESTION) || isModerator(); 
 	}
 }

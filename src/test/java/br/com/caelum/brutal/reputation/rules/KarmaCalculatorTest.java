@@ -4,8 +4,6 @@ import static br.com.caelum.brutal.reputation.rules.KarmaCalculator.MY_ANSWER_VO
 import static br.com.caelum.brutal.reputation.rules.KarmaCalculator.MY_ANSWER_VOTED_UP;
 import static br.com.caelum.brutal.reputation.rules.KarmaCalculator.MY_QUESTION_VOTED_DOWN;
 import static br.com.caelum.brutal.reputation.rules.KarmaCalculator.MY_QUESTION_VOTED_UP;
-import static br.com.caelum.brutal.reputation.rules.KarmaCalculator.SOLUTION_AUTHOR;
-import static br.com.caelum.brutal.reputation.rules.KarmaCalculator.SOLVED_QUESTION_AUTHOR;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
@@ -33,25 +31,4 @@ public class KarmaCalculatorTest extends TestCase {
         assertEquals(MY_ANSWER_VOTED_DOWN, karmaCalculator.karmaFor(new ReceivedVoteEvent(VoteType.DOWN, question, null).reputationEvent()));
     }
 
-    @Test
-    public void should_calculate_karma_for_a_solution_of_other_author() throws Exception {
-        answer.markAsSolution();
-        
-        int karmaForSolutionAuthor = karmaCalculator.karmaForSolutionAuthor(answer);
-        assertEquals(SOLUTION_AUTHOR, karmaForSolutionAuthor);
-        int karmaForQuestionAuthor = karmaCalculator.karmaForAuthorOfQuestionSolved(answer);
-        assertEquals(SOLVED_QUESTION_AUTHOR, karmaForQuestionAuthor);
-    }
-    
-    @Test
-    public void should_disconsider_karma_for_a_solution_from_question_author() throws Exception {
-        Answer answer = answer("answer from question author", question, questionAuthor);
-        answer.markAsSolution();
-        
-        int karmaForSolutionAuthor = karmaCalculator.karmaForSolutionAuthor(answer);
-        assertEquals(0, karmaForSolutionAuthor);
-        int karmaForQuestionAuthor = karmaCalculator.karmaForAuthorOfQuestionSolved(answer);
-        assertEquals(0, karmaForQuestionAuthor);
-    }
-    
 }

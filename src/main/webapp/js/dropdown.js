@@ -3,4 +3,4 @@ $(function(){
 		event.preventDefault();
 		$("#"+$(this).data("target-id")).toggle();
 	});
-}) 
+});
