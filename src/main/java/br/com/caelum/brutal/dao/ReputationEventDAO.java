@@ -35,14 +35,14 @@ public class ReputationEventDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public KarmaByQuestionHistory karmaWonByQuestion(User user, DateTime after) {
+	public KarmaByQuestionHistory karmaWonByQuestion(User user, DateTime after, Integer maxResults) {
 		String hql = "select e.questionInvolved, sum(e.karmaReward), e.date from ReputationEvent e " +
 				"join e.user u where u=:user and e.date > :after group by e.questionInvolved, day(e.date) order by e.date desc";
 		
 		Query query = session.createQuery(hql);
-		List<Object[]> results = query
-				.setParameter("user", user)
-				.setParameter("after", after).list();
+		List<Object[]> results = maxResults == null ? 
+					query.setParameter("user", user).setParameter("after", after).list() : 
+					query.setParameter("user", user).setParameter("after", after).setMaxResults(maxResults).list();
 		return new KarmaByQuestionHistory(results);
 	}
 

@@ -66,7 +66,7 @@ public class UserProfileController {
 		result.include("watchedQuestions", watchers.postsToPaginateBy(user, ByDate, 1));
 		result.include("watchedQuestionsCount", watchers.countWithAuthor(user));
 		
-		reputationEvents.karmaWonByQuestion(user, new DateTime().minusMonths(1));
+		result.include("reputationHistory", reputationEvents.karmaWonByQuestion(user, new DateTime().minusMonths(1), 4).getHistory());
 		
 		result.include("questionsPageTotal", questions.numberOfPagesTo(user));
 		result.include("answersPageTotal", answers.numberOfPagesTo(user));

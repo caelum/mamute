@@ -79,7 +79,7 @@ public class ReputationEventDAOTest extends DatabaseTestCase {
 		session.save(event2Question1);
 		session.save(event2Question2);
 		
-		KarmaByQuestionHistory karmaByQuestion = reputationEvents.karmaWonByQuestion(author, new DateTime().minusHours(1));
+		KarmaByQuestionHistory karmaByQuestion = reputationEvents.karmaWonByQuestion(author, new DateTime().minusHours(1), null);
 		List<KarmaAndQuestion> history = karmaByQuestion.getHistory();
 		assertEquals(2, history.size());
 		
@@ -102,7 +102,7 @@ public class ReputationEventDAOTest extends DatabaseTestCase {
 		session.save(event2);
 		session.save(event1);
 		
-		KarmaByQuestionHistory karmaByQuestion = reputationEvents.karmaWonByQuestion(author, new DateTime().minusDays(2));
+		KarmaByQuestionHistory karmaByQuestion = reputationEvents.karmaWonByQuestion(author, new DateTime().minusDays(2), null);
 		List<KarmaAndQuestion> history = karmaByQuestion.getHistory();
 		
 		assertEquals(2, history.size());
