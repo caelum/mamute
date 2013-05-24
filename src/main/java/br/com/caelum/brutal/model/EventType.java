@@ -67,7 +67,7 @@ public enum EventType implements KarmaRewardEvent {
 			return KarmaCalculator.DOWNVOTED_QUESTION_OR_ANSWER;
 		}
 	}, 
-	VOID {
+	IGNORED {
 		@Override
 		public int reward() {
 			return 0;

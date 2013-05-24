@@ -19,7 +19,7 @@ public class ReputationEventDAO {
 	}
 
 	public void save(ReputationEvent reputationEvent) {
-		if (reputationEvent != ReputationEvent.VOID_EVENT)
+		if (reputationEvent != ReputationEvent.IGNORED_EVENT)
 			session.save(reputationEvent);
 	}
 

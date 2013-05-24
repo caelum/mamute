@@ -27,7 +27,7 @@ public class VotedAtSomethingEvent {
 
 	public ReputationEvent reputationEvent() {
 		ReputationEvent downvoted = new ReputationEvent(EventType.DOWNVOTED_SOMETHING, questionInvolved, vote.getAuthor());
-		return vote.isDown() ? downvoted : ReputationEvent.VOID_EVENT;
+		return vote.isDown() ? downvoted : ReputationEvent.IGNORED_EVENT;
 	}
 
 }
