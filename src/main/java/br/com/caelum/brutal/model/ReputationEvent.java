@@ -44,7 +44,7 @@ public class ReputationEvent {
 		this.user = user;
 	}
 	
-	public int getKarmaReward() {
+	public Integer getKarmaReward() {
 		return karmaReward;
 	}
 	

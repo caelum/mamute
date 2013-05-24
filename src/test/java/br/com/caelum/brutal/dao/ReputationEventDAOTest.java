@@ -87,7 +87,29 @@ public class ReputationEventDAOTest extends DatabaseTestCase {
 		assertEquals(questionInvolved2, history.get(1).getQuestion());
 		assertEquals(question1Karma.longValue(), history.get(0).getKarma().longValue());
 		assertEquals(question2Karma.longValue(), history.get(1).getKarma().longValue());
+	}
+	
+	@Test
+	public void should_group_reputation_karma_reward_by_date() throws Exception {
+		ReputationEvent event1 = TimeMachine.goTo(new DateTime().minusDays(1)).andExecute(new Block<ReputationEvent>() {
+			@Override
+			public ReputationEvent run() {
+				return new ReputationEvent(EventType.QUESTION_UPVOTE, questionInvolved1, author);
+			}
+		});
+		ReputationEvent event2 = new ReputationEvent(EventType.ANSWER_DOWNVOTE, questionInvolved1, author);
 		
+		session.save(event2);
+		session.save(event1);
+		
+		KarmaByQuestionHistory karmaByQuestion = reputationEvents.karmaWonByQuestion(author, new DateTime().minusDays(2));
+		List<KarmaAndQuestion> history = karmaByQuestion.getHistory();
+		
+		assertEquals(2, history.size());
+		assertEquals(questionInvolved1, history.get(1).getQuestion());
+		assertEquals(event1.getKarmaReward().longValue(), history.get(1).getKarma().longValue());
+		assertEquals(questionInvolved1, history.get(0).getQuestion());
+		assertEquals(event2.getKarmaReward().longValue(), history.get(0).getKarma().longValue());
 	}
 
 }

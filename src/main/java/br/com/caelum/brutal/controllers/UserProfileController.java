@@ -7,6 +7,7 @@ import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.dao.AnswerDAO;
 import br.com.caelum.brutal.dao.QuestionDAO;
+import br.com.caelum.brutal.dao.ReputationEventDAO;
 import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.dao.WatcherDAO;
@@ -33,10 +34,11 @@ public class UserProfileController {
     private final TagDAO tags;
 	private static final String HTTP = "http://";
 	private final WatcherDAO watchers;
+	private ReputationEventDAO reputationEvents;
 
     public UserProfileController(Result result, UserDAO users, LoggedUser currentUser,
             QuestionDAO questions, AnswerDAO answers, TagDAO tags, WatcherDAO watchers,
-            UserPersonalInfoValidator infoValidator) {
+            UserPersonalInfoValidator infoValidator, ReputationEventDAO reputationEvents) {
 		this.result = result;
 		this.users = users;
 		this.currentUser = currentUser;
@@ -45,6 +47,7 @@ public class UserProfileController {
 		this.tags = tags;
 		this.watchers = watchers;
 		this.infoValidator = infoValidator;
+		this.reputationEvents = reputationEvents;
 	}
 	
 	@Get("/usuario/{user.id:[0-9]+}/{sluggedName}")
@@ -62,6 +65,8 @@ public class UserProfileController {
 		result.include("answersCount", answers.countWithAuthor(user));
 		result.include("watchedQuestions", watchers.postsToPaginateBy(user, ByDate, 1));
 		result.include("watchedQuestionsCount", watchers.countWithAuthor(user));
+		
+		reputationEvents.karmaWonByQuestion(user, new DateTime().minusMonths(1));
 		
 		result.include("questionsPageTotal", questions.numberOfPagesTo(user));
 		result.include("answersPageTotal", answers.numberOfPagesTo(user));
