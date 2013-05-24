@@ -477,6 +477,10 @@ form.inactive .submit{
 	color: #84BC41;
 }
 
+.watch .icon-muted {
+	color: #ccc;
+}
+
 .form-watch {
 	float: right;
 	width: 45%;
