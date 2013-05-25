@@ -1645,8 +1645,20 @@ a.button.ask-a-question:hover{
 }
 
 .advanced-data-section .counter {
-	padding: .4em;
+	margin: .4em;
 	color: #000;
+}
+.advanced-data-section .counter.positive-karma {
+	margin: .2em;
+	padding: .2em;
+	background-color: green;
+	color: #fff;
+}
+.advanced-data-section .counter.negative-karma {
+	margin: .2em;
+	padding: .2em;
+	background-color: red;
+	color: #fff;
 }
 
 .advanced-data-section .tag-line {

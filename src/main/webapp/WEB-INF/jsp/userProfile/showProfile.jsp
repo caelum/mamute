@@ -81,7 +81,7 @@
 		</tags:userProfileAdvancedData>
 		<tags:userProfileAdvancedData i18n="karma_history" list="${reputationHistory}" count="${selectedUser.karma}" type="historico-reputacao" orderOptions="false" withPagination="false">
 			<c:forEach var="historyItem" items="${reputationHistory}">
-				<li class="ellipsis advanced-data-line"><span class="counter"><c:if test="${historyItem.karma > 0}">+</c:if>${historyItem.karma}</span><tags:questionLinkFor question="${historyItem.question}"/></li>
+				<li class="ellipsis advanced-data-line"><span class="counter ${historyItem.karma > 0 ? 'positive-karma' : 'negative-karma'}"><c:if test="${historyItem.karma > 0}">+</c:if>${historyItem.karma}</span><tags:questionLinkFor question="${historyItem.question}"/></li>
 			</c:forEach>
 		</tags:userProfileAdvancedData>
 	</div>
