@@ -2,8 +2,6 @@ package br.com.caelum.brutal.controllers;
 
 import java.util.List;
 
-import org.joda.time.DateTime;
-
 import br.com.caelum.brutal.components.RecentTagsContainer;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.TagDAO;
@@ -67,7 +65,7 @@ public class ListController {
 		List<Question> questionsWithTag = questions.withTagVisible(tag, page);
 		result.include("totalPages", questions.numberOfPages(tag));
 		result.include("tagName", tagName);
-		result.include("recentTags", tags.getRecentTagsSince(new DateTime().minusMonths(3)));
+		result.include("recentTags", recentTagsContainer.getRecentTagsUsage());
 		result.include("questions", questionsWithTag);
 		result.include("currentPage", page);
 	}
