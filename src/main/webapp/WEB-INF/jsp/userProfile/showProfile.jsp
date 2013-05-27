@@ -33,8 +33,8 @@
 						</span>
 						<tags:questionLinkFor question="${historyItem.question}"/></li>
 				</c:forEach>
+				<a class="view-more" href="<c:url value='/usuario/${selectedUser.id}/${selectedUser.sluggedName}/reputacao' />"><fmt:message key="show_more" /></a>
 			</tags:userProfileAdvancedData>
-			<a href="<c:url value='/usuario/${selectedUser.id}/${selectedUser.sluggedName}/reputacao' />"><fmt:message key="show_more" /></a>
 		</div>
 		<div class="advanced-data-line-wrapper">
 			<tags:userProfileAdvancedData i18n="tags" list="${mainTags}" type="tags" orderOptions="false" withPagination="false">

@@ -1649,6 +1649,10 @@ a.button.ask-a-question:hover{
 	color: #000;
 }
 
+.advanced-data-line a {
+	color: rgb(85, 85, 85);
+}
+
 .counter.positive-karma {
 	background-color: green;
 }
@@ -1664,6 +1668,8 @@ a.button.ask-a-question:hover{
 	border-radius: 2px;
 	width: 2.5em;
 	text-align: right;
+	display: inline-block;
+	line-height: 1em;
 }
 
 .advanced-data-section .counter.negative-karma {
@@ -1730,10 +1736,19 @@ a.button.ask-a-question:hover{
 	color: #FFF;
 }
 
+.order-by.selected {
+	background-color: #808185;
+	color: #FFF;
+}
+
 .user-profile-tabs {
 	border-bottom: 1px solid #cccccc;
 	text-align: right;
 	margin-bottom: 1.5em;
+}
+
+.user-profile-tabs a {
+	color: #999;
 }
 
 .user-profile-tabs .tab {
@@ -1743,6 +1758,7 @@ a.button.ask-a-question:hover{
 	top: 1px;
 	border: 1px solid #fff;
 	border-bottom: 0px;
+	text-transform: capitalize;
 }
 
 .user-profile-tabs .tab:hover {
@@ -1753,6 +1769,10 @@ a.button.ask-a-question:hover{
 .user-profile-tabs .selected {
 	border: 1px solid #cccccc;
 	border-bottom: 1px solid #fff;
+	font-weight: bold;
+}
+.user-profile-tabs .selected a {
+	color: #000;
 }
 
 .karma-history {
@@ -1773,13 +1793,29 @@ a.button.ask-a-question:hover{
 	display: inline-block;
 }
 
-.karma-history .reputation-won {
+.reputation-won {
 	width: 3em;
+	display: inline-block;
 }
 .karma-history .event-time {
 	width: 8em;
 }
 
+.karma-history .question-link {
+	width: 80%;
+}
+.karma-history .question-link a {
+	text-overflow: ellipsis;
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.view-more {
+	display: inline-block;
+	margin-top: 1.5em;
+}
 /*404*/
 .not-found {
 	font-size: 1.1em;
@@ -1918,3 +1954,4 @@ a.button.ask-a-question:hover{
 .grey-text {
 	color: #808080;
 }
+

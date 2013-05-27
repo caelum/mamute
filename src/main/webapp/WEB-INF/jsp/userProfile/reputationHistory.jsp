@@ -13,7 +13,7 @@
 					<span class="counter karma-value ${reputationClass}">${historyItem.karma > 0 ? '+' : ''}${historyItem.karma}</span>
 				</span>
 				<span class="event-time"><tags:prettyTime time="${historyItem.date}"/></span>
-				<tags:questionLinkFor question="${historyItem.question}"/>
+				<span class="question-link"><tags:questionLinkFor question="${historyItem.question}"/></span>
 			</li>
 		</c:forEach>
 	</ul>
