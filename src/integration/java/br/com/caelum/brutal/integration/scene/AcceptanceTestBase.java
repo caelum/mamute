@@ -14,6 +14,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriver.Navigation;
@@ -99,6 +100,7 @@ public abstract class AcceptanceTestBase implements ServerInfo.AcceptanceTest {
 		} else {
 			driver = new FirefoxDriver();
 		}
+		driver.manage().window().setSize(new Dimension(1920, 1080));
 		waitForFirstBodyPresence();
 	}
 	
