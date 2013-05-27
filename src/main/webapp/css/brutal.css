@@ -1648,12 +1648,24 @@ a.button.ask-a-question:hover{
 	margin: .4em;
 	color: #000;
 }
-.advanced-data-section .counter.positive-karma {
-	margin: .2em;
-	padding: .2em;
+
+.counter.positive-karma {
 	background-color: green;
-	color: #fff;
 }
+
+.counter.negative-karma {
+	background-color: Maroon;
+}
+
+.counter.karma-value {
+	color: #fff;
+	margin: .2em;
+	padding: .3em;
+	border-radius: 2px;
+	width: 2.5em;
+	text-align: right;
+}
+
 .advanced-data-section .counter.negative-karma {
 	margin: .2em;
 	padding: .2em;
@@ -1741,6 +1753,31 @@ a.button.ask-a-question:hover{
 .user-profile-tabs .selected {
 	border: 1px solid #cccccc;
 	border-bottom: 1px solid #fff;
+}
+
+.karma-history {
+	background-color: #f9f9f9;	
+	margin-top: 1.5em;
+}
+
+.karma-history li {
+	padding: 0.5em;	
+}
+
+.karma-history a {
+	font-weight: bold;
+	color: #000;
+}
+
+.karma-history span {
+	display: inline-block;
+}
+
+.karma-history .reputation-won {
+	width: 3em;
+}
+.karma-history .event-time {
+	width: 8em;
 }
 
 /*404*/
@@ -1871,4 +1908,13 @@ a.button.ask-a-question:hover{
 	bottom: 100% !important;
 	height: 67%;
 	width: 73%;
+}
+
+.highlight {
+	font-weight: bold;
+	text-transform:capitalize;
+}
+
+.grey-text {
+	color: #808080;
 }
