@@ -1718,6 +1718,31 @@ a.button.ask-a-question:hover{
 	color: #FFF;
 }
 
+.user-profile-tabs {
+	border-bottom: 1px solid #cccccc;
+	text-align: right;
+	margin-bottom: 1.5em;
+}
+
+.user-profile-tabs .tab {
+	display: inline-block;
+	padding: 0.5em;
+	position: relative;
+	top: 1px;
+	border: 1px solid #fff;
+	border-bottom: 0px;
+}
+
+.user-profile-tabs .tab:hover {
+	border: 1px solid #cccccc;
+	border-bottom: 1px solid #fff;
+}
+
+.user-profile-tabs .selected {
+	border: 1px solid #cccccc;
+	border-bottom: 1px solid #fff;
+}
+
 /*404*/
 .not-found {
 	font-size: 1.1em;

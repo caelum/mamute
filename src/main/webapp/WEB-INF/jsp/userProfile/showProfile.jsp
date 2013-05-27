@@ -2,7 +2,7 @@
 <fmt:message key="metas.generic.title" var="genericTitle" />
 <tags:header title="${genericTitle} - ${title}"/>
 
-<tags:userProfileTab>
+<tags:userProfileTab  active="summary">
 	<section class="advanced-user-data user-data">
 		<div class="advanced-data-line-wrapper">
 			<tags:userProfileAdvancedData pages="${questionsPageTotal}" count="${questionsCount}" i18n="questions" list="${questionsByVotes}" type="perguntas" orderOptions="true" withPagination="true">

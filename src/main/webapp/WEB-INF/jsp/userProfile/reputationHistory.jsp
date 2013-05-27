@@ -2,7 +2,7 @@
 <fmt:message key="metas.generic.title" var="genericTitle" />
 <tags:header title="${genericTitle} - ${title}"/>
 
-<tags:userProfileTab>
+<tags:userProfileTab active="reputation">
 <section class="advanced-user-data user-data">
 	<c:forEach var="historyItem" items="${reputationHistory}">
 		<li class="ellipsis advanced-data-line">

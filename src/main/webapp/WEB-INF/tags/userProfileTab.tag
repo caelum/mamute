@@ -2,7 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@attribute name="active" required="true" type="java.lang.String"%>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
+
 
 <section class="basic-user-data user-data">
 	<div class="subheader">
@@ -60,4 +62,18 @@
 		${selectedUser.markedAbout}
 	</div>
 </section>
+
+<ul class="user-profile-tabs">
+	<li class="tab ${active == 'summary' ? 'selected' : ''}">
+		<a href='<c:url value="/usuario/${selectedUser.id}/${selectedUser.sluggedName}/" />'>
+			<fmt:message key="user_profile.summary"/>
+		</a>
+	</li>
+	<li class="tab ${active == 'reputation' ? 'selected' : ''}">
+		<a href='<c:url value="/usuario/${selectedUser.id}/${selectedUser.sluggedName}/reputacao" />'>
+			<fmt:message key="user_profile.reputation"/>
+		</a>
+	</li>
+</ul>
+
 <jsp:doBody/>
