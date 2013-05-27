@@ -1,7 +1,5 @@
 package br.com.caelum.brutal.dao;
 
-import java.util.List;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.joda.time.DateTime;
@@ -36,14 +34,24 @@ public class ReputationEventDAO {
 
 	@SuppressWarnings("unchecked")
 	public KarmaByQuestionHistory karmaWonByQuestion(User user, DateTime after, Integer maxResults) {
-		String hql = "select e.questionInvolved, sum(e.karmaReward), e.date from ReputationEvent e " +
-				"join e.user u where u=:user and e.date > :after group by e.questionInvolved, day(e.date) order by e.date desc";
-		
-		Query query = session.createQuery(hql);
-		List<Object[]> results = maxResults == null ? 
-					query.setParameter("user", user).setParameter("after", after).list() : 
-					query.setParameter("user", user).setParameter("after", after).setMaxResults(maxResults).list();
-		return new KarmaByQuestionHistory(results);
+		Query query = karmaByQuestionQuery(user, after).setMaxResults(maxResults);
+		return new KarmaByQuestionHistory(query.list());
 	}
 
+	@SuppressWarnings("unchecked")
+	public KarmaByQuestionHistory karmaWonByQuestion(User user,
+			DateTime after) {
+		Query query = karmaByQuestionQuery(user, after);
+		return new KarmaByQuestionHistory(query.list());
+	}
+	
+	private Query karmaByQuestionQuery(User user, DateTime after) {
+		String hql = "select e.questionInvolved, sum(e.karmaReward), e.date from ReputationEvent e " +
+				"join e.user u where u=:user and e.date > :after " +
+				"group by e.questionInvolved, day(e.date) " +
+				"order by e.date desc";
+		
+		Query query = session.createQuery(hql).setParameter("user", user).setParameter("after", after);
+		return query;
+	}
 }
