@@ -83,10 +83,10 @@ public class ReputationEventDAOTest extends DatabaseTestCase {
 		List<KarmaAndQuestion> history = karmaByQuestion.getHistory();
 		assertEquals(2, history.size());
 		
-		assertEquals(questionInvolved1, history.get(0).getQuestion());
-		assertEquals(questionInvolved2, history.get(1).getQuestion());
-		assertEquals(question1Karma.longValue(), history.get(0).getKarma().longValue());
-		assertEquals(question2Karma.longValue(), history.get(1).getKarma().longValue());
+		assertEquals(questionInvolved1, history.get(1).getQuestion());
+		assertEquals(questionInvolved2, history.get(0).getQuestion());
+		assertEquals(question1Karma.longValue(), history.get(1).getKarma().longValue());
+		assertEquals(question2Karma.longValue(), history.get(0).getKarma().longValue());
 	}
 	
 	@Test
