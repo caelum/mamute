@@ -52,9 +52,7 @@ public class UserProfileController {
 	
 	@Get("/usuario/{user.id:[0-9]+}/{sluggedName}")
 	public void showProfile(@Load User user, String sluggedName){
-		String correctSluggedName = user.getSluggedName();
-		if (!correctSluggedName.equals(sluggedName)){
-			result.redirectTo(this).showProfile(user, correctSluggedName);
+		if (redirectToRightSluggedName(user, sluggedName)) {
 			return;
 		}
 		
@@ -74,6 +72,24 @@ public class UserProfileController {
 		
 		result.include("mainTags", tags.findMainTagsOfUser(user));
 		result.include("selectedUser", user);
+	}
+	
+	@Get("/usuario/{user.id:[0-9]+}/{sluggedName}/reputacao")
+	public void reputationHistory(@Load User user, String sluggedName) {
+		if (redirectToRightSluggedName(user, sluggedName)) {
+			return;
+		}
+		result.include("selectedUser", user);
+		result.include("reputationHistory", reputationEvents.karmaWonByQuestion(user).getHistory());
+	}
+	
+	private boolean redirectToRightSluggedName(User user, String sluggedName) {
+		String correctSluggedName = user.getSluggedName();
+		if (!correctSluggedName.equals(sluggedName)) {
+			result.redirectTo(this).showProfile(user, correctSluggedName);
+			return true;
+		}
+		return false;
 	}
 
 	@Get("/usuario/{id}/{sluggedName}/perguntas")

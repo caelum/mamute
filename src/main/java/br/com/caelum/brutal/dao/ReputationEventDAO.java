@@ -54,4 +54,16 @@ public class ReputationEventDAO {
 		Query query = session.createQuery(hql).setParameter("user", user).setParameter("after", after);
 		return query;
 	}
+
+	
+	@SuppressWarnings("unchecked")
+	public KarmaByQuestionHistory karmaWonByQuestion(User user) {
+		String hql = "select e.questionInvolved, sum(e.karmaReward), e.date from ReputationEvent e " +
+				"join e.user u where u=:user " +
+				"group by e.questionInvolved, day(e.date) " +
+				"order by e.date desc";
+		
+		Query query = session.createQuery(hql).setParameter("user", user);
+		return new KarmaByQuestionHistory(query.list());
+	}
 }
