@@ -3,7 +3,7 @@
 <fmt:message key="metas.generic.title" var="genericTitle" />
 <tags:header facebookMetas="${true}" title="${genericTitle} - ${title}" description="${description}"/>
 
-<fmt:message key="menu.tags" var="title"/>
+<fmt:message key="menu.tags" var="title" />
 <c:url value="/rss/${tagName}" var="rssUrl" />
 <tags:questionList recentTags="${recentTags}" questions="${questions}" 
-	title="${title}" rssUrl="${rssUrl}"/>
+	title="${title}: [${tagName}]" rssUrl="${rssUrl}"/>
