@@ -38,10 +38,10 @@ public class RankingController {
 		Tag tag = tags.findByName(tagName);
 		if (tag == null){
 			result.nothing();
-			return;
 		}
 		result.include("tag", tag);
 		DateTime after = new DateTime().minusDays(30);
+		result.include("tag", tag);
 		result.include("answerersAllTime", reputationEvents.getTopAnswerersSummaryAllTime(tag));
 		result.include("answerersLastMonth", reputationEvents.getTopAnswerersSummaryAfter(tag, after));
 		result.include("askersAllTime", reputationEvents.getTopAskersSummaryAllTime(tag));

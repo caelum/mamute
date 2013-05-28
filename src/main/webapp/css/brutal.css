@@ -589,10 +589,14 @@ form.inactive .submit{
 	text-align: center;
 }
 
-.tag-ranking-count {
+.tag-ranking-count , .tag-ranking-karma{
 	display: inline-block;
-	width: 49%;
+	width: 24.5%;
 	vertical-align: middle;
+}
+
+.tag-ranking-karma{
+	color:#595959
 }
 
 .tag-ranking-section > .ranking-user {
@@ -600,6 +604,7 @@ form.inactive .submit{
 	display: inline-block;
 	width: 49%;
 	vertical-align: middle;
+	text-align: left;
 }
 
 .tag-ranking-section > .ranking-user .user-image{
