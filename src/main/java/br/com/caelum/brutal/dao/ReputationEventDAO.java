@@ -72,10 +72,12 @@ public class ReputationEventDAO {
 		return new KarmaByQuestionHistory(query.list());
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<UserSummaryForTag> getTopAnswerersSummaryAllTime(Tag tag) {
 		return getTopAnswerersSummary(tag, null).list();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<UserSummaryForTag> getTopAnswerersSummaryAfter(Tag tag, DateTime after) {
 		return getTopAnswerersSummary(tag, after).setParameter("after", after).list();
 	}
@@ -94,5 +96,27 @@ public class ReputationEventDAO {
 		return session.createQuery(hql).setParameter("tag", tag).setMaxResults(TOP_ANSWERERS);
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<UserSummaryForTag> getTopAskersSummaryAllTime(Tag tag) {
+		return getTopAskersSummary(tag, null).list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<UserSummaryForTag> getTopAskersSummaryAfter(Tag tag, DateTime after) {
+		return getTopAskersSummary(tag, after).setParameter("after", after).list();
+	}
+	
+	private Query getTopAskersSummary(Tag tag, DateTime after) {
+		String where = after == null ? "" : "and e.date > :after ";
+		String hql = "select new br.com.caelum.brutal.dto.UserSummaryForTag(sum(e.karmaReward) as karmaSum, count(distinct q), user) from ReputationEvent e "+
+				"join e.user user "+
+				"join e.questionInvolved q "+
+				"join q.information.tags t "+
+				"where q.author=user " + where + "and t=:tag "+
+				"group by user "+
+				"order by karmaSum desc";
+		
+		return session.createQuery(hql).setParameter("tag", tag).setMaxResults(TOP_ANSWERERS);
+	}
 	
 }

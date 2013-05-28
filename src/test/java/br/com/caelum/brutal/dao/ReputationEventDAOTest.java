@@ -126,7 +126,7 @@ public class ReputationEventDAOTest extends DatabaseTestCase {
 	}
 	
 	@Test
-	public void should_return_tag_summary_for_user() {
+	public void should_return_tag_answerer_summary() {
 		User solutionAuthor = user("solutionAuthor", "solution@x.com");
 		User otherAnswerAuthor = user("answerAuthor", "other@x.com");
 		Tag tag = tag("teste");
@@ -179,5 +179,46 @@ public class ReputationEventDAOTest extends DatabaseTestCase {
 		assertEquals(otherAnswerAuthor, summaryForTag.get(1).getUser());
 		assertEquals(1l, summaryForTag.get(1).getCount().longValue());
 	}
-
+	
+	@Test
+	public void should_return_tag_asker_summary() {
+		User question1Author = user("solutionAuthor", "solution@x.com");
+		User question3Author = user("answerAuthor", "other@x.com");
+		session.save(question3Author);
+		session.save(question1Author);
+		
+		Tag tag = tag("teste");
+		session.save(tag);
+		
+		Question question1 = question(question1Author, tag);
+		Question question2 = question(question1Author, tag);
+		Question question3 = question(question3Author, tag);
+		
+		session.save(question1);
+		session.save(question2);
+		session.save(question3);
+		
+		for(int i = 0; i < 30; i++){
+			session.save(new ReputationEvent(EventType.QUESTION_UPVOTE, question1, question1Author));
+		}
+		session.save(new ReputationEvent(EventType.QUESTION_UPVOTE, question2, question1Author));
+		
+		long karmaRewardForQuestion1 = EventType.QUESTION_UPVOTE.reward().longValue() * 31;
+		
+		for(int i = 0; i < 10; i++){
+			session.save(new ReputationEvent(EventType.QUESTION_UPVOTE, question3, question3Author));
+		}
+		
+		long karmaRewardForQuestion2 = EventType.QUESTION_UPVOTE.reward().longValue() * 10;
+		
+		List<UserSummaryForTag> summaryForTag = reputationEvents.getTopAskersSummaryAllTime(tag);
+		
+		assertEquals(2, summaryForTag.size());
+		assertEquals(karmaRewardForQuestion1, summaryForTag.get(0).getKarmaReward().longValue());
+		assertEquals(question1Author, summaryForTag.get(0).getUser());
+		assertEquals(2l, summaryForTag.get(0).getCount().longValue());
+		assertEquals(karmaRewardForQuestion2, summaryForTag.get(1).getKarmaReward().longValue());
+		assertEquals(question3Author, summaryForTag.get(1).getUser());
+		assertEquals(1l, summaryForTag.get(1).getCount().longValue());
+	}
 }
