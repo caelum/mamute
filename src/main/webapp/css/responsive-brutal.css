@@ -248,6 +248,12 @@
 	.sponsor-box:first-child{
 		display: none;
 	}
+	
+	/*Ranking*/
+	
+	.tag-ranking-section{
+		width: 100%;
+	}
 }
 
 @media only screen and (max-width: 550px) {
