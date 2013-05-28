@@ -7,7 +7,7 @@ public enum EventType implements KarmaRewardEvent {
 	
 	QUESTION_UPVOTE {
 		@Override
-		public int reward() {
+		public Integer reward() {
 			return KarmaCalculator.MY_QUESTION_VOTED_UP;
 		}
 	}, 
@@ -15,78 +15,78 @@ public enum EventType implements KarmaRewardEvent {
 	
 	QUESTION_DOWNVOTE {
 		@Override
-		public int reward() {
+		public Integer reward() {
 			return KarmaCalculator.MY_QUESTION_VOTED_DOWN;
 		}
 	}, 
 	
 	ANSWER_UPVOTE {
 		@Override
-		public int reward() {
+		public Integer reward() {
 			return KarmaCalculator.MY_ANSWER_VOTED_UP;
 		}
 	},
 	
 	ANSWER_DOWNVOTE {
 		@Override
-		public int reward() {
+		public Integer reward() {
 			return KarmaCalculator.MY_ANSWER_VOTED_DOWN;
 		}
 	}, 
 	
 	COMMENT_UPVOTE {
 		@Override
-		public int reward() {
+		public Integer reward() {
 			return KarmaCalculator.COMMENT_VOTED_UP;
 		}
 	}, 
 	
 	EDIT_APPROVED {
 		@Override
-		public int reward() {
+		public Integer reward() {
 			return KarmaCalculator.APPROVED_INFORMATION;
 		}
 	}, 
 	
 	CREATED_ANSWER {
 		@Override
-		public int reward() {
+		public Integer reward() {
 			return KarmaCalculator.ASKED_QUESTION;
 		}
 	}, 
 	
 	CREATED_QUESTION {
 		@Override
-		public int reward() {
+		public Integer reward() {
 			return KarmaCalculator.ANSWERED_QUESTION;
 		}
 	}, 
 	DOWNVOTED_SOMETHING {
 		@Override
-		public int reward() {
+		public Integer reward() {
 			return KarmaCalculator.DOWNVOTED_QUESTION_OR_ANSWER;
 		}
 	}, 
 	IGNORED {
 		@Override
-		public int reward() {
+		public Integer reward() {
 			return 0;
 		}
 	}, 
 	SOLVED_QUESTION {
 		@Override
-		public int reward() {
+		public Integer reward() {
 			return KarmaCalculator.SOLUTION_AUTHOR;
 		}
 	}, 
 	MARKED_SOLUTION {
 		@Override
-		public int reward() {
+		public Integer reward() {
 			return KarmaCalculator.SOLVED_QUESTION_AUTHOR;
 		}
 	};
 
-	public abstract int reward();
+	public abstract Integer reward();
 	
 
 }
