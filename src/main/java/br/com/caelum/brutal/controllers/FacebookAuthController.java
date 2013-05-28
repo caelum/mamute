@@ -42,7 +42,7 @@ public class FacebookAuthController extends Controller{
 		this.urlValidator = urlValidator;
 	}
 	
-	@Get("/cadastrar/facebook")
+	@Get("/cadastrar/facebook/")
 	public void signupViaFacebook(String code, String state) {
 		
 		if (code == null){
