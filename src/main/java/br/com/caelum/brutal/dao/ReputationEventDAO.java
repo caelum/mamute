@@ -1,17 +1,22 @@
 package br.com.caelum.brutal.dao;
 
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.dto.KarmaByQuestionHistory;
+import br.com.caelum.brutal.dto.UserSummaryForTag;
 import br.com.caelum.brutal.model.ReputationEvent;
+import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class ReputationEventDAO {
 
+	private static final int TOP_ANSWERERS = 20;
 	private final Session session;
 
 	public ReputationEventDAO(Session session) {
@@ -66,4 +71,28 @@ public class ReputationEventDAO {
 		Query query = session.createQuery(hql).setParameter("user", user);
 		return new KarmaByQuestionHistory(query.list());
 	}
+	
+	public List<UserSummaryForTag> getTopAnswerersSummaryAllTime(Tag tag) {
+		return getTopAnswerersSummary(tag, null).list();
+	}
+	
+	public List<UserSummaryForTag> getTopAnswerersSummaryAfter(Tag tag, DateTime after) {
+		return getTopAnswerersSummary(tag, after).setParameter("after", after).list();
+	}
+
+	private Query getTopAnswerersSummary(Tag tag, DateTime after) {
+		String where = after == null ? "" : "and e.date > :after ";
+		String hql = "select new br.com.caelum.brutal.dto.UserSummaryForTag(sum(e.karmaReward) as karmaSum, count(distinct a), user) from ReputationEvent e "+
+				"join e.user user "+
+				"join e.questionInvolved q "+
+				"join q.answers a "+
+				"join q.information.tags t "+
+				"where user=a.author " + where + "and t=:tag "+
+				"group by user "+
+				"order by karmaSum desc";
+		
+		return session.createQuery(hql).setParameter("tag", tag).setMaxResults(TOP_ANSWERERS);
+	}
+	
+	
 }

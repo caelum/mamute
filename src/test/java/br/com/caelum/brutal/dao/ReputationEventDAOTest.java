@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.dao;
 
+import static br.com.caelum.brutal.model.EventType.ANSWER_UPVOTE;
+import static br.com.caelum.brutal.model.EventType.SOLVED_QUESTION;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -11,6 +13,8 @@ import org.junit.Test;
 
 import br.com.caelum.brutal.dto.KarmaByQuestionHistory;
 import br.com.caelum.brutal.dto.KarmaByQuestionHistory.KarmaAndQuestion;
+import br.com.caelum.brutal.dto.UserSummaryForTag;
+import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.EventType;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.ReputationEvent;
@@ -119,6 +123,61 @@ public class ReputationEventDAOTest extends DatabaseTestCase {
 		assertEquals(event1.getKarmaReward().longValue(), history.get(1).getKarma().longValue());
 		assertEquals(questionInvolved1, history.get(0).getQuestion());
 		assertEquals(event2.getKarmaReward().longValue(), history.get(0).getKarma().longValue());
+	}
+	
+	@Test
+	public void should_return_tag_summary_for_user() {
+		User solutionAuthor = user("solutionAuthor", "solution@x.com");
+		User otherAnswerAuthor = user("answerAuthor", "other@x.com");
+		Tag tag = tag("teste");
+		Question question1 = question(author, tag);
+		Answer answer1 = answer("BLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLA", question1, solutionAuthor);
+		Answer answer2 = answer("BLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLA", question1, otherAnswerAuthor);
+		
+		Question question2 = question(author, tag);
+		Answer answer3 = answer("BLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLA", question2, solutionAuthor);
+		ReputationEvent answer3Upvote = new ReputationEvent(EventType.ANSWER_UPVOTE, question2, solutionAuthor);
+		
+		for(int i = 0; i < 30; i++){
+			ReputationEvent questionUpvote = new ReputationEvent(EventType.QUESTION_UPVOTE, question1, author);
+			session.save(questionUpvote);
+		}
+		
+		ReputationEvent answerIsSolution = new ReputationEvent(EventType.SOLVED_QUESTION, question1, solutionAuthor);
+		ReputationEvent solutionUpvote = new ReputationEvent(EventType.ANSWER_UPVOTE, question1, solutionAuthor);
+		long karmaRewardForSolution = SOLVED_QUESTION.reward().longValue() + ANSWER_UPVOTE.reward().longValue()*2;
+		
+		ReputationEvent answer2Upvote = new ReputationEvent(EventType.ANSWER_UPVOTE, question1, otherAnswerAuthor);
+		ReputationEvent answer2Upvote2 = new ReputationEvent(EventType.ANSWER_UPVOTE, question1, otherAnswerAuthor);
+		long karmaRewardForOtherAnswer = ANSWER_UPVOTE.reward().longValue()*2;
+		
+		session.save(tag);
+		session.save(question1);
+		session.save(question2);
+		
+		session.save(otherAnswerAuthor);
+		session.save(solutionAuthor);
+		
+		session.save(answer1);
+		session.save(answer2);
+		session.save(answer3);
+		
+		session.save(answerIsSolution);
+		session.save(solutionUpvote);
+		session.save(answer2Upvote);
+		session.save(answer2Upvote2);
+		session.save(answer3Upvote);
+		
+		
+		List<UserSummaryForTag> summaryForTag = reputationEvents.getTopAnswerersSummaryAllTime(tag);
+		
+		assertEquals(2, summaryForTag.size());
+		assertEquals(karmaRewardForSolution, summaryForTag.get(0).getKarmaReward().longValue());
+		assertEquals(solutionAuthor, summaryForTag.get(0).getUser());
+		assertEquals(2l, summaryForTag.get(0).getCount().longValue());
+		assertEquals(karmaRewardForOtherAnswer, summaryForTag.get(1).getKarmaReward().longValue());
+		assertEquals(otherAnswerAuthor, summaryForTag.get(1).getUser());
+		assertEquals(1l, summaryForTag.get(1).getCount().longValue());
 	}
 
 }
