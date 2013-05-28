@@ -26,6 +26,7 @@
 						</form>
 						<a target="_blank" class="share-button" data-shareurl="http://www.facebook.com/sharer/sharer.php?u=${currentUrl}"><i class="icon-facebook-sign icon-almost-3x"></i></a>
 						<a target="_blank" class="share-button" data-shareurl="https://twitter.com/share?text=${question.title}&url=${currentUrl}"><i class="icon-twitter-sign icon-almost-3x"></i></a>
+						<a target="_blank" class="share-button" data-shareurl="https://plus.google.com/share?&url=${currentUrl}"><i class="icon-google-plus-sign icon-almost-3x"></i></a>
 						<a class="close-popup"><fmt:message key="popup.close"/></a>
 					</div>
 				</li>
