@@ -59,8 +59,8 @@ public class ReputationEventDAOTest extends DatabaseTestCase {
 	
 	@Test
 	public void should_group_reputation_karma_reward_by_post() throws Exception {
-		ReputationEvent event1Question1 = new ReputationEvent(EventType.ANSWER_DOWNVOTE, questionInvolved1, author);
-		ReputationEvent event2Question1 = new ReputationEvent(EventType.QUESTION_DOWNVOTE, questionInvolved1, author);
+		ReputationEvent event1Question1 = event30MinAgo(EventType.ANSWER_DOWNVOTE);
+		ReputationEvent event2Question1 = event30MinAgo(EventType.QUESTION_DOWNVOTE);
 		Integer question1Karma = event1Question1.getKarmaReward() + event2Question1.getKarmaReward();
 		
 		ReputationEvent event1Question2 = new ReputationEvent(EventType.QUESTION_UPVOTE, questionInvolved2, author);
@@ -87,6 +87,15 @@ public class ReputationEventDAOTest extends DatabaseTestCase {
 		assertEquals(questionInvolved2, history.get(0).getQuestion());
 		assertEquals(question1Karma.longValue(), history.get(1).getKarma().longValue());
 		assertEquals(question2Karma.longValue(), history.get(0).getKarma().longValue());
+	}
+
+	private ReputationEvent event30MinAgo(final EventType type) {
+		return TimeMachine.goTo(new DateTime().minusMinutes(30)).andExecute(new Block<ReputationEvent>() {
+			@Override
+			public ReputationEvent run() {
+				return new ReputationEvent(type, questionInvolved1, author);
+			}
+		});
 	}
 	
 	@Test
