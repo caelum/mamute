@@ -7,7 +7,9 @@
 	</p>
 	
 	<p>
-		${localization.getMessage("notification_mail.where", [linkerHelper.questionLink(emailAction.getQuestion()), emailAction.getQuestion().getTitle()])}
+		<#assign commentId = emailAction.what.id?c >
+		<#assign url = linkerHelper.questionLink(emailAction.getQuestion()) + "#comment-" + commentId>
+		${localization.getMessage("notification_mail.where", [url, emailAction.getQuestion().getTitle()])}
 	</p>
 	
 	<p>

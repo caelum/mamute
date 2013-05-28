@@ -7,8 +7,8 @@
 	</p>
 	
 	<p>
-	<#assign answerId = emailAction.what.id?c >
-	<#assign url = linkerHelper.questionLink(emailAction.getQuestion()) + "#answer-" + answerId>
+		<#assign answerId = emailAction.what.id?c >
+		<#assign url = linkerHelper.questionLink(emailAction.getQuestion()) + "#answer-" + answerId>
 		${localization.getMessage("notification_mail.where", [url, emailAction.getQuestion().getTitle()])}
 	</p>
 	
