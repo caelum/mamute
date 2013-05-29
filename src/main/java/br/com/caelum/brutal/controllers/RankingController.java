@@ -37,7 +37,7 @@ public class RankingController {
 	public void tagRank(String tagName){
 		Tag tag = tags.findByName(tagName);
 		if (tag == null){
-			result.nothing();
+			result.notFound();
 		}
 		result.include("tag", tag);
 		DateTime after = new DateTime().minusDays(30);
