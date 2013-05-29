@@ -6,10 +6,17 @@
 <%@attribute name="recentTags" type="java.util.List" required="true"%>
 <%@attribute name="questions" type="java.util.List" required="true"%>
 <%@attribute name="rssUrl" type="java.lang.String" required="false"%>
+<%@attribute name="tag" type="br.com.caelum.brutal.model.Tag" required="false"%>
 
 <section class="first-content">
 	<div class="subheader">
-		<h2 class="title page-title">${title}</h2>
+		<h2 class="title page-title">
+			${title}
+			<c:if test="${not empty tag}">
+				: <tags:tag tag="${tag}"/>
+				<a href="<c:url value='/ranking/${tag.name}'/>" title='<fmt:message key="users.ranking.tag.title"/> ${tag.name}' class="icon-trophy"></a>
+			</c:if>
+		</h2>
 		<c:if test="${not empty rssUrl}">
 			<a href="${rssUrl}" class="rss-link"><i class="icon-rss"></i></a>
 		</c:if>

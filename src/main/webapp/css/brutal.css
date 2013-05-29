@@ -73,7 +73,24 @@ a:hover{
 }
 
 .subheader .title {
-	float: left;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.subheader .tag-brutal {
+	font-size: 1em;
+	vertical-align: middle;
+}
+
+.subheader .icon-trophy {
+	font-family: FontAwesome;
+	vertical-align: middle;
+	color: #edd136;
+	font-size: 1em;
+}
+
+.subheader .icon-trophy:hover {
+	color: #e0bf18;
 }
 
 .subheader-menu {
@@ -582,6 +599,7 @@ form.inactive .submit{
 	display:inline-block;
 	width:49%;
 	margin-bottom: 5em;
+	vertical-align: top;
 }
 
 .tag-ranking-section > *{

@@ -64,7 +64,7 @@ public class ListController {
 		Tag tag = tags.findByName(tagName);
 		List<Question> questionsWithTag = questions.withTagVisible(tag, page);
 		result.include("totalPages", questions.numberOfPages(tag));
-		result.include("tagName", tagName);
+		result.include("tag", tag);
 		result.include("recentTags", recentTagsContainer.getRecentTagsUsage());
 		result.include("questions", questionsWithTag);
 		result.include("currentPage", page);
