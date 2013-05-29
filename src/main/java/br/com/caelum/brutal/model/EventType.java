@@ -1,5 +1,9 @@
 package br.com.caelum.brutal.model;
 
+import static java.util.Arrays.asList;
+
+import java.util.List;
+
 import br.com.caelum.brutal.reputation.rules.KarmaCalculator;
 import br.com.caelum.brutal.reputation.rules.KarmaRewardEvent;
 
@@ -88,5 +92,9 @@ public enum EventType implements KarmaRewardEvent {
 
 	public abstract Integer reward();
 	
+	public static List<EventType> ANSWERER_RELATED_EVENTS() {
+		return asList(ANSWER_DOWNVOTE, ANSWER_UPVOTE, SOLVED_QUESTION);
+		
+	}
 
 }
