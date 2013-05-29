@@ -1,5 +1,8 @@
 package br.com.caelum.brutal.dao;
 
+import static br.com.caelum.brutal.model.EventType.ANSWERER_RELATED_EVENTS;
+import static br.com.caelum.brutal.model.EventType.ASKER_RELATED_EVENTS;
+
 import java.util.List;
 
 import org.hibernate.Query;
@@ -89,11 +92,11 @@ public class ReputationEventDAO {
 				"join e.questionInvolved q "+
 				"join q.answers a "+
 				"join q.information.tags t "+
-				"where user=a.author " + where + "and t=:tag "+
+				"where user=a.author and e.type in (:events)" + where + "and t=:tag "+
 				"group by user "+
 				"order by karmaSum desc";
 		
-		return session.createQuery(hql).setParameter("tag", tag).setMaxResults(TOP_ANSWERERS);
+		return session.createQuery(hql).setParameterList("events", ANSWERER_RELATED_EVENTS()).setParameter("tag", tag).setMaxResults(TOP_ANSWERERS);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -112,11 +115,11 @@ public class ReputationEventDAO {
 				"join e.user user "+
 				"join e.questionInvolved q "+
 				"join q.information.tags t "+
-				"where q.author=user " + where + "and t=:tag "+
+				"where e.type in (:events)" + where + "and t=:tag "+
 				"group by user "+
 				"order by karmaSum desc";
 		
-		return session.createQuery(hql).setParameter("tag", tag).setMaxResults(TOP_ANSWERERS);
+		return session.createQuery(hql).setParameterList("events", ASKER_RELATED_EVENTS()).setParameter("tag", tag).setMaxResults(TOP_ANSWERERS);
 	}
 	
 }

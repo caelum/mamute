@@ -93,8 +93,11 @@ public enum EventType implements KarmaRewardEvent {
 	public abstract Integer reward();
 	
 	public static List<EventType> ANSWERER_RELATED_EVENTS() {
-		return asList(ANSWER_DOWNVOTE, ANSWER_UPVOTE, SOLVED_QUESTION);
-		
+		return asList(CREATED_ANSWER, ANSWER_DOWNVOTE, ANSWER_UPVOTE, SOLVED_QUESTION);
 	}
-
+	
+	public static List<EventType> ASKER_RELATED_EVENTS() {
+		return asList(CREATED_QUESTION, QUESTION_DOWNVOTE, QUESTION_UPVOTE, MARKED_SOLUTION);
+	}
+	
 }
