@@ -9,13 +9,17 @@
 		<li class="pending">
 			<c:if test="${type eq 'pergunta'}">
 				<h3 class="title item-title">
-					<a href="${linkTo[HistoryController].similarQuestions[entry.key.id]}">${entry.key.title} - (${entry.value.size()})</a>
+					<a href="${linkTo[HistoryController].similarQuestions[entry.key.id]}">
+						<c:out value="${entry.key.title}" escapeXml="true" /> - (${entry.value.size()})
+					</a>
 				</h3>
 				<tags:tagsFor taggable="${entry.key}"></tags:tagsFor>
 			</c:if>
 			<c:if test="${type eq 'resposta'}">
 				<h3 class="title item-title">
-					<a href="${linkTo[HistoryController].similarAnswers[entry.key.id]}">${entry.key.question.title} - (${entry.value.size()})</a>
+					<a href="${linkTo[HistoryController].similarAnswers[entry.key.id]}">
+						<c:out value="${entry.key.question.title}" escapeXml="true" /> - (${entry.value.size()})
+					</a>
 				</h3>
 				<tags:tagsFor taggable="${entry.key.question}"></tags:tagsFor>
 			</c:if>
