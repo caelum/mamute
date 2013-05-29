@@ -9,7 +9,7 @@
 		<li>
 			<c:set var="answer" value="${answerAndFlag.flaggable}" />
 			<a href="${linkTo[QuestionController].showQuestion[answer.question][answer.question.sluggedTitle]}#answer-${answer.id}">
-				${answer.question.information.title}
+				<c:out value="${answer.question.information.title}" escapeXml="true"/>
 			</a> - ${answer.author.name} - ${answerAndFlag.flagCount} <fmt:message key="moderation.flags"/> 
 		</li>
 	</c:forEach>
