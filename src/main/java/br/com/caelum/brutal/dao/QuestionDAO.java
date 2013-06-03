@@ -46,16 +46,32 @@ public class QuestionDAO implements PaginatableDAO{
 				" "+ invisibleFilter("and") +" " + spamFilter() +" order by q.lastUpdatedAt desc";
 		Query query = session.createQuery(hql);
 		return query.setMaxResults(PAGE_SIZE)
-			.setFirstResult(PAGE_SIZE * (page-1))
+			.setFirstResult(firstResultOf(page))
 			.list();
 	}
 
-	public List<Question> unsolvedVisible() {
-		return session.createQuery("from Question as q "+invisibleFilter("and")+" (q.solution is null) order by q.lastUpdatedAt desc").setMaxResults(50).list();
+	public List<Question> unsolvedVisible(Integer page) {
+		return session.createQuery("from Question as q "+invisibleFilter("and")+" (q.solution is null) order by q.lastUpdatedAt desc")
+				.setMaxResults(PAGE_SIZE)
+				.setFirstResult(firstResultOf(page))
+				.list();
 	}
 	
-	public List<Question> noAnswers() {
-		return session.createQuery("from Question as q " +invisibleFilter("and")+" q.answerCount = 0 order by q.lastUpdatedAt desc").setMaxResults(50).list();
+	public Long totalPagesUnsolvedVisible() {
+		Long result = (Long) session.createQuery("select count(*) from Question as q "+invisibleFilter("and")+" (q.solution is null)").uniqueResult();
+		return calculatePages(result);
+	}
+	
+	public List<Question> noAnswers(Integer page) {
+		return session.createQuery("from Question as q " +invisibleFilter("and")+" q.answerCount = 0 order by q.lastUpdatedAt desc")
+				.setMaxResults(PAGE_SIZE)
+				.setFirstResult(firstResultOf(page))
+				.list();
+	}
+	
+	public Long totalPagesWithoutAnswers() {
+		Long result = (Long) session.createQuery("select count(*) from Question as q " +invisibleFilter("and")+" q.answerCount = 0").uniqueResult();
+		return calculatePages(result);
 	}
 
 	public Question load(Question question) {
@@ -67,7 +83,7 @@ public class QuestionDAO implements PaginatableDAO{
 				"join q.information.tags t " + 
 				invisibleFilter("and") + " t = :tag order by q.lastUpdatedAt desc")
 				.setParameter("tag", tag)
-				.setFirstResult(PAGE_SIZE * (page-1))
+				.setFirstResult(firstResultOf(page))
 				.setMaxResults(50)
 				.list();
 		return questions;
@@ -126,5 +142,10 @@ public class QuestionDAO implements PaginatableDAO{
 		Query query = session.createQuery(hql);
 		return query.setParameter("tag", tag).setMaxResults(maxResults).list();
 	}
+	
+	private int firstResultOf(Integer page) {
+		return PAGE_SIZE * (page-1);
+	}
+
 }
 

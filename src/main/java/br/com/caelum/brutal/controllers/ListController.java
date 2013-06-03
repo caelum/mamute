@@ -47,15 +47,21 @@ public class ListController {
 	}
 	
 	@Get("/nao-resolvido")
-	public void unsolved() {
-		result.include("questions", questions.unsolvedVisible());
+	public void unsolved(Integer p) {
+		Integer page = getPage(p);
+		result.include("questions", questions.unsolvedVisible(page));
 		result.include("recentTags", recentTagsContainer.getRecentTagsUsage());
+		result.include("currentPage", page);
+		result.include("totalPages", questions.totalPagesUnsolvedVisible());
 	}
 	
 	@Get("/sem-respostas")
-	public void unanswered() {
-		result.include("questions", questions.noAnswers());
+	public void unanswered(Integer p) {
+		Integer page = getPage(p);
+		result.include("questions", questions.noAnswers(page));
 		result.include("recentTags", recentTagsContainer.getRecentTagsUsage());
+		result.include("currentPage", page);
+		result.include("totalPages", questions.totalPagesWithoutAnswers());
 	}
 	
 	@Get("/tag/{tagName}")

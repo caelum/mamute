@@ -186,13 +186,13 @@ public class QuestionDAOTest extends DatabaseTestCase {
 	
 	private void assertNotContains(Question salDaAzar, QuestionDAO dao) {
 		assertFalse(dao.allVisible(1).contains(salDaAzar));
-		assertFalse(dao.unsolvedVisible().contains(salDaAzar));
+		assertFalse(dao.unsolvedVisible(1).contains(salDaAzar));
 		assertFalse(dao.withTagVisible(sal, 1).contains(salDaAzar));
 	}
 	
 	private void assertContains(Question salDaAzar, QuestionDAO dao) {
 		assertTrue(dao.allVisible(1).contains(salDaAzar));
-		assertTrue(dao.unsolvedVisible().contains(salDaAzar));
+		assertTrue(dao.unsolvedVisible(1).contains(salDaAzar));
 		assertTrue(dao.withTagVisible(sal, 1).contains(salDaAzar));
 	}
 	
