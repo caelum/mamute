@@ -555,6 +555,11 @@ form.inactive .submit{
 	float: left;
 }
 
+
+.user-image{
+	border-radius: 100%;
+}
+
 /* RANKING */
 
 .ranking {
