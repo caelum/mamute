@@ -842,6 +842,12 @@ a.button.ask-a-question:hover{
 	background-color: #dc962c;
 }
 
+/* Menu User */
+.menu-user-image{
+	vertical-align: middle;
+	width:25px;
+}
+
 /*Basic structure*/
 .first-content,.sidebar {
 	float: left;
