@@ -1,6 +1,6 @@
 <html>
 <body style="font-family:arial, sans-serif; font-size:12px;">
-	<img style="margin-bottom:30px;" src="http://guj.com.br/imgs/guj-mail-logo.png" />
+	<img style="margin-bottom:30px;" src="${logoUrl}" />
 	
 	<p>	
 		${localization.getMessage("notification_mail.welcome", [watcher.getName()])}
