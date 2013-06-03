@@ -14,9 +14,7 @@
 	
 		<a href="#" class="toggle-version"><fmt:message key="moderation.formatted"/></a>
 		<a href="#" class="toggle-version hidden"><fmt:message key="moderation.diff"/></a>
-		<div class="history-version hidden">
 			<jsp:doBody/>
-		</div>
 		<div class="history-diff post-text"></div>
 		<div class="history-version"><jsp:invoke fragment="tagList"/></div>
 		
