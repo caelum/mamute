@@ -904,7 +904,7 @@ a.button.ask-a-question:hover{
 }
 
 .summary {
-	width: 77%;
+	width: 85%;
 }
 
 .summary .tags {
@@ -912,7 +912,7 @@ a.button.ask-a-question:hover{
 }
 
 .question-information {
-	width: 22%;
+	width: 15%;
 	padding-right: 1.5%;
 }
 
@@ -924,7 +924,7 @@ a.button.ask-a-question:hover{
 }
 
 .answers {
-	width: 40%;
+	width: 60%;
 	color: #994325;
 }
 
@@ -936,8 +936,8 @@ a.button.ask-a-question:hover{
 	border-bottom: 2px solid #008e43;
 }
 
-.votes,.views {
-	width: 30%;
+.votes {
+	width: 40%;
 }
 
 .votes {
@@ -1180,7 +1180,7 @@ a.button.ask-a-question:hover{
 }
 
 .last-touch{
-	width: 25%;
+	width: 20%;
 	float:right;
 }
 

@@ -8,7 +8,6 @@
 	<div class="question-information">
 		<tags:questionInformation key="question.list.vote" count="${question.voteCount}" information="votes"/>
 		<tags:questionInformation key="question.list.answer" count="${question.answersCount}" information="answers ${question.solved ? 'solved' : ''} ${question.answersCount >= 1 ? 'answered' : ''}"/>
-		<tags:questionInformation key="question.list.view" count="${question.views}" information="views"/>
 	</div>
 	<div class="summary">
 		<div class="item-title-wrapper">
@@ -16,6 +15,9 @@
 				<tags:questionLinkFor question="${question}"/>
 			</h3>
 			<tags:tagsFor taggable="${question}"/>
+			<div class="views">
+				${question.views} <tags:pluralize key="question.list.view" count="${question.views}"/>
+			</div>
 		</div>
 		<tags:lastTouchFor touchable="${question}"/>
 	</div>		
