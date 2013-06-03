@@ -15,8 +15,8 @@
 	<input type="text" name="comment" 
 		class="hintable text-input required" 
 		minlength="5" data-hint-id="question-comment-hint" 
-		value="${editComment}"/>
-	
+		value="${editComment}"
+		placeholder="<fmt:message key="edit_form.comment.placeholder" />"/>
 	<input class="post-submit big-submit" type="submit" value="<fmt:message key="question.edit_form.submit"/>" />
 </form>
 <div class="form-hints">

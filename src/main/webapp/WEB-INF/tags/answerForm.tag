@@ -21,7 +21,7 @@
 	<c:choose>
 		<c:when test='${not empty edit}'>
 			<label for="comment"><fmt:message key="edit_form.comment.label" /></label>
-			<input type="text" data-hint-id="answer-comment-hint" class="hintable required" length="5" name="comment" />
+			<input type="text" data-hint-id="answer-comment-hint" placeholder="<fmt:message key="edit_form.comment.placeholder" />" class="hintable required" length="5" name="comment" />
 		</c:when>
 		<c:otherwise>
 			<tags:checkbox-watch/>	
