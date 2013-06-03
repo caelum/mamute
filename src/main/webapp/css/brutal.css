@@ -578,6 +578,7 @@ form.inactive .submit{
 
 .user-image{
 	border-radius: 100%;
+	background-color: #e3e8ec;
 }
 
 /* RANKING */
@@ -1458,7 +1459,6 @@ a.button.ask-a-question:hover{
 .comment .flag-it:hover {
 	color: #f8d408;
 }
-
 
 .comment .vote-option.voted {
 	color: #FF0000;
