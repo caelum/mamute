@@ -318,6 +318,10 @@
 
 
 @media only screen and (max-width: 400px) {
+	.menu-unanswered{
+		display: none;
+	}
+	
 	.complete-tag{
 		width:50%;
 	}
