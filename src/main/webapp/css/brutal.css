@@ -575,7 +575,6 @@ form.inactive .submit{
 	float: left;
 }
 
-
 .user-image{
 	border-radius: 100%;
 	background-color: #e3e8ec;
@@ -961,6 +960,9 @@ a.button.ask-a-question:hover{
 
 .views {
 	color: #999;
+	display: inline-block;
+	padding: 2px 0;
+	margin-left: 1em;
 }
 
 .subtitle {
@@ -1052,19 +1054,25 @@ a.button.ask-a-question:hover{
 	margin-right: .3em;
 }
 
+
 .tag-brutal {
-	background-color: #f8f8f8;
-	border: 1px solid #adc2d0;
-	color: #3e6d8e;
+	background-color: rgb(167, 213, 112);
+	border: 1px solid rgb(156, 177, 130);
+	color: #fff;
 	display: inline-block;
 	font-size: .9em;
 	padding: 0 0.4em;
 	line-height: 1.45em;
-	border-radius: 5px;
+	text-decoration: none;
+	border-radius: 2px;
+}
+
+a.tag-brutal:hover{
+	text-decoration: none;
 }
 
 .tag-brutal:hover {
-	background-color: #e0eaf1;
+	background-color: #84BC41;
 }
 
 .main-tags{
@@ -1195,7 +1203,7 @@ a.button.ask-a-question:hover{
 }
 
 .last-touch{
-	width: 20%;
+	width: 21%;
 	float:right;
 }
 
