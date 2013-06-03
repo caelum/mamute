@@ -11,14 +11,12 @@
 		<tags:questionInformation key="question.list.view" count="${question.views}" information="views"/>
 	</div>
 	<div class="summary">
-		<h3 class="title item-title">
-			<tags:questionLinkFor question="${question}"/>
-		</h3>
-		<tags:tagsFor taggable="${question}"/>
-		<div class="stats">
-			<span class="last-updated-at"><tags:prettyTime time="${question.lastUpdatedAt }" /></span>
-			<tags:userProfileLink user="${question.lastTouchedBy}" isPrivate="false"/>
-			<span class="reputation">${question.lastTouchedBy.karma}</span>
+		<div class="item-title-wrapper">
+			<h3 class="title item-title">
+				<tags:questionLinkFor question="${question}"/>
+			</h3>
+			<tags:tagsFor taggable="${question}"/>
 		</div>
+		<tags:lastTouchFor touchable="${question}"/>
 	</div>		
 </li>

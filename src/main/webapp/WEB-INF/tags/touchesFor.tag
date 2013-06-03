@@ -1,11 +1,10 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@attribute name="touchable" type="br.com.caelum.brutal.model.interfaces.Touchable" required="true" %>
 <ul class="post-touchs">
 	<li class="touch author-touch"  itemscope itemtype="http://schema.org/Person" itemprop="author">
-		<tags:completeUser itemProp="dateCreated" touchText="touch.created" user="${touchable.author}" date="${touchable.createdAt}"/>
+		<tags:createdTouch touchable="${touchable}"/>
 	</li>
 	<c:if test="${touchable.edited}">
 		<c:choose>
@@ -18,8 +17,8 @@
 			</c:when>
 			<c:otherwise>
 				<li class="touch edited-touch" itemscope itemtype="http://schema.org/Person" itemprop="editor">
-					<tags:completeUser itemProp="dateModified" touchText="touch.edited" user="${touchable.information.author}" date="${touchable.information.createdAt}"/>
-				</li>
+					<tags:editedTouch touchable="${touchable}"/>
+				</li>	
 			</c:otherwise>
 		</c:choose>
 	</c:if>

@@ -116,10 +116,16 @@ a:hover{
 	font-size: 1.65em;
 }
 
+.item-title-wrapper{
+	float: left;
+	width: 75%;	
+}
+
 .item-title,.item-title a {
 	font-size: 1.15em;
 	margin-bottom: 5px;
 }
+
 
 .hint-title,.hint-title a {
 	color: #AE0000;
@@ -943,18 +949,6 @@ a.button.ask-a-question:hover{
 	margin-top: 6%;
 }
 
-.stats {
-	float: right;
-}
-
-.stats .reputation {
-	color: #545454;
-}
-
-.last-updated-at {
-	color: #9c9c9c;
-}
-
 .tags-usage .tags-item {
 	margin-bottom: .45em;
 }
@@ -1177,6 +1171,11 @@ a.button.ask-a-question:hover{
 	float: right;
 	height: 60px;
 	width: 50%;
+}
+
+.last-touch{
+	width: 25%;
+	float:right;
 }
 
 .author-touch {
