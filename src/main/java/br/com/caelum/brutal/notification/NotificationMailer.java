@@ -16,6 +16,7 @@ import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.vraptor.Linker;
 import br.com.caelum.vraptor.core.Localization;
+import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.simplemail.Mailer;
 import br.com.caelum.vraptor.simplemail.template.TemplateMailer;
@@ -29,12 +30,15 @@ public class NotificationMailer {
     private final Linker linker;
     private static final Logger LOG = Logger.getLogger(NotificationMailer.class);
     private static final PolicyFactory POLICY = new HtmlPolicyBuilder().toFactory();
+	private final Environment env;
 
-    public NotificationMailer(Mailer mailer, TemplateMailer templates, Localization localization, Linker linker) {
+    public NotificationMailer(Mailer mailer, TemplateMailer templates, 
+    		Localization localization, Linker linker, Environment env) {
         this.mailer = mailer;
         this.templates = templates;
         this.localization = localization;
         this.linker = linker;
+		this.env = env;
     }
 
 	public void send(NotificationMail notificationMail) {
@@ -44,7 +48,7 @@ public class NotificationMailer {
 		try {
 			mailer.send(email);
 		} catch (EmailException e) {
-			LOG.error("Could not send notifications mail to: " + to.getEmail());
+			LOG.error("Could not send notifications mail to: " + to.getEmail(), e);
 		}
 	}
 
@@ -59,6 +63,7 @@ public class NotificationMailer {
 				.with("localization", localization)
 				.with("watcher", to)
 				.with("linkerHelper", new LinkToHelper(linker))
+				.with("logoUrl", env.get("mail_logo_url"))
 				.to(to.getName(), to.getEmail())
 				.setSubject(localization.getMessage("answer_notification_mail", action.getQuestion().getTitle()));
 		return email;
