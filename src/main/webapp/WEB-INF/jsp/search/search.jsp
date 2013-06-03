@@ -9,7 +9,7 @@
 	google.load("search", "1");
 	var query = "${query}";
 	function googleLoad() {
-		var customSearchControl = new google.search.CustomSearchControl("015657611711082820003:davabg980gk");
+		var customSearchControl = new google.search.CustomSearchControl('${customGoogleSearchKey}');
 		customSearchControl.draw('search-results'); 
 		customSearchControl.execute(query);
 	}
