@@ -1441,6 +1441,14 @@ a.button.ask-a-question:hover{
 	background-color: #FAFAFA;
 }
 
+.comment-container > *{
+	display: inline;
+}
+
+.comment-container .ajax-form{
+	margin-top: .5em;
+}
+
 .same-author {
 	background-color: #E0EAF1;
 	padding: 0 .35em;
