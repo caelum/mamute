@@ -21,7 +21,7 @@
 								<fmt:message key="menu.tags" />
 							</a>
 						</li>
-						<li class="nav-item">
+						<li class="nav-item menu-rank">
 							<a class="button" href="${linkTo[RankingController].rank}">
 								<fmt:message key="menu.users" />
 							</a>

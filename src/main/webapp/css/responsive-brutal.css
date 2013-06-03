@@ -311,7 +311,7 @@
 }
 
 @media only screen and (max-width: 500px){
-	.list-tags{
+	.list-tags, .menu-rank{
 		display:none;
 	}
 }
