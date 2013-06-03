@@ -14,7 +14,7 @@
 			${title}
 			<c:if test="${not empty tag}">
 				: <tags:tag tag="${tag}"/>
-				<a href="<c:url value='/ranking/${tag.name}'/>" title='<fmt:message key="users.ranking.tag.title"/> ${tag.name}' class="icon-trophy"></a>
+				<a href="<c:url value='/ranking/${tag.name}'/>" title='<fmt:message key="users.ranking.tag.title"/> ${tag.name}' class="icon-trophy"><fmt:message key="users.ranking.tag"/></a>
 			</c:if>
 		</h2>
 		<tags:brutal-include value="mainTags"/>

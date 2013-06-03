@@ -90,11 +90,17 @@ a:hover{
 	vertical-align: middle;
 }
 
+.subheader .icon-trophy:before {
+	vertical-align: middle;
+	font-size: 1.65em;
+	margin-right: .15em;
+}
+
 .subheader .icon-trophy {
 	font-family: FontAwesome;
 	vertical-align: middle;
 	color: #edd136;
-	font-size: 1em;
+	font-size: .6em;
 }
 
 .subheader .icon-trophy:hover {
