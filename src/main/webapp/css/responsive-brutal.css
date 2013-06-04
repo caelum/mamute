@@ -361,4 +361,8 @@
 		width: 60%;
 	}
 	
+	.complete-user .user-info * {
+		height: auto;
+	}
+	
 }	

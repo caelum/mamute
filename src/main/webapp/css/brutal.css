@@ -138,6 +138,8 @@ a:hover{
 .item-title,.item-title a {
 	font-size: 1.15em;
 	margin-bottom: 5px;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 
