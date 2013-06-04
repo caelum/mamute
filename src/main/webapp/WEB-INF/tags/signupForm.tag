@@ -6,6 +6,8 @@
 <%@attribute name="email" type="java.lang.String" required="false" %>
 
 <form action="<c:url value="/cadastrar"/>" method="POST" class="validated-form user-form">
+	<a href="${facebookUrl}" class="face-button"><fmt:message key="signup.facebook" /></a>
+	<p class="or">&#8212; <fmt:message key="auth.or" /> &#8212;</p>
 	<label for="name"><fmt:message key="signup.form.username.label" /></label>
 	<input id="name" type="text" name="name" class="required text-input" maxlength="100" value="${name}"/>
 
@@ -20,6 +22,4 @@
 	
 	<input class="post-submit big-submit" type="submit" value="<fmt:message key="signup.form.submit.label" />"/>
 
-	<p class="or">&#8212; <fmt:message key="auth.or" /> &#8212;</p>
-	<a href="${facebookUrl}" class="face-button"><fmt:message key="signup.facebook" /></a>
 </form>
