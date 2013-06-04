@@ -1056,9 +1056,9 @@ a.button.ask-a-question:hover{
 
 
 .tag-brutal {
-	background-color: rgb(167, 213, 112);
+	background-color: #e9ffcc;
 	border: 1px solid rgb(156, 177, 130);
-	color: #fff;
+	color: darkGreen;
 	display: inline-block;
 	font-size: .9em;
 	padding: 0 0.4em;
@@ -1072,7 +1072,7 @@ a.tag-brutal:hover{
 }
 
 .tag-brutal:hover {
-	background-color: #84BC41;
+	background-color: #BDEBB0;
 }
 
 .main-tags{
