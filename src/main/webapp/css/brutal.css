@@ -138,6 +138,8 @@ a:hover{
 .item-title,.item-title a {
 	font-size: 1.15em;
 	margin-bottom: 5px;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 
@@ -918,7 +920,7 @@ a.button.ask-a-question:hover{
 }
 
 .summary {
-	width: 85%;
+	width: 75%;
 }
 
 .summary .tags {
@@ -926,8 +928,7 @@ a.button.ask-a-question:hover{
 }
 
 .question-information {
-	width: 15%;
-	padding-right: 1.5%;
+	width: 25%;
 }
 
 .info {
@@ -937,8 +938,17 @@ a.button.ask-a-question:hover{
 	text-align: center;
 }
 
+.info .solution-mark {
+	padding-left: 28%;
+	font-size: 1.4em;
+}
+
+.info .solved {
+	color: #008e43;
+}
+
 .answers {
-	width: 60%;
+	width: 33%;
 	color: #994325;
 }
 
@@ -951,7 +961,7 @@ a.button.ask-a-question:hover{
 }
 
 .votes {
-	width: 40%;
+	width: 33%;
 }
 
 .votes {
@@ -959,10 +969,10 @@ a.button.ask-a-question:hover{
 }
 
 .views {
-	color: #999;
 	display: inline-block;
 	padding: 2px 0;
 	margin-left: 1em;
+	margin-top: 0.22em;
 }
 
 .subtitle {
@@ -1207,12 +1217,16 @@ a.tag-brutal:hover{
 	float:right;
 }
 
+.history-comparison .touch .last-touch {
+	float:none;
+	width: auto;
+}
+
 .author-touch {
 	background-color: #E0EAF1;
 }
 
 .touch {
-	color: #999;
 	float: right;
 	height: 100%;
 	line-height: 13px;

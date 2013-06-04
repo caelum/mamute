@@ -14,14 +14,14 @@
 	
 		<a href="#" class="toggle-version"><fmt:message key="moderation.formatted"/></a>
 		<a href="#" class="toggle-version hidden"><fmt:message key="moderation.diff"/></a>
-			<jsp:doBody/>
+		<jsp:doBody/>
 		<div class="history-diff post-text"></div>
 		<div class="history-version"><jsp:invoke fragment="tagList"/></div>
 		
 	
 		<ul class="post-touchs clear">
 			<li class="touch author-touch">
-				<tags:completeUser touchText="touch.edited" user="${information.author}" date="${information.createdAt}"/>
+				<tags:lastTouchFor touchable="${information.moderatable}"/>
 			</li>
 		</ul>
 	
@@ -37,9 +37,9 @@
 		<input type="hidden" name="aprovedInformationType" value="${information.typeName}"/>
 		<input type="hidden" name="moderatableId" value="${information.moderatable.id}"/>
 		<input type="hidden" name="aprovedInformationId" value="${information.id}"/>
-		<input type="submit" class="post-submit big-submit" value='<fmt:message key="moderation.accept" />' />
+		<input type="submit" class="post-submit big-submit submit" value='<fmt:message key="moderation.accept" />' />
 	</form>
 	<form method="post" action="${linkTo[HistoryController].reject[information.id][information.typeName]}">
-		<input type="submit" class="post-submit big-submit" value='<fmt:message key="moderation.reject" />' />
+		<input type="submit" class="post-submit big-submit submit" value='<fmt:message key="moderation.reject" />' />
 	</form>
 </div>

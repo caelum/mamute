@@ -32,6 +32,16 @@ public class QuestionInformationTest {
 	}
 	
 	@Test
+	public void should_verify_if_is_before_current_information_without_edits() throws InterruptedException {
+		QuestionInformation version = builder.build();
+		ruby.enqueueChange(version, PENDING);
+		QuestionInformation infoByModerator = builder.build();
+		ruby.approve(infoByModerator);
+		System.out.println("this.createdAt should be before");
+		assertTrue(version.isBeforeCurrent());
+	}
+	
+	@Test
 	public void should_verify_if_is_not_before_current_information() throws InterruptedException {
 		QuestionInformation infoByModerator = builder.build();
 		ruby.approve(infoByModerator);

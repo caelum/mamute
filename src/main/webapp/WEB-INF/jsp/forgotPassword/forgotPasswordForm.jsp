@@ -7,6 +7,6 @@
 	<form action="${linkTo[ForgotPasswordController].requestEmailWithToken}" method="POST" class="validated-form user-form">
 		<label for="email"><fmt:message key="forgot_password.form.label.email" /></label>
 		<input type="text" name="email" class="required text-input" />
-		<input type="submit" value="<fmt:message key="forgot_password.form.submit" />" />
+		<input type="submit" class="submit" value="<fmt:message key="forgot_password.form.submit" />" />
 	</form>
 </c:if>
