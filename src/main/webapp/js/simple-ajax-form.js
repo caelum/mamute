@@ -12,7 +12,7 @@ $(function() {
 		element.on(event, callback);
 	}
 	
-	function showForm(e){
+	function showForm(e) {
 		e.preventDefault();
 		var formArea = $(this).siblings(".ajax-form");
 		formArea.toggleClass("hidden");
@@ -33,14 +33,15 @@ $(function() {
 	function resetForm(form){
 		var formParent = form.parent();
 		form.removeClass("inactive").find("textarea").val("");
+		form.find("input[type='submit']").attr("disabled", false);
 		formParent.addClass("hidden");
 	}
 	
 	function executeAjax(form){
-		if (!form.valid() || form.hasClass("inactive")) 
+		if (!form.valid()) 
 			return;
-		form.addClass("inactive");
 
+		form.find(".submit").attr("disabled", true);
 		var error = function(jqXHR) {
 			resetForm(form);
 			if (jqXHR.status == 400) {

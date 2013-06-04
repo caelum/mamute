@@ -495,9 +495,9 @@ textarea {
 	width: 65%;
 }
 
-form.inactive .submit{
-	opacity:0.5;
-	cursor:default;
+.submit[disabled=disabled] {
+	opacity: 0.5;
+	cursor: default;
 }
 
 .inline-box, .inline-label{
