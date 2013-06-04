@@ -1,6 +1,7 @@
 package br.com.caelum.brutal.controllers;
 
 import static br.com.caelum.brutal.util.TagsSplitter.splitTags;
+import static java.util.Arrays.asList;
 
 import java.util.Arrays;
 import java.util.List;
@@ -56,7 +57,8 @@ public class QuestionController {
 			VoteDAO votes, LoggedUser currentUser, FacebookAuthService facebook,
 			TagsValidator tagsValidator, MessageFactory messageFactory,
 			AuthorizationSystem authorizationSystem, Validator validator, 
-			QuestionViewCounter viewCounter, Linker linker, WatcherDAO watchers, ReputationEventDAO reputationEvents) {
+			QuestionViewCounter viewCounter, Linker linker, WatcherDAO watchers, 
+			ReputationEventDAO reputationEvents) {
 		this.result = result;
 		this.questions = questionDAO;
 		this.tags = tags;
@@ -157,6 +159,7 @@ public class QuestionController {
 		if (watching) {
 			watchers.add(new Watcher(author, question));
 		}
+		result.include("messages", asList(messageFactory.build("alert", "question.quality_reminder")));
 		result.redirectTo(this).showQuestion(question, question.getSluggedTitle());
 
 	}
