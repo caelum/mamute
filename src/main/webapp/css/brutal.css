@@ -918,7 +918,7 @@ a.button.ask-a-question:hover{
 }
 
 .summary {
-	width: 78%;
+	width: 75%;
 }
 
 .summary .tags {
@@ -926,7 +926,7 @@ a.button.ask-a-question:hover{
 }
 
 .question-information {
-	width: 22%;
+	width: 25%;
 }
 
 .info {
