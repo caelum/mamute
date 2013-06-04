@@ -7,7 +7,10 @@
 <li class="question-item ${question.isVisibleForModeratorAndNotAuthor(currentUser.current) ? 'highlight-post' : '' }">
 	<div class="question-information">
 		<tags:questionInformation key="question.list.vote" count="${question.voteCount}" information="votes"/>
-		<tags:questionInformation key="question.list.answer" count="${question.answersCount}" information="answers ${question.solved ? 'solved' : ''} ${question.answersCount >= 1 ? 'answered' : ''}"/>
+		<tags:questionInformation key="question.list.answer" count="${question.answersCount}" information="answers ${question.answersCount >= 1 ? 'answered' : ''}"/>
+		<div class="info">
+			<span class="icon-ok solution-mark icon-muted ${question.solved ? 'solved' : ''}"></span>
+		</div>
 	</div>
 	<div class="summary">
 		<div class="item-title-wrapper">

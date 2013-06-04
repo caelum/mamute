@@ -918,7 +918,7 @@ a.button.ask-a-question:hover{
 }
 
 .summary {
-	width: 85%;
+	width: 78%;
 }
 
 .summary .tags {
@@ -926,8 +926,7 @@ a.button.ask-a-question:hover{
 }
 
 .question-information {
-	width: 15%;
-	padding-right: 1.5%;
+	width: 22%;
 }
 
 .info {
@@ -937,8 +936,17 @@ a.button.ask-a-question:hover{
 	text-align: center;
 }
 
+.info .solution-mark {
+	padding-left: 28%;
+	font-size: 1.4em;
+}
+
+.info .solved {
+	color: #008e43;
+}
+
 .answers {
-	width: 60%;
+	width: 33%;
 	color: #994325;
 }
 
@@ -951,7 +959,7 @@ a.button.ask-a-question:hover{
 }
 
 .votes {
-	width: 40%;
+	width: 33%;
 }
 
 .votes {
