@@ -2,6 +2,7 @@ package br.com.caelum.brutal.auth;
 
 import br.com.caelum.brutal.model.MethodType;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -22,16 +23,12 @@ public class SignupInfo {
 	}
 
 	public static SignupInfo fromFacebook(String body) {
-		try {
-			return parse(body);
-		} catch (Exception e) {
-			throw new RuntimeException("error while parsing the following json from facebook: " + body, e);
-		}
-	}
-
-	private static SignupInfo parse(String body) {
 		JsonObject jsonObj = new JsonParser().parse(body).getAsJsonObject();
-		String email = jsonObj.get("email").getAsString();
+		JsonElement emailElement = jsonObj.get("email");
+		if (emailElement == null) {
+			throw new IllegalArgumentException("could not find email in json facebook response");
+		}
+		String email = emailElement.getAsString();
 		String name = jsonObj.get("name").getAsString();
 		JsonObject locationJson = jsonObj.getAsJsonObject("location");
 		String location = "";

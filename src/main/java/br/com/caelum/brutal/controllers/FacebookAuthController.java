@@ -4,6 +4,8 @@ import static java.util.Arrays.asList;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import br.com.caelum.brutal.auth.Access;
 import br.com.caelum.brutal.auth.FacebookAuthService;
 import br.com.caelum.brutal.auth.SignupInfo;
@@ -29,6 +31,7 @@ public class FacebookAuthController extends Controller{
 	private final Access access;
 	private final MessageFactory messageFactory;
 	private UrlValidator urlValidator;
+	private final static Logger LOG = Logger.getLogger(FacebookAuthController.class);
 
 	public FacebookAuthController(FacebookAuthService facebook, UserDAO users, 
 			LoginMethodDAO loginMethods, Result result, Access access,
@@ -44,31 +47,36 @@ public class FacebookAuthController extends Controller{
 	
 	@Get("/cadastrar/facebook/")
 	public void signupViaFacebook(String code, String state) {
-		
-		if (code == null){
-			redirectTo(ListController.class).home(null);
+		if (code == null) {
+			includeAsList("messages", i18n("error", "error.signup.facebook.unknown"));
+			redirectTo(SignupController.class).signupForm();
 			return;
 		}
 		
-		String rawToken = facebook.buildToken(code);
-		SignupInfo signupInfo = facebook.getSignupInfo();
-
-		User existantFacebookUser = users.findByEmailAndMethod(signupInfo.getEmail(), MethodType.FACEBOOK);
-		if (existantFacebookUser != null) {
-			access.login(existantFacebookUser);
+		try {
+			String rawToken = facebook.buildToken(code);
+			SignupInfo signupInfo = facebook.getSignupInfo();
+			User existantFacebookUser = users.findByEmailAndMethod(signupInfo.getEmail(), MethodType.FACEBOOK);
+			if (existantFacebookUser != null) {
+				access.login(existantFacebookUser);
+				redirectToRightUrl(state);
+				return;
+			}
+			User existantBrutalUser = users.findByEmailAndMethod(signupInfo.getEmail(), MethodType.BRUTAL);
+			if (existantBrutalUser != null) {
+				mergeLoginMethods(rawToken, existantBrutalUser);
+				redirectToRightUrl(state);
+				return;
+			}
+			
+			createNewUser(rawToken, signupInfo);
 			redirectToRightUrl(state);
+		} catch (IllegalArgumentException e) {
+			LOG.error("unable to signup user with facebook", e);
+			includeAsList("messages", i18n("error", "error.signup.facebook.unknown"));
+			redirectTo(SignupController.class).signupForm();
 			return;
 		}
-		
-		User existantBrutalUser = users.findByEmailAndMethod(signupInfo.getEmail(), MethodType.BRUTAL);
-		if (existantBrutalUser != null) {
-			mergeLoginMethods(rawToken, existantBrutalUser);
-			redirectToRightUrl(state);
-			return;
-		}
-		
-		createNewUser(rawToken, signupInfo);
-		redirectToRightUrl(state);
 	}
 
 	private void redirectToRightUrl(String state) {
