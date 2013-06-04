@@ -1064,25 +1064,19 @@ a.button.ask-a-question:hover{
 	margin-right: .3em;
 }
 
-
 .tag-brutal {
-	background-color: #e9ffcc;
-	border: 1px solid rgb(156, 177, 130);
-	color: darkGreen;
+	background-color: #f8f8f8;
+	border: 1px solid #adc2d0;
+	color: #3e6d8e;
 	display: inline-block;
 	font-size: .9em;
 	padding: 0 0.4em;
 	line-height: 1.45em;
-	text-decoration: none;
-	border-radius: 2px;
-}
-
-a.tag-brutal:hover{
-	text-decoration: none;
+	border-radius: 5px;
 }
 
 .tag-brutal:hover {
-	background-color: #BDEBB0;
+	background-color: #e0eaf1;
 }
 
 .main-tags{
