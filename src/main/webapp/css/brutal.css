@@ -936,10 +936,10 @@ a.button.ask-a-question:hover{
 	font-size: 1.4em;
 	padding: .4em .25em;
 	text-align: center;
+	width: 33%;
 }
 
 .info .solution-mark {
-	padding-left: 28%;
 	font-size: 1.4em;
 }
 
@@ -948,7 +948,6 @@ a.button.ask-a-question:hover{
 }
 
 .answers {
-	width: 33%;
 	color: #994325;
 }
 
@@ -956,17 +955,10 @@ a.button.ask-a-question:hover{
 	color: #008e43;
 }
 
-.answers.solved {
-	border-bottom: 2px solid #008e43;
-}
-
-.votes {
-	width: 33%;
-}
-
 .votes {
 	color: #504355;
 }
+
 
 .views {
 	display: inline-block;
