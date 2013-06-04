@@ -1207,6 +1207,11 @@ a.tag-brutal:hover{
 	float:right;
 }
 
+.history-comparison .touch .last-touch {
+	float:none;
+	width: auto;
+}
+
 .author-touch {
 	background-color: #E0EAF1;
 }

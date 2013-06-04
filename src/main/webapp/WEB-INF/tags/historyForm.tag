@@ -21,7 +21,7 @@
 	
 		<ul class="post-touchs clear">
 			<li class="touch author-touch">
-				<tags:completeUser touchText="touch.edited" user="${information.author}" date="${information.createdAt}"/>
+				<tags:lastTouchFor touchable="${information.moderatable}"/>
 			</li>
 		</ul>
 	
