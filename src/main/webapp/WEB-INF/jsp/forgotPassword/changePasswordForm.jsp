@@ -11,5 +11,5 @@
 	<label for="password-confirmation"><fmt:message key="signup.form.confirm_password.label" /></label>
 	<input type="password" id="password-confirmation" name="passwordConfirmation" minlength="6" class="required text-input"/>
 	
-	<input type="submit" value="<fmt:message key="change_password.submit" />" />
+	<input type="submit" class="submit" value="<fmt:message key="change_password.submit" />" />
 </form>

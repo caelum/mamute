@@ -38,6 +38,6 @@
 	<input type="checkbox" name="isSubscribed" class="text-input inline-box" maxlength="100" ${user.subscribed? 'checked':''} />
 	<label for="isSubscribed" class="form-label inline-label"><fmt:message key="user_profile.edit.form.subscribe.label" /></label>
 	
-	<input type="submit" class="post-submit big-submit" value="<fmt:message key="user_profile.edit.form.submit" />"/>
+	<input type="submit" class="post-submit big-submit submit" value="<fmt:message key="user_profile.edit.form.submit" />"/>
 	<tags:userProfileLink user="${user}" value="user_profile.edit.cancel" isPrivate="true"/>
 </form>
