@@ -10,18 +10,18 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-public class FacebookApi {
+public class FacebookAPI {
 
 	private final Token accessToken;
 	private final OAuthService service;
 
-	public FacebookApi(OAuthService service, Token accessToken) {
+	public FacebookAPI(OAuthService service, Token accessToken) {
 		this.service = service;
 		this.accessToken = accessToken;
 	}
 
 	public JsonObject getSignupInfo() {
-		String url = "https://graph.facebook.com/me?fields=name,email,location";
+		String url = "https://graph.facebook.com/me?fields=name,email,location,username";
 		Response response = makeRequest(url);
 		return new JsonParser().parse(response.getBody()).getAsJsonObject();
 	}

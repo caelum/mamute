@@ -33,7 +33,7 @@ public class FacebookAuthService {
 	}
 	
 	public SignupInfo getSignupInfo() {
-		FacebookApi facebookApi = new FacebookApi(service, accessToken);
+		FacebookAPI facebookApi = new FacebookAPI(service, accessToken);
 		JsonObject response = facebookApi.getSignupInfo();
 		
 		return SignupInfo.fromFacebook(response);

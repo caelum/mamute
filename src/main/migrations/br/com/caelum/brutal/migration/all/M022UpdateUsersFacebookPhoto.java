@@ -13,7 +13,7 @@ import org.hibernate.StatelessSession;
 import org.scribe.model.Token;
 import org.scribe.oauth.OAuthService;
 
-import br.com.caelum.brutal.auth.FacebookApi;
+import br.com.caelum.brutal.auth.FacebookAPI;
 import br.com.caelum.brutal.auth.OAuthServiceCreator;
 import br.com.caelum.brutal.migration.Migration;
 import br.com.caelum.brutal.migration.MigrationOperation;
@@ -54,7 +54,7 @@ public class M022UpdateUsersFacebookPhoto implements Migration {
 					for (LoginMethod facebookMethod : facebookMethods) {
 						try {
 							String token = facebookMethod.getToken();
-							FacebookApi facebookApi = new FacebookApi(oauthService, new Token(token, ""));
+							FacebookAPI facebookApi = new FacebookAPI(oauthService, new Token(token, ""));
 							String userName = facebookApi.getUserName();
 							String photoUri = "http://graph.facebook.com/"+userName+"/picture";
 							setPhotoUri(user, photoUri);

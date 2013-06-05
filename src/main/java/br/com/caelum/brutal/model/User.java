@@ -260,9 +260,8 @@ public class User implements Identifiable {
 				return gravatar;
 			}
 		} else {
-			photoUri += "?width=" + width + "&height=" + height;
+			return photoUri + "?width=" + width + "&height=" + height;
 		}
-		return photoUri;
 	}
 	
 	public String getAbout() {
