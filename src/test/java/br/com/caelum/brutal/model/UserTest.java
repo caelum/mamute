@@ -110,6 +110,6 @@ public class UserTest extends TestCase {
 		user.setPhotoUri(new URL(uri));
 		String photo = user.getPhoto(10, 10);
 
-		assertTrue(photo.equals(uri));
+		assertEquals(uri + "?width=10&height=10", photo);
 	}
 }
