@@ -7,7 +7,31 @@
 <%@attribute name="questions" type="java.util.List" required="true"%>
 <%@attribute name="rssUrl" type="java.lang.String" required="false"%>
 <%@attribute name="tag" type="br.com.caelum.brutal.model.Tag" required="false"%>
-
+<c:if test="${!currentUser.loggedIn}">
+	<section class="about-banner">
+		<div class="about-content tell-me-more">
+			<fmt:message key="about.home_banner.text"/>
+			<a href="${linkTo[NavigationController].about}"><fmt:message key="about.home_banner.text.link"/></a>
+		</div>
+			<div class="about-content how-it-works">
+				<h3 class="title page-title"><fmt:message key="about.home_banner.how_it_works.title"/></h3>
+				<ul>
+					<li class="how-it-works-item">
+						<span class="how-it-works-icon icon-comment icon-4x"></span>
+						<p><fmt:message key="about.home_banner.how_it_works.anyone_ask"/></p>
+					</li>
+					<li class="how-it-works-item">
+						<span class="how-it-works-icon icon-comments-alt icon-4x"></span>
+						<p><fmt:message key="about.home_banner.how_it_works.anyone_answer"/></p>
+					</li>
+					<li class="how-it-works-item">
+						<span class="how-it-works-icon icon-group icon-4x"></span>
+						<p><fmt:message key="about.home_banner.how_it_works.answers_raise_up"/></p>
+					</li>
+				</ul> 
+			</div>
+	</section>
+</c:if>
 <section class="first-content">
 	<div class="subheader">
 		<h2 class="title page-title">

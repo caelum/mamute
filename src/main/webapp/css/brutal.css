@@ -196,6 +196,44 @@ a:hover{
 	display: block;
 }
 
+/* About Banner */
+.about-banner{
+	padding: 1em;
+	border: 1px dashed #AAA;
+	margin-bottom:1.4em;
+	background-color: #FDFDFD;
+	overflow: hidden;
+}
+
+.about-content{
+	float: left;
+}
+
+.tell-me-more{
+	width: 35%;
+	color: #777;
+	padding-right: 1.5em;
+	padding-top: .3em;
+}
+
+.how-it-works{
+	width: 65%;
+}
+
+.how-it-works-item{
+	display: inline-block;
+	width: 31%;
+	padding: 1em 1em 0 0;
+	vertical-align:top;
+	text-align: center;
+	color: #306691;
+}
+
+.how-it-works-icon{
+	margin-bottom: .5em;
+	color: #244B69;
+} 
+
 /*Markdown*/
 .md-preview {
 	border: 2px dotted #CCC;
