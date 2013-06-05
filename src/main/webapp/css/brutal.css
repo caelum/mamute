@@ -743,36 +743,74 @@ textarea {
 /*fundo input #fbfbfb*/
 /*input #f4f4f4*/
 
+.face-button-wraper {
+	display: block;
+	width: 19em;
+	padding: 1em 1em 1em;
+	border-radius: 13px;
+	border: 2px solid #cdcdcd;
+	color: #999;
+	box-shadow: 1px 1px 2px 0 #abbbdf;
+}
+
+.face-button-wraper:active {
+	box-shadow: inset 1px 1px 2px 1px black;
+}
+
 .face-button {
 	border-radius: 2px;
-	background: #315C99;
+	background: #2e4368;
+	background: -moz-linear-gradient(top,  rgba(46,67,104,1) 9%, rgba(35,70,123,1) 85%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(9%,rgba(46,67,104,1)), color-stop(85%,rgba(35,70,123,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(46,67,104,1) 9%,rgba(35,70,123,1) 85%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(46,67,104,1) 9%,rgba(35,70,123,1) 85%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(46,67,104,1) 9%,rgba(35,70,123,1) 85%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(46,67,104,1) 9%,rgba(35,70,123,1) 85%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2e4368', endColorstr='#23467b',GradientType=0 ); /* IE6-9 */
+	border-top: 1px solid #3f5b98;
+	border-left: 1px solid #3f5b98;
+	border-bottom: 1px solid #3f5b98;
+	border-right: 1px solid #3f5b98;
+	border-radius: 6px;
+	box-shadow: 1px 1px 2px 0 #abbbdf;
 	color: #fff;
 	display: inline-block;
-	font-size: 1.1em;
+	font-size: 1.4em;
 	padding: .5em 1em .5em;
 	text-decoration: none;
 	text-shadow: -1px -1px 1px #252c35;
 	vertical-align: middle;
 	width: 100%;
+	height: 3.1em;
 	line-height: 2em;
+	white-space: nowrap;
+	transition: opacity .3s ease-out;
+	opacity: 0.9;
+}
+
+.face-button-wraper:hover{
+	text-decoration: none;
+	box-shadow: 1px 1px 2px 0 #858080; 
+	color: #858080;
+}
+
+.face-button-wraper:hover .face-button {
+	box-shadow: inset 0 1px 0 0 #98a8d3;
+	opacity: 1;
+	text-shadow: 0 -1px 1px #283960;
+	color: #fff;
 }
 
 .face-button:before {
 	font-family: FontAwesome;
 	content: "\f09a";
 	font-size: 2.4em;
-	border-right: 1px solid #1a3c6c;
-	box-shadow: 1px 0 0 #627eba;
+	border-right: 1px solid #3f5b98;
 	display: inline-block;
 	height: 100%;
 	margin-right: .4em;
 	padding-right: .5em;
 	vertical-align: middle;
-}
-
-.face-button:hover {
-	text-decoration: none;
-	background-color: #195093;
 }
 
 /*HEADER*/
