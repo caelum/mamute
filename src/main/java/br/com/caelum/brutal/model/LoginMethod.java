@@ -67,7 +67,11 @@ public class LoginMethod {
 	}
 
 	public boolean isBrutal() {
-		return type == MethodType.BRUTAL;
+		return type.equals(MethodType.BRUTAL);
+	}
+	
+	public boolean isFacebook() {
+		return type.equals(MethodType.FACEBOOK);
 	}
 
 	public String getToken() {

@@ -4,7 +4,6 @@ import br.com.caelum.brutal.model.MethodType;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 
 public class SignupInfo {
@@ -22,8 +21,7 @@ public class SignupInfo {
 		this.location = location;
 	}
 
-	public static SignupInfo fromFacebook(String body) {
-		JsonObject jsonObj = new JsonParser().parse(body).getAsJsonObject();
+	public static SignupInfo fromFacebook(JsonObject jsonObj) {
 		JsonElement emailElement = jsonObj.get("email");
 		if (emailElement == null) {
 			throw new IllegalArgumentException("could not find email in json facebook response");

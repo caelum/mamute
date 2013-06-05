@@ -344,4 +344,8 @@ public class User implements Identifiable {
 		return (this.karma >= PermissionRulesConstants.ANSWER_OWN_QUESTION) || isModerator(); 
 	}
 	
+	public List<LoginMethod> getLoginMethods() {
+		return loginMethods;
+	}
+	
 }
