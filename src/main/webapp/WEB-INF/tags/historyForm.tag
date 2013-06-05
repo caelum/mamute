@@ -21,7 +21,12 @@
 	
 		<ul class="post-touchs clear">
 			<li class="touch author-touch">
-				<tags:lastTouchFor touchable="${information.moderatable}"/>
+				<tags:completeUser user="${information.author}">
+					<div class="when" itemprop="dateCreated">
+						<fmt:message key='touch.created'/>
+						<tags:prettyTime time="${information.createdAt}"/>
+					</div>
+				</tags:completeUser>
 			</li>
 		</ul>
 	
