@@ -314,6 +314,14 @@
 	.list-tags, .menu-rank{
 		display:none;
 	}
+	
+	.face-button-wraper{
+		width: 100%;
+	}
+	
+	.face-button{
+		font-size: 1.3em;
+	}
 }
 
 
