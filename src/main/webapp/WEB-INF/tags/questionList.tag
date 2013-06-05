@@ -32,6 +32,7 @@
 				<a href="<c:url value='/ranking/${tag.name}'/>" title='<fmt:message key="users.ranking.tag.title"/> ${tag.name}' class="icon-trophy"><fmt:message key="users.ranking.tag"/></a>
 			</c:if>
 		</h2>
+		<span class="main-tags-title"><fmt:message key="tags.main"/>:</span> 
 		<tags:brutal-include value="mainTags"/>
 		<c:if test="${not empty rssUrl}">
 			<a href="${rssUrl}" class="rss-link"><i class="icon-rss"></i></a>
@@ -50,9 +51,6 @@
 	<tags:pagination url="${currentUrl}" currentPage="${currentPage}" totalPages="${totalPages}" delta="2"/>
 </section>
 <aside class="sidebar">
-	<div class="subheader">
-		<h3 class="title page-title"><fmt:message key="tags.main"/></h3>
-	</div>
 	<tags:brutal-include value="mainTags"/>
 	<div class="subheader">
 		<h3 class="title page-title"><fmt:message key="tags.recent"/></h3>

@@ -80,9 +80,17 @@ a:hover{
 
 .subheader .main-tags{
 	float: left;
-	padding: 0 0 0 4em;
+	padding: 0 0 0 .5em;
 	font-size: 0.9em;
 	margin-top: 0.2em;
+}
+
+.main-tags-title{
+	display: block;
+	float: left;
+	margin-left: 2em;
+	line-height: 1.8em;
+	color: #333;
 }
 
 .subheader .tag-brutal {
