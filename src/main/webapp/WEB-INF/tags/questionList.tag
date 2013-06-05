@@ -9,18 +9,19 @@
 <%@attribute name="tag" type="br.com.caelum.brutal.model.Tag" required="false"%>
 <c:if test="${!currentUser.loggedIn}">
 	<section class="about-banner">
+		<span class="minimize-banner icon-minus"></span>
 		<div class="about-content tell-me-more">
 			<fmt:message key="about.home_banner.text"/>
 			<a href="${linkTo[NavigationController].about}"><fmt:message key="about.home_banner.text.link"/></a>
 		</div>
-			<div class="about-content how-it-works">
-				<h3 class="title page-title"><fmt:message key="about.home_banner.how_it_works.title"/></h3>
-				<ul>
-					<tags:howItWorksItem icon="icon-comment" key="about.home_banner.how_it_works.anyone_ask"/>
-					<tags:howItWorksItem icon="icon-comments-alt" key="about.home_banner.how_it_works.anyone_answer"/>
-					<tags:howItWorksItem icon="icon-group" key="about.home_banner.how_it_works.answers_raise_up"/>
-				</ul> 
-			</div>
+		<div class="about-content how-it-works">
+			<h3 class="title page-title"><fmt:message key="about.home_banner.how_it_works.title"/></h3>
+			<ul>
+				<tags:howItWorksItem icon="icon-comment" key="about.home_banner.how_it_works.anyone_ask"/>
+				<tags:howItWorksItem icon="icon-comments-alt" key="about.home_banner.how_it_works.anyone_answer"/>
+				<tags:howItWorksItem icon="icon-group" key="about.home_banner.how_it_works.answers_raise_up"/>
+			</ul> 
+		</div>
 	</section>
 </c:if>
 <section class="first-content">

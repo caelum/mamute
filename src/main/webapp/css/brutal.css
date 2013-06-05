@@ -225,7 +225,7 @@ a:hover{
 }
 
 .how-it-works{
-	width: 65%;
+	width: 63%;
 }
 
 .how-it-works-item{
@@ -240,7 +240,26 @@ a:hover{
 .how-it-works-icon{
 	margin-bottom: .5em;
 	color: #244B69;
-} 
+}
+
+.minimize-banner{
+	float: right;
+	cursor: pointer;
+	font-weight: bold;
+	padding: .2em .3em;
+	background-color: #666;
+	color: #fff;
+	text-align: center;
+	width: 2%;
+}
+
+.minimized-banner{
+	width:90%;
+}
+
+.minimized-banner p{
+	margin-bottom: .2em;
+}
 
 /*Markdown*/
 .md-preview {
