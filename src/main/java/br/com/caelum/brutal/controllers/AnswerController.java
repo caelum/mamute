@@ -184,7 +184,7 @@ public class AnswerController {
     
     private ReputationEvent markedSolutionEvent(Answer solution) {
     	return new ReputationEvent(EventType.MARKED_SOLUTION, 
-    			solution.getQuestion(), solution.getAuthor());
+    			solution.getQuestion(), solution.getQuestion().getAuthor());
     }
 
 }
