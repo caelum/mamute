@@ -57,7 +57,7 @@
 		padding: 0 .7em;
 	}
 	
-	.info.views{
+	.info.views, .info.votes{
 		display:none;
 	}
 	
@@ -71,7 +71,7 @@
 		width:80%;
 	}
 	
-	.info.answers, .info.votes{
+	.info{
 		width:100%;
 	}
 	
