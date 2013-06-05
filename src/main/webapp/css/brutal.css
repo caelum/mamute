@@ -420,7 +420,8 @@ em {
 }
 
 .alert{
-	color: #e7b403;
+	color: #d3a402;
+	font-weight: bold;
 }
 
 .moderator-alert {
