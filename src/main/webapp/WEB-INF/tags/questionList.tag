@@ -16,18 +16,9 @@
 			<div class="about-content how-it-works">
 				<h3 class="title page-title"><fmt:message key="about.home_banner.how_it_works.title"/></h3>
 				<ul>
-					<li class="how-it-works-item">
-						<span class="how-it-works-icon icon-comment icon-4x"></span>
-						<p><fmt:message key="about.home_banner.how_it_works.anyone_ask"/></p>
-					</li>
-					<li class="how-it-works-item">
-						<span class="how-it-works-icon icon-comments-alt icon-4x"></span>
-						<p><fmt:message key="about.home_banner.how_it_works.anyone_answer"/></p>
-					</li>
-					<li class="how-it-works-item">
-						<span class="how-it-works-icon icon-group icon-4x"></span>
-						<p><fmt:message key="about.home_banner.how_it_works.answers_raise_up"/></p>
-					</li>
+					<tags:howItWorksItem icon="icon-comment" key="about.home_banner.how_it_works.anyone_ask"/>
+					<tags:howItWorksItem icon="icon-comments-alt" key="about.home_banner.how_it_works.anyone_answer"/>
+					<tags:howItWorksItem icon="icon-group" key="about.home_banner.how_it_works.answers_raise_up"/>
 				</ul> 
 			</div>
 	</section>
