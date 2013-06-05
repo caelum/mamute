@@ -94,6 +94,7 @@ public class FacebookAuthController extends Controller{
 	private void createNewUser(String rawToken, SignupInfo signupInfo) {
 		User user = new User(signupInfo.getName(), signupInfo.getEmail());
 		LoginMethod facebookLogin = new LoginMethod(MethodType.FACEBOOK, signupInfo.getEmail(), rawToken, user);
+		user.setPhotoUri(signupInfo.getFacebookPhotoUri());
 		user.add(facebookLogin);
 		
 		users.save(user);

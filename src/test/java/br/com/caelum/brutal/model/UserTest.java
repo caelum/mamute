@@ -90,7 +90,15 @@ public class UserTest extends TestCase {
 	public void should_have_PG_gravatar_with_robotar_when_null_photo() throws Exception {
 		User user = user("name", "paulo@paulo.com.br");
 		String photo = user.getPhoto(64, 64);
-		assertEquals(photo, "http://www.gravatar.com/avatar/620ad6ac2c42fce964bbf2e01e87c04b.png?r=PG&size=64x64&d=http%3A%2F%2Frobohash.org%2Fsize_64x64%2F620ad6ac2c42fce964bbf2e01e87c04b.png%3Fsize%3D64x64%26bgset%3Dany");
+		assertEquals("http://www.gravatar.com/avatar/620ad6ac2c42fce964bbf2e01e87c04b.png?r=PG&size=64x64&d=http%3A%2F%2Frobohash.org%2Fsize_64x64%2F620ad6ac2c42fce964bbf2e01e87c04b.png%3Fsize%3D64x64%26bgset%3Dany", photo);
+	}
+	
+	@Test
+	public void should_use_width_and_height_parameters_when_photo_uri_is_not_null() throws Exception {
+		User user = user("name", "paulo@paulo.com.br");
+		user.setPhotoUri(new URL("http://graph.facebook.com/shaverm/picture"));
+		String photo = user.getPhoto(200, 200);
+		assertEquals("http://graph.facebook.com/shaverm/picture?width=200&height=200", photo);
 	}
 
 

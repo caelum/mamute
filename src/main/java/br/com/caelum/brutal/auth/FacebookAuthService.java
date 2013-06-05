@@ -1,13 +1,12 @@
 package br.com.caelum.brutal.auth;
 
-import org.scribe.model.OAuthRequest;
-import org.scribe.model.Response;
 import org.scribe.model.Token;
-import org.scribe.model.Verb;
 import org.scribe.model.Verifier;
 import org.scribe.oauth.OAuthService;
 
 import br.com.caelum.vraptor.ioc.Component;
+
+import com.google.gson.JsonObject;
 
 @Component
 public class FacebookAuthService {
@@ -34,11 +33,10 @@ public class FacebookAuthService {
 	}
 	
 	public SignupInfo getSignupInfo() {
-		OAuthRequest request = new OAuthRequest(Verb.GET, "https://graph.facebook.com/me?fields=name,email,location");
-		service.signRequest(accessToken, request);
-		Response response = request.send();
+		FacebookAPI facebookApi = new FacebookAPI(service, accessToken);
+		JsonObject response = facebookApi.getSignupInfo();
 		
-		return SignupInfo.fromFacebook(response.getBody());
+		return SignupInfo.fromFacebook(response);
 	}
 	
 }

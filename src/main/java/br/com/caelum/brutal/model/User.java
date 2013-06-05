@@ -259,8 +259,9 @@ public class User implements Identifiable {
 			} catch (UnsupportedEncodingException e) {
 				return gravatar;
 			}
+		} else {
+			return photoUri + "?width=" + width + "&height=" + height;
 		}
-		return photoUri;
 	}
 	
 	public String getAbout() {
@@ -341,4 +342,9 @@ public class User implements Identifiable {
 	public boolean hasKarmaToAnswerOwn(Question question) {
 		return (this.karma >= PermissionRulesConstants.ANSWER_OWN_QUESTION) || isModerator(); 
 	}
+	
+	public List<LoginMethod> getLoginMethods() {
+		return loginMethods;
+	}
+	
 }
