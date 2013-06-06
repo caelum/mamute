@@ -42,6 +42,8 @@ public class RssFeedFactoryTest extends TestCase {
 		String xml = new String(output.toByteArray());
 		assertTrue(xml.contains("first question"));
 		assertTrue(xml.contains("second question"));
+		assertTrue(xml.contains(user1.getSmallPhoto()));
+		assertTrue(xml.contains(user2.getSmallPhoto()));
 		DateTimeUtils.setCurrentMillisSystem();
 	}
 }
