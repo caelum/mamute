@@ -10,6 +10,7 @@ public class RssEntry {
 	private final String guid;
 	private final String pubDate;
 	private final String author;
+	@XStreamAlias("enclosure")
 	private final RssImageEntry image;
 
 	public RssEntry(String title, String link, String guid, String pubDate, String authorName, RssImageEntry image) {

@@ -21,9 +21,7 @@ public class QuestionRssEntryFactory {
 		
 		User author = question.getAuthor();
 		RssImageEntry imageEntry = new RssImageEntryBuilder()
-			.withUrl(author.getSmallPhoto())
-			.withLink("http://www.guj.com.br/usuario/" + author.getId() + "/" + author.getSluggedName())
-			.withTitle(author.getRealName()).build();
+			.withUrl(author.getSmallPhoto()).build();
 		
 		RssEntry entry = new RssEntryBuilder()
 				.withAuthor(author.getName())

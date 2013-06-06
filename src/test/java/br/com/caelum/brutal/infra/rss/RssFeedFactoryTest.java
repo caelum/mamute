@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.net.URL;
 
 import org.joda.time.DateTimeUtils;
 import org.junit.Test;
@@ -24,6 +25,7 @@ public class RssFeedFactoryTest extends TestCase {
 		
 		DateTimeUtils.setCurrentMillisFixed(100);
 		User user1 = user("author1", "author@email");
+		user1.setPhotoUri(new URL("http://imagemsuser1.com"));
 		Question question1 = builder.withAuthor(user1)
 			.withTitle("first question")
 			.withDescription("question")
@@ -31,6 +33,7 @@ public class RssFeedFactoryTest extends TestCase {
 			.build();
 		
 		User user2 = user("author2", "author@email");
+		user2.setPhotoUri(new URL("http://imagemsuser2.com"));
 		Question question2 = builder.withId(2l)
 			.withTitle("second question")
 			.withAuthor(user2)
@@ -42,8 +45,8 @@ public class RssFeedFactoryTest extends TestCase {
 		String xml = new String(output.toByteArray());
 		assertTrue(xml.contains("first question"));
 		assertTrue(xml.contains("second question"));
-		assertTrue(xml.contains(user1.getSmallPhoto()));
-		assertTrue(xml.contains(user2.getSmallPhoto()));
+		assertTrue(xml.contains("http://imagemsuser1.com"));
+		assertTrue(xml.contains("http://imagemsuser2.com"));
 		DateTimeUtils.setCurrentMillisSystem();
 	}
 }
