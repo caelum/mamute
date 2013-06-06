@@ -10,13 +10,15 @@ public class RssEntry {
 	private final String guid;
 	private final String pubDate;
 	private final String author;
+	private final RssImageEntry image;
 
-	public RssEntry(String title, String link, String guid, String pubDate, String authorName) {
+	public RssEntry(String title, String link, String guid, String pubDate, String authorName, RssImageEntry image) {
 		this.title = title;
 		this.link = link;
 		this.guid = guid;
 		this.pubDate = pubDate;
 		this.author = authorName;
+		this.image = image;
 	}
 
 

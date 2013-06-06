@@ -7,6 +7,7 @@ import java.io.Writer;
 import java.util.List;
 
 import br.com.caelum.brutal.model.Question;
+import br.com.caelum.brutal.model.User;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.core.util.QuickWriter;
@@ -17,16 +18,23 @@ import com.thoughtworks.xstream.io.xml.XppDriver;
 public class QuestionRssEntryFactory {
 
 	public void writeEntry(Question question, OutputStream output) {
+		
+		User author = question.getAuthor();
+		RssImageEntry imageEntry = new RssImageEntryBuilder()
+			.withUrl(author.getSmallPhoto())
+			.withLink("http://www.guj.com.br/usuario/" + author.getId() + "/" + author.getSluggedName())
+			.withTitle(author.getRealName()).build();
+		
 		RssEntry entry = new RssEntryBuilder()
-				.withAuthor(question.getAuthor().getName())
+				.withAuthor(author.getName())
 				.withTitle(question.getTitle())
 				.withLink(
 						"http://www.guj.com.br/" + question.getId() + "-"
 								+ question.getSluggedTitle())
 				.withId(question.getId().toString())
-				.withDate(question.getCreatedAt()).build();
+				.withDate(question.getCreatedAt())
+				.withImage(imageEntry).build();
 		
-
 		XStream xstream = buildXstream();
 
 		xstream.processAnnotations(RssEntry.class);

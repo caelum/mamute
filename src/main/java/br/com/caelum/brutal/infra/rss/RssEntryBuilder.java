@@ -11,6 +11,7 @@ public class RssEntryBuilder {
 	private String link;
 	private String guid;
 	private DateTime date;
+	private RssImageEntry image;
 	private static final String PATTERN = "EEE, dd MMM yyy HH:mm:ss Z";
 	static final DateTimeFormatter RSS_DATE_FORMATTER = DateTimeFormat.forPattern(PATTERN);
 
@@ -38,9 +39,14 @@ public class RssEntryBuilder {
 		this.date = date;
 		return this;
 	}
+	
+	public RssEntryBuilder withImage(RssImageEntry image){
+		this.image = image;
+		return this;
+	}
 
 	public RssEntry build() {
-		return new RssEntry(title, link, guid, RSS_DATE_FORMATTER.print(date), name);
+		return new RssEntry(title, link, guid, RSS_DATE_FORMATTER.print(date), name, image);
 	}
 	
 }
