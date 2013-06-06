@@ -23,11 +23,11 @@ public class SignupValidator {
 	public boolean validate(User user, String password, String passwordConfirmation){
 		userValidator.validate(user);
 		
-		if (password.length() < PASSWORD_MIN_LENGTH || password.length() > PASSWORD_MAX_LENGTH){
+		if (password == null || password.length() < PASSWORD_MIN_LENGTH || password.length() > PASSWORD_MAX_LENGTH){
 			validator.add(messageFactory.build("error", "user.errors.password.length"));
 		}
 		
-		if (!password.equals(passwordConfirmation)) {
+		if (password != null && !password.equals(passwordConfirmation)) {
 		    validator.add(messageFactory.build("error", "signup.errors.password_confirmation"));
 		}
 		
