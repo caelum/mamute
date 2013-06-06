@@ -4,7 +4,10 @@
 <%@attribute name="redirectUrl" type="java.lang.String" required="false" %>
 
 <form class="validated-form user-form" action="<c:url value="/login"/>" method="POST">
-	<a href="${facebookUrl}" class="face-button"><fmt:message key="auth.facebook" /></a>
+	<a href="${facebookUrl}" class="face-button-wraper">
+		<p><fmt:message key="auth.facebook_button.label" /></p>
+		<span class="face-button"><fmt:message key="auth.facebook_button.content" /></span>
+	</a>
 	<p class="or">&#8212; <fmt:message key="auth.or" /> &#8212;</p>
 	<label for="email"><fmt:message key="signup.form.email.label" /></label>
 	<input type="email" name="email" class="email required text-input" placeholder="nome@exemplo.com"/>

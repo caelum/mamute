@@ -109,6 +109,14 @@ public class SignupValidatorTest extends TestCase {
     }
     
     @Test
+    public void should_verify_null_password() throws Exception {
+    	User user = user("valid user valid user", "valid@gmail.com");
+    	boolean valid = signupValidator.validate(user, null, null);
+    	
+    	assertFalse(valid);
+    }
+    
+    @Test
     public void should_valid_user() throws Exception {
         when(users.existsWithEmail("used@gmail.com")).thenReturn(false);
         User user = user("nome muito grande ai meu deus", "used@gmail.com");
