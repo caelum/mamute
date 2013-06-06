@@ -637,6 +637,7 @@ textarea {
 
 .complete-user .user-image {
 	margin-right: 3%;
+	width: 32px;
 }
 
 .complete-user .user-image,.complete-user .user-info {
@@ -1265,6 +1266,7 @@ a.button.ask-a-question:hover{
 .last-touch{
 	width: 24%;
 	float:right;
+	font-size: 0.9em;
 }
 
 .history-comparison .touch .last-touch {
