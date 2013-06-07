@@ -9,6 +9,9 @@ import java.util.List;
 
 import javax.validation.ConstraintViolationException;
 
+import net.vidageek.mirror.dsl.Mirror;
+
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,6 +20,8 @@ import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
+import br.com.caelum.timemachine.Block;
+import br.com.caelum.timemachine.TimeMachine;
 
 public class QuestionDAOTest extends DatabaseTestCase {
 
@@ -176,6 +181,39 @@ public class QuestionDAOTest extends DatabaseTestCase {
 		session.save(invisible);
 		List<Question> questions = questionsForAnyone.orderedByCreationDate(30, defaultTag);
 		assertEquals(1, questions.size());
+	}
+	
+	@Test
+	public void should_find_hot_questions() throws Exception {
+		DateTime pastWeek = new DateTime().minusWeeks(1);
+		Question oldQuestion = TimeMachine.goTo(pastWeek.minusDays(1)).andExecute(new Block<Question>() {
+			@Override
+			public Question run() {
+				Question question = question(author, sal);
+				setVoteCount(question, 100);
+				return question;
+			}
+		});
+		Question withTenVotes = question(author, sal);
+		Question withFiveVotes = question(author, sal);
+		Question withNoVotes = question(author, sal);
+		setVoteCount(withTenVotes, 10);
+		setVoteCount(withFiveVotes, 5);
+		
+		session.save(oldQuestion);
+		session.save(withTenVotes);
+		session.save(withFiveVotes);
+		session.save(withNoVotes);
+		
+		List<Question> questions = questionsForAnyone.hotQuestions(pastWeek, 2);
+		assertEquals(2, questions.size());
+		assertEquals(withTenVotes, questions.get(0));
+		assertEquals(withFiveVotes, questions.get(1));
+	}
+
+
+	private void setVoteCount(Question withTenVotes, long count) {
+		new Mirror().on(withTenVotes).set().field("voteCount").withValue(count);
 	}
 
 	private void saveQuestions(int total, Tag... tags) {

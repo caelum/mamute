@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.dao.WithUserDAO.OrderType;
 import br.com.caelum.brutal.dao.WithUserDAO.UserRole;
@@ -15,7 +16,7 @@ import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 @SuppressWarnings("unchecked")
-public class QuestionDAO implements PaginatableDAO{
+public class QuestionDAO implements PaginatableDAO {
 	
     private static final Integer PAGE_SIZE = 50;
 	public static final long SPAM_BOUNDARY = -5;
@@ -138,13 +139,21 @@ public class QuestionDAO implements PaginatableDAO{
 	}
 	
 	public List<Question> orderedByCreationDate(int maxResults, Tag tag) {
-		String hql = "select q from Question q join q.information.tags tags where q.moderationOptions.invisible = false and tags=:tag order by q.createdAt desc";
+		String hql = "select q from Question q " +
+				"join q.information.tags tags " +
+				"where q.moderationOptions.invisible = false and tags=:tag " +
+				"order by q.createdAt desc";
 		Query query = session.createQuery(hql);
 		return query.setParameter("tag", tag).setMaxResults(maxResults).list();
 	}
 	
 	private int firstResultOf(Integer page) {
 		return PAGE_SIZE * (page-1);
+	}
+
+	public List<Question> hotQuestions(DateTime since, int count) {
+		String hql = "select q from Question q where q.createdAt > :since order by q.voteCount desc";
+		return session.createQuery(hql).setParameter("since", since).setMaxResults(count).list();
 	}
 
 }
