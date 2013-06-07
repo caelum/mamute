@@ -18,6 +18,7 @@ import br.com.caelum.brutal.notification.NotificationMailer.LinkToHelper;
 import br.com.caelum.brutal.vraptor.Linker;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.quartzjob.CronTask;
 import br.com.caelum.vraptor.simplemail.Mailer;
 import br.com.caelum.vraptor.simplemail.template.TemplateMailer;
@@ -33,19 +34,25 @@ public class NewsletterJob implements CronTask {
 	private static final Logger LOG = Logger.getLogger(NewsletterJob.class);
 	private final Linker linker;
 	private static final PolicyFactory POLICY = new HtmlPolicyBuilder().toFactory();
+	private final Environment env;
 
 	public NewsletterJob(QuestionDAO questions, Result result, 
-			Mailer mailer, TemplateMailer templates, UserDAO users, Linker linker) {
+			Mailer mailer, TemplateMailer templates, 
+			UserDAO users, Linker linker, Environment env) {
 		this.questions = questions;
 		this.result = result;
 		this.mailer = mailer;
 		this.templates = templates;
 		this.users = users;
 		this.linker = linker;
+		this.env = env;
 	}
 
 	@Override
 	public void execute() {
+		if (env.getName().equals("production")) {
+			return;
+		}
 		DateTime pastWeek = new DateTime().minusWeeks(1);
 		List<Question> hotQuestions = questions.hot(pastWeek, 5);
 		DateTime twelveHoursAgo = new DateTime().minusHours(12);
@@ -64,7 +71,7 @@ public class NewsletterJob implements CronTask {
 						.with("sanitizer", POLICY)
 						.to(user.getName(), user.getEmail());
 				mailer.send(email);
-				return; //TODO
+				return; //TODO remove this
 			} catch (Exception e) {
 				LOG.error("could not send email", e);
 			}
