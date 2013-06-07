@@ -205,12 +205,11 @@ public class QuestionDAOTest extends DatabaseTestCase {
 		session.save(withFiveVotes);
 		session.save(withNoVotes);
 		
-		List<Question> questions = questionsForAnyone.hotQuestions(pastWeek, 2);
+		List<Question> questions = questionsForAnyone.hot(pastWeek, 2);
 		assertEquals(2, questions.size());
 		assertEquals(withTenVotes, questions.get(0));
 		assertEquals(withFiveVotes, questions.get(1));
 	}
-
 
 	private void setVoteCount(Question withTenVotes, long count) {
 		new Mirror().on(withTenVotes).set().field("voteCount").withValue(count);

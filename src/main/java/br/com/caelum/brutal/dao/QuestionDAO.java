@@ -63,7 +63,7 @@ public class QuestionDAO implements PaginatableDAO {
 		return calculatePages(result);
 	}
 	
-	public List<Question> noAnswers(Integer page) {
+	public List<Question> unanswered(Integer page) {
 		return session.createQuery("from Question as q " +invisibleFilter("and")+" q.answerCount = 0 order by q.lastUpdatedAt desc")
 				.setMaxResults(PAGE_SIZE)
 				.setFirstResult(firstResultOf(page))
@@ -151,9 +151,14 @@ public class QuestionDAO implements PaginatableDAO {
 		return PAGE_SIZE * (page-1);
 	}
 
-	public List<Question> hotQuestions(DateTime since, int count) {
+	public List<Question> hot(DateTime since, int count) {
 		String hql = "select q from Question q where q.createdAt > :since order by q.voteCount desc";
 		return session.createQuery(hql).setParameter("since", since).setMaxResults(count).list();
+	}
+	
+	public List<Question> randomUnanswered(DateTime before, int count) {
+		String hql = "select q from Question q where q.solution is null and q.createdAt < :before order by rand()";
+		return session.createQuery(hql).setParameter("before", before).setMaxResults(count).list();
 	}
 
 }

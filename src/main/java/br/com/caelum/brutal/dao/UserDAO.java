@@ -5,6 +5,7 @@ import java.util.List;
 import net.vidageek.mirror.dsl.Mirror;
 
 import org.hibernate.Query;
+import org.hibernate.ScrollableResults;
 import org.hibernate.Session;
 
 import br.com.caelum.brutal.dto.UserAndSession;
@@ -121,6 +122,10 @@ public class UserDAO {
 
 	public void delete(UserSession userSession) {
 		session.delete(userSession);
+	}
+	
+	public ScrollableResults list() {
+		return session.createCriteria(User.class).scroll();
 	}
 
 	public List<User> getRank(Integer page) {

@@ -58,7 +58,7 @@ public class ListController {
 	@Get("/sem-respostas")
 	public void unanswered(Integer p) {
 		Integer page = getPage(p);
-		result.include("questions", questions.noAnswers(page));
+		result.include("questions", questions.unanswered(page));
 		result.include("recentTags", recentTagsContainer.getRecentTagsUsage());
 		result.include("currentPage", page);
 		result.include("totalPages", questions.totalPagesWithoutAnswers());
