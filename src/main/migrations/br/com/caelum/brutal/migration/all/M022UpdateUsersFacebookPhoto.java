@@ -2,7 +2,6 @@ package br.com.caelum.brutal.migration.all;
 
 import static java.util.Arrays.asList;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
@@ -21,7 +20,6 @@ import br.com.caelum.brutal.migration.RawSQLOperation;
 import br.com.caelum.brutal.model.LoginMethod;
 import br.com.caelum.brutal.model.MethodType;
 import br.com.caelum.brutal.model.User;
-import br.com.caelum.vraptor.environment.DefaultEnvironment;
 import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.ioc.ApplicationScoped;
 import br.com.caelum.vraptor.ioc.Component;
@@ -32,6 +30,12 @@ import com.google.common.collect.Iterables;
 @Component
 @ApplicationScoped
 public class M022UpdateUsersFacebookPhoto implements Migration {
+	
+	private final Environment env;
+
+	public M022UpdateUsersFacebookPhoto(Environment env) {
+		this.env = env;
+	}
 
 	@Override
 	public List<MigrationOperation> up() {
@@ -39,7 +43,6 @@ public class M022UpdateUsersFacebookPhoto implements Migration {
 			@Override
 			@SuppressWarnings("unchecked")
 			public void execute(Session session, StatelessSession statelessSession) {
-				Environment env = getEnv();
 				OAuthService oauthService = buildFacebookService(env);
 				
 				String hql = "select u from User u join fetch u.loginMethods method where method.type=:type";
@@ -55,7 +58,10 @@ public class M022UpdateUsersFacebookPhoto implements Migration {
 						try {
 							String token = facebookMethod.getToken();
 							FacebookAPI facebookApi = new FacebookAPI(oauthService, new Token(token, ""));
-							String userName = facebookApi.getUserName();
+							String userName = "http://url.from.facebook.com/";
+							if (env.getName().equals("production")) {
+								userName = facebookApi.getUserName();
+							}
 							String photoUri = "http://graph.facebook.com/"+userName+"/picture";
 							setPhotoUri(user, photoUri);
 						} catch (IllegalArgumentException e) {
@@ -74,16 +80,6 @@ public class M022UpdateUsersFacebookPhoto implements Migration {
 		return RawSQLOperation.forSqls("");
 	}
 
-	private Environment getEnv() {
-		Environment env;
-		try {
-			env = new DefaultEnvironment("production");
-		} catch (IOException e) {
-			throw new RuntimeException();
-		}
-		return env;
-	}
-	
 	private OAuthService buildFacebookService(Environment env) {
 		OAuthServiceCreator creator = new OAuthServiceCreator(env);
 		creator.create();
