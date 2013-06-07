@@ -370,6 +370,13 @@ public class Question extends Moderatable implements Post, Taggable{
 	public String getTypeNameKey() {
 		return "question.type_name";
 	}
+	
+    public String getTrimmedContent() {
+        String markedDescription = getMarkedDescription();
+        if (markedDescription.length() < 200)
+            return markedDescription;
+        return markedDescription.substring(0, 200) + "...";
+    }
 
 
 }

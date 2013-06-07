@@ -69,7 +69,7 @@ public class NotificationMailer {
 		return email;
 	}
     
-	public class LinkToHelper {
+	public static class LinkToHelper {
         private Linker linker;
 
         public LinkToHelper(Linker linker) {
