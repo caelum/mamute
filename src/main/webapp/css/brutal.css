@@ -1024,7 +1024,7 @@ a.button.ask-a-question:hover{
 }
 
 .summary {
-	width: 75%;
+	width: 85%;
 }
 
 .summary .tags {
@@ -1032,27 +1032,24 @@ a.button.ask-a-question:hover{
 }
 
 .question-information {
-	width: 25%;
+	width: 15%;
+	padding-right: 1.5%;
 }
 
 .info {
 	float: left;
 	font-size: 1.4em;
-	padding: .4em .25em;
+	padding: .4em 0;
 	text-align: center;
-	width: 33%;
-}
-
-.info .solution-mark {
-	font-size: 1.4em;
-}
-
-.info .solved {
-	color: #008e43;
+	width: 50%;
 }
 
 .answers {
 	color: #994325;
+}
+
+.answers.solved {
+	border-bottom: 2px solid #008e43;
 }
 
 .answers.answered {
@@ -1062,7 +1059,6 @@ a.button.ask-a-question:hover{
 .votes {
 	color: #504355;
 }
-
 
 .views {
 	display: inline-block;
