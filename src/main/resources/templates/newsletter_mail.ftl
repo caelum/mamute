@@ -2,6 +2,9 @@
 <#assign linkStyle = 'text-decoration: none; color: rgb(0, 119, 204);'>
 <#assign titleStyle = 'margin: 15px 0; padding: 0 10px;'>
 <#assign mainTitleStyle = 'margin: 0 0 0 20px; vertical-align: bottom; display: inline-block;'>
+<#assign tagStyle = 'text-decoration: none; background-color: #f8f8f8; border: 1px solid #adc2d0; color: #3e6d8e; display: inline-block; font-size: .9em; padding: 0 .4em; line-height: 1.45em; border-radius: 5px;'>
+<#assign userNameStyle = 'font-size: 0.8em; float: right;'>
+<#assign userImgStyle = 'width: 18px; height: 18px;'>
 
 <html>
 <body style="font-family:arial, sans-serif; font-size:12px;">
@@ -21,7 +24,12 @@
 			<tr>
 				<td style="${questionStyle}">
 					<h3><a style="${linkStyle}" href="${linkToHelper.questionLink(question)}">${question.title}</a></h3>
-					<p>${sanitizer.sanitize(question.getTrimmedContent())}</p>
+					<p>
+	                    <#list question.getTags() as tag>
+							<span><a style="${tagStyle}" href="${linkToHelper.tagLink(tag)}">${tag.name}</a></span>
+						</#list>
+						<span style="${userNameStyle}">perguntado por <img style="${userImgStyle}" src="${question.author.getPhoto(18, 18)}" /> <a style="${linkStyle}" href="${linkToHelper.userLink(question.author)}">${question.author.name}</a></span>
+					</p>
 				</td>
 			</tr>
 		</#list>
@@ -33,7 +41,12 @@
 			<tr>
 				<td style="${questionStyle}">
 					<h3><a style="${linkStyle}" href="${linkToHelper.questionLink(question)}">${question.title}</a></h3>
-					<p>${sanitizer.sanitize(question.getTrimmedContent())}</p>
+					<p>
+	                    <#list question.getTags() as tag>
+							<span><a style="${tagStyle}" href="${linkToHelper.tagLink(tag)}">${tag.name}</a></span>
+						</#list>
+						<span style="${userNameStyle}">perguntado por <img style="${userImgStyle}" src="${question.author.getPhoto(18, 18)}" /> <a style="${linkStyle}" href="${linkToHelper.userLink(question.author)}">${question.author.name}</a></span>
+					</p>
 				</td>
 			</tr>
 		</#list>
