@@ -60,8 +60,12 @@ public class SignupInfo {
 	}
 	
 	public URL getFacebookPhotoUri() {
-		String photoUri = username == null? null : "http://graph.facebook.com/"+username+"/picture";
+		String photoUri = "http://graph.facebook.com/"+username+"/picture";
 		return getUrl(photoUri);
+	}
+	
+	public boolean containsUser() {
+		return username != null;
 	}
 
 	private URL getUrl(String photoUri) {
