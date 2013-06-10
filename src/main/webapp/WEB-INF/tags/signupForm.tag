@@ -24,5 +24,6 @@
 	<input id="password-confirmation" name="passwordConfirmation" type="password" minlength="6" maxlength="100" class="required text-input"/>
 	
 	<input class="post-submit big-submit submit" type="submit" value="<fmt:message key="signup.form.submit.label" />"/>
+	<span><fmt:message key="signup.form.newsletter_notification"/></span>
 
 </form>

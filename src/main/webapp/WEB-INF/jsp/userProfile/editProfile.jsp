@@ -35,7 +35,7 @@
 	<label for="description" class="form-label"><fmt:message key="user_profile.edit.form.about.label" /></label>
 	<tags:markDown value="${user.about}" hintId="user-about-hint" minlength="6" maxlength="500" />
 
-	<input type="checkbox" name="isSubscribed" class="text-input inline-box" maxlength="100" ${user.subscribed? 'checked':''} />
+	<input type="checkbox" name="isSubscribed" class="text-input inline-box" maxlength="100" ${user.subscribedToNewsletter? 'checked':''} />
 	<label for="isSubscribed" class="form-label inline-label"><fmt:message key="user_profile.edit.form.subscribe.label" /></label>
 	
 	<input type="submit" class="post-submit big-submit submit" value="<fmt:message key="user_profile.edit.form.submit" />"/>

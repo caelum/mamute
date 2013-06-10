@@ -175,7 +175,7 @@ public class User implements Identifiable {
         this.karma = karma;
     }
 
-	public boolean isSubscribed() {
+	public boolean isSubscribedToNewsletter() {
 		return isSubscribed;
 	}
 	

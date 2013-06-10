@@ -156,9 +156,12 @@ public class QuestionDAO implements PaginatableDAO {
 		return session.createQuery(hql).setParameter("since", since).setMaxResults(count).list();
 	}
 	
-	public List<Question> randomUnanswered(DateTime before, int count) {
-		String hql = "select q from Question q where q.solution is null and q.createdAt < :before order by rand()";
-		return session.createQuery(hql).setParameter("before", before).setMaxResults(count).list();
+	public List<Question> randomUnanswered(DateTime after, DateTime before, int count) {
+		String hql = "select q from Question q where q.solution is null and q.createdAt between :after and :before order by rand()";
+		return session.createQuery(hql)
+				.setParameter("before", before)
+				.setParameter("after", after)
+				.setMaxResults(count).list();
 	}
 
 }

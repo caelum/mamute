@@ -33,7 +33,8 @@ public class SignupInfo {
 		}
 		String email = emailElement.getAsString();
 		String name = jsonObj.get("name").getAsString();
-		String username = jsonObj.get("username").getAsString();
+		JsonElement userNameObj = jsonObj.get("username");
+		String username = userNameObj != null ? userNameObj.getAsString() : null;
 		JsonObject locationJson = jsonObj.getAsJsonObject("location");
 		String location = "";
 		if (locationJson != null) {
@@ -61,6 +62,10 @@ public class SignupInfo {
 	public URL getFacebookPhotoUri() {
 		String photoUri = "http://graph.facebook.com/"+username+"/picture";
 		return getUrl(photoUri);
+	}
+	
+	public boolean containsUser() {
+		return username != null;
 	}
 
 	private URL getUrl(String photoUri) {

@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.dao;
 
+import static org.hibernate.criterion.Restrictions.eq;
+
 import java.util.List;
 
 import net.vidageek.mirror.dsl.Mirror;
@@ -124,8 +126,12 @@ public class UserDAO {
 		session.delete(userSession);
 	}
 	
-	public ScrollableResults list() {
-		return session.createCriteria(User.class).scroll();
+	public ScrollableResults nonModerators() {
+		return session.createCriteria(User.class).add(eq("moderator", false)).scroll();
+	}
+	
+	public ScrollableResults moderators() {
+		return session.createCriteria(User.class).add(eq("moderator", true)).scroll();
 	}
 
 	public List<User> getRank(Integer page) {

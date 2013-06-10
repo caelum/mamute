@@ -8,6 +8,8 @@ import java.util.List;
 
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
+import br.com.caelum.vraptor.environment.Environment;
+import br.com.caelum.vraptor.ioc.Component;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.core.util.QuickWriter;
@@ -15,7 +17,15 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.XppDriver;
 
+@Component
 public class QuestionRssEntryFactory {
+	
+	private String home;
+
+	public QuestionRssEntryFactory(Environment env) {
+		this.home = env.get("host") + "/";
+		home = home.endsWith("/") ? home : home + "/";
+	}
 
 	public void writeEntry(Question question, OutputStream output) {
 		
@@ -26,9 +36,7 @@ public class QuestionRssEntryFactory {
 		RssEntry entry = new RssEntryBuilder()
 				.withAuthor(author.getName())
 				.withTitle(question.getTitle())
-				.withLink(
-						"http://www.guj.com.br/" + question.getId() + "-"
-								+ question.getSluggedTitle())
+				.withLink(home + question.getId() + "-" + question.getSluggedTitle())
 				.withId(question.getId().toString())
 				.withDate(question.getCreatedAt())
 				.withImage(imageEntry).build();

@@ -10,9 +10,12 @@ import org.joda.time.format.DateTimeFormatter;
 import org.owasp.html.HtmlPolicyBuilder;
 import org.owasp.html.PolicyFactory;
 
+import br.com.caelum.brutal.controllers.ListController;
 import br.com.caelum.brutal.controllers.QuestionController;
+import br.com.caelum.brutal.controllers.UserProfileController;
 import br.com.caelum.brutal.mail.action.EmailAction;
 import br.com.caelum.brutal.model.Question;
+import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.vraptor.Linker;
 import br.com.caelum.vraptor.core.Localization;
@@ -79,6 +82,15 @@ public class NotificationMailer {
         public String questionLink(Question q) {
             linker.linkTo(QuestionController.class).showQuestion(q, q.getSluggedTitle());
             return linker.get();
+        }
+        
+        public String tagLink(Tag t) {
+        	linker.linkTo(ListController.class).withTag(t.getName(), 1);
+        	return linker.get();
+        }
+        public String userLink(User u) {
+        	linker.linkTo(UserProfileController.class).showProfile(u, u.getSluggedName());
+        	return linker.get();
         }
         
     }
