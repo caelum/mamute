@@ -311,7 +311,7 @@
 }
 
 @media only screen and (max-width: 500px){
-	.list-tags, .menu-rank{
+	.list-tags, .menu-rank, .main-tags-title{
 		display:none;
 	}
 	
@@ -326,6 +326,10 @@
 
 
 @media only screen and (max-width: 400px) {
+	.main-tags-title {
+		display: none;
+	}
+	
 	.menu-unanswered{
 		display: none;
 	}

@@ -22,6 +22,7 @@
 			<div class="message alert not-enough-karma">
 				<fmt:message key="answer.errors.not_enough_karma">
 					<fmt:param value="${linkTo[NavigationController].about}"/>
+					<fmt:param value="${linkTo[QuestionController].newQuestion}"/>
 				</fmt:message>
 			</div>
 		</c:if>
