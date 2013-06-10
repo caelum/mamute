@@ -2156,4 +2156,10 @@ a.button.ask-a-question:hover{
 
 .share .text-input {
 	background-color: #fff;
-} 
+}
+
+/*SUSPECTS*/
+.suspects li .vote-author, .suspects li .count, .suspects li .answer-author {
+	display: inline-block;
+	width: 33%;
+}

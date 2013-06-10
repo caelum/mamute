@@ -2,7 +2,18 @@ package br.com.caelum.brutal.model;
 
 
 public enum VoteType {
-	UP(1), DOWN(-1);
+	UP(1){
+		@Override
+		public String toString() {
+			return "UpVote";
+		}
+	},
+	DOWN(-1) {
+		@Override
+		public String toString() {
+			return "DownVote";
+		}
+	};
 
 	private final int value;
 

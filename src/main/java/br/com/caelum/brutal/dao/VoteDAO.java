@@ -5,13 +5,16 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.joda.time.DateTime;
 
+import br.com.caelum.brutal.dto.SuspectMassiveVote;
 import br.com.caelum.brutal.model.AnswerAndVotes;
 import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.CommentsAndVotes;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.Vote;
+import br.com.caelum.brutal.model.VoteType;
 import br.com.caelum.brutal.model.interfaces.Votable;
 import br.com.caelum.vraptor.ioc.Component;
 
@@ -44,6 +47,20 @@ public class VoteDAO {
 		query.setParameter("question", question);
 		return new AnswerAndVotes(question, question.getAnswers(), query.list());
 	}
+
+	public List<SuspectMassiveVote> suspectMassiveVote(VoteType type, DateTime begin, DateTime end) {
+		Query query = session.createQuery("select new " + SuspectMassiveVote.class.getCanonicalName() + "(av,count(av),aa) " +
+				"from Answer a join a.author aa join a.votes v join v.author av " +
+				"where v.type = :type and v.createdAt between :begin and :end " +
+				"group by av,aa " +
+				"order by count(av) desc");
+		query.setParameter("type", type);
+		query.setParameter("begin", begin);
+		query.setParameter("end", end);
+		
+		return query.setMaxResults(10).list();
+	}
+	
 	
 	@SuppressWarnings("unchecked")
 	public CommentsAndVotes previousVotesForComments(Question question, User currentUser) {

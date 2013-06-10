@@ -5,9 +5,11 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.com.caelum.brutal.dto.SuspectMassiveVote;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.CommentsAndVotes;
@@ -17,6 +19,7 @@ import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.Vote;
 import br.com.caelum.brutal.model.VoteType;
 import br.com.caelum.brutal.model.VotingMachine;
+import br.com.caelum.brutal.model.interfaces.Votable;
 import br.com.caelum.brutal.reputation.rules.KarmaCalculator;
 
 public class VoteDAOTest extends DatabaseTestCase{
@@ -104,13 +107,44 @@ public class VoteDAOTest extends DatabaseTestCase{
 		assertEquals(question, votes.questionOf(comment));
 		
 	}
+	
+	@Test
+	public void testName() throws Exception {
+		Question question = question(currentUser, tags);
+		Answer answer = answer("answer answer answer answer answer", question, currentUser);
+		
+		Question question2 = question(currentUser, tags);
+		Answer answer2 = answer("answer answer answer answer answer", question2, currentUser);
+		
+		Question question3 = question(currentUser, tags);
+		Answer answer3 = answer("answer answer answer answer answer", question3, currentUser);
+		
+		session.save(question);
+		session.save(question2);
+		session.save(question3);
+		
+		session.save(answer);
+		session.save(answer2);
+		session.save(answer3);
 
-	private Vote upvote(Comment comment, User user) {
+		upvote(answer, otherUser);
+		upvote(answer2, otherUser);
+		upvote(answer3, otherUser);
+		
+		List<SuspectMassiveVote> answers = votes.suspectMassiveVote(VoteType.UP, new DateTime().minusHours(1), new DateTime());
+		
+		assertEquals(otherUser,answers.get(0).getVoteAuthor());
+		assertEquals(currentUser,answers.get(0).getAnswerAuthor());
+		assertEquals(3l,answers.get(0).getMassiveVoteCount().longValue());
+		
+	}
+	
+
+	private Vote upvote(Votable votable, User user) {
 		Vote vote = new Vote(user, VoteType.UP);
-		session.save(comment);
+		session.save(votable);
 		session.save(vote);
-		votingMachine.register(comment, vote, Comment.class);
+		votingMachine.register(votable, vote, Comment.class);
 		return vote;
 	}
-
 }

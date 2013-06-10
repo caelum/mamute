@@ -27,7 +27,7 @@
 	<input type="text" name="website" class="text-input brutal-url" maxlength="200" value="<c:out value="${user.website}" escapeXml="true"/>"/>
 	
 	<label for="birthDate" class="form-label"><fmt:message key="user_profile.edit.form.birth_date.label" /></label>
-	<input type="text" name="birthDate" id="datepicker" class="text-input date" maxlength="10" value="<tags:jodaTime pattern="dd/MM/YYYY" time="${user.birthDate}"/>" placeholder="dd/mm/yyyy"/>
+	<input type="text" name="birthDate" id="datepicker-age" class="text-input date" maxlength="10" value="<tags:jodaTime pattern="dd/MM/YYYY" time="${user.birthDate}"/>" placeholder="dd/mm/yyyy"/>
 	
 	<label for="location" class="form-label"><fmt:message key="user_profile.edit.form.location.label" /></label>
 	<input type="text" name="location" class="text-input" maxlength="100" value="<c:out value="${user.location}" escapeXml="true"/>"/>
