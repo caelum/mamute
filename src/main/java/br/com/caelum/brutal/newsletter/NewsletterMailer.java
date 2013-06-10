@@ -1,4 +1,4 @@
-package br.com.caelum.brutal.cron;
+package br.com.caelum.brutal.newsletter;
 
 import java.util.List;
 
@@ -16,50 +16,38 @@ import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.notification.NotificationMailer;
 import br.com.caelum.brutal.notification.NotificationMailer.LinkToHelper;
 import br.com.caelum.brutal.vraptor.Linker;
-import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.environment.Environment;
-import br.com.caelum.vraptor.quartzjob.CronTask;
+import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.simplemail.Mailer;
 import br.com.caelum.vraptor.simplemail.template.TemplateMailer;
 
-@Resource
-public class NewsletterJob implements CronTask {
+@Component
+public class NewsletterMailer {
 	
-	private final QuestionDAO questions;
-	private final Result result;
-	private final TemplateMailer templates;
-	private final Mailer mailer;
-	private final UserDAO users;
-	private static final Logger LOG = Logger.getLogger(NewsletterJob.class);
-	private final Linker linker;
+	private QuestionDAO questions;
+	private Mailer mailer;
+	private TemplateMailer templates;
+	private Linker linker;
 	private static final PolicyFactory POLICY = new HtmlPolicyBuilder().toFactory();
-	private final Environment env;
+	private static final Logger LOG = Logger.getLogger(ModeratorsNewsletterJob.class);
 
-	public NewsletterJob(QuestionDAO questions, Result result, 
+	public NewsletterMailer(QuestionDAO questions, Result result, 
 			Mailer mailer, TemplateMailer templates, 
-			UserDAO users, Linker linker, Environment env) {
+			UserDAO users, Linker linker) {
 		this.questions = questions;
-		this.result = result;
 		this.mailer = mailer;
 		this.templates = templates;
-		this.users = users;
 		this.linker = linker;
-		this.env = env;
 	}
 
-	@Override
-	public void execute() {
-		if (env.getName().equals("production")) {
-			return;
-		}
+	public void sendTo(ScrollableResults results) {
 		DateTime pastWeek = new DateTime().minusWeeks(1);
-		List<Question> hotQuestions = questions.hot(pastWeek, 5);
 		DateTime twelveHoursAgo = new DateTime().minusHours(12);
-		List<Question> unanswered = questions.randomUnanswered(twelveHoursAgo, 5);
+		
+		List<Question> hotQuestions = questions.hot(pastWeek, 5);
+		List<Question> unanswered = questions.randomUnanswered(pastWeek, twelveHoursAgo, 5);
 		LinkToHelper linkToHelper = new NotificationMailer.LinkToHelper(linker);
 		
-		ScrollableResults results = users.list();
 		while (results.next()) {
 			User user = (User) results.get()[0];
 			try {
@@ -71,18 +59,11 @@ public class NewsletterJob implements CronTask {
 						.with("sanitizer", POLICY)
 						.to(user.getName(), user.getEmail());
 				mailer.send(email);
-				return; //TODO remove this
 			} catch (Exception e) {
 				LOG.error("could not send email", e);
 			}
 		}
-		
-		result.notFound();
-	}
 
-	@Override
-	public String frequency() {
-		return "0 14 * * 0";
 	}
 
 }
