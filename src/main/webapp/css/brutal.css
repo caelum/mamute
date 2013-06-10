@@ -1397,6 +1397,10 @@ a.button.ask-a-question:hover{
 	margin-bottom: 2px;
 }
 
+.login-or-signup .hide-next {
+	display: none;
+}
+
 .login-or-signup .login,.login-or-signup .signup {
 	padding: 0 1.2em;
 	float: left;

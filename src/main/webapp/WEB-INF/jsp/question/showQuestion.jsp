@@ -24,9 +24,11 @@
 	<tags:notice isLogged="${currentUser.loggedIn}" tags="${questionTags}"/>
 	<c:if test="${!currentUser.loggedIn}">
 		<div class="login-or-signup">
+			<a class="hide-next login-form-hide"><fmt:message key="auth.login_form_link"/><i class="icon-angle-right"></i></a>
 			<div class="login">
 				<tags:loginForm redirectUrl="${currentUrl}" />
 			</div>
+			<a class="hide-next signup-form-hide"><fmt:message key="signup.form.submit.label"/><i class="icon-angle-right"></i></a>
 			<div class="signup">
 				<tags:signupForm />
 			</div>

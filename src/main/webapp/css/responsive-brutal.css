@@ -322,6 +322,45 @@
 	.face-button{
 		font-size: 1.3em;
 	}
+	
+	.notice {
+		float: none;
+	}
+	
+	.login-or-signup .hide-next {
+		display: block;
+		text-align: center;
+		font-size: 1.6em;
+		line-height: 2em;
+		color: white;
+		background-color: rgb(116, 114, 114);
+		border: 2px solid #858080;
+		margin-bottom: 5%;
+	}
+	
+	.login-or-signup .hide-next:hover {
+		text-decoration: none;
+	}
+	
+	.login-or-signup .hide-next i:before{
+	  	width: 1em;
+	}
+	
+	.login-or-signup .hide-next + div {
+		display:none;
+	}
+	
+	.login-or-signup .login,.login-or-signup .signup {
+		float: none;
+		margin: 0 auto 10%;
+		width: 100%;
+		border: none;
+	}
+	
+	.or{
+		text-align: center;
+	}
+	
 }
 
 
@@ -376,5 +415,5 @@
 	.complete-user .user-info * {
 		height: auto;
 	}
-	
+
 }	
