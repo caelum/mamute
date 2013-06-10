@@ -9,12 +9,19 @@ import java.util.List;
 import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.model.Question;
+import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class RssFeedFactory {
-	QuestionRssEntryFactory entryFactory = new QuestionRssEntryFactory();
+	private QuestionRssEntryFactory entryFactory;
 	private PrintStream stream;
+	private String home;
+	
+	public RssFeedFactory(Environment env, QuestionRssEntryFactory questionRssEntryFactory) {
+		this.home = env.get("host") + env.get("home.url");
+		this.entryFactory = questionRssEntryFactory;
+	}
 
 	public void build(List<Question> questions, OutputStream output) {
 		stream = new PrintStream(output);
@@ -34,7 +41,7 @@ public class RssFeedFactory {
 				+ "<channel>\n"
 				+ "<title>GUJ respostas</title>\n"
 				+ "<description>Últimas perguntas do GUJ respostas</description>\n"
-				+ "<link>http://guj.com.br/perguntas</link>\n"
+				+ "<link>" + home + "</link>\n"
 				+ "<lastBuildDate>" + RSS_DATE_FORMATTER.print(dateTime) + "</lastBuildDate>\n"
 				+ "<pubDate>" + RSS_DATE_FORMATTER.print(dateTime) + "</pubDate>\n" 
 				+ "<ttl>1800</ttl>\n\n");

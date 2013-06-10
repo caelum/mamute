@@ -14,12 +14,15 @@ import br.com.caelum.brutal.builder.QuestionBuilder;
 import br.com.caelum.brutal.dao.TestCase;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
+import br.com.caelum.vraptor.environment.DefaultEnvironment;
 
 public class RssFeedFactoryTest extends TestCase {
 	
 	@Test
 	public void should_generate_feed() throws IOException {
-		RssFeedFactory rssFeedFactory = new RssFeedFactory();
+		DefaultEnvironment env = new DefaultEnvironment("development");
+		QuestionRssEntryFactory factory = new QuestionRssEntryFactory(env);
+		RssFeedFactory rssFeedFactory = new RssFeedFactory(env, factory);
 		
 		QuestionBuilder builder = new QuestionBuilder();
 		

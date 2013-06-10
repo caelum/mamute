@@ -11,12 +11,14 @@ import org.junit.Test;
 import br.com.caelum.brutal.builder.QuestionBuilder;
 import br.com.caelum.brutal.dao.TestCase;
 import br.com.caelum.brutal.model.Question;
+import br.com.caelum.vraptor.environment.DefaultEnvironment;
 
 public class QuestionRssEntryFactoryTest extends TestCase {
 
 	@Test
 	public void should_create_entry_from_a_question() throws IOException {
-		QuestionRssEntryFactory factory = new QuestionRssEntryFactory();
+		DefaultEnvironment env = new DefaultEnvironment("development");
+		QuestionRssEntryFactory factory = new QuestionRssEntryFactory(env);
 		QuestionBuilder builder = new QuestionBuilder();
 		DateTimeUtils.setCurrentMillisFixed(100);
 		
@@ -32,8 +34,7 @@ public class QuestionRssEntryFactoryTest extends TestCase {
 		factory.writeEntry(question, output);
 		output.close();
 		String xml = new String(output.toByteArray());
-		
-		assertTrue(xml.contains("<link>http://www.guj.com.br/1-question-title</link>"));
+		assertTrue(xml.contains("<link>http://localhost:8080/1-question-title</link>"));
 		assertTrue(xml.contains("<title><![CDATA[question title]]></title>"));
 		assertTrue(xml.contains("<author><![CDATA[author]]></author>"));
 	}
