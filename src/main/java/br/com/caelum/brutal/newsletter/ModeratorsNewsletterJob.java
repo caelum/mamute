@@ -5,7 +5,6 @@ import org.hibernate.ScrollableResults;
 import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.quartzjob.CronTask;
 
 @Resource
@@ -13,14 +12,12 @@ public class ModeratorsNewsletterJob implements CronTask {
 	
 	private final Result result;
 	private final UserDAO users;
-	private final Environment env;
 	private final NewsletterMailer newsMailer;
 	
-	public ModeratorsNewsletterJob(Result result, UserDAO users, Environment env,
+	public ModeratorsNewsletterJob(Result result, UserDAO users,
 			NewsletterMailer newsMailer) {
 		this.result = result;
 		this.users = users;
-		this.env = env;
 		this.newsMailer = newsMailer;
 	}
 
