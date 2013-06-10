@@ -12,8 +12,8 @@
 	<input type="text" class="date datepicker" name="end">
 	
 	<select name="voteType">
-		<option value="UP">Upvotes</option>
-		<option value="DOWN">Downvotes</option>
+		<option value="UP"><fmt:message key="suspects.upvote"/></option>
+		<option value="DOWN"><fmt:message key="suspects.downvote"/></option>
 	</select>
 	
 	<input type="submit"/>

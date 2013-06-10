@@ -144,6 +144,10 @@
 				<p class="about-question"><fmt:message key="about.faq.bad_question.question"/></p>
 				<p class="about-answer"><fmt:message key="about.faq.bad_question.answer"/></p>
 			</li>
+			<li>
+				<p class="about-question"><fmt:message key="about.faq.where_is_my_karma"/></p>
+				<p class="about-answer"><fmt:message key="about.faq.where_is_my_karma.answer"/></p>
+			</li>
 		</ul>
 	</div>
 </div>

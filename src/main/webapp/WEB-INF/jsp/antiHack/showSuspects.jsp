@@ -1,3 +1,4 @@
+
 <fmt:message key="metas.home.title" var="title"/>
 <fmt:message key="metas.default.description" var="description"/>
 <fmt:message key="metas.generic.title" var="genericTitle" />
@@ -5,14 +6,17 @@
 <tags:header facebookMetas="${true}" title="${genericTitle} - ${title}" description="${description}"/>
 
 <h2 class="title page-title subheader">
-	Suspeitos de ${voteType} entre <tags:jodaTime pattern="dd/MM/YYYY" time="${startDate}"/> e <tags:jodaTime pattern="dd/MM/YYYY" time="${endDate}"/>
+	<fmt:message key="suspects.show"><fmt:param value="${voteType}"/></fmt:message>
+	<tags:jodaTime pattern="dd/MM/YYYY" time="${startDate}"/>
+	e
+	<tags:jodaTime pattern="dd/MM/YYYY" time="${endDate}"/>
 </h2>
 
 <ul class="suspects">
 	<li class="title page-title">
-		<span class="answer-author">Suspeito</span>
-		<span class="count">${voteType}s recebidos</span>
-		<span class="vote-author">Autor do ${voteType}</span>
+		<span class="answer-author"><fmt:message key="suspects.suspect"/></span>
+		<span class="count"><fmt:message key="suspects.vote_received"><fmt:param value="${voteType}"/></fmt:message></span>
+		<span class="vote-author"><fmt:message key="suspects.vote_author"><fmt:param value="${voteType}"/></fmt:message></span>
 	</li>
 <c:forEach items="${suspects}" var="suspect">
 	<li>
