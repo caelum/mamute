@@ -21,4 +21,4 @@ vraptor-console.sh
 .vraptor-console/
 logs/
 target90*
-src/main/webapp/WEB-INF/tags/header.tag
+src/main/webapp/css/all.css
