@@ -11,7 +11,12 @@
 	  _gaq.push(['_trackPageview']);
 	  _gaq.push(['b._setAccount', 'UA-132222-7']);
 	  _gaq.push(['b._trackPageview']);
-	  
+	  _gaq.push(['_setCustomVar',
+	             1,
+	             'LoggedUser',
+	             LOGGED_IN,
+	             2
+	          ]);
 	
 	  (function() {
 	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;

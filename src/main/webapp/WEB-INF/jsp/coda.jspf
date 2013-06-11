@@ -24,12 +24,33 @@ UserVoice.push(['showTab', 'classic_widget', {
   tab_position: 'middle-right',
   tab_inverted: false
 }]);
+
 </script>
 
 <script src="<c:url value="/js/jquery.js"/>"></script>
 <script src="<c:url value="/js/jquery-ui-1.10.2.custom.js"/>"></script>
 <script src="<c:url value="/js/diff_match_patch.js"/>"></script>
 <script src="<c:url value="/js/pretty-text-diff.js"/>"></script>
+
+<script type="text/javascript">
+	//UI flags (GLOBAL VARIABLES)
+	var LOGGED_IN = ${currentUser.loggedIn};
+	var MODERATOR = ${currentUser.moderator};
+	var KARMA = ${currentUser.current.karma};
+	var CONTEXT_PATH = "${contextPath}";
+	var ALL_TAGS;
+	var ALL_TAG_NAMES;
+	
+	$.get("/tags/todas-tags", function(tags){
+		ALL_TAGS = tags
+		ALL_TAG_NAMES = $.makeArray(
+			$(ALL_TAGS).map(function(index, element){
+				return element.name;
+			})
+		);
+	});
+</script>
+
 <c:if test="${environment.name != 'production'}" >
 	<script src="<c:url value="/js/prettify.js"/>"></script>
 	<script src="<c:url value="/js/jquery.validate.min.js"/>"></script>
@@ -77,28 +98,12 @@ UserVoice.push(['showTab', 'classic_widget', {
 	<tags:brutal-include value="analytics"/>	
 </c:if>
 <script type="text/javascript">
-// UI flags 
-var LOGGED_IN = ${currentUser.loggedIn};
-var MODERATOR = ${currentUser.moderator};
-var KARMA = ${currentUser.current.karma};
-var CONTEXT_PATH = "${contextPath}";
-var ALL_TAGS;
-var ALL_TAG_NAMES;
 
 // fix context path of ajax requests *cool* 
 $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
 	if(options.url.indexOf(CONTEXT_PATH) != 0){
 		options.url = CONTEXT_PATH + options.url;
 	}
-});
-
-$.get("/tags/todas-tags", function(tags){
-	ALL_TAGS = tags
-	ALL_TAG_NAMES = $.makeArray(
-		$(ALL_TAGS).map(function(index, element){
-			return element.name;
-		})
-	);
 });
 
 function errorPopup(text, target, clazz){
