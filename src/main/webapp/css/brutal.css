@@ -627,7 +627,7 @@ textarea {
 
 .complete-user .user-info {
 	height: 32px;
-	width: 70%;
+	width: 60%;
 }
 
 .complete-user .user-info * {
@@ -640,8 +640,14 @@ textarea {
 	width: 32px;
 }
 
+.post-touchs .user-image {
+	margin-right: 3%;
+	width: 48px;
+}
+
 .complete-user .user-image,.complete-user .user-info {
-	float: left;
+	display: inline-block;
+	vertical-align: middle;
 }
 
 .user-image{
@@ -1293,8 +1299,8 @@ a.button.ask-a-question:hover{
 
 .post-touchs {
 	float: right;
-	height: 60px;
-	width: 50%;
+	height: 76px;
+	width: 52%;
 }
 
 .last-touch{
