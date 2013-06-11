@@ -28,7 +28,7 @@ public class VotingMachineTest extends TestCase {
     public void setUp() {
         votes = mock(VoteDAO.class);
         ReputationEventDAO reputationEvents = mock(ReputationEventDAO.class);
-		votingMachine = new VotingMachine(votes, new KarmaCalculator(), reputationEvents);
+		votingMachine = new VotingMachine(votes, new KarmaCalculator(), reputationEvents, new MassiveVote());
         voter = user("chico", "chico@brutal.com", 1l);
         author = user("author", "author@brutal.com", 2l);
         votable = question.withTitle("title").withDescription("description").withAuthor(author).build();
