@@ -24,8 +24,8 @@
 	<meta property="og:image" content="<env:get key="host"/><c:url value="/imgs/guj-fb-logo.png"/>">
 </c:if>
 
-<link rel="stylesheet" href="<c:url value="/css/reset.css"/>">
 <c:if test="${environment.name != 'production'}" >
+	<link rel="stylesheet" href="<c:url value="/css/reset.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/deps/font-awesome.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/deps/pagedown.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/deps/prettify.css"/>">
