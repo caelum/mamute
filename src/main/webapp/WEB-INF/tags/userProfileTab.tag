@@ -17,7 +17,7 @@
 	</div>
 		
 	<div class="image-and-information">
-		<img class="user-image profile-image" src="${selectedUser.mediumPhoto}"/>
+		<img class="user-image profile-image" src="${selectedUser.bigPhoto}"/>
 		<span class="karma">${selectedUser.karma}</span>
 		<span><fmt:message key="user_profile.reputation"/></span>
 	</div>

@@ -86,6 +86,7 @@ public class HistoryController {
 		result.include("histories", informations.pendingFor(moderatableId, clazz));
 		result.include("post", moderatables.getById(moderatableId, clazz));
 		result.include("type", moderatableType);
+		result.include("userMediumPhoto", true);
 	}
 
 	@ModeratorOrKarmaAccess(PermissionRulesConstants.MODERATE_EDITS)
