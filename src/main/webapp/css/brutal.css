@@ -180,7 +180,7 @@ a:hover{
 	width: 95%;
 }
 
-.hint-tips .hint-tip {
+.hint-tips .hint-tip, .question-warnings .hint-tip {
 	margin-bottom: 1em
 }
 
@@ -2162,4 +2162,18 @@ a.button.ask-a-question:hover{
 .suspects li .vote-author, .suspects li .count, .suspects li .answer-author {
 	display: inline-block;
 	width: 33%;
+}
+
+.question-warnings {
+	padding: 0.8em;	
+	color: black;
+	background-color: #FFEFC6;
+	border-radius: 5px;
+	color: #735005;
+	margin-bottom: 0.7em;
+}
+
+.question-warnings .hint-tip:before {
+	content: "\25BA";
+	padding-right: 0.4em;
 }
