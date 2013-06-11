@@ -88,6 +88,12 @@ public enum EventType implements KarmaRewardEvent {
 		public Integer reward() {
 			return KarmaCalculator.SOLVED_QUESTION_AUTHOR;
 		}
+	},
+	MASSIVE_VOTE_IGNORED {
+		@Override
+		public Integer reward() {
+			return 0;
+		}
 	};
 
 	public abstract Integer reward();

@@ -13,11 +13,13 @@ public class VotingMachine {
     private VoteDAO votes;
     private final KarmaCalculator karmaCalculator;
 	private final ReputationEventDAO reputationEvents;
+	private final MassiveVote voteChecker;
 
-    public VotingMachine(VoteDAO votes, KarmaCalculator karmaCalculator, ReputationEventDAO reputationEvents) {
+    public VotingMachine(VoteDAO votes, KarmaCalculator karmaCalculator, ReputationEventDAO reputationEvents, MassiveVote voteChecker) {
         this.votes = votes;
         this.karmaCalculator = karmaCalculator;
 		this.reputationEvents = reputationEvents;
+		this.voteChecker = voteChecker;
     }
 
     public void register(Votable votable, Vote current, Class<?> votableType) {
@@ -30,8 +32,10 @@ public class VotingMachine {
         
         Vote previous = votes.previousVoteFor(votable.getId(), voter, votableType);
 
+        boolean shouldCountKarma = voteChecker.shouldCountKarma(voter, votableAuthor, current);
+        
         if (previous != null) {
-            ReputationEvent receivedVote = new ReceivedVoteEvent(previous.getType(), votable, questionInvolved).reputationEvent();
+            ReputationEvent receivedVote = new ReceivedVoteEvent(previous.getType(), votable, questionInvolved, shouldCountKarma).reputationEvent();
 			votableAuthor.descreaseKarma(karmaCalculator.karmaFor(receivedVote));
 			ReputationEvent votedAtSomething = new VotedAtSomethingEvent(previous, votable, questionInvolved).reputationEvent();
             voter.descreaseKarma(karmaCalculator.karmaFor(votedAtSomething));
@@ -40,7 +44,7 @@ public class VotingMachine {
         }
         votable.substitute(previous, current);
         
-        ReputationEvent receivedVote = new ReceivedVoteEvent(current.getType(), votable, questionInvolved).reputationEvent();
+        ReputationEvent receivedVote = new ReceivedVoteEvent(current.getType(), votable, questionInvolved, shouldCountKarma).reputationEvent();
         votableAuthor.increaseKarma(karmaCalculator.karmaFor(receivedVote));
         ReputationEvent votedAtSomething = new VotedAtSomethingEvent(current, votable, questionInvolved).reputationEvent();
         voter.increaseKarma(karmaCalculator.karmaFor(votedAtSomething));

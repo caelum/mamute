@@ -18,22 +18,27 @@ public class ReceivedVoteEvent {
 	private final VoteType type;
 	private final Votable votable;
 	private final Question questionInvolved;
+	private final boolean shouldCountKarma;
 	{
 		map.put(Question.class, new QuestionVoteRule());
 		map.put(Answer.class, new AnswerVoteRule());
 		map.put(Comment.class, new CommentVoteRule());
 	}
 	
-	public ReceivedVoteEvent(VoteType type, Votable votable, Question questionInvolved) {
+	public ReceivedVoteEvent(VoteType type, Votable votable, Question questionInvolved, boolean shouldCountKarma) {
 		this.type = type;
 		this.votable = votable;
 		this.questionInvolved = questionInvolved;
+		this.shouldCountKarma = shouldCountKarma;
 		this.rule = map.get(votable.getType());
 	}
 	
 	public ReputationEvent reputationEvent() {
-		EventType eventType = rule.eventType(type);
-		return new ReputationEvent(eventType, questionInvolved, votable.getAuthor());
+		if(shouldCountKarma) {
+			EventType eventType = rule.eventType(type);
+			return new ReputationEvent(eventType, questionInvolved, votable.getAuthor());
+		}
+		return new ReputationEvent(EventType.MASSIVE_VOTE_IGNORED, questionInvolved, votable.getAuthor());
 	}
 	
 	
