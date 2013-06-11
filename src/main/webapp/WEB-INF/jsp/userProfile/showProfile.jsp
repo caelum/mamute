@@ -27,7 +27,7 @@
 			<tags:userProfileAdvancedData i18n="karma_history" list="${reputationHistory}" count="${selectedUser.karma}" type="historico-reputacao" orderOptions="false" withPagination="false">
 				<c:forEach var="historyItem" items="${reputationHistory}">
 					<li class="ellipsis advanced-data-line">
-						<c:set var="reputationClass" value="${historyItem.karma > 0 ? 'positive-karma' : 'negative-karma'}" />
+						<c:set var="reputationClass" value="${historyItem.karma > 0 ? 'positive-karma' : historyItem.karma < 0 ? 'negative-karma' : 'neutral-karma'}" />
 						<span class="reputation-won">
 							<span class="counter karma-value ${reputationClass}">${historyItem.karma > 0 ? '+' : ''}${historyItem.karma}</span>
 						</span>

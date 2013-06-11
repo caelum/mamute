@@ -1860,6 +1860,10 @@ a.button.ask-a-question:hover{
 	background-color: Maroon;
 }
 
+.counter.neutral-karma {
+	background-color: grey;
+}
+
 .counter.karma-value {
 	color: #fff;
 	margin: .2em;
@@ -1869,13 +1873,6 @@ a.button.ask-a-question:hover{
 	text-align: right;
 	display: inline-block;
 	line-height: 1em;
-}
-
-.advanced-data-section .counter.negative-karma {
-	margin: .2em;
-	padding: .2em;
-	background-color: red;
-	color: #fff;
 }
 
 .advanced-data-section .tag-line {
