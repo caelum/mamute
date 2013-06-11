@@ -403,31 +403,6 @@
 		<outputDirectory>src/main/webapp/WEB-INF/classes/</outputDirectory>
 		<plugins>
 			<plugin>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.3</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<configuration>
-							<tasks>
-								<echo message="Juntando css's..."/>
-							    <property name="css.dir" value="src/main/webapp/css"/>
-								<concat destfile="${project.build.directory}/${project.build.finalName}/css/all.css">
-							        <fileset file="${css.dir}/reset.css" />
-							        <fileset file="${css.dir}/deps/*.css" />
-							        <fileset file="${css.dir}/brutal.css" />
-							        <fileset file="${css.dir}/responsive-brutal.css" />
-								</concat>
-							</tasks>
-						</configuration>
-						<goals>
-							<goal>run</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		
-			<plugin>
 				<groupId>net.alchim31.maven</groupId>
 				<artifactId>yuicompressor-maven-plugin</artifactId>
 				<configuration>
