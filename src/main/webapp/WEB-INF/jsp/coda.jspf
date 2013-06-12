@@ -15,8 +15,8 @@
 	var ALL_TAGS = ${allTags};
 </script>
 
+<script src="<c:url value="/js/deps/jquery.js"/>"></script>
 <c:if test="${environment.name != 'production'}" >
-	<script src="<c:url value="/js/deps/jquery.js"/>"></script>
 	<script src="<c:url value="/js/deps/jquery-ui-1.10.2.custom.js"/>"></script>
 	<script src="<c:url value="/js/deps/diff_match_patch.js"/>"></script>
 	<script src="<c:url value="/js/deps/pretty-text-diff.js"/>"></script>
