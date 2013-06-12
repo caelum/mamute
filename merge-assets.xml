@@ -1,13 +1,45 @@
-<project name="brutal" default="merge" basedir=".">
+<project name="brutal" default="merge-all" basedir=".">
 
 	<property name="css.dir" value="src/main/webapp/css" />
-	<target name="merge">
+	<property name="js.dir" value="src/main/webapp/js" />
+	<property name="js.deps.dir" value="${js.dir}/deps/" />
+	
+	<target name="merge-all">
+		<antcall target="merge-css" />
+		<antcall target="merge-js" />
+	</target>
+	
+	<target name="merge-css" depends="">
 		<echo message="Juntando css's..." />
 		<concat destfile="${css.dir}/all.css">
 			<fileset file="${css.dir}/reset.css" />
 			<fileset file="${css.dir}/deps/*.css" />
 			<fileset file="${css.dir}/brutal.css" />
 			<fileset file="${css.dir}/responsive-brutal.css" />
+		</concat>
+	</target>
+	
+	<target name="merge-js" depends="">
+		<echo message="Juntando js's..." />
+		<concat destfile="${js.dir}/all.js">
+			<fileset file="${js.deps.dir}/jquery.js" />
+			<fileset file="${js.deps.dir}/jquery-ui-1.10.2.custom.js" />
+			<fileset file="${js.deps.dir}/pretty-text-diff.js" />
+			<fileset file="${js.deps.dir}/js/deps/jquery.js"/>
+			<fileset file="${js.deps.dir}/js/deps/jquery-ui-1.10.2.custom.js"/>
+			<fileset file="${js.deps.dir}/js/deps/diff_match_patch.js"/>
+			<fileset file="${js.deps.dir}/js/deps/pretty-text-diff.js"/>
+			<fileset file="${js.deps.dir}/js/deps/prettify.js"/>
+			<fileset file="${js.deps.dir}/js/deps/jquery.validate.min.js"/>
+			<fileset file="${js.deps.dir}/js/deps/jquery.joyride-2.0.3.js"/>
+			<fileset file="${js.deps.dir}/js/deps/Markdown.Converter.js"/>
+			<fileset file="${js.deps.dir}/js/deps/Markdown.Sanitizer.js"/>
+			<fileset file="${js.deps.dir}/js/deps/Markdown.Editor.js"/>
+			<fileset file="${js.deps.dir}/js/deps/marked.js"/>
+			<fileset file="${js.deps.dir}/js/deps/filepicker.js"/>
+			<fileset file="${js.deps.dir}/js/deps/feather.js"/>
+			
+			<fileset file="${js.dir}/*.js"/>
 		</concat>
 	</target>
 
