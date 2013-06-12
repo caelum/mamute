@@ -60,4 +60,8 @@ public class SignupController {
 	    linker.linkTo(ListController.class).home(null);
 	    result.forwardTo(AuthController.class).login(email, password, linker.get());
 	}
+	
+	@Get("/termos-de-uso")
+	public void showUsageTerms(){
+	}
 }
