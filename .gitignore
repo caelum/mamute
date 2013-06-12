@@ -22,3 +22,4 @@ vraptor-console.sh
 logs/
 target90*
 src/main/webapp/css/all.css
+src/main/webapp/js/all.js

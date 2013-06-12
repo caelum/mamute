@@ -25,19 +25,17 @@
 			<fileset file="${js.deps.dir}/jquery.js" />
 			<fileset file="${js.deps.dir}/jquery-ui-1.10.2.custom.js" />
 			<fileset file="${js.deps.dir}/pretty-text-diff.js" />
-			<fileset file="${js.deps.dir}/js/deps/jquery.js"/>
-			<fileset file="${js.deps.dir}/js/deps/jquery-ui-1.10.2.custom.js"/>
-			<fileset file="${js.deps.dir}/js/deps/diff_match_patch.js"/>
-			<fileset file="${js.deps.dir}/js/deps/pretty-text-diff.js"/>
-			<fileset file="${js.deps.dir}/js/deps/prettify.js"/>
-			<fileset file="${js.deps.dir}/js/deps/jquery.validate.min.js"/>
-			<fileset file="${js.deps.dir}/js/deps/jquery.joyride-2.0.3.js"/>
-			<fileset file="${js.deps.dir}/js/deps/Markdown.Converter.js"/>
-			<fileset file="${js.deps.dir}/js/deps/Markdown.Sanitizer.js"/>
-			<fileset file="${js.deps.dir}/js/deps/Markdown.Editor.js"/>
-			<fileset file="${js.deps.dir}/js/deps/marked.js"/>
-			<fileset file="${js.deps.dir}/js/deps/filepicker.js"/>
-			<fileset file="${js.deps.dir}/js/deps/feather.js"/>
+			<fileset file="${js.deps.dir}/diff_match_patch.js"/>
+			<fileset file="${js.deps.dir}/pretty-text-diff.js"/>
+			<fileset file="${js.deps.dir}/prettify.js"/>
+			<fileset file="${js.deps.dir}/jquery.validate.min.js"/>
+			<fileset file="${js.deps.dir}/jquery.joyride-2.0.3.js"/>
+			<fileset file="${js.deps.dir}/Markdown.Converter.js"/>
+			<fileset file="${js.deps.dir}/Markdown.Sanitizer.js"/>
+			<fileset file="${js.deps.dir}/Markdown.Editor.js"/>
+			<fileset file="${js.deps.dir}/marked.js"/>
+			<fileset file="${js.deps.dir}/filepicker.js"/>
+			<fileset file="${js.deps.dir}/feather.js"/>
 			
 			<fileset file="${js.dir}/*.js"/>
 		</concat>
