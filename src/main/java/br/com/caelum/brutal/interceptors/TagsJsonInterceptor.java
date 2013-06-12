@@ -32,8 +32,12 @@ public class TagsJsonInterceptor implements Interceptor {
 	@Override
 	public void intercept(InterceptorStack stack, ResourceMethod method,
 			Object obj) throws InterceptionException {
-		String allTags = json.toXML(tags.all());
-		result.include("allTags", allTags);
+		if (method.containsAnnotation(IncludeAllTags.class)) {
+			String allTags = json.toXML(tags.all());
+			result.include("allTags", allTags);
+		} else {
+			result.include("allTags", "{}");
+		}
 		stack.next(method, obj);
 	}
 

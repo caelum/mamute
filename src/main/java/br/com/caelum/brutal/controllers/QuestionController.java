@@ -15,6 +15,7 @@ import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.dao.VoteDAO;
 import br.com.caelum.brutal.dao.WatcherDAO;
 import br.com.caelum.brutal.factory.MessageFactory;
+import br.com.caelum.brutal.interceptors.IncludeAllTags;
 import br.com.caelum.brutal.model.EventType;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.Question;
@@ -77,10 +78,12 @@ public class QuestionController {
 
 	@Get("/perguntar")
 	@LoggedAccess
+	@IncludeAllTags
 	public void questionForm() {
 	}
 	
 	@Get("/pergunta/editar/{questionId}")
+	@IncludeAllTags
 	public void questionEditForm(Long questionId) {
 		Question question = questions.getById(questionId);
 		authorizationSystem.canEdit(question, authorizationSystem.ruleForQuestionEdit());
