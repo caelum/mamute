@@ -32,9 +32,6 @@
 	<link rel="stylesheet" href="<c:url value="/css/deps/fontello-embedded.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/deps/fontello-ie7-codes.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/deps/fontello-ie7.css"/>">
-	
-	<link rel="stylesheet" href="<c:url value="/css/deps/font-awesome-hacked.css"/>">
-	
 	<link rel="stylesheet" href="<c:url value="/css/deps/pagedown.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/deps/prettify.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/deps/joyride-2.0.3.css"/>">
