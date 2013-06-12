@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.model;
 
+import static br.com.caelum.brutal.infra.Digester.hashFor;
 import static br.com.caelum.brutal.infra.NormalizerBrutal.toSlug;
 import static br.com.caelum.brutal.sanitizer.HtmlSanitizer.sanitize;
 import static br.com.caelum.brutal.validators.UserPersonalInfoValidator.ABOUT_LENGTH_MESSAGE;
@@ -370,6 +371,10 @@ public class User implements Identifiable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public String getUnsubscribeHash() {
+		return Digester.encrypt(this.email + hashFor(this.id));
 	}
 	
 }

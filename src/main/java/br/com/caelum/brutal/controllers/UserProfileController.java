@@ -2,6 +2,7 @@ package br.com.caelum.brutal.controllers;
 
 import static br.com.caelum.brutal.dao.WithUserDAO.OrderType.ByDate;
 import static br.com.caelum.brutal.dao.WithUserDAO.OrderType.ByVotes;
+import static java.util.Arrays.asList;
 
 import org.joda.time.DateTime;
 
@@ -13,6 +14,7 @@ import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.dao.WatcherDAO;
 import br.com.caelum.brutal.dao.WithUserDAO.OrderType;
 import br.com.caelum.brutal.dto.UserPersonalInfo;
+import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.validators.UserPersonalInfoValidator;
@@ -23,7 +25,7 @@ import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.util.hibernate.extra.Load;
 
 @Resource
-public class UserProfileController {
+public class UserProfileController extends Controller{
 	
 	private Result result;
 	private UserDAO users;
@@ -35,10 +37,11 @@ public class UserProfileController {
 	private static final String HTTP = "http://";
 	private final WatcherDAO watchers;
 	private ReputationEventDAO reputationEvents;
+	private MessageFactory messageFactory;
 
     public UserProfileController(Result result, UserDAO users, LoggedUser currentUser,
             QuestionDAO questions, AnswerDAO answers, TagDAO tags, WatcherDAO watchers,
-            UserPersonalInfoValidator infoValidator, ReputationEventDAO reputationEvents) {
+            UserPersonalInfoValidator infoValidator, ReputationEventDAO reputationEvents, MessageFactory messageFactory) {
 		this.result = result;
 		this.users = users;
 		this.currentUser = currentUser;
@@ -48,6 +51,7 @@ public class UserProfileController {
 		this.watchers = watchers;
 		this.infoValidator = infoValidator;
 		this.reputationEvents = reputationEvents;
+		this.messageFactory = messageFactory;
 	}
 	
 	@Get("/usuario/{user.id:[0-9]+}/{sluggedName}")
@@ -154,6 +158,20 @@ public class UserProfileController {
 		user.setPersonalInformation(info);
 		
 		result.redirectTo(this).showProfile(user, user.getSluggedName());
+	}
+	
+	@Get("/usuario/unsubscribe/{user.id:[0-9]+}/{hash}")
+	public void unsubscribe(@Load User user, String hash){
+		String correctHash = user.getUnsubscribeHash();
+		
+		if (!correctHash.equals(hash)) {
+			result.include("messages", asList(messageFactory.build("errors", "newsletter.unsubscribe_page.invalid")));
+			result.redirectTo(ListController.class).home(null);
+			return;
+		}
+		result.include("messages", asList(messageFactory.build("messages", "newsletter.unsubscribe_page.valid")));
+		user.setSubscribed(false);
+		result.redirectTo(ListController.class).home(null);
 	}
 
 	private String correctWebsite(String website) {
