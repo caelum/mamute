@@ -405,6 +405,10 @@
 		width: 60%;
 	}
 	
+	.complete-user .user-info {
+		width: 50%;
+	}
+	
 	.complete-user .user-info * {
 		height: auto;
 	}
