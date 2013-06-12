@@ -3,9 +3,11 @@
 .icon-up-dir:before { content: '\e809'; } /* '' */
 .icon-down-dir:before { content: '\e80a'; } /* '' */
 .icon-flag:before { content: '\e805'; } /* '' */
+.icon-ok-circled:before { content: '\e815'; } /* '' */
 .icon-eye:before { content: '\e802'; } /* '' */
 .icon-eye-off:before { content: '\e803'; } /* '' */
 .icon-comment:before { content: '\e80f'; } /* '' */
+.icon-facebook:before { content: '\e811'; } /* '' */
 .icon-rss:before { content: '\e806'; } /* '' */
 .icon-gplus-squared:before { content: '\e80e'; } /* '' */
 .icon-chat-empty:before { content: '\e810'; } /* '' */
