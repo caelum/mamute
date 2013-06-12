@@ -1,10 +1,6 @@
 package br.com.caelum.brutal.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.joda.time.DateTime;
 
@@ -13,55 +9,42 @@ import br.com.caelum.vraptor.ioc.ApplicationScoped;
 @ApplicationScoped
 public class MassiveVote {
 	
-	private static final int MAX_VOTE_ALLOWED = 5;
-	private static final int MIN_DAY = 2;
+	private static final int MAX_VOTE_ALLOWED = 6;
+	private static final int MIN_DAY = 1;
 	
-	Map<User, List<Vote>> upvotesByTarget = new HashMap<>();
-	Map<User, List<Vote>> downvotesByTarget = new HashMap<>();
+	VotesToTarget upvotesToTarget = new VotesToTarget(VoteType.UP);
+	VotesToTarget downvotesToTarget = new VotesToTarget(VoteType.DOWN);
 
 	public boolean shouldCountKarma(User author, User target, Vote current) {
-
-		Map<User, List<Vote>> votesByTarget;
-		if(current.getType().equals(VoteType.UP)) votesByTarget = upvotesByTarget;
-		else votesByTarget = downvotesByTarget;
+		List<Vote> votes = getVotesWith(current.getType()).to(target).from(author);
 		
-		List<Vote> votes = votesByTarget.get(target);
-		if(votes == null) votes = new ArrayList<Vote>();
-		votes = getVotesFrom(votes, author);
-		
-		Collections.sort(votes, new VoteComparator());
-			
-		DateTime antonte = new DateTime().minusDays(MIN_DAY);
-			
 		if(votes.size() == MAX_VOTE_ALLOWED) {
-			if(votes.get(0).getCreatedAt().isAfter(antonte)) {
-				return false;
-			}
-			else {
+			Vote oldestVote = votes.get(0);
+			if(isExpired(oldestVote)) {
 				votes.remove(0);
 				votes.add(current);
 				return true;
+			}else {
+				return false;
 			}
 		} 
 		else if (votes.size() < MAX_VOTE_ALLOWED){
 			votes.add(current);
-			votesByTarget.put(target, votes);
+			getVotesWith(current.getType()).put(target, votes);
 			return true;
 		}
 		
-		throw new IllegalArgumentException("massive vote size are bigger than MAX_VOTE_ALLOWED");
+		throw new IllegalArgumentException("massive vote size are bigger than "+MAX_VOTE_ALLOWED);
 	}
-	
-	private List<Vote> getVotesFrom(List<Vote> votes, User author) {
-		List<Vote> votesFromAuthor = new ArrayList<>();
-		
-		for (Vote vote : votes) {
-			if (vote.getAuthor().equals(author)) {
-				votesFromAuthor.add(vote);
-			}
-		}
-		
-		return votesFromAuthor;
+
+	private VotesToTarget getVotesWith(VoteType voteType) {
+		if(VoteType.UP.equals(voteType)) return upvotesToTarget;
+		return downvotesToTarget;
+	}
+
+	private boolean isExpired(Vote oldestVote) {
+		DateTime expirationDate = new DateTime().minusDays(MIN_DAY);
+		return oldestVote.getCreatedAt().isBefore(expirationDate);
 	}
 
 	public int getMaxVotesAllowed() {
