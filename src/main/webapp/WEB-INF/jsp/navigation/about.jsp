@@ -3,25 +3,23 @@
 <tags:header title="${genericTitle} - ${title}"/>
 
 <div class="about-section sub-header">
-	<h2 class="title about-title"><fmt:message key="about.title.welcome" /></h2>
+	<h2 class="title big-text-title"><fmt:message key="about.title.welcome" /></h2>
 	<p class="about-main"></p>
 </div>
 
 <div class="about-section">
-	<h2 class="title about-title"><fmt:message key="about.tips"/></h2>
-	<div class="about-text">
-		<ul class="about-tips">
-			<li><fmt:message key="about.tips.solved"/></li>
-			<li><fmt:message key="about.tips.avoid.thanks"/></li>
-			<li><fmt:message key="about.tips.kkk"/></li>
-			<li><fmt:message key="about.tips.greetings"/></li>
-		</ul>
+	<h2 class="title big-text-title"><fmt:message key="about.tips"/></h2>
+	<div class="big-text">
+		<p><fmt:message key="about.tips.solved"/></p>
+		<p><fmt:message key="about.tips.avoid.thanks"/></p>
+		<p><fmt:message key="about.tips.kkk"/></p>
+		<p><fmt:message key="about.tips.greetings"/></p>
 	</div>
 </div>
 
 <div class="about-section">
-	<h2 class="title about-title"><fmt:message key="about.reputation.permission" /></h2>
-	<div class="about-text">
+	<h2 class="title big-text-title"><fmt:message key="about.reputation.permission" /></h2>
+	<div class="big-text">
 		<ul class="rules-list">
 			<li>
 				<fmt:message key="about.reputation.upvote" >
@@ -59,12 +57,12 @@
 				</fmt:message>
 			</li>
 		</ul>
-	</div><!-- about-text -->
+	</div><!-- big-text -->
 </div><!-- about-section -->
 
 <div class="about-section">
-	<h2 class="title about-title"><fmt:message key="about.reputation.gain" /></h2>
-	<div class="about-text">
+	<h2 class="title big-text-title"><fmt:message key="about.reputation.gain" /></h2>
+	<div class="big-text">
 		<ul class="rules-list">
 			<li>
 				<fmt:message key="about.reputation.gain.answer.solution">
@@ -117,12 +115,12 @@
 				</fmt:message>
 			</li>			
 		</ul>
-	</div><!-- about-text -->
+	</div><!-- big-text -->
 </div><!-- about-section -->
 
 <div class="about-section">
-	<h2 class="title about-title" id="faq"><fmt:message key="about.reputation.faq" /></h2>
-	<div class="about-text">
+	<h2 class="title big-text-title" id="faq"><fmt:message key="about.reputation.faq" /></h2>
+	<div class="big-text">
 		<ul class="about-faq">
 			<li>
 				<p class="about-question"><fmt:message key="about.faq.what_to_ask.question"/></p>

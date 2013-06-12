@@ -1223,26 +1223,34 @@ a.button.ask-a-question:hover{
 	margin-bottom: 5%;
 }
 
-/*ABOUT*/
-.about-title {
+/* BIG TEXT */
+.big-text-title {
 	font-size: 2.5em;
 	text-align: center;
 	margin: 5% 0;
 }
 
+.big-text {
+	font-size: 1.2em;
+	line-height: 2.5em;
+	width: 100%;
+}
+
+.big-text p {
+	margin-bottom: 3%;
+	line-height: 2em;
+}
+
+/*ABOUT*/
+
 .about-section {
 	margin-bottom: 7%;
 }
+
 .about-main {
 	font-size: 1.2em;
 	line-height: 1.5em;
 	text-align: center;
-}
-
-.about-text {
-	font-size: 1.2em;
-	line-height: 2.5em;
-	width: 100%;
 }
 
 .about-faq{
@@ -1253,12 +1261,7 @@ a.button.ask-a-question:hover{
 	margin-bottom: 7%;
 }
 
-.about-tips li{
-	margin-bottom: 3%;
-	line-height: 2em;
-}
-
-.about-text .karma {
+.big-text .karma {
 	display: inline-block;
 	width: 2em;
 	text-align: center;
@@ -1266,7 +1269,7 @@ a.button.ask-a-question:hover{
 	color: #3A77A6;
 }
 
-.about-text .about-question{
+.big-text .about-question{
 	font-size: 1.2em;
 	color: #3A77A6;
 }
