@@ -26,6 +26,8 @@
 		<li class="data-line">
 			<h5 class="data-section-title ellipsis"><fmt:message key="user_profile.bio" /></h5>
 			<dl class="data-section">
+				<dt class="data-title ellipsis"><fmt:message key="user_profile.name"/></dt>
+				<dd class="data-description ellipsis">${selectedUser.name}</dd>
 				<dt class="data-title ellipsis"><fmt:message key="user_profile.website"/></dt>
 				<dd class="data-description ellipsis"><a rel='nofollow' href='<c:out value="${selectedUser.website}" escapeXml="true"/>'><c:out value="${selectedUser.website}" escapeXml="true"/></a></dd>
 				<dt class="data-title ellipsis"><fmt:message key="user_profile.location"/></dt>
@@ -47,8 +49,6 @@
 			<dl class="data-section">
 				<dt class="data-title ellipsis"><fmt:message key="user_profile.email"/></dt>
 				<dd class="data-description ellipsis profile-email">${selectedUser.email}</dd>
-				<dt class="data-title ellipsis"><fmt:message key="user_profile.real_name"/></dt>
-				<dd class="data-description ellipsis">${selectedUser.realName}</dd>
 			</dl>
 		</li>
 		</c:if>
