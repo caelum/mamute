@@ -44,7 +44,26 @@
 	.center-popup {
 		margin: 4em 4.8em;
 	}
+		
+	.image-and-information {
+		width: auto;
+		margin-bottom: 3%;
+	}	
+		
+	.about-me {
+		clear: both;
+		height: auto;
+		min-height: initial;
+		width: 100%;
+	}
 	
+	.data-list {
+		width: 75%;	
+	}
+	
+	section .data-description {
+		width: 80%;
+	}
 }
 	
 @media only screen and (max-width: 800px) {
@@ -75,17 +94,6 @@
 		width:100%;
 	}
 	
-	.about-me {
-		clear: both;
-		height: auto;
-		min-height: initial;
-		width: 100%;
-	}
-	.image-and-information {
-		overflow: visible;
-		margin-bottom: 3%;
-	}
-	
 	#uvTab {
 		display:none !important;
 	}
@@ -96,6 +104,10 @@
 	
 	.ranking-user .user-info {
 		width: 55%;
+	}
+	
+	.data-list {
+		width: 70%;	
 	}
 }
 
@@ -199,32 +211,6 @@
 	}
 	.tabs a.selected {
 		padding: 12px 9px 10px 9px;
-	}
-	
-	/*User profile*/
-	.data-list {
-		float: right;
-		width: 83%;
-	}
-	
-	.data-line * {
-		font-size: 1em;
-	}
-	
-	.data-list .data-section {
-		width: 76%;
-	}
-	
-	.data-section .data-title {
-		width: 31%;
-	}
-	
-	.data-section .data-description {
-		width: 65%;
-	}
-	
-	.data-section-title {
-		width: 23%;
 	}
 	
 	.modal-flag {
@@ -361,6 +347,13 @@
 		text-align: center;
 	}
 	
+	.data-list {
+		width: 63%;
+	}
+	
+	.data-section .data-description {
+		width: 60%;
+	}
 }
 
 

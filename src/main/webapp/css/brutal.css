@@ -1770,18 +1770,20 @@ a.button.ask-a-question:hover{
 /*USER PROFILE*/
 .image-and-information {
 	float: left;
+	width: 13%;
 	color: #000;
 	text-align: center;
 	margin-right: 2%;
 }
 
-.image-and-information span {
+.image-and-information * {
 	display: block;
 }
 
 .profile-image {
-	width: 128px;
+	width: 100%;
 	height: auto;
+	max-width: 128px;
 	margin-bottom: 7%;
 }
 
@@ -1798,21 +1800,19 @@ a.button.ask-a-question:hover{
 
 .data-list {
 	float: left;
-	width: 35%;
+	width: 40%;
 	line-height: 1.5em;
 }
 
 .data-section-title {
-	float: left;
 	font-style: italic;
-	width: 4em;
 	margin-right: .3em;
 }
 
 .data-list .data-section {
 	float: left;
 	color: #000;
-	width: 22.8em;
+	width: 100%;
 }
 
 .data-section .data-title,.data-section .data-description {
@@ -1838,7 +1838,7 @@ a.button.ask-a-question:hover{
 }
 
 .data-section .data-description {
-	width: 15.6em;
+	width: 65%;
 }
 
 .advanced-data-section {
@@ -1919,7 +1919,7 @@ a.button.ask-a-question:hover{
 
 .about-me {
 	float: right;
-	width: 46%;
+	width: 43%;
 	height: auto;
 	min-height: 247px;
 	padding: 0.7em;
