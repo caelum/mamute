@@ -1,4 +1,10 @@
 var autoCompleteId;
+
+var ALL_TAG_NAMES = $.makeArray(
+	$(ALL_TAGS).map(function(index, element){
+		return element.name;
+	})
+);
 $('.autocomplete').keyup(function(e){
 	var autoCompleteInput = $(this),
 	target = $("#"+autoCompleteInput.data("autocomplete-id")),

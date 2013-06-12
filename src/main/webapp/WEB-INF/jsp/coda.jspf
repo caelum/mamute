@@ -5,10 +5,6 @@
 
 <tags:brutal-include value="footer"/>
 
-<script src="<c:url value="/js/deps/jquery.js"/>"></script>
-<script src="<c:url value="/js/deps/jquery-ui-1.10.2.custom.js"/>"></script>
-<script src="<c:url value="/js/deps/diff_match_patch.js"/>"></script>
-<script src="<c:url value="/js/deps/pretty-text-diff.js"/>"></script>
 
 <script type="text/javascript">
 	//UI flags (GLOBAL VARIABLES)
@@ -16,20 +12,14 @@
 	var MODERATOR = ${currentUser.moderator};
 	var KARMA = ${currentUser.current.karma};
 	var CONTEXT_PATH = "${contextPath}";
-	var ALL_TAGS;
-	var ALL_TAG_NAMES;
-	
-	$.get("/tags/todas-tags", function(tags){
-		ALL_TAGS = tags
-		ALL_TAG_NAMES = $.makeArray(
-			$(ALL_TAGS).map(function(index, element){
-				return element.name;
-			})
-		);
-	});
+	var ALL_TAGS = ${allTags};
 </script>
 
 <c:if test="${environment.name != 'production'}" >
+	<script src="<c:url value="/js/deps/jquery.js"/>"></script>
+	<script src="<c:url value="/js/deps/jquery-ui-1.10.2.custom.js"/>"></script>
+	<script src="<c:url value="/js/deps/diff_match_patch.js"/>"></script>
+	<script src="<c:url value="/js/deps/pretty-text-diff.js"/>"></script>
 	<script src="<c:url value="/js/deps/prettify.js"/>"></script>
 	<script src="<c:url value="/js/deps/jquery.validate.min.js"/>"></script>
 	<script src="<c:url value="/js/deps/jquery.joyride-2.0.3.js"/>"></script>

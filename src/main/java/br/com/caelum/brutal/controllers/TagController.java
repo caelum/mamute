@@ -30,11 +30,6 @@ public class TagController {
 		result.use(json()).withoutRoot().from(suggestions).serialize();
 	}
 	
-	@Get("/tags/todas-tags")
-	public void getAllTags(){
-		result.use(json()).withoutRoot().from(tags.all()).serialize();
-	}
-	
 	@Post("/tags/as6nj8f8n4aju1w2nj3u1rn5a/{stringTags}")
 	@ModeratorOrKarmaAccess
 	public void saveTags(String stringTags){
