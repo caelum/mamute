@@ -15,7 +15,7 @@
 	             1,
 	             'LoggedUser',
 	             LOGGED_IN,
-	             2
+	             3
 	          ]);
 	
 	  (function() {
