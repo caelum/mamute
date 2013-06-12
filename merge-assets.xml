@@ -1,4 +1,4 @@
-<project name="brutal" default="merge-all" basedir=".">
+<project name="brutal" default="merge-all" basedir="./">
 
 	<property name="css.dir" value="src/main/webapp/css" />
 	<property name="js.dir" value="src/main/webapp/js" />
@@ -11,6 +11,7 @@
 	
 	<target name="merge-css" depends="">
 		<echo message="Juntando css's..." />
+		<delete file="${css.dir}/all.css" />
 		<concat destfile="${css.dir}/all.css">
 			<fileset file="${css.dir}/reset.css" />
 			<fileset file="${css.dir}/deps/*.css" />
@@ -21,9 +22,10 @@
 	
 	<target name="merge-js" depends="">
 		<echo message="Juntando js's..." />
+		<delete file="${js.dir}/all.js" />
 		<concat destfile="${js.dir}/all.js">
 			<fileset file="${js.deps.dir}/jquery.js" />
-			<fileset file="${js.deps.dir}/jquery-ui-1.10.2.custom.js" />
+			<!--<fileset file="${js.deps.dir}/jquery-ui-1.10.2.custom.js" /> -->
 			<fileset file="${js.deps.dir}/pretty-text-diff.js" />
 			<fileset file="${js.deps.dir}/diff_match_patch.js"/>
 			<fileset file="${js.deps.dir}/pretty-text-diff.js"/>
