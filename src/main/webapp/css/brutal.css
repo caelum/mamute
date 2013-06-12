@@ -98,14 +98,13 @@ a:hover{
 	vertical-align: middle;
 }
 
-.subheader .icon-trophy:before {
+.subheader .icon-award:before {
 	vertical-align: middle;
 	font-size: 1.65em;
 	margin-right: .15em;
 }
 
-.subheader .icon-trophy {
-	font-family: FontAwesome;
+.subheader .icon-award {
 	vertical-align: middle;
 	color: #edd136;
 	font-size: .6em;
@@ -2180,3 +2179,5 @@ a.button.ask-a-question:hover{
 	content: "\25BA";
 	padding-right: 0.4em;
 }
+
+

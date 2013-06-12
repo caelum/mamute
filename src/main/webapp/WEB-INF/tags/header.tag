@@ -26,12 +26,20 @@
 
 <c:if test="${environment.name != 'production'}" >
 	<link rel="stylesheet" href="<c:url value="/css/reset.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/deps/font-awesome.css"/>">
+	
+	<link rel="stylesheet" href="<c:url value="/css/deps/fontello.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/deps/fontello-codes.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/deps/fontello-embedded.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/deps/fontello-ie7-codes.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/deps/fontello-ie7.css"/>">
+	
+	<link rel="stylesheet" href="<c:url value="/css/deps/font-awesome-hacked.css"/>">
+	
 	<link rel="stylesheet" href="<c:url value="/css/deps/pagedown.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/deps/prettify.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/deps/joyride-2.0.3.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/deps/brutal.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/deps/responsive-brutal.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/brutal.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/responsive-brutal.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/deps/custom.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/deps/jquery-ui-1.10.2.custom.css"/>">
 </c:if>

@@ -18,8 +18,8 @@
 			<h3 class="title page-title"><fmt:message key="about.home_banner.how_it_works.title"/></h3>
 			<ul>
 				<tags:howItWorksItem icon="icon-comment" key="about.home_banner.how_it_works.anyone_ask"/>
-				<tags:howItWorksItem icon="icon-comments-alt" key="about.home_banner.how_it_works.anyone_answer"/>
-				<tags:howItWorksItem icon="icon-group" key="about.home_banner.how_it_works.answers_raise_up"/>
+				<tags:howItWorksItem icon="icon-chat-empty" key="about.home_banner.how_it_works.anyone_answer"/>
+				<tags:howItWorksItem icon="icon-users" key="about.home_banner.how_it_works.answers_raise_up"/>
 			</ul> 
 		</div>
 	</section>
@@ -30,7 +30,7 @@
 			${title}
 			<c:if test="${not empty tag}">
 				: <tags:tag tag="${tag}"/>
-				<a href="<c:url value='/ranking/${tag.name}'/>" title='<fmt:message key="users.ranking.tag.title"/> ${tag.name}' class="icon-trophy"><fmt:message key="users.ranking.tag"/></a>
+				<a href="<c:url value='/ranking/${tag.name}'/>" title='<fmt:message key="users.ranking.tag.title"/> ${tag.name}' class="icon-award"><fmt:message key="users.ranking.tag"/></a>
 			</c:if>
 		</h2>
 		<span class="main-tags-title"><fmt:message key="tags.main"/>:</span> 
