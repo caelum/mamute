@@ -16,6 +16,13 @@
 		${localization.getMessage("notification_mail.answer", [emailAction.getWhat().getAuthor().getName(), sanitizer.sanitize(emailAction.getWhat().getTrimmedContent())])}
 	</p>
 	
+	<#if emailAction.getQuestion().hasAuthor(watcher)>
+		<p>
+			Caso a resposta tenha resolvido sua pergunta, não esqueça de marcá-la como correta. 
+			Caso não tenha resolvido sua dúvida, edite sua pergunta ou adicione comentários para dar mais informações.
+		</p>
+	</#if>
+	
 	<hr />
 	<span style="display:block; color: #aaa;">
 		${localization.getMessage("notification_mail.footer_message")}

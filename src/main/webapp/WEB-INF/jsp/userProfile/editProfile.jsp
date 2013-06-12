@@ -9,7 +9,7 @@
 	</ul>
 </div>
 <div class="image-and-information">
-	<img class="profile-image" src="${user.mediumPhoto}"/>
+	<img class="profile-image" src="${user.bigPhoto}"/>
 	<a href="https://br.gravatar.com/"><fmt:message key="user_profile.edit.photo" /></a>
 </div>
 

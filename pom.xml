@@ -413,10 +413,6 @@
 						<aggregation>
 							<removeIncluded>true</removeIncluded>
 							<output>${project.build.directory}/${project.build.finalName}/js/all${deploy.timestamp}.js</output>
-							<!-- files to include, path relative to output's directory or absolute 
-								path -->
-							<!--inputDir>base directory for non absolute includes, default to 
-								parent dir of output</inputDir -->
 							<includes>
 								<include>**/*.js</include>
 							</includes>
@@ -434,21 +430,7 @@
 							<removeIncluded>true</removeIncluded>
 							<output>${project.build.directory}/${project.build.finalName}/css/all-brutal${deploy.timestamp}.css</output>
 							<includes>
-								<include>**/brutal.css</include>
-								<include>**/responsive-brutal.css</include>
-								<include>**/custom.css</include>
-							</includes>
-						</aggregation>
-						<aggregation>
-							<removeIncluded>true</removeIncluded>
-							<output>${project.build.directory}/${project.build.finalName}/css/all-deps${deploy.timestamp}.css</output>
-							<excludes>
-								<exclude>**/all-brutal${deploy.timestamp}.css</exclude>
-								<exclude>**/brutal.css</exclude>
-								<exclude>**/responsive-brutal.css</exclude>
-							</excludes>
-							<includes>
-								<include>**/*.css</include>
+								<include>**/all.css</include>
 							</includes>
 						</aggregation>
 					</aggregations>
@@ -626,7 +608,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
 		</plugins>
 	</build>
 	<reporting>

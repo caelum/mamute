@@ -1,0 +1,14 @@
+<project name="brutal" default="merge" basedir=".">
+
+	<property name="css.dir" value="src/main/webapp/css" />
+	<target name="merge">
+		<echo message="Juntando css's..." />
+		<concat destfile="${css.dir}/all.css">
+			<fileset file="${css.dir}/reset.css" />
+			<fileset file="${css.dir}/deps/*.css" />
+			<fileset file="${css.dir}/brutal.css" />
+			<fileset file="${css.dir}/responsive-brutal.css" />
+		</concat>
+	</target>
+
+</project>

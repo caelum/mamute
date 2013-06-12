@@ -123,6 +123,7 @@ public class QuestionController {
 			result.include("questionTags", question.getInformation().getTags());
 			result.include("question", question);
 			result.include("isWatching", isWatching);
+			result.include("userMediumPhoto", true);
 			linker.linkTo(this).showQuestion(question, sluggedTitle);
 			result.include("facebookUrl", facebook.getOauthUrl(linker.get()));
 		} else {

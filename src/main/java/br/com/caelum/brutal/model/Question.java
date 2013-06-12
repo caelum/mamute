@@ -377,6 +377,11 @@ public class Question extends Moderatable implements Post, Taggable{
             return markedDescription;
         return markedDescription.substring(0, 200) + "...";
     }
+    
+    public boolean hasAuthor(User user) {
+		return user.getId().equals(author.getId());
+    	
+    }
 
 
 }
