@@ -5,10 +5,10 @@
 
 <tags:brutal-include value="footer"/>
 
-<script src="<c:url value="/js/jquery.js"/>"></script>
-<script src="<c:url value="/js/jquery-ui-1.10.2.custom.js"/>"></script>
-<script src="<c:url value="/js/diff_match_patch.js"/>"></script>
-<script src="<c:url value="/js/pretty-text-diff.js"/>"></script>
+<script src="<c:url value="/js/deps/jquery.js"/>"></script>
+<script src="<c:url value="/js/deps/jquery-ui-1.10.2.custom.js"/>"></script>
+<script src="<c:url value="/js/deps/diff_match_patch.js"/>"></script>
+<script src="<c:url value="/js/deps/pretty-text-diff.js"/>"></script>
 
 <script type="text/javascript">
 	//UI flags (GLOBAL VARIABLES)
@@ -30,17 +30,21 @@
 </script>
 
 <c:if test="${environment.name != 'production'}" >
-	<script src="<c:url value="/js/prettify.js"/>"></script>
-	<script src="<c:url value="/js/jquery.validate.min.js"/>"></script>
+	<script src="<c:url value="/js/deps/prettify.js"/>"></script>
+	<script src="<c:url value="/js/deps/jquery.validate.min.js"/>"></script>
+	<script src="<c:url value="/js/deps/jquery.joyride-2.0.3.js"/>"></script>
+	<script src="<c:url value="/js/deps/Markdown.Converter.js"/>"></script>
+	<script src="<c:url value="/js/deps/Markdown.Sanitizer.js"/>"></script>
+	<script src="<c:url value="/js/deps/Markdown.Editor.js"/>"></script>
+	<script src="<c:url value="/js/deps/marked.js"/>"></script>
+	<script src="<c:url value="/js/deps/filepicker.js"/>"></script>
+	<script src="<c:url value="/js/deps/feather.js"/>"></script>
+	
 	<script src="<c:url value="/js/form-validation.js"/>"></script>
 	<script src="<c:url value="/js/form-hints.js"/>"></script>
 	<script src="<c:url value="/js/simple-ajax-form.js"/>"></script>
 	<script src="<c:url value="/js/mark-as-solution.js"/>"></script>
 	<script src="<c:url value="/js/watch.js"/>"></script>
-	<script src="<c:url value="/js/Markdown.Converter.js"/>"></script>
-	<script src="<c:url value="/js/Markdown.Sanitizer.js"/>"></script>
-	<script src="<c:url value="/js/Markdown.Editor.js"/>"></script>
-	<script src="<c:url value="/js/marked.js"/>"></script>
 	<script src="<c:url value="/js/form-markdown.js"/>"></script>
 	<script src="<c:url value="/js/hide-next.js"/>"></script>
 	<script src="<c:url value="/js/modal.js"/>"></script>
@@ -58,9 +62,6 @@
 	<script src="<c:url value="/js/more-comments.js"/>"></script>
 	<script src="<c:url value="/js/button-hints.js"/>"></script>
 	<script src="<c:url value="/js/answer-form.js"/>"></script>
-	<script src="<c:url value="/js/jquery.joyride-2.0.3.js"/>"></script>
-	<script src="<c:url value="/js/feather.js"/>"></script>
-	<script src="<c:url value="/js/filepicker.js"/>"></script>
 	<script src="<c:url value="/js/form-fix.js"/>"></script>
 	<script src="<c:url value="/js/about-banner.js"/>"></script>
 	<script src="<c:url value="/js/question-warnings.js"/>"></script>
