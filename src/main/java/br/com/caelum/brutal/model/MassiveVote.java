@@ -9,7 +9,7 @@ import br.com.caelum.vraptor.ioc.ApplicationScoped;
 @ApplicationScoped
 public class MassiveVote {
 	
-	private static final int MAX_VOTE_ALLOWED = 6;
+	private static final int MAX_VOTE_ALLOWED = 4;
 	private static final int MIN_DAY = 1;
 	
 	VotesToTarget upvotesToTarget = new VotesToTarget(VoteType.UP);
