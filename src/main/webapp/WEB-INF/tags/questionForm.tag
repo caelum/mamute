@@ -10,7 +10,7 @@
 		name="title" placeholder="<fmt:message key="question.title.placeholder"/>" />
 	
 	<fmt:message var="descriptionPlaceholder" key="question.description.placeholder"/>
-	<tags:markDown placeholder="${descriptionPlaceholder}" value="${question.description}" hintId="question-description-hint" htmlClass="required question-description-input" minlength="30"/>
+	<tags:markDown placeholder="${descriptionPlaceholder}" value="${question.description}" hintId="question-description-hint" htmlClass="required description-input" minlength="30"/>
 
 	<label for="tags"><fmt:message key="question.tags.label"/></label>
 	<ul class="tags autocompleted-tags complete-tags hidden" id="newquestion-tags-autocomplete"></ul>
@@ -31,7 +31,7 @@
 </div>
 <ol class="${currentUser.current.karma <= 0 ? 'automatically-joyride' : ''}" id="intro">
 	<tags:joyrideTip className="question-title-input" options="tipLocation:bottom" key="intro.new_question.title" />
-	<tags:joyrideTip className="question-description-input" options="tipLocation:bottom" key="intro.new_question.description" />
+	<tags:joyrideTip className="description-input" options="tipLocation:bottom" key="intro.new_question.description" />
 	<tags:joyrideTip className="question-tags-input" options="tipLocation:bottom" key="intro.new_question.tags" />
 	<tags:joyrideTip className="about" options="tipLocation:bottom" key="intro.about" />
 </ol>

@@ -4,7 +4,7 @@ $(function() {
 	var warnings = $("<div>");
 	warnings
 		.addClass("question-warnings")
-		.html("<h4 class='section-title hint-title'>Reveja o conteúdo da sua pergunta:</h4><ul></ul>")
+		.html("<h4 class='section-title hint-title'>Reveja o conteúdo da sua postagem:</h4><ul></ul>")
 		.hide();
 	
 	$(".md-panel.md-preview").before(warnings);
@@ -54,17 +54,17 @@ $(function() {
 		cleanMessages();
 	});
 	
-	$(".question-description-input").keyup(function() {
+	$(".description-input").keyup(function() {
 		var input = $(this);
 		var description = input.val();
 		var messageClass = "description-messages";
 		messages.find("li."+messageClass).remove();
 		var illegalWords = ["kkk", "vc", "!!", "??", "..."];
 		validateRule(description.toUpperCase() == description && description.length > 1, 
-				"Não utilize apenas letras maiúsculas na descrição da pergunta", 
+				"Não utilize apenas letras maiúsculas na descrição da postagem", 
 				messageClass);
 		validateRule(containsIllegalWords(description, illegalWords), 
-				"Deixe sua pergunta clara e completa, evite informalidades (como 'vc', 'kkk') ou excesso de pontuação (como !!, ?? e ...)", 
+				"Deixe sua postagem clara e completa, evite informalidades (como 'vc', 'kkk') ou excesso de pontuação (como !!, ?? e ...)", 
 				messageClass);
 		cleanMessages();
 	});

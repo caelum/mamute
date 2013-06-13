@@ -16,7 +16,7 @@
 </c:if>
 
 <form action="${uri}" method="post" class="validated-form hinted-form answer-form" data-same-author="${sameAuthor}">
-	<tags:markDown placeholder="${placeholder}" value="${answer.description}" hintId="newanswer-answer-hint" htmlClass="required" minlength="30"/>
+	<tags:markDown placeholder="${placeholder}" value="${answer.description}" hintId="newanswer-answer-hint" htmlClass="required description-input" minlength="30"/>
 	
 	<c:choose>
 		<c:when test='${not empty edit}'>
