@@ -92,6 +92,10 @@ public class NotificationMailer {
         	linker.linkTo(UserProfileController.class).showProfile(u, u.getSluggedName());
         	return linker.get();
         }
+        public String unsubscribeLink(User user) {
+        	linker.linkTo(UserProfileController.class).unsubscribe(user, user.getUnsubscribeHash());
+        	return linker.get();
+        }
         
     }
 

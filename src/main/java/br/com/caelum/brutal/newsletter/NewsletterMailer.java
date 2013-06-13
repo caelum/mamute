@@ -55,6 +55,7 @@ public class NewsletterMailer {
 						.with("hotQuestions", hotQuestions)
 						.with("unansweredQuestions", unanswered)
 						.with("unansweredQuestions", unanswered)
+						.with("unsubscribeLink", linkToHelper.unsubscribeLink(user))
 						.with("linkToHelper", linkToHelper)
 						.with("sanitizer", POLICY)
 						.to(user.getName(), user.getEmail());

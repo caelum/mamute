@@ -52,6 +52,8 @@
 		</#list>
 		
 	</table>
+	
+	<a href="${unsubscribeLink}">Não desejo mais participar da newsletter do GUJ Respostas</a>
 </body>
 </html>
 
