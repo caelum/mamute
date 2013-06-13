@@ -286,6 +286,10 @@ public class User implements Identifiable {
 		return this;
 	}
 	
+	public boolean canModerate() {
+		return isModerator() || this.karma >= PermissionRulesConstants.MODERATE_EDITS;
+	}
+	
 	public void setSubscribed(boolean isSubscribed){
 		this.isSubscribed = isSubscribed;
 	}

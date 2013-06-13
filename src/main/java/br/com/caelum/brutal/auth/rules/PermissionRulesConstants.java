@@ -29,5 +29,5 @@ public class PermissionRulesConstants {
 	 */
 	public static final int CREATE_COMMENT = 0;
 
-	public static final long MODERATE_EDITS = 500;
+	public static final long MODERATE_EDITS = 2000;
 }

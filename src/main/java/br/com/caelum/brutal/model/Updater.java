@@ -27,7 +27,7 @@ public class Updater {
 	private UpdateStatus canUpdate(Moderatable answer, Information newInformation) {
 	    User informationAuthor = newInformation.getAuthor();
 	    User author = answer.getAuthor();
-	    if (author.getId().equals(informationAuthor.getId()) || informationAuthor.isModerator()) {
+	    if (author.getId().equals(informationAuthor.getId()) || informationAuthor.canModerate()) {
 	        return UpdateStatus.NO_NEED_TO_APPROVE;
 	    }
 	    return UpdateStatus.PENDING;
