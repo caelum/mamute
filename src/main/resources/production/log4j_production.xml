@@ -67,7 +67,7 @@
     <category name="br.com.caelum.vraptor.errormail">
         <priority value="ERROR"/>
         <appender-ref ref="errorFile"/>
-    </category
+    </category>
 
     <category name="br.com.caelum.brutal">
         <priority value="DEBUG"/>
