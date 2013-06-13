@@ -15,14 +15,16 @@
 	var ALL_TAGS = ${allTags};
 </script>
 
+	
 <script src="<c:url value="/js/deps/jquery.js"/>"></script>
-<script src="<c:url value="/js/deps/jquery-ui-1.10.2.custom.js"/>"></script>
-<script src="<c:url value="/js/deps/jquery.validate.min.js"/>"></script>
-<script src="<c:url value="/js/deps/jquery.joyride-2.0.3.js"/>"></script>
-<script src="<c:url value="/js/deps/diff_match_patch.js"/>"></script>
-<script src="<c:url value="/js/deps/pretty-text-diff.js"/>"></script>
 	
 <c:if test="${environment.name != 'production'}" >
+	<script src="<c:url value="/js/deps/diff_match_patch.js"/>"></script>
+	<script src="<c:url value="/js/deps/pretty-text-diff.js"/>"></script>
+	<script src="<c:url value="/js/deps/jquery-ui-1.10.2.custom.js"/>"></script>
+	<script src="<c:url value="/js/deps/jquery.validate.min.js"/>"></script>
+	<script src="<c:url value="/js/deps/jquery.joyride-2.0.3.js"/>"></script>
+	
 	<script src="<c:url value="/js/deps/prettify.js"/>"></script>
 	<script src="<c:url value="/js/deps/Markdown.Converter.js"/>"></script>
 	<script src="<c:url value="/js/deps/Markdown.Sanitizer.js"/>"></script>
@@ -58,6 +60,7 @@
 	<script src="<c:url value="/js/question-warnings.js"/>"></script>
 </c:if>
 <c:if test="${environment.name == 'production'}" >
+	<script src="<c:url value="/js/jquery/jquery-plugins${deployTimestamp}.js"/>"></script>
 	<script src="<c:url value="/js/all${deployTimestamp}.js"/>"></script>
 	<tags:brutal-include value="analytics"/>
 </c:if>

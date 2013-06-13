@@ -8,6 +8,7 @@
 	<target name="merge-all">
 		<antcall target="merge-css" />
 		<antcall target="merge-js" />
+		<antcall target="merge-jquery-plugins" />
 	</target>
 
 	<target name="merge-css" depends="">
@@ -47,6 +48,21 @@
 			<fileset file="${js.deps.dir}/feather.js"/>
 
 			<fileset file="${js.dir}/*.js"/>
+		</concat>
+	</target>
+	
+	<target name="merge-jquery-plugins" depends="">
+		<echo message="Juntando jquery plugins..." />
+		<mkdir dir="${js.dir}/jquery/"/>
+		<delete>
+			<fileset file="${js.dir}/jquery/jquery-plugins*.js" />
+		</delete>
+		<concat fixlastline="yes" destfile="${js.dir}/jquery/jquery-plugins${deploy.timestamp}.js">
+			<fileset file="${js.deps.dir}/jquery-ui-1.10.2.custom.js" /> 
+			<fileset file="${js.deps.dir}/jquery.validate.min.js"/>
+			<fileset file="${js.deps.dir}/jquery.joyride-2.0.3.js"/>
+			<fileset file="${js.deps.dir}/diff_match_patch.js"/>
+			<fileset file="${js.deps.dir}/pretty-text-diff.js"/>
 		</concat>
 	</target>
 

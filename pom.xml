@@ -416,6 +416,9 @@
 							<includes>
 								<include>**/all.js</include>
 							</includes>
+<!-- 							<excludes> -->
+<!-- 								<exlcude>**/jquery-bundle*.js</exlcude> -->
+<!-- 							</excludes> -->
 						</aggregation>
 						<aggregation>
 							<removeIncluded>true</removeIncluded>

@@ -24,3 +24,4 @@ target90*
 src/main/webapp/css/all.css
 src/main/webapp/js/all.js
 src/main/webapp/font/
+src/main/webapp/js/jquery/jquery-plugins*.js
