@@ -5,7 +5,6 @@
 <%@attribute name="active" required="true" type="java.lang.String"%>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 
-
 <section class="basic-user-data user-data">
 	<div class="subheader">
 		<tags:userProfileLink user="${selectedUser}" htmlClass="title page-title" isPrivate="true"/>

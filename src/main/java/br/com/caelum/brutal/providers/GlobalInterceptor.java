@@ -19,12 +19,12 @@ import br.com.caelum.vraptor.core.InterceptorStack;
 import br.com.caelum.vraptor.core.Localization;
 import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.interceptor.Interceptor;
-import br.com.caelum.vraptor.interceptor.ParametersInstantiatorInterceptor;
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.resource.ResourceMethod;
+import br.com.caelum.vraptor.util.hibernate.extra.ParameterLoaderInterceptor;
 
 @Component
-@Intercepts(before=ParametersInstantiatorInterceptor.class)
+@Intercepts(before=ParameterLoaderInterceptor.class)
 public class GlobalInterceptor implements Interceptor {
 	
 	private final Environment env;

@@ -12,12 +12,12 @@
 		<tr>
 	        <td style="border-bottom: 1px solid #222; padding-bottom: 10px">
 	        	<img src="http://www.guj.com.br/imgs/guj-mail-logo.png">
-	        	<h1 style="${mainTitleStyle}">Newsletter</h1>
+	        	<h1 style="${mainTitleStyle}">${l10n.getMessage("newsletter_mail")}</h1>
         	</td>
 		</tr>
 	
 		<tr>
-			<td><h2 style="${titleStyle}">Questões principais dessa semana:</h2></td>
+			<td><h2 style="${titleStyle}">${l10n.getMessage("newsletter_mail.title.week_main_questions")}</h2></td>
 		</tr>
 		
 		<#list hotQuestions as question>
@@ -28,14 +28,14 @@
 	                    <#list question.getTags() as tag>
 							<span><a style="${tagStyle}" href="${linkToHelper.tagLink(tag)}">${tag.name}</a></span>
 						</#list>
-						<span style="${userNameStyle}">perguntado por <img style="${userImgStyle}" src="${question.author.getPhoto(18, 18)}" /> <a style="${linkStyle}" href="${linkToHelper.userLink(question.author)}">${question.author.name}</a></span>
+						<span style="${userNameStyle}">${l10n.getMessage("newsletter_mail.asked_by")} <img style="${userImgStyle}" src="${question.author.getPhoto(18, 18)}" /> <a style="${linkStyle}" href="${linkToHelper.userLink(question.author)}">${question.author.name}</a></span>
 					</p>
 				</td>
 			</tr>
 		</#list>
 		
 		<tr>
-			<td><h2 style="${titleStyle}">Questões sem solução:</h2></td>
+			<td><h2 style="${titleStyle}">${l10n.getMessage("newsletter_mail.title.unanswered_questions")}</h2></td>
 		</tr>
 		<#list unansweredQuestions as question>
 			<tr>
@@ -45,12 +45,14 @@
 	                    <#list question.getTags() as tag>
 							<span><a style="${tagStyle}" href="${linkToHelper.tagLink(tag)}">${tag.name}</a></span>
 						</#list>
-						<span style="${userNameStyle}">perguntado por <img style="${userImgStyle}" src="${question.author.getPhoto(18, 18)}" /> <a style="${linkStyle}" href="${linkToHelper.userLink(question.author)}">${question.author.name}</a></span>
+						<span style="${userNameStyle}">${l10n.getMessage("newsletter_mail.asked_by")} <img style="${userImgStyle}" src="${question.author.getPhoto(18, 18)}" /> <a style="${linkStyle}" href="${linkToHelper.userLink(question.author)}">${question.author.name}</a></span>
 					</p>
 				</td>
 			</tr>
 		</#list>
-		
+		<tr>
+			<td><a href="${unsubscribeLink}" style="display:block; color: #aaa; font-size: 10px;text-decoration:none; text-align: right; margin-top: 5em;">${l10n.getMessage("newsletter_mail.unsubscribe")}</a></td>
+		<tr>
 	</table>
 </body>
 </html>
