@@ -4,7 +4,7 @@ import static br.com.caelum.vraptor.view.Results.page;
 
 import java.util.List;
 
-import br.com.caelum.brutal.auth.ModeratorOrKarmaAccess;
+import br.com.caelum.brutal.auth.ModeratorOnly;
 import br.com.caelum.brutal.auth.rules.MinimumReputation;
 import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.dao.CommentDAO;
@@ -75,19 +75,19 @@ public class FlagController {
 		result.nothing();
 	}
 	
-	@ModeratorOrKarmaAccess
+	@ModeratorOnly
 	@Get("/perguntas/marcadas")
 	public void topFlaggedQuestions() {
 		topFlagged(Question.class);
 	}
 	
-	@ModeratorOrKarmaAccess
+	@ModeratorOnly
 	@Get("/comentarios/marcados")
 	public void topFlaggedComments() {
 		topFlagged(Comment.class);
 	}
 	
-	@ModeratorOrKarmaAccess
+	@ModeratorOnly
 	@Get("/respostas/marcados")
 	public void topFlaggedAnswers() {
 		topFlagged(Answer.class);

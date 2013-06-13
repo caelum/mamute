@@ -29,7 +29,7 @@ public class LoggedUser {
 	}
 	
 	public boolean canModerate() {
-		return user.canModerate();
+		return isLoggedIn() ? user.canModerate() : false;
 	}
 
 	public boolean isLoggedIn() {
