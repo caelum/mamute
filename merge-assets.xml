@@ -1,14 +1,15 @@
 <project name="brutal" default="merge-all" basedir="./">
 
-	<property name="css.dir" value="src/main/webapp/css" />
-	<property name="js.dir" value="src/main/webapp/js" />
+	<property name="webapp.dir" value="src/main/webapp" />
+	<property name="css.dir" value="${webapp.dir}/css" />
+	<property name="js.dir" value="${webapp.dir}/js" />
 	<property name="js.deps.dir" value="${js.dir}/deps/" />
-	
+
 	<target name="merge-all">
 		<antcall target="merge-css" />
 		<antcall target="merge-js" />
 	</target>
-	
+
 	<target name="merge-css" depends="">
 		<echo message="Juntando css's..." />
 		<delete file="${css.dir}/all.css" />
@@ -18,8 +19,12 @@
 			<fileset file="${css.dir}/brutal.css" />
 			<fileset file="${css.dir}/responsive-brutal.css" />
 		</concat>
+		<mkdir dir="${webapp.dir}/font" />
+		<copy todir="${webapp.dir}/font">
+			<fileset dir="${webapp.dir}/css/font" includes="**" />
+		</copy>
 	</target>
-	
+
 	<target name="merge-js" depends="">
 		<echo message="Juntando js's..." />
 		<delete file="${js.dir}/all.js" />
@@ -30,20 +35,20 @@
 			<fileset file="${js.deps.dir}/jquery.joyride-2.0.3.js"/>
 			<fileset file="${js.deps.dir}/diff_match_patch.js"/>
 			<fileset file="${js.deps.dir}/pretty-text-diff.js"/>-->
-			
+
 			<fileset file="${js.deps.dir}/prettify.js"/>
-			
+
 			<fileset file="${js.deps.dir}/Markdown.Converter.js"/>
 			<fileset file="${js.deps.dir}/Markdown.Sanitizer.js"/>
 			<fileset file="${js.deps.dir}/Markdown.Editor.js"/>
 			<fileset file="${js.deps.dir}/marked.js"/>
-			
+
 			<fileset file="${js.deps.dir}/filepicker.js"/>
 			<fileset file="${js.deps.dir}/feather.js"/>
-			
+
 			<fileset file="${js.dir}/*.js"/>
 		</concat>
 	</target>
-	
+
 
 </project>
