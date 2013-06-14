@@ -25,7 +25,7 @@ public class SignupInfoTest {
 		assertEquals("chico@brutal.com", info.getEmail());
 		assertEquals("Francisco Sokol", info.getName());
 		assertEquals("São Paulo, Brazil", info.getLocation());
-		assertTrue(info.getFacebookPhotoUri().getPath().contains("francisco.sokol"));
+		assertTrue(info.getFacebookPhotoUri().getPath().contains("100001959511194"));
 		assertEquals(MethodType.FACEBOOK, info.getMethod());
 	}
 
