@@ -30,13 +30,6 @@
 		<echo message="Juntando js's..." />
 		<delete file="${js.dir}/all.js" />
 		<concat destfile="${js.dir}/all.js">
-			<!--<fileset file="${js.deps.dir}/jquery.js" /> 
-			<fileset file="${js.deps.dir}/jquery-ui-1.10.2.custom.js" /> 
-			<fileset file="${js.deps.dir}/jquery.validate.min.js"/>
-			<fileset file="${js.deps.dir}/jquery.joyride-2.0.3.js"/>
-			<fileset file="${js.deps.dir}/diff_match_patch.js"/>
-			<fileset file="${js.deps.dir}/pretty-text-diff.js"/>-->
-
 			<fileset file="${js.deps.dir}/prettify.js"/>
 
 			<fileset file="${js.deps.dir}/Markdown.Converter.js"/>
