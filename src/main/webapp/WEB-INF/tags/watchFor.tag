@@ -6,12 +6,12 @@
 	<a rel="nofollow" class="watch requires-login" href="${linkTo[QuestionController].watch[question.id]}">
 		<c:choose>
 			<c:when test="${isWatching}">
-				<span class="icon-eye-open icon-2x container" 
+				<span class="icon-eye icon-2x container" 
 				      title="<fmt:message key='watch.enabled.tooltip'/>">
 				</span>
 			</c:when>
 			<c:otherwise>
-				<span class="icon-eye-close icon-muted icon-2x container" 
+				<span class="icon-eye-off icon-muted icon-2x container" 
 				      title="<fmt:message key='watch.disabled.tooltip'/>">
 				</span>
 			</c:otherwise>
