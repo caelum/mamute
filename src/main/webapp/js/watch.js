@@ -20,8 +20,8 @@ $(function(){
 		
 		function toggleClassOf(icon){
 			icon.toggleClass("icon-muted");
-			icon.toggleClass("icon-eye-close");
-			icon.toggleClass("icon-eye-open");
+			icon.toggleClass("icon-eye-off");
+			icon.toggleClass("icon-eye");
 			
 			if(icon.hasClass("icon-muted")) {
 				icon.attr("title", "Clique aqui para ser notificado de novidades nessa questão e suas respostas.");
