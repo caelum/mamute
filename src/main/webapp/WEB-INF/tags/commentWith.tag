@@ -8,7 +8,7 @@
 <li class="comment ${collapsed ? 'collapsed hidden' : ''} ${comment.isVisibleForModeratorAndNotAuthor(currentUser.current) ? 'highlight-post' : '' }" id="comment-${comment.id}">
 	<div class="post-meta comment-meta vote-container">
 		<span class="vote-count comment-vote-count ${comment.voteCount == 0 ? 'comment-meta-hidden' : '' }">${comment.voteCount}</span>
-		<a title="<fmt:message key="comment.list.upvote"/>"  class="comment-meta-hidden container comment-option author-cant requires-login vote-option icon-chevron-up 
+		<a title="<fmt:message key="comment.list.upvote"/>"  class="comment-meta-hidden container comment-option author-cant requires-login vote-option icon-up-open 
 			${(not empty currentUserVote) ? 'voted' : '' }" 
 			data-value="positivo" data-author="${currentUser.current.isAuthorOf(comment)}" 
 			data-type="comentario" data-id="${comment.id}">
