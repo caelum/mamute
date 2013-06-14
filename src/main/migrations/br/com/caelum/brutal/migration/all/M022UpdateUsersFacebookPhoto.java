@@ -58,11 +58,11 @@ public class M022UpdateUsersFacebookPhoto implements Migration {
 						try {
 							String token = facebookMethod.getToken();
 							FacebookAPI facebookApi = new FacebookAPI(oauthService, new Token(token, ""));
-							String userName = "http://url.from.facebook.com/";
+							String userId = "";
 							if (env.getName().equals("production")) {
-								userName = facebookApi.getUserName();
+								userId = facebookApi.getUserId();
 							}
-							String photoUri = "http://graph.facebook.com/"+userName+"/picture";
+							String photoUri = "http://graph.facebook.com/"+userId+"/picture";
 							setPhotoUri(user, photoUri);
 						} catch (IllegalArgumentException e) {
 							System.out.println("could not update photo of " + user);

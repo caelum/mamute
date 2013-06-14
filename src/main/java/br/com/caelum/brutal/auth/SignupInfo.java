@@ -15,15 +15,15 @@ public class SignupInfo {
 	private final String email;
 	private final String name;
 	private final String location;
-	private String username;
+	private String userId;
 
 	public SignupInfo(MethodType method, String email, String name,
-			String location, String username) {
+			String location, String userId) {
 		this.method = method;
 		this.email = email;
 		this.name = name;
 		this.location = location;
-		this.username = username;
+		this.userId = userId;
 	}
 
 	public static SignupInfo fromFacebook(JsonObject jsonObj) {
@@ -33,14 +33,14 @@ public class SignupInfo {
 		}
 		String email = emailElement.getAsString();
 		String name = jsonObj.get("name").getAsString();
-		JsonElement userNameObj = jsonObj.get("username");
-		String username = userNameObj != null ? userNameObj.getAsString() : null;
+		JsonElement userIdObj = jsonObj.get("id");
+		String userId = userIdObj != null ? userIdObj.getAsString() : null;
 		JsonObject locationJson = jsonObj.getAsJsonObject("location");
 		String location = "";
 		if (locationJson != null) {
 			location = locationJson.get("name").getAsString();
 		}
-		return new SignupInfo(MethodType.FACEBOOK, email, name, location, username);
+		return new SignupInfo(MethodType.FACEBOOK, email, name, location, userId);
 	}
 
 	public MethodType getMethod() {
@@ -60,12 +60,12 @@ public class SignupInfo {
 	}
 	
 	public URL getFacebookPhotoUri() {
-		String photoUri = "http://graph.facebook.com/"+username+"/picture";
+		String photoUri = "http://graph.facebook.com/"+userId+"/picture";
 		return getUrl(photoUri);
 	}
 	
-	public boolean containsUser() {
-		return username != null;
+	public boolean containsUserId() {
+		return userId != null;
 	}
 
 	private URL getUrl(String photoUri) {

@@ -21,24 +21,23 @@ public class FacebookAPI {
 	}
 
 	public JsonObject getSignupInfo() {
-		String url = "https://graph.facebook.com/me?fields=name,email,location,username";
+		String url = "https://graph.facebook.com/me?fields=name,email,location,username,id";
 		Response response = makeRequest(url);
 		return new JsonParser().parse(response.getBody()).getAsJsonObject();
 	}
 
-	public String getUserName() {
-		String url = "https://graph.facebook.com/me?fields=username";
+	public String getUserId() {
+		String url = "https://graph.facebook.com/me?fields=id";
 		Response response = makeRequest(url);
 		String body = response.getBody();
 		if (response.getCode() != 200) {
 			throw new IllegalArgumentException("http error: " + response.getCode() + ", facebook response body: " + body);
 		}
 		JsonObject jsonObj = new JsonParser().parse(body).getAsJsonObject();
-		JsonElement jsonElement = jsonObj.get("username");
+		JsonElement jsonElement = jsonObj.get("id");
 		if (jsonElement == null) {
-			throw new IllegalArgumentException("facebook did not sent username! response body: " + body);
+			throw new IllegalArgumentException("facebook did not sent data requested! response body: " + body);
 		}
-		System.out.println(body);
 		return jsonElement.getAsString();
 	}
 
