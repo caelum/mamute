@@ -21,9 +21,12 @@
 <c:if test="${environment.name != 'production'}" >
 	<script src="<c:url value="/js/deps/diff_match_patch.js"/>"></script>
 	<script src="<c:url value="/js/deps/pretty-text-diff.js"/>"></script>
-	<script src="<c:url value="/js/deps/jquery-ui-1.10.2.custom.js"/>"></script>
 	<script src="<c:url value="/js/deps/jquery.validate.min.js"/>"></script>
 	<script src="<c:url value="/js/deps/jquery.joyride-2.0.3.js"/>"></script>
+	
+	<script src="<c:url value="/js/deps/picker.js"/>"></script>
+	<script src="<c:url value="/js/deps/picker.date.js"/>"></script>
+	<script src="<c:url value="/js/deps/translations/pt_BR.js"/>"></script>
 	
 	<script src="<c:url value="/js/deps/prettify.js"/>"></script>
 	<script src="<c:url value="/js/deps/Markdown.Converter.js"/>"></script>
@@ -106,7 +109,7 @@ $(function() {
 	
 	prettyPrint();
 	
-	$("#datepicker-age").datepicker(
+/*	$("#datepicker-age").datepicker(
 		{dateFormat: "dd/mm/yy",
 		 monthNames: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", 
 		              "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
@@ -122,6 +125,20 @@ $(function() {
 			 maxDate: "0d"
 		});
 	
+*/
+
+	$("#datepicker-age").pickadate({
+		format: 'dd/mm/yyyy',
+		max: -12*365,
+		
+	});
+	
+	$(".datepicker").pickadate({
+		format: 'dd/mm/yyyy',
+		max: true,
+	});
+
+
 	$(".validated-form input").eq(0).focus();
 });
 

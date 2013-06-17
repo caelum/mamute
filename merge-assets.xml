@@ -51,7 +51,9 @@
 			<fileset file="${js.dir}/jquery/jquery-plugins*.js" />
 		</delete>
 		<concat fixlastline="yes" destfile="${js.dir}/jquery/jquery-plugins${deploy.timestamp}.js">
-			<fileset file="${js.deps.dir}/jquery-ui-1.10.2.custom.js" /> 
+			<fileset file="${js.deps.dir}/picker.js"/>			
+			<fileset file="${js.deps.dir}/picker.date.js"/>		
+			<fileset file="${js.deps.dir}/translations/pt_BR.js"/>
 			<fileset file="${js.deps.dir}/jquery.validate.min.js"/>
 			<fileset file="${js.deps.dir}/jquery.joyride-2.0.3.js"/>
 			<fileset file="${js.deps.dir}/diff_match_patch.js"/>
