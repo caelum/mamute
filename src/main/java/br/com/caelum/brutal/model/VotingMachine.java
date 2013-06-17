@@ -37,7 +37,7 @@ public class VotingMachine {
         if (previous != null) {
             ReputationEvent receivedVote = new ReceivedVoteEvent(previous.getType(), votable, questionInvolved, shouldCountKarma).reputationEvent();
 			votableAuthor.descreaseKarma(karmaCalculator.karmaFor(receivedVote));
-			ReputationEvent votedAtSomething = new VotedAtSomethingEvent(previous, votable, questionInvolved).reputationEvent();
+			ReputationEvent votedAtSomething = new VotedAtSomethingEvent(previous, questionInvolved).reputationEvent();
             voter.descreaseKarma(karmaCalculator.karmaFor(votedAtSomething));
             reputationEvents.delete(receivedVote);
             reputationEvents.delete(votedAtSomething);
@@ -46,7 +46,7 @@ public class VotingMachine {
         
         ReputationEvent receivedVote = new ReceivedVoteEvent(current.getType(), votable, questionInvolved, shouldCountKarma).reputationEvent();
         votableAuthor.increaseKarma(karmaCalculator.karmaFor(receivedVote));
-        ReputationEvent votedAtSomething = new VotedAtSomethingEvent(current, votable, questionInvolved).reputationEvent();
+        ReputationEvent votedAtSomething = new VotedAtSomethingEvent(current, questionInvolved).reputationEvent();
         voter.increaseKarma(karmaCalculator.karmaFor(votedAtSomething));
         reputationEvents.save(receivedVote);
         reputationEvents.save(votedAtSomething);

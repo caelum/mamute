@@ -16,7 +16,8 @@ public class VotesToTarget {
 
 	public VotesFromAuthor to(User target) {
 		VotesFromAuthor votesFromAuthor = votesToTarget.get(target);
-		if(votesFromAuthor == null) return new VotesFromAuthor();
+		if (votesFromAuthor == null) 
+			return new VotesFromAuthor();
 		return votesFromAuthor;
 	}
 

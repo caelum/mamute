@@ -11,7 +11,7 @@ import br.com.caelum.brutal.dao.TestCase;
 import br.com.caelum.timemachine.Block;
 import br.com.caelum.timemachine.TimeMachine;
 
-public class MassiveVoteTest extends TestCase{
+public class MassiveVoteTest extends TestCase {
 	
 	private MassiveVote massiveVote;
 	private User author;
@@ -35,7 +35,7 @@ public class MassiveVoteTest extends TestCase{
 	}
 	
 	@Test
-	public void should_count_karma_if_vote_was_created_after_min_date() throws Exception {
+	public void should_count_karma_if_vote_was_created_before_min_date() throws Exception {
 		DateTime antantonte = new DateTime().minusDays(3);
 		
 		TimeMachine.goTo(antantonte).andExecute(new Block<Vote>() {

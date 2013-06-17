@@ -9,12 +9,10 @@ import br.com.caelum.brutal.model.interfaces.Votable;
 public class VotedAtSomethingEvent {
 	
 	private final Vote vote;
-	private final Votable votable;
 	private final Question questionInvolved;
 
-	public VotedAtSomethingEvent(Vote vote, Votable votable, Question questionInvolved) {
+	public VotedAtSomethingEvent(Vote vote, Question questionInvolved) {
 		this.vote = vote;
-		this.votable = votable;
 		this.questionInvolved = questionInvolved;
 	}
 

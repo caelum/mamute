@@ -34,7 +34,7 @@ public class ReceivedVoteEvent {
 	}
 	
 	public ReputationEvent reputationEvent() {
-		if(shouldCountKarma) {
+		if (shouldCountKarma) {
 			EventType eventType = rule.eventType(type);
 			return new ReputationEvent(eventType, questionInvolved, votable.getAuthor());
 		}
