@@ -108,24 +108,6 @@ $(function() {
 	intro();
 	
 	prettyPrint();
-	
-/*	$("#datepicker-age").datepicker(
-		{dateFormat: "dd/mm/yy",
-		 monthNames: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", 
-		              "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
-		 dayNamesMin: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
-		 maxDate: "-12y"
-	});
-	
-	$(".datepicker").datepicker(
-			{dateFormat: "dd/mm/yy",
-			 monthNames: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", 
-			              "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
-			 dayNamesMin: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
-			 maxDate: "0d"
-		});
-	
-*/
 
 	$("#datepicker-age").pickadate({
 		format: 'dd/mm/yyyy',
