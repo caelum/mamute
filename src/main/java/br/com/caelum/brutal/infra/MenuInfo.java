@@ -26,7 +26,11 @@ public class MenuInfo {
 		if (loggedUser.canModerate()) {
 			Long pendingCount = informations.pendingCount();
 			int flaggedCount = flaggables.flaggedButVisibleCount();
-			result.include("pendingForModeratorCount", pendingCount + flaggedCount);
+			if (loggedUser.isModerator()) {
+				result.include("pendingForModeratorCount", pendingCount + flaggedCount);
+			} else {
+				result.include("pendingForModeratorCount", pendingCount);
+			}
 		}
 	}
 
