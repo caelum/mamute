@@ -1877,7 +1877,7 @@ a.button.ask-a-question:hover{
 	margin: .2em;
 	padding: .3em;
 	border-radius: 2px;
-	width: 2.5em;
+	width: 3em;
 	text-align: right;
 	display: inline-block;
 	line-height: 1em;
@@ -1998,9 +1998,15 @@ a.button.ask-a-question:hover{
 }
 
 .reputation-won {
-	width: 3em;
+	width: 3.5em;
 	display: inline-block;
 }
+
+.karma-history .reverted {
+	color: red;
+	font-weight: bold;
+}
+
 .karma-history .event-time {
 	width: 8em;
 }

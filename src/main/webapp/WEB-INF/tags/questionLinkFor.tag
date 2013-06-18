@@ -1,5 +1,6 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@attribute name="question" type="br.com.caelum.brutal.model.Question" required="false" %>
 <%@attribute name="answer" type="br.com.caelum.brutal.model.Answer" required="false" %>
 
@@ -13,5 +14,8 @@
 		<a href="${linkTo[QuestionController].showQuestion[question][question.sluggedTitle]}">
 			<c:out value="${question.title}" escapeXml="${true}"/> 
 		</a>
+	</c:when>
+	<c:when test="${empty answer or empty question}">
+		<span class="reverted"><fmt:message key="massive.vote.reverted"/></span>
 	</c:when>
 </c:choose>

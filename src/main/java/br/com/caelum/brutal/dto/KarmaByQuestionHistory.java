@@ -47,5 +47,4 @@ public class KarmaByQuestionHistory {
 			return date;
 		}
 	}
-
 }

@@ -94,7 +94,15 @@ public enum EventType implements KarmaRewardEvent {
 		public Integer reward() {
 			return 0;
 		}
+	},
+	MASSIVE_VOTE_REVERTED {
+		@Override
+		public Integer reward() {
+			return karma;
+		}
 	};
+
+	private static int karma;
 
 	public abstract Integer reward();
 	
@@ -104,6 +112,10 @@ public enum EventType implements KarmaRewardEvent {
 	
 	public static List<EventType> ASKER_RELATED_EVENTS() {
 		return asList(CREATED_QUESTION, QUESTION_DOWNVOTE, QUESTION_UPVOTE, MARKED_SOLUTION);
+	}
+
+	public void setKarma(int karma) {
+		EventType.karma = karma;
 	}
 	
 }

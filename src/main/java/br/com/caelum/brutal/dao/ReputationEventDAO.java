@@ -66,9 +66,10 @@ public class ReputationEventDAO {
 	
 	@SuppressWarnings("unchecked")
 	public KarmaByQuestionHistory karmaWonByQuestion(User user) {
-		String hql = "select e.questionInvolved, sum(e.karmaReward), e.date from ReputationEvent e " +
-				"join e.user u where u=:user " +
-				"group by e.questionInvolved, day(e.date) " +
+		String hql = "select question, sum(e.karmaReward), e.date from ReputationEvent e " +
+				"join e.user u left join e.questionInvolved question " +
+				"where u=:user " +
+				"group by question, day(e.date) " +
 				"order by e.date desc";
 		
 		Query query = session.createQuery(hql).setParameter("user", user);
