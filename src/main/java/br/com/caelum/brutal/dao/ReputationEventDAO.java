@@ -54,9 +54,10 @@ public class ReputationEventDAO {
 	}
 	
 	private Query karmaByQuestionQuery(User user, DateTime after) {
-		String hql = "select e.questionInvolved, sum(e.karmaReward), e.date from ReputationEvent e " +
-				"join e.user u where u=:user and e.date > :after " +
-				"group by e.questionInvolved, day(e.date) " +
+		String hql = "select question, sum(e.karmaReward), e.date from ReputationEvent e " +
+				"join e.user u left join e.questionInvolved question " +
+				"where u=:user and e.date > :after " +
+				"group by question, day(e.date) " +
 				"order by e.date desc";
 		
 		Query query = session.createQuery(hql).setParameter("user", user).setParameter("after", after);

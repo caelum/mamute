@@ -15,7 +15,11 @@
 			<c:out value="${question.title}" escapeXml="${true}"/> 
 		</a>
 	</c:when>
-	<c:when test="${empty answer or empty question}">
-		<span class="reverted"><fmt:message key="massive.vote.reverted"/></span>
+	<c:when test="${empty answer and empty question}">
+		<span class="reverted">
+			<fmt:message key="massive.vote.reverted">
+				<fmt:param value="${linkTo[NavigationController].about}#perdi-meus-pontos"/>
+			</fmt:message>
+		</span>
 	</c:when>
 </c:choose>

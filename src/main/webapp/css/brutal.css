@@ -2003,11 +2003,6 @@ a.button.ask-a-question:hover{
 	display: inline-block;
 }
 
-.karma-history .reverted {
-	color: red;
-	font-weight: bold;
-}
-
 .karma-history .event-time {
 	width: 8em;
 }
@@ -2021,6 +2016,19 @@ a.button.ask-a-question:hover{
 	white-space: nowrap;
 	overflow: hidden;
 	display: inline-block;
+}
+
+.reverted {
+	color: maroon;
+}
+
+.karma-history .reverted {
+	font-weight: bold;
+}
+
+.karma-history .reverted .faq-link, .reverted .faq-link {
+	color: #07C;
+	width: auto;
 }
 
 .view-more {

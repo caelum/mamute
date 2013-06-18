@@ -38,7 +38,6 @@
 	<link rel="stylesheet" href="<c:url value="/css/brutal.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/responsive-brutal.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/deps/custom.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/deps/jquery-ui-1.10.2.custom.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/deps/pickadate/classic.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/deps/pickadate/classic.date.css"/>">
 </c:if>

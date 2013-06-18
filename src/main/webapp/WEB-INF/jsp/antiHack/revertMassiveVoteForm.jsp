@@ -4,15 +4,15 @@
 <tags:header facebookMetas="${true}" title="${genericTitle} - ${title}" description="${description}"/>
 
 <h2 class="title page-title subheader">
-	<fmt:message key="users.ranking"/>
+	<fmt:message key="antihack.revert"/>
 </h2>
 
 <form action="${linkTo[AntiHackController].revertMassiveVote}" method="post">
 
-	<label for="karma">Karma</label>
-	<input type="text" name="karma">
+	<label for="karma">Reputação que deve ser revertida</label>
+	<input type="text" class="text-input" name="karma">
 	<label for="karma">Id do usuário</label>
-	<input type="text" name="userId">
+	<input type="text" class="text-input" name="userId">
 	
 	<label for="karma">Reverter qual tipo de voto?</label>
 	<select name="voteType">
@@ -20,5 +20,5 @@
 		<option value="DOWN"><fmt:message key="suspects.downvote"/></option>
 	</select>
 	
-	<input type="submit"/>
+	<input type="submit" value="<fmt:message key="antihack.revert"/>"/>
 </form>
