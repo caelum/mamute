@@ -620,6 +620,7 @@ textarea {
 
 /*Complete User*/
 .complete-user .when {
+	display: block;
 	width: 100%;
 	margin-bottom: 5px;
 }

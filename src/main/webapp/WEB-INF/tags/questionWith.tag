@@ -50,7 +50,7 @@
 					<tags:flagItFor type="pergunta" modalId="question-flag-modal${question.id}" flaggable="${question}"/>
 				</li>
 			</ul>
-			<tags:touchesFor touchable="${question}" />
+			<tags:touchesFor touchable="${question}" microdata="true"/>
 		</div>
 		<tags:add-a-comment type="pergunta" item="${question}" votes="${commentVotes}"/>
 		<c:if test="${currentUser.moderator && question.hasPendingEdits()}">
