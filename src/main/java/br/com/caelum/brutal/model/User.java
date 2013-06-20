@@ -317,7 +317,7 @@ public class User implements Identifiable {
 	}
 
 	public UpdateStatus approve(Moderatable moderatable, Information approvedInfo) {
-	    if (this.isModerator()) {
+	    if (this.canModerate()) {
 	        moderatable.approve(approvedInfo);
 	        approvedInfo.moderate(this, UpdateStatus.APPROVED);
 	    }

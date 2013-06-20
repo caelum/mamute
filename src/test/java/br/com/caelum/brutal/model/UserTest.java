@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.builder.QuestionBuilder;
 import br.com.caelum.brutal.dao.TestCase;
 
@@ -21,6 +22,7 @@ public class UserTest extends TestCase {
 	private QuestionBuilder question = new QuestionBuilder();
 	private Question myQuestion;
 	private Question myOtherQuestion;
+	private User moderatorWannabe;
 
 	@Before
 	public void before_test() {
@@ -36,6 +38,9 @@ public class UserTest extends TestCase {
 				.withDescription("question description").withAuthor(otherUser)
 				.build();
 
+		moderatorWannabe = user("juaum", "ju@aum.com");
+		moderatorWannabe.setKarma(PermissionRulesConstants.MODERATE_EDITS);
+		
 		moderator = user("yeah", "email").asModerator();
 		moderator.setId(3l);
 	}
@@ -52,6 +57,19 @@ public class UserTest extends TestCase {
 		assertEquals(approvedInfo, myQuestion.getInformation());
 		assertTrue(myQuestion.getInformation().isModerated());
 	}
+	
+	@Test
+	public void user_with_enough_karma_should_approve_question_information()
+			throws Exception {
+		Information approvedInfo = new QuestionInformation("edited title",
+				"edited desc", new LoggedUser(otherUser, null),
+				new ArrayList<Tag>(), "comment");
+		
+		moderatorWannabe.approve(myQuestion, approvedInfo);
+		
+		assertEquals(approvedInfo, myQuestion.getInformation());
+		assertTrue(myQuestion.getInformation().isModerated());
+	}
 
 	@Test
 	public void moderator_should_approve_answer_information() throws Exception {
@@ -61,6 +79,18 @@ public class UserTest extends TestCase {
 
 		moderator.approve(answer, approvedInfo);
 
+		assertEquals(approvedInfo, answer.getInformation());
+		assertTrue(answer.getInformation().isModerated());
+	}
+	
+	@Test
+	public void user_with_enough_karma_should_approve_answer_information() throws Exception {
+		Answer answer = answer("answer description", myQuestion, author);
+		AnswerInformation approvedInfo = answerInformation("new description",
+				otherUser, answer);
+		
+		moderatorWannabe.approve(answer, approvedInfo);
+		
 		assertEquals(approvedInfo, answer.getInformation());
 		assertTrue(answer.getInformation().isModerated());
 	}
