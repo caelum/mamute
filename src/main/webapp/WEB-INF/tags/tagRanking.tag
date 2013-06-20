@@ -7,7 +7,7 @@
 <%@attribute name="title" type="java.lang.String" required="true" %>
 <%@attribute name="isAskers" required="true" %>
 
-<h2 class="title about-title">${title}</h2>
+<h2 class="title big-text-title">${title}</h2>
 <div class="tag-ranking-section">
 <h2 class="title page-title"><fmt:message key="users.ranking.tag.month"/></h2>
 	<c:forEach items="${tagRankLastMonth}" var="summary">
