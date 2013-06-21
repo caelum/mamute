@@ -71,7 +71,7 @@ public class AnswerController {
 		Answer answer = answers.getById(id);
 		authorizationSystem.canEdit(answer, authorizationSystem.ruleForAnswerEdit());
 		
-		result.include("answer",  answers.getById(id));
+		result.include("answer",  answer);
 	}
 
 	@Post("/resposta/editar/{id}")

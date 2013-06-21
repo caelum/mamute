@@ -14,7 +14,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title><c:out value="${title}" escapeXml="true" /></title>
 <c:if test="${not empty description}">
-	<meta name="description" content="${description}">
+	<meta name="description" content="<c:out value="${description}" escapeXml="true"/>">
 </c:if>
 <c:if test="${not empty facebookMetas || facebookMetas == true}">
 	<meta property="og:title" content="<c:out value="${title}" escapeXml="true" />">
