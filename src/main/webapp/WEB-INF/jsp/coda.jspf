@@ -117,7 +117,7 @@ $(function() {
 	
 	$(".datepicker").pickadate({
 		format: 'dd/mm/yyyy',
-		max: true,
+		max: 1,
 	});
 
 
