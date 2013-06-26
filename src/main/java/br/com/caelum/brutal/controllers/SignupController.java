@@ -64,4 +64,8 @@ public class SignupController {
 	@Get("/termos-de-uso")
 	public void showUsageTerms(){
 	}
+	
+	@Get("/privacidade")
+	public void privacyPolicy(){
+	}
 }
