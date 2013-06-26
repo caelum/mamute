@@ -18,7 +18,7 @@
 				</li>
 			</c:when>
 			<c:otherwise>
-				<li class="touch edited-touch" ${microdata ? 'itemscope itemtype="http://schema.org/Person" itemprop="editor"' : ""}>
+				<li class="touch edited-touch">
 					<tags:editedTouch touchable="${touchable}" microdata="${microdata}"/>
 				</li>	
 			</c:otherwise>
