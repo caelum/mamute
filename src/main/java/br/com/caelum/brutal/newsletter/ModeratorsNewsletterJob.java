@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.newsletter;
 
+import org.apache.log4j.Logger;
 import org.hibernate.ScrollableResults;
 
 import br.com.caelum.brutal.dao.UserDAO;
@@ -15,6 +16,7 @@ public class ModeratorsNewsletterJob implements CronTask {
 	private final UserDAO users;
 	private final NewsletterMailer newsMailer;
 	private final Environment env;
+	private static final Logger LOG = Logger.getLogger(ModeratorsNewsletterJob.class);
 	
 	public ModeratorsNewsletterJob(Result result, UserDAO users,
 			NewsletterMailer newsMailer, Environment env) {
@@ -26,7 +28,9 @@ public class ModeratorsNewsletterJob implements CronTask {
 
 	@Override
 	public void execute() {
-		if("true".equals(env.get("newsletter.settings.send"))){
+		LOG.info("executing " + getClass().getSimpleName());
+		if ("true".equals(env.get("newsletter.settings.active"))) {
+			LOG.info("sending newsletter emails");
 			ScrollableResults results = users.moderators();
 			newsMailer.sendTo(results);
 			result.notFound();

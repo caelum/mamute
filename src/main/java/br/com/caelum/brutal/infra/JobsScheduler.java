@@ -58,7 +58,7 @@ public class JobsScheduler {
 		}
 
 		private void waitForServerStartup() throws InterruptedException {
-			Thread.sleep(10000);
+			Thread.sleep(20000);
 		}
 	}
 }
