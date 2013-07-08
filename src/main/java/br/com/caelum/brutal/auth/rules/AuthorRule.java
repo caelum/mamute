@@ -8,11 +8,12 @@ public class AuthorRule<T extends Moderatable> implements PermissionRule<Moderat
 
 	@Override
 	public boolean isAllowed(User u, Moderatable item) {
-		if(u == null) return false;
+		if (u == null) 
+			return false;
 		if (item.getAuthor() == null) {
 			throw new IllegalArgumentException("can't verify permissions on item without an author");
 		}
-		return item.getAuthor().getId() == u.getId();
+		return item.getAuthor().getId().equals(u.getId());
 	}
 
 }

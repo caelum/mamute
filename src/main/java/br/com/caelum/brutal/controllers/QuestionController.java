@@ -9,6 +9,7 @@ import java.util.List;
 import br.com.caelum.brutal.auth.FacebookAuthService;
 import br.com.caelum.brutal.auth.LoggedAccess;
 import br.com.caelum.brutal.auth.rules.AuthorizationSystem;
+import br.com.caelum.brutal.auth.rules.Rules;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.ReputationEventDAO;
 import br.com.caelum.brutal.dao.TagDAO;
@@ -86,7 +87,7 @@ public class QuestionController {
 	@IncludeAllTags
 	public void questionEditForm(Long questionId) {
 		Question question = questions.getById(questionId);
-		authorizationSystem.canEdit(question, authorizationSystem.ruleForQuestionEdit());
+		authorizationSystem.authorize(question, Rules.EDIT_QUESTION);
 		
 		result.include("question",  questions.getById(questionId));
 	}
@@ -94,10 +95,10 @@ public class QuestionController {
 	@Post("/pergunta/editar/{id}")
 	public void edit(Long id, String title, String description, String tagNames, String comment) {
 		Question original = questions.getById(id);
-		authorizationSystem.canEdit(original, authorizationSystem.ruleForQuestionEdit());
+		authorizationSystem.authorize(original, Rules.EDIT_QUESTION);
 		
 		List<String> splitedTags = splitTags(tagNames);
-		List<Tag> loadedTags = tags.findAllWithoutRepeat(splitedTags);
+		List<Tag> loadedTags = tags.findAllDistinct(splitedTags);
 		QuestionInformation information = new QuestionInformation(title, description, this.currentUser, loadedTags, comment);
 		UpdateStatus status = original.updateWith(information);
 		
@@ -146,7 +147,7 @@ public class QuestionController {
 	@LoggedAccess
 	public void newQuestion(String title, String description, String tagNames, boolean watching) {
 		List<String> splitedTags = splitTags(tagNames);
-		List<Tag> foundTags = tags.findAllWithoutRepeat(splitedTags);
+		List<Tag> foundTags = tags.findAllDistinct(splitedTags);
 		QuestionInformation information = new QuestionInformation(title, description, currentUser, foundTags, "new question");
 		User author = currentUser.getCurrent();
 		Question question = new Question(information, author);

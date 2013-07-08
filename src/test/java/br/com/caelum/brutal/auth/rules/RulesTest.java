@@ -13,11 +13,13 @@ import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.interfaces.Moderatable;
 
-public class AuthorizationSystemTest extends TestCase {
+public class RulesTest extends TestCase {
 
 	private User author;
 	private Question question;
 	private Answer answer;
+	private PermissionRule<Moderatable> ruleForQuestionEdit = Rules.EDIT_QUESTION.build();
+	private PermissionRule<Moderatable> ruleForAnswerEdit = Rules.EDIT_ANSWER.build();
 
 	@Before
 	public void setup() {
@@ -28,10 +30,6 @@ public class AuthorizationSystemTest extends TestCase {
 	
 	@Test
 	public void author_should_be_allowed_to_edit_moderatable() {
-		AuthorizationSystem authorizationSystem = new AuthorizationSystem(author);
-		PermissionRule<Moderatable> ruleForQuestionEdit = authorizationSystem.ruleForQuestionEdit();
-		PermissionRule<Moderatable> ruleForAnswerEdit = authorizationSystem.ruleForAnswerEdit();
-		
 		assertTrue(ruleForQuestionEdit.isAllowed(author, question));
 		assertTrue(ruleForAnswerEdit.isAllowed(author, answer));
 	}
@@ -40,8 +38,6 @@ public class AuthorizationSystemTest extends TestCase {
 	public void user_with_enough_karma_should_be_allowed_to_edit() {
 		User userWithEnoughKarma = user("user", "user@brutal.com", 2l);
 		userWithEnoughKarma.increaseKarma(PermissionRulesConstants.EDIT_QUESTION);
-		AuthorizationSystem authorizationSystem = new AuthorizationSystem(userWithEnoughKarma);
-		PermissionRule<Moderatable> ruleForQuestionEdit = authorizationSystem.ruleForQuestionEdit();
 		
 		assertTrue(ruleForQuestionEdit.isAllowed(userWithEnoughKarma, question));
 	}
@@ -49,8 +45,6 @@ public class AuthorizationSystemTest extends TestCase {
 	@Test
 	public void moderator_should_be_allowed_to_edit() {
 		User moderator = user("moderator", "moderator@brutal.com", 2l).asModerator();
-		AuthorizationSystem authorizationSystem = new AuthorizationSystem(moderator);
-		PermissionRule<Moderatable> ruleForQuestionEdit = authorizationSystem.ruleForQuestionEdit();
 		
 		assertTrue(ruleForQuestionEdit.isAllowed(moderator, question));
 	}
@@ -58,8 +52,6 @@ public class AuthorizationSystemTest extends TestCase {
 	@Test
 	public void user_with_low_karma_should_not_be_allowed_to_edit() {
 		User other = user("other", "other@brutal.com", 3l);
-		AuthorizationSystem authorizationSystem = new AuthorizationSystem(other);
-		PermissionRule<Moderatable> ruleForQuestionEdit = authorizationSystem.ruleForQuestionEdit();
 		
 		assertFalse(ruleForQuestionEdit.isAllowed(other, question));
 	}

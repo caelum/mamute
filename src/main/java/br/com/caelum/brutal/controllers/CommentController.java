@@ -58,7 +58,7 @@ public class CommentController {
 		comments.save(newComment);
 		Question question = commentable.getQuestion();
 		notificationManager.sendEmailsAndInactivate(new EmailAction(newComment, commentable));
-		if(watching) {
+		if (watching) {
 			watchers.add(new Watcher(current, question));
 		} else {
 			watchers.removeIfWatching(new Watcher(current, question));

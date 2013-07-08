@@ -109,13 +109,13 @@ public class TagDAOTest extends DatabaseTestCase{
 	
 	@Test
 	public void should_get_empty_list_for_nonexistant_names() throws Exception {
-		List<Tag> found = tags.findAllWithoutRepeat(asList("blabla", "lala"));
+		List<Tag> found = tags.findAllDistinct(asList("blabla", "lala"));
 		assertTrue(found.isEmpty());
 	}
 	
 	@Test
 	public void should_split_two_spaces() throws Exception {
-		List<Tag> found = tags.findAllWithoutRepeat(asList("java", "ruby"));
+		List<Tag> found = tags.findAllDistinct(asList("java", "ruby"));
 		assertEquals(2, found.size());
 		assertEquals("java", found.get(0).getName());
 		assertEquals("ruby", found.get(1).getName());
@@ -123,7 +123,7 @@ public class TagDAOTest extends DatabaseTestCase{
 	
 	@Test
 	public void should_not_repeat_tags() throws Exception {
-		List<Tag> found = tags.findAllWithoutRepeat(asList("java", "java", "ruby", "ruby"));
+		List<Tag> found = tags.findAllDistinct(asList("java", "java", "ruby", "ruby"));
 		assertEquals(2, found.size());
 		assertEquals("java", found.get(0).getName());
 		assertEquals("ruby", found.get(1).getName());
