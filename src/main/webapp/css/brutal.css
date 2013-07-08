@@ -1744,19 +1744,18 @@ a.button.ask-a-question:hover{
 }
 
 .footer-list .first-logo {
-	background-position: 0px -53px;
+	background-position: 0px -54px;
 	width: 124px;
 }
 
 .footer-list .second-logo {
-	background-position: 0px -106px;
+	background-position: 0px -107px;
 	width: 170px;
 }
 
 .footer-list .third-logo{
 	background-position: 0px 0px;
 	width: 183px;
-	height: 52px;
 }
 
 .footer-sub-list li, .footer-sub-list a{
