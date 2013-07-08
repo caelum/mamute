@@ -65,8 +65,11 @@
 <c:if test="${environment.name == 'production'}" >
 	<script src="<c:url value="/js/jquery/jquery-plugins${deployTimestamp}.js"/>"></script>
 	<script src="<c:url value="/js/all${deployTimestamp}.js"/>"></script>
+</c:if>
+<c:if test="${environment.get('track.analytics') == 'true'}" >
 	<tags:brutal-include value="analytics"/>
 </c:if>
+
 <script type="text/javascript">
 
 // fix context path of ajax requests *cool* 
