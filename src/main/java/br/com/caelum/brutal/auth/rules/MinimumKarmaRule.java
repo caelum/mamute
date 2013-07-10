@@ -12,8 +12,7 @@ public class MinimumKarmaRule<T> implements PermissionRule<T> {
 
     @Override
     public boolean isAllowed(User u, T item) {
-    	if(u == null) return false;
-    	return minimum <= u.getKarma();
+    	return u != null && minimum <= u.getKarma();
     }
 
 }

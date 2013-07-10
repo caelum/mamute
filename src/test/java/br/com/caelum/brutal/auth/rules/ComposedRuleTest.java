@@ -13,35 +13,36 @@ public class ComposedRuleTest {
 
 	@Test
 	public void should_use_or() {
-		assertTrue(composedRule().thiz(TRUE).or(FALSE).isAllowed(null, null));
-		assertTrue(composedRule().thiz(TRUE).or(TRUE).isAllowed(null, null));
-		assertTrue(composedRule().thiz(FALSE).or(TRUE).isAllowed(null, null));
-		assertFalse(composedRule().thiz(FALSE).or(FALSE).isAllowed(null, null));
+		assertTrue(composedRule(TRUE).or(FALSE).isAllowed(null, null));
+		assertTrue(composedRule(TRUE).or(TRUE).isAllowed(null, null));
+		assertTrue(composedRule(FALSE).or(TRUE).isAllowed(null, null));
+		assertFalse(composedRule(FALSE).or(FALSE).isAllowed(null, null));
 	}
 
 	@Test
 	public void multiple_ors_should_work() {
-		assertTrue(composedRule().thiz(FALSE).or(FALSE).or(TRUE).isAllowed(null, null));
-		assertTrue(composedRule().thiz(FALSE).or(TRUE).or(FALSE).isAllowed(null, null));
-		assertTrue(composedRule().thiz(TRUE).or(FALSE).or(FALSE).isAllowed(null, null));
-		assertFalse(composedRule().thiz(FALSE).or(FALSE).or(FALSE).isAllowed(null, null));
+		assertTrue(composedRule(FALSE).or(FALSE).or(TRUE).isAllowed(null, null));
+		assertTrue(composedRule(FALSE).or(TRUE).or(FALSE).isAllowed(null, null));
+		assertTrue(composedRule(TRUE).or(FALSE).or(FALSE).isAllowed(null, null));
+		assertFalse(composedRule(FALSE).or(FALSE).or(FALSE).isAllowed(null, null));
 	}
 	
 	@Test
 	public void should_use_and() {
-		assertFalse(composedRule().thiz(TRUE).and(FALSE).isAllowed(null, null));
-		assertTrue(composedRule().thiz(TRUE).and(TRUE).isAllowed(null, null));
-		assertFalse(composedRule().thiz(FALSE).and(TRUE).isAllowed(null, null));
-		assertFalse(composedRule().thiz(FALSE).and(FALSE).isAllowed(null, null));
+		assertFalse(composedRule(TRUE).and(FALSE).isAllowed(null, null));
+		assertTrue(composedRule(TRUE).and(TRUE).isAllowed(null, null));
+		assertFalse(composedRule(FALSE).and(TRUE).isAllowed(null, null));
+		assertFalse(composedRule(FALSE).and(FALSE).isAllowed(null, null));
 	}
 	
 	@Test
-	public void composed_rules_should_work() {
-		assertFalse(composedRule().thiz(FALSE).and(FALSE).and(FALSE).isAllowed(null, null));
+	public void mixed_rules_should_work() {
+		assertFalse(composedRule(FALSE).and(FALSE).and(FALSE).isAllowed(null, null));
+		assertTrue(composedRule(FALSE).and(FALSE).or(TRUE).isAllowed(null, null));
 	}
 	
-	private ComposedRule<Void> composedRule() {
-		return new ComposedRule<Void>();
+	private ComposedRule<Void> composedRule(PermissionRule<Void> first) {
+		return new ComposedRule<Void>(first);
 	}
 	
 	static private class True implements PermissionRule<Void> {

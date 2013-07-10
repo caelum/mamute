@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.auth.rules;
 
+import static br.com.caelum.brutal.auth.rules.ComposedRule.composedRule;
 import static br.com.caelum.vraptor.view.Results.http;
 import br.com.caelum.brutal.auth.LoggedUserInterceptor;
 import br.com.caelum.brutal.model.LoggedUser;
@@ -38,9 +39,7 @@ public class MinimumReputationInterceptor implements Interceptor {
 		int minimum = annotation.value();
 		MinimumKarmaRule<Void> hasEnoughKarma = new MinimumKarmaRule<>(minimum);
 		ModeratorRule<Void> isModerador = new ModeratorRule<>();
-		ComposedRule<Void> rule = new ComposedRule<>();
-		
-		rule = rule.thiz(hasEnoughKarma).or(isModerador);
+		ComposedRule<Void> rule = composedRule(hasEnoughKarma).or(isModerador);
 		
 		if (!rule.isAllowed(loggedUser.getCurrent(), null)) {
 			result.use(http()).body(localization.getMessage("error.not_allowed")).setStatusCode(403);
