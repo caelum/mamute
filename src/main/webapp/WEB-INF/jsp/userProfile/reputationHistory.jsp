@@ -7,14 +7,9 @@
 <section class="advanced-user-data user-data">
 	<ul class="karma-history">
 		<c:forEach var="historyItem" items="${reputationHistory}">
-			<li>
-			<c:set var="reputationClass" value="${historyItem.karma > 0 ? 'positive-karma' : historyItem.karma < 0 ? 'negative-karma' : 'neutral-karma'}" /> 
-				<span class="reputation-won">
-					<span class="counter karma-value ${reputationClass}">${historyItem.karma > 0 ? '+' : ''}${historyItem.karma}</span>
-				</span>
+			<tags:reputationHistoryItem historyItem="${historyItem}">
 				<span class="event-time"><tags:prettyTime time="${historyItem.date}"/></span>
-				<span class="question-link"><tags:questionLinkFor question="${historyItem.question}"/></span>
-			</li>
+			</tags:reputationHistoryItem>
 		</c:forEach>
 	</ul>
 </section>

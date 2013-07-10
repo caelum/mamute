@@ -11,8 +11,8 @@ import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.com.caelum.brutal.dto.KarmaAndQuestion;
 import br.com.caelum.brutal.dto.KarmaByQuestionHistory;
-import br.com.caelum.brutal.dto.KarmaByQuestionHistory.KarmaAndQuestion;
 import br.com.caelum.brutal.dto.UserSummaryForTag;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.EventType;

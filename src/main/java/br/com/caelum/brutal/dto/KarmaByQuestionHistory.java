@@ -23,28 +23,4 @@ public class KarmaByQuestionHistory {
 	public List<KarmaAndQuestion> getHistory() {
 		return history;
 	}
-
-	public static class KarmaAndQuestion {
-		private final Question question;
-		private final Long karma;
-		private DateTime date;
-
-		public KarmaAndQuestion(Question question, Long karma, DateTime date) {
-			this.question = question;
-			this.karma = karma;
-			this.date = date;
-		}
-		
-		public Long getKarma() {
-			return karma;
-		}
-		
-		public Question getQuestion() {
-			return question;
-		}
-		
-		public DateTime getDate() {
-			return date;
-		}
-	}
 }
