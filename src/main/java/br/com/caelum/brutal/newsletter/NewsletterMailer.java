@@ -47,8 +47,8 @@ public class NewsletterMailer {
 		DateTime pastWeek = new DateTime().minusWeeks(1);
 		DateTime twelveHoursAgo = new DateTime().minusHours(12);
 		
-		List<Question> hotQuestions = questions.hot(pastWeek, 5);
-		List<Question> unanswered = questions.randomUnanswered(pastWeek, twelveHoursAgo, 5);
+		List<Question> hotQuestions = questions.hot(pastWeek, 8);
+		List<Question> unanswered = questions.randomUnanswered(pastWeek, twelveHoursAgo, 8);
 		LinkToHelper linkToHelper = new NotificationMailer.LinkToHelper(linker);
 		
 		while (results.next()) {
