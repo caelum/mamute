@@ -130,7 +130,7 @@
 	}
 	
 	.user-form, .question-form,
-	.form-hints, .hint {
+	.form-hints, .form-hints .hint{
 		width:100%;
 	}
 	
@@ -312,10 +312,6 @@
 	
 	.face-button{
 		font-size: 1.3em;
-	}
-	
-	.notice {
-		float: none;
 	}
 	
 	.login-or-signup .hide-next {
