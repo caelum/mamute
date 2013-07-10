@@ -27,7 +27,7 @@
 			<li class="sponsor-box">
 				<a class="footer-logo third-logo" href="http://www.casadocodigo.com.br/"><fmt:message key="footer.casa_do_codigo"/></a>
 				<ul class="footer-sub-list">
-					<li><fmt:message key="footer.casa_do_codigo.content"/></li>
+					<li><a href="http://www.casadocodigo.com.br"><fmt:message key="footer.casa_do_codigo.content"/></a></li>
 				</ul>
 			</li>
 		<!-- 	<li class="sponsor-box"><a class="footer-logo online-logo" href="#">Caelum Online</a></li> -->
