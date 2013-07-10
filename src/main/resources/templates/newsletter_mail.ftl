@@ -28,12 +28,11 @@
 	                    <#list question.getTags() as tag>
 							<span><a style="${tagStyle}" href="${linkToHelper.tagLink(tag)}">${tag.name}</a></span>
 						</#list>
-						<span style="${userNameStyle}">${l10n.getMessage("newsletter_mail.asked_by")} <img style="${userImgStyle}" src="${question.author.getPhoto(18, 18)}" /> <a style="${linkStyle}" href="${linkToHelper.userLink(question.author)}">${question.author.name}</a></span>
+						<span style="${userNameStyle}">${l10n.getMessage("newsletter_mail.asked_by")} <a style="${linkStyle}" href="${linkToHelper.userLink(question.author)}">${question.author.name}</a></span>
 					</p>
 				</td>
 			</tr>
 		</#list>
-		
 		<tr>
 			<td><h2 style="${titleStyle}">${l10n.getMessage("newsletter_mail.title.unanswered_questions")}</h2></td>
 		</tr>
@@ -45,7 +44,7 @@
 	                    <#list question.getTags() as tag>
 							<span><a style="${tagStyle}" href="${linkToHelper.tagLink(tag)}">${tag.name}</a></span>
 						</#list>
-						<span style="${userNameStyle}">${l10n.getMessage("newsletter_mail.asked_by")} <img style="${userImgStyle}" src="${question.author.getPhoto(18, 18)}" /> <a style="${linkStyle}" href="${linkToHelper.userLink(question.author)}">${question.author.name}</a></span>
+						<span style="${userNameStyle}">${l10n.getMessage("newsletter_mail.asked_by")}  <a style="${linkStyle}" href="${linkToHelper.userLink(question.author)}">${question.author.name}</a></span>
 					</p>
 				</td>
 			</tr>

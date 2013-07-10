@@ -1,11 +1,4 @@
 @media only screen and (max-width: 1220px) {
-	.first-content{
-		width:100%;
-	}
-	
-	.sidebar{
-		display:none;
-	}
 	
 	.container{
 		max-width:90%;
@@ -29,6 +22,14 @@
 }
 
 @media only screen and (max-width: 840px) {
+	.first-content{
+		width:100%;
+	}
+	
+	.sidebar{
+		display:none;
+	}
+	
 	.complete-tag{
 		width:25%;
 	}
