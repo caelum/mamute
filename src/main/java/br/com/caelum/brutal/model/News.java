@@ -47,7 +47,7 @@ public class News extends Moderatable implements Post {
 	private User lastTouchedBy = null;
 
 	@ManyToOne(fetch = EAGER)
-	private User author;
+	private final User author;
 
 	private long views = 0l;
 	
@@ -67,6 +67,11 @@ public class News extends Moderatable implements Post {
 	@OneToMany
 	private final List<Flag> flags = new ArrayList<>();
 	
+	public News(NewsInformation newsInformation, User author) {
+		this.author = author;
+		enqueueChange(newsInformation, UpdateStatus.NO_NEED_TO_APPROVE);
+	}
+
 	@Override
 	public void substitute(Vote previous, Vote current) {
 		this.voteCount += current.substitute(previous, votes);
@@ -196,5 +201,22 @@ public class News extends Moderatable implements Post {
 	public Question getQuestion() {
 		return null; //TODO: remove getQuestion from Post interface
 	}
+	
+	public String getTitle(){
+		return information.getTitle();
+	}
 
+	public UpdateStatus updateWith(NewsInformation information) {
+	    return new Updater().update(this, information);
+	}
+
+	public List<NewsInformation> getHistory() {
+		return history;
+	}
+
+	@Override
+	protected void addHistory(Information information) {
+		this.history.add((NewsInformation) information);
+	}
 }
+

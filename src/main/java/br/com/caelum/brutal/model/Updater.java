@@ -4,23 +4,13 @@ import br.com.caelum.brutal.model.interfaces.Moderatable;
 
 public class Updater {
 
-	public UpdateStatus update(Answer answer, AnswerInformation information) {
-	    UpdateStatus status = canUpdate(answer, information);
-        
-        if (status == UpdateStatus.REFUSED)
+	public UpdateStatus update(Moderatable moderatable, Information information) {
+		UpdateStatus status = canUpdate(moderatable, information);
+		
+		if (status == UpdateStatus.REFUSED && !moderatable.canBeUptadedWith(information))
             return status;
         
-        answer.enqueueChange(information, status);
-		return status;
-	}
-
-
-	public UpdateStatus update(Question question, QuestionInformation information) {
-	    UpdateStatus status = canUpdate(question, information);
-        if (status == UpdateStatus.REFUSED)
-            return status;
-        
-        question.enqueueChange(information, status);
+        moderatable.enqueueChange(information, status);
 		return status;
 	}
 

@@ -200,6 +200,11 @@ public class NewsInformation implements Information{
 		this.news = news;
 	}
 
+	@Override
+	public void setModeratable(Moderatable moderatable) {
+		news = (News) moderatable;
+	}
+
 	
 	
 }

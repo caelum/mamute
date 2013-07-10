@@ -173,4 +173,8 @@ public class AnswerInformation implements Information {
 		return status;
 	}
 
+	public void setModeratable(Moderatable moderatable) {
+		this.answer = (Answer) moderatable;
+	}
+
 }

@@ -3,6 +3,7 @@ package br.com.caelum.brutal.controllers;
 import java.util.List;
 
 import br.com.caelum.brutal.components.RecentTagsContainer;
+import br.com.caelum.brutal.dao.NewsDAO;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.model.Question;
@@ -19,12 +20,14 @@ public class ListController {
 	private final Result result;
 	private final TagDAO tags;
 	private final RecentTagsContainer recentTagsContainer;
+	private final NewsDAO newses;
 
-	public ListController(QuestionDAO questions, TagDAO tags, Result result, RecentTagsContainer recentTagsContainer) {
+	public ListController(QuestionDAO questions, TagDAO tags, Result result, RecentTagsContainer recentTagsContainer, NewsDAO newses) {
 		this.questions = questions;
 		this.tags = tags;
 		this.result = result;
 		this.recentTagsContainer = recentTagsContainer;
+		this.newses = newses;
 	}
 
 	/**
@@ -40,6 +43,7 @@ public class ListController {
 			result.notFound();
 			return;
 		}
+		result.include("newses", newses.allVisible(page));
 		result.include("questions", visible);
 		result.include("recentTags", recentTagsContainer.getRecentTagsUsage());
 		result.include("totalPages", questions.numberOfPages());
