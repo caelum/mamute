@@ -1,4 +1,4 @@
-package br.com.caelum.brutal.model.interfaces;
+package br.com.caelum.brutal.dao;
 
 import java.util.List;
 

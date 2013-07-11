@@ -11,7 +11,6 @@ import br.com.caelum.brutal.dao.WithUserDAO.UserRole;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
-import br.com.caelum.brutal.model.interfaces.PaginatableDAO;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
