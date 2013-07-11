@@ -63,9 +63,16 @@ public class News extends Moderatable implements Post {
 	@Embedded
 	private final ModerationOptions moderationOptions = new ModerationOptions();
 	
-	@JoinTable(name = "Question_Flags")
+	@JoinTable(name = "News_Flags")
 	@OneToMany
 	private final List<Flag> flags = new ArrayList<>();
+
+	/**
+	 * @deprecated hibernate eyes only
+	 */
+	public News() {
+		author = null;
+	}
 	
 	public News(NewsInformation newsInformation, User author) {
 		this.author = author;
@@ -217,6 +224,10 @@ public class News extends Moderatable implements Post {
 	@Override
 	protected void addHistory(Information information) {
 		this.history.add((NewsInformation) information);
+	}
+
+	public String getSluggedTitle() {
+		return information.getSluggedTitle();
 	}
 }
 
