@@ -13,7 +13,7 @@ import br.com.caelum.vraptor.ioc.Component;
 @Component
 public class NewsDAO implements PaginatableDAO  {
     private static final int SPAM_BOUNDARY = -5;
-	private static final int PAGE_SIZE = 4;
+	private static final int PAGE_SIZE = 3;
 	private final WithUserDAO<News> withAuthor;
 	private Session session;
 	private InvisibleForUsersRule invisible;
