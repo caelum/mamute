@@ -1011,15 +1011,15 @@ a.button.ask-a-question:hover{
 
 /*HOME*/
 
-.question-item,.question-information,.summary {
+.post-item,.question-information,.summary {
 	overflow: hidden;
 }
 
-.question-information,.summary {
+.post-information,.summary {
 	float: left;
 }
 
-.question-item {
+.post-item {
 	border-bottom: 1px solid #EAEAEA;
 	padding-bottom: .8em;
 	padding-top: 2%;
@@ -1029,17 +1029,32 @@ a.button.ask-a-question:hover{
 	background-color: #fce4b4;
 }
 
-.summary {
-	width: 85%;
-}
-
-.summary .tags {
+.question-summary .tags {
 	width: auto;
 }
 
-.question-information {
-	width: 15%;
+.question-summary {
+	width: 85%;
+}
+
+.news-summary{
+	width: 90%;
+}
+
+.news-summary .last-touch{
+	width: 14%
+}
+
+.post-information {
 	padding-right: 1.5%;
+}
+
+.question-information{
+	width: 15%;
+}
+
+.news-information{
+	width: 9%; 
 }
 
 .info {
@@ -1047,7 +1062,14 @@ a.button.ask-a-question:hover{
 	font-size: 1.4em;
 	padding: .4em 0;
 	text-align: center;
+}
+
+.question-info{
 	width: 50%;
+}
+
+.news-info{
+	width: 100%;
 }
 
 .answers {
@@ -1082,6 +1104,13 @@ a.button.ask-a-question:hover{
 .tags-usage .tags-item {
 	margin-bottom: .45em;
 }
+
+/* NEWSES LIST */
+.news-content{
+	width: 100%;
+}
+
+
 /*MODERACAO*/
 .tabs {
 	float: right;

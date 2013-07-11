@@ -13,7 +13,6 @@ import br.com.caelum.vraptor.ioc.Component;
 @Component
 public class NewsDAO implements PaginatableDAO  {
     private static final int SPAM_BOUNDARY = -5;
-	private static final int PAGE_SIZE = 3;
 	private final WithUserDAO<News> withAuthor;
 	private Session session;
 	private InvisibleForUsersRule invisible;
@@ -24,19 +23,19 @@ public class NewsDAO implements PaginatableDAO  {
 		this.withAuthor = new WithUserDAO<News>(session, News.class, UserRole.AUTHOR);
     }
     
-	public List<News> allVisible(Integer page) {
+	public List<News> allVisible(Integer initPage, Integer pageSize) {
 		String hql = "from News as n join fetch n.information ni" +
 				" join fetch n.author na" +
 				" join fetch n.lastTouchedBy na" +
 				" "+ invisibleFilter("and") +" " + spamFilter() +" order by n.lastUpdatedAt desc";
 		Query query = session.createQuery(hql);
-		return query.setMaxResults(PAGE_SIZE)
-			.setFirstResult(firstResultOf(page))
+		return query.setMaxResults(pageSize)
+			.setFirstResult(firstResultOf(initPage, pageSize))
 			.list();
 	}
 
-	private int firstResultOf(Integer page) {
-		return PAGE_SIZE * (page-1);
+	private int firstResultOf(Integer initPage, Integer pageSize) {
+		return pageSize * (initPage-1);
 	}
 
 	private String spamFilter() {
@@ -65,4 +64,18 @@ public class NewsDAO implements PaginatableDAO  {
 		session.save(news);
 	}
 
+	public long numberOfPages(Integer pageSize) {
+		String hql = "select count(*) from News n " + invisibleFilter("and") + " " + spamFilter();
+		Long totalItems = (Long) session.createQuery(hql).uniqueResult();
+		long result = calculatePages(totalItems, pageSize);
+		return result;
+	}
+	
+	private long calculatePages(Long count, Integer pageSize) {
+		long result = count/pageSize.longValue();
+		if (count % pageSize.longValue() != 0) {
+			result++;
+		}
+		return result;
+	}
 }

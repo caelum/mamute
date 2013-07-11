@@ -54,6 +54,7 @@ public class NewsController {
 		result.include("news", news);
 		result.include("userMediumPhoto", true);
 	}
+	
 
 	private void redirectToRightUrl(News news, String sluggedTitle) {
 		if (!news.getSluggedTitle().equals(sluggedTitle)) {

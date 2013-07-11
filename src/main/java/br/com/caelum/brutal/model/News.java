@@ -233,5 +233,9 @@ public class News extends Moderatable implements Post {
 	public String getMarkedDescription(){
 		return information.getMarkedDescription();
 	}
+	
+	public long getViews() {
+		return views;
+	}
 }
 
