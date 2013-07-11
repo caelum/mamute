@@ -7,7 +7,7 @@
 <section itemscope itemtype="http://schema.org/Article" class="post-area ${news.isVisibleForModeratorAndNotAuthor(currentUser.current) ? 'highlight-post' : '' }" >
 	<h1 itemprop="name" class="title subheader news-title"><c:out value="${news.title}" escapeXml="${true}"/></h1>
 	<div class="post-meta">
-		<tags:voteFor item="${news}" type="pergunta" vote="${currentVote}"/>
+		<tags:voteFor item="${news}" type="noticia" vote="${currentVote}"/>
 	</div>
 	<div class="post-container">
 		<div class="post-text">${news.markedDescription}</div>

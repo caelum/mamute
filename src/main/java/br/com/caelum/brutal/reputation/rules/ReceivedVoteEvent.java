@@ -6,6 +6,7 @@ import java.util.Map;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.EventType;
+import br.com.caelum.brutal.model.News;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.ReputationEvent;
 import br.com.caelum.brutal.model.VoteType;
@@ -23,6 +24,7 @@ public class ReceivedVoteEvent {
 		map.put(Question.class, new QuestionVoteRule());
 		map.put(Answer.class, new AnswerVoteRule());
 		map.put(Comment.class, new CommentVoteRule());
+		map.put(News.class, new NewsVoteRule());
 	}
 	
 	public ReceivedVoteEvent(VoteType type, Votable votable, Question questionInvolved, boolean shouldCountKarma) {

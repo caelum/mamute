@@ -5,9 +5,7 @@ import static br.com.caelum.vraptor.view.Results.json;
 import br.com.caelum.brutal.auth.rules.MinimumReputation;
 import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.dao.VoteDAO;
-import br.com.caelum.brutal.model.Answer;
-import br.com.caelum.brutal.model.Comment;
-import br.com.caelum.brutal.model.Question;
+import br.com.caelum.brutal.infra.ModelUrlMapping;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.Vote;
 import br.com.caelum.brutal.model.VoteType;
@@ -24,43 +22,27 @@ public class VoteController {
 	private final User currentUser;
 	private final VoteDAO votes;
 	private final VotingMachine votingMachine;
+	private final ModelUrlMapping mapping;
 
 	public VoteController(Result result, User currentUser, 
-			VoteDAO voteDAO, VotingMachine votingMachine) {
+			VoteDAO voteDAO, VotingMachine votingMachine, ModelUrlMapping mapping) {
 		this.result = result;
 		this.currentUser = currentUser;
 		this.votes = voteDAO;
         this.votingMachine = votingMachine;
+		this.mapping = mapping;
 	}
 
 	@MinimumReputation(PermissionRulesConstants.VOTE_UP)
-	@Post("/pergunta/{id}/voto/positivo")
-	public void voteQuestionUp(Long id) {
-		tryToVoteVotable(id, VoteType.UP, Question.class);
+	@Post("/{type}/{id}/voto/positivo")
+	public void voteUp(Long id, String type) {
+		tryToVoteVotable(id, VoteType.UP, mapping.getClassFor(type));
 	}
 
 	@MinimumReputation(PermissionRulesConstants.VOTE_DOWN)
-	@Post("/pergunta/{id}/voto/negativo")
-	public void voteQuestionDown(Long id) {
-		tryToVoteVotable(id, VoteType.DOWN, Question.class);
-	}
-
-	@MinimumReputation(PermissionRulesConstants.VOTE_UP)
-	@Post("/resposta/{id}/voto/positivo")
-	public void voteAnswerUp(Long id) {
-		tryToVoteVotable(id, VoteType.UP, Answer.class);
-	}
-
-	@MinimumReputation(PermissionRulesConstants.VOTE_DOWN)
-	@Post("/resposta/{id}/voto/negativo")
-	public void voteAnswerDown(Long id) {
-		tryToVoteVotable(id, VoteType.DOWN, Answer.class);
-	}
-	
-	@MinimumReputation(PermissionRulesConstants.VOTE_UP)
-	@Post("/comentario/{id}/voto/positivo")
-	public void voteCommentUp(Long id) {
-		tryToVoteVotable(id, VoteType.UP, Comment.class);
+	@Post("/{type}/{id}/voto/negativo")
+	public void voteDown(Long id, String type) {
+		tryToVoteVotable(id, VoteType.DOWN, mapping.getClassFor(type));
 	}
 
 	@SuppressWarnings("rawtypes")
