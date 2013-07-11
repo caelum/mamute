@@ -229,5 +229,9 @@ public class News extends Moderatable implements Post {
 	public String getSluggedTitle() {
 		return information.getSluggedTitle();
 	}
+	
+	public String getMarkedDescription(){
+		return information.getMarkedDescription();
+	}
 }
 
