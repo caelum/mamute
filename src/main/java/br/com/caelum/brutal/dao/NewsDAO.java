@@ -9,8 +9,8 @@ import br.com.caelum.brutal.dao.WithUserDAO.OrderType;
 import br.com.caelum.brutal.dao.WithUserDAO.UserRole;
 import br.com.caelum.brutal.model.News;
 import br.com.caelum.brutal.model.User;
-import br.com.caelum.brutal.model.interfaces.PaginatableDAO;
-
+import br.com.caelum.vraptor.ioc.Component;
+@Component
 public class NewsDAO implements PaginatableDAO  {
     private static final int SPAM_BOUNDARY = -5;
 	private static final int PAGE_SIZE = 4;
@@ -28,7 +28,7 @@ public class NewsDAO implements PaginatableDAO  {
 		String hql = "from News as n join fetch n.information ni" +
 				" join fetch n.author na" +
 				" join fetch n.lastTouchedBy na" +
-				" "+ invisibleFilter("and") +" " + spamFilter() +" order by q.lastUpdatedAt desc";
+				" "+ invisibleFilter("and") +" " + spamFilter() +" order by n.lastUpdatedAt desc";
 		Query query = session.createQuery(hql);
 		return query.setMaxResults(PAGE_SIZE)
 			.setFirstResult(firstResultOf(page))
@@ -59,6 +59,10 @@ public class NewsDAO implements PaginatableDAO  {
 	@Override
 	public Long numberOfPagesTo(User author) {
 		return withAuthor.numberOfPagesTo(author);
+	}
+
+	public void save(News news) {
+		session.save(news);
 	}
 
 }
