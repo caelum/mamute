@@ -1,6 +1,7 @@
 package br.com.caelum.brutal.controllers;
 
 import br.com.caelum.brutal.auth.LoggedAccess;
+import br.com.caelum.brutal.auth.ModeratorOnly;
 import br.com.caelum.brutal.dao.NewsDAO;
 import br.com.caelum.brutal.dao.VoteDAO;
 import br.com.caelum.brutal.model.LoggedUser;
@@ -45,7 +46,7 @@ public class NewsController {
 	public void newsForm() {
 	}
 	
-	@Get("/noticia/{news.id:[0-9]+}-{sluggedTitle}")
+	@Get("/noticias/{news.id:[0-9]+}-{sluggedTitle}")
 	public void showNews(@Load News news, String sluggedTitle) {
 		User current = currentUser.getCurrent();
 		redirectToRightUrl(news, sluggedTitle);
@@ -55,6 +56,12 @@ public class NewsController {
 		result.include("userMediumPhoto", true);
 	}
 	
+	@Post("/noticias/aprovar/{news.id}")
+	@ModeratorOnly
+	public void approve(@Load News news){
+		news.approve();
+		result.nothing();
+	}
 
 	private void redirectToRightUrl(News news, String sluggedTitle) {
 		if (!news.getSluggedTitle().equals(sluggedTitle)) {

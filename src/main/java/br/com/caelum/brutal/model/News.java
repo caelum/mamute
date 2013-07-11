@@ -66,6 +66,8 @@ public class News extends Moderatable implements Post {
 	@JoinTable(name = "News_Flags")
 	@OneToMany
 	private final List<Flag> flags = new ArrayList<>();
+	
+	private boolean approved = false;
 
 	/**
 	 * @deprecated hibernate eyes only
@@ -236,6 +238,14 @@ public class News extends Moderatable implements Post {
 	
 	public long getViews() {
 		return views;
+	}
+	
+	public void approve(){
+		approved = true;
+	}
+	
+	public boolean isApproved(){
+		return approved;
 	}
 }
 

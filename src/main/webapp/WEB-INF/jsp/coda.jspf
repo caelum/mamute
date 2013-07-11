@@ -61,6 +61,7 @@
 	<script src="<c:url value="/js/form-fix.js"/>"></script>
 	<script src="<c:url value="/js/about-banner.js"/>"></script>
 	<script src="<c:url value="/js/question-warnings.js"/>"></script>
+	<script src="<c:url value="/js/approve-news.js"/>"></script>
 </c:if>
 <c:if test="${environment.name == 'production'}" >
 	<script src="<c:url value="/js/jquery/jquery-plugins${deployTimestamp}.js"/>"></script>

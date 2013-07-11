@@ -1037,24 +1037,12 @@ a.button.ask-a-question:hover{
 	width: 85%;
 }
 
-.news-summary{
-	width: 90%;
-}
-
-.news-summary .last-touch{
-	width: 14%
-}
-
 .post-information {
 	padding-right: 1.5%;
 }
 
 .question-information{
 	width: 15%;
-}
-
-.news-information{
-	width: 9%; 
 }
 
 .info {
@@ -1068,9 +1056,6 @@ a.button.ask-a-question:hover{
 	width: 50%;
 }
 
-.news-info{
-	width: 100%;
-}
 
 .answers {
 	color: #994325;
@@ -1108,6 +1093,30 @@ a.button.ask-a-question:hover{
 /* NEWSES LIST */
 .news-content{
 	width: 100%;
+}
+
+.news-info{
+	width: 100%;
+}
+
+.news-information{
+	width: 9%; 
+}
+
+.news-summary{
+	width: 90%;
+}
+
+.news-summary .last-touch{
+	width: 14%
+}
+
+.post-under-review{
+	opacity: 0.5;
+}
+
+.post-under-review .news-summary{
+	width: 75%;
 }
 
 
