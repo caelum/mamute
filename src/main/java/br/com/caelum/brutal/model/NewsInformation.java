@@ -26,7 +26,6 @@ import br.com.caelum.brutal.model.interfaces.Moderatable;
 @Cacheable
 @Entity
 public class NewsInformation implements Information{
-
 	private static final int COMMENT_MIN_LENGTH = 5;
 	public static final int DESCRIPTION_MIN_LENGTH = 30;
 	public static final int TITLE_MAX_LENGTH = 150;
@@ -37,22 +36,22 @@ public class NewsInformation implements Information{
 	private Long id;
 
 	@Lob
-	@Length(min = TITLE_MIN_LENGTH, max = TITLE_MAX_LENGTH, message = "question.errors.title.length")
-	@NotEmpty(message = "question.errors.title.length")
+	@Length(min = TITLE_MIN_LENGTH, max = TITLE_MAX_LENGTH, message = "news.errors.title.length")
+	@NotEmpty(message = "news.errors.title.length")
 	private String title;
 
 	@Lob
-	@Length(min = DESCRIPTION_MIN_LENGTH, message = "question.errors.description.length")
-	@NotEmpty(message = "question.errors.description.length")
+	@Length(min = DESCRIPTION_MIN_LENGTH, message = "news.errors.description.length")
+	@NotEmpty(message = "news.errors.description.length")
 	private String description;
 
 	@Type(type = "text")
 	@NotEmpty
 	private String sluggedTitle;
 	
-	@NotNull(message = "question.errors.comment.not_null")
-	@Length(min = COMMENT_MIN_LENGTH, message = "question.errors.comment.length")
-	@NotEmpty(message = "question.errors.comment.length")
+	@NotNull(message = "news.errors.comment.not_null")
+	@Length(min = COMMENT_MIN_LENGTH, message = "news.errors.comment.length")
+	@NotEmpty(message = "news.errors.comment.length")
 	@Type(type = "text")
 	private String comment;
 

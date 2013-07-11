@@ -171,9 +171,9 @@ public class News extends Moderatable implements Post {
 
 	@Override
 	protected void updateApproved(Information approved) {
-		NewsInformation approvedQuestion = (NewsInformation) approved;
-		touchedBy(approvedQuestion.getAuthor());
-		setInformation(approvedQuestion);		
+		NewsInformation approvedNews = (NewsInformation) approved;
+		touchedBy(approvedNews.getAuthor());
+		setInformation(approvedNews);		
 	}
 
 	private void setInformation(NewsInformation approvedNews) {
