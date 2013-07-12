@@ -200,10 +200,6 @@ public class QuestionInformation implements Information, Taggable {
 	public UpdateStatus getStatus() {
 		return status;
 	}
-	
-	void setQuestion(Question question) {
-        this.question = question;
-    }
 
     public boolean isPending() {
         return status == UpdateStatus.PENDING;
@@ -231,6 +227,11 @@ public class QuestionInformation implements Information, Taggable {
 	public String toString() {
 		return "QuestionInformation [id=" + id + ", author=" + author
 				+ ", status=" + status + ", question=" + question + "]";
+	}
+
+	@Override
+	public void setModeratable(Moderatable moderatable) {
+		question = (Question) moderatable;
 	}
 
 	

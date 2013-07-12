@@ -5,6 +5,7 @@ import java.util.Map;
 
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.Comment;
+import br.com.caelum.brutal.model.News;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.vraptor.ioc.ApplicationScoped;
 import br.com.caelum.vraptor.ioc.Component;
@@ -18,6 +19,7 @@ public class ModelUrlMapping {
 		classForUrl.put("pergunta", Question.class);
 		classForUrl.put("resposta", Answer.class);
 		classForUrl.put("comentario", Comment.class);
+		classForUrl.put("noticia", News.class);
 	}
 	
 	public Class<?> getClassFor(String urlParam){

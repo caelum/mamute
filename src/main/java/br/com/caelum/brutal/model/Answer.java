@@ -182,16 +182,6 @@ public class Answer extends Moderatable implements Post, Notifiable {
 		return new Updater().update(this, information);
 	}
 
-	public void enqueueChange(AnswerInformation newInformation, UpdateStatus status) {
-		if (status.equals(UpdateStatus.NO_NEED_TO_APPROVE)) {
-			this.information = newInformation;
-		}
-		newInformation.setAnswer(this);
-        newInformation.setInitStatus(status);
-		this.history.add(newInformation);
-		this.touchedBy(newInformation.getAuthor());
-	}
-
 	public void touchedBy(User author) {
 		this.lastTouchedBy = author;
 		this.lastUpdatedAt = new DateTime();
@@ -290,5 +280,10 @@ public class Answer extends Moderatable implements Post, Notifiable {
 	@Override
 	public String getEmailTemplate() {
 		return "answer_notification_mail";
+	}
+
+	@Override
+	protected void addHistory(Information information) {
+		this.history.add((AnswerInformation) information);
 	}
 }

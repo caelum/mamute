@@ -17,6 +17,8 @@ public class KarmaCalculator {
 	public static final int ASKED_QUESTION = 2;
 	public static final int ANSWERED_QUESTION = 2;
 	public static final int DOWNVOTED_QUESTION_OR_ANSWER = -2;
+	public static final int MY_NEWS_VOTED_UP = 5;
+	public static final int MY_NEWS_VOTED_DOWN = -2;
     
     public int karmaFor(ReputationEvent voteEvent) {
     	return voteEvent.getKarmaReward();

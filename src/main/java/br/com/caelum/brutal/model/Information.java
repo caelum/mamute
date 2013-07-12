@@ -13,10 +13,13 @@ public interface Information {
     User getAuthor();
     
     Moderatable getModeratable();
+    void setModeratable(Moderatable moderatable);
 
     String getTypeName();
     
     boolean isBeforeCurrent();
+
+	void setInitStatus(UpdateStatus status);
     
 
 }

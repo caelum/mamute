@@ -256,22 +256,17 @@ public class Question extends Moderatable implements Post, Taggable{
 	public UpdateStatus updateWith(QuestionInformation information) {
 	    return new Updater().update(this, information);
 	}
-
-	public void enqueueChange(QuestionInformation newInformation, UpdateStatus status) {
-		if (status.equals(UpdateStatus.NO_NEED_TO_APPROVE)) {
-			updateApproved(newInformation);
-		}
-		newInformation.setQuestion(this);
-        newInformation.setInitStatus(status);
-		this.history.add(newInformation);
-	}
 	
+	protected void addHistory(Information newInformation) {
+		this.history.add((QuestionInformation) newInformation);
+	}
+
 	public List<QuestionInformation> getHistory() {
 		return history;
 	}
 	
 	private void setInformation(QuestionInformation newInformation) {
-		newInformation.setQuestion(this);
+		newInformation.setModeratable(this);
 		if (this.information != null) {
 			for (Tag tag : this.information.getTags()) {
 				tag.decrementUsage();
@@ -382,6 +377,5 @@ public class Question extends Moderatable implements Post, Taggable{
 		return user.getId().equals(author.getId());
     	
     }
-
 
 }

@@ -11,10 +11,12 @@ import br.com.caelum.brutal.dto.SuspectMassiveVote;
 import br.com.caelum.brutal.model.AnswerAndVotes;
 import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.CommentsAndVotes;
+import br.com.caelum.brutal.model.News;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.Vote;
 import br.com.caelum.brutal.model.VoteType;
+import br.com.caelum.brutal.model.interfaces.Commentable;
 import br.com.caelum.brutal.model.interfaces.Votable;
 import br.com.caelum.vraptor.ioc.Component;
 
@@ -61,20 +63,29 @@ public class VoteDAO {
 		return query.setMaxResults(10).list();
 	}
 	
-	
 	@SuppressWarnings("unchecked")
 	public CommentsAndVotes previousVotesForComments(Question question, User currentUser) {
-		Query questionQuery = session.createQuery("select c,v from Question as q join q.comments.comments as c join c.votes as v where v.author = :author and q = :question");
 		Query answerQuery = session.createQuery("select c,v from Question as q join q.answers as a join a.comments.comments as c join c.votes as v where v.author = :author and q = :question");
-		questionQuery.setParameter("author", currentUser);
 		answerQuery.setParameter("author", currentUser);
-		questionQuery.setParameter("question", question);
 		answerQuery.setParameter("question", question);
-		List commentsAndVotesList = questionQuery.list();
+		List commentsAndVotesList = previousVotesForComments(Question.class, currentUser, question);
 		commentsAndVotesList.addAll(answerQuery.list());
 		return new CommentsAndVotes(commentsAndVotesList);
 	}
 	
+	@SuppressWarnings("unchecked")
+	public CommentsAndVotes previousVotesForComments(News news, User currentUser) {
+		return new CommentsAndVotes(previousVotesForComments(News.class, currentUser, news));
+		
+	}
+	
+	private List previousVotesForComments(Class<? extends Commentable> clazz, User currentUser,	Commentable commentable) {
+		Query newsQuery = session.createQuery("select c,v from "+clazz.getSimpleName()+" as n join n.comments.comments as c join c.votes as v where v.author = :author and n = :commentable");
+		newsQuery.setParameter("author", currentUser);
+		newsQuery.setParameter("commentable", commentable);
+		return newsQuery.list();
+	}
+
 	public Question questionOf(Votable votable) {
 		boolean isQuestionOrAnswer = !Comment.class.isAssignableFrom(votable.getClass());
 		if (isQuestionOrAnswer) {

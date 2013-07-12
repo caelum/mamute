@@ -47,7 +47,7 @@ public class News extends Moderatable implements Post {
 	private User lastTouchedBy = null;
 
 	@ManyToOne(fetch = EAGER)
-	private User author;
+	private final User author;
 
 	private long views = 0l;
 	
@@ -63,10 +63,24 @@ public class News extends Moderatable implements Post {
 	@Embedded
 	private final ModerationOptions moderationOptions = new ModerationOptions();
 	
-	@JoinTable(name = "Question_Flags")
+	@JoinTable(name = "News_Flags")
 	@OneToMany
 	private final List<Flag> flags = new ArrayList<>();
 	
+	private boolean approved = false;
+
+	/**
+	 * @deprecated hibernate eyes only
+	 */
+	public News() {
+		author = null;
+	}
+	
+	public News(NewsInformation newsInformation, User author) {
+		this.author = author;
+		enqueueChange(newsInformation, UpdateStatus.NO_NEED_TO_APPROVE);
+	}
+
 	@Override
 	public void substitute(Vote previous, Vote current) {
 		this.voteCount += current.substitute(previous, votes);
@@ -159,9 +173,9 @@ public class News extends Moderatable implements Post {
 
 	@Override
 	protected void updateApproved(Information approved) {
-		NewsInformation approvedQuestion = (NewsInformation) approved;
-		touchedBy(approvedQuestion.getAuthor());
-		setInformation(approvedQuestion);		
+		NewsInformation approvedNews = (NewsInformation) approved;
+		touchedBy(approvedNews.getAuthor());
+		setInformation(approvedNews);		
 	}
 
 	private void setInformation(NewsInformation approvedNews) {
@@ -196,5 +210,42 @@ public class News extends Moderatable implements Post {
 	public Question getQuestion() {
 		return null; //TODO: remove getQuestion from Post interface
 	}
+	
+	public String getTitle(){
+		return information.getTitle();
+	}
 
+	public UpdateStatus updateWith(NewsInformation information) {
+	    return new Updater().update(this, information);
+	}
+
+	public List<NewsInformation> getHistory() {
+		return history;
+	}
+
+	@Override
+	protected void addHistory(Information information) {
+		this.history.add((NewsInformation) information);
+	}
+
+	public String getSluggedTitle() {
+		return information.getSluggedTitle();
+	}
+	
+	public String getMarkedDescription(){
+		return information.getMarkedDescription();
+	}
+	
+	public long getViews() {
+		return views;
+	}
+	
+	public void approve(){
+		approved = true;
+	}
+	
+	public boolean isApproved(){
+		return approved;
+	}
 }
+

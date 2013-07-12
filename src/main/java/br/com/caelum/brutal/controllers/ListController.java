@@ -3,8 +3,10 @@ package br.com.caelum.brutal.controllers;
 import java.util.List;
 
 import br.com.caelum.brutal.components.RecentTagsContainer;
+import br.com.caelum.brutal.dao.NewsDAO;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.TagDAO;
+import br.com.caelum.brutal.model.News;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.providers.BrutalRoutesParser;
@@ -19,12 +21,14 @@ public class ListController {
 	private final Result result;
 	private final TagDAO tags;
 	private final RecentTagsContainer recentTagsContainer;
+	private final NewsDAO newses;
 
-	public ListController(QuestionDAO questions, TagDAO tags, Result result, RecentTagsContainer recentTagsContainer) {
+	public ListController(QuestionDAO questions, TagDAO tags, Result result, RecentTagsContainer recentTagsContainer, NewsDAO newses) {
 		this.questions = questions;
 		this.tags = tags;
 		this.result = result;
 		this.recentTagsContainer = recentTagsContainer;
+		this.newses = newses;
 	}
 
 	/**
@@ -40,9 +44,23 @@ public class ListController {
 			result.notFound();
 			return;
 		}
+		result.include("newses", newses.allVisible(page, 3));
 		result.include("questions", visible);
 		result.include("recentTags", recentTagsContainer.getRecentTagsUsage());
 		result.include("totalPages", questions.numberOfPages());
+		result.include("currentPage", page);
+	}
+
+	@Get("/noticias")
+	public void listNewses(Integer p) {
+		Integer page = getPage(p);
+		List<News> visible = newses.allVisible(page, 50);
+		if (visible.isEmpty() && page != 1) {
+			result.notFound();
+			return;
+		}
+		result.include("newses", visible);
+		result.include("totalPages", newses.numberOfPages(50));
 		result.include("currentPage", page);
 	}
 	

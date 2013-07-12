@@ -100,6 +100,18 @@ public enum EventType implements KarmaRewardEvent {
 		public Integer reward() {
 			return karma;
 		}
+	},
+	NEWS_UPVOTE {
+		@Override
+		public Integer reward() {
+			return KarmaCalculator.MY_NEWS_VOTED_UP;
+		}
+	},
+	NEWS_DOWNVOTE {
+		@Override
+		public Integer reward() {
+			return KarmaCalculator.MY_NEWS_VOTED_DOWN;
+		}
 	};
 
 	private static int karma;
