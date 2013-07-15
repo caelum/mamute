@@ -10,7 +10,7 @@ public class M033AddBannedColumn extends SimpleMigration {
 
 	@Override
 	public String rawQuery() {
-		return "alter table Users add column banned bit(1) default 0";
+		return "alter table Users add column isBanned bit(1) default 0";
 	}
 
 }
