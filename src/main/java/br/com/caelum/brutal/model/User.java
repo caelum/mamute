@@ -114,6 +114,8 @@ public class User implements Identifiable {
 
 	private boolean isSubscribed = true;
 	
+	private boolean isBanned = false;
+	
 	@OneToMany(mappedBy = "watcher")
 	private final List<Watcher> watches = new ArrayList<>();
 	
@@ -379,6 +381,10 @@ public class User implements Identifiable {
 
 	public String getUnsubscribeHash() {
 		return Digester.encrypt(this.email + hashFor(this.id));
+	}
+	
+	public boolean isBanned() {
+		return isBanned;
 	}
 	
 }
