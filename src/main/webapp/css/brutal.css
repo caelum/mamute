@@ -547,8 +547,11 @@ label {
 	font-weight: bold;
 }
 
-.small,.small a {
+.small, .small a, a.small {
 	font-size: 0.9em;
+}
+.tiny, .tiny a, a.tiny {
+	font-size: 0.7em;
 }
 
 textarea {

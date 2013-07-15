@@ -8,6 +8,7 @@
 <c:forEach items="${newses}" var="news">
 	<a href="${linkTo[NewsController].showNews[news][news.sluggedTitle]}">${news.title}</a><br>
 </c:forEach>
+<br><a href='<c:url value="/noticias" />'><fmt:message key="home.other_news" /></a>
 
 <tags:questionList recentTags="${recentTags}" 
 	questions="${questions}" title="${title}" rssUrl="${rssUrl}"/>

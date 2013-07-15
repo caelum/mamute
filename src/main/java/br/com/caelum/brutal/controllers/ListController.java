@@ -52,7 +52,7 @@ public class ListController {
 	}
 
 	@Get("/noticias")
-	public void listNewses(Integer p) {
+	public void newsList(Integer p) {
 		Integer page = getPage(p);
 		List<News> visible = newses.allVisibleAndApproved(page, 50);
 		if (visible.isEmpty() && page != 1) {
