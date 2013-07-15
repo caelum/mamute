@@ -54,7 +54,7 @@ public class ListController {
 	@Get("/noticias")
 	public void newsList(Integer p) {
 		Integer page = getPage(p);
-		List<News> visible = newses.allVisibleAndApproved(page, 50);
+		List<News> visible = newses.allVisible(page, 50);
 		if (visible.isEmpty() && page != 1) {
 			result.notFound();
 			return;
