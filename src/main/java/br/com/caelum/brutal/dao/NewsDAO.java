@@ -71,7 +71,8 @@ public class NewsDAO implements PaginatableDAO  {
 	}
 
 	public long numberOfPages(Integer pageSize) {
-		String hql = "select count(*) from News n " + invisibleFilter("and") + " " + spamFilter();
+		String hql = "select count(*) from News n " + invisibleFilter("and") 
+				+ " " + spamFilter() + " and n.approved=true ";
 		Long totalItems = (Long) session.createQuery(hql).uniqueResult();
 		long result = calculatePages(totalItems, pageSize);
 		return result;
