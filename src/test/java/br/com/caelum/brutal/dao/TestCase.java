@@ -17,6 +17,8 @@ import br.com.caelum.brutal.model.Flag;
 import br.com.caelum.brutal.model.FlagType;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.LoginMethod;
+import br.com.caelum.brutal.model.News;
+import br.com.caelum.brutal.model.NewsInformation;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
@@ -100,6 +102,11 @@ public abstract class TestCase {
     protected User moderator() {
     	return user("moderator", "moderator@brutal.com").asModerator();
     }
+    
+    protected News news(String title, String description, User author) {
+    	NewsInformation newsInformation = new NewsInformation(title, description, new LoggedUser(author, null), "comment comment comment");
+    	return new News(newsInformation, author);
+	}
     
 }
 

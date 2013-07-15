@@ -19,6 +19,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
+import br.com.caelum.brutal.infra.NotFoundException;
 import br.com.caelum.brutal.model.interfaces.Moderatable;
 import br.com.caelum.brutal.model.interfaces.Votable;
 
@@ -240,12 +241,21 @@ public class News extends Moderatable implements Post {
 		return views;
 	}
 	
-	public void approve(){
+	public News approved(){
 		approved = true;
+		return this;
 	}
 	
 	public boolean isApproved(){
 		return approved;
+	}
+
+	public boolean isVisibleFor(LoggedUser currentUser) {
+		boolean isTheAuthor = currentUser.isLoggedIn() && currentUser.getCurrent().getId().equals(author.getId());
+		if (isApproved() || currentUser.isModerator() || isTheAuthor) {
+			return true;
+		}
+		throw new NotFoundException();
 	}
 }
 

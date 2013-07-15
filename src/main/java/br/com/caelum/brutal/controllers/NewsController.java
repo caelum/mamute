@@ -49,6 +49,7 @@ public class NewsController {
 	@Get("/noticias/{news.id:[0-9]+}-{sluggedTitle}")
 	public void showNews(@Load News news, String sluggedTitle) {
 		User current = currentUser.getCurrent();
+		news.isVisibleFor(currentUser);
 		redirectToRightUrl(news, sluggedTitle);
 		result.include("commentsWithVotes", votes.previousVotesForComments(news, current));
 		result.include("currentVote", votes.previousVoteFor(news.getId(), current, News.class));
@@ -59,7 +60,7 @@ public class NewsController {
 	@Post("/noticias/aprovar/{news.id}")
 	@ModeratorOnly
 	public void approve(@Load News news){
-		news.approve();
+		news.approved();
 		result.nothing();
 	}
 

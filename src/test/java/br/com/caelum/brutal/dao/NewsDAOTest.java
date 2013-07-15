@@ -57,7 +57,7 @@ public class NewsDAOTest extends DatabaseTestCase {
 		News news = new News(newsInformation, newsAuthor);
 		
 		if (approved)
-			news.approve();
+			news.approved();
 		
 		session.save(newsInformation);
 		session.save(news);
