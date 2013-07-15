@@ -44,7 +44,7 @@ public class ListController {
 			result.notFound();
 			return;
 		}
-		result.include("newses", newses.allVisible(page, 3));
+		result.include("newses", newses.allVisibleAndApproved(page, 3));
 		result.include("questions", visible);
 		result.include("recentTags", recentTagsContainer.getRecentTagsUsage());
 		result.include("totalPages", questions.numberOfPages());

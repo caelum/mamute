@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.dao;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -10,6 +12,9 @@ import br.com.caelum.brutal.dao.WithUserDAO.UserRole;
 import br.com.caelum.brutal.model.News;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.ioc.Component;
+
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
 @Component
 public class NewsDAO implements PaginatableDAO  {
     private static final int SPAM_BOUNDARY = -5;
@@ -23,6 +28,7 @@ public class NewsDAO implements PaginatableDAO  {
 		this.withAuthor = new WithUserDAO<News>(session, News.class, UserRole.AUTHOR);
     }
     
+	@SuppressWarnings("unchecked")
 	public List<News> allVisible(Integer initPage, Integer pageSize) {
 		String hql = "from News as n join fetch n.information ni" +
 				" join fetch n.author na" +
@@ -77,5 +83,20 @@ public class NewsDAO implements PaginatableDAO  {
 			result++;
 		}
 		return result;
+	}
+
+	public List<News> allVisibleAndApproved(Integer page, int pageSize) {
+		List<News> allVisible = allVisible(page, pageSize);
+		return filterApproved(allVisible);
+	}
+
+	private List<News> filterApproved(List<News> allVisible) {
+		Collection<News> filtered = Collections2.filter(allVisible, new Predicate<News>() {
+			@Override
+			public boolean apply(final News news) {
+				return news.isApproved();
+			}
+		});
+		return new ArrayList<>(filtered);
 	}
 }
