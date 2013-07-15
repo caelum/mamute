@@ -386,5 +386,13 @@ public class User implements Identifiable {
 	public boolean isBanned() {
 		return isBanned;
 	}
+
+	public void ban() {
+		this.isBanned = true;
+	}
+	
+	public void undoBan() {
+		this.isBanned = false;
+	}
 	
 }

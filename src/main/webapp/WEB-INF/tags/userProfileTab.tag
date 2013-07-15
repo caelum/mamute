@@ -8,11 +8,18 @@
 <section class="basic-user-data user-data">
 	<div class="subheader">
 		<tags:userProfileLink user="${selectedUser}" htmlClass="title page-title" isPrivate="true"/>
-		<c:if test="${isCurrentUser}">
 			<ul class="subheader-menu">
+		<c:if test="${isCurrentUser}">
 				<li><a href="${linkTo[UserProfileController].editProfile[selectedUser]}"><fmt:message key="user_profile.edit" /></a></li>
-			</ul>
 		</c:if>
+				<c:if test="${currentUser.current.isModerator()}">
+					<li>
+						<a class="ban-user" href="#" data-url="${linkTo[UserProfileController].toogleBanned[selectedUser]}">
+							<fmt:message key="${selectedUser.isBanned() ? 'user_profile.undo_ban' : 'user_profile.ban'}"/>
+						</a>
+					</li>
+				</c:if>
+			</ul>
 	</div>
 		
 	<div class="image-and-information">

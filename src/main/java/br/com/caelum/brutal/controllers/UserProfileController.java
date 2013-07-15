@@ -6,6 +6,7 @@ import static java.util.Arrays.asList;
 
 import org.joda.time.DateTime;
 
+import br.com.caelum.brutal.auth.ModeratorOnly;
 import br.com.caelum.brutal.dao.AnswerDAO;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.ReputationEventDAO;
@@ -173,6 +174,14 @@ public class UserProfileController extends Controller{
 		user.setSubscribed(false);
 		result.redirectTo(ListController.class).home(null);
 	}
+	
+	@ModeratorOnly
+	@Post("/usuario/ban/{user.id:[0-9]+}")
+	public void toogleBanned(@Load User user) {
+		if(user.isBanned()) user.undoBan();
+		else user.ban();
+		result.nothing();
+	}
 
 	private String correctWebsite(String website) {
 		String protocol = "";
@@ -182,4 +191,5 @@ public class UserProfileController extends Controller{
 		website = protocol+website;
 		return website;
 	}
+	
 }
