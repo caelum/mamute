@@ -133,7 +133,7 @@ a:hover{
 	margin-bottom: 10px;
 }
 
-.question-title {
+.question-title,.news-title {
 	font-size: 1.65em;
 }
 

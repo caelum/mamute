@@ -4,7 +4,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@attribute name="news" type="br.com.caelum.brutal.model.News" required="true" %>
 <%@attribute name="commentVotes" type="br.com.caelum.brutal.model.CommentsAndVotes" required="true" %>
-<section itemscope itemtype="http://schema.org/Article" class="post-area ${news.isVisibleForModeratorAndNotAuthor(currentUser.current) ? 'highlight-post' : '' }" >
+<section itemscope itemtype="http://schema.org/Article" class="post-area ${news.approved ? '' : 'highlight-post' }" >
+	<c:if test="${! news.approved}">
+		<fmt:message key="news.approving" /> 
+	</c:if>
 	<h1 itemprop="name" class="title subheader news-title"><c:out value="${news.title}" escapeXml="${true}"/></h1>
 	<div class="post-meta">
 		<tags:voteFor item="${news}" type="noticia" vote="${currentVote}"/>

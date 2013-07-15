@@ -49,7 +49,7 @@ public class NewsController {
 	@Get("/noticias/{news.id:[0-9]+}-{sluggedTitle}")
 	public void showNews(@Load News news, String sluggedTitle) {
 		User current = currentUser.getCurrent();
-		news.isVisibleFor(currentUser);
+		news.checkVisibilityFor(currentUser);
 		redirectToRightUrl(news, sluggedTitle);
 		result.include("commentsWithVotes", votes.previousVotesForComments(news, current));
 		result.include("currentVote", votes.previousVoteFor(news.getId(), current, News.class));

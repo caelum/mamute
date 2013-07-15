@@ -24,28 +24,28 @@ public class NewsTest extends TestCase {
 	@Test
 	public void not_approved_news_should_be_visible_to_moderator() {
 		News news = news("news title", "news description", author);
-		assertTrue(news.isVisibleFor(loggedUser(moderator)));
+		assertTrue(news.checkVisibilityFor(loggedUser(moderator)));
 	}
 	
 	@Test
 	public void not_approved_news_should_be_visible_to_author() {
 		News news = news("news title", "news description", author);
-		assertTrue(news.isVisibleFor(loggedUser(author)));
+		assertTrue(news.checkVisibilityFor(loggedUser(author)));
 	}
 	
 	@Test(expected=NotFoundException.class)
 	public void not_approved_news_should_not_be_visible_to_regular_user() {
 		News news = news("news title", "news description", author);
-		news.isVisibleFor(loggedUser(regularUser));
+		news.checkVisibilityFor(loggedUser(regularUser));
 	}
 	
 	@Test
 	public void approved_news_should_be_visible() {
 		News news = news("news title", "news description", author).approved();
 		
-		news.isVisibleFor(loggedUser(regularUser));
-		news.isVisibleFor(loggedUser(author));
-		news.isVisibleFor(loggedUser(moderator));
+		news.checkVisibilityFor(loggedUser(regularUser));
+		news.checkVisibilityFor(loggedUser(author));
+		news.checkVisibilityFor(loggedUser(moderator));
 	}
 
 	private LoggedUser loggedUser(User author) {

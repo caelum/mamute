@@ -250,7 +250,7 @@ public class News extends Moderatable implements Post {
 		return approved;
 	}
 
-	public boolean isVisibleFor(LoggedUser currentUser) {
+	public boolean checkVisibilityFor(LoggedUser currentUser) {
 		boolean isTheAuthor = currentUser.isLoggedIn() && currentUser.getCurrent().getId().equals(author.getId());
 		if (isApproved() || currentUser.isModerator() || isTheAuthor) {
 			return true;
