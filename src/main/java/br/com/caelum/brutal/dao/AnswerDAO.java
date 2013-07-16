@@ -16,9 +16,9 @@ public class AnswerDAO implements PaginatableDAO{
 	private final Session session;
 	private final WithUserDAO<Answer> withAuthor;
 
-	public AnswerDAO(Session session) {
+	public AnswerDAO(Session session, InvisibleForUsersRule invisible) {
 		this.session = session;
-		withAuthor = new WithUserDAO<Answer>(session, Answer.class, UserRole.AUTHOR);
+		withAuthor = new WithUserDAO<Answer>(session, Answer.class, UserRole.AUTHOR, invisible);
 	}
 	
 	public Answer getById(Long id) {
@@ -29,7 +29,6 @@ public class AnswerDAO implements PaginatableDAO{
 		this.session.save(answer);
 	}
 	
-
 	public List<Answer> postsToPaginateBy(User user, OrderType orderByWhat, Integer page) {
 		return withAuthor.by(user, orderByWhat, page);
 	}

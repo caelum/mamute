@@ -1,9 +1,19 @@
 package br.com.caelum.brutal.dao;
 
+import static org.hibernate.criterion.Order.desc;
+import static org.hibernate.criterion.Projections.rowCount;
+import static org.hibernate.criterion.Restrictions.and;
+import static org.hibernate.criterion.Restrictions.eq;
+import static org.hibernate.criterion.Restrictions.gt;
+import static org.hibernate.criterion.Restrictions.isNull;
+
 import java.util.List;
 
-import org.hibernate.Query;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.dao.WithUserDAO.OrderType;
@@ -26,7 +36,7 @@ public class QuestionDAO implements PaginatableDAO {
     public QuestionDAO(Session session, InvisibleForUsersRule invisible) {
         this.session = session;
 		this.invisible = invisible;
-		this.withAuthor = new WithUserDAO<Question>(session, Question.class, UserRole.AUTHOR);
+		this.withAuthor = new WithUserDAO<Question>(session, Question.class, UserRole.AUTHOR, invisible);
     }
     
     public void save(Question q) {
@@ -38,40 +48,34 @@ public class QuestionDAO implements PaginatableDAO {
 	}
 	
 	public List<Question> allVisible(Integer page) {
-		String hql = "from Question as q join fetch q.information qi" +
-				" join fetch q.author qa" +
-				" join fetch q.lastTouchedBy qa" +
-				" left join fetch q.solution s" +
-				" left join fetch q.solution.information si" +
-				" "+ invisibleFilter("and") +" " + spamFilter() +" order by q.lastUpdatedAt desc";
-		Query query = session.createQuery(hql);
-		return query.setMaxResults(PAGE_SIZE)
-			.setFirstResult(firstResultOf(page))
-			.list();
+		Criteria criteria = session.createCriteria(Question.class, "q")
+				.createAlias("q.author", "qa")
+				.createAlias("q.lastTouchedBy", "ql")
+				.createAlias("q.solution", "s", Criteria.LEFT_JOIN)
+				.createAlias("q.solution.information", "si", Criteria.LEFT_JOIN)
+				.add(criterionSpamFilter())
+				.addOrder(desc("q.lastUpdatedAt"))
+				.setFirstResult(firstResultOf(page))
+				.setMaxResults(PAGE_SIZE);
+		return addInvisibleFilter(criteria).list();
 	}
 
 	public List<Question> unsolvedVisible(Integer page) {
-		return session.createQuery("from Question as q "+invisibleFilter("and")+" (q.solution is null) order by q.lastUpdatedAt desc")
+		Criteria criteria = session.createCriteria(Question.class, "q")
+				.add(Restrictions.and(criterionSpamFilter(), isNull("q.solution")))
+				.addOrder(Order.desc("q.lastUpdatedAt"))
 				.setMaxResults(PAGE_SIZE)
-				.setFirstResult(firstResultOf(page))
-				.list();
-	}
-	
-	public Long totalPagesUnsolvedVisible() {
-		Long result = (Long) session.createQuery("select count(*) from Question as q "+invisibleFilter("and")+" (q.solution is null)").uniqueResult();
-		return calculatePages(result);
+				.setFirstResult(firstResultOf(page));
+		return addInvisibleFilter(criteria).list();
 	}
 	
 	public List<Question> unanswered(Integer page) {
-		return session.createQuery("from Question as q " +invisibleFilter("and")+" q.answerCount = 0 order by q.lastUpdatedAt desc")
+		Criteria criteria = session.createCriteria(Question.class, "q")
+				.add(Restrictions.eq("q.answerCount", 0l))
+				.addOrder(Order.desc("q.lastUpdatedAt"))
 				.setMaxResults(PAGE_SIZE)
-				.setFirstResult(firstResultOf(page))
-				.list();
-	}
-	
-	public Long totalPagesWithoutAnswers() {
-		Long result = (Long) session.createQuery("select count(*) from Question as q " +invisibleFilter("and")+" q.answerCount = 0").uniqueResult();
-		return calculatePages(result);
+				.setFirstResult(firstResultOf(page));
+		return addInvisibleFilter(criteria).list();
 	}
 
 	public Question load(Question question) {
@@ -79,41 +83,97 @@ public class QuestionDAO implements PaginatableDAO {
 	}
 
 	public List<Question> withTagVisible(Tag tag, Integer page) {
-		List<Question> questions = session.createQuery("select q from Question as q " +
-				"join q.information.tags t " + 
-				invisibleFilter("and") + " t = :tag order by q.lastUpdatedAt desc")
-				.setParameter("tag", tag)
+		Criteria criteria = session.createCriteria(Question.class, "q")
+				.createAlias("q.information.tags", "t")
+				.add(Restrictions.eq("t.id", tag.getId()))
+				.addOrder(Order.desc("q.lastUpdatedAt"))
 				.setFirstResult(firstResultOf(page))
-				.setMaxResults(50)
-				.list();
-		return questions;
+				.setMaxResults(50);
+		return addInvisibleFilter(criteria).list();
 	}
 	
 	public List<Question> postsToPaginateBy(User user, OrderType orderByWhat, Integer page) {
 		return withAuthor.by(user,orderByWhat, page);
 	}
+
+	public List<Question> orderedByCreationDate(int maxResults) {
+		return session.createCriteria(Question.class, "q")
+				.add(Restrictions.eq("q.moderationOptions.invisible", false))
+				.addOrder(Order.desc("q.createdAt"))
+				.setMaxResults(maxResults)
+				.list();
+	}
 	
-	public Long numberOfPagesTo(User user) {
-		return withAuthor.numberOfPagesTo(user);
+	public List<Question> orderedByCreationDate(int maxResults, Tag tag) {
+		return session.createCriteria(Question.class, "q")
+				.createAlias("q.information.tags", "tags")
+				.add(Restrictions.and(Restrictions.eq("q.moderationOptions.invisible", false), Restrictions.eq("tags.id", tag.getId())))
+				.addOrder(Order.desc("q.createdAt"))
+				.setMaxResults(maxResults)
+				.list();
 	}
 
-	private String spamFilter() {
-		return "q.voteCount > "+SPAM_BOUNDARY;
+	public List<Question> hot(DateTime since, int count) {
+		return session.createCriteria(Question.class, "q")
+				.add(gt("q.createdAt", since))
+				.addOrder(Order.desc("q.voteCount"))
+				.setMaxResults(count)
+				.list();
 	}
 	
-	private String invisibleFilter(String connective) {
-		return invisible.getInvisibleOrNotFilter("q", connective);
+	public List<Question> randomUnanswered(DateTime after, DateTime before, int count) {
+		return session.createCriteria(Question.class, "q")
+				.add(and(isNull("q.solution"), Restrictions.between("q.createdAt", after, before)))
+				.add(Restrictions.sqlRestriction("1=1 order by rand()"))
+				.setMaxResults(count)
+				.list();
 	}
 
 	public Long countWithAuthor(User user) {
 		return withAuthor.count(user);
 	}
+
+	public Long numberOfPagesTo(User user) {
+		return withAuthor.numberOfPagesTo(user);
+	}
 	
 	public long numberOfPages() {
-		String hql = "select count(*) from Question q " + invisibleFilter("and") + " " + spamFilter();
-		Long totalItems = (Long) session.createQuery(hql).uniqueResult();
-		long result = calculatePages(totalItems);
-		return result;
+		Criteria criteria = session.createCriteria(Question.class, "q")
+				.add(criterionSpamFilter())
+				.setProjection(rowCount());
+		Long totalItems = (Long) addInvisibleFilter(criteria).list().get(0);
+		return calculatePages(totalItems);
+	}
+
+	public long numberOfPages(Tag tag) {
+		Criteria criteria = session.createCriteria(Question.class, "q")
+				.createAlias("q.information", "qi")
+				.createAlias("qi.tags", "t")
+				.add(criterionSpamFilter())
+				.add(eq("t.id", tag.getId()))
+				.setProjection(rowCount());
+		Long totalItems = (Long) addInvisibleFilter(criteria).list().get(0);
+		return calculatePages(totalItems);
+	}
+
+	public Long totalPagesUnsolvedVisible() {
+		Criteria criteria = session.createCriteria(Question.class, "q")
+				.add(isNull("q.solution"))
+				.setProjection(rowCount());
+		Long result = (Long) addInvisibleFilter(criteria).list().get(0);
+		return calculatePages(result);
+	}
+	
+	public Long totalPagesWithoutAnswers() {
+		Criteria criteria = session.createCriteria(Question.class, "q")
+				.add(Restrictions.eq("q.answerCount", 0l))
+				.setProjection(rowCount());
+		Long result = (Long) addInvisibleFilter(criteria).list().get(0);
+		return calculatePages(result);
+	}
+
+	private int firstResultOf(Integer page) {
+		return PAGE_SIZE * (page-1);
 	}
 
 	private long calculatePages(Long count) {
@@ -124,44 +184,12 @@ public class QuestionDAO implements PaginatableDAO {
 		return result;
 	}
 
-	public long numberOfPages(Tag tag) {
-		String hql = "select count(q.id) from Question q join q.information.tags tag " + invisibleFilter("and") + " " + spamFilter() + " and tag=:tag";
-		Long totalItems = (Long) session.createQuery(hql).setParameter("tag", tag).uniqueResult();
-		long result = calculatePages(totalItems);
-		return result;
-	}
-
-	public List<Question> orderedByCreationDate(int maxResults) {
-		String hql = "select q from Question q where q.moderationOptions.invisible = false order by q.createdAt desc";
-		Query query = session.createQuery(hql);
-		return query.setMaxResults(maxResults).list();
+	private Criterion criterionSpamFilter() {
+		return Restrictions.gt("q.voteCount", SPAM_BOUNDARY);
 	}
 	
-	public List<Question> orderedByCreationDate(int maxResults, Tag tag) {
-		String hql = "select q from Question q " +
-				"join q.information.tags tags " +
-				"where q.moderationOptions.invisible = false and tags=:tag " +
-				"order by q.createdAt desc";
-		Query query = session.createQuery(hql);
-		return query.setParameter("tag", tag).setMaxResults(maxResults).list();
+	private Criteria addInvisibleFilter(Criteria criteria) {
+		return invisible.addFilter("q", criteria);
 	}
-	
-	private int firstResultOf(Integer page) {
-		return PAGE_SIZE * (page-1);
-	}
-
-	public List<Question> hot(DateTime since, int count) {
-		String hql = "select q from Question q where q.createdAt > :since order by q.voteCount desc";
-		return session.createQuery(hql).setParameter("since", since).setMaxResults(count).list();
-	}
-	
-	public List<Question> randomUnanswered(DateTime after, DateTime before, int count) {
-		String hql = "select q from Question q where q.solution is null and q.createdAt between :after and :before order by rand()";
-		return session.createQuery(hql)
-				.setParameter("before", before)
-				.setParameter("after", after)
-				.setMaxResults(count).list();
-	}
-
 }
 

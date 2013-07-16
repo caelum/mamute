@@ -1,8 +1,13 @@
 package br.com.caelum.brutal.dao;
 
+import static org.hibernate.criterion.Projections.rowCount;
+
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
 import br.com.caelum.brutal.model.User;
 
@@ -12,32 +17,39 @@ public class WithUserDAO<T> {
 	private final Session session;
 	private final Class<T> clazz;
 	private final String role;
-
+	private final QueryFilter generalFilter;
+	
 	public WithUserDAO(Session session, Class<T> clazz, UserRole role) {
+		this(session, clazz, role, null);
+	}
+
+	public WithUserDAO(Session session, Class<T> clazz, UserRole role, QueryFilter generalFilter) {
 		this.session = session;
 		this.clazz = clazz;
+		this.generalFilter = generalFilter;
 		this.role = role.getRole();
 	}
 
-	public List<T> by(User user, OrderType orderByWhat, Integer page) {
-		List<T> items = withUserBy(user, orderByWhat.getOrder(), page);
-		return items;		
-	}
-	
 	@SuppressWarnings("unchecked")
-	private List<T> withUserBy(User user, String order, Integer page) {
-		List<T> items = session.createQuery("select p from "+ clazz.getSimpleName() +" as p join p."+ role +" r where r = :user " + order)
-				.setParameter("user", user)
+	public List<T> by(User user, OrderType orderByWhat, Integer page) {
+		Criteria criteria = defaultCriteria(user)
+				.addOrder(orderByWhat.getOrder())
 				.setMaxResults(PAGE_SIZE)
-				.setFirstResult(PAGE_SIZE * (page-1))
-				.list();
-		return items;
+				.setFirstResult(PAGE_SIZE * (page-1));
+		return addFilter(criteria).list();
 	}
-	
+
 	public Long count(User user) {
-		return (Long) session.createQuery("select count(p) from "+ clazz.getSimpleName() +" as p join p."+ role +" r where r = :user ")
-						.setParameter("user", user)
-						.uniqueResult();
+		Criteria criteria = defaultCriteria(user)
+				.setProjection(rowCount());
+		return (Long) addFilter(criteria).list().get(0);
+	}
+
+	private Criteria defaultCriteria(User user) {
+		Criteria criteria = session.createCriteria(clazz, "p")
+				.createAlias("p." + role, "r")
+				.add(Restrictions.eq("r.id", user.getId()));
+		return criteria;
 	}
 	
 	public long numberOfPagesTo(User user) {
@@ -52,21 +64,26 @@ public class WithUserDAO<T> {
 		}
 		return result;
 	}
+
+	private Criteria addFilter(Criteria criteria) {
+		if(generalFilter != null) criteria = generalFilter.addFilter("p", criteria);
+		return criteria;
+	}
 	
 	public static enum OrderType {
 		ByDate {
 			@Override
-			public String getOrder() {
-				return "order by p.createdAt desc";
+			public Order getOrder() {
+				return Order.desc("p.createdAt");
 			}
 		}, ByVotes() {
 			@Override
-			public String getOrder() {
-				return "order by p.voteCount desc";
+			public Order getOrder() {
+				return Order.desc("p.voteCount");
 			}
 		};
 
-		public abstract String getOrder();
+		public abstract Order getOrder();
 	}
 	
 	public static enum UserRole {
@@ -87,3 +104,4 @@ public class WithUserDAO<T> {
 	}
 	
 }
+

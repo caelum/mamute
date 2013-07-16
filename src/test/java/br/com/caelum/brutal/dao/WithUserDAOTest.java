@@ -15,6 +15,7 @@ import org.junit.Test;
 import br.com.caelum.brutal.builder.QuestionBuilder;
 import br.com.caelum.brutal.dao.WithUserDAO.UserRole;
 import br.com.caelum.brutal.model.Answer;
+import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
@@ -40,8 +41,9 @@ public class WithUserDAOTest extends DatabaseTestCase{
 		session.save(upVote2);
 		session.save(upVote3);
 		session.save(defaultTag);
-		questionsWithUser = new WithUserDAO<Question>(session, Question.class, UserRole.AUTHOR);
-		answersWithUser = new WithUserDAO<Answer>(session, Answer.class, UserRole.AUTHOR);
+		InvisibleForUsersRule invisibleFilter = new InvisibleForUsersRule(new LoggedUser(author, null));
+		questionsWithUser = new WithUserDAO<Question>(session, Question.class, UserRole.AUTHOR, invisibleFilter);
+		answersWithUser = new WithUserDAO<Answer>(session, Answer.class, UserRole.AUTHOR, invisibleFilter);
 	}
 	
 	@Test

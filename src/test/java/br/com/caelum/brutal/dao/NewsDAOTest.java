@@ -15,8 +15,7 @@ import br.com.caelum.brutal.model.User;
 public class NewsDAOTest extends DatabaseTestCase {
 	private User regularUser = user("Regular user", "regularuser@brutal.com");
 	private User newsAuthor = user("News author", "newsauthor@brutal.com");
-	private LoggedUser regularLoggedUser = new LoggedUser(regularUser, null);
-	private InvisibleForUsersRule invisibleForRegularUsers = new InvisibleForUsersRule(regularLoggedUser);
+	private InvisibleForUsersRule invisibleForRegularUsers = new InvisibleForUsersRule(new LoggedUser(regularUser, null));
 	private NewsDAO newsForRegularUsers; 
 	
 	@Before

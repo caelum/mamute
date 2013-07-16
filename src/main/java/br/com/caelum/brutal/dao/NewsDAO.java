@@ -1,11 +1,18 @@
 package br.com.caelum.brutal.dao;
 
+import static org.hibernate.criterion.Order.desc;
+import static org.hibernate.criterion.Projections.rowCount;
+import static org.hibernate.criterion.Restrictions.and;
+import static org.hibernate.criterion.Restrictions.gt;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.hibernate.Query;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 
 import br.com.caelum.brutal.dao.WithUserDAO.OrderType;
 import br.com.caelum.brutal.dao.WithUserDAO.UserRole;
@@ -17,7 +24,7 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 @Component
 public class NewsDAO implements PaginatableDAO  {
-    private static final int SPAM_BOUNDARY = -5;
+    private static final long SPAM_BOUNDARY = -5;
 	private final WithUserDAO<News> withAuthor;
 	private Session session;
 	private InvisibleForUsersRule invisible;
@@ -25,31 +32,32 @@ public class NewsDAO implements PaginatableDAO  {
     public NewsDAO(Session session, InvisibleForUsersRule invisible) {
         this.session = session;
 		this.invisible = invisible;
-		this.withAuthor = new WithUserDAO<News>(session, News.class, UserRole.AUTHOR);
+		this.withAuthor = new WithUserDAO<News>(session, News.class, UserRole.AUTHOR, invisible);
     }
     
 	@SuppressWarnings("unchecked")
 	public List<News> allVisible(Integer initPage, Integer pageSize) {
-		String hql = "from News as n join fetch n.information ni" +
-				" join fetch n.author na" +
-				" join fetch n.lastTouchedBy na" +
-				" "+ invisibleFilter("and") +" " + spamFilter() +" order by n.lastUpdatedAt desc";
-		Query query = session.createQuery(hql);
-		return query.setMaxResults(pageSize)
-			.setFirstResult(firstResultOf(initPage, pageSize))
-			.list();
+		Criteria criteria = session.createCriteria(News.class, "n")
+				.createAlias("n.information", "ni")
+				.createAlias("n.author", "na")
+				.createAlias("n.lastTouchedBy", "nl")
+				.add(criterionSpamFilter())
+				.addOrder(desc("n.lastUpdatedAt"))
+				.setMaxResults(pageSize)
+				.setFirstResult(firstResultOf(initPage, pageSize));
+		return addInvisibleFilter(criteria).list();
+	}
+
+	private Criterion criterionSpamFilter() {
+		return gt("n.voteCount", SPAM_BOUNDARY);
 	}
 
 	private int firstResultOf(Integer initPage, Integer pageSize) {
 		return pageSize * (initPage-1);
 	}
 
-	private String spamFilter() {
-		return "n.voteCount > "+SPAM_BOUNDARY;
-	}
-
-	private String invisibleFilter(String connective) {
-		return invisible.getInvisibleOrNotFilter("n", connective);
+	private Criteria addInvisibleFilter(Criteria criteria) {
+		return invisible.addFilter("n", criteria);
 	}
 
 	public List<News> postsToPaginateBy(User user, OrderType orderByWhat, Integer page) {
@@ -71,11 +79,11 @@ public class NewsDAO implements PaginatableDAO  {
 	}
 
 	public long numberOfPages(Integer pageSize) {
-		String hql = "select count(*) from News n " + invisibleFilter("and") 
-				+ " " + spamFilter() + " and n.approved=true ";
-		Long totalItems = (Long) session.createQuery(hql).uniqueResult();
-		long result = calculatePages(totalItems, pageSize);
-		return result;
+		Criteria criteria = session.createCriteria(News.class)
+				.add(and(criterionSpamFilter(), Restrictions.eq("n.approved", true)))
+				.setProjection(rowCount());
+		Long totalItems = (Long) addInvisibleFilter(criteria).list().get(0);
+		return calculatePages(totalItems, pageSize);
 	}
 	
 	private long calculatePages(Long count, Integer pageSize) {

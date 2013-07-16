@@ -1,10 +1,16 @@
 package br.com.caelum.brutal.dao;
 
+import static org.hibernate.criterion.Restrictions.eq;
+import static org.hibernate.criterion.Restrictions.or;
+
+import org.hibernate.Criteria;
+import org.hibernate.criterion.SimpleExpression;
+
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
-public class InvisibleForUsersRule {
+public class InvisibleForUsersRule implements QueryFilter{
 	
 
 	private final LoggedUser currentUser;
@@ -13,32 +19,14 @@ public class InvisibleForUsersRule {
 		this.currentUser = currentUser;
 	}
 	
-	public String getInvisibleOrNotFilter(String modelAlias){
-		return getInvisibleOrNotFilter(modelAlias, "");
-	}
-	
-	public String getInvisibleOrNotFilter(String modelAlias, String connective){
-		boolean hasAnotherFilter = !connective.isEmpty();
-		boolean invisible = !currentUser.isLoggedIn() || !currentUser.isModerator();
-		String filter = "";
-		if(hasAnotherFilter){
-			filter += "where";
-		}
-		if(invisible){
-			filter = whereInvisible(modelAlias);
-			if(currentUser.isLoggedIn()) filter += orAuthor(modelAlias);
-			filter += ") "+connective;
-		}
-		
-		return filter;
-	}
-	
-	private String whereInvisible(String modelAlias) {
-		return "where ("+modelAlias+".moderationOptions.invisible = false";
+	public Criteria addFilter(String modelAlias, Criteria criteria) {
+		if(currentUser.isModerator()) return criteria;
+		if(!currentUser.isLoggedIn()) return criteria.add(moderationOptionsInvisible(modelAlias));
+		return criteria.add(or(moderationOptionsInvisible(modelAlias), eq(modelAlias+".author.id", currentUser.getCurrent().getId())));
 	}
 
-	private String orAuthor(String modelAlias) {
-		return " or " + modelAlias + ".author.id = " + currentUser.getCurrent().getId();
+	private SimpleExpression moderationOptionsInvisible(String modelAlias) {
+		return eq(modelAlias+".moderationOptions.invisible", false);
 	}
 
 
