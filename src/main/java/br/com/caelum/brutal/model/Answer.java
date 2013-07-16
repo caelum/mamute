@@ -229,7 +229,7 @@ public class Answer extends Moderatable implements Post, Notifiable {
 
 	@Override
 	public boolean isEdited() {
-		return history.size() > 1;
+		return lastUpdatedAt.isAfter(createdAt);
 	}
 	
 	public String getTypeName() {

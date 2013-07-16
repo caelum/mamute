@@ -135,7 +135,7 @@ public class News extends Moderatable implements Post {
 
 	@Override
 	public boolean isEdited() {
-		return history.size() > 1;
+		return lastUpdatedAt.isAfter(createdAt);
 	}
 
 	@Override

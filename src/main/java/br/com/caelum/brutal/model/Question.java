@@ -291,7 +291,7 @@ public class Question extends Moderatable implements Post, Taggable{
 
 	@Override
 	public boolean isEdited() {
-		return history.size() > 1;
+		return lastUpdatedAt.isAfter(createdAt);
 	}
 	
 	public String getTypeName() {
