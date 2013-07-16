@@ -18,7 +18,7 @@
 				<div class="summary news-summary">
 					<div class="item-title-wrapper">
 						<h3 class="title item-title news-title">
-							<a href="/${news.id}-${news.sluggedTitle}">${news.title}</a>
+							<a href="/noticias/${news.id}-${news.sluggedTitle}">${news.title}</a>
 						</h3>
 						<time class="when" ${microdata ? 'itemprop="dateCreated"' : ''} 
 							datetime="${news.createdAt}">
