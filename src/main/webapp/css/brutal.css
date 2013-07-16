@@ -1123,6 +1123,18 @@ a.button.ask-a-question:hover{
 	width: 75%;
 }
 
+.news-item {
+	padding: 1% 0;
+}
+
+.news-list {
+	margin-bottom: 3em;
+}
+
+.news-title {
+	margin-bottom: 0;
+}
+
 
 /*MODERACAO*/
 .tabs {

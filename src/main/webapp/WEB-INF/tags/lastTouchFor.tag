@@ -2,13 +2,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 <%@attribute name="touchable" type="br.com.caelum.brutal.model.interfaces.Touchable" required="true" %>
+<%@attribute name="showTime" type="java.lang.Boolean" required="false" %>
+
+<c:if test="${empty showTime}">
+	<c:set var="showTime" value="${true}" />
+</c:if>
+
 <div class="last-touch">
 	<c:choose>
 		<c:when test="${touchable.edited}">
-			<tags:editedTouch touchable="${touchable}"/>		
+			<tags:editedTouch touchable="${touchable}" showTime="${showTime}"/>		
 		</c:when>
 		<c:otherwise>
-			<tags:createdTouch touchable="${touchable}"/>
+			<tags:createdTouch touchable="${touchable}" showTime="${showTime}"/>
 		</c:otherwise>
 	</c:choose>
 </div>
