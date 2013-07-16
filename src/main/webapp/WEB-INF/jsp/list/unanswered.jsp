@@ -4,4 +4,9 @@
 <tags:header facebookMetas="${true}" title="${genericTitle} - ${title}" description="${description}"/>
 
 <fmt:message key="menu.unanswered" var="title"/>
-<tags:questionList recentTags="${recentTags}" questions="${questions}" title="${title}"/>
+<section class="first-content">
+	<tags:questionList recentTags="${recentTags}" 
+		questions="${questions}" title="${title}" rssUrl="${rssUrl}"/>
+</section>
+<tags:sideBar recentTags="${recentTags}" />
+<tags:joyrideIntro />

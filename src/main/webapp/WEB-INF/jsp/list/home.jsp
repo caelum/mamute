@@ -5,10 +5,53 @@
 
 <fmt:message key="menu.questions" var="title"/>
 <c:url value="/rss" var="rssUrl" />
-<c:forEach items="${newses}" var="news">
-	<a href="${linkTo[NewsController].showNews[news][news.sluggedTitle]}">${news.title}</a><br>
-</c:forEach>
-<br><a href='<c:url value="/noticias" />'><fmt:message key="home.other_news" /></a>
 
-<tags:questionList recentTags="${recentTags}" 
-	questions="${questions}" title="${title}" rssUrl="${rssUrl}"/>
+<c:if test="${!currentUser.loggedIn}">
+	<section class="about-banner">
+		<span class="minimize-banner icon-minus"></span>
+		<div class="about-content tell-me-more">
+			<fmt:message key="about.home_banner.text"/>
+			<a href="${linkTo[NavigationController].about}"><fmt:message key="about.home_banner.text.link"/></a>
+		</div>
+		<div class="about-content how-it-works">
+			<h3 class="title page-title"><fmt:message key="about.home_banner.how_it_works.title"/></h3>
+			<ul>
+				<tags:howItWorksItem icon="icon-comment" key="about.home_banner.how_it_works.anyone_ask"/>
+				<tags:howItWorksItem icon="icon-chat-empty" key="about.home_banner.how_it_works.anyone_answer"/>
+				<tags:howItWorksItem icon="icon-users" key="about.home_banner.how_it_works.answers_raise_up"/>
+			</ul> 
+		</div>
+	</section>
+</c:if>
+
+
+<section class="first-content">
+	<div class="subheader">
+		<h2 class="title page-title">
+			<fmt:message key="menu.news" />
+		</h2>
+	</div>
+	<ol class="news-list">
+		<c:forEach items="${newses}" var="news">
+			<li class="post-item">
+				<div class="post-information news-information">
+					<tags:postItemInformation key="post.list.vote" count="${news.voteCount}" information="votes" htmlClass="news-info"/> 
+				</div>
+				<div class="summary news-summary">
+					<div class="item-title-wrapper">
+						<h3 class="title item-title">
+							<a href="/${news.id}-${news.sluggedTitle}">${news.title}</a>
+						</h3>
+					</div>
+					<tags:lastTouchFor touchable="${news}"/>
+				</div>
+			</li>
+		</c:forEach>
+	</ol>
+	
+	<tags:questionList recentTags="${recentTags}" 
+		questions="${questions}" title="${title}" rssUrl="${rssUrl}"/>
+</section>
+<tags:sideBar recentTags="${recentTags}" />
+<tags:joyrideIntro />
+
