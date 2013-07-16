@@ -13,7 +13,9 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.ResultTransformer;
 import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.dao.WithUserDAO.OrderType;
@@ -49,6 +51,7 @@ public class QuestionDAO implements PaginatableDAO {
 	
 	public List<Question> allVisible(Integer page) {
 		Criteria criteria = session.createCriteria(Question.class, "q")
+				.createAlias("q.information", "qi")
 				.createAlias("q.author", "qa")
 				.createAlias("q.lastTouchedBy", "ql")
 				.createAlias("q.solution", "s", Criteria.LEFT_JOIN)
@@ -56,7 +59,9 @@ public class QuestionDAO implements PaginatableDAO {
 				.add(criterionSpamFilter())
 				.addOrder(desc("q.lastUpdatedAt"))
 				.setFirstResult(firstResultOf(page))
-				.setMaxResults(PAGE_SIZE);
+				.setMaxResults(PAGE_SIZE)
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+
 		return addInvisibleFilter(criteria).list();
 	}
 
@@ -65,7 +70,9 @@ public class QuestionDAO implements PaginatableDAO {
 				.add(Restrictions.and(criterionSpamFilter(), isNull("q.solution")))
 				.addOrder(Order.desc("q.lastUpdatedAt"))
 				.setMaxResults(PAGE_SIZE)
-				.setFirstResult(firstResultOf(page));
+				.setFirstResult(firstResultOf(page))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+				
 		return addInvisibleFilter(criteria).list();
 	}
 	
@@ -74,7 +81,9 @@ public class QuestionDAO implements PaginatableDAO {
 				.add(Restrictions.eq("q.answerCount", 0l))
 				.addOrder(Order.desc("q.lastUpdatedAt"))
 				.setMaxResults(PAGE_SIZE)
-				.setFirstResult(firstResultOf(page));
+				.setFirstResult(firstResultOf(page))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		
 		return addInvisibleFilter(criteria).list();
 	}
 
@@ -88,7 +97,10 @@ public class QuestionDAO implements PaginatableDAO {
 				.add(Restrictions.eq("t.id", tag.getId()))
 				.addOrder(Order.desc("q.lastUpdatedAt"))
 				.setFirstResult(firstResultOf(page))
-				.setMaxResults(50);
+				.setMaxResults(50)
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+
+		
 		return addInvisibleFilter(criteria).list();
 	}
 	

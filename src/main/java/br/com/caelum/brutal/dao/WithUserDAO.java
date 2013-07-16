@@ -48,7 +48,9 @@ public class WithUserDAO<T> {
 	private Criteria defaultCriteria(User user) {
 		Criteria criteria = session.createCriteria(clazz, "p")
 				.createAlias("p." + role, "r")
-				.add(Restrictions.eq("r.id", user.getId()));
+				.add(Restrictions.eq("r.id", user.getId()))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+
 		return criteria;
 	}
 	

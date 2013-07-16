@@ -44,7 +44,9 @@ public class NewsDAO implements PaginatableDAO  {
 				.add(criterionSpamFilter())
 				.addOrder(desc("n.lastUpdatedAt"))
 				.setMaxResults(pageSize)
-				.setFirstResult(firstResultOf(initPage, pageSize));
+				.setFirstResult(firstResultOf(initPage, pageSize))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+
 		return addInvisibleFilter(criteria).list();
 	}
 
@@ -79,9 +81,11 @@ public class NewsDAO implements PaginatableDAO  {
 	}
 
 	public long numberOfPages(Integer pageSize) {
-		Criteria criteria = session.createCriteria(News.class)
+		Criteria criteria = session.createCriteria(News.class, "n")
 				.add(and(criterionSpamFilter(), Restrictions.eq("n.approved", true)))
-				.setProjection(rowCount());
+				.setProjection(rowCount())
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+
 		Long totalItems = (Long) addInvisibleFilter(criteria).list().get(0);
 		return calculatePages(totalItems, pageSize);
 	}
