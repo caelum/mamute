@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@attribute name="news" type="br.com.caelum.brutal.model.News" required="true" %>
 <%@attribute name="commentVotes" type="br.com.caelum.brutal.model.CommentsAndVotes" required="true" %>
+
 <section itemscope itemtype="http://schema.org/Article" class="post-area ${news.approved ? '' : 'highlight-post' }" >
 	<c:if test="${! news.approved}">
 		<fmt:message key="news.approving" /> 
@@ -52,7 +53,7 @@
 			</ul>
 			<tags:touchesFor touchable="${news}" microdata="true"/>
 		</div>
-		<tags:add-a-comment type="noticia" item="${news}" votes="${commentVotes}"/>
+		<tags:add-a-comment groupComments="false" type="noticia" item="${news}" votes="${commentVotes}"/>
 		<c:if test="${currentUser.moderator && news.hasPendingEdits()}">
 			<a class="message moderator-alert" href="#"><fmt:message key="news.warns.has_edits"/></a>
 		</c:if>
