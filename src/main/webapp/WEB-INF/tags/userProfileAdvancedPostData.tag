@@ -21,19 +21,13 @@
 	</div>
 	<ul id="user-${type}" class="fixed-height">
 	    <c:if test="${type == 'respostas'}">
-			${answer.question.isVisibleFor(currentUser.current)}
 			<c:forEach var="answer" items="${list}">
-				<c:if test="${answer.question.isVisibleFor(currentUser.current)}">
 					<li class="ellipsis advanced-data-line"><span class="counter">${answer.voteCount}</span> <tags:questionLinkFor answer="${answer}"/></li>
-				</c:if>
 			</c:forEach>
 		</c:if>
 		<c:if test="${type != 'respostas'}">
-			${question.isVisibleFor(currentUser.current)}
 			<c:forEach var="question" items="${list}">
-				<c:if test="${question.isVisibleFor(currentUser.current)}">
 					<li class="ellipsis advanced-data-line"><span class="counter">${question.voteCount}</span> <tags:questionLinkFor question="${question}"/></li>
-				</c:if>
 			</c:forEach>
 		</c:if>
 	</ul>
