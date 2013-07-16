@@ -16,9 +16,9 @@
 								<fmt:message key="menu.questions"/>
 							</a>
 						</li>
-						<li class="nav-item list-tags">
-							<a class="button" href="${linkTo[ListController].listTags}">
-								<fmt:message key="menu.tags" />
+						<li class="nav-item menu-unanswered">
+							<a class="button unanswered" href="${linkTo[ListController].unanswered}">
+								<fmt:message key="menu.unanswered" />
 							</a>
 						</li>
 						<li class="nav-item menu-rank">
@@ -26,9 +26,9 @@
 								<fmt:message key="menu.users" />
 							</a>
 						</li>
-						<li class="nav-item menu-unanswered">
-							<a class="button unanswered" href="${linkTo[ListController].unanswered}">
-								<fmt:message key="menu.unanswered" />
+						<li class="nav-item">
+							<a class="button" href="${linkTo[ListController].news}">
+								<fmt:message key="menu.news" />
 							</a>
 						</li>
 						<li class="ask nav-item">
