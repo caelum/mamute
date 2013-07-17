@@ -15,14 +15,19 @@ import br.com.caelum.brutal.model.User;
 public class NewsDAOTest extends DatabaseTestCase {
 	private User regularUser = user("Regular user", "regularuser@brutal.com");
 	private User newsAuthor = user("News author", "newsauthor@brutal.com");
-	private InvisibleForUsersRule invisibleForRegularUsers = new InvisibleForUsersRule(new LoggedUser(regularUser, null));
+	private User moderator = user("News author", "newsauthor@brutal.com").asModerator();
 	private NewsDAO newsForRegularUsers; 
+	private NewsDAO newsForModerator; 
 	
 	@Before
 	public void setup() {
 		session.save(regularUser);
 		session.save(newsAuthor);
-		newsForRegularUsers = new NewsDAO(session, invisibleForRegularUsers);
+		session.save(moderator);
+		VisibleNewsFilter visibleNewsFilter = new VisibleNewsFilter();
+		ModeratorOrVisibleNewsFilter moderatorOrVisible = new ModeratorOrVisibleNewsFilter(new LoggedUser(regularUser, null), visibleNewsFilter);
+		newsForRegularUsers = new NewsDAO(session, moderatorOrVisible, visibleNewsFilter);
+		newsForModerator = new NewsDAO(session, new ModeratorOrVisibleNewsFilter(new LoggedUser(moderator, null), visibleNewsFilter), visibleNewsFilter);
 	}
 
 	@Test
@@ -31,18 +36,39 @@ public class NewsDAOTest extends DatabaseTestCase {
 		saveApprovedNews(newsAuthor);
 		
 		List<News> allVisible = newsForRegularUsers.allVisible(1, 100);
-		assertEquals(2, allVisible.size());
+		assertEquals(1, allVisible.size());
 	}
 	
 	@Test
 	public void should_list_visible_and_approved_news() {
 		saveApprovedNews(newsAuthor);
+		
+		List<News> allVisible = newsForRegularUsers.allVisible(1, 100);
+		assertEquals(1, allVisible.size());
+	}
+	
+	@Test
+	public void should_not_list_visible_and_not_approved_news() {
 		saveNotApprovedNews(newsAuthor);
 		
 		List<News> allVisible = newsForRegularUsers.allVisible(1, 100);
-		assertEquals(2, allVisible.size());
+		assertEquals(0, allVisible.size());
 	}
 
+	public void should_show_not_approved_news_to_moderator(){
+		saveNotApprovedNews(newsAuthor);
+		
+		List<News> allVisible = newsForModerator.allVisible(1, 100);
+		assertEquals(1, allVisible.size());
+	}
+	
+	public void should_not_show_not_approved_news_to_moderator(){
+		saveNotApprovedNews(newsAuthor);
+		
+		List<News> allVisible = newsForModerator.allVisibleAndApproved(1, 100);
+		assertEquals(1, allVisible.size());
+	}
+	
 	private void saveApprovedNews(User newsAuthor) {
 		saveNews(newsAuthor, true);
 	}

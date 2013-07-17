@@ -5,8 +5,6 @@ import static org.hibernate.criterion.Projections.rowCount;
 import static org.hibernate.criterion.Restrictions.and;
 import static org.hibernate.criterion.Restrictions.gt;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -19,35 +17,35 @@ import br.com.caelum.brutal.dao.WithUserDAO.UserRole;
 import br.com.caelum.brutal.model.News;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.ioc.Component;
-
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
 @Component
 public class NewsDAO implements PaginatableDAO  {
     private static final long SPAM_BOUNDARY = -5;
 	private final WithUserDAO<News> withAuthor;
 	private Session session;
-	private InvisibleForUsersRule invisible;
+	private QueryFilter invisible;
+	private final VisibleNewsFilter visibleFilter;
     
-    public NewsDAO(Session session, InvisibleForUsersRule invisible) {
+    public NewsDAO(Session session, ModeratorOrVisibleNewsFilter moderatorOrVisible, VisibleNewsFilter visibleFilter) {
         this.session = session;
-		this.invisible = invisible;
-		this.withAuthor = new WithUserDAO<News>(session, News.class, UserRole.AUTHOR, invisible);
+		this.invisible = moderatorOrVisible;
+		this.visibleFilter = visibleFilter;
+		this.withAuthor = new WithUserDAO<News>(session, News.class, UserRole.AUTHOR, moderatorOrVisible);
     }
     
 	@SuppressWarnings("unchecked")
 	public List<News> allVisible(Integer initPage, Integer pageSize) {
-		Criteria criteria = session.createCriteria(News.class, "n")
-				.createAlias("n.information", "ni")
-				.createAlias("n.author", "na")
-				.createAlias("n.lastTouchedBy", "nl")
-				.add(criterionSpamFilter())
-				.addOrder(desc("n.lastUpdatedAt"))
-				.setMaxResults(pageSize)
-				.setFirstResult(firstResultOf(initPage, pageSize))
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		Criteria criteria = defaultCriteria(initPage, pageSize);
+		return addModeratorOrApprovedFilter(criteria).list();
+	}
 
-		return addInvisibleFilter(criteria).list();
+	@SuppressWarnings("unchecked")
+	public List<News> allVisibleAndApproved(Integer initPage, Integer pageSize) {
+		Criteria criteria = defaultCriteria(initPage, pageSize);
+		return addApprovedFilter(criteria).list();
+	}
+
+	private Criteria addApprovedFilter(Criteria criteria) {
+		return visibleFilter.addFilter("n", criteria);
 	}
 
 	private Criterion criterionSpamFilter() {
@@ -58,7 +56,7 @@ public class NewsDAO implements PaginatableDAO  {
 		return pageSize * (initPage-1);
 	}
 
-	private Criteria addInvisibleFilter(Criteria criteria) {
+	private Criteria addModeratorOrApprovedFilter(Criteria criteria) {
 		return invisible.addFilter("n", criteria);
 	}
 
@@ -86,7 +84,7 @@ public class NewsDAO implements PaginatableDAO  {
 				.setProjection(rowCount())
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 
-		Long totalItems = (Long) addInvisibleFilter(criteria).list().get(0);
+		Long totalItems = (Long) addModeratorOrApprovedFilter(criteria).list().get(0);
 		return calculatePages(totalItems, pageSize);
 	}
 	
@@ -98,18 +96,17 @@ public class NewsDAO implements PaginatableDAO  {
 		return result;
 	}
 
-	public List<News> allVisibleAndApproved(Integer page, int pageSize) {
-		List<News> allVisible = allVisible(page, pageSize);
-		return filterApproved(allVisible);
-	}
-
-	private List<News> filterApproved(List<News> allVisible) {
-		Collection<News> filtered = Collections2.filter(allVisible, new Predicate<News>() {
-			@Override
-			public boolean apply(final News news) {
-				return news.isApproved();
-			}
-		});
-		return new ArrayList<>(filtered);
+	
+	private Criteria defaultCriteria(Integer initPage, Integer pageSize) {
+		Criteria criteria = session.createCriteria(News.class, "n")
+				.createAlias("n.information", "ni")
+				.createAlias("n.author", "na")
+				.createAlias("n.lastTouchedBy", "nl")
+				.add(criterionSpamFilter())
+				.addOrder(desc("n.lastUpdatedAt"))
+				.setMaxResults(pageSize)
+				.setFirstResult(firstResultOf(initPage, pageSize))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		return criteria;
 	}
 }

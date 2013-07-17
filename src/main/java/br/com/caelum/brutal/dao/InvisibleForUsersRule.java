@@ -11,7 +11,6 @@ import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class InvisibleForUsersRule implements QueryFilter{
-	
 
 	private final LoggedUser currentUser;
 
