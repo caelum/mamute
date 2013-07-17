@@ -10,9 +10,6 @@ import br.com.caelum.brutal.auth.FacebookAuthService;
 import br.com.caelum.brutal.auth.LoggedAccess;
 import br.com.caelum.brutal.auth.rules.AuthorizationSystem;
 import br.com.caelum.brutal.auth.rules.Rules;
-import br.com.caelum.brutal.brutauth.auth.rules.BrutauthAuthorRule;
-import br.com.caelum.brutal.brutauth.auth.rules.BrutauthModeratorRule;
-import br.com.caelum.brutal.brutauth.rules.AuthRules;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.ReputationEventDAO;
 import br.com.caelum.brutal.dao.TagDAO;
@@ -39,8 +36,6 @@ import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.util.hibernate.extra.Load;
 import br.com.caelum.vraptor.view.Results;
-
-
 
 @Resource
 public class QuestionController {
@@ -120,7 +115,6 @@ public class QuestionController {
 	}
 	
 	@Get("/{question.id:[0-9]+}-{sluggedTitle}")
-	@AuthRules({BrutauthAuthorRule.class, BrutauthModeratorRule.class})
 	public void showQuestion(@Load Question question, String sluggedTitle){
 		User current = currentUser.getCurrent();
 		if (question.isVisibleFor(current)){
