@@ -3,8 +3,8 @@ package br.com.caelum.brutal.brutauth.interceptors;
 import static br.com.caelum.vraptor.view.Results.http;
 import br.com.caelum.brutal.brutauth.auth.BrutauthReflectionComposedRule;
 import br.com.caelum.brutal.brutauth.auth.rules.CustomBrutauthRule;
+import br.com.caelum.brutal.brutauth.reflection.DefaultMethodInvoker;
 import br.com.caelum.brutal.brutauth.rules.AuthRules;
-import br.com.caelum.brutal.brutauth.util.DefaultMethodInvoker;
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
 import br.com.caelum.vraptor.Result;
@@ -15,7 +15,6 @@ import br.com.caelum.vraptor.interceptor.Interceptor;
 import br.com.caelum.vraptor.interceptor.ParametersInstantiatorInterceptor;
 import br.com.caelum.vraptor.ioc.Container;
 import br.com.caelum.vraptor.resource.ResourceMethod;
-import br.com.caelum.vraptor.view.Results;
 
 @Intercepts(before=ExecuteMethodInterceptor.class, after=ParametersInstantiatorInterceptor.class)
 public class BrutalAuthInterceptor implements Interceptor{
