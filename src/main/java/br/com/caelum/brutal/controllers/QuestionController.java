@@ -10,9 +10,11 @@ import br.com.caelum.brutal.auth.FacebookAuthService;
 import br.com.caelum.brutal.auth.LoggedAccess;
 import br.com.caelum.brutal.auth.rules.AuthorizationSystem;
 import br.com.caelum.brutal.auth.rules.Rules;
+import br.com.caelum.brutal.brutauth.RequiresPermission;
 import br.com.caelum.brutal.brutauth.auth.rules.BrutauthAuthorRule;
 import br.com.caelum.brutal.brutauth.auth.rules.BrutauthModeratorRule;
 import br.com.caelum.brutal.brutauth.rules.AuthRules;
+import br.com.caelum.brutal.brutauth.rules.LoggedRule;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.ReputationEventDAO;
 import br.com.caelum.brutal.dao.TagDAO;
@@ -83,8 +85,8 @@ public class QuestionController {
 	}
 
 	@Get("/perguntar")
-	@LoggedAccess
 	@IncludeAllTags
+	@RequiresPermission({LoggedRule.class})
 	public void questionForm() {
 	}
 	

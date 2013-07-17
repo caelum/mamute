@@ -5,7 +5,7 @@ import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
-public class BrutauthAuthorRule implements BrutauthRule{
+public class BrutauthAuthorRule implements CustomBrutauthRule {
 
 	private final User user;
 

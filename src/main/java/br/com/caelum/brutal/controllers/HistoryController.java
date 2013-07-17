@@ -4,8 +4,13 @@ import static br.com.caelum.vraptor.view.Results.http;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import br.com.caelum.brutal.auth.ModeratorOrKarmaAccess;
 import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
+import br.com.caelum.brutal.brutauth.AccessLevel;
+import br.com.caelum.brutal.brutauth.RequiresPermission;
+import br.com.caelum.brutal.brutauth.rules.ModeratorOrKarmaRule;
 import br.com.caelum.brutal.dao.InformationDAO;
 import br.com.caelum.brutal.dao.ModeratableDao;
 import br.com.caelum.brutal.dao.ReputationEventDAO;
@@ -36,7 +41,7 @@ public class HistoryController {
 	private final ModelUrlMapping urlMapping;
 	private final ReputationEventDAO reputationEvents;
 
-	public HistoryController(Result result, User currentUser,
+	public HistoryController(Result result, @Nullable User currentUser,
 			InformationDAO informations, ModeratableDao moderatables,
 			KarmaCalculator calculator, ModelUrlMapping urlMapping,
 			ReputationEventDAO reputationEvents) {
@@ -69,7 +74,8 @@ public class HistoryController {
 		}
 	}
 
-	@ModeratorOrKarmaAccess(PermissionRulesConstants.MODERATE_EDITS)
+	@RequiresPermission({ModeratorOrKarmaRule.class})
+	@AccessLevel(PermissionRulesConstants.MODERATE_EDITS)
 	@Get("/historico/resposta/{moderatableId}/versoes")
 	public void similarAnswers(Long moderatableId) {
 		similar("resposta", moderatableId);
