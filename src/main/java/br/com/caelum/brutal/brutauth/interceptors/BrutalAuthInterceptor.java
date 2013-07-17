@@ -1,7 +1,7 @@
 package br.com.caelum.brutal.brutauth.interceptors;
 
 import br.com.caelum.brutal.brutauth.auth.BrutauthComposedRule;
-import br.com.caelum.brutal.brutauth.auth.rules.BrutauthRule;
+import br.com.caelum.brutal.brutauth.auth.rules.CustomBrutauthRule;
 import br.com.caelum.brutal.brutauth.rules.AuthRules;
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
@@ -28,11 +28,11 @@ public class BrutalAuthInterceptor implements Interceptor{
 	public void intercept(InterceptorStack stack, ResourceMethod method,
 			Object resourceInstance) throws InterceptionException {
 		AuthRules annotation = method.getMethod().getAnnotation(AuthRules.class);
-		Class<? extends BrutauthRule>[] values = annotation.value();
+		Class<? extends CustomBrutauthRule>[] values = annotation.value();
 		
 		BrutauthComposedRule brutauthComposedRule = null;
-		for (Class<? extends BrutauthRule> value : values) {
-			BrutauthRule brutauthRule = container.instanceFor(value);
+		for (Class<? extends CustomBrutauthRule> value : values) {
+			CustomBrutauthRule brutauthRule = container.instanceFor(value);
 			brutauthComposedRule = compose(brutauthComposedRule, brutauthRule);
 		}
 		
@@ -42,7 +42,7 @@ public class BrutalAuthInterceptor implements Interceptor{
 		stack.next(method, resourceInstance);
 	}
 
-	private BrutauthComposedRule compose(BrutauthComposedRule brutauthComposedRule, BrutauthRule brutauthRule) {
+	private BrutauthComposedRule compose(BrutauthComposedRule brutauthComposedRule, CustomBrutauthRule brutauthRule) {
 		if(brutauthComposedRule == null){
 			brutauthComposedRule = new BrutauthComposedRule(brutauthRule);
 		}else{

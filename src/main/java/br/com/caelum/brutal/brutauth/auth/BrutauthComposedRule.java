@@ -5,17 +5,17 @@ import java.lang.reflect.Method;
 
 import br.com.caelum.brutal.auth.rules.ComposedRule;
 import br.com.caelum.brutal.auth.rules.PermissionRule;
-import br.com.caelum.brutal.brutauth.auth.rules.BrutauthRule;
+import br.com.caelum.brutal.brutauth.auth.rules.CustomBrutauthRule;
 
 public class BrutauthComposedRule {
 		
-		private BrutauthRule current;
+		private CustomBrutauthRule current;
 	
-		public BrutauthComposedRule(BrutauthRule first) {
+		public BrutauthComposedRule(CustomBrutauthRule first) {
 			this.current = first;
 		}
 		
-		public BrutauthComposedRule and(BrutauthRule second) {
+		public BrutauthComposedRule and(CustomBrutauthRule second) {
 			current = new AndRule(current, second);
 			return this;
 		}
@@ -28,11 +28,11 @@ public class BrutauthComposedRule {
 			return new ComposedRule<>(first);
 		}
 		
-		private static class AndRule implements BrutauthRule {
-			private final BrutauthRule second;
-			private final BrutauthRule first;
+		private static class AndRule implements CustomBrutauthRule {
+			private final CustomBrutauthRule second;
+			private final CustomBrutauthRule first;
 			
-			public AndRule(BrutauthRule first, BrutauthRule second) {
+			public AndRule(CustomBrutauthRule first, CustomBrutauthRule second) {
 				this.first = first;
 				this.second = second;
 			}
@@ -42,7 +42,7 @@ public class BrutauthComposedRule {
 			}
 		}
 
-		private static boolean invoke(BrutauthRule toInvoke, Object[] args) {
+		private static boolean invoke(CustomBrutauthRule toInvoke, Object[] args) {
 			Method defaultMethod = getDefaultMethod(toInvoke, args);
 			try {
 				if(defaultMethod.getParameterTypes()[0].isAssignableFrom(Object[].class)) args = new Object[]{args};
@@ -53,7 +53,7 @@ public class BrutauthComposedRule {
 			}
 		}
 
-		private static Method getDefaultMethod(BrutauthRule toInvoke, Object...args) {
+		private static Method getDefaultMethod(CustomBrutauthRule toInvoke, Object...args) {
 			Class<?>[] classes = getClasses(args);
 			Method method;
 			try {

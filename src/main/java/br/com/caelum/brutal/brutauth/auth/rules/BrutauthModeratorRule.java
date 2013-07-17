@@ -5,7 +5,7 @@ import br.com.caelum.brutal.model.Question;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
-public class BrutauthModeratorRule implements BrutauthRule {
+public class BrutauthModeratorRule implements CustomBrutauthRule {
 
 	private final LoggedUser loggedUser;
 
