@@ -49,6 +49,11 @@ public class NewsController {
 	public void newsForm() {
 	}
 	
+	@Get("/editar/{news.id}")
+	@LoggedAccess
+	public void newsEditForm() {
+	}
+	
 	@Get("/noticias/{news.id:[0-9]+}-{sluggedTitle}")
 	public void showNews(@Load News news, String sluggedTitle) {
 		User current = currentUser.getCurrent();
