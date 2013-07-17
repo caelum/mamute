@@ -9,11 +9,4 @@ public interface Post extends Votable, Commentable, Touchable, Flaggable {
 	
 	String getTypeNameKey();
 	
-	
-	/**
-	 * called when the post is visited
-	 */
-	void ping();
-	
-
 }

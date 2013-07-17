@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.joda.time.Period;
 
 import br.com.caelum.brutal.infra.Digester;
+import br.com.caelum.brutal.model.interfaces.ViewCountable;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
@@ -20,7 +21,7 @@ public class PostViewCounter {
 		this.response = response;
 	}
 
-	public void ping(Post post) {
+	public void ping(ViewCountable  post) {
 		if (!recentlyViewed(post)) {
 			post.ping();
 			Cookie cookie = new Cookie(cookieKeyFor(post), "1");
@@ -33,7 +34,7 @@ public class PostViewCounter {
 		}
 	}
 	
-	private boolean recentlyViewed(Post post) {
+	private boolean recentlyViewed(ViewCountable  post) {
 		Cookie[] cookies = request.getCookies();
 		for (Cookie cookie : cookies) {
 			if (cookie.getName().equals(cookieKeyFor(post))) {
@@ -44,8 +45,8 @@ public class PostViewCounter {
 	}
 	
 	
-	String cookieKeyFor(Post post) {
-		String cookiePrefix = Digester.md5(post.getType().getSimpleName());
+	String cookieKeyFor(ViewCountable  post) {
+		String cookiePrefix = Digester.md5(post.getClass().getSimpleName());
 		String cookieKey = cookiePrefix + "-" + post.getId();
 		return cookieKey;
 	}

@@ -21,10 +21,11 @@ import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.infra.NotFoundException;
 import br.com.caelum.brutal.model.interfaces.Moderatable;
+import br.com.caelum.brutal.model.interfaces.ViewCountable;
 import br.com.caelum.brutal.model.interfaces.Votable;
 
 @Entity
-public class News extends Moderatable implements Post {
+public class News extends Moderatable implements Post, ViewCountable {
 	@Id
 	@GeneratedValue
 	private Long id;

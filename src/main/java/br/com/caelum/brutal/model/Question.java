@@ -26,13 +26,14 @@ import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.model.interfaces.Moderatable;
 import br.com.caelum.brutal.model.interfaces.Taggable;
+import br.com.caelum.brutal.model.interfaces.ViewCountable;
 import br.com.caelum.brutal.model.interfaces.Votable;
 import br.com.caelum.brutal.model.watch.Watcher;
 
 @Cacheable
 @Cache(usage=CacheConcurrencyStrategy.READ_WRITE, region="cache")
 @Entity
-public class Question extends Moderatable implements Post, Taggable{
+public class Question extends Moderatable implements Post, Taggable, ViewCountable {
 	@Id
 	@GeneratedValue
 	private Long id;
