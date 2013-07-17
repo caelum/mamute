@@ -161,7 +161,7 @@ public class Question extends Moderatable implements Post, Taggable{
 		return this; //sorry, I need to get a Question from a Comment.
 	}
 	
-	void ping() {
+	public void ping() {
 		this.views++;
 	}
 

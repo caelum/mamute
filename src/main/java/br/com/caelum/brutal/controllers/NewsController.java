@@ -7,6 +7,7 @@ import br.com.caelum.brutal.dao.VoteDAO;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.News;
 import br.com.caelum.brutal.model.NewsInformation;
+import br.com.caelum.brutal.model.PostViewCounter;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
@@ -21,12 +22,14 @@ public class NewsController {
 	private final NewsDAO newses;
 	private final Result result;
 	private final VoteDAO votes;
+	private PostViewCounter viewCounter;
 
-	public NewsController(LoggedUser currentUser, NewsDAO newses, Result result, VoteDAO votes) {
+	public NewsController(LoggedUser currentUser, NewsDAO newses, Result result, VoteDAO votes, PostViewCounter viewCounter) {
 		this.currentUser = currentUser;
 		this.newses = newses;
 		this.result = result;
 		this.votes = votes;
+		this.viewCounter = viewCounter;
 	}
 	
 	@Post("/nova-noticia")
@@ -51,6 +54,8 @@ public class NewsController {
 		User current = currentUser.getCurrent();
 		news.checkVisibilityFor(currentUser);
 		redirectToRightUrl(news, sluggedTitle);
+		viewCounter.ping(news);
+		
 		result.include("commentsWithVotes", votes.previousVotesForComments(news, current));
 		result.include("currentVote", votes.previousVoteFor(news.getId(), current, News.class));
 		result.include("news", news);

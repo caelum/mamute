@@ -24,7 +24,7 @@ import br.com.caelum.brutal.model.EventType;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.QuestionInformation;
-import br.com.caelum.brutal.model.QuestionViewCounter;
+import br.com.caelum.brutal.model.PostViewCounter;
 import br.com.caelum.brutal.model.ReputationEvent;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.UpdateStatus;
@@ -55,7 +55,7 @@ public class QuestionController {
 	private final AuthorizationSystem authorizationSystem;
 	private final Validator validator;
 	private final FacebookAuthService facebook;
-	private final QuestionViewCounter viewCounter;
+	private final PostViewCounter viewCounter;
 	private Linker linker;
 	private final WatcherDAO watchers;
 	private final ReputationEventDAO reputationEvents;
@@ -64,7 +64,7 @@ public class QuestionController {
 			VoteDAO votes, LoggedUser currentUser, FacebookAuthService facebook,
 			TagsValidator tagsValidator, MessageFactory messageFactory,
 			AuthorizationSystem authorizationSystem, Validator validator, 
-			QuestionViewCounter viewCounter, Linker linker, WatcherDAO watchers, 
+			PostViewCounter viewCounter, Linker linker, WatcherDAO watchers, 
 			ReputationEventDAO reputationEvents) {
 		this.result = result;
 		this.questions = questionDAO;

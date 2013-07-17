@@ -257,5 +257,10 @@ public class News extends Moderatable implements Post {
 		}
 		throw new NotFoundException();
 	}
+
+	@Override
+	public void ping() {
+		views++;
+	}
 }
 
