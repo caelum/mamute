@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.brutauth.auth.rules;
 
+import javax.annotation.Nullable;
+
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.ioc.Component;
@@ -9,7 +11,7 @@ public class BrutauthAuthorRule implements CustomBrutauthRule {
 
 	private final User user;
 
-	public BrutauthAuthorRule(User user) {
+	public BrutauthAuthorRule(@Nullable User user) {
 		this.user = user;
 	}
 	
