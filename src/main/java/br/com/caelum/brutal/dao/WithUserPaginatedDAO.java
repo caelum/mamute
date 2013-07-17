@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.dao;
 
+import static br.com.caelum.brutal.dao.util.QuantityOfPagesCalculator.calculatePages;
 import static org.hibernate.criterion.Projections.rowCount;
 
 import java.util.List;
@@ -9,27 +10,30 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
+import br.com.caelum.brutal.dao.util.QuantityOfPagesCalculator;
+import br.com.caelum.brutal.model.Post;
 import br.com.caelum.brutal.model.User;
 
-public class WithUserDAO<T> {
+public class WithUserPaginatedDAO<T extends Post> {
 
 	private static final Integer PAGE_SIZE = 5;
 	private final Session session;
-	private final Class<T> clazz;
+	private final Class<? extends Post> clazz;
 	private final String role;
 	private final QueryFilter generalFilter;
+	private Criteria defaultCriteria;
 	
-	public WithUserDAO(Session session, Class<T> clazz, UserRole role) {
+	public WithUserPaginatedDAO(Session session, Class<? extends Post> clazz, UserRole role) {
 		this(session, clazz, role, null);
 	}
 
-	public WithUserDAO(Session session, Class<T> clazz, UserRole role, QueryFilter generalFilter) {
+	public WithUserPaginatedDAO(Session session, Class<? extends Post> clazz, UserRole role, QueryFilter generalFilter) {
 		this.session = session;
 		this.clazz = clazz;
 		this.generalFilter = generalFilter;
 		this.role = role.getRole();
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	public List<T> by(User user, OrderType orderByWhat, Integer page) {
 		Criteria criteria = defaultCriteria(user)
@@ -46,25 +50,23 @@ public class WithUserDAO<T> {
 	}
 
 	private Criteria defaultCriteria(User user) {
-		Criteria criteria = session.createCriteria(clazz, "p")
-				.createAlias("p." + role, "r")
-				.add(Restrictions.eq("r.id", user.getId()))
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		Criteria criteria = null;
+		if(defaultCriteria != null){
+			criteria = defaultCriteria;
+			defaultCriteria = null;
+		}else{
+			criteria = session.createCriteria(clazz, "p")
+					.createAlias("p." + role, "r")
+					.add(Restrictions.eq("r.id", user.getId()))
+					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		}
 
 		return criteria;
 	}
 	
 	public long numberOfPagesTo(User user) {
 		Long count = count(user);
-		return calculatePages(count);
-	}
-	
-	private long calculatePages(Long count) {
-		long result = count/PAGE_SIZE.longValue();
-		if (count % PAGE_SIZE.longValue() != 0) {
-			result++;
-		}
-		return result;
+		return calculatePages(count, PAGE_SIZE);
 	}
 
 	private Criteria addFilter(Criteria criteria) {

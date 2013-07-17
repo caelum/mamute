@@ -1,7 +1,7 @@
 package br.com.caelum.brutal.dao;
 
-import static br.com.caelum.brutal.dao.WithUserDAO.OrderType.ByDate;
-import static br.com.caelum.brutal.dao.WithUserDAO.OrderType.ByVotes;
+import static br.com.caelum.brutal.dao.WithUserPaginatedDAO.OrderType.ByDate;
+import static br.com.caelum.brutal.dao.WithUserPaginatedDAO.OrderType.ByVotes;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -13,7 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.brutal.builder.QuestionBuilder;
-import br.com.caelum.brutal.dao.WithUserDAO.UserRole;
+import br.com.caelum.brutal.dao.WithUserPaginatedDAO.UserRole;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.Question;
@@ -25,8 +25,8 @@ import br.com.caelum.brutal.model.VoteType;
 public class WithUserDAOTest extends DatabaseTestCase{
 
 	private User author = user("Leonardo", "leo@leo");
-	private WithUserDAO<Question> questionsWithUser;
-	private WithUserDAO<Answer> answersWithUser;
+	private WithUserPaginatedDAO<Question> questionsWithUser;
+	private WithUserPaginatedDAO<Answer> answersWithUser;
 	private QuestionBuilder question = new QuestionBuilder();
 	
 	private Vote upVote = new Vote(author, VoteType.UP);
@@ -42,8 +42,8 @@ public class WithUserDAOTest extends DatabaseTestCase{
 		session.save(upVote3);
 		session.save(defaultTag);
 		InvisibleForUsersRule invisibleFilter = new InvisibleForUsersRule(new LoggedUser(author, null));
-		questionsWithUser = new WithUserDAO<Question>(session, Question.class, UserRole.AUTHOR, invisibleFilter);
-		answersWithUser = new WithUserDAO<Answer>(session, Answer.class, UserRole.AUTHOR, invisibleFilter);
+		questionsWithUser = new WithUserPaginatedDAO<Question>(session, Question.class, UserRole.AUTHOR, invisibleFilter);
+		answersWithUser = new WithUserPaginatedDAO<Answer>(session, Answer.class, UserRole.AUTHOR, invisibleFilter);
 	}
 	
 	@Test

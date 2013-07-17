@@ -1,7 +1,7 @@
 package br.com.caelum.brutal.controllers;
 
-import static br.com.caelum.brutal.dao.WithUserDAO.OrderType.ByDate;
-import static br.com.caelum.brutal.dao.WithUserDAO.OrderType.ByVotes;
+import static br.com.caelum.brutal.dao.WithUserPaginatedDAO.OrderType.ByDate;
+import static br.com.caelum.brutal.dao.WithUserPaginatedDAO.OrderType.ByVotes;
 import static java.util.Arrays.asList;
 
 import org.joda.time.DateTime;
@@ -13,7 +13,7 @@ import br.com.caelum.brutal.dao.ReputationEventDAO;
 import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.dao.WatcherDAO;
-import br.com.caelum.brutal.dao.WithUserDAO.OrderType;
+import br.com.caelum.brutal.dao.WithUserPaginatedDAO.OrderType;
 import br.com.caelum.brutal.dto.UserPersonalInfo;
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.LoggedUser;

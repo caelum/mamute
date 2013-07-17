@@ -12,15 +12,15 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 
-import br.com.caelum.brutal.dao.WithUserDAO.OrderType;
-import br.com.caelum.brutal.dao.WithUserDAO.UserRole;
+import br.com.caelum.brutal.dao.WithUserPaginatedDAO.OrderType;
+import br.com.caelum.brutal.dao.WithUserPaginatedDAO.UserRole;
 import br.com.caelum.brutal.model.News;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.ioc.Component;
 @Component
 public class NewsDAO implements PaginatableDAO  {
     private static final long SPAM_BOUNDARY = -5;
-	private final WithUserDAO<News> withAuthor;
+	private final WithUserPaginatedDAO<News> withAuthor;
 	private Session session;
 	private QueryFilter invisible;
 	private final VisibleNewsFilter visibleFilter;
@@ -29,7 +29,7 @@ public class NewsDAO implements PaginatableDAO  {
         this.session = session;
 		this.invisible = moderatorOrVisible;
 		this.visibleFilter = visibleFilter;
-		this.withAuthor = new WithUserDAO<News>(session, News.class, UserRole.AUTHOR, moderatorOrVisible);
+		this.withAuthor = new WithUserPaginatedDAO<News>(session, News.class, UserRole.AUTHOR, moderatorOrVisible);
     }
     
 	@SuppressWarnings("unchecked")

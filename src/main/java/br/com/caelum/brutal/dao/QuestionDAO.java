@@ -18,8 +18,8 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.ResultTransformer;
 import org.joda.time.DateTime;
 
-import br.com.caelum.brutal.dao.WithUserDAO.OrderType;
-import br.com.caelum.brutal.dao.WithUserDAO.UserRole;
+import br.com.caelum.brutal.dao.WithUserPaginatedDAO.OrderType;
+import br.com.caelum.brutal.dao.WithUserPaginatedDAO.UserRole;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
@@ -32,13 +32,13 @@ public class QuestionDAO implements PaginatableDAO {
     private static final Integer PAGE_SIZE = 50;
 	public static final long SPAM_BOUNDARY = -5;
 	private final Session session;
-    private final WithUserDAO<Question> withAuthor;
+    private final WithUserPaginatedDAO<Question> withAuthor;
 	private final InvisibleForUsersRule invisible;
 
     public QuestionDAO(Session session, InvisibleForUsersRule invisible) {
         this.session = session;
 		this.invisible = invisible;
-		this.withAuthor = new WithUserDAO<Question>(session, Question.class, UserRole.AUTHOR, invisible);
+		this.withAuthor = new WithUserPaginatedDAO<Question>(session, Question.class, UserRole.AUTHOR, invisible);
     }
     
     public void save(Question q) {

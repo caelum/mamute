@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import br.com.caelum.brutal.dao.WithUserDAO.OrderType;
-import br.com.caelum.brutal.dao.WithUserDAO.UserRole;
+import br.com.caelum.brutal.dao.WithUserPaginatedDAO.OrderType;
+import br.com.caelum.brutal.dao.WithUserPaginatedDAO.UserRole;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.ioc.Component;
@@ -14,11 +14,11 @@ import br.com.caelum.vraptor.ioc.Component;
 public class AnswerDAO implements PaginatableDAO{
 
 	private final Session session;
-	private final WithUserDAO<Answer> withAuthor;
+	private final WithUserPaginatedDAO<Answer> withAuthor;
 
 	public AnswerDAO(Session session, InvisibleForUsersRule invisible) {
 		this.session = session;
-		withAuthor = new WithUserDAO<Answer>(session, Answer.class, UserRole.AUTHOR, invisible);
+		withAuthor = new WithUserPaginatedDAO<Answer>(session, Answer.class, UserRole.AUTHOR, invisible);
 	}
 	
 	public Answer getById(Long id) {

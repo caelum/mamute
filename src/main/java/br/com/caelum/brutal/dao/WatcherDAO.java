@@ -1,13 +1,17 @@
 package br.com.caelum.brutal.dao;
 
-import java.util.ArrayList;
+import static org.hibernate.criterion.Projections.rowCount;
+
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
-import br.com.caelum.brutal.dao.WithUserDAO.OrderType;
-import br.com.caelum.brutal.dao.WithUserDAO.UserRole;
+import br.com.caelum.brutal.dao.WithUserPaginatedDAO.OrderType;
+import br.com.caelum.brutal.dao.util.QuantityOfPagesCalculator;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.watch.Watcher;
@@ -16,12 +20,11 @@ import br.com.caelum.vraptor.ioc.Component;
 @Component
 public class WatcherDAO implements PaginatableDAO{
 
+	private static final int PAGE_SIZE = 5;
 	private final Session session;
-	private final WithUserDAO<Watcher> withUser;
 
 	public WatcherDAO(Session session) {
 		this.session = session;
-		this.withUser = new WithUserDAO<>(session, Watcher.class, UserRole.WATCHER);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -77,20 +80,27 @@ public class WatcherDAO implements PaginatableDAO{
 	}
 
 	public List<Question> postsToPaginateBy(User user, OrderType orderType, Integer page) {
-		List<Watcher> watchers = withUser.by(user, OrderType.ByDate, page);
-		ArrayList<Question> questions = new ArrayList<>();
-		for (Watcher watcher : watchers) {
-			questions.add(watcher.getWatchedQuestion());
-		}
-		return questions;
+		Criteria criteria = defaultCriteria(user)
+				.setMaxResults(PAGE_SIZE)
+				.setFirstResult(PAGE_SIZE * (page-1));
+
+		return  criteria.list();
 	}
-	
+
 	public Long countWithAuthor(User user) {
-		return withUser.count(user);
+		return (Long) defaultCriteria(user).setProjection(rowCount()).list().get(0);
 	}
 
 	public Long numberOfPagesTo(User user) {
-		return withUser.numberOfPagesTo(user);
+		return QuantityOfPagesCalculator.calculatePages(countWithAuthor(user), PAGE_SIZE);
 	}
-	
+
+	private Criteria defaultCriteria(User user) {
+		return session.createCriteria(Question.class, "p")
+				.createAlias("p.watchers", "watchers")
+				.createAlias("watchers.watcher", "watcher")
+				.add(Restrictions.eq("watcher.id", user.getId()))
+				.addOrder(Order.desc("watchers.createdAt"));
+	}
+		
 }

@@ -1,7 +1,7 @@
 package br.com.caelum.brutal.controllers;
 
 import br.com.caelum.brutal.dao.PaginatableDAO;
-import br.com.caelum.brutal.dao.WithUserDAO.OrderType;
+import br.com.caelum.brutal.dao.WithUserPaginatedDAO.OrderType;
 import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.Resource;
