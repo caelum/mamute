@@ -20,11 +20,15 @@ public class InvisibleForUsersRule implements QueryFilter{
 	
 	public Criteria addFilter(String modelAlias, Criteria criteria) {
 		if(currentUser.isModerator()) return criteria;
-		if(!currentUser.isLoggedIn()) return criteria.add(moderationOptionsInvisible(modelAlias));
-		return criteria.add(or(moderationOptionsInvisible(modelAlias), eq(modelAlias+".author.id", currentUser.getCurrent().getId())));
+		if(!currentUser.isLoggedIn()) return criteria.add(isVisible(modelAlias));
+		return criteria.add(or(isVisible(modelAlias), isAuthor(modelAlias)));
 	}
 
-	private SimpleExpression moderationOptionsInvisible(String modelAlias) {
+	private SimpleExpression isAuthor(String modelAlias) {
+		return eq(modelAlias+".author.id", currentUser.getCurrent().getId());
+	}
+
+	private SimpleExpression isVisible(String modelAlias) {
 		return eq(modelAlias+".moderationOptions.invisible", false);
 	}
 
