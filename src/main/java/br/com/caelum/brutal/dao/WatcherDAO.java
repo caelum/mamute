@@ -1,14 +1,14 @@
 package br.com.caelum.brutal.dao;
 
+import static org.hibernate.criterion.Order.desc;
 import static org.hibernate.criterion.Projections.rowCount;
+import static org.hibernate.criterion.Restrictions.eq;
 
 import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
 
 import br.com.caelum.brutal.dao.WithUserPaginatedDAO.OrderType;
 import br.com.caelum.brutal.dao.util.QuantityOfPagesCalculator;
@@ -22,9 +22,11 @@ public class WatcherDAO implements PaginatableDAO{
 
 	private static final int PAGE_SIZE = 5;
 	private final Session session;
+	private final InvisibleForUsersRule invisible;
 
-	public WatcherDAO(Session session) {
+	public WatcherDAO(Session session, InvisibleForUsersRule invisible) {
 		this.session = session;
+		this.invisible = invisible;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -83,7 +85,6 @@ public class WatcherDAO implements PaginatableDAO{
 		Criteria criteria = defaultCriteria(user)
 				.setMaxResults(PAGE_SIZE)
 				.setFirstResult(PAGE_SIZE * (page-1));
-
 		return  criteria.list();
 	}
 
@@ -96,11 +97,16 @@ public class WatcherDAO implements PaginatableDAO{
 	}
 
 	private Criteria defaultCriteria(User user) {
-		return session.createCriteria(Question.class, "p")
-				.createAlias("p.watchers", "watchers")
+		Criteria criteria = session.createCriteria(Question.class, "q")
+				.createAlias("q.watchers", "watchers")
 				.createAlias("watchers.watcher", "watcher")
-				.add(Restrictions.eq("watcher.id", user.getId()))
-				.addOrder(Order.desc("watchers.createdAt"));
+				.add(eq("watcher.id", user.getId()))
+				.addOrder(desc("watchers.createdAt"));
+		return  addInvisibleFilter(criteria);
+	}
+
+	private Criteria addInvisibleFilter(Criteria criteria) {
+		return invisible.addFilter("q", criteria);
 	}
 		
 }

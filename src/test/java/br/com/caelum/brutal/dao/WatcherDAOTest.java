@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
@@ -26,7 +27,7 @@ public class WatcherDAOTest extends DatabaseTestCase{
 		session.save(java);
 		question = question(leo, java);
 		session.save(question);
-		watchers = new WatcherDAO(session);
+		watchers = new WatcherDAO(session, new InvisibleForUsersRule(new LoggedUser(leo, null)));
 	}
 	
 	@Test
