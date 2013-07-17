@@ -168,10 +168,12 @@ a:hover{
 
 .hint {
 	display: none;
+	float: right;
+}
+.hint, .guideline {
 	background-color: #FFEFC6;
 	border-radius: 5px;
 	padding: .6em;
-	float: right;
 	color: #735005;
 }
 
@@ -1113,6 +1115,10 @@ a.button.ask-a-question:hover{
 
 .news-summary .last-touch{
 	width: 20%
+}
+
+.news-guideline {
+	display: block;
 }
 
 .post-under-review{
