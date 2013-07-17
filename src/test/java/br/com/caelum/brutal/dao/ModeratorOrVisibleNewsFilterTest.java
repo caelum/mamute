@@ -1,8 +1,6 @@
 package br.com.caelum.brutal.dao;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.only;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
