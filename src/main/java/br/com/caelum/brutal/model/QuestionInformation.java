@@ -72,7 +72,7 @@ public class QuestionInformation implements Information, Taggable {
 	private Moderation moderation;
 
 	@BatchSize(size=25)
-	@ManyToMany(fetch=EAGER)
+	@ManyToMany
 	@NotEmpty(message = "question.errors.tags.empty")
 	private List<Tag> tags;
 	
