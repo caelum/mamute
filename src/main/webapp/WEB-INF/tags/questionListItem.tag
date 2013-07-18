@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@attribute name="question" type="br.com.caelum.brutal.model.Question" required="true" %>
 
-<li class="post-item ${question.isVisibleForModeratorAndNotAuthor(currentUser.current) ? 'highlight-post' : '' }">
+<li class="post-item question-item ${question.isVisibleForModeratorAndNotAuthor(currentUser.current) ? 'highlight-post' : '' }">
 	<div class="post-information question-information">
 		<tags:postItemInformation key="post.list.vote" count="${question.voteCount}" information="votes" htmlClass="question-info"/>
 		<tags:postItemInformation key="question.list.answer" count="${question.answersCount}" information="answers ${question.solved ? 'solved' : ''} ${question.answersCount >= 1 ? 'answered' : ''}"  htmlClass="question-info"/>
