@@ -9,7 +9,7 @@
 	<c:if test="${! news.approved}">
 		<fmt:message key="news.approving" /> 
 	</c:if>
-	<h1 itemprop="name" class="title subheader news-title"><c:out value="${news.title}" escapeXml="${true}"/></h1>
+	<h1 itemprop="name" class="title subheader news-title"><fmt:message key="news.title" />: <c:out value="${news.title}" escapeXml="${true}"/></h1>
 	<div class="post-meta">
 		<tags:voteFor item="${news}" type="noticia" vote="${currentVote}"/>
 	</div>
