@@ -65,7 +65,7 @@ public class Home extends PageObject{
 	}
 
 	public QuestionPage toFirstQuestionPage() {
-		byClassName("item-title").findElement(tagName("a")).click();
+		byClassName("question-title").findElement(tagName("a")).click();
 		return new QuestionPage(driver);
 	}
 
