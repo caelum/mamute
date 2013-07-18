@@ -79,8 +79,7 @@ public class WatcherDAO implements PaginatableDAO{
 	public void removeIfWatching(Watchable watchable, Watcher watcher, Class<? extends Watchable> watchableType) {
 		Watcher managed = findByWatchableAndUser(watchable, watcher.getWatcher(), watchableType);
 		if (managed != null) {
-			session.delete(managed);
-			watchable.remove(watcher);
+			watchable.remove(managed);
 		}
 	}
 
