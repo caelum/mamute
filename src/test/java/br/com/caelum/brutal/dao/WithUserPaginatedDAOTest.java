@@ -22,7 +22,7 @@ import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.Vote;
 import br.com.caelum.brutal.model.VoteType;
 
-public class WithUserDAOTest extends DatabaseTestCase{
+public class WithUserPaginatedDAOTest extends DatabaseTestCase{
 
 	private User author = user("Leonardo", "leo@leo");
 	private WithUserPaginatedDAO<Question> questionsWithUser;
