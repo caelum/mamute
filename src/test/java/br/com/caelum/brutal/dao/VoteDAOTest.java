@@ -13,6 +13,7 @@ import br.com.caelum.brutal.dto.SuspectMassiveVote;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.CommentsAndVotes;
+import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.MassiveVote;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
@@ -42,7 +43,8 @@ public class VoteDAOTest extends DatabaseTestCase{
 		for (Tag tag : tags) {
 			session.save(tag);
 		}
-		votingMachine = new VotingMachine(votes, new KarmaCalculator(), new ReputationEventDAO(session), new MassiveVote());
+		InvisibleForUsersRule invisibleRule = new InvisibleForUsersRule(new LoggedUser(currentUser, null));
+		votingMachine = new VotingMachine(votes, new KarmaCalculator(), new ReputationEventDAO(session, invisibleRule), new MassiveVote());
 	}
 	
 	@Test

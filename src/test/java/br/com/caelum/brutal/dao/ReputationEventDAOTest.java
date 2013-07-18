@@ -16,6 +16,7 @@ import br.com.caelum.brutal.dto.KarmaByQuestionHistory;
 import br.com.caelum.brutal.dto.UserSummaryForTag;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.EventType;
+import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.ReputationEvent;
 import br.com.caelum.brutal.model.Tag;
@@ -34,7 +35,7 @@ public class ReputationEventDAOTest extends DatabaseTestCase {
 
 	@Before
 	public void setup() {
-		reputationEvents = new ReputationEventDAO(session);
+		reputationEvents = new ReputationEventDAO(session, new InvisibleForUsersRule(new LoggedUser(author, null)));
 		author = user("Brutal User", "brutal@brutal.com");
 		tag = tag("java");
 		questionInvolved1 = question(author, tag);
