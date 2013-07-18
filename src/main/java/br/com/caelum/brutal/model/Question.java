@@ -28,12 +28,13 @@ import br.com.caelum.brutal.model.interfaces.Moderatable;
 import br.com.caelum.brutal.model.interfaces.Taggable;
 import br.com.caelum.brutal.model.interfaces.ViewCountable;
 import br.com.caelum.brutal.model.interfaces.Votable;
+import br.com.caelum.brutal.model.interfaces.Watchable;
 import br.com.caelum.brutal.model.watch.Watcher;
 
 @Cacheable
 @Cache(usage=CacheConcurrencyStrategy.READ_WRITE, region="cache")
 @Entity
-public class Question extends Moderatable implements Post, Taggable, ViewCountable {
+public class Question extends Moderatable implements Post, Taggable, ViewCountable, Watchable {
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -86,7 +87,8 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 	@Embedded
 	private final ModerationOptions moderationOptions = new ModerationOptions();
 
-	@OneToMany(mappedBy = "watchedQuestion")
+	@JoinTable(name = "Question_Watchers")
+	@OneToMany
 	private final List<Watcher> watchers = new ArrayList<>();
 	
     public static final long SPAM_BOUNDARY = -5;
@@ -309,6 +311,21 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
     }
 
 	@Override
+	public void add(Watcher watcher) {
+		watchers.add(watcher);
+	}
+
+	@Override
+	public void remove(Watcher watcher) {
+		watchers.remove(watcher);
+	}
+
+	@Override
+	public List<Watcher> getWatchers() {
+		return watchers;
+	}
+
+	@Override
 	public void add(Flag flag) {
 		flags.add(flag);
 	}
@@ -378,5 +395,7 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 		return user.getId().equals(author.getId());
     	
     }
+
+
 
 }

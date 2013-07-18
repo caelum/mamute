@@ -34,9 +34,9 @@ public class WatcherDAOTest extends DatabaseTestCase{
 	public void should_get_subscribed_users_of_a_question() {
 		User subscribedWatcher = user("watcher", "watcher@watcher.com");
 		session.save(subscribedWatcher);
-		watchers.add(new Watcher(subscribedWatcher, question));
+		watchers.add(question, new Watcher(subscribedWatcher), Question.class);
 		
-		assertThat(watchers.of(question), not(empty()));
+		assertThat(watchers.of(question, Question.class), not(empty()));
 	}
 	
 	@Test
@@ -45,9 +45,9 @@ public class WatcherDAOTest extends DatabaseTestCase{
 		unsubscribedWatcher.setSubscribed(false);
 		session.save(unsubscribedWatcher);
 
-		watchers.add(new Watcher(unsubscribedWatcher, question));
+		watchers.add(question, new Watcher(unsubscribedWatcher), Question.class);
 		
-		assertThat(watchers.of(question), empty());
+		assertThat(watchers.of(question, Question.class), empty());
 	}
 	
 	@Test
@@ -55,27 +55,27 @@ public class WatcherDAOTest extends DatabaseTestCase{
 		User subscribedWatcher = user("watcher", "watcher@watcher.com");
 		session.save(subscribedWatcher);
 		
-		Watcher watch = new Watcher(subscribedWatcher, question);
+		Watcher watch = new Watcher(subscribedWatcher);
 		watch.inactivate();
-		watchers.add(watch);
+		watchers.add(question, watch, Question.class);
 		
-		assertThat(watchers.of(question), empty());
+		assertThat(watchers.of(question, Question.class), empty());
 	}
 	
 	@Test
 	public void should_not_get_not_watchers_of_a_question() {
-		assertThat(watchers.of(question), empty());
+		assertThat(watchers.of(question, Question.class), empty());
 	}
 	
 	@Test
 	public void should_innactivate_watcher() {
 		User subscribedWatcher = user("watcher", "watcher@watcher.com");
 		session.save(subscribedWatcher);
-		Watcher watch = new Watcher(subscribedWatcher, question);
+		Watcher watch = new Watcher(subscribedWatcher);
 		watch.inactivate();
-		watchers.add(watch);
+		watchers.add(question, watch, Question.class);
 		
-		watchers.ping(question, subscribedWatcher);
+		watchers.ping(question, subscribedWatcher, Question.class);
 		
 		assertTrue(watch.isActive());
 	}

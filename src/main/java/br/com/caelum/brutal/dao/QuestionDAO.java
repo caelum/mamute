@@ -59,8 +59,7 @@ public class QuestionDAO implements PaginatableDAO {
 				.add(criterionSpamFilter())
 				.addOrder(desc("q.lastUpdatedAt"))
 				.setFirstResult(firstResultOf(page))
-				.setMaxResults(PAGE_SIZE)
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+				.setMaxResults(PAGE_SIZE);
 
 		return addInvisibleFilter(criteria).list();
 	}

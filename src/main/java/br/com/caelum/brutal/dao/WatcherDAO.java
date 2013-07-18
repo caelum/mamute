@@ -14,6 +14,7 @@ import br.com.caelum.brutal.dao.WithUserPaginatedDAO.OrderType;
 import br.com.caelum.brutal.dao.util.QuantityOfPagesCalculator;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.model.interfaces.Watchable;
 import br.com.caelum.brutal.model.watch.Watcher;
 import br.com.caelum.vraptor.ioc.Component;
 
@@ -30,23 +31,26 @@ public class WatcherDAO implements PaginatableDAO{
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Watcher> of(Question question) {
-		String query = "select watch from Watcher watch join watch.watcher watcher" +
-				" where watch.active = true and" +
+	public List<Watcher> of(Watchable watchable, Class<? extends Watchable> watchableType) {
+		String query = "select watchers from "+ watchableType.getSimpleName() +" watchable join watchable.watchers watchers" +
+				" join watchers.watcher watcher" +
+				" where watchers.active = true and" +
 				" watcher.isSubscribed = true and" +
-				" watch.watchedQuestion = :question";
+				" watchable = :watchable";
 		Query selectWatchers = session.createQuery(query)
-							  .setParameter("question", question);
+							  .setParameter("watchable", watchable);
 		return selectWatchers.list();
 	}
 
-	public void add(Watcher watcher) {
-		if (!alreadyWatching(watcher))
+	public void add(Watchable watchable, Watcher watcher, Class<? extends Watchable> watchableType) {
+		if (!alreadyWatching(watchable, watcher, watchableType)){
+			watchable.add(watcher);
 			session.save(watcher);
+		}
 	}
 
-	public boolean ping(Question question, User user) {
-		Watcher watcher = findByQuestionAndUser(question, user);
+	public boolean ping(Watchable watchable, User user, Class<? extends Watchable> watchableType) {
+		Watcher watcher = findByWatchableAndUser(watchable, user, watchableType);
 		if (watcher != null) { 
 			watcher.activate();
 			return true;
@@ -54,31 +58,34 @@ public class WatcherDAO implements PaginatableDAO{
 		return false;
 	}
 
-	private Watcher findByQuestionAndUser(Question question, User user) {
-		Watcher watch = (Watcher) session.createQuery("from Watcher where watchedQuestion = :question and watcher = :user")
-				.setParameter("question", question)
+	private Watcher findByWatchableAndUser(Watchable watchable, User user, Class<? extends Watchable> watchableType) {
+		Watcher watch = (Watcher) session.createQuery("select watcher from "+ watchableType.getSimpleName() +" watchable" +
+				" join watchable.watchers watcher" +
+				" where watcher.watcher = :user and watchable = :watchable")
+				.setParameter("watchable", watchable)
 				.setParameter("user", user)
 				.uniqueResult();
 		return watch;
 	}
 
-	public void addOrRemove(Watcher watcher) {
-		if(!alreadyWatching(watcher)) {
-			add(watcher);
+	public void addOrRemove(Watchable watchable, Watcher watcher, Class<? extends Watchable> watchableType) {
+		if(!alreadyWatching(watchable, watcher, watchableType)) {
+			add(watchable, watcher, watchableType);
 		} else {
-			removeIfWatching(watcher);
+			removeIfWatching(watchable, watcher, watchableType);
 		}
 	}
 
-	public void removeIfWatching(Watcher watcher) {
-		Watcher managed = findByQuestionAndUser(watcher.getWatchedQuestion(), watcher.getWatcher());
+	public void removeIfWatching(Watchable watchable, Watcher watcher, Class<? extends Watchable> watchableType) {
+		Watcher managed = findByWatchableAndUser(watchable, watcher.getWatcher(), watchableType);
 		if (managed != null) {
 			session.delete(managed);
+			watchable.remove(watcher);
 		}
 	}
 
-	private boolean alreadyWatching(Watcher watcher) {
-		return findByQuestionAndUser(watcher.getWatchedQuestion(), watcher.getWatcher()) != null;
+	private boolean alreadyWatching(Watchable watchable, Watcher watcher, Class<? extends Watchable> watchableType) {
+		return findByWatchableAndUser(watchable, watcher.getWatcher(), watchableType) != null;
 	}
 
 	public List<Question> postsToPaginateBy(User user, OrderType orderType, Integer page) {

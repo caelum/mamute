@@ -19,9 +19,9 @@ import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.interceptors.IncludeAllTags;
 import br.com.caelum.brutal.model.EventType;
 import br.com.caelum.brutal.model.LoggedUser;
+import br.com.caelum.brutal.model.PostViewCounter;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.QuestionInformation;
-import br.com.caelum.brutal.model.PostViewCounter;
 import br.com.caelum.brutal.model.ReputationEvent;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.UpdateStatus;
@@ -120,7 +120,7 @@ public class QuestionController {
 		if (question.isVisibleFor(current)){
 			redirectToRightUrl(question, sluggedTitle);
 			viewCounter.ping(question);
-			boolean isWatching = watchers.ping(question, current);
+			boolean isWatching = watchers.ping(question, current, Question.class);
 			result.include("currentVote", votes.previousVoteFor(question.getId(), current, Question.class));
 			result.include("answers", votes.previousVotesForAnswers(question, current));
 			result.include("commentsWithVotes", votes.previousVotesForComments(question, current));
@@ -162,7 +162,7 @@ public class QuestionController {
 		author.increaseKarma(reputationEvent.getKarmaReward());
 		reputationEvents.save(reputationEvent);
 		if (watching) {
-			watchers.add(new Watcher(author, question));
+			watchers.add(question, new Watcher(author), Question.class);
 		}
 		result.include("messages", asList(messageFactory.build("alert", "question.quality_reminder")));
 		result.redirectTo(this).showQuestion(question, question.getSluggedTitle());
@@ -174,8 +174,8 @@ public class QuestionController {
 	public void watch(Long questionId) {
 		Question question = questions.getById(questionId);
 		User user = currentUser.getCurrent();
-		Watcher watcher = new Watcher(user, question);
-		watchers.addOrRemove(watcher);
+		Watcher watcher = new Watcher(user);
+		watchers.addOrRemove(question, watcher, Question.class);
 		result.nothing();
 	}
 

@@ -109,7 +109,7 @@ public class AnswerController {
         	result.redirectTo(QuestionController.class).showQuestion(question, question.getSluggedTitle());
 			notificationManager.sendEmailsAndInactivate(new EmailAction(answer, question));
 			if (watching) {
-				watchers.add(new Watcher(current, question));
+				watchers.add(question, new Watcher(current), Question.class);
 			}
         } else {
         	result.include("answer", answer);

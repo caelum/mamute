@@ -32,7 +32,7 @@ public class NotificationManager {
 	
 	public void sendEmailsAndInactivate(EmailAction emailAction) {
 		Question question = emailAction.getQuestion();
-		List<Watcher> watchList = watchers.of(question);
+		List<Watcher> watchList = watchers.of(question, Question.class);
 		
 		final List<NotificationMail> mails = buildMails(emailAction, watchList);
 		afterTransaction.execute(new Runnable() {

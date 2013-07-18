@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.notification;
 
+import static org.joda.time.format.DateTimeFormat.forPattern;
+
 import java.util.Locale;
 
 import org.apache.commons.mail.Email;
@@ -56,7 +58,7 @@ public class NotificationMailer {
 	}
 
 	public Email buildEmail(NotificationMail notificationMail) {
-		DateTimeFormatter dateFormat = DateTimeFormat.forPattern("MMM, dd").withLocale(new Locale("pt", "br"));
+		DateTimeFormatter dateFormat = forPattern("MMM, dd").withLocale(new Locale("pt", "br"));
 		EmailAction action = notificationMail.getAction();
 		User to = notificationMail.getTo();
 		Email email = templates.template(notificationMail.getEmailTemplate())

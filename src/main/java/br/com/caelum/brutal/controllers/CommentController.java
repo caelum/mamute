@@ -59,9 +59,9 @@ public class CommentController {
 		Question question = commentable.getQuestion();
 		notificationManager.sendEmailsAndInactivate(new EmailAction(newComment, commentable));
 		if (watching) {
-			watchers.add(new Watcher(current, question));
+			watchers.add(question, new Watcher(current), Question.class);
 		} else {
-			watchers.removeIfWatching(new Watcher(current, question));
+			watchers.removeIfWatching(question, new Watcher(current), Question.class);
 		}
     	
     	result.forwardTo(BrutalTemplatesController.class).comment(newComment);
