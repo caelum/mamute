@@ -7,11 +7,11 @@ import br.com.caelum.brutal.brutauth.reflection.BrutauthMethod;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
-public class BrutauthAdaptedMethodSearcher implements BrutauthMethodSearcher {
+public class AdaptedMethodSearcher implements MethodSearcher {
 
-	private final BrutauthDefaultMethodSearcher defaultMethodSearcher;
+	private final DefaultMethodSearcher defaultMethodSearcher;
 
-	public BrutauthAdaptedMethodSearcher(BrutauthDefaultMethodSearcher defaultMethodSearcher) {
+	public AdaptedMethodSearcher(DefaultMethodSearcher defaultMethodSearcher) {
 		this.defaultMethodSearcher = defaultMethodSearcher;
 	}
 	

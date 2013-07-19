@@ -7,15 +7,15 @@ import br.com.caelum.brutal.brutauth.reflection.BrutauthMethod;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
-public class BrutauthMethodSearchers {
-	private final List<BrutauthMethodSearcher> searchers;
+public class MethodSearchers {
+	private final List<MethodSearcher> searchers;
 
-	public BrutauthMethodSearchers(List<BrutauthMethodSearcher> searchers) {
+	public MethodSearchers(List<MethodSearcher> searchers) {
 		this.searchers = searchers;
 	}
 	
 	public BrutauthMethod search(CustomBrutauthRule ruleToSearch, Object...withArgs){
-		for (BrutauthMethodSearcher searcher : searchers) {
+		for (MethodSearcher searcher : searchers) {
 			BrutauthMethod brutauthMethod = searcher.search(ruleToSearch, withArgs);
 			if(brutauthMethod != null) return brutauthMethod;
 		}

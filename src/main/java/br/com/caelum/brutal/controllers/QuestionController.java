@@ -10,10 +10,10 @@ import br.com.caelum.brutal.auth.FacebookAuthService;
 import br.com.caelum.brutal.auth.LoggedAccess;
 import br.com.caelum.brutal.auth.rules.AuthorizationSystem;
 import br.com.caelum.brutal.auth.rules.Rules;
-import br.com.caelum.brutal.brutauth.RequiresPermission;
+import br.com.caelum.brutal.brutauth.SimpleBrutauthRule;
 import br.com.caelum.brutal.brutauth.auth.rules.BrutauthAuthorRule;
 import br.com.caelum.brutal.brutauth.auth.rules.BrutauthModeratorRule;
-import br.com.caelum.brutal.brutauth.rules.AuthRules;
+import br.com.caelum.brutal.brutauth.rules.CustomBrutauthRules;
 import br.com.caelum.brutal.brutauth.rules.LoggedRule;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.ReputationEventDAO;
@@ -86,7 +86,7 @@ public class QuestionController {
 
 	@Get("/perguntar")
 	@IncludeAllTags
-	@RequiresPermission({LoggedRule.class})
+	@SimpleBrutauthRule({LoggedRule.class})
 	public void questionForm() {
 	}
 	
@@ -122,7 +122,7 @@ public class QuestionController {
 	}
 	
 	@Get("/{question.id:[0-9]+}-{sluggedTitle}")
-	@AuthRules({BrutauthAuthorRule.class, BrutauthModeratorRule.class})
+	@CustomBrutauthRules({BrutauthAuthorRule.class, BrutauthModeratorRule.class})
 	public void showQuestion(@Load Question question, String sluggedTitle){
 		User current = currentUser.getCurrent();
 		if (question.isVisibleFor(current)){
