@@ -16,5 +16,5 @@
 	<fmt:message var="descriptionPlaceholder" key="news.description.placeholder"/>
 	<tags:markDown hintId="news-description-hint" htmlClass="required description-input" minlength="30"/>
 
-	<input class="post-submit big-submit" type="submit" value="<fmt:message key="question.new_form.submit"/>" />
+	<input class="post-submit big-submit" type="submit" value="<fmt:message key="news.new_form.submit"/>" />
 </form>
