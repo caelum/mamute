@@ -68,7 +68,7 @@ public class WatcherDAO implements PaginatableDAO{
 		return watch;
 	}
 
-	public void addOrRemove(Watchable watchable, Watcher watcher, Class<? extends Watchable> watchableType) {
+	public void addOrRemove(Watchable watchable, Watcher watcher) {
 		if(!alreadyWatching(watchable, watcher)) {
 			add(watchable, watcher);
 		} else {
@@ -113,6 +113,10 @@ public class WatcherDAO implements PaginatableDAO{
 
 	private Criteria addInvisibleFilter(Criteria criteria) {
 		return invisible.addFilter("q", criteria);
+	}
+
+	public Watchable findWatchable(Long watchableId, Class<?> watchableType) {
+		return (Watchable) session.get(watchableType, watchableId);
 	}
 		
 }

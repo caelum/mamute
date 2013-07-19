@@ -168,18 +168,6 @@ public class QuestionController {
 		result.redirectTo(this).showQuestion(question, question.getSluggedTitle());
 
 	}
-	
-	@Post("/acompanhar/{questionId}")
-	@LoggedAccess
-	public void watch(Long questionId) {
-		Question question = questions.getById(questionId);
-		User user = currentUser.getCurrent();
-		Watcher watcher = new Watcher(user);
-		watchers.addOrRemove(question, watcher, Question.class);
-		result.nothing();
-	}
-
-	
 
 	private boolean validate(List<Tag> foundTags, List<String> splitedTags) {
 		return tagsValidator.validate(foundTags, splitedTags);

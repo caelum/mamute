@@ -8,7 +8,7 @@
 	<h1 itemprop="name" class="title subheader question-title"><c:out value="${question.title}" escapeXml="${true}"/></h1>
 	<div class="post-meta">
 		<tags:voteFor item="${question}" type="pergunta" vote="${currentVote}"/>
-		<tags:watchFor question="${question}"/>
+		<tags:watchFor watchable="${question}" type="pergunta"/>
 	</div>
 	<div class="post-container">
 		<div class="post-text question-description" id="question-description-${question.id }">${question.markedDescription}</div>

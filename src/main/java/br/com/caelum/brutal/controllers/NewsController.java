@@ -64,11 +64,12 @@ public class NewsController {
 		news.checkVisibilityFor(currentUser);
 		redirectToRightUrl(news, sluggedTitle);
 		viewCounter.ping(news);
-		watchers.ping(news, current);
+		boolean isWatching = watchers.ping(news, current);
 		
 		result.include("commentsWithVotes", votes.previousVotesForComments(news, current));
 		result.include("currentVote", votes.previousVoteFor(news.getId(), current, News.class));
 		result.include("news", news);
+		result.include("isWatching", isWatching);
 		result.include("userMediumPhoto", true);
 	}
 	

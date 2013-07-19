@@ -12,6 +12,7 @@
 	<h1 itemprop="name" class="title subheader news-title"><fmt:message key="news.title" />: <c:out value="${news.title}" escapeXml="${true}"/></h1>
 	<div class="post-meta">
 		<tags:voteFor item="${news}" type="noticia" vote="${currentVote}"/>
+		<tags:watchFor watchable="${news}" type="noticia"/>
 	</div>
 	<div class="post-container">
 		<div class="post-text">${news.markedDescription}</div>
