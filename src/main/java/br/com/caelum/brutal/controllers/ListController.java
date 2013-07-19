@@ -86,12 +86,16 @@ public class ListController {
 	public void withTag(String tagName, Integer p) {
 		Integer page = getPage(p);
 		Tag tag = tags.findByName(tagName);
-		List<Question> questionsWithTag = questions.withTagVisible(tag, page);
-		result.include("totalPages", questions.numberOfPages(tag));
-		result.include("tag", tag);
-		result.include("recentTags", recentTagsContainer.getRecentTagsUsage());
-		result.include("questions", questionsWithTag);
-		result.include("currentPage", page);
+		if(tag != null){
+			List<Question> questionsWithTag = questions.withTagVisible(tag, page);
+			result.include("totalPages", questions.numberOfPages(tag));
+			result.include("tag", tag);
+			result.include("recentTags", recentTagsContainer.getRecentTagsUsage());
+			result.include("questions", questionsWithTag);
+			result.include("currentPage", page);
+		}else{
+			result.notFound();
+		}
 	}
 	
 	@Get("/tags")
