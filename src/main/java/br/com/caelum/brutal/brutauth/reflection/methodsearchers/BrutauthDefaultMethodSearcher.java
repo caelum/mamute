@@ -8,10 +8,10 @@ import br.com.caelum.vraptor.ioc.Component;
 @Component
 public class BrutauthDefaultMethodSearcher {
 
-	public Method getMethod(String string, CustomBrutauthRule toInvoke) throws NoSuchMethodException {
+	public Method getMethod(CustomBrutauthRule toInvoke) throws NoSuchMethodException {
 		Method[] methods = toInvoke.getClass().getMethods();
 		for (Method method : methods) {
-			if(method.getName().equals("isAllowed")) return method; 
+			if(method.getName().equals("isAllowed") || method.isAnnotationPresent(BrutauthValidation.class)) return method; 
 		}
 		throw new NoSuchMethodException("Não existe o metodo default 'isAllowed' na classe: "+ toInvoke.getClass());
 	}
