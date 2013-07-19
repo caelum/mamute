@@ -9,7 +9,7 @@ import br.com.caelum.brutal.brutauth.auth.rules.BrutauthRule;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface RequiresPermission {
+public @interface SimpleBrutauthRule {
 
 	Class<? extends BrutauthRule>[] value();
 

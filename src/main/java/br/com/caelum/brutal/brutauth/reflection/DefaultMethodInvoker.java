@@ -1,15 +1,15 @@
 package br.com.caelum.brutal.brutauth.reflection;
 
 import br.com.caelum.brutal.brutauth.auth.rules.CustomBrutauthRule;
-import br.com.caelum.brutal.brutauth.reflection.methodsearchers.BrutauthMethodSearchers;
+import br.com.caelum.brutal.brutauth.reflection.methodsearchers.MethodSearchers;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class DefaultMethodInvoker {
 
-		private final BrutauthMethodSearchers searcher;
+		private final MethodSearchers searcher;
 
-		public DefaultMethodInvoker(BrutauthMethodSearchers searcher) {
+		public DefaultMethodInvoker(MethodSearchers searcher) {
 			this.searcher = searcher;
 		}
 	
