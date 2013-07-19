@@ -7,18 +7,20 @@ import java.util.Locale;
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
 import org.apache.log4j.Logger;
-import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.owasp.html.HtmlPolicyBuilder;
 import org.owasp.html.PolicyFactory;
 
 import br.com.caelum.brutal.controllers.ListController;
+import br.com.caelum.brutal.controllers.NewsController;
 import br.com.caelum.brutal.controllers.QuestionController;
 import br.com.caelum.brutal.controllers.UserProfileController;
 import br.com.caelum.brutal.mail.action.EmailAction;
+import br.com.caelum.brutal.model.News;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.model.interfaces.Watchable;
 import br.com.caelum.brutal.vraptor.Linker;
 import br.com.caelum.vraptor.core.Localization;
 import br.com.caelum.vraptor.environment.Environment;
@@ -70,7 +72,7 @@ public class NotificationMailer {
 				.with("linkerHelper", new LinkToHelper(linker))
 				.with("logoUrl", env.get("mail_logo_url"))
 				.to(to.getName(), to.getEmail())
-				.setSubject(localization.getMessage("answer_notification_mail", action.getQuestion().getTitle()));
+				.setSubject(localization.getMessage("answer_notification_mail", action.getMainThread().getType()));
 		return email;
 	}
     
@@ -81,9 +83,15 @@ public class NotificationMailer {
             this.linker = linker;
         }
         
-        public String questionLink(Question q) {
-            linker.linkTo(QuestionController.class).showQuestion(q, q.getSluggedTitle());
-            return linker.get();
+        public String mainThreadLink(Watchable watchable) {
+			if(watchable.getType().isAssignableFrom(News.class)) {
+				News news = (News) watchable;
+        		linker.linkTo(NewsController.class).showNews(news, news.getSluggedTitle());
+			}else{
+				Question question = (Question) watchable;
+        		linker.linkTo(QuestionController.class).showQuestion(question, question.getSluggedTitle());
+        	}
+    		return linker.get();
         }
         
         public String tagLink(Tag t) {

@@ -23,9 +23,11 @@ import br.com.caelum.brutal.infra.NotFoundException;
 import br.com.caelum.brutal.model.interfaces.Moderatable;
 import br.com.caelum.brutal.model.interfaces.ViewCountable;
 import br.com.caelum.brutal.model.interfaces.Votable;
+import br.com.caelum.brutal.model.interfaces.Watchable;
+import br.com.caelum.brutal.model.watch.Watcher;
 
 @Entity
-public class News extends Moderatable implements Post, ViewCountable {
+public class News extends Moderatable implements Post, ViewCountable, Watchable {
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -70,7 +72,12 @@ public class News extends Moderatable implements Post, ViewCountable {
 	private final List<Flag> flags = new ArrayList<>();
 	
 	private boolean approved = false;
-
+	
+	@JoinTable(name = "News_Watchers")
+	@OneToMany
+	private final List<Watcher> watchers = new ArrayList<>();
+	
+	
 	/**
 	 * @deprecated hibernate eyes only
 	 */
@@ -165,7 +172,7 @@ public class News extends Moderatable implements Post, ViewCountable {
 	
 	@Override
 	public String getTypeNameKey() {
-		return ""; //TODO TypeNameKey
+		return "news.type_name";
 	}
 
 	@Override
@@ -209,8 +216,8 @@ public class News extends Moderatable implements Post, ViewCountable {
 	}
 
 	@Override
-	public Question getQuestion() {
-		return null; //TODO: remove getQuestion from Post interface
+	public Watchable getMainThread() {
+		return this;
 	}
 	
 	public String getTitle(){
@@ -262,6 +269,26 @@ public class News extends Moderatable implements Post, ViewCountable {
 	@Override
 	public void ping() {
 		views++;
+	}
+
+	@Override
+	public Question getQuestion() {
+		return null; //TODO dar um jeito
+	}
+
+	@Override
+	public void add(Watcher watcher) {
+		watchers.add(watcher);
+	}
+
+	@Override
+	public void remove(Watcher watcher) {
+		watchers.remove(watcher);
+	}
+
+	@Override
+	public List<Watcher> getWatchers() {
+		return watchers;
 	}
 }
 

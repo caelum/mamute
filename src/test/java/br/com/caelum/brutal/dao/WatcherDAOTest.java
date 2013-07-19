@@ -34,9 +34,9 @@ public class WatcherDAOTest extends DatabaseTestCase{
 	public void should_get_subscribed_users_of_a_question() {
 		User subscribedWatcher = user("watcher", "watcher@watcher.com");
 		session.save(subscribedWatcher);
-		watchers.add(question, new Watcher(subscribedWatcher), Question.class);
+		watchers.add(question, new Watcher(subscribedWatcher));
 		
-		assertThat(watchers.of(question, Question.class), not(empty()));
+		assertThat(watchers.of(question), not(empty()));
 	}
 	
 	@Test
@@ -45,9 +45,9 @@ public class WatcherDAOTest extends DatabaseTestCase{
 		unsubscribedWatcher.setSubscribed(false);
 		session.save(unsubscribedWatcher);
 
-		watchers.add(question, new Watcher(unsubscribedWatcher), Question.class);
+		watchers.add(question, new Watcher(unsubscribedWatcher));
 		
-		assertThat(watchers.of(question, Question.class), empty());
+		assertThat(watchers.of(question), empty());
 	}
 	
 	@Test
@@ -57,14 +57,14 @@ public class WatcherDAOTest extends DatabaseTestCase{
 		
 		Watcher watch = new Watcher(subscribedWatcher);
 		watch.inactivate();
-		watchers.add(question, watch, Question.class);
+		watchers.add(question, watch);
 		
-		assertThat(watchers.of(question, Question.class), empty());
+		assertThat(watchers.of(question), empty());
 	}
 	
 	@Test
 	public void should_not_get_not_watchers_of_a_question() {
-		assertThat(watchers.of(question, Question.class), empty());
+		assertThat(watchers.of(question), empty());
 	}
 	
 	@Test
@@ -73,9 +73,9 @@ public class WatcherDAOTest extends DatabaseTestCase{
 		session.save(subscribedWatcher);
 		Watcher watch = new Watcher(subscribedWatcher);
 		watch.inactivate();
-		watchers.add(question, watch, Question.class);
+		watchers.add(question, watch);
 		
-		watchers.ping(question, subscribedWatcher, Question.class);
+		watchers.ping(question, subscribedWatcher);
 		
 		assertTrue(watch.isActive());
 	}

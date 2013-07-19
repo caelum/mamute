@@ -51,7 +51,7 @@ public class M017InsertAcceptededEditsReputationEvents implements Migration {
 					User answerAuthor = answer.getAuthor();
 					User editAuthor = answerInformation.getAuthor();
 					if (!answerAuthor.getId().equals(editAuthor.getId()) && answerInformation.getStatus().equals(UpdateStatus.APPROVED)) {
-						ReputationEvent reputationEvent = new ReputationEvent(EventType.EDIT_APPROVED, answer.getQuestion(), editAuthor);
+						ReputationEvent reputationEvent = new ReputationEvent(EventType.EDIT_APPROVED, answer.getMainThread(), editAuthor);
 						new Mirror().on(reputationEvent).set().field("date").withValue(answerInformation.moderatedAt());
 						statelessSession.insert(reputationEvent);
 					}

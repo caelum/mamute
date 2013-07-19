@@ -37,7 +37,7 @@ public class M018InsertCreatedQuestionAndAnswerReputationEvents implements Migra
 				}
 				List<Answer> answers = session.createCriteria(Answer.class).list();
 				for (Answer answer : answers) {
-					ReputationEvent reputationEvent = new ReputationEvent(EventType.CREATED_ANSWER, answer.getQuestion(), answer.getAuthor());
+					ReputationEvent reputationEvent = new ReputationEvent(EventType.CREATED_ANSWER, answer.getMainThread(), answer.getAuthor());
 					new Mirror().on(reputationEvent).set().field("date").withValue(answer.getCreatedAt());
 					statelessSession.insert(reputationEvent);
 				}

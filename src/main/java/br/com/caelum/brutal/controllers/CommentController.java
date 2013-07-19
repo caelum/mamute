@@ -11,8 +11,8 @@ import br.com.caelum.brutal.infra.NotFoundException;
 import br.com.caelum.brutal.mail.action.EmailAction;
 import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.LoggedUser;
-import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.model.interfaces.Watchable;
 import br.com.caelum.brutal.model.watch.Watcher;
 import br.com.caelum.brutal.notification.NotificationManager;
 import br.com.caelum.brutal.validators.CommentValidator;
@@ -56,12 +56,12 @@ public class CommentController {
 		br.com.caelum.brutal.model.Post commentable = comments.loadCommentable(type, id);
 		commentable.add(newComment);
 		comments.save(newComment);
-		Question question = commentable.getQuestion();
+		Watchable watchable = commentable.getMainThread();
 		notificationManager.sendEmailsAndInactivate(new EmailAction(newComment, commentable));
 		if (watching) {
-			watchers.add(question, new Watcher(current), Question.class);
+			watchers.add(watchable, new Watcher(current));
 		} else {
-			watchers.removeIfWatching(question, new Watcher(current), Question.class);
+			watchers.removeIfWatching(watchable, new Watcher(current));
 		}
     	
     	result.forwardTo(BrutalTemplatesController.class).comment(newComment);

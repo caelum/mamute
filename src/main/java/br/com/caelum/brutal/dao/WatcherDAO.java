@@ -31,8 +31,8 @@ public class WatcherDAO implements PaginatableDAO{
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Watcher> of(Watchable watchable, Class<? extends Watchable> watchableType) {
-		String query = "select watchers from "+ watchableType.getSimpleName() +" watchable join watchable.watchers watchers" +
+	public List<Watcher> of(Watchable watchable) {
+		String query = "select watchers from "+ watchable.getType().getSimpleName() +" watchable join watchable.watchers watchers" +
 				" join watchers.watcher watcher" +
 				" where watchers.active = true and" +
 				" watcher.isSubscribed = true and" +
@@ -42,15 +42,15 @@ public class WatcherDAO implements PaginatableDAO{
 		return selectWatchers.list();
 	}
 
-	public void add(Watchable watchable, Watcher watcher, Class<? extends Watchable> watchableType) {
-		if (!alreadyWatching(watchable, watcher, watchableType)){
+	public void add(Watchable watchable, Watcher watcher) {
+		if (!alreadyWatching(watchable, watcher)){
 			watchable.add(watcher);
 			session.save(watcher);
 		}
 	}
 
-	public boolean ping(Watchable watchable, User user, Class<? extends Watchable> watchableType) {
-		Watcher watcher = findByWatchableAndUser(watchable, user, watchableType);
+	public boolean ping(Watchable watchable, User user) {
+		Watcher watcher = findByWatchableAndUser(watchable, user);
 		if (watcher != null) { 
 			watcher.activate();
 			return true;
@@ -58,8 +58,8 @@ public class WatcherDAO implements PaginatableDAO{
 		return false;
 	}
 
-	private Watcher findByWatchableAndUser(Watchable watchable, User user, Class<? extends Watchable> watchableType) {
-		Watcher watch = (Watcher) session.createQuery("select watcher from "+ watchableType.getSimpleName() +" watchable" +
+	private Watcher findByWatchableAndUser(Watchable watchable, User user) {
+		Watcher watch = (Watcher) session.createQuery("select watcher from "+ watchable.getType().getSimpleName() +" watchable" +
 				" join watchable.watchers watcher" +
 				" where watcher.watcher = :user and watchable = :watchable")
 				.setParameter("watchable", watchable)
@@ -69,22 +69,22 @@ public class WatcherDAO implements PaginatableDAO{
 	}
 
 	public void addOrRemove(Watchable watchable, Watcher watcher, Class<? extends Watchable> watchableType) {
-		if(!alreadyWatching(watchable, watcher, watchableType)) {
-			add(watchable, watcher, watchableType);
+		if(!alreadyWatching(watchable, watcher)) {
+			add(watchable, watcher);
 		} else {
-			removeIfWatching(watchable, watcher, watchableType);
+			removeIfWatching(watchable, watcher);
 		}
 	}
 
-	public void removeIfWatching(Watchable watchable, Watcher watcher, Class<? extends Watchable> watchableType) {
-		Watcher managed = findByWatchableAndUser(watchable, watcher.getWatcher(), watchableType);
+	public void removeIfWatching(Watchable watchable, Watcher watcher) {
+		Watcher managed = findByWatchableAndUser(watchable, watcher.getWatcher());
 		if (managed != null) {
 			watchable.remove(managed);
 		}
 	}
 
-	private boolean alreadyWatching(Watchable watchable, Watcher watcher, Class<? extends Watchable> watchableType) {
-		return findByWatchableAndUser(watchable, watcher.getWatcher(), watchableType) != null;
+	private boolean alreadyWatching(Watchable watchable, Watcher watcher) {
+		return findByWatchableAndUser(watchable, watcher.getWatcher()) != null;
 	}
 
 	public List<Question> postsToPaginateBy(User user, OrderType orderType, Integer page) {

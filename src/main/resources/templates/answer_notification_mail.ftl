@@ -8,15 +8,15 @@
 	
 	<p>
 		<#assign answerId = emailAction.what.id?c >
-		<#assign url = linkerHelper.questionLink(emailAction.getQuestion()) + "#answer-" + answerId>
-		${localization.getMessage("notification_mail.where", [url, emailAction.getQuestion().getTitle()])}
+		<#assign url = linkerHelper.mainThreadLink(emailAction.getMainThread()) + "#answer-" + answerId>
+		${localization.getMessage("notification_mail.where", [url, emailAction.getMainThread().getTitle()])}
 	</p>
 	
 	<p>
 		${localization.getMessage("notification_mail.answer", [emailAction.getWhat().getAuthor().getName(), sanitizer.sanitize(emailAction.getWhat().getTrimmedContent())])}
 	</p>
 	
-	<#if emailAction.getQuestion().hasAuthor(watcher)>
+	<#if emailAction.getMainThread().hasAuthor(watcher)>
 		<p>
 			Caso a resposta tenha resolvido sua pergunta, não esqueça de marcá-la como correta. 
 			Caso não tenha resolvido sua dúvida, edite sua pergunta ou adicione comentários para dar mais informações.

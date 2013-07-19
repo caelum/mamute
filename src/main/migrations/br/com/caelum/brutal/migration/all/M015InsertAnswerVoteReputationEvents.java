@@ -36,7 +36,7 @@ public class M015InsertAnswerVoteReputationEvents implements Migration {
 					for (Vote vote : votes) {
 						EventType type = vote.isDown() ? EventType.ANSWER_DOWNVOTE : EventType.ANSWER_UPVOTE;
 						DateTime createdAt = vote.getCreatedAt();
-						ReputationEvent reputationEvent = new ReputationEvent(type, answer.getQuestion(), answer.getAuthor());
+						ReputationEvent reputationEvent = new ReputationEvent(type, answer.getMainThread(), answer.getAuthor());
 						new Mirror().on(reputationEvent).set().field("date").withValue(createdAt);
 						statelessSession.insert(reputationEvent);
 					}

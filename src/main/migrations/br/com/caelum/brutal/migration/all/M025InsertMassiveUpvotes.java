@@ -52,7 +52,7 @@ public class M025InsertMassiveUpvotes implements Migration {
 					
 					ReputationEvent event;
 					User author = answer.getAuthor();
-					Question question = answer.getQuestion();
+					Question question = answer.getMainThread();
 					
 					if(voteCount > MassiveVote.MAX_VOTE_ALLOWED) {
 						event = new ReputationEvent(EventType.MASSIVE_VOTE_IGNORED, question, author);

@@ -89,7 +89,7 @@ public class AnswerController {
 		answers.save(original);
 
 		result.include("messages", Arrays.asList(messageFactory.build("confirmation", status.getMessage())));
-		Question originalQuestion = original.getQuestion();
+		Question originalQuestion = original.getMainThread();
 		result.redirectTo(QuestionController.class).showQuestion(originalQuestion, originalQuestion.getSluggedTitle());
 	}
 	
@@ -109,7 +109,7 @@ public class AnswerController {
         	result.redirectTo(QuestionController.class).showQuestion(question, question.getSluggedTitle());
 			notificationManager.sendEmailsAndInactivate(new EmailAction(answer, question));
 			if (watching) {
-				watchers.add(question, new Watcher(current), Question.class);
+				watchers.add(question, new Watcher(current));
 			}
         } else {
         	result.include("answer", answer);
@@ -121,7 +121,7 @@ public class AnswerController {
 	@Post("/marcar-como-solucao/{solutionId}")
 	public void markAsSolution(Long solutionId) {
 		Answer solution = answers.getById(solutionId);
-		Question question = solution.getQuestion();
+		Question question = solution.getMainThread();
         if (!currentUser.getCurrent().isAuthorOf(question)) {
 			result.use(Results.status()).forbidden(localization.getMessage("answer.error.not_autor"));
 			result.redirectTo(QuestionController.class).showQuestion(question,
@@ -133,7 +133,7 @@ public class AnswerController {
 	}
 
     private void markOrRemoveSolution(Answer answer) {
-    	Question question = answer.getQuestion();
+    	Question question = answer.getMainThread();
     	if (answer.isSolution()) {
     		decreaseKarmaOfOldSolution(answer);
     		answer.uncheckAsSolution();
@@ -159,7 +159,7 @@ public class AnswerController {
 	    	reputationEvents.delete(markedSolution);
 	    	
 	    	solution.getAuthor().descreaseKarma(karmaForSolutionAuthor);
-	    	solution.getQuestion().getAuthor().descreaseKarma(karmaForQuestionAuthorSolution);
+	    	solution.getMainThread().getAuthor().descreaseKarma(karmaForQuestionAuthorSolution);
     	}
     }
 
@@ -174,18 +174,18 @@ public class AnswerController {
 	        reputationEvents.save(solvedQuestion);
 	        reputationEvents.save(markedSolution);
 	        solution.getAuthor().increaseKarma(karmaForSolutionAuthor);
-	        solution.getQuestion().getAuthor().increaseKarma(karmaForQuestionAuthorSolution);
+	        solution.getMainThread().getAuthor().increaseKarma(karmaForQuestionAuthorSolution);
     	}
     }
 
     private ReputationEvent solvedQuestionEvent(Answer solution) {
     	return new ReputationEvent(EventType.SOLVED_QUESTION, 
-    			solution.getQuestion(), solution.getAuthor());
+    			solution.getMainThread(), solution.getAuthor());
     }
     
     private ReputationEvent markedSolutionEvent(Answer solution) {
     	return new ReputationEvent(EventType.MARKED_SOLUTION, 
-    			solution.getQuestion(), solution.getQuestion().getAuthor());
+    			solution.getMainThread(), solution.getMainThread().getAuthor());
     }
 
 }

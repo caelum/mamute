@@ -160,7 +160,7 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 	}
 
 	@Override
-	public Question getQuestion() {
+	public Question getMainThread() {
 		return this; //sorry, I need to get a Question from a Comment.
 	}
 	
@@ -169,7 +169,7 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 	}
 
 	protected void markAsSolvedBy(Answer answer) {
-		if (!answer.getQuestion().equals(this))
+		if (!answer.getMainThread().equals(this))
 			throw new RuntimeException("Can not be solved by this answer");
 		this.solution = answer;
 	}
@@ -395,6 +395,11 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 		return user.getId().equals(author.getId());
     	
     }
+
+	@Override
+	public Question getQuestion() {
+		return this;
+	}
 
 
 

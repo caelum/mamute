@@ -120,7 +120,7 @@ public class QuestionController {
 		if (question.isVisibleFor(current)){
 			redirectToRightUrl(question, sluggedTitle);
 			viewCounter.ping(question);
-			boolean isWatching = watchers.ping(question, current, Question.class);
+			boolean isWatching = watchers.ping(question, current);
 			result.include("currentVote", votes.previousVoteFor(question.getId(), current, Question.class));
 			result.include("answers", votes.previousVotesForAnswers(question, current));
 			result.include("commentsWithVotes", votes.previousVotesForComments(question, current));
@@ -162,7 +162,7 @@ public class QuestionController {
 		author.increaseKarma(reputationEvent.getKarmaReward());
 		reputationEvents.save(reputationEvent);
 		if (watching) {
-			watchers.add(question, new Watcher(author), Question.class);
+			watchers.add(question, new Watcher(author));
 		}
 		result.include("messages", asList(messageFactory.build("alert", "question.quality_reminder")));
 		result.redirectTo(this).showQuestion(question, question.getSluggedTitle());

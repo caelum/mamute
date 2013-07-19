@@ -172,14 +172,13 @@ public class Comment implements Notifiable, Votable, Flaggable {
 	public String getEmailTemplate() {
 		return "comment_notification_mail";
 	}
+	public List<Vote> getVotes() {
+		return Collections.unmodifiableList(votes);
+	}
 
 	@Deprecated
 	@Override
 	public Question getQuestion() {
 		throw new UnsupportedOperationException();
-	}
-	
-	public List<Vote> getVotes() {
-		return Collections.unmodifiableList(votes);
 	}
 }

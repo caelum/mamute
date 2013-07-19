@@ -1,8 +1,8 @@
 package br.com.caelum.brutal.mail.action;
 
 import br.com.caelum.brutal.model.Post;
-import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.interfaces.Notifiable;
+import br.com.caelum.brutal.model.interfaces.Watchable;
 
 public class EmailAction {
 	private final Notifiable notifiable;
@@ -21,8 +21,8 @@ public class EmailAction {
 		return post;
 	}
 
-	public Question getQuestion() {
-		return post.getQuestion();
+	public Watchable getMainThread() {
+		return post.getMainThread();
 	}
 
 }

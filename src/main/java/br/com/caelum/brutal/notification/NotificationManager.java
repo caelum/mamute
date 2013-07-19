@@ -10,6 +10,7 @@ import br.com.caelum.brutal.infra.AfterSuccessfulTransaction;
 import br.com.caelum.brutal.infra.ThreadPoolContainer;
 import br.com.caelum.brutal.mail.action.EmailAction;
 import br.com.caelum.brutal.model.Question;
+import br.com.caelum.brutal.model.interfaces.Watchable;
 import br.com.caelum.brutal.model.watch.Watcher;
 import br.com.caelum.vraptor.ioc.Component;
 
@@ -31,8 +32,8 @@ public class NotificationManager {
 	}
 	
 	public void sendEmailsAndInactivate(EmailAction emailAction) {
-		Question question = emailAction.getQuestion();
-		List<Watcher> watchList = watchers.of(question, Question.class);
+		Watchable watchable = emailAction.getMainThread();
+		List<Watcher> watchList = watchers.of(watchable);
 		
 		final List<NotificationMail> mails = buildMails(emailAction, watchList);
 		afterTransaction.execute(new Runnable() {

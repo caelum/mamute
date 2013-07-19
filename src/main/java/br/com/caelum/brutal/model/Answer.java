@@ -89,7 +89,7 @@ public class Answer extends Moderatable implements Post, Notifiable {
     public Answer() {
     }
 
-    public Question getQuestion() {
+    public Question getMainThread() {
 		return question;
 	}
 
@@ -237,7 +237,7 @@ public class Answer extends Moderatable implements Post, Notifiable {
 	}
 
     public boolean isTheSameAuthorOfQuestion() {
-        return getQuestion().wasMadeBy(author);
+        return getMainThread().wasMadeBy(author);
     }
 
 	@Override
@@ -285,5 +285,10 @@ public class Answer extends Moderatable implements Post, Notifiable {
 	@Override
 	protected void addHistory(Information information) {
 		this.history.add((AnswerInformation) information);
+	}
+
+	@Override
+	public Question getQuestion() {
+		return question;
 	}
 }
