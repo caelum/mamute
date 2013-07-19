@@ -17,14 +17,10 @@ public class BrutauthAdaptedMethodSearcher implements BrutauthMethodSearcher {
 	
 	@Override
 	public BrutauthMethod search(CustomBrutauthRule ruleToSearch, Object... withArgs) {
-		return getBrutalMethodWithParametersToInvoke(ruleToSearch, withArgs);
-	}
-	
-	private BrutauthMethod getBrutalMethodWithParametersToInvoke(CustomBrutauthRule toInvoke, Object...args) {
 		try {
-			Method defaultMethod = defaultMethodSearcher.getMethod("isAllowed", toInvoke);
+			Method defaultMethod = defaultMethodSearcher.getMethod("isAllowed", ruleToSearch);
 			Class<?>[] classes = defaultMethod.getParameterTypes();
-			return new BrutauthMethod(getArgumentsThatMatchToTypes(classes, args), defaultMethod, toInvoke);
+			return new BrutauthMethod(getArgumentsThatMatchToTypes(classes, withArgs), defaultMethod, ruleToSearch);
 		} catch (NoSuchMethodException e) {
 			return null;
 		}
