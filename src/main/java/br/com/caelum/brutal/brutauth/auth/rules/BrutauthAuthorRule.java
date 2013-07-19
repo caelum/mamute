@@ -15,7 +15,7 @@ public class BrutauthAuthorRule implements CustomBrutauthRule {
 		this.user = user;
 	}
 	
-	public boolean isAllowed(Question question, String sluggedTitle) {
+	public boolean isAllowed(Question question) {
 		if (user == null) return false;
 		if (question.getAuthor() == null) {
 			throw new IllegalArgumentException("can't verify permissions on item without an author");
