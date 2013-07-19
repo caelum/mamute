@@ -23,7 +23,7 @@ public class BrutauthVarArgsMethodSearcher implements BrutauthMethodSearcher {
 	
 	private BrutauthMethod getBrutalMethodWithParametersToInvoke(CustomBrutauthRule toInvoke, Object...args) {
 		try {
-			Method defaultMethod = defaultMethodSearcher.getMethod("isAllowed", toInvoke);
+			Method defaultMethod = defaultMethodSearcher.getMethod(toInvoke);
 			return new BrutauthMethod(fakeVarArgs(args), defaultMethod, toInvoke);
 		} catch (NoSuchMethodException e) {
 			throw new RuntimeException(e);
