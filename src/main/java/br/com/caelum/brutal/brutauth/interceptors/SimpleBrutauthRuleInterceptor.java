@@ -3,7 +3,7 @@ package br.com.caelum.brutal.brutauth.interceptors;
 import java.util.Arrays;
 
 import br.com.caelum.brutal.brutauth.AccessLevel;
-import br.com.caelum.brutal.brutauth.RequiresPermission;
+import br.com.caelum.brutal.brutauth.SimpleBrutauthRule;
 import br.com.caelum.brutal.brutauth.auth.rules.BrutauthRule;
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
@@ -15,12 +15,12 @@ import br.com.caelum.vraptor.resource.ResourceMethod;
 import br.com.caelum.vraptor.view.Results;
 
 @Intercepts
-public class RequiresPermissionInterceptor implements Interceptor {
+public class SimpleBrutauthRuleInterceptor implements Interceptor {
 	
 	private Container container;
 	private Result result;
 
-	public RequiresPermissionInterceptor(Container container, Result result) {
+	public SimpleBrutauthRuleInterceptor(Container container, Result result) {
 		this.container = container;
 		this.result = result;
 	}
@@ -29,7 +29,7 @@ public class RequiresPermissionInterceptor implements Interceptor {
 	public void intercept(InterceptorStack stack, ResourceMethod method,
 			Object resourceInstance) throws InterceptionException {
 		
-		RequiresPermission permissionAnnotation = method.getMethod().getAnnotation(RequiresPermission.class);
+		SimpleBrutauthRule permissionAnnotation = method.getMethod().getAnnotation(SimpleBrutauthRule.class);
 		Class<? extends BrutauthRule>[] permissions = permissionAnnotation.value();
 		long permissionData = 0l;
 		Arrays.asList(method.getMethod().getAnnotations());
@@ -48,7 +48,7 @@ public class RequiresPermissionInterceptor implements Interceptor {
 
 	@Override
 	public boolean accepts(ResourceMethod method) {
-		return method.containsAnnotation(RequiresPermission.class);
+		return method.containsAnnotation(SimpleBrutauthRule.class);
 	}
 
 }
