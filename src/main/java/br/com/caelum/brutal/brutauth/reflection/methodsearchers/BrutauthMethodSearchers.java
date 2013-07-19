@@ -1,16 +1,16 @@
-package br.com.caelum.brutal.brutauth.reflection;
+package br.com.caelum.brutal.brutauth.reflection.methodsearchers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import br.com.caelum.brutal.brutauth.auth.rules.CustomBrutauthRule;
+import br.com.caelum.brutal.brutauth.reflection.BrutauthMethod;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class BrutauthMethodSearchers {
 	private final List<BrutauthMethodSearcher> searchers;
 
-	public BrutauthMethodSearchers(ArrayList<BrutauthMethodSearcher> searchers) {
+	public BrutauthMethodSearchers(List<BrutauthMethodSearcher> searchers) {
 		this.searchers = searchers;
 	}
 	
@@ -19,6 +19,6 @@ public class BrutauthMethodSearchers {
 			BrutauthMethod brutauthMethod = searcher.search(ruleToSearch, withArgs);
 			if(brutauthMethod != null) return brutauthMethod;
 		}
-		throw new IllegalStateException("Não achei nenhum metodo com nome isAllowed que receba os metodos de sua action na rule "+ruleToSearch.getClass().getSimpleName());
+		throw new IllegalStateException("Não achei nenhum metodo para invocar na rule "+ruleToSearch.getClass().getSimpleName());
 	}
 }

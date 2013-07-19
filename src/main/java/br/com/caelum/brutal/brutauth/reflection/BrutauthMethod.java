@@ -11,7 +11,8 @@ public class BrutauthMethod {
 	private final Method defaultMethod;
 	private final Object[] arguments;
 
-	public BrutauthMethod(Object[] arguments, Method defaultMethod, CustomBrutauthRule toInvoke) {
+	public BrutauthMethod(Object[] arguments, Method defaultMethod, CustomBrutauthRule toInvoke) throws NoSuchMethodException, SecurityException {
+		toInvoke.getClass().getMethod(defaultMethod.getName(), getTypes(arguments));
 		this.arguments = arguments;
 		this.defaultMethod = defaultMethod;
 		this.toInvoke = toInvoke;
@@ -22,11 +23,11 @@ public class BrutauthMethod {
 			return (boolean) defaultMethod.invoke(toInvoke, arguments);
 		} catch (IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException e) {
-			throw new RuntimeException("Não consegui chamar o metodo "+ toInvoke.getClass().getSimpleName()+ "#" + defaultMethod.getName() + " com parametros dos tipos: "+ getTypes(arguments));
+			throw new RuntimeException("Não consegui chamar o metodo "+ toInvoke.getClass().getSimpleName()+ "#" + defaultMethod.getName() + " com parametros dos tipos: "+ getStringTypes(arguments));
 		}
 	}
 
-	private String getTypes(Object[] arguments) {
+	private String getStringTypes(Object[] arguments) {
 		StringBuilder types = new StringBuilder();
 		for (Object argument : arguments) {
 			types.append(" | "+ argument.getClass().getSimpleName());
@@ -34,4 +35,12 @@ public class BrutauthMethod {
 		return types.toString();
 	}
 
+	private Class<?>[] getTypes(Object[] arguments) {
+		Class<?>[] types = new Class[arguments.length];
+		for (int i = 0; i < arguments.length; i++) {
+			types[i] = arguments[i].getClass();
+		}
+		return types;
+	}
+	
 }
