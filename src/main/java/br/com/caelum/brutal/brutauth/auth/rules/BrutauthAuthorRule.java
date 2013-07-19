@@ -14,7 +14,7 @@ public class BrutauthAuthorRule implements CustomBrutauthRule {
 	public BrutauthAuthorRule(@Nullable User user) {
 		this.user = user;
 	}
-	
+
 	public boolean isAllowed(Question question) {
 		if (user == null) return false;
 		if (question.getAuthor() == null) {
