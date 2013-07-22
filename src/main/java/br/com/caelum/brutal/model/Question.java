@@ -401,6 +401,11 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 		return this;
 	}
 
+	public String getMetaDescription() {
+		String shortTitle = getTitle().substring(0, 15);
+		String markedDescription = getMarkedDescription().substring(0, 200);
+		return shortTitle + " " + markedDescription;
+	}
 
 
 }

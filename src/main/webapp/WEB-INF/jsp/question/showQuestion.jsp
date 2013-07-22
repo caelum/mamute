@@ -1,4 +1,7 @@
-<tags:header facebookMetas="${true}" title="${question.mostImportantTag} - ${question.title}" />
+<tags:header facebookMetas="${true}" 
+	title="${question.mostImportantTag} - ${question.title}" 
+	description="${question.metaDescription}"/>
+
 <section class="first-content">
 	<tags:questionWith question="${question}" commentVotes="${commentsWithVotes}"/>
 	<div class="subheader">

@@ -11,7 +11,9 @@
 		<tags:watchFor watchable="${question}" type="pergunta"/>
 	</div>
 	<div class="post-container">
-		<div class="post-text question-description" id="question-description-${question.id }">${question.markedDescription}</div>
+		<div itemprop="articleBody" class="post-text question-description" id="question-description-${question.id }">
+			${question.markedDescription}
+		</div>
 		<tags:tagsFor taggable="${question}"/>
 		<div class="post-interactions">
 			<ul class="post-action-nav piped-nav nav">
