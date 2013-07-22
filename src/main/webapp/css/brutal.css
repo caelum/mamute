@@ -1835,6 +1835,10 @@ a.button.ask-a-question:hover{
 	width: 183px;
 }
 
+.footer-sub-list {
+	padding-bottom: 0.6em;
+}
+
 .footer-sub-list li, .footer-sub-list a{
 	color: #cfcfcf;
 	line-height: 1.1em;
