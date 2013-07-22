@@ -26,10 +26,9 @@
 
 
 <section class="first-content">
-	<tags:homeNewsList newses="${newses}" />
 	<tags:questionList recentTags="${recentTags}" 
 		questions="${questions}" title="${title}" rssUrl="${rssUrl}"/>
 </section>
-<tags:sideBar recentTags="${recentTags}" />
 <tags:joyrideIntro />
 
+<tags:sideBar recentTags="${recentTags}" />

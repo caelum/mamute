@@ -5,7 +5,7 @@
 <%@attribute name="recentTags" type="java.util.List" required="true"%>
 
 <aside class="sidebar">
-	<tags:brutal-include value="mainTags"/>
+	<tags:homeNewsList newses="${sidebarNews}" />
 	<div class="subheader">
 		<h3 class="title page-title"><fmt:message key="tags.recent"/></h3>
 	</div>

@@ -23,7 +23,8 @@ public class ListController {
 	private final RecentTagsContainer recentTagsContainer;
 	private final NewsDAO newses;
 
-	public ListController(QuestionDAO questions, TagDAO tags, Result result, RecentTagsContainer recentTagsContainer, NewsDAO newses) {
+	public ListController(QuestionDAO questions, TagDAO tags, Result result, 
+			RecentTagsContainer recentTagsContainer, NewsDAO newses) {
 		this.questions = questions;
 		this.tags = tags;
 		this.result = result;
@@ -44,9 +45,7 @@ public class ListController {
 			result.notFound();
 			return;
 		}
-		result.include("newses", newses.allVisibleAndApproved(3));
 		result.include("questions", visible);
-		result.include("recentTags", recentTagsContainer.getRecentTagsUsage());
 		result.include("totalPages", questions.numberOfPages());
 		result.include("currentPage", page);
 	}

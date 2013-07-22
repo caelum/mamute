@@ -4,17 +4,14 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 <%@attribute name="newses" type="java.util.List" required="true"%>
 
-<div class="subheader">
-		<h2 class="title page-title">
-			<fmt:message key="menu.news" />
-		</h2>
-	</div>
+<div class="subheader news-aside-list-header">
+	<h2 class="title page-title">
+		<fmt:message key="menu.news" />
+	</h2>
+</div>
 	<ol class="news-list">
 		<c:forEach items="${newses}" var="news">
 			<li class="post-item news-item">
-				<div class="post-information news-information">
-					<tags:postItemInformation key="post.list.vote" count="${news.voteCount}" information="votes" htmlClass="news-info"/> 
-				</div>
 				<div class="summary news-summary">
 					<div class="item-title-wrapper">
 						<h3 class="title item-title news-title">
@@ -26,7 +23,6 @@
 							<tags:prettyTime time="${news.createdAt}"/>
 						</time>
 					</div>
-					<tags:lastTouchFor showTime="false" touchable="${news}"/>
 				</div>
 			</li>
 		</c:forEach>

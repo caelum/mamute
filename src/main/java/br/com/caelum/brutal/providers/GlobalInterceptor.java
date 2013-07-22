@@ -9,6 +9,8 @@ import org.apache.log4j.Logger;
 import org.joda.time.format.DateTimeFormat;
 import org.ocpsoft.prettytime.PrettyTime;
 
+import br.com.caelum.brutal.components.RecentTagsContainer;
+import br.com.caelum.brutal.dao.NewsDAO;
 import br.com.caelum.brutal.infra.MenuInfo;
 import br.com.caelum.brutal.infra.NotFoundException;
 import br.com.caelum.brutal.model.LoggedUser;
@@ -33,16 +35,20 @@ public class GlobalInterceptor implements Interceptor {
 	private final Localization localization;
 	private static final Logger LOG = Logger.getLogger(GlobalInterceptor.class);
 	private final MenuInfo menuInfo;
+	private NewsDAO newses;
+	private RecentTagsContainer recentTagsContainer;
 
 	public GlobalInterceptor(Environment env, Result result, 
 			HttpServletRequest req, Localization localization,  
 			ServletContext servletContext, LoggedUser loggedUser,
-			MenuInfo menuInfo) {
+			MenuInfo menuInfo, NewsDAO newses, RecentTagsContainer recentTagsContainer) {
 		this.env = env;
 		this.result = result;
 		this.req = req;
 		this.localization = localization;
 		this.menuInfo = menuInfo;
+		this.newses = newses;
+		this.recentTagsContainer = recentTagsContainer;
 	}
 
 	public void intercept(InterceptorStack stack, ResourceMethod method,
@@ -54,6 +60,8 @@ public class GlobalInterceptor implements Interceptor {
 		result.include("currentUrl", getCurrentUrl());
 		result.include("contextPath", req.getContextPath());
 		result.include("deployTimestamp", deployTimestamp());
+		result.include("sidebarNews", newses.allVisibleAndApproved(3));
+		result.include("recentTags", recentTagsContainer.getRecentTagsUsage());
 		result.on(NotFoundException.class).notFound();
 		
 		logHeaders();

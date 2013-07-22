@@ -35,7 +35,4 @@
 		</div>
 	</c:if>
 </section>
-<aside class="sidebar">
-	<h3 class="title page-title"><fmt:message key="question.tags"/></h3>
-	<tags:tagsUsage tags="${questionTags}"/>
-</aside>
+<tags:sideBar recentTags="${recentTags}" />

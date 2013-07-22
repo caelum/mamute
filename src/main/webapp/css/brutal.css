@@ -43,7 +43,7 @@ a:hover{
 .container {
 	margin-left: auto;
 	margin-right: auto;
-	max-width: 70%;
+	max-width: 90%;
 	overflow: hidden;
 }
 
@@ -82,7 +82,8 @@ a:hover{
 	float: left;
 	padding: 0 0 0 .5em;
 	font-size: 0.9em;
-	margin-top: 0.2em;
+	margin-top: 0.4em;
+	margin-bottom: 0.4em;
 }
 
 .main-tags-title{
@@ -985,21 +986,17 @@ a.button.ask-a-question:hover{
 }
 
 .first-content {
-	width: 80%;
+	width: 65%;
 }
 
 .sidebar {
-	width: 20%;
-	padding: 0 1.5em;
+	width: 35%;
+	padding-left: 1.5em;
 }
 
 .sidebar .section-title {
 	padding-top: 11%;
 	margin-bottom: 0;
-}
-
-.tags-usage {
-	padding: 11% 0 11%;
 }
 
 /*BUTTON*/
@@ -1093,6 +1090,9 @@ a.button.ask-a-question:hover{
 
 .tags-usage .tags-item {
 	margin-bottom: .45em;
+	display: inline-block;
+	width: 49%;
+	margin-right: 0;
 }
 
 /* NEWSES LIST */
@@ -1117,8 +1117,16 @@ a.button.ask-a-question:hover{
 	width: 20%
 }
 
+.news-summary .item-title-wrapper {
+	width: 100%;
+}
+
 .news-guideline {
 	display: block;
+}
+
+.news-aside-list-header {
+	margin-top: 10px;
 }
 
 .post-under-review{
@@ -1137,8 +1145,13 @@ a.button.ask-a-question:hover{
 	margin-bottom: 3em;
 }
 
-.news-title {
+.item-title.news-title {
 	margin-bottom: 0;
+	font-size: 1em;
+}
+
+.news-summary time {
+	font-size: 0.9em;
 }
 
 
@@ -1342,7 +1355,6 @@ a.button.ask-a-question:hover{
 	overflow: hidden;
 	margin-bottom:2%;
 	padding-bottom: 1%;
-	padding-top: 15px;
 }
 
 .question-area {
