@@ -1328,10 +1328,8 @@ a.button.ask-a-question:hover{
 	margin-bottom: 7%;
 }
 
-.about-main {
-	font-size: 1.2em;
-	line-height: 1.5em;
-	text-align: center;
+.about-info {
+	margin-top: 6%;
 }
 
 .about-faq{

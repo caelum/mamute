@@ -3,8 +3,15 @@
 <tags:header title="${genericTitle} - ${title}"/>
 
 <div class="about-section sub-header">
-	<h2 class="title big-text-title"><fmt:message key="about.title.welcome" /></h2>
-	<p class="about-main"></p>
+	<div class="about-section about-info">
+		<div class="big-text">
+			<fmt:message key="about.info">
+				<fmt:param value="http://www.caelum.com.br/cursos-java/"/>
+				<fmt:param value="http://www.guj.com.br/"/>
+				<fmt:param value="http://www.guj.com.br/perguntas"/>
+			</fmt:message>
+		</div>
+	</div>
 </div>
 
 <div class="about-section">
