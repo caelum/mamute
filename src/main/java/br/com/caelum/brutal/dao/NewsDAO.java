@@ -34,14 +34,20 @@ public class NewsDAO implements PaginatableDAO  {
     
 	@SuppressWarnings("unchecked")
 	public List<News> allVisible(Integer initPage, Integer pageSize) {
-		Criteria criteria = defaultCriteria(initPage, pageSize);
+		Criteria criteria = defaultPagedCriteria(initPage, pageSize);
 		return addModeratorOrApprovedFilter(criteria).list();
 	}
 
+
 	@SuppressWarnings("unchecked")
 	public List<News> allVisibleAndApproved(Integer initPage, Integer pageSize) {
-		Criteria criteria = defaultCriteria(initPage, pageSize);
+		Criteria criteria = defaultPagedCriteria(initPage, pageSize);
 		return addApprovedFilter(criteria).list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<News> allVisibleAndApproved(int size) {
+		return defaultCriteria(size).list();
 	}
 
 	private Criteria addApprovedFilter(Criteria criteria) {
@@ -97,16 +103,19 @@ public class NewsDAO implements PaginatableDAO  {
 	}
 
 	
-	private Criteria defaultCriteria(Integer initPage, Integer pageSize) {
+	private Criteria defaultCriteria(Integer maxResults) {
 		Criteria criteria = session.createCriteria(News.class, "n")
 				.createAlias("n.information", "ni")
 				.createAlias("n.author", "na")
 				.createAlias("n.lastTouchedBy", "nl")
 				.add(criterionSpamFilter())
 				.addOrder(desc("n.lastUpdatedAt"))
-				.setMaxResults(pageSize)
-				.setFirstResult(firstResultOf(initPage, pageSize))
+				.setMaxResults(maxResults)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		return criteria;
+	}
+	
+	private Criteria defaultPagedCriteria(Integer initPage, Integer pageSize) {
+		return defaultCriteria(pageSize).setFirstResult(firstResultOf(initPage, pageSize));
 	}
 }
