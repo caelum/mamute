@@ -1129,6 +1129,13 @@ a.button.ask-a-question:hover{
 	margin-top: 10px;
 }
 
+.other-news {
+	margin-bottom: 1em;
+	display: inline-block;
+	width: 100%;
+	text-align: right;
+}
+
 .post-under-review{
 	opacity: 0.5;
 }
@@ -1142,7 +1149,7 @@ a.button.ask-a-question:hover{
 }
 
 .news-list {
-	margin-bottom: 3em;
+	margin-bottom: 0.5em;
 }
 
 .item-title.news-title {

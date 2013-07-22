@@ -27,4 +27,5 @@
 			</li>
 		</c:forEach>
 	</ol>
+	<a class="other-news" href="<c:url value='/noticias'/>"><fmt:message key="news.link" /></a>
 	
