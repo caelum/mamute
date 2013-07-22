@@ -8,6 +8,7 @@ import static org.hibernate.criterion.Restrictions.gt;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
@@ -16,6 +17,7 @@ import br.com.caelum.brutal.dao.WithUserPaginatedDAO.OrderType;
 import br.com.caelum.brutal.dao.WithUserPaginatedDAO.UserRole;
 import br.com.caelum.brutal.model.News;
 import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.model.interfaces.RssContent;
 import br.com.caelum.vraptor.ioc.Component;
 @Component
 public class NewsDAO implements PaginatableDAO  {
@@ -117,5 +119,11 @@ public class NewsDAO implements PaginatableDAO  {
 	
 	private Criteria defaultPagedCriteria(Integer initPage, Integer pageSize) {
 		return defaultCriteria(pageSize).setFirstResult(firstResultOf(initPage, pageSize));
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<RssContent> orderedByCreationDate(int maxResults) {
+		Query query = session.createQuery("select news from News news order by news.createdAt desc");
+		return query.setMaxResults(maxResults).list();
 	}
 }

@@ -8,6 +8,7 @@
 	<h2 class="title page-title">
 		<fmt:message key="menu.news" />
 	</h2>
+	<a href="/noticias/rss" class="rss-link"><i class="icon-rss"></i></a>
 </div>
 	<ol class="news-list">
 		<c:forEach items="${newses}" var="news">

@@ -6,8 +6,8 @@ import java.io.OutputStream;
 import java.io.Writer;
 import java.util.List;
 
-import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.model.interfaces.RssContent;
 import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.ioc.Component;
 
@@ -27,7 +27,7 @@ public class QuestionRssEntryFactory {
 		home = home.endsWith("/") ? home : home + "/";
 	}
 
-	public void writeEntry(Question question, OutputStream output) {
+	public void writeEntry(RssContent question, OutputStream output) {
 		
 		User author = question.getAuthor();
 		RssImageEntry imageEntry = new RssImageEntryBuilder()

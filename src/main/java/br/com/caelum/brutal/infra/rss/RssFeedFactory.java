@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 
-import br.com.caelum.brutal.model.Question;
+import br.com.caelum.brutal.model.interfaces.RssContent;
 import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.ioc.Component;
 
@@ -27,11 +27,11 @@ public class RssFeedFactory {
 		this.description = env.get("rss.description", "Últimas perguntas do GUJ respostas");
 	}
 
-	public void build(List<Question> questions, OutputStream output) {
+	public void build(List<RssContent> rssContents, OutputStream output) {
 		stream = new PrintStream(output);
 		open(output);
-		for (Question question : questions) {
-			entryFactory.writeEntry(question, output);
+		for (RssContent rssContent : rssContents) {
+			entryFactory.writeEntry(rssContent, output);
 			stream.print('\n');
 		}
 		close(output);

@@ -6,11 +6,12 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.caelum.brutal.dao.NewsDAO;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.infra.rss.RssFeedFactory;
-import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
+import br.com.caelum.brutal.model.interfaces.RssContent;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
@@ -23,19 +24,21 @@ public class RssController {
 	private final Result result;
 	private final TagDAO tags;
 	private static final int MAX_RESULTS = 30;
+	private NewsDAO news;
 
 	public RssController(RssFeedFactory rssFactory, QuestionDAO questions, 
-			HttpServletResponse response, Result result, TagDAO tags) {
+			HttpServletResponse response, Result result, TagDAO tags, NewsDAO news) {
 		this.rssFactory = rssFactory;
 		this.questions = questions;
 		this.response = response;
 		this.result = result;
 		this.tags = tags;
+		this.news = news;
 	}
 	
 	@Get("/rss")
 	public void rss() throws IOException {
-		List<Question> orderedByDate = questions.orderedByCreationDate(MAX_RESULTS);
+		List<RssContent> orderedByDate = questions.orderedByCreationDate(MAX_RESULTS);
 		buildRss(orderedByDate);
 	}
 	@Get("/rss/{tagName}")
@@ -46,11 +49,17 @@ public class RssController {
 			return;
 		}
 		
-		List<Question> orderedByDate = questions.orderedByCreationDate(MAX_RESULTS, tag);
+		List<RssContent> orderedByDate = questions.orderedByCreationDate(MAX_RESULTS, tag);
 		buildRss(orderedByDate);
 	}
 
-	private void buildRss(List<Question> orderedByDate) throws IOException {
+	@Get("/noticias/rss")
+	public void newsRss() throws IOException {
+		List<RssContent> orderedByDate = news.orderedByCreationDate(MAX_RESULTS);
+		buildRss(orderedByDate);
+	}
+	
+	private void buildRss(List<RssContent> orderedByDate) throws IOException {
 		OutputStream outputStream = response.getOutputStream();
 		response.setContentType("text/xml");
 		rssFactory.build(orderedByDate, outputStream);

@@ -21,6 +21,7 @@ import br.com.caelum.brutal.dao.WithUserPaginatedDAO.UserRole;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.model.interfaces.RssContent;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
@@ -105,7 +106,7 @@ public class QuestionDAO implements PaginatableDAO {
 		return withAuthor.by(user,orderByWhat, page);
 	}
 
-	public List<Question> orderedByCreationDate(int maxResults) {
+	public List<RssContent> orderedByCreationDate(int maxResults) {
 		return session.createCriteria(Question.class, "q")
 				.add(Restrictions.eq("q.moderationOptions.invisible", false))
 				.addOrder(Order.desc("q.createdAt"))
@@ -113,7 +114,7 @@ public class QuestionDAO implements PaginatableDAO {
 				.list();
 	}
 	
-	public List<Question> orderedByCreationDate(int maxResults, Tag tag) {
+	public List<RssContent> orderedByCreationDate(int maxResults, Tag tag) {
 		return session.createCriteria(Question.class, "q")
 				.createAlias("q.information.tags", "tags")
 				.add(Restrictions.and(Restrictions.eq("q.moderationOptions.invisible", false), Restrictions.eq("tags.id", tag.getId())))
