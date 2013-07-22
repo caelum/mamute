@@ -50,7 +50,7 @@ public class ListController {
 		result.include("currentPage", page);
 	}
 
-	@Get("/noticias")
+	@Get({"/noticias", "/noticias/"})
 	public void news(Integer p) {
 		Integer page = getPage(p);
 		List<News> visible = newses.allVisible(page, 50);
