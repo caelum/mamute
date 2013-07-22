@@ -986,12 +986,12 @@ a.button.ask-a-question:hover{
 }
 
 .first-content {
-	width: 65%;
+	width: 60%;
 }
 
 .sidebar {
-	width: 35%;
-	padding-left: 1.5em;
+	width: 40%;
+	padding-left: 3.5em;
 }
 
 .sidebar .section-title {
