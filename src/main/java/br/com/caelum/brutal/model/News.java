@@ -176,7 +176,7 @@ public class News extends Moderatable implements Post, ViewCountable, Watchable 
 	}
 
 	@Override
-	protected NewsInformation getInformation() {
+	public NewsInformation getInformation() {
 		return information;
 	}
 
@@ -289,6 +289,10 @@ public class News extends Moderatable implements Post, ViewCountable, Watchable 
 	@Override
 	public List<Watcher> getWatchers() {
 		return watchers;
+	}
+	
+	public String getDescription() {
+		return getInformation().getDescription();
 	}
 }
 
