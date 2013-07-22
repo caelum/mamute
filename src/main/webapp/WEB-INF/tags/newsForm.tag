@@ -22,7 +22,7 @@
 	<c:if test="${edit}">
 		<label><fmt:message key="news.comment.label" />
 			<input type="text" class="text-input required" minlength="5" 
-				maxlength="150" name="comment" placeholder="<fmt:message key="comment"/>" />
+				maxlength="150" name="comment" placeholder="<fmt:message key="news.comment.placeholder"/>" />
 		</label>
 	</c:if>
 
