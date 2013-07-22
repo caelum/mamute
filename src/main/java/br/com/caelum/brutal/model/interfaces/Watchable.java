@@ -8,5 +8,6 @@ public interface Watchable {
 	void add(Watcher watcher);
 	void remove(Watcher watcher);
 	List<Watcher> getWatchers();
-	Class<?> getType(); 
+	Class<?> getType();
+	String getTitle();
 }

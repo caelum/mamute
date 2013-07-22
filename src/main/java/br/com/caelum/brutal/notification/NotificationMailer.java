@@ -72,7 +72,7 @@ public class NotificationMailer {
 				.with("linkerHelper", new LinkToHelper(linker))
 				.with("logoUrl", env.get("mail_logo_url"))
 				.to(to.getName(), to.getEmail())
-				.setSubject(localization.getMessage("answer_notification_mail", action.getMainThread().getType()));
+				.setSubject(localization.getMessage("answer_notification_mail", action.getMainThread().getTitle()));
 		return email;
 	}
     
