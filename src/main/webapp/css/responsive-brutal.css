@@ -413,5 +413,35 @@
 	.complete-user .user-info * {
 		height: auto;
 	}
-
+	
+	.main-nav {
+		height: auto;
+		display: inline-block;
+		width: 62%;
+		vertical-align: middle;
+		text-align: center;
+		margin-left: 2%;
+	}
+	
+	.main-nav .nav-item, .main-nav .nav-item a {
+		height: auto;
+		line-height: 2em;
+		display: inline-block;
+		width: 100%;
+		border: none;
+	}
+	
+	.piped-nav .nav-item.ask {
+		height: auto;
+		padding-bottom: 0.5em;
+	}
+	
+	.big-logo.logo {
+		display: inline-block;
+		vertical-align: middle;
+		float: none;
+		background-size: 100%;
+		width: 35%;
+		padding-right: 1%;
+	}
 }	
