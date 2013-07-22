@@ -141,6 +141,10 @@
 	.info{
 		padding: .15em 0;
 	}
+	
+	.hinted-form {
+		width: 100%;
+	}
 
 	/*About*/
 	.about-text .karma {
