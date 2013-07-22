@@ -323,6 +323,7 @@
 		background-color: rgb(116, 114, 114);
 		border: 2px solid #858080;
 		margin-bottom: 5%;
+		clear: left;
 	}
 	
 	.login-or-signup .hide-next:hover {
