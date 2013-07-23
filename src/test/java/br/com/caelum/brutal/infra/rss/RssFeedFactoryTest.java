@@ -1,11 +1,11 @@
 package br.com.caelum.brutal.infra.rss;
 
-import static java.util.Arrays.asList;
 import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 
 import org.joda.time.DateTimeUtils;
 import org.junit.Test;
@@ -14,6 +14,7 @@ import br.com.caelum.brutal.builder.QuestionBuilder;
 import br.com.caelum.brutal.dao.TestCase;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.model.interfaces.RssContent;
 import br.com.caelum.vraptor.environment.DefaultEnvironment;
 
 public class RssFeedFactoryTest extends TestCase {
@@ -43,7 +44,7 @@ public class RssFeedFactoryTest extends TestCase {
 			.build();
 		
 		ByteArrayOutputStream output = new ByteArrayOutputStream();
-		rssFeedFactory.build(asList(question1, question2), output);
+		rssFeedFactory.build(Arrays.<RssContent>asList(question1, question2), output);
 		output.close();
 		String xml = new String(output.toByteArray());
 		assertTrue(xml.contains("first question"));

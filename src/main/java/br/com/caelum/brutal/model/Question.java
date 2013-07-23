@@ -403,8 +403,14 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 	}
 
 	public String getMetaDescription() {
-		String shortTitle = getTitle().substring(0, 15);
-		String markedDescription = getMarkedDescription().substring(0, 200);
+		String title = getTitle();
+		int index = title.length() < 15 ? title.length() : 14;
+		String shortTitle = getTitle().substring(0, index);
+		
+		
+		String markedDescription = getMarkedDescription();
+		index = markedDescription.length() < 200 ? title.length() : 199;
+		markedDescription = markedDescription.substring(0, index);
 		return shortTitle + " " + markedDescription;
 	}
 

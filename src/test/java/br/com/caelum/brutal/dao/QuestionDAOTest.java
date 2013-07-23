@@ -20,6 +20,7 @@ import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.model.interfaces.RssContent;
 import br.com.caelum.timemachine.Block;
 import br.com.caelum.timemachine.TimeMachine;
 
@@ -166,7 +167,7 @@ public class QuestionDAOTest extends DatabaseTestCase {
 		question2.remove();
 		session.save(question1);
 		session.save(question2);
-		List<Question> questions = questionsForAnyone.orderedByCreationDate(5);
+		List<RssContent> questions = questionsForAnyone.orderedByCreationDate(5);
 		assertEquals(1, questions.size());
 	}
 	
@@ -179,7 +180,7 @@ public class QuestionDAOTest extends DatabaseTestCase {
 		session.save(question1);
 		session.save(question2);
 		session.save(invisible);
-		List<Question> questions = questionsForAnyone.orderedByCreationDate(30, defaultTag);
+		List<RssContent> questions = questionsForAnyone.orderedByCreationDate(30, defaultTag);
 		assertEquals(1, questions.size());
 	}
 	

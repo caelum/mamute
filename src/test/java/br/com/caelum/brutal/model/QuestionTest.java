@@ -174,4 +174,9 @@ public class QuestionTest  extends TestCase{
 		assertTrue(isVisibleForModerator);
 	}
 	
+	@Test
+	public void shouldTrimShortTitle() throws Exception {
+		question.withTitle("123456789012345");
+	}
+	
 }
