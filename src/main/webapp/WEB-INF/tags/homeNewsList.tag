@@ -14,16 +14,14 @@
 		<c:forEach items="${newses}" var="news">
 			<li class="post-item news-item">
 				<div class="summary news-summary">
-					<div class="item-title-wrapper">
-						<h3 class="title item-title news-title">
-							<a href="/noticias/${news.id}-${news.sluggedTitle}">${news.title}</a>
-						</h3>
-						<time class="when" ${microdata ? 'itemprop="dateCreated"' : ''} 
-							datetime="${news.createdAt}">
-							<fmt:message key='touch.created'/> 
-							<tags:prettyTime time="${news.createdAt}"/>
-						</time>
-					</div>
+					<h3 class="title item-title news-title">
+						<a href="/noticias/${news.id}-${news.sluggedTitle}">${news.title}</a>
+					</h3>
+					<time class="when" ${microdata ? 'itemprop="dateCreated"' : ''} 
+						datetime="${news.createdAt}">
+						<fmt:message key='touch.created'/> 
+						<tags:prettyTime time="${news.createdAt}"/>
+					</time>
 				</div>
 			</li>
 		</c:forEach>
