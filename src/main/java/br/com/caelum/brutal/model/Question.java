@@ -249,12 +249,12 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 		return information.getTags();
 	}
 	
-	public String getMostImportantTag(){
+	public Tag getMostImportantTag(){
 		List<Tag> tags = information.getTags();
 		if(tags.isEmpty()){
 			throw new IllegalStateException("a question must have at least one tag");
 		}
-		return tags.get(0).getName();
+		return tags.get(0);
 	}
 
 	public UpdateStatus updateWith(QuestionInformation information) {

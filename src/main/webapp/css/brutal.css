@@ -2359,3 +2359,8 @@ a.button.ask-a-question:hover{
 	-moz-border-radius: 6px;
 	border-radius: 6px;
 }
+
+/*BreadCrumb*/
+.breadcrumb{
+	display: none;
+}
