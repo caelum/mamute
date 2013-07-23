@@ -4,8 +4,8 @@
 <%@attribute name="edit" required="false" type="java.lang.String"%>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 
-<h2 class="title page-title subheader"><fmt:message key="newanswer.answer.your_answer"/></h2>
 
+<h2 class="title page-title subheader new-answer-title"><fmt:message key="newanswer.answer.your_answer"/></h2>
 <c:set var="sameAuthor" value="${question.author eq currentUser.current}" />
 <fmt:message key="answer.form.placeholder" var="placeholder" />
 <c:if test="${sameAuthor}">

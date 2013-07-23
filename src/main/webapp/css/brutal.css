@@ -566,6 +566,10 @@ textarea {
 	width: 65%;
 }
 
+.answer-form.hinted-form{
+	width: 60%;
+}
+
 .submit[disabled=disabled] {
 	opacity: 0.5;
 	cursor: default;
@@ -981,6 +985,7 @@ a.button.ask-a-question:hover{
 .sidebar {
 	width: 40%;
 	padding-left: 3.5em;
+	clear: right;
 }
 
 .sidebar .section-title {
@@ -1144,6 +1149,10 @@ a.button.ask-a-question:hover{
 
 .news-summary time {
 	font-size: 0.9em;
+}
+
+.new-answer-title{
+	clear: both;
 }
 
 
