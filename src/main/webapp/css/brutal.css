@@ -666,25 +666,14 @@ textarea {
 	display: inline-block;
 }
 
-.ranking li:nth-child(4n+1){
-	width: 15em;
-	clear: both;
-	margin: 1em;
-}
-
-.ranking li:nth-child(4n+4){
-	clear: right;
-	margin: 1em;
-}
-
-.ranking li{
+.ranking-item{
 	float: left;
-	width: 15em;
-	margin: 1em;
+	width: 15%;
+	margin: .75em;
 }
 
-.ranking-user {
-	display: block;
+.ranking-user{
+	width: 100%;
 }
 
 .ranking-user > *{

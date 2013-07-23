@@ -9,7 +9,7 @@
 
 <ul class="ranking">
 <c:forEach items="${topUsers}" var="user">
-	<li><tags:RankingUser user="${user}"/></li>
+	<li class="ranking-item"><tags:RankingUser user="${user}"/></li>
 </c:forEach>
 </ul>
 <tags:pagination url="${linkTo[RankingController].rank}" currentPage="${currentPage}" totalPages="${pages}" delta="2"/>
