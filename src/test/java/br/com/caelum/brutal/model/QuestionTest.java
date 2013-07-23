@@ -175,8 +175,35 @@ public class QuestionTest  extends TestCase{
 	}
 	
 	@Test
-	public void shouldTrimShortTitle() throws Exception {
-		question.withTitle("123456789012345");
+	public void shouldNotTrimShortMeta() throws Exception {
+		String title = "0123456789";
+		String description = "description";
+		Question q = question
+				.withTitle(title)
+				.withDescription(description)
+				.build();
+		assertTrue(q.getMetaDescription().contains(title));
+		assertTrue(q.getMetaDescription().contains(description));
+	}
+	
+	@Test
+	public void shouldTrimBigMeta() throws Exception {
+		String title = bigString('a', 100);
+		String description = bigString('b', 10000);
+		Question q = question
+				.withTitle(title)
+				.withDescription(description)
+				.build();
+		assertFalse(q.getMetaDescription().contains(title));
+		assertFalse(q.getMetaDescription().contains(description));
+	}
+
+	private String bigString(char c, int repetitions) {
+		StringBuilder builder = new StringBuilder();
+		for (int i = 0; i < repetitions; i++) {
+			builder.append(c);
+		}
+		return builder.toString();
 	}
 	
 }
