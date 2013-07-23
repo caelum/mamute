@@ -53,6 +53,11 @@ public abstract class PageObject {
 	protected void waitForElement(final By by, int time) {
 	    waitFor(time, ExpectedConditions.presenceOfElementLocated(by), by.toString());
 	}
+	
+	protected void waitForClickableElement(final By by, int time) {
+		waitFor(time, ExpectedConditions.elementToBeClickable(by), by.toString());
+	}
+	
 	protected void waitForVisibleElement(WebElement element, int time) {
 		waitFor(time, ExpectedConditions.visibilityOf(element), element.toString());
 	}
