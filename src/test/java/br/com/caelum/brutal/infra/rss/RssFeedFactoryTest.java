@@ -44,7 +44,7 @@ public class RssFeedFactoryTest extends TestCase {
 			.build();
 		
 		ByteArrayOutputStream output = new ByteArrayOutputStream();
-		rssFeedFactory.build(Arrays.<RssContent>asList(question1, question2), output);
+		rssFeedFactory.build(Arrays.<RssContent>asList(question1, question2), output, "title", "description");
 		output.close();
 		String xml = new String(output.toByteArray());
 		assertTrue(xml.contains("first question"));
