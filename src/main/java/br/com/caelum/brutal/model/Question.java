@@ -414,5 +414,9 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 		return shortTitle + " " + markedDescription;
 	}
 
+	public String getLinkPath() {
+		return id + "-" + getSluggedTitle();
+	}
+
 
 }

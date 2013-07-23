@@ -12,8 +12,8 @@ public interface RssContent {
 
 	Long getId();
 
-	String getSluggedTitle();
-
 	DateTime getCreatedAt();
 
+	String getLinkPath();
+	
 }

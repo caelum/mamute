@@ -295,5 +295,10 @@ public class News extends Moderatable implements Post, ViewCountable, Watchable,
 	public String getDescription() {
 		return getInformation().getDescription();
 	}
+
+	@Override
+	public String getLinkPath() {
+		return "noticias/" + id + "-" + getSluggedTitle();
+	}
 }
 

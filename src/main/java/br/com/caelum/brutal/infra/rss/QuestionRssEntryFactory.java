@@ -27,18 +27,18 @@ public class QuestionRssEntryFactory {
 		home = home.endsWith("/") ? home : home + "/";
 	}
 
-	public void writeEntry(RssContent question, OutputStream output) {
+	public void writeEntry(RssContent rssContent, OutputStream output) {
 		
-		User author = question.getAuthor();
+		User author = rssContent.getAuthor();
 		RssImageEntry imageEntry = new RssImageEntryBuilder()
 			.withUrl(author.getSmallPhoto()).build();
 		
 		RssEntry entry = new RssEntryBuilder()
 				.withAuthor(author.getName())
-				.withTitle(question.getTitle())
-				.withLink(home + question.getId() + "-" + question.getSluggedTitle())
-				.withId(question.getId().toString())
-				.withDate(question.getCreatedAt())
+				.withTitle(rssContent.getTitle())
+				.withLink(home + rssContent.getLinkPath())
+				.withId(rssContent.getId().toString())
+				.withDate(rssContent.getCreatedAt())
 				.withImage(imageEntry).build();
 		
 		XStream xstream = buildXstream();
