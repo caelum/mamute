@@ -38,7 +38,7 @@ public class NewsDAO implements PaginatableDAO  {
 	@SuppressWarnings("unchecked")
 	public List<News> allVisible(Integer initPage, Integer pageSize) {
 		Criteria criteria = defaultPagedCriteria(initPage, pageSize)
-							.createAlias("n.comments.comments", "c");
+							.createAlias("n.comments.comments", "c", Criteria.LEFT_JOIN);
 		return addModeratorOrApprovedFilter(criteria).list();
 	}
 

@@ -133,6 +133,10 @@ public class UserDAO {
 	public ScrollableResults moderators() {
 		return session.createCriteria(User.class).add(eq("moderator", true)).scroll();
 	}
+	
+	public ScrollableResults newsletterConfirmed() {
+		return session.createCriteria(User.class).add(eq("isSubscribed", true)).scroll();
+	}
 
 	public List<User> getRank(Integer page) {
 		return session.createQuery("from User u order by u.karma desc")
