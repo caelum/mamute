@@ -1119,6 +1119,10 @@ a.button.ask-a-question:hover{
 	margin-top: 10px;
 }
 
+.news-title {
+	display: inline;
+}
+
 .other-news {
 	margin-bottom: 1em;
 	display: inline-block;
