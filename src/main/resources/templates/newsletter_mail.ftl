@@ -15,6 +15,23 @@
 	        	<h1 style="${mainTitleStyle}">${l10n.getMessage("newsletter_mail")}</h1>
         	</td>
 		</tr>
+
+		<tr>
+			<td><h2 style="${titleStyle}">${l10n.getMessage("newsletter_mail.title.week_main_news")}</h2></td>
+		</tr>
+		
+		<#list hotNews as news>
+			<tr>
+				<td style="${questionStyle}">
+					<h3><a style="${linkStyle}" href="${linkToHelper.newsLink(news)}">${news.title}</a></h3>
+					<p>
+						<span style="${userNameStyle}">${l10n.getMessage("newsletter_mail.created_by")} 
+							<a style="${linkStyle}" href="${linkToHelper.userLink(news.author)}">${news.author.name}</a>
+						</span>
+					</p>
+				</td>
+			</tr>
+		</#list>
 	
 		<tr>
 			<td><h2 style="${titleStyle}">${l10n.getMessage("newsletter_mail.title.week_main_questions")}</h2></td>

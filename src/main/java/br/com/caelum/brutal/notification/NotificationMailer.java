@@ -98,6 +98,14 @@ public class NotificationMailer {
         	linker.linkTo(ListController.class).withTag(t.getName(), 1);
         	return linker.get();
         }
+        public String newsLink(News n) {
+        	linker.linkTo(NewsController.class).showNews(n, n.getSluggedTitle());
+        	return linker.get();
+        }
+        public String questionLink(Question q) {
+        	linker.linkTo(QuestionController.class).showQuestion(q, q.getSluggedTitle());
+        	return linker.get();
+        }
         public String userLink(User u) {
         	linker.linkTo(UserProfileController.class).showProfile(u, u.getSluggedName());
         	return linker.get();

@@ -131,7 +131,9 @@ public class NewsDAO implements PaginatableDAO  {
 
 	@SuppressWarnings("unchecked")
 	public List<News> hotNews(DateTime since) {
-		Query query = session.createQuery("select news from News news where news.createdAt > :since order by news.voteCount desc");
+		Query query = session.createQuery("select news from News news "
+				+ "where news.createdAt > :since and news.approved = true "
+				+ "order by news.voteCount desc");
 		return query.setParameter("since", since).setMaxResults(5).list();
 	}
 }
