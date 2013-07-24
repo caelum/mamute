@@ -13,8 +13,11 @@
 				<h3 class="title item-title">
 					<a href="${linkTo[NewsController].showNews[news][news.sluggedTitle]}">${news.title}</a>
 				</h3>
-				<div class="views">
+				<div class="post-simple-information">
 					${news.views} <tags:pluralize key="post.list.view" count="${news.views}"/>
+				</div>
+				<div class="comments post-simple-information">
+					${news.getVisibleCommentsFor(currentUser.current).size()} <tags:pluralize key="post.list.comment" count="${news.getVisibleCommentsFor(currentUser.current).size()}"/>
 				</div>
 			</div>
 			<tags:lastTouchFor touchable="${news}"/>
