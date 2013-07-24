@@ -1,20 +1,20 @@
 <tags:header facebookMetas="${true}" 
 	title="${question.mostImportantTag.name} - ${question.title}" 
 	description="${question.metaDescription}"/>
-<ul class="breadcrumb" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-	<li>
-		<a  itemprop="url" href="${linkTo[ListController].home[1]}">
-			<span itemprop="title"><fmt:message key="menu.questions"/></span>
+<ul class="breadcrumb" xmlns:v="http://rdf.data-vocabulary.org/#">
+	<li typeof="v:Breadcrumb">
+		<a rel="v:url" property="v:title" href="${linkTo[ListController].home[1]}">
+			<fmt:message key="menu.questions"/>
 		</a>
 	</li>
-	<li>
-		<a  itemprop="url" href="${linkTo[ListController].withTag[question.mostImportantTag.name][1]}">
-			<span itemprop="title">${question.mostImportantTag.name}</span>
+	<li typeof="v:Breadcrumb">
+		<a rel="v:url" property="v:title" href="${linkTo[ListController].withTag[question.mostImportantTag.name][1]}">
+			${question.mostImportantTag.name}
 		</a>
 	</li>
-	<li>
-		<a  itemprop="url" href="${linkTo[QuestionController].showQuestion[question][question.title]}">
-			<span itemprop="title">${question.title}</span>
+	<li typeof="v:Breadcrumb">
+		<a rel="v:url" property="v:title" href="${linkTo[QuestionController].showQuestion[question][question.title]}">
+			${question.title}
 		</a>
 	</li>
 </ul>
