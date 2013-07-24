@@ -16,5 +16,9 @@ public class DefaultMethodInvoker {
 		public boolean invoke(CustomBrutauthRule toInvoke, Object[] args) {
 			return searcher.search(toInvoke, args).invoke();
 		}
+<<<<<<< HEAD
+=======
+	
+>>>>>>> 255f1e479d9e262cc07cbd1ffc7ecc0bdfc3c159
 
 }

@@ -6,12 +6,20 @@ import javax.annotation.Nullable;
 
 import br.com.caelum.brutal.auth.rules.MinimumKarmaRule;
 import br.com.caelum.brutal.auth.rules.ModeratorRule;
+<<<<<<< HEAD
 import br.com.caelum.brutal.brutauth.auth.rules.SimpleBrutauthRule;
+=======
+import br.com.caelum.brutal.brutauth.auth.rules.BrutauthRule;
+>>>>>>> 255f1e479d9e262cc07cbd1ffc7ecc0bdfc3c159
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
+<<<<<<< HEAD
 public class ModeratorOrKarmaRule implements SimpleBrutauthRule {
+=======
+public class ModeratorOrKarmaRule implements BrutauthRule {
+>>>>>>> 255f1e479d9e262cc07cbd1ffc7ecc0bdfc3c159
 	
 	private User user;
 
