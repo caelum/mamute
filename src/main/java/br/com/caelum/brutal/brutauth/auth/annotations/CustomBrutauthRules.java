@@ -1,4 +1,4 @@
-package br.com.caelum.brutal.brutauth.rules;
+package br.com.caelum.brutal.brutauth.auth.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -1,11 +1,14 @@
 package br.com.caelum.brutal.brutauth.rules;
 
-import br.com.caelum.brutal.brutauth.auth.rules.BrutauthRule;
+import br.com.caelum.brutal.brutauth.auth.annotations.HandledBy;
+import br.com.caelum.brutal.brutauth.auth.handlers.ToLoginHandler;
+import br.com.caelum.brutal.brutauth.auth.rules.SimpleBrutauthRule;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
-public class LoggedRule implements BrutauthRule {
+@HandledBy(ToLoginHandler.class)
+public class LoggedRule implements SimpleBrutauthRule {
 	
 	private LoggedUser loggedUser;
 

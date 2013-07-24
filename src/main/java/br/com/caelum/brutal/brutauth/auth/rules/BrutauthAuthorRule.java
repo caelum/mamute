@@ -2,11 +2,14 @@ package br.com.caelum.brutal.brutauth.auth.rules;
 
 import javax.annotation.Nullable;
 
+import br.com.caelum.brutal.brutauth.auth.annotations.HandledBy;
+import br.com.caelum.brutal.brutauth.auth.handlers.AccessNotPermitedHandler;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
+@HandledBy(AccessNotPermitedHandler.class)
 public class BrutauthAuthorRule implements CustomBrutauthRule {
 
 	private final User user;

@@ -2,10 +2,11 @@ package br.com.caelum.brutal.brutauth.auth;
 
 import br.com.caelum.brutal.auth.rules.ComposedRule;
 import br.com.caelum.brutal.auth.rules.PermissionRule;
+import br.com.caelum.brutal.brutauth.auth.rules.BrutauthRule;
 import br.com.caelum.brutal.brutauth.auth.rules.CustomBrutauthRule;
 import br.com.caelum.brutal.brutauth.reflection.DefaultMethodInvoker;
 
-public class BrutauthReflectionComposedRule {
+public class BrutauthReflectionComposedRule implements BrutauthRule {
 		
 		private CustomBrutauthRule current;
 		private final DefaultMethodInvoker invoker;
