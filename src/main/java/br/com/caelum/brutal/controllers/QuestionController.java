@@ -10,13 +10,10 @@ import br.com.caelum.brutal.auth.FacebookAuthService;
 import br.com.caelum.brutal.auth.LoggedAccess;
 import br.com.caelum.brutal.auth.rules.AuthorizationSystem;
 import br.com.caelum.brutal.auth.rules.Rules;
-<<<<<<< HEAD
-=======
 import br.com.caelum.brutal.brutauth.SimpleBrutauthRule;
 import br.com.caelum.brutal.brutauth.auth.rules.BrutauthAuthorRule;
 import br.com.caelum.brutal.brutauth.auth.rules.BrutauthModeratorRule;
 import br.com.caelum.brutal.brutauth.rules.CustomBrutauthRules;
->>>>>>> melhorando nome das classes para extrair
 import br.com.caelum.brutal.brutauth.rules.LoggedRule;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.ReputationEventDAO;
@@ -27,6 +24,7 @@ import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.interceptors.IncludeAllTags;
 import br.com.caelum.brutal.model.EventType;
 import br.com.caelum.brutal.model.LoggedUser;
+import br.com.caelum.brutal.model.PostViewCounter;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.ReputationEvent;
@@ -122,10 +120,7 @@ public class QuestionController {
 	}
 	
 	@Get("/{question.id:[0-9]+}-{sluggedTitle}")
-<<<<<<< HEAD
-=======
 	@CustomBrutauthRules({BrutauthAuthorRule.class, BrutauthModeratorRule.class})
->>>>>>> melhorando nome das classes para extrair
 	public void showQuestion(@Load Question question, String sluggedTitle){
 		User current = currentUser.getCurrent();
 		if (question.isVisibleFor(current)){
