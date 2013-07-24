@@ -403,14 +403,9 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 	}
 
 	public String getMetaDescription() {
-		String title = getTitle();
-		int index = title.length() < 15 ? title.length() : 15;
-		String shortTitle = getTitle().substring(0, index);
-		
-		String markedDescription = getMarkedDescription();
-		index = markedDescription.length() < 200 ? markedDescription.length() : 200;
-		markedDescription = markedDescription.substring(0, index);
-		return shortTitle + " " + markedDescription;
+		String fullMeta = getTitle() + " " + getMarkedDescription();
+		int index = Math.min(fullMeta.length(), 200);
+		return fullMeta.substring(0, index-1);
 	}
 
 	public String getLinkPath() {
