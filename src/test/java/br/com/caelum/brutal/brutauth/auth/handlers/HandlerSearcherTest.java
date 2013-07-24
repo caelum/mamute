@@ -41,10 +41,6 @@ public class HandlerSearcherTest {
 	@Test
 	public void should_get_specific_handler() {
 		RuleWithSpecificHandlers rule = new RuleWithSpecificHandlers();
-		Annotation[] annotations = rule.getClass().getAnnotations();
-		for (Annotation annotation : annotations) {
-			System.out.println(annotation);
-		}
 		assertEquals(specificHandler, handlerSearcher.getHandler(rule));
 	}
 
