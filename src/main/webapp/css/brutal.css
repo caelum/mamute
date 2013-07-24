@@ -979,11 +979,11 @@ a.button.ask-a-question:hover{
 }
 
 .first-content {
-	width: 70%;
+	width: 75%;
 }
 
 .sidebar {
-	width: 30%;
+	width: 25%;
 	padding-left: 3.5em;
 	clear: right;
 }

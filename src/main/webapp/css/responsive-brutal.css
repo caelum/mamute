@@ -21,6 +21,14 @@
 	.modal-flag textarea {
 		width: 88%;
 	}
+	
+	.sidebar{
+		width: 30%;
+	}
+	
+	.first-content {
+		width: 70%;
+	}
 }
 
 @media only screen and (max-width: 1100px) {
@@ -28,7 +36,7 @@
 		width: 22%;
 	}
 	.sidebar{
-		width: 40%;
+		width: 35%;
 	}
 	.question-information {
 		width: 20%;
@@ -37,7 +45,7 @@
 		width: 80%;
 	}
 	.first-content {
-		width: 60%;
+		width: 65%;
 	}
 }
 
