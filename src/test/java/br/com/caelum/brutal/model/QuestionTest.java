@@ -187,14 +187,14 @@ public class QuestionTest  extends TestCase{
 	}
 	
 	@Test
-	public void shouldTrimBigMeta() throws Exception {
+	public void should_trim_big_meta() throws Exception {
 		String title = bigString('a', 100);
 		String description = bigString('b', 10000);
 		Question q = question
 				.withTitle(title)
 				.withDescription(description)
 				.build();
-		assertFalse(q.getMetaDescription().contains(title));
+		assertTrue(q.getMetaDescription().contains(title));
 		assertFalse(q.getMetaDescription().contains(description));
 	}
 
