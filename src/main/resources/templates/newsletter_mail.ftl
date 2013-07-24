@@ -12,7 +12,7 @@
 		<tr>
 	        <td style="border-bottom: 1px solid #222; padding-bottom: 10px">
 	        	<img src="http://www.guj.com.br/imgs/guj-mail-logo.png">
-	        	<h1 style="${mainTitleStyle}">${l10n.getMessage("newsletter_mail")}</h1>
+	        	<h1 style="${mainTitleStyle}">${l10n.getMessage("newsletter_mail", [siteName])}</h1>
         	</td>
 		</tr>
 	
@@ -23,7 +23,7 @@
 		<#list hotQuestions as question>
 			<tr>
 				<td style="${questionStyle}">
-					<h3><a style="${linkStyle}" href="${linkToHelper.questionLink(question)}">${question.title}</a></h3>
+					<h3><a style="${linkStyle}" href="${linkToHelper.mainThreadLink(question)}">${question.title}</a></h3>
 					<p>
 	                    <#list question.getTags() as tag>
 							<span><a style="${tagStyle}" href="${linkToHelper.tagLink(tag)}">${tag.name}</a></span>
@@ -39,7 +39,7 @@
 		<#list unansweredQuestions as question>
 			<tr>
 				<td style="${questionStyle}">
-					<h3><a style="${linkStyle}" href="${linkToHelper.questionLink(question)}">${question.title}</a></h3>
+					<h3><a style="${linkStyle}" href="${linkToHelper.mainThreadLink(question)}">${question.title}</a></h3>
 					<p>
 	                    <#list question.getTags() as tag>
 							<span><a style="${tagStyle}" href="${linkToHelper.tagLink(tag)}">${tag.name}</a></span>
@@ -50,7 +50,7 @@
 			</tr>
 		</#list>
 		<tr>
-			<td><a href="${unsubscribeLink}" style="display:block; color: #aaa; font-size: 10px;text-decoration:none; text-align: right; margin-top: 5em;">${l10n.getMessage("newsletter_mail.unsubscribe")}</a></td>
+			<td><a href="${unsubscribeLink}" style="display:block; color: #aaa; font-size: 10px;text-decoration:none; text-align: right; margin-top: 5em;">${l10n.getMessage("newsletter_mail.unsubscribe", [siteName])}</a></td>
 		<tr>
 	</table>
 </body>

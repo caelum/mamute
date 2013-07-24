@@ -20,6 +20,7 @@ import br.com.caelum.brutal.notification.NotificationMailer.LinkToHelper;
 import br.com.caelum.brutal.vraptor.Linker;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.core.Localization;
+import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.simplemail.Mailer;
 import br.com.caelum.vraptor.simplemail.template.TemplateMailer;
@@ -35,16 +36,18 @@ public class NewsletterMailer {
 	private static final Logger LOG = Logger.getLogger(ModeratorsNewsletterJob.class);
 	private Localization localization;
 	private NewsDAO news;
+	private final Environment env;
 
 	public NewsletterMailer(QuestionDAO questions, Result result, 
 			Mailer mailer, TemplateMailer templates, 
-			UserDAO users, Linker linker, Localization localization, NewsDAO news) {
+			UserDAO users, Linker linker, Localization localization, NewsDAO news, Environment env) {
 		this.questions = questions;
 		this.mailer = mailer;
 		this.templates = templates;
 		this.linker = linker;
 		this.localization = localization;
 		this.news = news;
+		this.env = env;
 	}
 
 	public void sendTo(ScrollableResults results) {
@@ -67,6 +70,7 @@ public class NewsletterMailer {
 						.with("linkToHelper", linkToHelper)
 						.with("l10n", localization)
 						.with("sanitizer", POLICY)
+						.with("siteName", env.get("vraptor.simplemail.main.from.name"))
 						.to(user.getName(), user.getEmail());
 				mailer.send(email);
 			} catch (Exception e) {
