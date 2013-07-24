@@ -9,8 +9,10 @@ import org.joda.time.DateTime;
 import org.owasp.html.HtmlPolicyBuilder;
 import org.owasp.html.PolicyFactory;
 
+import br.com.caelum.brutal.dao.NewsDAO;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.UserDAO;
+import br.com.caelum.brutal.model.News;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.notification.NotificationMailer;
@@ -32,21 +34,23 @@ public class NewsletterMailer {
 	private static final PolicyFactory POLICY = new HtmlPolicyBuilder().toFactory();
 	private static final Logger LOG = Logger.getLogger(ModeratorsNewsletterJob.class);
 	private Localization localization;
+	private NewsDAO news;
 
 	public NewsletterMailer(QuestionDAO questions, Result result, 
 			Mailer mailer, TemplateMailer templates, 
-			UserDAO users, Linker linker, Localization localization) {
+			UserDAO users, Linker linker, Localization localization, NewsDAO news) {
 		this.questions = questions;
 		this.mailer = mailer;
 		this.templates = templates;
 		this.linker = linker;
 		this.localization = localization;
+		this.news = news;
 	}
 
 	public void sendTo(ScrollableResults results) {
 		DateTime pastWeek = new DateTime().minusWeeks(1);
 		DateTime twelveHoursAgo = new DateTime().minusHours(12);
-		
+		List<News> hotNews = news.hotNews(pastWeek);
 		List<Question> hotQuestions = questions.hot(pastWeek, 8);
 		List<Question> unanswered = questions.randomUnanswered(pastWeek, twelveHoursAgo, 8);
 		LinkToHelper linkToHelper = new NotificationMailer.LinkToHelper(linker);
@@ -55,6 +59,7 @@ public class NewsletterMailer {
 			User user = (User) results.get()[0];
 			try {
 				Email email = templates.template("newsletter_mail")
+						.with("hotNews", hotNews)
 						.with("hotQuestions", hotQuestions)
 						.with("unansweredQuestions", unanswered)
 						.with("unansweredQuestions", unanswered)

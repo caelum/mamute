@@ -12,6 +12,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
+import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.dao.WithUserPaginatedDAO.OrderType;
 import br.com.caelum.brutal.dao.WithUserPaginatedDAO.UserRole;
@@ -126,5 +127,11 @@ public class NewsDAO implements PaginatableDAO  {
 	public List<RssContent> orderedByCreationDate(int maxResults) {
 		Query query = session.createQuery("select news from News news order by news.createdAt desc");
 		return query.setMaxResults(maxResults).list();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<News> hotNews(DateTime since) {
+		Query query = session.createQuery("select news from News news where news.createdAt > :since order by news.voteCount desc");
+		return query.setParameter("since", since).setMaxResults(5).list();
 	}
 }
