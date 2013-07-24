@@ -42,6 +42,8 @@ import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.util.hibernate.extra.Load;
 import br.com.caelum.vraptor.view.Results;
 
+
+
 @Resource
 public class QuestionController {
 
