@@ -60,7 +60,7 @@ public class GlobalInterceptor implements Interceptor {
 		result.include("currentUrl", getCurrentUrl());
 		result.include("contextPath", req.getContextPath());
 		result.include("deployTimestamp", deployTimestamp());
-		result.include("sidebarNews", newses.allVisibleAndApproved(3));
+		result.include("sidebarNews", newses.allVisibleAndApproved(5));
 		result.include("recentTags", recentTagsContainer.getRecentTagsUsage());
 		result.on(NotFoundException.class).notFound();
 		

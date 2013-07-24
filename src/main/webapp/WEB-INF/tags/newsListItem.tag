@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@attribute name="news" type="br.com.caelum.brutal.model.News" required="true" %>
 <c:if test="${news.approved || currentUser.moderator}">
-	<li class="post-item ${news.approved ? '' : 'post-under-review'} ${news.isVisibleForModeratorAndNotAuthor(currentUser.current) ? 'highlight-post' : '' }">
+	<li class="post-item news-big-items ${news.approved ? '' : 'post-under-review'} ${news.isVisibleForModeratorAndNotAuthor(currentUser.current) ? 'highlight-post' : '' }">
 		<div class="post-information news-information">
 			<tags:postItemInformation key="post.list.vote" count="${news.voteCount}" information="votes" htmlClass="news-info"/>
 		</div>
@@ -13,8 +13,11 @@
 				<h3 class="title item-title">
 					<a href="${linkTo[NewsController].showNews[news][news.sluggedTitle]}">${news.title}</a>
 				</h3>
-				<div class="views">
+				<div class="post-simple-information">
 					${news.views} <tags:pluralize key="post.list.view" count="${news.views}"/>
+				</div>
+				<div class="comments post-simple-information">
+					${news.getVisibleCommentsFor(currentUser.current).size()} <tags:pluralize key="post.list.comment" count="${news.getVisibleCommentsFor(currentUser.current).size()}"/>
 				</div>
 			</div>
 			<tags:lastTouchFor touchable="${news}"/>

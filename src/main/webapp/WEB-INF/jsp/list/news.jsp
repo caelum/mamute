@@ -10,7 +10,7 @@
 		</a>
 	</h2>
 	<c:if test="${not empty newses}">
-		<ol>
+		<ol class="news-list">
 			<c:forEach var="news" items="${newses}">
 				<tags:newsListItem news="${news}"/>
 			</c:forEach>

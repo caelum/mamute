@@ -1069,7 +1069,7 @@ a.button.ask-a-question:hover{
 	color: #504355;
 }
 
-.views {
+.post-simple-information {
 	display: inline-block;
 	padding: 2px 0;
 	margin-left: 1em;
@@ -1100,7 +1100,8 @@ a.button.ask-a-question:hover{
 }
 
 .news-information{
-	width: 10%; 
+	width: 10%;
+	margin-top: 2%;  
 }
 
 .news-summary{
@@ -1117,6 +1118,10 @@ a.button.ask-a-question:hover{
 
 .news-aside-list-header {
 	margin-top: 10px;
+}
+
+.news-title {
+	display: inline;
 }
 
 .other-news {
@@ -1140,6 +1145,18 @@ a.button.ask-a-question:hover{
 
 .news-list {
 	margin-bottom: 0.5em;
+	overflow: hidden;
+}
+
+.news-big-items{
+	float: left;
+	height: 7em;
+	width: 50%;
+	padding: 1.5em 2%;
+}
+
+.news-big-items:nth-child(2n+2){
+	border-left: 1px solid #EAEAEA;
 }
 
 .item-title.news-title {
