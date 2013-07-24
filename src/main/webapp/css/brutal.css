@@ -1100,7 +1100,8 @@ a.button.ask-a-question:hover{
 }
 
 .news-information{
-	width: 10%; 
+	width: 10%;
+	margin-top: 2%;  
 }
 
 .news-summary{
@@ -1144,6 +1145,18 @@ a.button.ask-a-question:hover{
 
 .news-list {
 	margin-bottom: 0.5em;
+	overflow: hidden;
+}
+
+.news-big-items{
+	float: left;
+	height: 7em;
+	width: 50%;
+	padding: 1.5em 2%;
+}
+
+.news-big-items:nth-child(2n+2){
+	border-left: 1px solid #EAEAEA;
 }
 
 .item-title.news-title {
