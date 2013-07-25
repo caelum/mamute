@@ -568,10 +568,10 @@ textarea {
 
 .answer-form > .hint {
 	position: absolute;
-	left: 101%;
-	width: 295px;
+	left: 102%;
+	width: 31%;
 	top: 45px;
-	box-shadow: 0 0 15px 2px;
+	box-shadow: 0 0 5px 1px;
 }
 
 .submit[disabled=disabled] {
