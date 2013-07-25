@@ -8,12 +8,9 @@ import java.util.List;
 
 import br.com.caelum.brutal.auth.FacebookAuthService;
 import br.com.caelum.brutal.auth.LoggedAccess;
-import br.com.caelum.brutal.auth.rules.AuthorizationSystem;
-import br.com.caelum.brutal.auth.rules.Rules;
+import br.com.caelum.brutal.auth.rules.EditQuestionRule;
 import br.com.caelum.brutal.brutauth.auth.annotations.CustomBrutauthRules;
 import br.com.caelum.brutal.brutauth.auth.annotations.SimpleBrutauthRules;
-import br.com.caelum.brutal.brutauth.auth.rules.BrutauthAuthorRule;
-import br.com.caelum.brutal.brutauth.auth.rules.BrutauthModeratorRule;
 import br.com.caelum.brutal.brutauth.rules.LoggedRule;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.ReputationEventDAO;
@@ -54,7 +51,6 @@ public class QuestionController {
 	private final LoggedUser currentUser;
 	private final TagsValidator tagsValidator;
 	private final MessageFactory messageFactory;
-	private final AuthorizationSystem authorizationSystem;
 	private final Validator validator;
 	private final FacebookAuthService facebook;
 	private final PostViewCounter viewCounter;
@@ -65,8 +61,8 @@ public class QuestionController {
 	public QuestionController(Result result, QuestionDAO questionDAO, TagDAO tags, 
 			VoteDAO votes, LoggedUser currentUser, FacebookAuthService facebook,
 			TagsValidator tagsValidator, MessageFactory messageFactory,
-			AuthorizationSystem authorizationSystem, Validator validator, 
-			PostViewCounter viewCounter, Linker linker, WatcherDAO watchers, 
+			Validator validator, PostViewCounter viewCounter,
+			Linker linker, WatcherDAO watchers, 
 			ReputationEventDAO reputationEvents) {
 		this.result = result;
 		this.questions = questionDAO;
@@ -76,7 +72,6 @@ public class QuestionController {
 		this.facebook = facebook;
 		this.tagsValidator = tagsValidator;
 		this.messageFactory = messageFactory;
-		this.authorizationSystem = authorizationSystem;
 		this.validator = validator;
 		this.viewCounter = viewCounter;
 		this.linker = linker;
@@ -90,20 +85,16 @@ public class QuestionController {
 	public void questionForm() {
 	}
 	
-	@Get("/pergunta/editar/{questionId}")
+	@Get("/pergunta/editar/{question.id}")
 	@IncludeAllTags
-	public void questionEditForm(Long questionId) {
-		Question question = questions.getById(questionId);
-		authorizationSystem.authorize(question, Rules.EDIT_QUESTION);
-		
-		result.include("question",  questions.getById(questionId));
+	@CustomBrutauthRules(EditQuestionRule.class)
+	public void questionEditForm(@Load Question question) {
+		result.include("question",  question);
 	}
 
-	@Post("/pergunta/editar/{id}")
-	public void edit(Long id, String title, String description, String tagNames, String comment) {
-		Question original = questions.getById(id);
-		authorizationSystem.authorize(original, Rules.EDIT_QUESTION);
-		
+	@Post("/pergunta/editar/{original.id}")
+	@CustomBrutauthRules(EditQuestionRule.class)
+	public void edit(@Load Question original, String title, String description, String tagNames, String comment) {
 		List<String> splitedTags = splitTags(tagNames);
 		List<Tag> loadedTags = tags.findAllDistinct(splitedTags);
 		QuestionInformation information = new QuestionInformation(title, description, this.currentUser, loadedTags, comment);
@@ -113,7 +104,7 @@ public class QuestionController {
 		result.include("question", original);
 		validator.validate(information);
 		validate(loadedTags, splitedTags);
-		validator.onErrorUse(Results.page()).of(this.getClass()).questionEditForm(id);
+		validator.onErrorUse(Results.page()).of(this.getClass()).questionEditForm(original);
 		
 		questions.save(original);
 		result.include("messages",
@@ -122,7 +113,6 @@ public class QuestionController {
 	}
 	
 	@Get("/{question.id:[0-9]+}-{sluggedTitle}")
-	@CustomBrutauthRules({BrutauthAuthorRule.class, BrutauthModeratorRule.class})
 	public void showQuestion(@Load Question question, String sluggedTitle){
 		User current = currentUser.getCurrent();
 		if (question.isVisibleFor(current)){

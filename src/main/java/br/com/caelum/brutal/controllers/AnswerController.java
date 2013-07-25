@@ -3,12 +3,14 @@ package br.com.caelum.brutal.controllers;
 import java.util.Arrays;
 
 import br.com.caelum.brutal.auth.LoggedAccess;
-import br.com.caelum.brutal.auth.rules.AuthorizationSystem;
-import br.com.caelum.brutal.auth.rules.Rules;
+import br.com.caelum.brutal.auth.rules.EditAnswerRule;
+import br.com.caelum.brutal.auth.rules.EditQuestionRule;
+import br.com.caelum.brutal.brutauth.auth.annotations.CustomBrutauthRules;
 import br.com.caelum.brutal.dao.AnswerDAO;
 import br.com.caelum.brutal.dao.ReputationEventDAO;
 import br.com.caelum.brutal.dao.WatcherDAO;
 import br.com.caelum.brutal.factory.MessageFactory;
+import br.com.caelum.brutal.interceptors.IncludeAllTags;
 import br.com.caelum.brutal.mail.action.EmailAction;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.AnswerInformation;
@@ -39,7 +41,6 @@ public class AnswerController {
 	private final Localization localization;
     private final KarmaCalculator calculator;
 	private final MessageFactory messageFactory;
-	private final AuthorizationSystem authorizationSystem;
 	private final Validator validator;
 	private final AnsweredByValidator answeredByValidator;
 	private final NotificationManager notificationManager;
@@ -49,8 +50,8 @@ public class AnswerController {
 	public AnswerController(Result result, AnswerDAO dao, 
 			LoggedUser user, Localization localization,
 	        KarmaCalculator calculator, MessageFactory messageFactory, 
-	        AuthorizationSystem authorizationSystem, Validator validator,
-	        AnsweredByValidator answeredByValidator, NotificationManager notificationManager,
+	        Validator validator, AnsweredByValidator answeredByValidator,
+	        NotificationManager notificationManager,
 	        WatcherDAO watchers, ReputationEventDAO reputationEvents) {
 		this.result = result;
 		this.answers = dao;
@@ -58,7 +59,6 @@ public class AnswerController {
 		this.localization = localization;
         this.calculator = calculator;
 		this.messageFactory = messageFactory;
-		this.authorizationSystem = authorizationSystem;
 		this.validator = validator;
 		this.answeredByValidator = answeredByValidator;
 		this.notificationManager = notificationManager;
@@ -67,23 +67,20 @@ public class AnswerController {
 	}
 
 
-	@Get("/resposta/editar/{id}")
-	public void answerEditForm(Long id) {
-		Answer answer = answers.getById(id);
-		authorizationSystem.authorize(answer, Rules.EDIT_ANSWER);
-		
+	@Get("/resposta/editar/{answer.id}")
+	@CustomBrutauthRules(EditAnswerRule.class)
+	public void answerEditForm(Answer answer) {
 		result.include("answer",  answer);
 	}
 
-	@Post("/resposta/editar/{id}")
-	public void edit(Long id, String description, String comment) {
-		Answer original = answers.getById(id);
-		authorizationSystem.authorize(original, Rules.EDIT_ANSWER);
+	@Post("/resposta/editar/{original.id}")
+	@CustomBrutauthRules(EditAnswerRule.class)
+	public void edit(@Load Answer original, String description, String comment) {
 		
 		AnswerInformation information = new AnswerInformation(description, currentUser, comment);
 
 		validator.validate(information);
-		validator.onErrorRedirectTo(this).answerEditForm(id);
+		validator.onErrorRedirectTo(this).answerEditForm(original);
 		
 		UpdateStatus status = original.updateWith(information);
 		answers.save(original);
