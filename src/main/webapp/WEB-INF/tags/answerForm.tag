@@ -29,10 +29,6 @@
 	</c:choose>
 	
 	<input class="post-submit big-submit submit" value="<fmt:message key="newanswer.answer.submit"/>" type="submit" />
-</form>
-
-
-<div class="form-hints">
 	<div id="newanswer-answer-hint" class="hint">
 		<c:choose> 
 			<c:when test='${sameAuthor}'>
@@ -49,4 +45,4 @@
 			<p><fmt:message key="edit_form.comment.hint"/></p>
 		</div>
 	</c:if>
-</div>
+</form>

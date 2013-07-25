@@ -163,23 +163,19 @@ a:hover{
 
 .form-hints {
 	width: 35%;
+	margin-left: 1%;
 	margin-top: 32px;
 	float: left;
 }
 
 .hint {
 	display: none;
-	float: right;
 }
 .hint, .guideline {
 	background-color: #FFEFC6;
 	border-radius: 5px;
 	padding: .6em;
 	color: #735005;
-}
-
-.form-hints .hint{
-	width: 95%;
 }
 
 .hint-tips .hint-tip, .question-warnings .hint-tip {
@@ -563,7 +559,7 @@ textarea {
 
 .hinted-form {
 	float: left;
-	width: 65%;
+	width: 64%;
 }
 
 .answer-form.hinted-form{
