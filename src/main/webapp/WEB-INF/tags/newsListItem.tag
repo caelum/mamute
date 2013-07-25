@@ -20,7 +20,7 @@
 					${news.getVisibleCommentsFor(currentUser.current).size()} <tags:pluralize key="post.list.comment" count="${news.getVisibleCommentsFor(currentUser.current).size()}"/>
 				</div>
 			</div>
-			<tags:lastTouchFor touchable="${news}"/>
+			<tags:lastTouchFor touchable="${news}" prettyFormat="${false}"/>
 		</div>		
 		<c:if test="${not news.approved && currentUser.moderator}">
 			<a class="approve-news" href="${linkTo[NewsController].approve[news]}"><fmt:message key="news.approve"/></a>
