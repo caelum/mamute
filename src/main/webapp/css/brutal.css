@@ -1551,6 +1551,7 @@ a.button.ask-a-question:hover{
 	background-color: #fefbb7;
 	padding:1.2em;
 	border-radius:5px;
+	clear: both;
 }
 
 .not-enough-karma {
