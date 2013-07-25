@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import br.com.caelum.brutal.brutauth.auth.annotations.CustomBrutauthRules;
 import br.com.caelum.brutal.brutauth.auth.rules.EditAnswerRule;
-import br.com.caelum.brutal.brutauth.rules.LoggedRule;
+import br.com.caelum.brutal.brutauth.auth.rules.LoggedRule;
 import br.com.caelum.brutal.dao.AnswerDAO;
 import br.com.caelum.brutal.dao.ReputationEventDAO;
 import br.com.caelum.brutal.dao.WatcherDAO;

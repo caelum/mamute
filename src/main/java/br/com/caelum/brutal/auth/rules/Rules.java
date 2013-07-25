@@ -8,7 +8,7 @@ public class Rules{
 		return moderatorRule;
 	}
 
-	public static PermissionRule<Moderatable> hasKarma(int karmaRequired) {
+	public static PermissionRule<Moderatable> hasKarma(long karmaRequired) {
 		PermissionRule<Moderatable> hasEnoughKarma = new MinimumKarmaRule<>(karmaRequired);
 		return hasEnoughKarma;
 	}

@@ -9,7 +9,7 @@ import java.util.List;
 import br.com.caelum.brutal.auth.FacebookAuthService;
 import br.com.caelum.brutal.brutauth.auth.annotations.CustomBrutauthRules;
 import br.com.caelum.brutal.brutauth.auth.rules.EditQuestionRule;
-import br.com.caelum.brutal.brutauth.rules.LoggedRule;
+import br.com.caelum.brutal.brutauth.auth.rules.LoggedRule;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.ReputationEventDAO;
 import br.com.caelum.brutal.dao.TagDAO;

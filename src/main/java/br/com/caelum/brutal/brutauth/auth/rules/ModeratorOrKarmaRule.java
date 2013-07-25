@@ -1,12 +1,11 @@
-package br.com.caelum.brutal.brutauth.rules;
+package br.com.caelum.brutal.brutauth.auth.rules;
 
 import static br.com.caelum.brutal.auth.rules.ComposedRule.composedRule;
+import static br.com.caelum.brutal.auth.rules.Rules.hasKarma;
+import static br.com.caelum.brutal.auth.rules.Rules.isModerator;
 
 import javax.annotation.Nullable;
 
-import br.com.caelum.brutal.auth.rules.MinimumKarmaRule;
-import br.com.caelum.brutal.auth.rules.ModeratorRule;
-import br.com.caelum.brutal.brutauth.auth.rules.SimpleBrutauthRule;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.ioc.Component;
 
@@ -22,11 +21,7 @@ public class ModeratorOrKarmaRule implements SimpleBrutauthRule {
 	@Override
 	public boolean isAllowed(long accessLevel) {
 		long karma = accessLevel;
-		
-		MinimumKarmaRule<Void> hasEnoughKarma = new MinimumKarmaRule<>(karma);
-    	ModeratorRule<Void> isModerator = new ModeratorRule<>();
-
-    	return composedRule(isModerator).or(hasEnoughKarma).isAllowed(user, null); 
+    	return composedRule(isModerator()).or(hasKarma(karma)).isAllowed(user, null); 
 	}
 
 }

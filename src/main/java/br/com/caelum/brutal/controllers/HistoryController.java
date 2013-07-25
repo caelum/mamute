@@ -9,7 +9,7 @@ import javax.annotation.Nullable;
 import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.brutauth.AccessLevel;
 import br.com.caelum.brutal.brutauth.auth.annotations.SimpleBrutauthRules;
-import br.com.caelum.brutal.brutauth.rules.ModeratorOrKarmaRule;
+import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOrKarmaRule;
 import br.com.caelum.brutal.dao.InformationDAO;
 import br.com.caelum.brutal.dao.ModeratableDao;
 import br.com.caelum.brutal.dao.ReputationEventDAO;

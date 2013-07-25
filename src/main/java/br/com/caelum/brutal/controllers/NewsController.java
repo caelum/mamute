@@ -2,8 +2,8 @@ package br.com.caelum.brutal.controllers;
 
 import br.com.caelum.brutal.brutauth.auth.annotations.CustomBrutauthRules;
 import br.com.caelum.brutal.brutauth.auth.rules.EditNewsRule;
+import br.com.caelum.brutal.brutauth.auth.rules.LoggedRule;
 import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOnlyRule;
-import br.com.caelum.brutal.brutauth.rules.LoggedRule;
 import br.com.caelum.brutal.dao.NewsDAO;
 import br.com.caelum.brutal.dao.VoteDAO;
 import br.com.caelum.brutal.dao.WatcherDAO;

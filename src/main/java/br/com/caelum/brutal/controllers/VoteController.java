@@ -5,7 +5,7 @@ import static br.com.caelum.vraptor.view.Results.json;
 import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.brutauth.AccessLevel;
 import br.com.caelum.brutal.brutauth.auth.annotations.SimpleBrutauthRules;
-import br.com.caelum.brutal.brutauth.rules.ModeratorOrKarmaRule;
+import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOrKarmaRule;
 import br.com.caelum.brutal.dao.VoteDAO;
 import br.com.caelum.brutal.infra.ModelUrlMapping;
 import br.com.caelum.brutal.model.User;

@@ -9,7 +9,7 @@ import br.com.caelum.brutal.brutauth.AccessLevel;
 import br.com.caelum.brutal.brutauth.auth.annotations.CustomBrutauthRules;
 import br.com.caelum.brutal.brutauth.auth.annotations.SimpleBrutauthRules;
 import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOnlyRule;
-import br.com.caelum.brutal.brutauth.rules.ModeratorOrKarmaRule;
+import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOrKarmaRule;
 import br.com.caelum.brutal.dao.CommentDAO;
 import br.com.caelum.brutal.dao.FlagDao;
 import br.com.caelum.brutal.dao.FlaggableDAO;

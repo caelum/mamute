@@ -1,19 +1,23 @@
 package br.com.caelum.brutal.brutauth.auth.rules;
 
-import br.com.caelum.brutal.model.LoggedUser;
+import static br.com.caelum.brutal.auth.rules.Rules.isModerator;
+
+import javax.annotation.Nullable;
+
+import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class ModeratorOnlyRule implements CustomBrutauthRule{
 	
-	private final LoggedUser user;
+	private final User user;
 
-	public ModeratorOnlyRule(LoggedUser user) {
+	public ModeratorOnlyRule(@Nullable User user) {
 		this.user = user;
 	}
 	
 	public boolean isAllowed(){
-		return user.isModerator();
+		return isModerator().isAllowed(user, null);
 	}
 	
 }

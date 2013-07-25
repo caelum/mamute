@@ -1,8 +1,7 @@
-package br.com.caelum.brutal.brutauth.rules;
+package br.com.caelum.brutal.brutauth.auth.rules;
 
 import br.com.caelum.brutal.brutauth.auth.annotations.HandledBy;
 import br.com.caelum.brutal.brutauth.auth.handlers.LoggedHandler;
-import br.com.caelum.brutal.brutauth.auth.rules.CustomBrutauthRule;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.vraptor.ioc.Component;
 
