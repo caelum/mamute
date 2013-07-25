@@ -562,8 +562,16 @@ textarea {
 	width: 64%;
 }
 
-.answer-form.hinted-form{
-	width: 60%;
+.answer-form {
+	position: relative;
+}
+
+.answer-form > .hint {
+	position: absolute;
+	left: 101%;
+	width: 295px;
+	top: 45px;
+	box-shadow: 0 0 15px 2px;
 }
 
 .submit[disabled=disabled] {
