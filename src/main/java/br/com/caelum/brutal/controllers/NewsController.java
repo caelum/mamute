@@ -2,6 +2,8 @@ package br.com.caelum.brutal.controllers;
 
 import br.com.caelum.brutal.auth.LoggedAccess;
 import br.com.caelum.brutal.auth.ModeratorOnly;
+import br.com.caelum.brutal.auth.rules.EditNewsRule;
+import br.com.caelum.brutal.brutauth.auth.annotations.CustomBrutauthRules;
 import br.com.caelum.brutal.dao.NewsDAO;
 import br.com.caelum.brutal.dao.VoteDAO;
 import br.com.caelum.brutal.dao.WatcherDAO;
@@ -56,14 +58,14 @@ public class NewsController {
 	}
 	
 	@Get("/noticia/editar/{news.id}")
+	@CustomBrutauthRules(EditNewsRule.class)
 	public void newsEditForm(@Load News news) {
-//		authorizationSystem.authorize(news, Rules.EDIT_NEWS);
 		result.include("news", news);
 	}
 	
 	@Post("/noticia/editar/{news.id}")
+	@CustomBrutauthRules(EditNewsRule.class)
 	public void saveEdit(@Load News news, String title, String description, String comment) {
-//		authorizationSystem.authorize(news, Rules.EDIT_NEWS);
 		Information newInformation = new NewsInformation(title, description, currentUser, comment);
 		news.enqueueChange(newInformation, UpdateStatus.NO_NEED_TO_APPROVE);
 		result.redirectTo(this).showNews(news, news.getSluggedTitle());
