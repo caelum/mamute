@@ -4,7 +4,8 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 
-import br.com.caelum.brutal.auth.ModeratorOnly;
+import br.com.caelum.brutal.brutauth.auth.annotations.CustomBrutauthRules;
+import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOnlyRule;
 import br.com.caelum.brutal.dao.ReputationEventDAO;
 import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.dao.VoteDAO;
@@ -38,11 +39,11 @@ public class AntiHackController {
 	}
 	
 	@Get("/antihack")
-	@ModeratorOnly
+	@CustomBrutauthRules(ModeratorOnlyRule.class)
 	public void massiveVotesForm() {}
 	
 	@Post("/antihack")
-	@ModeratorOnly
+	@CustomBrutauthRules(ModeratorOnlyRule.class)
 	public void showSuspects(DateTime begin, DateTime end, VoteType voteType) {
 		List<SuspectMassiveVote> suspects = votes.suspectMassiveVote(voteType, begin, end);
 		result.include("voteType", voteType.toString());
@@ -52,11 +53,11 @@ public class AntiHackController {
 	}
 	
 	@Get("/revert")
-	@ModeratorOnly
+	@CustomBrutauthRules(ModeratorOnlyRule.class)
 	public void revertMassiveVoteForm() {}
 	
 	@Post("/revert")
-	@ModeratorOnly
+	@CustomBrutauthRules(ModeratorOnlyRule.class)
 	public void revertMassiveVote(Integer karma, Long userId, VoteType voteType) {
 		User user = users.findById(userId);
 		int karmaToSubtract = karma;

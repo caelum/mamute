@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.com.caelum.brutal.brutauth.auth.rules.EditQuestionRule;
 import br.com.caelum.brutal.builder.QuestionBuilder;
 import br.com.caelum.brutal.dao.TestCase;
 import br.com.caelum.brutal.model.Question;

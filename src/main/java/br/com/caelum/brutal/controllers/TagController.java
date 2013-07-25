@@ -5,7 +5,8 @@ import static br.com.caelum.vraptor.view.Results.json;
 
 import java.util.List;
 
-import br.com.caelum.brutal.auth.ModeratorOrKarmaAccess;
+import br.com.caelum.brutal.brutauth.auth.annotations.CustomBrutauthRules;
+import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOnlyRule;
 import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.vraptor.Get;
@@ -31,7 +32,7 @@ public class TagController {
 	}
 	
 	@Post("/tags/as6nj8f8n4aju1w2nj3u1rn5a/{stringTags}")
-	@ModeratorOrKarmaAccess
+	@CustomBrutauthRules(ModeratorOnlyRule.class)
 	public void saveTags(String stringTags){
 		List<String> tagList = splitTags(stringTags);
 		for (String tag : tagList) {

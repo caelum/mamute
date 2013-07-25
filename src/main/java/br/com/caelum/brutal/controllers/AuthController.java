@@ -2,7 +2,8 @@ package br.com.caelum.brutal.controllers;
 
 import br.com.caelum.brutal.auth.DefaultAuthenticator;
 import br.com.caelum.brutal.auth.FacebookAuthService;
-import br.com.caelum.brutal.auth.LoggedAccess;
+import br.com.caelum.brutal.brutauth.auth.annotations.CustomBrutauthRules;
+import br.com.caelum.brutal.brutauth.rules.LoggedRule;
 import br.com.caelum.brutal.validators.UrlValidator;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
@@ -44,7 +45,7 @@ public class AuthController extends Controller {
 		}
 	}
 	
-	@LoggedAccess
+	@CustomBrutauthRules(LoggedRule.class)
 	@Get("/logout")
 	public void logout() {
 		auth.signout();

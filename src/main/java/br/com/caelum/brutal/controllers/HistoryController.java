@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import br.com.caelum.brutal.auth.ModeratorOrKarmaAccess;
 import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.brutauth.AccessLevel;
 import br.com.caelum.brutal.brutauth.auth.annotations.SimpleBrutauthRules;
@@ -54,13 +53,16 @@ public class HistoryController {
 		this.reputationEvents = reputationEvents;
 	}
 	
-	@ModeratorOrKarmaAccess(PermissionRulesConstants.MODERATE_EDITS)
+
+	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
+	@AccessLevel(PermissionRulesConstants.MODERATE_EDITS)
 	@Get("/historico")
 	public void history() {
 		result.redirectTo(this).unmoderated("pergunta");
 	}
 
-	@ModeratorOrKarmaAccess(PermissionRulesConstants.MODERATE_EDITS)
+	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
+	@AccessLevel(PermissionRulesConstants.MODERATE_EDITS)
 	@Get("/historico/{moderatableType}")
 	public void unmoderated(String moderatableType) {
 		try{
@@ -81,7 +83,9 @@ public class HistoryController {
 		similar("resposta", moderatableId);
 	}
 	
-	@ModeratorOrKarmaAccess(PermissionRulesConstants.MODERATE_EDITS)
+	
+	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
+	@AccessLevel(PermissionRulesConstants.MODERATE_EDITS)
 	@Get("/historico/pergunta/{moderatableId}/versoes")
 	public void similarQuestions(Long moderatableId) {
 		similar("pergunta", moderatableId);
@@ -95,7 +99,8 @@ public class HistoryController {
 		result.include("userMediumPhoto", true);
 	}
 
-	@ModeratorOrKarmaAccess(PermissionRulesConstants.MODERATE_EDITS)
+	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
+	@AccessLevel(PermissionRulesConstants.MODERATE_EDITS)
     @Post("/publicar/{moderatableType}")
     public void publish(Long moderatableId, String moderatableType, Long aprovedInformationId,  String aprovedInformationType) {
     	Class<?> moderatableClass = urlMapping.getClassFor(moderatableType);

@@ -2,9 +2,9 @@ package br.com.caelum.brutal.controllers;
 
 import java.util.Arrays;
 
-import br.com.caelum.brutal.auth.LoggedAccess;
-import br.com.caelum.brutal.auth.rules.EditAnswerRule;
 import br.com.caelum.brutal.brutauth.auth.annotations.CustomBrutauthRules;
+import br.com.caelum.brutal.brutauth.auth.rules.EditAnswerRule;
+import br.com.caelum.brutal.brutauth.rules.LoggedRule;
 import br.com.caelum.brutal.dao.AnswerDAO;
 import br.com.caelum.brutal.dao.ReputationEventDAO;
 import br.com.caelum.brutal.dao.WatcherDAO;
@@ -88,7 +88,7 @@ public class AnswerController {
 	}
 	
 	@Post("/responder/{question.id}")
-	@LoggedAccess
+	@CustomBrutauthRules(LoggedRule.class)
 	public void newAnswer(@Load Question question, String description, boolean watching) {
 		User current = currentUser.getCurrent();
 		boolean canAnswer = answeredByValidator.validate(question);

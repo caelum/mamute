@@ -2,8 +2,10 @@ package br.com.caelum.brutal.controllers;
 
 import static br.com.caelum.vraptor.view.Results.http;
 import static br.com.caelum.vraptor.view.Results.status;
-import br.com.caelum.brutal.auth.rules.MinimumReputation;
 import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
+import br.com.caelum.brutal.brutauth.AccessLevel;
+import br.com.caelum.brutal.brutauth.auth.annotations.SimpleBrutauthRules;
+import br.com.caelum.brutal.brutauth.rules.ModeratorOrKarmaRule;
 import br.com.caelum.brutal.dao.CommentDAO;
 import br.com.caelum.brutal.dao.WatcherDAO;
 import br.com.caelum.brutal.infra.ModelUrlMapping;
@@ -43,7 +45,8 @@ public class CommentController {
 		this.watchers = watchers;
 	}
 
-	@MinimumReputation(PermissionRulesConstants.CREATE_COMMENT)
+	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
+	@AccessLevel(PermissionRulesConstants.CREATE_COMMENT)
 	@Post("/{onWhat}/{id}/comentar")
 	public void comment(Long id, String onWhat, String comment, boolean watching) {
 		User current = currentUser.getCurrent();

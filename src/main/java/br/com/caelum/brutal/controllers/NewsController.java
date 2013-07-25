@@ -1,9 +1,9 @@
 package br.com.caelum.brutal.controllers;
 
-import br.com.caelum.brutal.auth.LoggedAccess;
-import br.com.caelum.brutal.auth.ModeratorOnly;
-import br.com.caelum.brutal.auth.rules.EditNewsRule;
 import br.com.caelum.brutal.brutauth.auth.annotations.CustomBrutauthRules;
+import br.com.caelum.brutal.brutauth.auth.rules.EditNewsRule;
+import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOnlyRule;
+import br.com.caelum.brutal.brutauth.rules.LoggedRule;
 import br.com.caelum.brutal.dao.NewsDAO;
 import br.com.caelum.brutal.dao.VoteDAO;
 import br.com.caelum.brutal.dao.WatcherDAO;
@@ -41,7 +41,7 @@ public class NewsController {
 	}
 	
 	@Post("/nova-noticia")
-	@LoggedAccess
+	@CustomBrutauthRules(LoggedRule.class)
 	public void newNews(String title, String description) {
 		NewsInformation information = new NewsInformation(title, description, currentUser, "new news");
 		User author = currentUser.getCurrent();
@@ -53,7 +53,7 @@ public class NewsController {
 	}
 	
 	@Get("/nova-noticia")
-	@LoggedAccess
+	@CustomBrutauthRules(LoggedRule.class)
 	public void newsForm() {
 	}
 	
@@ -87,7 +87,7 @@ public class NewsController {
 	}
 	
 	@Post("/noticias/aprovar/{news.id}")
-	@ModeratorOnly
+	@CustomBrutauthRules(ModeratorOnlyRule.class)
 	public void approve(@Load News news){
 		news.approved();
 		result.nothing();
