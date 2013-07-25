@@ -111,11 +111,17 @@
 		width: 80%;
 	}
 	
-	.answer-form > .hint {
+	.hinted-form.answer-form {
+		width: 100%;
+	}
+	
+	.answer-form > .hint,
+	.hinted-form.answer-form > .hint{
 		position: static;
 		width: 100%;
 		float: left;
 		box-shadow: none;
+		margin-bottom: 1em;
 	}
 }
 	

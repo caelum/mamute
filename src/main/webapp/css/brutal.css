@@ -574,6 +574,10 @@ textarea {
 	box-shadow: 0 0 5px 1px;
 }
 
+.hinted-form.answer-form > .hint {
+	width: 53%;
+}
+
 .submit[disabled=disabled] {
 	opacity: 0.5;
 	cursor: default;
@@ -604,13 +608,12 @@ textarea {
 }
 
 .form-watch {
-	float: right;
-	width: 45%;
+	display: inline;
 }
 
 .form-watch input[type="checkbox"] {
 	height: 1em;
-	width: 10%;
+	width: 1em;
 	vertical-align: middle;
 }
 
