@@ -1737,19 +1737,6 @@ a.button.ask-a-question:hover{
 
 /*EDIT VIA AJAX*/
 
-.comment .edit-via-ajax {
-	display: inline;
-	padding-left: 1%;
-}
-
-.edit-via-ajax .form-hints {
-	margin-top: 0px;
-}
-
-.edit-via-ajax span,.edit div {
-	display: none;
-}
-
 .pending-questions .pending {
 	border-bottom: 1px solid #eaeaea;
 	overflow: hidden;
