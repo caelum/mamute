@@ -18,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OrderColumn;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.BatchSize;
@@ -72,6 +73,7 @@ public class QuestionInformation implements Information, Taggable {
 	private Moderation moderation;
 
 	@BatchSize(size=25)
+	@OrderColumn(name = "tag_order")
 	@ManyToMany
 	@NotEmpty(message = "question.errors.tags.empty")
 	private List<Tag> tags;

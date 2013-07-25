@@ -61,12 +61,21 @@ public class TagDAO {
 		return query.list();
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<Tag> findAllDistinct(List<String> names) {
 		if (names.isEmpty())
 			return new ArrayList<Tag>();
-		Query query = session.createQuery("select distinct tag from Tag tag where tag.name in (:listNames)").setParameterList("listNames", names);
-		return query.list();
+		
+		ArrayList<Tag> tags = new ArrayList<>();
+		for (String name : names) {
+			Tag tag = (Tag) session.createQuery("from Tag where name=:name")
+					.setParameter("name", name)
+					.uniqueResult();
+			if (tag != null && !tags.contains(tag)) {
+				tags.add(tag);
+			}
+			
+		}
+		return tags;
 	}
 
 	@SuppressWarnings("unchecked")

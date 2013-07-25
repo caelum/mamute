@@ -122,6 +122,14 @@ public class TagDAOTest extends DatabaseTestCase{
 	}
 	
 	@Test
+	public void should_find_tags_ordered() throws Exception {
+		List<Tag> found = tags.findAllDistinct(asList("ruby", "java"));
+		assertEquals(2, found.size());
+		assertEquals("ruby", found.get(0).getName());
+		assertEquals("java", found.get(1).getName());
+	}
+	
+	@Test
 	public void should_not_repeat_tags() throws Exception {
 		List<Tag> found = tags.findAllDistinct(asList("java", "java", "ruby", "ruby"));
 		assertEquals(2, found.size());
