@@ -609,6 +609,7 @@ textarea {
 
 .form-watch {
 	display: inline;
+	margin-left: 2em;
 }
 
 .form-watch input[type="checkbox"] {
