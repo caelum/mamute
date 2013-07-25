@@ -4,13 +4,11 @@ import java.util.Arrays;
 
 import br.com.caelum.brutal.auth.LoggedAccess;
 import br.com.caelum.brutal.auth.rules.EditAnswerRule;
-import br.com.caelum.brutal.auth.rules.EditQuestionRule;
 import br.com.caelum.brutal.brutauth.auth.annotations.CustomBrutauthRules;
 import br.com.caelum.brutal.dao.AnswerDAO;
 import br.com.caelum.brutal.dao.ReputationEventDAO;
 import br.com.caelum.brutal.dao.WatcherDAO;
 import br.com.caelum.brutal.factory.MessageFactory;
-import br.com.caelum.brutal.interceptors.IncludeAllTags;
 import br.com.caelum.brutal.mail.action.EmailAction;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.AnswerInformation;
@@ -69,14 +67,13 @@ public class AnswerController {
 
 	@Get("/resposta/editar/{answer.id}")
 	@CustomBrutauthRules(EditAnswerRule.class)
-	public void answerEditForm(Answer answer) {
+	public void answerEditForm(@Load Answer answer) {
 		result.include("answer",  answer);
 	}
 
 	@Post("/resposta/editar/{original.id}")
 	@CustomBrutauthRules(EditAnswerRule.class)
 	public void edit(@Load Answer original, String description, String comment) {
-		
 		AnswerInformation information = new AnswerInformation(description, currentUser, comment);
 
 		validator.validate(information);

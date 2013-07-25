@@ -18,7 +18,7 @@
 					<a class="post-action edit requires-login requires-karma"
 							data-author="${currentUser.current.isAuthorOf(answer)}"
 							data-karma="${EDIT_ANSWER}" 
-							href="${linkTo[AnswerController].answerEditForm[answer.id]}"><fmt:message key="edit" /></a>
+							href="${linkTo[AnswerController].answerEditForm[answer]}"><fmt:message key="edit" /></a>
 				</li>
 				<li class="nav-item">
 					<c:if test="${currentUser.loggedIn && !answer.alreadyFlaggedBy(currentUser.current)}">
