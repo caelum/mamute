@@ -14,6 +14,8 @@ import br.com.caelum.brutal.dao.NewsDAO;
 import br.com.caelum.brutal.infra.MenuInfo;
 import br.com.caelum.brutal.infra.NotFoundException;
 import br.com.caelum.brutal.model.LoggedUser;
+import br.com.caelum.brutauth.interceptors.CustomBrutauthRuleInterceptor;
+import br.com.caelum.brutauth.interceptors.SimpleBrutauthRuleInterceptor;
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
 import br.com.caelum.vraptor.Result;
@@ -26,7 +28,7 @@ import br.com.caelum.vraptor.resource.ResourceMethod;
 import br.com.caelum.vraptor.util.hibernate.extra.ParameterLoaderInterceptor;
 
 @Component
-@Intercepts(before=ParameterLoaderInterceptor.class)
+@Intercepts(before={ParameterLoaderInterceptor.class, CustomBrutauthRuleInterceptor.class, SimpleBrutauthRuleInterceptor.class})
 public class GlobalInterceptor implements Interceptor {
 	
 	private final Environment env;
