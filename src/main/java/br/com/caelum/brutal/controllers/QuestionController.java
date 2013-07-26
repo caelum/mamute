@@ -16,7 +16,6 @@ import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.dao.VoteDAO;
 import br.com.caelum.brutal.dao.WatcherDAO;
 import br.com.caelum.brutal.factory.MessageFactory;
-import br.com.caelum.brutal.interceptors.IncludeAllTags;
 import br.com.caelum.brutal.model.EventType;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.PostViewCounter;
@@ -34,8 +33,11 @@ import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.serialization.xstream.XStreamBuilder;
 import br.com.caelum.vraptor.util.hibernate.extra.Load;
 import br.com.caelum.vraptor.view.Results;
+
+import com.thoughtworks.xstream.XStream;
 
 @Resource
 public class QuestionController {
@@ -54,13 +56,14 @@ public class QuestionController {
 	private Linker linker;
 	private final WatcherDAO watchers;
 	private final ReputationEventDAO reputationEvents;
+	private XStream json;
 
 	public QuestionController(Result result, QuestionDAO questionDAO, TagDAO tags, 
 			VoteDAO votes, LoggedUser currentUser, FacebookAuthService facebook,
 			TagsValidator tagsValidator, MessageFactory messageFactory,
 			AuthorizationSystem authorizationSystem, Validator validator, 
 			PostViewCounter viewCounter, Linker linker, WatcherDAO watchers, 
-			ReputationEventDAO reputationEvents) {
+			ReputationEventDAO reputationEvents, XStreamBuilder xstreamBuilder) {
 		this.result = result;
 		this.questions = questionDAO;
 		this.tags = tags;
@@ -75,21 +78,24 @@ public class QuestionController {
 		this.linker = linker;
 		this.watchers = watchers;
 		this.reputationEvents = reputationEvents;
+		this.json = xstreamBuilder.withoutRoot().jsonInstance();
 	}
 
 	@Get("/perguntar")
 	@LoggedAccess
-	@IncludeAllTags
 	public void questionForm() {
+		String allTags = json.toXML(tags.all());
+		result.include("allTags", allTags);
 	}
 	
 	@Get("/pergunta/editar/{questionId}")
-	@IncludeAllTags
 	public void questionEditForm(Long questionId) {
+		String allTags = json.toXML(tags.all());
 		Question question = questions.getById(questionId);
 		authorizationSystem.authorize(question, Rules.EDIT_QUESTION);
 		
 		result.include("question",  questions.getById(questionId));
+		result.include("allTags", allTags);
 	}
 
 	@Post("/pergunta/editar/{id}")
