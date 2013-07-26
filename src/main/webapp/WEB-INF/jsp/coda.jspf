@@ -12,7 +12,7 @@
 	var MODERATOR = ${currentUser.moderator};
 	var KARMA = ${currentUser.current.karma};
 	var CONTEXT_PATH = "${contextPath}";
-	var ALL_TAGS = ${allTags};
+	var ALL_TAGS = ${empty allTags ? '{}' : allTags};
 </script>
 
 	
