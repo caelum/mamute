@@ -16,7 +16,7 @@
 	<span>»</span>
 	<span typeof="v:Breadcrumb">
 		<a rel="v:url" property="v:title" href="${linkTo[QuestionController].showQuestion[question][question.title]}">
-			${question.title}
+			<c:out value="${question.title}" escapeXml="true"/>
 		</a>
 	</span>
 </div>
