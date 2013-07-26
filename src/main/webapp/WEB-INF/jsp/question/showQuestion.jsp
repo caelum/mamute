@@ -55,4 +55,4 @@
 		</div>
 	</c:if>
 </section>
-<tags:sideBar recentTags="${recentQuestionTags}" />
+<tags:sideBar recentTags="${recentQuestionTags}" relatedQuestions="${relatedQuestions}"/>

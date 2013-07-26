@@ -1090,11 +1090,35 @@ a.button.ask-a-question:hover{
 	margin-top: 6%;
 }
 
+.tags-usage {
+	margin-bottom: 1.5em;
+}
+
 .tags-usage .tags-item {
 	margin-bottom: .45em;
 	display: inline-block;
 	width: 49%;
 	margin-right: 0;
+}
+
+.related-questions li{
+	padding-bottom: 0.7em;
+	font-size: 1.1em;
+	height: 1.8em;
+	overflow: hidden;
+}
+
+.related-questions span {
+	background-color: #eaeaea;
+	padding: 0 0.5em;
+	font-size: 0.8em;
+	color: #555;
+	float: left;
+}
+
+.related-questions a {
+	float: right;
+	width: 87%;
 }
 
 /* NEWSES LIST */
@@ -1154,6 +1178,10 @@ a.button.ask-a-question:hover{
 .news-list {
 	margin-bottom: 0.5em;
 	overflow: hidden;
+}
+
+.news-item a {
+	font-family: Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif;
 }
 
 .news-big-items{
