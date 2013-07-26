@@ -5,6 +5,7 @@ import static br.com.caelum.brutal.auth.rules.Rules.isModerator;
 import javax.annotation.Nullable;
 
 import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutauth.auth.rules.CustomBrutauthRule;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component

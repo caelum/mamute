@@ -2,7 +2,6 @@ package br.com.caelum.brutal.controllers;
 
 import java.util.Arrays;
 
-import br.com.caelum.brutal.brutauth.auth.annotations.CustomBrutauthRules;
 import br.com.caelum.brutal.brutauth.auth.rules.EditAnswerRule;
 import br.com.caelum.brutal.brutauth.auth.rules.LoggedRule;
 import br.com.caelum.brutal.dao.AnswerDAO;
@@ -22,6 +21,7 @@ import br.com.caelum.brutal.model.watch.Watcher;
 import br.com.caelum.brutal.notification.NotificationManager;
 import br.com.caelum.brutal.reputation.rules.KarmaCalculator;
 import br.com.caelum.brutal.validators.AnsweredByValidator;
+import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;

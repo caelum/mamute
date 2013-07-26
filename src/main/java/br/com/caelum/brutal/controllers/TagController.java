@@ -5,10 +5,10 @@ import static br.com.caelum.vraptor.view.Results.json;
 
 import java.util.List;
 
-import br.com.caelum.brutal.brutauth.auth.annotations.CustomBrutauthRules;
 import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOnlyRule;
 import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.model.Tag;
+import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;

@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import br.com.caelum.brutal.auth.FacebookAuthService;
-import br.com.caelum.brutal.brutauth.auth.annotations.CustomBrutauthRules;
 import br.com.caelum.brutal.brutauth.auth.rules.EditQuestionRule;
 import br.com.caelum.brutal.brutauth.auth.rules.LoggedRule;
 import br.com.caelum.brutal.dao.QuestionDAO;
@@ -29,6 +28,7 @@ import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.watch.Watcher;
 import br.com.caelum.brutal.validators.TagsValidator;
 import br.com.caelum.brutal.vraptor.Linker;
+import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;

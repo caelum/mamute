@@ -7,8 +7,6 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
-import br.com.caelum.brutal.brutauth.AccessLevel;
-import br.com.caelum.brutal.brutauth.auth.annotations.SimpleBrutauthRules;
 import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOrKarmaRule;
 import br.com.caelum.brutal.dao.InformationDAO;
 import br.com.caelum.brutal.dao.ModeratableDao;
@@ -24,6 +22,8 @@ import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.interfaces.Moderatable;
 import br.com.caelum.brutal.reputation.rules.KarmaCalculator;
+import br.com.caelum.brutauth.auth.annotations.AccessLevel;
+import br.com.caelum.brutauth.auth.annotations.SimpleBrutauthRules;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;

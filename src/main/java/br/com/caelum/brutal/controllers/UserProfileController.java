@@ -6,7 +6,6 @@ import static java.util.Arrays.asList;
 
 import org.joda.time.DateTime;
 
-import br.com.caelum.brutal.brutauth.auth.annotations.CustomBrutauthRules;
 import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOnlyRule;
 import br.com.caelum.brutal.dao.AnswerDAO;
 import br.com.caelum.brutal.dao.QuestionDAO;
@@ -20,6 +19,7 @@ import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.validators.UserPersonalInfoValidator;
+import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;

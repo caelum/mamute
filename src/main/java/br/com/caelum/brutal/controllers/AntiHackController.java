@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 
-import br.com.caelum.brutal.brutauth.auth.annotations.CustomBrutauthRules;
 import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOnlyRule;
 import br.com.caelum.brutal.dao.ReputationEventDAO;
 import br.com.caelum.brutal.dao.UserDAO;
@@ -15,6 +14,7 @@ import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.VoteType;
 import br.com.caelum.brutal.reputation.rules.KarmaCalculator;
 import br.com.caelum.brutal.reputation.rules.MassiveVoteRevertEvent;
+import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;

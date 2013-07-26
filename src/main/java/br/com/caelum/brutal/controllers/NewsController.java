@@ -1,6 +1,5 @@
 package br.com.caelum.brutal.controllers;
 
-import br.com.caelum.brutal.brutauth.auth.annotations.CustomBrutauthRules;
 import br.com.caelum.brutal.brutauth.auth.rules.EditNewsRule;
 import br.com.caelum.brutal.brutauth.auth.rules.LoggedRule;
 import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOnlyRule;
@@ -14,6 +13,7 @@ import br.com.caelum.brutal.model.NewsInformation;
 import br.com.caelum.brutal.model.PostViewCounter;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
