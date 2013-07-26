@@ -249,6 +249,14 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 		return information.getTags();
 	}
 	
+	public List<TagUsage> getTagsUsage() {
+		ArrayList<TagUsage> tagsUsage = new ArrayList<>();
+		for (Tag tag : this.getTags()) {
+			tagsUsage.add(new TagUsage(tag, tag.getUsageCount()));
+		}
+		return tagsUsage;
+	}
+	
 	public Tag getMostImportantTag(){
 		List<Tag> tags = information.getTags();
 		if(tags.isEmpty()){

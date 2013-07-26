@@ -124,7 +124,8 @@ public class QuestionController {
 			result.include("currentVote", votes.previousVoteFor(question.getId(), current, Question.class));
 			result.include("answers", votes.previousVotesForAnswers(question, current));
 			result.include("commentsWithVotes", votes.previousVotesForComments(question, current));
-			result.include("questionTags", question.getInformation().getTags());
+			result.include("questionTags", question.getTags());
+			result.include("recentQuestionTags", question.getTagsUsage());
 			result.include("question", question);
 			result.include("isWatching", isWatching);
 			result.include("userMediumPhoto", true);
