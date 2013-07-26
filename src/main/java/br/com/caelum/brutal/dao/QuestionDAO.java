@@ -128,6 +128,7 @@ public class QuestionDAO implements PaginatableDAO {
 		return session.createCriteria(Question.class, "q")
 				.createAlias("q.information.tags", "tags")
 				.add(Restrictions.eq("tags.id", question.getMostImportantTag().getId()))
+				.addOrder(Order.desc("q.createdAt"))
 				.setMaxResults(5)
 				.list();
 	}
