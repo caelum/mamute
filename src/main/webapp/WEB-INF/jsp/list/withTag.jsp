@@ -11,4 +11,3 @@
 </section>
 <tags:sideBar recentTags="${recentTags}" />
 <tags:joyrideIntro />
-<tags:sideBar recentTags="${recentTags}" />
