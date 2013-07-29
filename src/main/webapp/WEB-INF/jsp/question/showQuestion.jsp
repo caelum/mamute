@@ -28,7 +28,7 @@
 		</h2>
 	</div>
 	<ul>
-		<c:forEach items="${answers.votes}" var="entry">
+		<c:forEach items="${answers.votes}" var="entry" varStatus="status">
 			<c:set var="answer" value="${entry.key}" />
 			<c:set var="vote" value="${entry.value}" />
 			<c:if test="${answer.visible || currentUser.moderator || currentUser.current.isAuthorOf(answer)}">
@@ -37,6 +37,9 @@
 					data-id="${answer.id}">
 					<tags:answerWith answer="${answer}" vote="${vote}" commentVotes="${commentsWithVotes}"/>
 				</li>
+				<c:if test="${status.index eq 0 && !currentUser.loggedIn && question.answersCount gt 1}">
+					<div id="adAnswer" class="ad"></div>
+				</c:if>
 			</c:if>
 		</c:forEach>
 	</ul>

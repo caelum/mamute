@@ -2413,3 +2413,9 @@ a.button.ask-a-question:hover{
 	float: right;
 	padding-right: 1em;
 }
+
+.ad{
+	width: 728px;
+	height: 90px;
+	margin: .5em auto;
+}

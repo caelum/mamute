@@ -6,6 +6,9 @@
 <%@attribute name="commentVotes" type="br.com.caelum.brutal.model.CommentsAndVotes" required="true" %>
 <section itemscope itemtype="http://schema.org/Article" class="post-area question-area ${question.isVisibleForModeratorAndNotAuthor(currentUser.current) ? 'highlight-post' : '' }" >
 	<h1 itemprop="name" class="title subheader question-title"><c:out value="${question.title}" escapeXml="${true}"/></h1>
+	<c:if test="${!currentUser.loggedIn}">
+		<div id="adQuestion" class="ad"></div>
+	</c:if>
 	<div class="post-meta">
 		<tags:voteFor item="${question}" type="pergunta" vote="${currentVote}"/>
 		<tags:watchFor watchable="${question}" type="pergunta"/>

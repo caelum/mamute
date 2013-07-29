@@ -35,6 +35,12 @@
 	}
 }
 
+@media only screen and (max-width: 1160px) {
+	.ad {
+		display: none;
+	}	
+}
+
 @media only screen and (max-width: 1100px) {
 	.ranking-item{
 		width: 22%;
@@ -123,6 +129,10 @@
 		box-shadow: none;
 		margin-bottom: 1em;
 	}
+	
+	.ad {
+		display: block;
+	}
 }
 	
 @media only screen and (max-width: 800px) {
@@ -159,6 +169,10 @@
 	
 	.data-list {
 		width: 70%;	
+	}
+	
+	.ad {
+		display: none;
 	}
 }
 
