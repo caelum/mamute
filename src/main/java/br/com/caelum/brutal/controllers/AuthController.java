@@ -3,6 +3,7 @@ package br.com.caelum.brutal.controllers;
 import br.com.caelum.brutal.auth.DefaultAuthenticator;
 import br.com.caelum.brutal.auth.FacebookAuthService;
 import br.com.caelum.brutal.auth.LoggedAccess;
+import br.com.caelum.brutal.validators.LoginValidator;
 import br.com.caelum.brutal.validators.UrlValidator;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
@@ -16,13 +17,15 @@ public class AuthController extends Controller {
 	private final FacebookAuthService facebook;
 	private final Result result;
 	private final UrlValidator urlValidator;
+	private final LoginValidator validator;
 	
 	public AuthController(DefaultAuthenticator auth, FacebookAuthService facebook, 
-			Result result, UrlValidator urlValidator) {
+			Result result, UrlValidator urlValidator, LoginValidator validator) {
 		this.auth = auth;
 		this.facebook = facebook;
 		this.result = result;
 		this.urlValidator = urlValidator;
+		this.validator = validator;
 	}
 	
 	@Get("/login")
@@ -36,11 +39,12 @@ public class AuthController extends Controller {
 	
 	@Post("/login")
 	public void login(String email, String password, String redirectUrl) {
-		if (auth.authenticate(email, password)) {
+		if (validator.validate(email, password) && auth.authenticate(email, password)) {
 			redirectToRightUrl(redirectUrl);
 		} else {
-			includeAsList("messages", i18n("error", "auth.invalid.login"));
+//			includeAsList("messages", i18n("error", "auth.invalid.login"));
 			redirectTo(this).loginForm(redirectUrl);
+			validator.onErrorRedirectTo(this).loginForm(redirectUrl);
 		}
 	}
 	
