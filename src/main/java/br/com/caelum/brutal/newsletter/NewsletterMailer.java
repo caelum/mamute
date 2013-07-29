@@ -72,7 +72,7 @@ public class NewsletterMailer {
 						.with("linkToHelper", linkToHelper)
 						.with("l10n", localization)
 						.with("sanitizer", POLICY)
-						.with("siteName", env.get("vraptor.simplemail.main.from.name"))
+						.with("siteName", siteName)
 						.to(user.getName(), user.getEmail());
 				mailer.send(email);
 			} catch (Exception e) {
