@@ -975,6 +975,16 @@ a.button.ask-a-question:hover{
 	background-color: #dc962c;
 }
 
+.button:hover .menu-subtitle{
+	display:block
+}
+
+.menu-subtitle{
+	font-size: .63em;
+	margin-top: -64px;
+	display: none;
+}
+
 /* Menu User */
 .menu-user-image{
 	vertical-align: middle;
