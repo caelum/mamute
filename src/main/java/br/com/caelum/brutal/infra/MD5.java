@@ -12,8 +12,10 @@ public class MD5 {
      * @return Encoded String
      */
     public static String crypt(String str) {
-        if (str == null || str.length() == 0) return str;
-        
+        if (str == null || str.length() == 0) {
+            throw new IllegalArgumentException("String to encript cannot be null or zero length");
+        }
+
         StringBuffer hexString = new StringBuffer();
 
         try {
