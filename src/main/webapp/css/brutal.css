@@ -550,7 +550,7 @@ label {
 	font-size: 0.9em;
 }
 .tiny, .tiny a, a.tiny {
-	font-size: 0.7em;
+	font-size: 1em;
 }
 
 textarea {
@@ -2397,4 +2397,9 @@ a.button.ask-a-question:hover{
 /*BreadCrumb*/
 .breadcrumb{
 	display: none;
+}
+
+.send-news {
+	float: right;
+	padding-right: 1em;
 }

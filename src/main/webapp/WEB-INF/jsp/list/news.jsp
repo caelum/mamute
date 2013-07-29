@@ -5,7 +5,7 @@
 
 <section class="news-content first-content">
 	<h2 class="title page-title subheader"><fmt:message key="menu.news"/>
-		<a href="<c:url value="/nova-noticia"/>" class="tiny">
+		<a href="<c:url value="/nova-noticia"/>" class="tiny send-news">
 			<fmt:message key="menu.new_news" />
 		</a>
 	</h2>
