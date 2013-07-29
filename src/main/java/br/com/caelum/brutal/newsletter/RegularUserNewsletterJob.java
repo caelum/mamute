@@ -10,15 +10,15 @@ import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.quartzjob.CronTask;
 
 @Resource
-public class NormalUserNewsletterJob implements CronTask {
+public class RegularUserNewsletterJob implements CronTask {
 	
 	private final Result result;
 	private final UserDAO users;
 	private final NewsletterMailer newsMailer;
 	private final Environment env;
-	private static final Logger LOG = Logger.getLogger(NormalUserNewsletterJob.class);
+	private static final Logger LOG = Logger.getLogger(RegularUserNewsletterJob.class);
 	
-	public NormalUserNewsletterJob(Result result, UserDAO users,
+	public RegularUserNewsletterJob(Result result, UserDAO users,
 			NewsletterMailer newsMailer, Environment env) {
 		this.result = result;
 		this.users = users;
