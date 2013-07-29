@@ -22,9 +22,9 @@ public class LoginValidator {
 		if (password == null || password.length() < PASSWORD_MIN_LENGTH || password.length() > PASSWORD_MAX_LENGTH){
 			validator.add(messageFactory.build("error", "user.errors.password.length"));
 		}
-
-		emailValidator.validate(email);
-		
+		if (email == null) {
+			validator.add(messageFactory.build("error", "user.errors.email.required"));
+		}
 		return !validator.hasErrors();
 	}
 
