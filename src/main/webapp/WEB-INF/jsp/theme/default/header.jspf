@@ -82,6 +82,13 @@
 									</a>
 								</li>
 							</c:if>
+							<c:if test="${currentUser.isModerator()}">
+								<li class="nav-item">
+									<a href="${linkTo[ModeratorsNewsletterJob].execute}">
+										<fmt:message key="moderation.newsletterJob" />
+									</a>
+								</li>
+							</c:if>
 							<li class="nav-item">
 								<a class="logout" href="${linkTo[AuthController].logout}">
 									<fmt:message key="auth.logout_link" />
