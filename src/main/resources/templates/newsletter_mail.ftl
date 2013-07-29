@@ -1,11 +1,12 @@
 <#assign questionStyle = 'padding:0px 10px; border-bottom: 1px dotted #ccc;'>
+<#assign questionTitleStyle = 'margin: 10px 0 0'>
 <#assign linkStyle = 'text-decoration: none; color: rgb(0, 119, 204);'>
 <#assign titleStyle = 'margin: 15px 0; padding: 0 10px;'>
 <#assign mainTitleStyle = 'margin: 10px; vertical-align: bottom; display: inline-block; font-size: 23px;'>
 <#assign tagStyle = 'text-decoration: none; background-color: #f8f8f8; border: 1px solid #adc2d0; color: #3e6d8e; display: inline-block; font-size: .9em; padding: 0 .4em; line-height: 1.45em; border-radius: 5px;'>
 <#assign userNameStyle = 'font-size: 0.8em; float: right;'>
 <#assign userImgStyle = 'width: 18px; height: 18px;'>
-<#assign paragraphStyle = 'overflow: hidden;'>
+<#assign paragraphStyle = 'overflow: hidden; margin: 7px 0;'>
 
 <html>
 <body style="font-family:arial, sans-serif; font-size:12px;">
@@ -24,7 +25,7 @@
 		<#list hotNews as news>
 			<tr>
 				<td style="${questionStyle}">
-					<h3><a style="${linkStyle}" href="${linkToHelper.newsLink(news)}">${news.title}</a></h3>
+					<h3 style="${questionTitleStyle}"><a style="${linkStyle}" href="${linkToHelper.newsLink(news)}">${news.title}</a></h3>
 					<p style="${paragraphStyle}">
 						<span style="${userNameStyle}">${l10n.getMessage("newsletter_mail.created_by")} 
 							<a style="${linkStyle}" href="${linkToHelper.userLink(news.author)}">${news.author.name}</a>
@@ -41,7 +42,7 @@
 		<#list hotQuestions as question>
 			<tr>
 				<td style="${questionStyle}">
-					<h3><a style="${linkStyle}" href="${linkToHelper.mainThreadLink(question)}">${question.title}</a></h3>
+					<h3 style="${questionTitleStyle}"><a style="${linkStyle}" href="${linkToHelper.mainThreadLink(question)}">${question.title}</a></h3>
 					<p style="${paragraphStyle}">
 	                    <#list question.getTags() as tag>
 							<span><a style="${tagStyle}" href="${linkToHelper.tagLink(tag)}">${tag.name}</a></span>
@@ -57,7 +58,7 @@
 		<#list unansweredQuestions as question>
 			<tr>
 				<td style="${questionStyle}">
-					<h3><a style="${linkStyle}" href="${linkToHelper.mainThreadLink(question)}">${question.title}</a></h3>
+					<h3 style="${questionTitleStyle}"><a style="${linkStyle}" href="${linkToHelper.mainThreadLink(question)}">${question.title}</a></h3>
 					<p style="${paragraphStyle}">
 	                    <#list question.getTags() as tag>
 							<span><a style="${tagStyle}" href="${linkToHelper.tagLink(tag)}">${tag.name}</a></span>
