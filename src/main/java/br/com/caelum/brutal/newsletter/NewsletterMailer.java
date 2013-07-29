@@ -40,7 +40,8 @@ public class NewsletterMailer {
 
 	public NewsletterMailer(QuestionDAO questions, Result result, 
 			Mailer mailer, TemplateMailer templates, 
-			UserDAO users, Linker linker, Localization localization, NewsDAO news, Environment env) {
+			UserDAO users, Linker linker, Localization localization, 
+			NewsDAO news, Environment env) {
 		this.questions = questions;
 		this.mailer = mailer;
 		this.templates = templates;
@@ -57,11 +58,12 @@ public class NewsletterMailer {
 		List<Question> hotQuestions = questions.hot(pastWeek, 8);
 		List<Question> unanswered = questions.randomUnanswered(pastWeek, twelveHoursAgo, 8);
 		LinkToHelper linkToHelper = new NotificationMailer.LinkToHelper(linker);
+		String siteName = localization.getMessage("site.name");
 		
 		while (results.next()) {
 			User user = (User) results.get()[0];
 			try {
-				Email email = templates.template("newsletter_mail")
+				Email email = templates.template("newsletter_mail", siteName)
 						.with("hotNews", hotNews)
 						.with("hotQuestions", hotQuestions)
 						.with("unansweredQuestions", unanswered)
