@@ -5,7 +5,7 @@
 
 <fmt:message key="menu.tags" var="title" />
 <c:url value="/rss/${tag.name}" var="rssUrl" />
-<section class="first-content">
+<section class="first-content content">
 	<tags:questionList recentTags="${recentTags}" 
 		questions="${questions}" title="${title}" rssUrl="${rssUrl}"/>
 </section>

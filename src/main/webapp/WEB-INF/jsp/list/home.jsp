@@ -25,7 +25,7 @@
 </c:if>
 
 
-<section class="first-content">
+<section class="first-content content">
 	<tags:questionList recentTags="${recentTags}" 
 		questions="${questions}" title="${title}" rssUrl="${rssUrl}"/>
 </section>

@@ -63,7 +63,7 @@ a:hover{
 	margin-bottom: 2%;
 }
 
-.first-content .subheader {
+.content .subheader {
 	margin-bottom: 0;
 }
 
@@ -1147,8 +1147,12 @@ a.button.ask-a-question:hover{
 	width: 90%;
 }
 
+.news-summary .item-title-wrapper{
+	width: 70%;
+}
+
 .news-summary .last-touch{
-	width: 20%
+	width: 30%
 }
 
 .news-guideline {

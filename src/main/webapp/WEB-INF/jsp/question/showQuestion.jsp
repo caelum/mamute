@@ -20,7 +20,7 @@
 		</a>
 	</span>
 </div>
-<section class="first-content">
+<section class="first-content content">
 	<tags:questionWith question="${question}" commentVotes="${commentsWithVotes}"/>
 	<div class="subheader">
 		<h2 class="title page-title">

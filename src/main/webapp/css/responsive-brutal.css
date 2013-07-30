@@ -67,8 +67,17 @@
 	.sidebar{
 		width: 35%;
 	}
+	
 	.first-content {
 		width: 65%;
+	}
+	
+	.news-big-items{
+		width: 100%;
+	}
+	
+	.news-big-items:nth-child(2n+2){
+		border-left: 0;	
 	}
 }
 
@@ -145,10 +154,10 @@
 		padding: 0 .7em;
 	}
 	
-	.info.views, .info.votes{
+	.info.views, .info.votes, .news-information{
 		display:none;
 	}
-	
+
 	.question-information{
 		margin-left:auto;
 		margin-right:auto;
@@ -157,6 +166,10 @@
 	
 	.summary{
 		width:80%;
+	}
+	
+	.news-summary{
+		width: 100%;
 	}
 	
 	.info{
