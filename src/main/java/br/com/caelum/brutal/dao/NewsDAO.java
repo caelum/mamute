@@ -12,7 +12,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
-import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.dao.WithUserPaginatedDAO.OrderType;
 import br.com.caelum.brutal.dao.WithUserPaginatedDAO.UserRole;
@@ -42,13 +41,6 @@ public class NewsDAO implements PaginatableDAO  {
 		return addModeratorOrApprovedFilter(criteria).list();
 	}
 
-
-	@SuppressWarnings("unchecked")
-	public List<News> allVisibleAndApproved(Integer initPage, Integer pageSize) {
-		Criteria criteria = defaultPagedCriteria(initPage, pageSize);
-		return addApprovedFilter(criteria).list();
-	}
-	
 	@SuppressWarnings("unchecked")
 	public List<News> allVisibleAndApproved(int size) {
 		return defaultCriteria(size).list();
@@ -130,10 +122,10 @@ public class NewsDAO implements PaginatableDAO  {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<News> hotNews(DateTime since) {
+	public List<News> hotNews() {
 		Query query = session.createQuery("select news from News news "
-				+ "where news.createdAt > :since and news.approved = true "
-				+ "order by news.voteCount desc");
-		return query.setParameter("since", since).setMaxResults(5).list();
+				+ "where news.approved = true "
+				+ "order by news.createdAt, news.voteCount desc");
+		return query.setMaxResults(5).list();
 	}
 }
