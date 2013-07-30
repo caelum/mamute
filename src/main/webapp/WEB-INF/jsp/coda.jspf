@@ -117,12 +117,14 @@ $(function() {
 	$("#datepicker-age").pickadate({
 		format: 'dd/mm/yyyy',
 		max: -12*365,
+		readOnly: false
 		
 	});
 	
 	$(".datepicker").pickadate({
 		format: 'dd/mm/yyyy',
 		max: 1,
+		readOnly: false
 	});
 
 
