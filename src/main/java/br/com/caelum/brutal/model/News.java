@@ -26,6 +26,7 @@ import br.com.caelum.brutal.model.interfaces.ViewCountable;
 import br.com.caelum.brutal.model.interfaces.Votable;
 import br.com.caelum.brutal.model.interfaces.Watchable;
 import br.com.caelum.brutal.model.watch.Watcher;
+import br.com.caelum.brutal.providers.SessionFactoryCreator;
 
 @Entity
 public class News extends Moderatable implements Post, ViewCountable, Watchable, RssContent {
@@ -42,10 +43,10 @@ public class News extends Moderatable implements Post, ViewCountable, Watchable,
 	@Cascade(SAVE_UPDATE)
 	private List<NewsInformation> history = new ArrayList<>();
 	
-	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
 	private final DateTime createdAt = new DateTime();
 
-	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
 	private DateTime lastUpdatedAt = new DateTime();
 
 	@ManyToOne

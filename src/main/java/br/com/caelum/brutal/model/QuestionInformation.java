@@ -29,6 +29,7 @@ import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.model.interfaces.Moderatable;
 import br.com.caelum.brutal.model.interfaces.Taggable;
+import br.com.caelum.brutal.providers.SessionFactoryCreator;
 
 @Cacheable
 @Entity
@@ -66,7 +67,7 @@ public class QuestionInformation implements Information, Taggable {
 	@ManyToOne(optional = false, fetch = EAGER)
 	private final User author;
 
-	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
 	private final DateTime createdAt = new DateTime();
 
 	@Embedded

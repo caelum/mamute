@@ -23,7 +23,7 @@ import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.util.hibernate.extra.Load;
+import br.com.caelum.vraptor.plugin.hibernate4.extra.Load;
 
 @Resource
 public class UserProfileController extends Controller{

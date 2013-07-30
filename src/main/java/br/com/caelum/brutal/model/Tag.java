@@ -16,6 +16,8 @@ import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
+import br.com.caelum.brutal.providers.SessionFactoryCreator;
+
 @Cacheable
 @Cache(usage=CacheConcurrencyStrategy.READ_ONLY, region="cache")
 @Entity
@@ -30,7 +32,7 @@ public class Tag {
 	
 	private String description;
 	
-	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
 	private final DateTime createdAt = new DateTime();
 	
 	@ManyToOne

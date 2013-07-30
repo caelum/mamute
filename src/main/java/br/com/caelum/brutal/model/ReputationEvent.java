@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
+import br.com.caelum.brutal.providers.SessionFactoryCreator;
+
 @Entity
 public class ReputationEvent {
 
@@ -30,7 +32,7 @@ public class ReputationEvent {
 	@ManyToOne
 	private User user;
 	
-	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
 	private DateTime date = new DateTime();
 
 	@Deprecated

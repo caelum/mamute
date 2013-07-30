@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
+import br.com.caelum.brutal.providers.SessionFactoryCreator;
+
 @Entity
 public class Vote {
     
@@ -24,10 +26,10 @@ public class Vote {
     @ManyToOne
     private final User author;
     
-    @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+    @Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
     private final DateTime createdAt = new DateTime();
     
-    @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+    @Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
     private DateTime lastUpdatedAt = new DateTime();
     
     /**

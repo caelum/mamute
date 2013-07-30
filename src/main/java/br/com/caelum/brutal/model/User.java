@@ -50,6 +50,7 @@ import br.com.caelum.brutal.model.interfaces.Identifiable;
 import br.com.caelum.brutal.model.interfaces.Moderatable;
 import br.com.caelum.brutal.model.interfaces.Votable;
 import br.com.caelum.brutal.model.watch.Watcher;
+import br.com.caelum.brutal.providers.SessionFactoryCreator;
 
 @Cacheable
 @Cache(usage=CacheConcurrencyStrategy.READ_WRITE, region="cache")
@@ -57,7 +58,8 @@ import br.com.caelum.brutal.model.watch.Watcher;
 @Entity
 public class User implements Identifiable {
 
-	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+	
+	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
 	private final DateTime createdAt = new DateTime();
 	
 	@Id
@@ -83,7 +85,7 @@ public class User implements Identifiable {
 	@Length(min = ABOUT_MIN_LENGTH, max = MARKED_ABOUT_MAX_LENGTH ,  message = ABOUT_LENGTH_MESSAGE)
 	private String markedAbout;
 	
-	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
 	private DateTime birthDate;
 	
 	private long karma = 0;
@@ -100,7 +102,7 @@ public class User implements Identifiable {
 	@NotEmpty
 	private String sluggedName;
 	
-	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
 	private DateTime nameLastTouchedAt;
 
 	@OneToMany(mappedBy="user")

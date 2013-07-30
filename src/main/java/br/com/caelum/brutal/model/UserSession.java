@@ -10,6 +10,8 @@ import org.hibernate.annotations.Index;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
+import br.com.caelum.brutal.providers.SessionFactoryCreator;
+
 @Entity
 public class UserSession {
 	
@@ -24,7 +26,7 @@ public class UserSession {
 	@ManyToOne
 	private User user;
 	
-	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
 	private final DateTime createdAt = new DateTime();
 	
 	/**

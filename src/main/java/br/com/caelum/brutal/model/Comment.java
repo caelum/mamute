@@ -24,6 +24,7 @@ import org.joda.time.DateTime;
 import br.com.caelum.brutal.model.interfaces.Flaggable;
 import br.com.caelum.brutal.model.interfaces.Notifiable;
 import br.com.caelum.brutal.model.interfaces.Votable;
+import br.com.caelum.brutal.providers.SessionFactoryCreator;
 
 @Entity
 public class Comment implements Notifiable, Votable, Flaggable {
@@ -49,10 +50,10 @@ public class Comment implements Notifiable, Votable, Flaggable {
     @ManyToOne(optional = false)
     private final User author;
     
-    @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+    @Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
     private final DateTime createdAt = new DateTime();
     
-    @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+    @Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
     private DateTime lastUpdatedAt = new DateTime();
     
 	@JoinTable(name = "Comment_Votes")

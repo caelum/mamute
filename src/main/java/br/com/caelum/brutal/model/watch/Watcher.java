@@ -8,8 +8,8 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
-import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.providers.SessionFactoryCreator;
 
 @Entity
 public class Watcher {
@@ -21,7 +21,7 @@ public class Watcher {
 	@ManyToOne
 	private final User watcher;
 
-	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
 	private final DateTime createdAt;
 
 	/**

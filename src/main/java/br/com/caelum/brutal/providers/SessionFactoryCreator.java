@@ -37,6 +37,8 @@ import br.com.caelum.vraptor.ioc.ComponentFactory;
 @Component
 @ApplicationScoped
 public class SessionFactoryCreator implements ComponentFactory<SessionFactory> {
+	
+	public static final String JODA_TIME_TYPE= "org.jadira.usertype.dateandtime.joda.PersistentDateTime";
 
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(SessionFactoryCreator.class);
