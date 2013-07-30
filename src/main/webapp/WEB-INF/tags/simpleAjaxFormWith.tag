@@ -15,9 +15,9 @@
 			<textarea class="required to-focus hintable text-input" 
 				minlength="15" maxlength="600" name="${field}" 
 				data-hint-id="${callbackTarget}-hint"><c:out value="${value}" escapeXml="true"/></textarea>
-			<tags:checkbox-watch/>
 			<input class="post-submit submit" type="submit" value="${submit}"/>
 			<button class="post-submit  submit cancel "><fmt:message key="cancel_button"/></button>
+			<tags:checkbox-watch/>
 		</form>
 		<div class="hint" id="${callbackTarget}-hint"><fmt:message key="${field}.hint"/></div>
 	</div>
