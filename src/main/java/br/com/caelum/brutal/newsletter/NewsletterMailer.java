@@ -17,6 +17,7 @@ import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.notification.NotificationMailer;
 import br.com.caelum.brutal.notification.NotificationMailer.LinkToHelper;
+import br.com.caelum.brutal.util.BrutalDateFormat;
 import br.com.caelum.brutal.vraptor.Linker;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.core.Localization;
@@ -35,17 +36,19 @@ public class NewsletterMailer {
 	private static final Logger LOG = Logger.getLogger(ModeratorsNewsletterJob.class);
 	private Localization localization;
 	private NewsDAO news;
+	private BrutalDateFormat brutalDateFormat;
 
 	public NewsletterMailer(QuestionDAO questions, Result result, 
 			Mailer mailer, TemplateMailer templates, 
 			UserDAO users, Linker linker, Localization localization, 
-			NewsDAO news) {
+			NewsDAO news, BrutalDateFormat brutalDateFormat) {
 		this.questions = questions;
 		this.mailer = mailer;
 		this.templates = templates;
 		this.linker = linker;
 		this.localization = localization;
 		this.news = news;
+		this.brutalDateFormat = brutalDateFormat;
 	}
 
 	public void sendTo(ScrollableResults results) {
@@ -56,11 +59,12 @@ public class NewsletterMailer {
 		List<Question> unanswered = questions.randomUnanswered(pastWeek, twelveHoursAgo, 8);
 		LinkToHelper linkToHelper = new NotificationMailer.LinkToHelper(linker);
 		String siteName = localization.getMessage("site.name");
+		String date= brutalDateFormat.getInstance().print(new DateTime());
 		
 		while (results.next()) {
 			User user = (User) results.get()[0];
 			try {
-				Email email = templates.template("newsletter_mail", siteName)
+				Email email = templates.template("newsletter_mail", date, siteName)
 						.with("hotNews", hotNews)
 						.with("hotQuestions", hotQuestions)
 						.with("unansweredQuestions", unanswered)
