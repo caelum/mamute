@@ -82,8 +82,6 @@ a:hover{
 	float: left;
 	padding: 0 0 0 .5em;
 	font-size: 0.9em;
-	margin-top: 0.4em;
-	margin-bottom: 0.4em;
 }
 
 .main-tags-title{
@@ -1157,10 +1155,6 @@ a.button.ask-a-question:hover{
 	display: block;
 }
 
-.news-aside-list-header {
-	margin-top: 10px;
-}
-
 .other-news {
 	margin-bottom: 1em;
 	display: inline-block;
@@ -1318,7 +1312,7 @@ a.button.ask-a-question:hover{
 }
 
 .main-tags .tag-brutal {
-	margin-bottom:.5em;	
+	margin-top:.3em;	
 }
 
 .tag-description {
