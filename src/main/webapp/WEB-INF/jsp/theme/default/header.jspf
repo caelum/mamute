@@ -8,7 +8,7 @@
 	<section class="second-header">
 		<div class="container">
 			<a class="logo big-logo sprite"
-				href="${linkTo[ListController].home}">GUJ</a>
+				href="${linkTo[ListController].home}"><fmt:message key="site.name" /></a>
 			<nav class="nav main-nav piped-nav">
 				<ul class="nav-items">
 					<li class="nav-item">
