@@ -15,7 +15,7 @@
 				<tags:questionLinkFor question="${question}"/>
 			</h3>
 			<tags:tagsFor taggable="${question}"/>
-			<div class="views">
+			<div class="post-simple-information">
 				${question.views} <tags:pluralize key="post.list.view" count="${question.views}"/>
 			</div>
 		</div>
