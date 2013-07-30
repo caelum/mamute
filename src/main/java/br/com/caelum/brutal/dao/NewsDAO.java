@@ -117,15 +117,17 @@ public class NewsDAO implements PaginatableDAO  {
 
 	@SuppressWarnings("unchecked")
 	public List<RssContent> orderedByCreationDate(int maxResults) {
-		Query query = session.createQuery("select news from News news order by news.createdAt desc");
-		return query.setMaxResults(maxResults).list();
+		Criteria criteria = session.createCriteria(News.class, "n")
+				.addOrder(desc("n.createdAt"))
+				.setMaxResults(maxResults);
+		return addApprovedFilter(criteria).list();
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<News> hotNews() {
 		Query query = session.createQuery("select news from News news "
 				+ "where news.approved = true "
-				+ "order by news.createdAt, news.voteCount desc");
+				+ "order by news.createdAt desc, news.voteCount desc");
 		return query.setMaxResults(5).list();
 	}
 }

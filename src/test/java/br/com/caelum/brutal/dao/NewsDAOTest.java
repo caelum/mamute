@@ -69,9 +69,9 @@ public class NewsDAOTest extends DatabaseTestCase {
 	
 	@Test
 	public void should_get_the_last_5_news_ordered_by_date(){
-		News firstNews = saveApprovedNews(newsAuthor);
+		News thirdNews = saveApprovedNews(newsAuthor);
 		News secondNews = createNewsAt(new DateTime().plusDays(1));
-		News thirdNews = createNewsAt(new DateTime().plusDays(2));
+		News firstNews = createNewsAt(new DateTime().plusDays(2));
 		
 		List<News> newses = newsForModerator.hotNews();
 		assertEquals(firstNews.getId(), newses.get(0).getId());
