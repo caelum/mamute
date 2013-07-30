@@ -75,6 +75,7 @@ public class NewsletterMailer {
 						.with("sanitizer", POLICY)
 						.with("siteName", siteName)
 						.to(user.getName(), user.getEmail());
+				email.setCharset("utf-8");
 				mailer.send(email);
 			} catch (Exception e) {
 				LOG.error("could not send email", e);
