@@ -5,7 +5,7 @@
 <%@attribute name="count" type="java.lang.Integer" required="true"%>
 
 <c:choose>
-	<c:when test="${count eq 1}">
+	<c:when test="${count <= 1 && count >= -1}">
 		<fmt:message key="${key}.singular"/>
 	</c:when>
 	<c:otherwise>
