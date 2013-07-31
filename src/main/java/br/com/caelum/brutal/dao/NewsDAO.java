@@ -43,23 +43,7 @@ public class NewsDAO implements PaginatableDAO  {
 
 	@SuppressWarnings("unchecked")
 	public List<News> allVisibleAndApproved(int size) {
-		return defaultCriteria(size).list();
-	}
-
-	private Criteria addApprovedFilter(Criteria criteria) {
-		return visibleFilter.addFilter("n", criteria);
-	}
-
-	private Criterion criterionSpamFilter() {
-		return gt("n.voteCount", SPAM_BOUNDARY);
-	}
-
-	private int firstResultOf(Integer initPage, Integer pageSize) {
-		return pageSize * (initPage-1);
-	}
-
-	private Criteria addModeratorOrApprovedFilter(Criteria criteria) {
-		return invisible.addFilter("n", criteria);
+		return addApprovedFilter(defaultCriteria(size)).list();
 	}
 
 	public List<News> postsToPaginateBy(User user, OrderType orderByWhat, Integer page) {
@@ -89,31 +73,6 @@ public class NewsDAO implements PaginatableDAO  {
 		Long totalItems = (Long) addModeratorOrApprovedFilter(criteria).list().get(0);
 		return calculatePages(totalItems, pageSize);
 	}
-	
-	private long calculatePages(Long count, Integer pageSize) {
-		long result = count/pageSize.longValue();
-		if (count % pageSize.longValue() != 0) {
-			result++;
-		}
-		return result;
-	}
-
-	
-	private Criteria defaultCriteria(Integer maxResults) {
-		Criteria criteria = session.createCriteria(News.class, "n")
-				.createAlias("n.information", "ni")
-				.createAlias("n.author", "na")
-				.createAlias("n.lastTouchedBy", "nl")
-				.add(criterionSpamFilter())
-				.addOrder(desc("n.lastUpdatedAt"))
-				.setMaxResults(maxResults)
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		return criteria;
-	}
-	
-	private Criteria defaultPagedCriteria(Integer initPage, Integer pageSize) {
-		return defaultCriteria(pageSize).setFirstResult(firstResultOf(initPage, pageSize));
-	}
 
 	@SuppressWarnings("unchecked")
 	public List<RssContent> orderedByCreationDate(int maxResults) {
@@ -129,5 +88,45 @@ public class NewsDAO implements PaginatableDAO  {
 				+ "where news.approved = true "
 				+ "order by news.createdAt desc, news.voteCount desc");
 		return query.setMaxResults(5).list();
+	}
+
+	private Criteria addApprovedFilter(Criteria criteria) {
+		return visibleFilter.addFilter("n", criteria);
+	}
+
+	private Criterion criterionSpamFilter() {
+		return gt("n.voteCount", SPAM_BOUNDARY);
+	}
+
+	private int firstResultOf(Integer initPage, Integer pageSize) {
+		return pageSize * (initPage-1);
+	}
+
+	private Criteria addModeratorOrApprovedFilter(Criteria criteria) {
+		return invisible.addFilter("n", criteria);
+	}
+	
+	private long calculatePages(Long count, Integer pageSize) {
+		long result = count/pageSize.longValue();
+		if (count % pageSize.longValue() != 0) {
+			result++;
+		}
+		return result;
+	}
+	
+	private Criteria defaultCriteria(Integer maxResults) {
+		Criteria criteria = session.createCriteria(News.class, "n")
+				.createAlias("n.information", "ni")
+				.createAlias("n.author", "na")
+				.createAlias("n.lastTouchedBy", "nl")
+				.add(criterionSpamFilter())
+				.addOrder(desc("n.lastUpdatedAt"))
+				.setMaxResults(maxResults)
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		return criteria;
+	}
+	
+	private Criteria defaultPagedCriteria(Integer initPage, Integer pageSize) {
+		return defaultCriteria(pageSize).setFirstResult(firstResultOf(initPage, pageSize));
 	}
 }
