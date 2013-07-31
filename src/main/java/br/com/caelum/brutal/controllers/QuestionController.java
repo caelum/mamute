@@ -34,10 +34,11 @@ import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
-import br.com.caelum.vraptor.util.hibernate.extra.Load;
+import br.com.caelum.vraptor.plugin.hibernate4.extra.Load;
+import br.com.caelum.vraptor.serialization.xstream.XStreamBuilder;
 import br.com.caelum.vraptor.view.Results;
 
-
+import com.thoughtworks.xstream.XStream;
 
 @Resource
 public class QuestionController {
@@ -55,13 +56,15 @@ public class QuestionController {
 	private Linker linker;
 	private final WatcherDAO watchers;
 	private final ReputationEventDAO reputationEvents;
+	private XStream json;
 
 	public QuestionController(Result result, QuestionDAO questionDAO, TagDAO tags, 
 			VoteDAO votes, LoggedUser currentUser, FacebookAuthService facebook,
 			TagsValidator tagsValidator, MessageFactory messageFactory,
 			Validator validator, PostViewCounter viewCounter,
 			Linker linker, WatcherDAO watchers, 
-			ReputationEventDAO reputationEvents) {
+			ReputationEventDAO reputationEvents, 
+			XStreamBuilder xstreamBuilder) {
 		this.result = result;
 		this.questions = questionDAO;
 		this.tags = tags;
@@ -75,12 +78,15 @@ public class QuestionController {
 		this.linker = linker;
 		this.watchers = watchers;
 		this.reputationEvents = reputationEvents;
+		this.json = xstreamBuilder.withoutRoot().jsonInstance();
 	}
 
 	@Get("/perguntar")
 	@IncludeAllTags
 	@CustomBrutauthRules(LoggedRule.class)
 	public void questionForm() {
+		String allTags = json.toXML(tags.all());
+		result.include("allTags", allTags);
 	}
 	
 	@Get("/pergunta/editar/{question.id}")
@@ -88,6 +94,8 @@ public class QuestionController {
 	@CustomBrutauthRules(EditQuestionRule.class)
 	public void questionEditForm(@Load Question question) {
 		result.include("question",  question);
+		String allTags = json.toXML(tags.all());
+		result.include("allTags", allTags);
 	}
 
 	@Post("/pergunta/editar/{original.id}")
@@ -120,7 +128,9 @@ public class QuestionController {
 			result.include("currentVote", votes.previousVoteFor(question.getId(), current, Question.class));
 			result.include("answers", votes.previousVotesForAnswers(question, current));
 			result.include("commentsWithVotes", votes.previousVotesForComments(question, current));
-			result.include("questionTags", question.getInformation().getTags());
+			result.include("questionTags", question.getTags());
+			result.include("recentQuestionTags", question.getTagsUsage());
+			result.include("relatedQuestions", questions.getRelatedTo(question));
 			result.include("question", question);
 			result.include("isWatching", isWatching);
 			result.include("userMediumPhoto", true);

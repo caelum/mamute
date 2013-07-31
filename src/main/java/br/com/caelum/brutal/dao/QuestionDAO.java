@@ -122,6 +122,16 @@ public class QuestionDAO implements PaginatableDAO {
 				.setMaxResults(maxResults)
 				.list();
 	}
+	
+
+	public List<Question> getRelatedTo(Question question) {
+		return session.createCriteria(Question.class, "q")
+				.createAlias("q.information.tags", "tags")
+				.add(Restrictions.eq("tags.id", question.getMostImportantTag().getId()))
+				.addOrder(Order.desc("q.createdAt"))
+				.setMaxResults(5)
+				.list();
+	}
 
 	public List<Question> hot(DateTime since, int count) {
 		return session.createCriteria(Question.class, "q")

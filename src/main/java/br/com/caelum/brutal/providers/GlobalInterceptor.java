@@ -16,6 +16,7 @@ import br.com.caelum.brutal.infra.NotFoundException;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutauth.interceptors.CustomBrutauthRuleInterceptor;
 import br.com.caelum.brutauth.interceptors.SimpleBrutauthRuleInterceptor;
+import br.com.caelum.brutal.util.BrutalDateFormat;
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
 import br.com.caelum.vraptor.Result;
@@ -24,8 +25,8 @@ import br.com.caelum.vraptor.core.Localization;
 import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.interceptor.Interceptor;
 import br.com.caelum.vraptor.ioc.Component;
+import br.com.caelum.vraptor.plugin.hibernate4.extra.ParameterLoaderInterceptor;
 import br.com.caelum.vraptor.resource.ResourceMethod;
-import br.com.caelum.vraptor.util.hibernate.extra.ParameterLoaderInterceptor;
 
 @Component
 @Intercepts(before={ParameterLoaderInterceptor.class, CustomBrutauthRuleInterceptor.class, SimpleBrutauthRuleInterceptor.class})
@@ -39,11 +40,12 @@ public class GlobalInterceptor implements Interceptor {
 	private final MenuInfo menuInfo;
 	private NewsDAO newses;
 	private RecentTagsContainer recentTagsContainer;
+	private BrutalDateFormat brutalDateFormat;
 
 	public GlobalInterceptor(Environment env, Result result, 
 			HttpServletRequest req, Localization localization,  
 			ServletContext servletContext, LoggedUser loggedUser,
-			MenuInfo menuInfo, NewsDAO newses, RecentTagsContainer recentTagsContainer) {
+			MenuInfo menuInfo, NewsDAO newses, RecentTagsContainer recentTagsContainer, BrutalDateFormat brutalDateFormat) {
 		this.env = env;
 		this.result = result;
 		this.req = req;
@@ -51,6 +53,7 @@ public class GlobalInterceptor implements Interceptor {
 		this.menuInfo = menuInfo;
 		this.newses = newses;
 		this.recentTagsContainer = recentTagsContainer;
+		this.brutalDateFormat = brutalDateFormat;
 	}
 
 	public void intercept(InterceptorStack stack, ResourceMethod method,
@@ -58,7 +61,7 @@ public class GlobalInterceptor implements Interceptor {
 		menuInfo.include();
 		result.include("env", env);
 		result.include("prettyTimeFormatter", new PrettyTime(localization.getLocale()));
-		result.include("literalFormatter", DateTimeFormat.forPattern(localization.getMessage("date.joda.pattern")).withLocale(localization.getLocale()));
+		result.include("literalFormatter", brutalDateFormat);
 		result.include("currentUrl", getCurrentUrl());
 		result.include("contextPath", req.getContextPath());
 		result.include("deployTimestamp", deployTimestamp());

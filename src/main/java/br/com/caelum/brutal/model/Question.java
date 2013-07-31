@@ -31,6 +31,7 @@ import br.com.caelum.brutal.model.interfaces.ViewCountable;
 import br.com.caelum.brutal.model.interfaces.Votable;
 import br.com.caelum.brutal.model.interfaces.Watchable;
 import br.com.caelum.brutal.model.watch.Watcher;
+import br.com.caelum.brutal.providers.SessionFactoryCreator;
 
 @Cacheable
 @Cache(usage=CacheConcurrencyStrategy.READ_WRITE, region="cache")
@@ -49,10 +50,10 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 	@Cascade(SAVE_UPDATE)
 	private List<QuestionInformation> history = new ArrayList<>();
 	
-	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
 	private final DateTime createdAt = new DateTime();
 
-	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
 	private DateTime lastUpdatedAt = new DateTime();
 
 	@ManyToOne
@@ -249,6 +250,14 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 		return information.getTags();
 	}
 	
+	public List<TagUsage> getTagsUsage() {
+		ArrayList<TagUsage> tagsUsage = new ArrayList<>();
+		for (Tag tag : this.getTags()) {
+			tagsUsage.add(new TagUsage(tag, tag.getUsageCount()));
+		}
+		return tagsUsage;
+	}
+	
 	public Tag getMostImportantTag(){
 		List<Tag> tags = information.getTags();
 		if(tags.isEmpty()){
@@ -411,6 +420,4 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 	public String getLinkPath() {
 		return id + "-" + getSluggedTitle();
 	}
-
-
 }

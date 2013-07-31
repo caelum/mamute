@@ -3,9 +3,9 @@ package br.com.caelum.brutal.migration;
 import java.math.BigInteger;
 import java.util.List;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.StatelessSession;
-import org.hibernate.classic.Session;
 
 import br.com.caelum.brutal.providers.SessionFactoryCreator;
 import br.com.caelum.vraptor.ioc.ApplicationScoped;

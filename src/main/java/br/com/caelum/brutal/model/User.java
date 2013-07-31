@@ -50,6 +50,7 @@ import br.com.caelum.brutal.model.interfaces.Identifiable;
 import br.com.caelum.brutal.model.interfaces.Moderatable;
 import br.com.caelum.brutal.model.interfaces.Votable;
 import br.com.caelum.brutal.model.watch.Watcher;
+import br.com.caelum.brutal.providers.SessionFactoryCreator;
 
 @Cacheable
 @Cache(usage=CacheConcurrencyStrategy.READ_WRITE, region="cache")
@@ -57,7 +58,8 @@ import br.com.caelum.brutal.model.watch.Watcher;
 @Entity
 public class User implements Identifiable {
 
-	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+	
+	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
 	private final DateTime createdAt = new DateTime();
 	
 	@Id
@@ -83,7 +85,7 @@ public class User implements Identifiable {
 	@Length(min = ABOUT_MIN_LENGTH, max = MARKED_ABOUT_MAX_LENGTH ,  message = ABOUT_LENGTH_MESSAGE)
 	private String markedAbout;
 	
-	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
 	private DateTime birthDate;
 	
 	private long karma = 0;
@@ -100,7 +102,7 @@ public class User implements Identifiable {
 	@NotEmpty
 	private String sluggedName;
 	
-	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
 	private DateTime nameLastTouchedAt;
 
 	@OneToMany(mappedBy="user")
@@ -358,7 +360,7 @@ public class User implements Identifiable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
 		return result;
 	}
 
@@ -368,13 +370,13 @@ public class User implements Identifiable {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof User))
 			return false;
 		User other = (User) obj;
-		if (id == null) {
-			if (other.id != null)
+		if (getId() == null) {
+			if (other.getId() != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!getId().equals(other.getId()))
 			return false;
 		return true;
 	}

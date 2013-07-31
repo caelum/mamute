@@ -63,7 +63,7 @@ a:hover{
 	margin-bottom: 2%;
 }
 
-.first-content .subheader {
+.content .subheader {
 	margin-bottom: 0;
 }
 
@@ -82,8 +82,6 @@ a:hover{
 	float: left;
 	padding: 0 0 0 .5em;
 	font-size: 0.9em;
-	margin-top: 0.4em;
-	margin-bottom: 0.4em;
 }
 
 .main-tags-title{
@@ -163,23 +161,19 @@ a:hover{
 
 .form-hints {
 	width: 35%;
+	margin-left: 1%;
 	margin-top: 32px;
 	float: left;
 }
 
 .hint {
 	display: none;
-	float: right;
 }
 .hint, .guideline {
 	background-color: #FFEFC6;
 	border-radius: 5px;
 	padding: .6em;
 	color: #735005;
-}
-
-.form-hints .hint{
-	width: 95%;
 }
 
 .hint-tips .hint-tip, .question-warnings .hint-tip {
@@ -554,7 +548,7 @@ label {
 	font-size: 0.9em;
 }
 .tiny, .tiny a, a.tiny {
-	font-size: 0.7em;
+	font-size: 1em;
 }
 
 textarea {
@@ -563,11 +557,23 @@ textarea {
 
 .hinted-form {
 	float: left;
-	width: 65%;
+	width: 64%;
 }
 
-.answer-form.hinted-form{
-	width: 60%;
+.answer-form {
+	position: relative;
+}
+
+.answer-form > .hint {
+	position: absolute;
+	left: 102%;
+	width: 31%;
+	top: 45px;
+	box-shadow: 0 0 5px 1px;
+}
+
+.hinted-form.answer-form > .hint {
+	width: 53%;
 }
 
 .submit[disabled=disabled] {
@@ -600,13 +606,13 @@ textarea {
 }
 
 .form-watch {
-	float: right;
-	width: 45%;
+	display: inline;
+	margin-left: 2em;
 }
 
 .form-watch input[type="checkbox"] {
 	height: 1em;
-	width: 10%;
+	width: 1em;
 	vertical-align: middle;
 }
 
@@ -967,6 +973,16 @@ a.button.ask-a-question:hover{
 	background-color: #dc962c;
 }
 
+.button:hover .menu-subtitle{
+	display:block
+}
+
+.menu-subtitle{
+	font-size: .63em;
+	margin-top: -64px;
+	display: none;
+}
+
 /* Menu User */
 .menu-user-image{
 	vertical-align: middle;
@@ -979,11 +995,11 @@ a.button.ask-a-question:hover{
 }
 
 .first-content {
-	width: 70%;
+	width: 75%;
 }
 
 .sidebar {
-	width: 30%;
+	width: 25%;
 	padding-left: 3.5em;
 	clear: right;
 }
@@ -1082,11 +1098,34 @@ a.button.ask-a-question:hover{
 	margin-top: 6%;
 }
 
+.tags-usage {
+	margin-bottom: 1.5em;
+}
+
 .tags-usage .tags-item {
 	margin-bottom: .45em;
 	display: inline-block;
 	width: 49%;
 	margin-right: 0;
+}
+
+.related-questions li{
+	padding-bottom: 0.7em;
+	font-size: 1.1em;
+	overflow: hidden;
+}
+
+.related-questions span {
+	background-color: #eaeaea;
+	padding: 0 0.5em;
+	font-size: 0.8em;
+	color: #555;
+	float: left;
+}
+
+.related-questions a {
+	float: right;
+	width: 87%;
 }
 
 /* NEWSES LIST */
@@ -1108,20 +1147,16 @@ a.button.ask-a-question:hover{
 	width: 90%;
 }
 
+.news-summary .item-title-wrapper{
+	width: 70%;
+}
+
 .news-summary .last-touch{
-	width: 20%
+	width: 30%
 }
 
 .news-guideline {
 	display: block;
-}
-
-.news-aside-list-header {
-	margin-top: 10px;
-}
-
-.news-title {
-	display: inline;
 }
 
 .other-news {
@@ -1148,6 +1183,10 @@ a.button.ask-a-question:hover{
 	overflow: hidden;
 }
 
+.news-item a {
+	font-family: Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif;
+}
+
 .news-big-items{
 	float: left;
 	height: 7em;
@@ -1162,6 +1201,7 @@ a.button.ask-a-question:hover{
 .item-title.news-title {
 	margin-bottom: 0;
 	font-size: 1em;
+	display: inline;
 }
 
 .news-summary time {
@@ -1276,7 +1316,7 @@ a.button.ask-a-question:hover{
 }
 
 .main-tags .tag-brutal {
-	margin-bottom:.5em;	
+	margin-top:.3em;	
 }
 
 .tag-description {
@@ -1551,6 +1591,7 @@ a.button.ask-a-question:hover{
 	background-color: #fefbb7;
 	padding:1.2em;
 	border-radius:5px;
+	clear: both;
 }
 
 .not-enough-karma {
@@ -1735,19 +1776,6 @@ a.button.ask-a-question:hover{
 }
 
 /*EDIT VIA AJAX*/
-
-.comment .edit-via-ajax {
-	display: inline;
-	padding-left: 1%;
-}
-
-.edit-via-ajax .form-hints {
-	margin-top: 0px;
-}
-
-.edit-via-ajax span,.edit div {
-	display: none;
-}
 
 .pending-questions .pending {
 	border-bottom: 1px solid #eaeaea;
@@ -2374,4 +2402,15 @@ a.button.ask-a-question:hover{
 /*BreadCrumb*/
 .breadcrumb{
 	display: none;
+}
+
+.send-news {
+	float: right;
+	padding-right: 1em;
+}
+
+.ad{
+	width: 728px;
+	height: 90px;
+	margin: .5em auto;
 }

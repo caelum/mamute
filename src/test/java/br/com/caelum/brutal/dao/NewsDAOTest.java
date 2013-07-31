@@ -1,9 +1,11 @@
 package br.com.caelum.brutal.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,6 +13,8 @@ import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.News;
 import br.com.caelum.brutal.model.NewsInformation;
 import br.com.caelum.brutal.model.User;
+import br.com.caelum.timemachine.Block;
+import br.com.caelum.timemachine.TimeMachine;
 
 public class NewsDAOTest extends DatabaseTestCase {
 	private User regularUser = user("Regular user", "regularuser@brutal.com");
@@ -55,6 +59,7 @@ public class NewsDAOTest extends DatabaseTestCase {
 		assertEquals(0, allVisible.size());
 	}
 
+	@Test
 	public void should_show_not_approved_news_to_moderator(){
 		saveNotApprovedNews(newsAuthor);
 		
@@ -62,22 +67,61 @@ public class NewsDAOTest extends DatabaseTestCase {
 		assertEquals(1, allVisible.size());
 	}
 	
-	public void should_not_show_not_approved_news_to_moderator(){
+	@Test
+	public void should_get_the_last_5_news_ordered_by_date(){
+		News thirdNews = saveApprovedNews(newsAuthor);
+		News secondNews = createNewsAt(new DateTime().plusDays(1));
+		News firstNews = createNewsAt(new DateTime().plusDays(2));
+		
+		List<News> newses = newsForModerator.hotNews();
+		assertEquals(firstNews.getId(), newses.get(0).getId());
+		assertEquals(secondNews.getId(), newses.get(1).getId());
+		assertEquals(thirdNews.getId(), newses.get(2).getId());
+	}
+	
+	@Test
+	public void should_get_the_last_5(){
+		saveApprovedNews(newsAuthor);
+		saveApprovedNews(newsAuthor);
+		saveApprovedNews(newsAuthor);
+		saveApprovedNews(newsAuthor);
+		saveApprovedNews(newsAuthor);
+		saveApprovedNews(newsAuthor);
+		
+		List<News> newses = newsForModerator.hotNews();
+		assertEquals(5, newses.size());
+	}
+	
+	@Test
+	public void should_get_only_approved_news(){
+		saveApprovedNews(newsAuthor);
 		saveNotApprovedNews(newsAuthor);
 		
-		List<News> allVisible = newsForModerator.allVisibleAndApproved(1, 100);
-		assertEquals(1, allVisible.size());
-	}
-	
-	private void saveApprovedNews(User newsAuthor) {
-		saveNews(newsAuthor, true);
+		List<News> newses = newsForModerator.hotNews();
+		assertEquals(1, newses.size());
+		assertTrue(newses.get(0).isApproved());
 	}
 
-	private void saveNotApprovedNews(User newsAuthor) {
-		saveNews(newsAuthor, false);
+	private News createNewsAt(DateTime date) {
+		return TimeMachine.goTo(date).andExecute(new Block<News>() {
+			@Override
+			public News run() {
+				News secondNews = saveApprovedNews(newsAuthor);
+				return secondNews;
+			}
+			
+		});
 	}
 	
-	private void saveNews(User newsAuthor, boolean approved) {
+	private News saveApprovedNews(User newsAuthor) {
+		return saveNews(newsAuthor, true);
+	}
+
+	private News saveNotApprovedNews(User newsAuthor) {
+		return saveNews(newsAuthor, false);
+	}
+	
+	private News saveNews(User newsAuthor, boolean approved) {
 		NewsInformation newsInformation = newsInformation(newsAuthor);
 		News news = new News(newsInformation, newsAuthor);
 		
@@ -86,6 +130,7 @@ public class NewsDAOTest extends DatabaseTestCase {
 		
 		session.save(newsInformation);
 		session.save(news);
+		return news;
 	}
 
 	private NewsInformation newsInformation(User author) {

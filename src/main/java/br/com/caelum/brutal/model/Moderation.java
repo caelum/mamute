@@ -6,6 +6,8 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
+import br.com.caelum.brutal.providers.SessionFactoryCreator;
+
 @Embeddable
 public class Moderation {
 
@@ -19,7 +21,7 @@ public class Moderation {
 		this.moderatedBy = moderator;
 	}
 
-	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
 	private DateTime moderatedAt = new DateTime();
 
 	@ManyToOne(optional = true)

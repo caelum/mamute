@@ -12,7 +12,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
-import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.dao.WithUserPaginatedDAO.OrderType;
 import br.com.caelum.brutal.dao.WithUserPaginatedDAO.UserRole;
@@ -42,32 +41,9 @@ public class NewsDAO implements PaginatableDAO  {
 		return addModeratorOrApprovedFilter(criteria).list();
 	}
 
-
-	@SuppressWarnings("unchecked")
-	public List<News> allVisibleAndApproved(Integer initPage, Integer pageSize) {
-		Criteria criteria = defaultPagedCriteria(initPage, pageSize);
-		return addApprovedFilter(criteria).list();
-	}
-	
 	@SuppressWarnings("unchecked")
 	public List<News> allVisibleAndApproved(int size) {
-		return defaultCriteria(size).list();
-	}
-
-	private Criteria addApprovedFilter(Criteria criteria) {
-		return visibleFilter.addFilter("n", criteria);
-	}
-
-	private Criterion criterionSpamFilter() {
-		return gt("n.voteCount", SPAM_BOUNDARY);
-	}
-
-	private int firstResultOf(Integer initPage, Integer pageSize) {
-		return pageSize * (initPage-1);
-	}
-
-	private Criteria addModeratorOrApprovedFilter(Criteria criteria) {
-		return invisible.addFilter("n", criteria);
+		return addApprovedFilter(defaultCriteria(size)).list();
 	}
 
 	public List<News> postsToPaginateBy(User user, OrderType orderByWhat, Integer page) {
@@ -97,6 +73,38 @@ public class NewsDAO implements PaginatableDAO  {
 		Long totalItems = (Long) addModeratorOrApprovedFilter(criteria).list().get(0);
 		return calculatePages(totalItems, pageSize);
 	}
+
+	@SuppressWarnings("unchecked")
+	public List<RssContent> orderedByCreationDate(int maxResults) {
+		Criteria criteria = session.createCriteria(News.class, "n")
+				.addOrder(desc("n.createdAt"))
+				.setMaxResults(maxResults);
+		return addApprovedFilter(criteria).list();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<News> hotNews() {
+		Query query = session.createQuery("select news from News news "
+				+ "where news.approved = true "
+				+ "order by news.createdAt desc, news.voteCount desc");
+		return query.setMaxResults(5).list();
+	}
+
+	private Criteria addApprovedFilter(Criteria criteria) {
+		return visibleFilter.addFilter("n", criteria);
+	}
+
+	private Criterion criterionSpamFilter() {
+		return gt("n.voteCount", SPAM_BOUNDARY);
+	}
+
+	private int firstResultOf(Integer initPage, Integer pageSize) {
+		return pageSize * (initPage-1);
+	}
+
+	private Criteria addModeratorOrApprovedFilter(Criteria criteria) {
+		return invisible.addFilter("n", criteria);
+	}
 	
 	private long calculatePages(Long count, Integer pageSize) {
 		long result = count/pageSize.longValue();
@@ -105,7 +113,6 @@ public class NewsDAO implements PaginatableDAO  {
 		}
 		return result;
 	}
-
 	
 	private Criteria defaultCriteria(Integer maxResults) {
 		Criteria criteria = session.createCriteria(News.class, "n")
@@ -121,19 +128,5 @@ public class NewsDAO implements PaginatableDAO  {
 	
 	private Criteria defaultPagedCriteria(Integer initPage, Integer pageSize) {
 		return defaultCriteria(pageSize).setFirstResult(firstResultOf(initPage, pageSize));
-	}
-
-	@SuppressWarnings("unchecked")
-	public List<RssContent> orderedByCreationDate(int maxResults) {
-		Query query = session.createQuery("select news from News news order by news.createdAt desc");
-		return query.setMaxResults(maxResults).list();
-	}
-
-	@SuppressWarnings("unchecked")
-	public List<News> hotNews(DateTime since) {
-		Query query = session.createQuery("select news from News news "
-				+ "where news.createdAt > :since and news.approved = true "
-				+ "order by news.voteCount desc");
-		return query.setParameter("since", since).setMaxResults(5).list();
 	}
 }

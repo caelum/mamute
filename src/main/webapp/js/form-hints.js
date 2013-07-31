@@ -14,8 +14,15 @@ $(function(){
 			hint.fadeIn(500);
 		}
 	};
+	
 	$(".hintable").focus(function() {
 		toggleHintFor(this);
 	});
+	
+	$(".hintable").focusout(function() {
+		var hint = $(".answer-form > .hint");
+		hint.fadeOut(500);
+	});
+	
 	$('#question-title').focus();
 });

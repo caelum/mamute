@@ -3,9 +3,9 @@
 <fmt:message key="metas.generic.title" var="genericTitle" />
 <tags:header facebookMetas="${true}" title="${genericTitle} - ${title}" description="${description}"/>
 
-<section class="news-content first-content">
+<section class="news-content content">
 	<h2 class="title page-title subheader"><fmt:message key="menu.news"/>
-		<a href="<c:url value="/nova-noticia"/>" class="tiny">
+		<a href="<c:url value="/nova-noticia"/>" class="tiny send-news">
 			<fmt:message key="menu.new_news" />
 		</a>
 	</h2>

@@ -14,6 +14,6 @@
 		</c:if>
 	>
 		<tags:userProfileLink user="${user}" htmlClass="user-name ellipsis" isPrivate="false" microdata="${microdata}"/>
-		<div title="<fmt:message key="touch.karma.title"/>" class="user-karma">${user.karma}<tags:pluralize key="touch.karma" count="${user.karma}" /></div>
+		<div title="<fmt:message key="touch.karma.title"/>" class="user-karma ellipsis">${user.karma}<tags:pluralize key="touch.karma" count="${user.karma}" /></div>
 	</div>
 </div>

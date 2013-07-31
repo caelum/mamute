@@ -1,5 +1,5 @@
 <#assign questionStyle = 'padding:0px 10px; border-bottom: 1px dotted #ccc;'>
-<#assign questionTitleStyle = 'margin: 10px 0 0'>
+<#assign questionTitleStyle = 'margin: 3px 0 0'>
 <#assign linkStyle = 'text-decoration: none; color: rgb(0, 119, 204);'>
 <#assign titleStyle = 'margin: 15px 0; padding: 0 10px;'>
 <#assign mainTitleStyle = 'margin: 10px; vertical-align: bottom; display: inline-block; font-size: 23px;'>

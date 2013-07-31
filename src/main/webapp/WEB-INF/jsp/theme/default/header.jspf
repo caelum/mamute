@@ -8,7 +8,7 @@
 	<section class="second-header">
 		<div class="container">
 			<a class="logo big-logo sprite"
-				href="${linkTo[ListController].home}">GUJ</a>
+				href="${linkTo[ListController].home}"><fmt:message key="site.name" /></a>
 			<nav class="nav main-nav piped-nav">
 				<ul class="nav-items">
 					<li class="nav-item">
@@ -32,8 +32,9 @@
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="button" href='<c:url value="/"/>'>
-							<fmt:message key="menu.forum" />
+						<a class="button" href='<c:url value="/forums/list.java"/>'>
+							<span class="menu-title"><fmt:message key="menu.forum" /></span>
+							<span class="menu-subtitle">Antigo Forum</span>
 						</a>
 					</li>
 					<li class="ask nav-item">
@@ -78,6 +79,13 @@
 								<li class="nav-item">
 									<a href="${linkTo[HistoryController].history}">
 										<fmt:message key="moderation.link" /> (${pendingForModeratorCount})
+									</a>
+								</li>
+							</c:if>
+							<c:if test="${currentUser.isModerator()}">
+								<li class="nav-item">
+									<a href="${linkTo[ModeratorsNewsletterJob].execute}">
+										<fmt:message key="moderation.newsletterJob" />
 									</a>
 								</li>
 							</c:if>

@@ -25,6 +25,7 @@ import org.joda.time.DateTime;
 import br.com.caelum.brutal.model.interfaces.Moderatable;
 import br.com.caelum.brutal.model.interfaces.Notifiable;
 import br.com.caelum.brutal.model.interfaces.Votable;
+import br.com.caelum.brutal.providers.SessionFactoryCreator;
 
 @Cacheable
 @Cache(usage=CacheConcurrencyStrategy.READ_WRITE, region="cache")
@@ -34,7 +35,7 @@ public class Answer extends Moderatable implements Post, Notifiable {
 	@GeneratedValue
 	private Long id;
 
-	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
 	private final DateTime createdAt = new DateTime();
 
 	@ManyToOne
@@ -48,7 +49,7 @@ public class Answer extends Moderatable implements Post, Notifiable {
 	@NotNull
 	private AnswerInformation information = null;
 	
-	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
 	private DateTime lastUpdatedAt = new DateTime();
 
 	@ManyToOne

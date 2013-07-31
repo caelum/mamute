@@ -28,7 +28,7 @@ import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.core.Localization;
-import br.com.caelum.vraptor.util.hibernate.extra.Load;
+import br.com.caelum.vraptor.plugin.hibernate4.extra.Load;
 import br.com.caelum.vraptor.view.Results;
 
 @Resource

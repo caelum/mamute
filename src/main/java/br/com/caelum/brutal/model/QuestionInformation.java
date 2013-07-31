@@ -18,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OrderColumn;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.BatchSize;
@@ -28,6 +29,7 @@ import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.model.interfaces.Moderatable;
 import br.com.caelum.brutal.model.interfaces.Taggable;
+import br.com.caelum.brutal.providers.SessionFactoryCreator;
 
 @Cacheable
 @Entity
@@ -65,13 +67,14 @@ public class QuestionInformation implements Information, Taggable {
 	@ManyToOne(optional = false, fetch = EAGER)
 	private final User author;
 
-	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
 	private final DateTime createdAt = new DateTime();
 
 	@Embedded
 	private Moderation moderation;
 
 	@BatchSize(size=25)
+	@OrderColumn(name = "tag_order")
 	@ManyToMany
 	@NotEmpty(message = "question.errors.tags.empty")
 	private List<Tag> tags;

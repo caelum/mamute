@@ -3,17 +3,23 @@ package br.com.caelum.brutal.model;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
+import br.com.caelum.brutal.providers.SessionFactoryCreator;
 
+@Cacheable
+@Cache(usage=CacheConcurrencyStrategy.READ_ONLY, region="cache")
 @Entity
 public class Tag {
 	@Id
@@ -26,7 +32,7 @@ public class Tag {
 	
 	private String description;
 	
-	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
 	private final DateTime createdAt = new DateTime();
 	
 	@ManyToOne
@@ -79,4 +85,5 @@ public class Tag {
 	public void decrementUsage(){
 		this.usageCount --;
 	}
+	
 }
