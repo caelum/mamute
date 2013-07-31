@@ -6,7 +6,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
-import org.joda.time.format.DateTimeFormat;
 import org.ocpsoft.prettytime.PrettyTime;
 
 import br.com.caelum.brutal.components.RecentTagsContainer;
@@ -59,7 +58,7 @@ public class GlobalInterceptor implements Interceptor {
 		menuInfo.include();
 		result.include("env", env);
 		result.include("prettyTimeFormatter", new PrettyTime(localization.getLocale()));
-		result.include("literalFormatter", brutalDateFormat);
+		result.include("literalFormatter", brutalDateFormat.getInstance());
 		result.include("currentUrl", getCurrentUrl());
 		result.include("contextPath", req.getContextPath());
 		result.include("deployTimestamp", deployTimestamp());
