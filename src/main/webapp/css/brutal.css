@@ -134,6 +134,7 @@ a:hover{
 
 .question-title,.news-title {
 	font-size: 1.65em;
+	padding-bottom: .25em;
 }
 
 .item-title-wrapper{
