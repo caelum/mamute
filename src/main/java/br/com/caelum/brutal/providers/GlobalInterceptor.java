@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.providers;
 
+import static java.util.Arrays.asList;
+
 import java.util.Enumeration;
 
 import javax.servlet.ServletContext;
@@ -8,8 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.ocpsoft.prettytime.PrettyTime;
 
+import br.com.caelum.brutal.auth.BannedUserException;
 import br.com.caelum.brutal.components.RecentTagsContainer;
+import br.com.caelum.brutal.controllers.AuthController;
 import br.com.caelum.brutal.dao.NewsDAO;
+import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.infra.MenuInfo;
 import br.com.caelum.brutal.infra.NotFoundException;
 import br.com.caelum.brutal.model.LoggedUser;
@@ -38,11 +43,14 @@ public class GlobalInterceptor implements Interceptor {
 	private NewsDAO newses;
 	private RecentTagsContainer recentTagsContainer;
 	private BrutalDateFormat brutalDateFormat;
+	private final MessageFactory messageFactory;
 
 	public GlobalInterceptor(Environment env, Result result, 
 			HttpServletRequest req, Localization localization,  
 			ServletContext servletContext, LoggedUser loggedUser,
-			MenuInfo menuInfo, NewsDAO newses, RecentTagsContainer recentTagsContainer, BrutalDateFormat brutalDateFormat) {
+			MenuInfo menuInfo, NewsDAO newses,
+			RecentTagsContainer recentTagsContainer,
+			BrutalDateFormat brutalDateFormat, MessageFactory messageFactory) {
 		this.env = env;
 		this.result = result;
 		this.req = req;
@@ -51,6 +59,7 @@ public class GlobalInterceptor implements Interceptor {
 		this.newses = newses;
 		this.recentTagsContainer = recentTagsContainer;
 		this.brutalDateFormat = brutalDateFormat;
+		this.messageFactory = messageFactory;
 	}
 
 	public void intercept(InterceptorStack stack, ResourceMethod method,
@@ -65,6 +74,9 @@ public class GlobalInterceptor implements Interceptor {
 		result.include("sidebarNews", newses.allVisibleAndApproved(5));
 		result.include("recentTags", recentTagsContainer.getRecentTagsUsage());
 		result.on(NotFoundException.class).notFound();
+		result.on(BannedUserException.class)
+				.include("errors", asList(messageFactory.build("error", "user.errors.banned")))
+				.redirectTo(AuthController.class).loginForm("");
 		
 		logHeaders();
 		

@@ -22,7 +22,7 @@ public class DefaultAuthenticator {
 		if (retrieved == null) {
 		    retrieved = users.findByMailAndLegacyPasswordAndUpdatePassword(email, password);
 		}
-		if (retrieved == null || retrieved.isBanned()) {
+		if (retrieved == null) {
 			return false;
 		}
 		

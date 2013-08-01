@@ -42,7 +42,7 @@ public class AuthController extends Controller {
 		if (validator.validate(email, password) && auth.authenticate(email, password)) {
 			redirectToRightUrl(redirectUrl);
 		} else {
-//			includeAsList("messages", i18n("error", "auth.invalid.login"));
+			includeAsList("messages", i18n("error", "auth.invalid.login"));
 			redirectTo(this).loginForm(redirectUrl);
 			validator.onErrorRedirectTo(this).loginForm(redirectUrl);
 		}
