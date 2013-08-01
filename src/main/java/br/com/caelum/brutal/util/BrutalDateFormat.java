@@ -15,7 +15,7 @@ public class BrutalDateFormat {
 		this.localization = localization;
 	}
 	
-	public DateTimeFormatter getInstance () {
-		return DateTimeFormat.forPattern(localization.getMessage("date.joda.pattern")).withLocale(localization.getLocale());
+	public DateTimeFormatter getInstance (String pattern) {
+		return DateTimeFormat.forPattern(localization.getMessage(pattern)).withLocale(localization.getLocale());
 	}
 }

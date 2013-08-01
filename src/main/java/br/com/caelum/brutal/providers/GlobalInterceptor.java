@@ -58,7 +58,7 @@ public class GlobalInterceptor implements Interceptor {
 		menuInfo.include();
 		result.include("env", env);
 		result.include("prettyTimeFormatter", new PrettyTime(localization.getLocale()));
-		result.include("literalFormatter", brutalDateFormat.getInstance());
+		result.include("literalFormatter", brutalDateFormat.getInstance("date.joda.pattern"));
 		result.include("currentUrl", getCurrentUrl());
 		result.include("contextPath", req.getContextPath());
 		result.include("deployTimestamp", deployTimestamp());

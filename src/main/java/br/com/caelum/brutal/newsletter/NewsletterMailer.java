@@ -6,6 +6,7 @@ import org.apache.commons.mail.Email;
 import org.apache.log4j.Logger;
 import org.hibernate.ScrollableResults;
 import org.joda.time.DateTime;
+import org.joda.time.DateTime.Property;
 import org.owasp.html.HtmlPolicyBuilder;
 import org.owasp.html.PolicyFactory;
 
@@ -59,7 +60,7 @@ public class NewsletterMailer {
 		List<Question> unanswered = questions.randomUnanswered(pastWeek, twelveHoursAgo, 8);
 		LinkToHelper linkToHelper = new NotificationMailer.LinkToHelper(linker);
 		String siteName = localization.getMessage("site.name");
-		String date= brutalDateFormat.getInstance().print(new DateTime());
+		String date= brutalDateFormat.getInstance("date.joda.newsletter.pattern").print(new DateTime());
 		
 		while (results.next()) {
 			User user = (User) results.get()[0];
