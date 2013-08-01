@@ -438,6 +438,10 @@
 
 
 @media only screen and (max-width: 450px) {
+
+	.button:hover .menu-subtitle{
+		display: none
+	}
 	
 	.main-nav {
 		height: auto;
