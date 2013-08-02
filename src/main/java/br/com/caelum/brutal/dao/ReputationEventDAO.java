@@ -45,21 +45,21 @@ public class ReputationEventDAO {
 
 	@SuppressWarnings("unchecked")
 	public KarmaByContextHistory karmaWonByQuestion(User user, DateTime after, Integer maxResults) {
-		Query query = karmaByQuestionCriteria(user, after).setMaxResults(maxResults);
+		Query query = karmaByContextQuery(user, after).setMaxResults(maxResults);
 		return new KarmaByContextHistory(query.list());
 	}
 
 	@SuppressWarnings("unchecked")
 	public KarmaByContextHistory karmaWonByQuestion(User user,
 			DateTime after) {
-		Query query = karmaByQuestionCriteria(user, after);
+		Query query = karmaByContextQuery(user, after);
 		return new KarmaByContextHistory(query.list());
 	}
 	
-	private Query karmaByQuestionCriteria(User user, DateTime after) {
+	private Query karmaByContextQuery(User user, DateTime after) {
 		String hql = "select e.context, sum(e.karmaReward), e.date from ReputationEvent e "+ 
 			        "where e.user=:user and e.date > :after " +
-			        "group by context, day(e.date) " +
+			        "group by e.context, day(e.date) " +
 			        "order by e.date desc";
 				    
 	    Query query = session.createQuery(hql).setParameter("user", user).setParameter("after", after);
@@ -69,10 +69,9 @@ public class ReputationEventDAO {
 	
 	@SuppressWarnings("unchecked")
 	public KarmaByContextHistory karmaWonByQuestion(User user) {
-		String hql = "select question, sum(e.karmaReward), e.date from ReputationEvent e " +
-				"join e.user u left join e.context question " +
-				"where u=:user " +
-				"group by question, day(e.date) " +
+		String hql = "select e.context, sum(e.karmaReward), e.date from ReputationEvent e " +
+				"where e.user=:user " +
+				"group by e.context, day(e.date) " +
 				"order by e.date desc";
 		
 		Query query = session.createQuery(hql).setParameter("user", user);
