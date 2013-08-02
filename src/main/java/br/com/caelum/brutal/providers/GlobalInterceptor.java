@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.ocpsoft.prettytime.PrettyTime;
 
+import br.com.caelum.brutal.ads.BrutalAds;
 import br.com.caelum.brutal.auth.BannedUserException;
 import br.com.caelum.brutal.components.RecentTagsContainer;
 import br.com.caelum.brutal.controllers.AuthController;
@@ -44,13 +45,15 @@ public class GlobalInterceptor implements Interceptor {
 	private RecentTagsContainer recentTagsContainer;
 	private BrutalDateFormat brutalDateFormat;
 	private final MessageFactory messageFactory;
+	private final BrutalAds ads;
 
 	public GlobalInterceptor(Environment env, Result result, 
 			HttpServletRequest req, Localization localization,  
 			ServletContext servletContext, LoggedUser loggedUser,
 			MenuInfo menuInfo, NewsDAO newses,
 			RecentTagsContainer recentTagsContainer,
-			BrutalDateFormat brutalDateFormat, MessageFactory messageFactory) {
+			BrutalDateFormat brutalDateFormat, MessageFactory messageFactory,
+			BrutalAds ads) {
 		this.env = env;
 		this.result = result;
 		this.req = req;
@@ -60,6 +63,7 @@ public class GlobalInterceptor implements Interceptor {
 		this.recentTagsContainer = recentTagsContainer;
 		this.brutalDateFormat = brutalDateFormat;
 		this.messageFactory = messageFactory;
+		this.ads = ads;
 	}
 
 	public void intercept(InterceptorStack stack, ResourceMethod method,
@@ -73,6 +77,7 @@ public class GlobalInterceptor implements Interceptor {
 		result.include("deployTimestamp", deployTimestamp());
 		result.include("sidebarNews", newses.allVisibleAndApproved(5));
 		result.include("recentTags", recentTagsContainer.getRecentTagsUsage());
+		result.include("shouldShowAds", ads.shouldShowAds());
 		result.on(NotFoundException.class).notFound();
 		result.on(BannedUserException.class)
 				.include("errors", asList(messageFactory.build("error", "user.errors.banned")))

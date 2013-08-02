@@ -37,7 +37,7 @@
 					data-id="${answer.id}">
 					<tags:answerWith answer="${answer}" vote="${vote}" commentVotes="${commentsWithVotes}"/>
 				</li>
-				<c:if test="${status.index eq 0 && !currentUser.loggedIn && question.answersCount gt 1}">
+				<c:if test="${status.index eq 0 && shouldShowAds && question.answersCount gt 1}">
 					<div id="adAnswer" class="ad"></div>
 				</c:if>
 			</c:if>
