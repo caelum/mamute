@@ -6,7 +6,7 @@ import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOrKarmaRule;
 import br.com.caelum.brutal.dao.VoteDAO;
 import br.com.caelum.brutal.infra.ModelUrlMapping;
-import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.Vote;
 import br.com.caelum.brutal.model.VoteType;
 import br.com.caelum.brutal.model.VotingMachine;
@@ -21,12 +21,12 @@ import br.com.caelum.vraptor.Result;
 public class VoteController {
 
 	private final Result result;
-	private final User currentUser;
+	private final LoggedUser currentUser;
 	private final VoteDAO votes;
 	private final VotingMachine votingMachine;
 	private final ModelUrlMapping mapping;
 
-	public VoteController(Result result, User currentUser, 
+	public VoteController(Result result,  LoggedUser currentUser, 
 			VoteDAO voteDAO, VotingMachine votingMachine, ModelUrlMapping mapping) {
 		this.result = result;
 		this.currentUser = currentUser;
@@ -53,7 +53,7 @@ public class VoteController {
 	private void tryToVoteVotable(Long id, VoteType voteType, Class votableType) {
 		try {
 		    Votable votable = votes.loadVotable(votableType, id);
-		    Vote current = new Vote(currentUser, voteType);
+		    Vote current = new Vote(currentUser.getCurrent(), voteType);
 		    votingMachine.register(votable, current, votableType);
 		    votes.save(current);
 		    result.use(json()).withoutRoot().from(votable.getVoteCount()).serialize();
