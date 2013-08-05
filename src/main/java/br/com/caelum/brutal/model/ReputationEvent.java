@@ -1,13 +1,18 @@
 package br.com.caelum.brutal.model;
 
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.Any;
+import org.hibernate.annotations.AnyMetaDef;
+import org.hibernate.annotations.MetaValue;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
@@ -26,8 +31,13 @@ public class ReputationEvent {
 	
 	private int karmaReward;
 
-	@ManyToOne
-	private Question questionInvolved;
+	@Any(metaColumn= @Column(name = "context_type"))
+	@AnyMetaDef(idType = "long", metaType="string", metaValues = {
+			@MetaValue(value = "QUESTION", targetEntity = Question.class),
+			@MetaValue(value = "NEWS", targetEntity = News.class) 
+	})
+	@JoinColumn(name = "context_id")
+	private ReputationEventContext context;
 	
 	@ManyToOne
 	private User user;
@@ -39,10 +49,10 @@ public class ReputationEvent {
 	ReputationEvent() {
 	}
 
-	public ReputationEvent(EventType type, Question questionInvolved, User user) {
+	public ReputationEvent(EventType type, ReputationEventContext context, User user) {
 		this.type = type;
 		this.karmaReward = type.reward();
-		this.questionInvolved = questionInvolved;
+		this.context = context;
 		this.user = user;
 	}
 	
@@ -58,8 +68,8 @@ public class ReputationEvent {
 		return type;
 	}
 	
-	public Question getQuestionInvolved() {
-		return questionInvolved;
+	public ReputationEventContext getContext() {
+		return context;
 	}
 	
 	public User getUser() {

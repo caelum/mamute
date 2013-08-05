@@ -107,6 +107,16 @@ public class UserDAO {
         		"where session.sessionKey=:key");
         return (UserAndSession) query.setParameter("key", key).uniqueResult();
     }
+    
+    public void clearSessionOf(User user) {
+    	Query query = session.createQuery("select session from UserSession session " +
+    			"join session.user user " +
+    			"where user=:user");
+    	List<UserSession> sessions = query.setParameter("user", user).list();
+    	for (UserSession userSession : sessions) {
+			session.delete(userSession);
+		}
+    }
 
 	public User findByEmailAndMethod(String email, MethodType... methods) {
 		Query query = session.createQuery("select distinct u from User u " +

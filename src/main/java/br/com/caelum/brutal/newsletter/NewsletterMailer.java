@@ -59,7 +59,7 @@ public class NewsletterMailer {
 		List<Question> unanswered = questions.randomUnanswered(pastWeek, twelveHoursAgo, 8);
 		LinkToHelper linkToHelper = new NotificationMailer.LinkToHelper(linker);
 		String siteName = localization.getMessage("site.name");
-		String date= brutalDateFormat.getInstance().print(new DateTime());
+		String date = brutalDateFormat.getInstance("date.joda.newsletter.pattern").print(new DateTime());
 		
 		while (results.next()) {
 			User user = (User) results.get()[0];
@@ -68,12 +68,12 @@ public class NewsletterMailer {
 						.with("hotNews", hotNews)
 						.with("hotQuestions", hotQuestions)
 						.with("unansweredQuestions", unanswered)
-						.with("unansweredQuestions", unanswered)
 						.with("unsubscribeLink", linkToHelper.unsubscribeLink(user))
 						.with("linkToHelper", linkToHelper)
 						.with("l10n", localization)
 						.with("sanitizer", POLICY)
 						.with("siteName", siteName)
+						.with("date", date)
 						.to(user.getName(), user.getEmail());
 				email.setCharset("utf-8");
 				mailer.send(email);

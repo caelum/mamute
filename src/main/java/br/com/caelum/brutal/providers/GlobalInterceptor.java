@@ -1,16 +1,21 @@
 package br.com.caelum.brutal.providers;
 
+import static java.util.Arrays.asList;
+
 import java.util.Enumeration;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
-import org.joda.time.format.DateTimeFormat;
 import org.ocpsoft.prettytime.PrettyTime;
 
+import br.com.caelum.brutal.ads.BrutalAds;
+import br.com.caelum.brutal.auth.BannedUserException;
 import br.com.caelum.brutal.components.RecentTagsContainer;
+import br.com.caelum.brutal.controllers.AuthController;
 import br.com.caelum.brutal.dao.NewsDAO;
+import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.infra.MenuInfo;
 import br.com.caelum.brutal.infra.NotFoundException;
 import br.com.caelum.brutal.model.LoggedUser;
@@ -41,11 +46,16 @@ public class GlobalInterceptor implements Interceptor {
 	private NewsDAO newses;
 	private RecentTagsContainer recentTagsContainer;
 	private BrutalDateFormat brutalDateFormat;
+	private final MessageFactory messageFactory;
+	private final BrutalAds ads;
 
 	public GlobalInterceptor(Environment env, Result result, 
 			HttpServletRequest req, Localization localization,  
 			ServletContext servletContext, LoggedUser loggedUser,
-			MenuInfo menuInfo, NewsDAO newses, RecentTagsContainer recentTagsContainer, BrutalDateFormat brutalDateFormat) {
+			MenuInfo menuInfo, NewsDAO newses,
+			RecentTagsContainer recentTagsContainer,
+			BrutalDateFormat brutalDateFormat, MessageFactory messageFactory,
+			BrutalAds ads) {
 		this.env = env;
 		this.result = result;
 		this.req = req;
@@ -54,6 +64,8 @@ public class GlobalInterceptor implements Interceptor {
 		this.newses = newses;
 		this.recentTagsContainer = recentTagsContainer;
 		this.brutalDateFormat = brutalDateFormat;
+		this.messageFactory = messageFactory;
+		this.ads = ads;
 	}
 
 	public void intercept(InterceptorStack stack, ResourceMethod method,
@@ -61,13 +73,17 @@ public class GlobalInterceptor implements Interceptor {
 		menuInfo.include();
 		result.include("env", env);
 		result.include("prettyTimeFormatter", new PrettyTime(localization.getLocale()));
-		result.include("literalFormatter", brutalDateFormat);
+		result.include("literalFormatter", brutalDateFormat.getInstance("date.joda.pattern"));
 		result.include("currentUrl", getCurrentUrl());
 		result.include("contextPath", req.getContextPath());
 		result.include("deployTimestamp", deployTimestamp());
 		result.include("sidebarNews", newses.allVisibleAndApproved(5));
 		result.include("recentTags", recentTagsContainer.getRecentTagsUsage());
+		result.include("shouldShowAds", ads.shouldShowAds());
 		result.on(NotFoundException.class).notFound();
+		result.on(BannedUserException.class)
+				.include("errors", asList(messageFactory.build("error", "user.errors.banned")))
+				.redirectTo(AuthController.class).loginForm("");
 		
 		logHeaders();
 		

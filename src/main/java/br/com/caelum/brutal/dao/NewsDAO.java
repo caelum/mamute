@@ -86,7 +86,7 @@ public class NewsDAO implements PaginatableDAO  {
 	public List<News> hotNews() {
 		Query query = session.createQuery("select news from News news "
 				+ "where news.approved = true "
-				+ "order by news.createdAt desc, news.voteCount desc");
+				+ "order by news.createdAt desc");
 		return query.setMaxResults(5).list();
 	}
 

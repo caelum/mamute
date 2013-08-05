@@ -134,6 +134,7 @@ a:hover{
 
 .question-title,.news-title {
 	font-size: 1.65em;
+	padding-bottom: .25em;
 }
 
 .item-title-wrapper{
@@ -979,7 +980,7 @@ a.button.ask-a-question:hover{
 
 .menu-subtitle{
 	font-size: .63em;
-	margin-top: -64px;
+	margin-top: -6.5em;
 	display: none;
 }
 
@@ -995,11 +996,11 @@ a.button.ask-a-question:hover{
 }
 
 .first-content {
-	width: 75%;
+	width: 71%;
 }
 
 .sidebar {
-	width: 25%;
+	width: 29%;
 	padding-left: 3.5em;
 	clear: right;
 }
@@ -2407,10 +2408,15 @@ a.button.ask-a-question:hover{
 .send-news {
 	float: right;
 	padding-right: 1em;
+	font-size: 1.4em;
 }
 
 .ad{
 	width: 728px;
 	height: 90px;
 	margin: .5em auto;
+}
+
+#adzerk {
+	padding-left: 5px;
 }

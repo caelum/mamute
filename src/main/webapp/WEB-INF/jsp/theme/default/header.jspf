@@ -34,7 +34,7 @@
 					<li class="nav-item">
 						<a class="button" href='<c:url value="/forums/list.java"/>'>
 							<span class="menu-title"><fmt:message key="menu.forum" /></span>
-							<span class="menu-subtitle">Antigo Forum</span>
+							<span class="menu-subtitle"><fmt:message key="menu.forum.subtitle" /></span>
 						</a>
 					</li>
 					<li class="ask nav-item">

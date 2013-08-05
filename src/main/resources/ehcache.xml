@@ -2,10 +2,9 @@
 	xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="true"
 	monitoring="autodetect" dynamicConfig="true">
 	
-	<defaultCache maxEntriesLocalHeap="2000" eternal="false"
+	<defaultCache eternal="false"
 		timeToIdleSeconds="240" timeToLiveSeconds="240" diskSpoolBufferSizeMB="30"
 		diskExpiryThreadIntervalSeconds="120" memoryStoreEvictionPolicy="LRU" statistics="false">
-		<persistence strategy="localTempSwap" />
 	</defaultCache>
 	
 </ehcache>
