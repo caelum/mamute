@@ -90,12 +90,15 @@ public class ReputationEventDAO {
 
 	private Query getTopAnswerersSummary(Tag tag, DateTime after) {
 		String where = after == null ? "" : "and e.date > :after ";
-		String hql = "select new br.com.caelum.brutal.dto.UserSummaryForTag(sum(e.karmaReward) as karmaSum, count(distinct a), user) from ReputationEvent e "+
+		String hql = "select new br.com.caelum.brutal.dto.UserSummaryForTag(sum(e.karmaReward) as karmaSum, count(distinct a), user) "
+				+ "from ReputationEvent e, Question q "+
 				"join e.user user "+
-				"join e.context c "+
-				"join c.answers a "+
-				"join c.information.tags t "+
-				"where user=a.author and e.type in (:events)" + where + "and t=:tag "+
+				"join q.answers a "+
+				"join q.information.tags t "+
+				"where user=a.author and e.type in (:events)" + 
+				where + 
+				"and t=:tag " +
+				"and q.id=e.context.id and e.context.class='Question'"+
 				"group by user "+
 				"order by karmaSum desc";
 		
@@ -114,11 +117,12 @@ public class ReputationEventDAO {
 	
 	private Query getTopAskersSummary(Tag tag, DateTime after) {
 		String where = after == null ? "" : "and e.date > :after ";
-		String hql = "select new br.com.caelum.brutal.dto.UserSummaryForTag(sum(e.karmaReward) as karmaSum, count(distinct c), user) from ReputationEvent e "+
+		String hql = "select new "
+				+ "br.com.caelum.brutal.dto.UserSummaryForTag(sum(e.karmaReward) as karmaSum, count(distinct q), user) "
+				+ "from ReputationEvent e, Question q "+
 				"join e.user user "+
-				"join e.context c "+
-				"join c.information.tags t "+
-				"where e.type in (:events)" + where + "and t=:tag "+
+				"join q.information.tags t "+
+				"where e.type in (:events)" + where + "and t=:tag and e.context.id = q.id and e.context.class='Question' "+
 				"group by user "+
 				"order by karmaSum desc";
 		
