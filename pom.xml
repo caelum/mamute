@@ -246,10 +246,8 @@
 
 		<dependency>
 			<groupId>br.com.caelum.vraptor</groupId>
-			<systemPath>${vraptor.brutauth.path}</systemPath>
 			<artifactId>vraptor-brutauth</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-			<scope>system</scope>
+			<version>1.0.0</version>
 		</dependency>
 
 		<!-- hibernate -->
@@ -607,10 +605,6 @@
 							<tasks>
 								<echo message="Hibernate path: ${vraptor.hibernate.path}" />
 								<copy file="${vraptor.hibernate.path}" todir="src/main/webapp/WEB-INF/lib/" />
-							</tasks>
-							<tasks>
-								<echo message="Brutauth path: ${vraptor.brutauth.path}" />
-								<copy file="${vraptor.brutauth.path}" todir="src/main/webapp/WEB-INF/lib/" />
 							</tasks>
 						</configuration>
 						<goals>
