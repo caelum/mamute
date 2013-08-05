@@ -13,7 +13,6 @@
 		<jetty.version>8.1.0.v20120127</jetty.version>
 		<jetty.jsp.version>8.1.4.v20120524</jetty.jsp.version>
 		<vraptor.hibernate.path>${project.basedir}/local-repo/vraptor-plugin-hibernate4-1.0.2.jar</vraptor.hibernate.path>
-		<vraptor.brutauth.path>${project.basedir}/local-repo/vraptor-brutauth.jar</vraptor.brutauth.path>
 	</properties>
 
 	<scm>
