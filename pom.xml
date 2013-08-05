@@ -245,7 +245,7 @@
 		</dependency>
 
 		<dependency>
-			<groupId>br.com.caelum</groupId>
+			<groupId>br.com.caelum.vraptor</groupId>
 			<systemPath>${vraptor.brutauth.path}</systemPath>
 			<artifactId>vraptor-brutauth</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
