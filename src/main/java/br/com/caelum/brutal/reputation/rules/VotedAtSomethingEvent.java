@@ -1,19 +1,18 @@
 package br.com.caelum.brutal.reputation.rules;
 
 import br.com.caelum.brutal.model.EventType;
-import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.ReputationEvent;
+import br.com.caelum.brutal.model.ReputationEventContext;
 import br.com.caelum.brutal.model.Vote;
-import br.com.caelum.brutal.model.interfaces.Votable;
 
 public class VotedAtSomethingEvent {
 	
 	private final Vote vote;
-	private final Question questionInvolved;
+	private final ReputationEventContext eventContext;
 
-	public VotedAtSomethingEvent(Vote vote, Question questionInvolved) {
+	public VotedAtSomethingEvent(Vote vote, ReputationEventContext eventContext) {
 		this.vote = vote;
-		this.questionInvolved = questionInvolved;
+		this.eventContext = eventContext;
 	}
 
 	public int reward() {
@@ -24,7 +23,7 @@ public class VotedAtSomethingEvent {
 	}
 
 	public ReputationEvent reputationEvent() {
-		ReputationEvent downvoted = new ReputationEvent(EventType.DOWNVOTED_SOMETHING, questionInvolved, vote.getAuthor());
+		ReputationEvent downvoted = new ReputationEvent(EventType.DOWNVOTED_SOMETHING, eventContext, vote.getAuthor());
 		return vote.isDown() ? downvoted : ReputationEvent.IGNORED_EVENT;
 	}
 

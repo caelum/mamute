@@ -16,8 +16,8 @@ import br.com.caelum.brutal.migration.MigrationOperation;
 import br.com.caelum.brutal.migration.RawSQLOperation;
 import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.EventType;
-import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.ReputationEvent;
+import br.com.caelum.brutal.model.ReputationEventContext;
 import br.com.caelum.brutal.model.Vote;
 import br.com.caelum.vraptor.ioc.ApplicationScoped;
 import br.com.caelum.vraptor.ioc.Component;
@@ -35,7 +35,7 @@ public class M019CommentUpvoteReputationEvents implements Migration {
 				List<Comment> comments = session.createCriteria(Comment.class).list();
 				VoteDAO voteDAO = new VoteDAO(session);
 				for (Comment comment : comments) {
-					Question question = voteDAO.questionOf(comment);
+					ReputationEventContext question = voteDAO.contextOf(comment);
 					List<Vote> votes = comment.getVotes();
 					for (Vote vote : votes) {
 						ReputationEvent reputationEvent = new ReputationEvent(EventType.COMMENT_UPVOTE, question, comment.getAuthor());

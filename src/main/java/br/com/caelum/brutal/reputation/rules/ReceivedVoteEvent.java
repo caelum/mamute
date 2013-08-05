@@ -9,6 +9,7 @@ import br.com.caelum.brutal.model.EventType;
 import br.com.caelum.brutal.model.News;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.ReputationEvent;
+import br.com.caelum.brutal.model.ReputationEventContext;
 import br.com.caelum.brutal.model.VoteType;
 import br.com.caelum.brutal.model.interfaces.Votable;
 
@@ -18,7 +19,7 @@ public class ReceivedVoteEvent {
 	private final VotableRule rule;
 	private final VoteType type;
 	private final Votable votable;
-	private final Question questionInvolved;
+	private final ReputationEventContext eventContext;
 	private final boolean shouldCountKarma;
 	{
 		map.put(Question.class, new QuestionVoteRule());
@@ -27,10 +28,10 @@ public class ReceivedVoteEvent {
 		map.put(News.class, new NewsVoteRule());
 	}
 	
-	public ReceivedVoteEvent(VoteType type, Votable votable, Question questionInvolved, boolean shouldCountKarma) {
+	public ReceivedVoteEvent(VoteType type, Votable votable, ReputationEventContext eventContext, boolean shouldCountKarma) {
 		this.type = type;
 		this.votable = votable;
-		this.questionInvolved = questionInvolved;
+		this.eventContext = eventContext;
 		this.shouldCountKarma = shouldCountKarma;
 		this.rule = map.get(votable.getType());
 	}
@@ -38,9 +39,9 @@ public class ReceivedVoteEvent {
 	public ReputationEvent reputationEvent() {
 		if (shouldCountKarma) {
 			EventType eventType = rule.eventType(type);
-			return new ReputationEvent(eventType, questionInvolved, votable.getAuthor());
+			return new ReputationEvent(eventType, eventContext, votable.getAuthor());
 		}
-		return new ReputationEvent(EventType.MASSIVE_VOTE_IGNORED, questionInvolved, votable.getAuthor());
+		return new ReputationEvent(EventType.MASSIVE_VOTE_IGNORED, eventContext, votable.getAuthor());
 	}
 	
 	

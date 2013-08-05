@@ -9,13 +9,16 @@ import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.com.caelum.brutal.builder.NewsBuilder;
 import br.com.caelum.brutal.dto.SuspectMassiveVote;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.CommentsAndVotes;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.MassiveVote;
+import br.com.caelum.brutal.model.News;
 import br.com.caelum.brutal.model.Question;
+import br.com.caelum.brutal.model.ReputationEventContext;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.Vote;
@@ -105,10 +108,16 @@ public class VoteDAOTest extends DatabaseTestCase{
 		session.save(answer);
 		session.save(comment);
 		
-		assertEquals(question, votes.questionOf(question));
-		assertEquals(question, votes.questionOf(answer));
-		assertEquals(question, votes.questionOf(comment));
-		
+		assertEquals(question, votes.contextOf(question));
+		assertEquals(question, votes.contextOf(answer));
+		assertEquals(question, votes.contextOf(comment));
+	}
+	
+	@Test
+	public void should_find_news_from_votable() throws Exception {
+		News news = new NewsBuilder().build();
+		ReputationEventContext context = votes.contextOf(news);
+		assertEquals(news, context);
 	}
 	
 	@Test

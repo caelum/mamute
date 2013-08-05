@@ -13,6 +13,7 @@ import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.CommentsAndVotes;
 import br.com.caelum.brutal.model.News;
 import br.com.caelum.brutal.model.Question;
+import br.com.caelum.brutal.model.ReputationEventContext;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.Vote;
 import br.com.caelum.brutal.model.VoteType;
@@ -86,11 +87,17 @@ public class VoteDAO {
 		return newsQuery.list();
 	}
 
-	public Question questionOf(Votable votable) {
+	public ReputationEventContext contextOf(Votable votable) {
+		boolean isNews = News.class.isAssignableFrom(votable.getClass());
+		if (isNews) {
+			return (ReputationEventContext) votable;
+		}
+		
 		boolean isQuestionOrAnswer = !Comment.class.isAssignableFrom(votable.getClass());
 		if (isQuestionOrAnswer) {
 			return votable.getQuestion();
 		}
+		
 		Question question = (Question) session
 				.createQuery("select q from Question q join q.comments.comments c where c=:comment")
 				.setParameter("comment", votable).uniqueResult();
