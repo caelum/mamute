@@ -19,6 +19,8 @@ import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.infra.MenuInfo;
 import br.com.caelum.brutal.infra.NotFoundException;
 import br.com.caelum.brutal.model.LoggedUser;
+import br.com.caelum.brutauth.interceptors.CustomBrutauthRuleInterceptor;
+import br.com.caelum.brutauth.interceptors.SimpleBrutauthRuleInterceptor;
 import br.com.caelum.brutal.util.BrutalDateFormat;
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
@@ -32,7 +34,7 @@ import br.com.caelum.vraptor.plugin.hibernate4.extra.ParameterLoaderInterceptor;
 import br.com.caelum.vraptor.resource.ResourceMethod;
 
 @Component
-@Intercepts(before=ParameterLoaderInterceptor.class)
+@Intercepts(before={ParameterLoaderInterceptor.class, CustomBrutauthRuleInterceptor.class, SimpleBrutauthRuleInterceptor.class})
 public class GlobalInterceptor implements Interceptor {
 	
 	private final Environment env;

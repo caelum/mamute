@@ -4,9 +4,9 @@ import static br.com.caelum.vraptor.view.Results.page;
 
 import java.util.List;
 
-import br.com.caelum.brutal.auth.ModeratorOnly;
-import br.com.caelum.brutal.auth.rules.MinimumReputation;
 import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
+import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOnlyRule;
+import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOrKarmaRule;
 import br.com.caelum.brutal.dao.CommentDAO;
 import br.com.caelum.brutal.dao.FlagDao;
 import br.com.caelum.brutal.dao.FlaggableDAO;
@@ -20,6 +20,9 @@ import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.flag.FlagTrigger;
 import br.com.caelum.brutal.model.interfaces.Flaggable;
+import br.com.caelum.brutauth.auth.annotations.AccessLevel;
+import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
+import br.com.caelum.brutauth.auth.annotations.SimpleBrutauthRules;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
@@ -47,7 +50,8 @@ public class FlagController {
 		this.flagTrigger = flagTrigger;
 	}
 
-	@MinimumReputation(PermissionRulesConstants.CREATE_FLAG)
+	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
+	@AccessLevel(PermissionRulesConstants.CREATE_FLAG)
 	@Post("/{flaggableType}/{flaggableId}/marcar")
 	public void addFlag(String flaggableType, Long flaggableId, FlagType flagType, String reason) {
 		Class<?> clazz = urlMapping.getClassFor(flaggableType);
@@ -75,19 +79,22 @@ public class FlagController {
 		result.nothing();
 	}
 	
-	@ModeratorOnly
+
+	@CustomBrutauthRules(ModeratorOnlyRule.class)
 	@Get("/perguntas/marcadas")
 	public void topFlaggedQuestions() {
 		topFlagged(Question.class);
 	}
 	
-	@ModeratorOnly
+
+	@CustomBrutauthRules(ModeratorOnlyRule.class)
 	@Get("/comentarios/marcados")
 	public void topFlaggedComments() {
 		topFlagged(Comment.class);
 	}
 	
-	@ModeratorOnly
+
+	@CustomBrutauthRules(ModeratorOnlyRule.class)
 	@Get("/respostas/marcados")
 	public void topFlaggedAnswers() {
 		topFlagged(Answer.class);
