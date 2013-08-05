@@ -87,6 +87,7 @@ public class VoteDAO {
 		return newsQuery.list();
 	}
 
+	//TODO: refactor?
 	public ReputationEventContext contextOf(Votable votable) {
 		boolean isNews = News.class.isAssignableFrom(votable.getClass());
 		if (isNews) {
@@ -104,10 +105,19 @@ public class VoteDAO {
 		if (question != null) {
 			return question;
 		}
+		
 		question = (Question) session
 				.createQuery("select a.question from Answer a join a.comments.comments c where c=:comment")
 				.setParameter("comment", votable).uniqueResult();
-		return question;
+		if (question != null) {
+			return question;
+		}
+		
+		ReputationEventContext ctx = (ReputationEventContext) session
+				.createQuery("select news from News news join news.comments.comments c where c=:comment")
+				.setParameter("comment", votable).uniqueResult();
+		
+		return ctx;
 	}
 
     public void save(Vote vote) {
