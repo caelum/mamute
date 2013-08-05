@@ -6,7 +6,6 @@ import org.apache.commons.mail.Email;
 import org.apache.log4j.Logger;
 import org.hibernate.ScrollableResults;
 import org.joda.time.DateTime;
-import org.joda.time.DateTime.Property;
 import org.owasp.html.HtmlPolicyBuilder;
 import org.owasp.html.PolicyFactory;
 
