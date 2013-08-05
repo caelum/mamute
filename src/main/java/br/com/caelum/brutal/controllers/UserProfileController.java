@@ -42,7 +42,8 @@ public class UserProfileController extends Controller{
 
     public UserProfileController(Result result, UserDAO users, LoggedUser currentUser,
             QuestionDAO questions, AnswerDAO answers, TagDAO tags, WatcherDAO watchers,
-            UserPersonalInfoValidator infoValidator, ReputationEventDAO reputationEvents, MessageFactory messageFactory) {
+            UserPersonalInfoValidator infoValidator, ReputationEventDAO reputationEvents,
+            MessageFactory messageFactory) {
 		this.result = result;
 		this.users = users;
 		this.currentUser = currentUser;
@@ -178,8 +179,12 @@ public class UserProfileController extends Controller{
 	@ModeratorOnly
 	@Post("/usuario/ban/{user.id:[0-9]+}")
 	public void toogleBanned(@Load User user) {
-		if(user.isBanned()) user.undoBan();
-		else user.ban();
+		if(user.isBanned()){
+			user.undoBan();
+		}else{
+			user.ban();
+			users.clearSessionOf(user);
+		}
 		result.nothing();
 	}
 

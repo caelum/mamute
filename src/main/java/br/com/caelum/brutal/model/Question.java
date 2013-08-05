@@ -36,7 +36,7 @@ import br.com.caelum.brutal.providers.SessionFactoryCreator;
 @Cacheable
 @Cache(usage=CacheConcurrencyStrategy.READ_WRITE, region="cache")
 @Entity
-public class Question extends Moderatable implements Post, Taggable, ViewCountable, Watchable, RssContent {
+public class Question extends Moderatable implements Post, Taggable, ViewCountable, Watchable, RssContent, ReputationEventContext {
 	@Id
 	@GeneratedValue
 	private Long id;

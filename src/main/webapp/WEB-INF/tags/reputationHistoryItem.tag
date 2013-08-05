@@ -3,15 +3,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 
-<%@attribute name="historyItem" type="br.com.caelum.brutal.dto.KarmaAndQuestion" required="true" %>
+<%@attribute name="historyItem" type="br.com.caelum.brutal.dto.KarmaAndContext" required="true" %>
 
-<c:if test="${historyItem.question.isVisibleFor(currentUser.current)}">
-	<li class="ellipsis advanced-data-line">	
-		<c:set var="reputationClass" value="${historyItem.karma > 0 ? 'positive-karma' : historyItem.karma < 0 ? 'negative-karma' : 'neutral-karma'}"/>
-		<span class="reputation-won">
-			<span class="counter karma-value ${reputationClass}">${historyItem.karma > 0 ? '+' : ''}${historyItem.karma}</span>
-		</span>
-		<jsp:doBody/> 
-		<tags:questionLinkFor question="${historyItem.question}" />
-	</li>
-</c:if>
+<li class="ellipsis advanced-data-line">	
+	<c:set var="reputationClass" value="${historyItem.karma > 0 ? 'positive-karma' : historyItem.karma < 0 ? 'negative-karma' : 'neutral-karma'}"/>
+	<span class="reputation-won">
+		<span class="counter karma-value ${reputationClass}">${historyItem.karma > 0 ? '+' : ''}${historyItem.karma}</span>
+	</span>
+	<jsp:doBody/> 
+	<tags:contextLinkFor context="${historyItem.context}" />
+</li>

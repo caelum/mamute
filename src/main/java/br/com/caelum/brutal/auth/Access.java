@@ -31,6 +31,8 @@ public class Access implements ComponentFactory<User> {
     }
 
 	public User login(User user) {
+		if(user.isBanned()) throw new BannedUserException();
+		
 	    UserSession newSession = user.newSession();
 	    Cookie cookie = new Cookie(BRUTAL_SESSION, newSession.getSessionKey());
 	    cookie.setPath("/");

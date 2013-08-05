@@ -29,7 +29,7 @@ import br.com.caelum.brutal.model.watch.Watcher;
 import br.com.caelum.brutal.providers.SessionFactoryCreator;
 
 @Entity
-public class News extends Moderatable implements Post, ViewCountable, Watchable, RssContent {
+public class News extends Moderatable implements Post, ViewCountable, Watchable, RssContent, ReputationEventContext {
 	@Id
 	@GeneratedValue
 	private Long id;

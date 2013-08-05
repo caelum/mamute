@@ -11,8 +11,8 @@ import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.com.caelum.brutal.dto.KarmaAndQuestion;
-import br.com.caelum.brutal.dto.KarmaByQuestionHistory;
+import br.com.caelum.brutal.dto.KarmaAndContext;
+import br.com.caelum.brutal.dto.KarmaByContextHistory;
 import br.com.caelum.brutal.dto.UserSummaryForTag;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.EventType;
@@ -84,12 +84,12 @@ public class ReputationEventDAOTest extends DatabaseTestCase {
 		session.save(event2Question1);
 		session.save(event2Question2);
 		
-		KarmaByQuestionHistory karmaByQuestion = reputationEvents.karmaWonByQuestion(author, new DateTime().minusHours(1));
-		List<KarmaAndQuestion> history = karmaByQuestion.getHistory();
+		KarmaByContextHistory karmaByQuestion = reputationEvents.karmaWonByQuestion(author, new DateTime().minusHours(1));
+		List<KarmaAndContext> history = karmaByQuestion.getHistory();
 		assertEquals(2, history.size());
 		
-		assertEquals(questionInvolved1, history.get(1).getQuestion());
-		assertEquals(questionInvolved2, history.get(0).getQuestion());
+		assertEquals(questionInvolved1, history.get(1).getContext());
+		assertEquals(questionInvolved2, history.get(0).getContext());
 		assertEquals(question1Karma.longValue(), history.get(1).getKarma().longValue());
 		assertEquals(question2Karma.longValue(), history.get(0).getKarma().longValue());
 	}
@@ -116,13 +116,13 @@ public class ReputationEventDAOTest extends DatabaseTestCase {
 		session.save(event2);
 		session.save(event1);
 		
-		KarmaByQuestionHistory karmaByQuestion = reputationEvents.karmaWonByQuestion(author, new DateTime().minusDays(2));
-		List<KarmaAndQuestion> history = karmaByQuestion.getHistory();
+		KarmaByContextHistory karmaByQuestion = reputationEvents.karmaWonByQuestion(author, new DateTime().minusDays(2));
+		List<KarmaAndContext> history = karmaByQuestion.getHistory();
 		
 		assertEquals(2, history.size());
-		assertEquals(questionInvolved1, history.get(1).getQuestion());
+		assertEquals(questionInvolved1, history.get(1).getContext());
 		assertEquals(event1.getKarmaReward().longValue(), history.get(1).getKarma().longValue());
-		assertEquals(questionInvolved1, history.get(0).getQuestion());
+		assertEquals(questionInvolved1, history.get(0).getContext());
 		assertEquals(event2.getKarmaReward().longValue(), history.get(0).getKarma().longValue());
 	}
 	

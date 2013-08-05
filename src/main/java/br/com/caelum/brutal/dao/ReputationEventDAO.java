@@ -2,27 +2,15 @@ package br.com.caelum.brutal.dao;
 
 import static br.com.caelum.brutal.model.EventType.ANSWERER_RELATED_EVENTS;
 import static br.com.caelum.brutal.model.EventType.ASKER_RELATED_EVENTS;
-import static org.hibernate.criterion.Order.desc;
-import static org.hibernate.criterion.Projections.alias;
-import static org.hibernate.criterion.Projections.groupProperty;
-import static org.hibernate.criterion.Projections.projectionList;
-import static org.hibernate.criterion.Projections.property;
-import static org.hibernate.criterion.Projections.sqlGroupProjection;
-import static org.hibernate.criterion.Projections.sum;
-import static org.hibernate.criterion.Restrictions.and;
-import static org.hibernate.criterion.Restrictions.eq;
-import static org.hibernate.criterion.Restrictions.gt;
 
 import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.type.LongType;
-import org.hibernate.type.Type;
 import org.joda.time.DateTime;
 
-import br.com.caelum.brutal.dto.KarmaByQuestionHistory;
+import br.com.caelum.brutal.dto.KarmaByContextHistory;
 import br.com.caelum.brutal.dto.UserSummaryForTag;
 import br.com.caelum.brutal.model.ReputationEvent;
 import br.com.caelum.brutal.model.Tag;
@@ -48,63 +36,46 @@ public class ReputationEventDAO {
 	}
 
 	public void delete(ReputationEvent event) {
-		Query query = session.createQuery("delete ReputationEvent e where e.type=:type and e.questionInvolved=:question and e.user=:user");
+		Query query = session.createQuery("delete ReputationEvent e where e.type=:type and e.context=:context and e.user=:user");
 		query.setParameter("type", event.getType())
-			.setParameter("question", event.getQuestionInvolved())
+			.setParameter("context", event.getContext())
 			.setParameter("user", event.getUser())
 			.executeUpdate();
 	}
 
 	@SuppressWarnings("unchecked")
-	public KarmaByQuestionHistory karmaWonByQuestion(User user, DateTime after, Integer maxResults) {
-		Criteria criteria = karmaByQuestionCriteria(user, after).setMaxResults(maxResults);
-		return new KarmaByQuestionHistory(criteria.list());
+	public KarmaByContextHistory karmaWonByQuestion(User user, DateTime after, Integer maxResults) {
+		Query query = karmaByContextQuery(user, after).setMaxResults(maxResults);
+		return new KarmaByContextHistory(query.list());
 	}
 
 	@SuppressWarnings("unchecked")
-	public KarmaByQuestionHistory karmaWonByQuestion(User user,
+	public KarmaByContextHistory karmaWonByQuestion(User user,
 			DateTime after) {
-		Criteria criteria = karmaByQuestionCriteria(user, after);
-		return new KarmaByQuestionHistory(criteria.list());
+		Query query = karmaByContextQuery(user, after);
+		return new KarmaByContextHistory(query.list());
 	}
 	
-	private Criteria karmaByQuestionCriteria(User user, DateTime after) {
-		Criteria criteria = session.createCriteria(ReputationEvent.class, "e")
-				.createAlias("e.user", "u")
-				.createAlias("e.questionInvolved", "q")
-				.setProjection(projectionList()
-					.add(alias(property("e.questionInvolved"), "q"))
-					.add(sum("e.karmaReward"))
-					.add(property("date"))
-					.add(sqlGroupProjection(
-					    "day(date) as day", 
-					    "day(date)", 
-					    new String[]{"day"}, 
-					    new Type[] {new LongType()}
-					    )
-					 )
-					 .add(groupProperty("q.id"))
-				)
-				.add(and(
-					eq("u.id", user.getId()), 
-					gt("e.date", after)
-					)
-				)
-				.addOrder(desc("e.date"));
-		return addInvisibleFilter(criteria);
+	private Query karmaByContextQuery(User user, DateTime after) {
+		String hql = "select e.context, sum(e.karmaReward), e.date from ReputationEvent e "+ 
+			        "where e.user=:user and e.date > :after " +
+			        "group by e.context, day(e.date) " +
+			        "order by e.date desc";
+				    
+	    Query query = session.createQuery(hql).setParameter("user", user).setParameter("after", after);
+	    return query;
 	}
 
 	
 	@SuppressWarnings("unchecked")
-	public KarmaByQuestionHistory karmaWonByQuestion(User user) {
-		String hql = "select question, sum(e.karmaReward), e.date from ReputationEvent e " +
-				"join e.user u left join e.questionInvolved question " +
-				"where u=:user " +
-				"group by question, day(e.date) " +
+	public KarmaByContextHistory karmaWonByQuestion(User user) {
+		String hql = "select e.context, sum(e.karmaReward), e.date from ReputationEvent e " +
+				"where e.user=:user " +
+				"group by e.context, day(e.date) " +
 				"order by e.date desc";
 		
 		Query query = session.createQuery(hql).setParameter("user", user);
-		return new KarmaByQuestionHistory(query.list());
+		return new KarmaByContextHistory(query.list());
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -121,9 +92,9 @@ public class ReputationEventDAO {
 		String where = after == null ? "" : "and e.date > :after ";
 		String hql = "select new br.com.caelum.brutal.dto.UserSummaryForTag(sum(e.karmaReward) as karmaSum, count(distinct a), user) from ReputationEvent e "+
 				"join e.user user "+
-				"join e.questionInvolved q "+
-				"join q.answers a "+
-				"join q.information.tags t "+
+				"join e.context c "+
+				"join c.answers a "+
+				"join c.information.tags t "+
 				"where user=a.author and e.type in (:events)" + where + "and t=:tag "+
 				"group by user "+
 				"order by karmaSum desc";
@@ -143,10 +114,10 @@ public class ReputationEventDAO {
 	
 	private Query getTopAskersSummary(Tag tag, DateTime after) {
 		String where = after == null ? "" : "and e.date > :after ";
-		String hql = "select new br.com.caelum.brutal.dto.UserSummaryForTag(sum(e.karmaReward) as karmaSum, count(distinct q), user) from ReputationEvent e "+
+		String hql = "select new br.com.caelum.brutal.dto.UserSummaryForTag(sum(e.karmaReward) as karmaSum, count(distinct c), user) from ReputationEvent e "+
 				"join e.user user "+
-				"join e.questionInvolved q "+
-				"join q.information.tags t "+
+				"join e.context c "+
+				"join c.information.tags t "+
 				"where e.type in (:events)" + where + "and t=:tag "+
 				"group by user "+
 				"order by karmaSum desc";
