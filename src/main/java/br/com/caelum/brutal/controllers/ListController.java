@@ -11,6 +11,7 @@ import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.providers.BrutalRoutesParser;
 import br.com.caelum.vraptor.Get;
+import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 
@@ -48,6 +49,11 @@ public class ListController {
 		result.include("questions", visible);
 		result.include("totalPages", questions.numberOfPages());
 		result.include("currentPage", page);
+	}
+	
+	@Get("/perguntas")
+	public void hackedIndex() {
+		result.redirectTo(this).home(1);
 	}
 
 	@Get({"/noticias", "/noticias/"})
