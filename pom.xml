@@ -13,6 +13,7 @@
 		<jetty.version>8.1.0.v20120127</jetty.version>
 		<jetty.jsp.version>8.1.4.v20120524</jetty.jsp.version>
 		<vraptor.hibernate.path>${project.basedir}/local-repo/vraptor-plugin-hibernate4-1.0.2.jar</vraptor.hibernate.path>
+		<vraptor.brutauth.path>${project.basedir}/local-repo/vraptor-brutauth.jar</vraptor.brutauth.path>
 	</properties>
 
 	<scm>
@@ -241,6 +242,14 @@
 			<groupId>br.com.caelum.vraptor</groupId>
 			<artifactId>vraptor-environment</artifactId>
 			<version>1.1.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>br.com.caelum</groupId>
+			<systemPath>${vraptor.brutauth.path}</systemPath>
+			<artifactId>vraptor-brutauth</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<scope>system</scope>
 		</dependency>
 
 		<!-- hibernate -->
@@ -598,6 +607,10 @@
 							<tasks>
 								<echo message="Hibernate path: ${vraptor.hibernate.path}" />
 								<copy file="${vraptor.hibernate.path}" todir="src/main/webapp/WEB-INF/lib/" />
+							</tasks>
+							<tasks>
+								<echo message="Brutauth path: ${vraptor.brutauth.path}" />
+								<copy file="${vraptor.brutauth.path}" todir="src/main/webapp/WEB-INF/lib/" />
 							</tasks>
 						</configuration>
 						<goals>
