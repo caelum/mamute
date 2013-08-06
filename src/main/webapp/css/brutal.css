@@ -2411,12 +2411,14 @@ a.button.ask-a-question:hover{
 	font-size: 1.4em;
 }
 
-.ad{
+.big-ads{
 	width: 728px;
 	height: 90px;
 	margin: .5em auto;
 }
-
-#adzerk {
-	padding-left: 5px;
+	
+.medium-ads{
+	width: 300px;
+	height: 250px;
+	margin: .5em auto;
 }
