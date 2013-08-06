@@ -28,17 +28,14 @@ public class LoggedHandler implements RuleHandler{
 	}
 	
 	@Override
-	public boolean handle(boolean isAllowed) {
-		if(!isAllowed){
-			if("application/json".equals(req.getHeader("Accept"))){
-				result.use(Results.http()).body(localization.getMessage("error.requires_login")).sendError(403);			
-			}else{
-				result.include("messages", asList(messageFactory.build("alert", "auth.access.denied")));
-				String redirectUrl = req.getRequestURL().toString();
-				result.redirectTo(AuthController.class).loginForm(redirectUrl);
-			}
+	public void handle() {
+		if("application/json".equals(req.getHeader("Accept"))){
+			result.use(Results.http()).body(localization.getMessage("error.requires_login")).sendError(403);			
+		}else{
+			result.include("messages", asList(messageFactory.build("alert", "auth.access.denied")));
+			String redirectUrl = req.getRequestURL().toString();
+			result.redirectTo(AuthController.class).loginForm(redirectUrl);
 		}
-        return isAllowed;
 	}
 
 }
