@@ -6,6 +6,10 @@
 	.ranking-user .user-info{
 		width:50%;
 	}
+	
+	.medium-ads {
+		display: none;
+	}
 }
 
 @media only screen and (max-width: 1220px) {
@@ -42,7 +46,7 @@
 }
 
 @media only screen and (max-width: 1160px) {
-	.ad {
+	.big-ads {
 		display: none;
 	}	
 }
@@ -152,7 +156,7 @@
 		margin-bottom: 1em;
 	}
 	
-	.ad {
+	.big-ads {
 		display: block;
 	}
 }
@@ -197,7 +201,7 @@
 		width: 70%;	
 	}
 	
-	.ad {
+	.big-ads {
 		display: none;
 	}
 }
