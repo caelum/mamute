@@ -8,6 +8,7 @@ import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.dao.NewsletterSentLogDAO;
 import br.com.caelum.brutal.dao.UserDAO;
+import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.environment.Environment;
@@ -35,6 +36,7 @@ public class RegularUserNewsletterJob implements CronTask {
 	}
 
 	@Override
+	@Path("/wjh1jkh34jk12hkjehd13kj4h1kjh41jkhwe12341")
 	public void execute() {
 		LOG.info("executing " + getClass().getSimpleName());
 		if (shouldSendNewsletter()) {
