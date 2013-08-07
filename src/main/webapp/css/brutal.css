@@ -2412,12 +2412,14 @@ a.button.ask-a-question:hover{
 }
 
 .ad {
+	
 	margin: .5em auto;
 }
 
 .big-ads{
-	width: 728px;
-	height: 90px;
+	width: 730px;
+	height: 92px;
+	border: 1px solid #ccc;
 }
 	
 .medium-ads{
