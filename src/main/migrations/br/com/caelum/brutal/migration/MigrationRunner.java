@@ -14,14 +14,14 @@ import br.com.caelum.vraptor.ioc.Component;
 @ApplicationScoped
 public class MigrationRunner {
 
-	private final List<Migration> migrations;
+	private final List<SchemaMigration> migrations;
 	private final NumberExtractor extractNumber;
 	private final static Logger LOGGER = LoggerFactory
 			.getLogger(MigrationRunner.class);
 	private final MigrationExecutor executor;
 	private final Environment env;
 
-	public MigrationRunner(List<Migration> migrations, NumberExtractor number,
+	public MigrationRunner(List<SchemaMigration> migrations, NumberExtractor number,
 			MigrationExecutor executor, Environment env) {
 		this.extractNumber = number;
 		this.executor = executor;
@@ -29,7 +29,7 @@ public class MigrationRunner {
 		this.migrations = sort(migrations);
 	}
 
-	private List<Migration> sort(List<Migration> unsortedMigrations) {
+	private List<SchemaMigration> sort(List<SchemaMigration> unsortedMigrations) {
 		Collections
 				.sort(unsortedMigrations, new MigrationSorter(extractNumber));
 		return unsortedMigrations;
@@ -42,7 +42,7 @@ public class MigrationRunner {
 
 		prepareTables();
 
-		for (Migration m : migrations) {
+		for (SchemaMigration m : migrations) {
 			executeMigration(m);
 		}
 
@@ -60,7 +60,7 @@ public class MigrationRunner {
 		}
 	}
 
-	private void executeMigration(Migration m) {
+	private void executeMigration(SchemaMigration m) {
 		int number = extractNumber.from(m);
 		if (number > executor.currentMigration()) {
 			try {

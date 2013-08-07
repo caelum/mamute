@@ -2,7 +2,7 @@ package br.com.caelum.brutal.migration;
 
 import java.util.Comparator;
 
-public class MigrationSorter implements Comparator<Migration> {
+public class MigrationSorter implements Comparator<SchemaMigration> {
 	private final NumberExtractor extractNumber;
 
 	public MigrationSorter(NumberExtractor extractNumber) {
@@ -10,7 +10,7 @@ public class MigrationSorter implements Comparator<Migration> {
 	}
 
 	@Override
-	public int compare(Migration o1, Migration o2) {
+	public int compare(SchemaMigration o1, SchemaMigration o2) {
 		return extractNumber.from(o1) - extractNumber.from(o2);
 	}
 }

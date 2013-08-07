@@ -1,10 +1,15 @@
 package br.com.caelum.brutal.migration;
 
-public class M001TestMigration extends SimpleMigration {
+public class M001TestMigration extends SimpleSchemaMigration {
 
 	@Override
-	public String rawQuery() {
+	public String upQuery() {
 		return "up";
+	}
+	
+	@Override
+	public String downQuery() {
+		return "down";
 	}
 
 }

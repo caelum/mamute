@@ -42,7 +42,7 @@ public class MigrationExecutor {
 		session.getTransaction().rollback();
 	}
 	
-	public void rollback(Migration m) {
+	public void rollback(SchemaMigration m) {
 		rollback();
 	}
 
@@ -59,11 +59,14 @@ public class MigrationExecutor {
 
 	private void executeQueries(List<MigrationOperation> queries) {
 		for (MigrationOperation rawSQLMigration : queries) {
-			rawSQLMigration.execute(session, statelessSession);
+			String sql = rawSQLMigration.execute();
+			if (sql != null && !sql.isEmpty()) {
+				session.createSQLQuery(sql).executeUpdate();
+			}
 		}
 	}
 
-	public void run(Migration m) {
+	public void run(SchemaMigration m) {
 		executeQueries(m.up());
 	}
 

@@ -3,9 +3,6 @@ package br.com.caelum.brutal.migration;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.StatelessSession;
-
 public class RawSQLOperation implements MigrationOperation {
 	
 	private final String sql;
@@ -15,8 +12,8 @@ public class RawSQLOperation implements MigrationOperation {
 	}
 
 	@Override
-	public void execute(Session session, StatelessSession statelessSession) {
-		session.createSQLQuery(sql).executeUpdate();
+	public String execute() {
+		return sql;
 	}
 
 	public static List<MigrationOperation> forSqls(String... sqls) {
