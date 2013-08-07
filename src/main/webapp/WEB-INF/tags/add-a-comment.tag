@@ -6,9 +6,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@attribute name="votes" type="br.com.caelum.brutal.model.CommentsAndVotes" required="true" %>
 <%@attribute name="groupComments" type="java.lang.Boolean" required="false" %>
+<%@attribute name="startFormHidden" type="java.lang.Boolean" required="false" %>
 
 <c:if test="${empty groupComments}">
 	<c:set var="groupComments" value="true" />
+</c:if>
+<c:if test="${empty startFormHidden}">
+	<c:set var="startFormHidden" value="true" />
 </c:if>
 
 <c:set var="ajaxResultName" value="new-comment-for-${type}-new-comment-${item.id}"/>
@@ -30,7 +34,7 @@
 
 <fmt:message  key="comment.submit" var="submit"/>
 <c:url var="action" value="/${type}/${item.id}/comentar"/>
-<tags:simpleAjaxFormWith action="${action}" field="comment" 
+<tags:simpleAjaxFormWith startHidden="${startFormHidden}" action="${action}" field="comment" 
 onCallback="append" callbackTarget="${ajaxResultName}" submit="${submit}">
 	<a href="#" class="requires-login post-action add-comment requires-karma" data-karma="${CREATE_COMMENT}">
 		${submit}

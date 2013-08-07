@@ -7,10 +7,15 @@
 <%@attribute name="action" type="java.lang.String" required="true" %>
 <%@attribute name="submit" type="java.lang.String" required="true" %>
 <%@attribute name="onCallback" type="java.lang.String" required="false" %>
+<%@attribute name="startHidden" type="java.lang.Boolean" required="false" %>
+
+<c:if test="${empty startHidden}">
+	<c:set var="startHidden" value="${true}" />
+</c:if>
 
 <div class="simple-ajax-form">
 	<jsp:doBody/>
-	<div class="ajax-form hidden">
+	<div class="ajax-form ${startHidden? 'hidden' : '' }">
 		<form method="post" action="${action}" class="validated-form ajax" data-ajax-on-callback="${onCallback}" data-ajax-result="${callbackTarget}">
 			<textarea class="required to-focus hintable text-input" 
 				minlength="15" maxlength="600" name="${field}" 

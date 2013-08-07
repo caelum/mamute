@@ -59,7 +59,7 @@
 			</ul>
 			<tags:touchesFor touchable="${news}" microdata="true"/>
 		</div>
-		<tags:add-a-comment groupComments="false" type="noticia" item="${news}" votes="${commentVotes}"/>
+		<tags:add-a-comment startFormHidden="false" groupComments="false" type="noticia" item="${news}" votes="${commentVotes}"/>
 		<c:if test="${currentUser.moderator && news.hasPendingEdits()}">
 			<a class="message moderator-alert" href="#"><fmt:message key="news.warns.has_edits"/></a>
 		</c:if>
