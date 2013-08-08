@@ -9,7 +9,7 @@
 	<c:if test="${! news.approved}">
 		<fmt:message key="news.approving" /> 
 	</c:if>
-	<h1 itemprop="name" class="title subheader news-title"><fmt:message key="news.title" />: 
+	<h1 itemprop="name" class="title subheader main-thread-title"><fmt:message key="news.title" />: 
 		<c:out value="${news.title}" escapeXml="${true}"/>
 		<a href="<c:url value="/nova-noticia"/>" class="tiny send-news">
 			<fmt:message key="menu.new_news" />

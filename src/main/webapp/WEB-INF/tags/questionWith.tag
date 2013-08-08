@@ -5,7 +5,7 @@
 <%@attribute name="question" type="br.com.caelum.brutal.model.Question" required="true" %>
 <%@attribute name="commentVotes" type="br.com.caelum.brutal.model.CommentsAndVotes" required="true" %>
 <section itemscope itemtype="http://schema.org/Article" class="post-area question-area ${question.isVisibleForModeratorAndNotAuthor(currentUser.current) ? 'highlight-post' : '' }" >
-	<h1 itemprop="name" class="title subheader question-title"><c:out value="${question.title}" escapeXml="${true}"/></h1>
+	<h1 itemprop="name" class="title subheader main-thread-title"><c:out value="${question.title}" escapeXml="${true}"/></h1>
 	<c:if test="${shouldShowAds}">
 		<div id="adQuestion" class="ad big-ads"></div>
 	</c:if>

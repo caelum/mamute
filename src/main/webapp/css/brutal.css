@@ -132,7 +132,7 @@ a:hover{
 	margin-bottom: 10px;
 }
 
-.question-title,.news-title {
+.main-thread-title {
 	font-size: 1.65em;
 	padding-bottom: .25em;
 }
@@ -1199,7 +1199,7 @@ a.button.ask-a-question:hover{
 	border-left: 1px solid #EAEAEA;
 }
 
-.item-title.news-title {
+.home-news-title {
 	margin-bottom: 0;
 	font-size: 1em;
 	display: inline;

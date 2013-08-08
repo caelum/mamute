@@ -18,7 +18,7 @@
 						datetime="${news.createdAt}">
 						<fmt:formatDate value="${news.createdAt.toGregorianCalendar().time}" pattern="dd/MM/yyyy"/>
 					</time> -
-					<h3 class="title item-title news-title">
+					<h3 class="title item-title home-news-title">
 						<a href="/noticias/${news.id}-${news.sluggedTitle}">${news.title}</a>
 					</h3>
 				</div>

@@ -5,7 +5,7 @@
 <div class="history-comparison">
 	<div class="history-current">
 		<h2 class="history-title page-title title"><fmt:message key="moderation.current_version"/>:</h2>
-		<h2 class="title question-title"><tags:questionLinkFor question="${post.information.question}"/></h2>
+		<h2 class="title main-thread-title"><tags:questionLinkFor question="${post.information.question}"/></h2>
 		<div class="post-text">
 			${post.information.markedDescription}
 		</div>
@@ -23,7 +23,7 @@
 						<tags:tagsFor taggable="${information}"/>
 					</jsp:attribute>
 					<jsp:body>
-						<h2 class="title question-title">${information.title}</h2>
+						<h2 class="title main-thread-title">${information.title}</h2>
 						<div class="history-version hidden">
 							<div class="post-text">
 								${information.markedDescription}

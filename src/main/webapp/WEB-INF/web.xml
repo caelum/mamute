@@ -59,6 +59,11 @@
 		<error-code>403</error-code>
 		<location>/403.jsp</location>
 	</error-page>
+	
+	<error-page>
+		<error-code>409</error-code>
+		<location>/409.jsp</location>
+	</error-page>
   
 	<jsp-config>
 		<jsp-property-group>
