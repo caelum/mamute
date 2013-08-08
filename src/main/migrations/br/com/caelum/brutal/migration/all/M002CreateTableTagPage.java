@@ -13,7 +13,7 @@ public class M002CreateTableTagPage extends SimpleSchemaMigration {
 		return	"    create table TagPage (\n" + 
 				"        id bigint not null auto_increment,\n" + 
 				"        about longtext not null,\n" + 
-				"        markedAbout varchar(255),\n" + 
+				"        markedAbout longtext not null,\n" + 
 				"        tag_id bigint,\n" + 
 				"        primary key (id)\n" + 
 				"    ) ENGINE=InnoDB";

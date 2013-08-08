@@ -28,6 +28,7 @@ public class TagPage {
 	@NotEmpty(message = "tag_page.errors.about.length")
 	private String about;
 
+	@Lob
 	private String markedAbout;
 	
 	
@@ -54,6 +55,10 @@ public class TagPage {
 	
 	public String getMarkedAbout() {
 		return markedAbout;
+	}
+	
+	public String getAbout() {
+		return about;
 	}
 	
 	

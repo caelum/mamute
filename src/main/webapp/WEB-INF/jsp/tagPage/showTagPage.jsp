@@ -9,5 +9,17 @@
 			${tagPage.markedAbout}
 		</div>
 	</div>
+	<c:if test="${currentUser.moderator}">
+		<div class="post-interactions">
+			<ul class="post-action-nav piped-nav nav">
+				<li class="nav-item">
+					<a class="post-action requires-login"
+					    href="${linkTo[TagPageController].editTagPageForm[tagPage.tagName]}">
+						<fmt:message key="edit" />
+					</a>
+				</li>
+			</ul>
+		</div>
+	</c:if>
 </section>
 <tags:sideBar recentTags="${recentQuestionTags}" relatedQuestions="${relatedQuestions}"/>

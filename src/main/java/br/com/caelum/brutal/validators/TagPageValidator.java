@@ -29,7 +29,11 @@ public class TagPageValidator{
 
 	public boolean validate(TagPage tagPage) {
 		validator.validate(tagPage);
-		validator.onErrorRedirectTo(TagPageController.class).tagPageForm(tagPage.getTagName());
 		return !validator.hasErrors();
 	}
+	
+	public <T> T onErrorRedirectTo(Class<T> controller) {
+		return validator.onErrorRedirectTo(controller);
+	}
+
 }
