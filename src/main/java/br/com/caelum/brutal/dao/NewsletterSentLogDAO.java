@@ -1,8 +1,7 @@
 package br.com.caelum.brutal.dao;
 
-import static br.com.caelum.brutal.newsletter.RegularUserNewsletterJob.DAY_OF_WEEK_TO_SEND;
-
 import org.hibernate.Session;
+import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.model.NewsletterSentLog;
 import br.com.caelum.vraptor.ioc.Component;
@@ -16,12 +15,9 @@ public class NewsletterSentLogDAO {
 	}
 	
 	public boolean wasSentThisWeek(){
-		return session.createQuery("from NewsletterSentLog n where year(createdAt) = :thisWeekYear" +
-				" and month(createdAt) = :thisWeekMonth" +
-				" and day(createdAt) = :thisWeekDay")
-			   .setParameter("thisWeekYear", DAY_OF_WEEK_TO_SEND.getYear())
-			   .setParameter("thisWeekMonth", DAY_OF_WEEK_TO_SEND.getMonthOfYear())
-			   .setParameter("thisWeekDay", DAY_OF_WEEK_TO_SEND.getDayOfMonth())
+		return session.createQuery("from NewsletterSentLog n where createdAt between :firstDay and :lastDay")
+			   .setParameter("firstDay", new DateTime().withDayOfWeek(1))
+			   .setParameter("lastDay", new DateTime().withDayOfWeek(7))
 			   .uniqueResult() != null;
 	}
 

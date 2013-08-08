@@ -1,10 +1,7 @@
 package br.com.caelum.brutal.newsletter;
 
-import static org.joda.time.format.DateTimeFormat.forPattern;
-
 import org.apache.log4j.Logger;
 import org.hibernate.ScrollableResults;
-import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.dao.NewsletterSentLogDAO;
 import br.com.caelum.brutal.dao.UserDAO;
@@ -22,7 +19,6 @@ public class RegularUserNewsletterJob implements CronTask {
 	private final NewsletterMailer newsMailer;
 	private final Environment env;
 	private static final Logger LOG = Logger.getLogger(RegularUserNewsletterJob.class);
-	public static final DateTime DAY_OF_WEEK_TO_SEND = new DateTime().withDayOfWeek(2);
 	private final NewsletterSentLogDAO newsletterSentLogs;
 	
 	public RegularUserNewsletterJob(Result result, UserDAO users,
@@ -54,11 +50,8 @@ public class RegularUserNewsletterJob implements CronTask {
 
 	@Override
 	public String frequency() {
-		return "0 30 10 ? * "+ getTextDay(DAY_OF_WEEK_TO_SEND); //runs weekly at 10:30
+		return "0 30 10 ? * TUE"; //runs weekly at 10:30
 	}
 
-	private String getTextDay(DateTime dayOfWeekToSend) {
-		return dayOfWeekToSend.toString(forPattern("E")); //returns MON for dayOfWeek 01, TUE for dayOfWeek 02, etc
-	}
 
 }
