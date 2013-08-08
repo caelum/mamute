@@ -11,7 +11,6 @@ import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.providers.BrutalRoutesParser;
 import br.com.caelum.vraptor.Get;
-import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 
