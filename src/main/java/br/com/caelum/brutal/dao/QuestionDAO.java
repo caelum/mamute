@@ -28,7 +28,7 @@ import br.com.caelum.vraptor.ioc.Component;
 @SuppressWarnings("unchecked")
 public class QuestionDAO implements PaginatableDAO {
 	
-    private static final Integer PAGE_SIZE = 35;
+    protected static final Integer PAGE_SIZE = 35;
 	public static final long SPAM_BOUNDARY = -5;
 	private final Session session;
     private final WithUserPaginatedDAO<Question> withAuthor;

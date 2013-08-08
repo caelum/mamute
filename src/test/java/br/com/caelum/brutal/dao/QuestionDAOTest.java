@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.dao;
 
+import static br.com.caelum.brutal.dao.QuestionDAO.PAGE_SIZE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -143,19 +144,19 @@ public class QuestionDAOTest extends DatabaseTestCase {
 	
 	@Test
 	public void should_calculate_number_of_pages() {
-		saveQuestions(100);
+		saveQuestions(2*PAGE_SIZE);
 		assertEquals(2l, questionsForAnyone.numberOfPages());
 		saveQuestions(1);
 		assertEquals(3l, questionsForAnyone.numberOfPages());
-		saveQuestions(49);
+		saveQuestions(PAGE_SIZE-1);
 		assertEquals(3l, questionsForAnyone.numberOfPages());
 	}
 	
 	@Test
 	public void should_calculate_number_of_pages_by_tags() {
-		saveQuestions(100, sal);
+		saveQuestions(2*PAGE_SIZE, sal);
 		assertEquals(2l, questionsForAnyone.numberOfPages(sal));
-		saveQuestions(100, defaultTag, sal);
+		saveQuestions(2*PAGE_SIZE, defaultTag, sal);
 		assertEquals(4l, questionsForAnyone.numberOfPages(sal));
 		assertEquals(2l, questionsForAnyone.numberOfPages(defaultTag));
 	}
