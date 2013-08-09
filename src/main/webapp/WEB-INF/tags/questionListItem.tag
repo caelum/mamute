@@ -11,7 +11,7 @@
 	</div>
 	<div class="summary question-summary">
 		<div class="item-title-wrapper">
-			<h3 class="title item-title main-thread-title">
+			<h3 class="title item-title main-thread-title question-title">
 				<tags:questionLinkFor question="${question}"/>
 			</h3>
 			<tags:tagsFor taggable="${question}"/>
