@@ -256,6 +256,7 @@ a:hover{
 
 .minimized-banner p{
 	margin-bottom: .2em;
+	display: inline;
 }
 
 /*Markdown*/
