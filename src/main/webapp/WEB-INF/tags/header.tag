@@ -47,6 +47,8 @@
 <!--[if lt IE 9]>
 	<script src="<c:url value="/js/html5shiv.js"/>"></script>
 <![endif]-->
+
+<link rel="canonical" href="${currentUrl}"/>
 </head>
 <body>
 

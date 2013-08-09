@@ -37,6 +37,7 @@ import br.com.caelum.vraptor.resource.ResourceMethod;
 @Intercepts(before={ParameterLoaderInterceptor.class, CustomBrutauthRuleInterceptor.class, SimpleBrutauthRuleInterceptor.class})
 public class GlobalInterceptor implements Interceptor {
 	
+	private static final String SLASH_AT_END = "/$";
 	private final Environment env;
 	private final Result result;
 	private final HttpServletRequest req;
@@ -102,6 +103,7 @@ public class GlobalInterceptor implements Interceptor {
 		} else {
 			url = "http://" + host + req.getRequestURI(); 
 		}
+		if(url.endsWith("/")) url = url.split(SLASH_AT_END)[0];
 		LOG.debug("setting url: " + url);
 		return url;
 	}

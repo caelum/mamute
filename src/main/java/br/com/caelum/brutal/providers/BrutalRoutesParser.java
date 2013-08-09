@@ -1,6 +1,7 @@
 package br.com.caelum.brutal.providers;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
@@ -48,7 +49,16 @@ public class BrutalRoutesParser extends PathAnnotationRoutesParser {
 		if (shouldHack && type.equals(homeClazz) && javaMethod.equals(homeMethod)) {
 			return new String[] {homePath}; 
 		}
-		return super.getURIsFor(javaMethod, type);
+		return addUrlsWithSlash(super.getURIsFor(javaMethod, type));
+	}
+
+	private String[] addUrlsWithSlash(String[] urIsFor) {
+		ArrayList<String> myUrls = new ArrayList<>();
+		for (String uri : urIsFor) {
+			myUrls.add(uri);
+			myUrls.add(uri+"/");
+		}
+		return myUrls.toArray(new String[]{});
 	}
 
 }
