@@ -241,7 +241,6 @@ a:hover{
 	width: 50%;
 	color: #333;
 	padding-right: 8.5em;
-	padding-top: .3em;
 	font-size: 1.2em;
 }
 
@@ -251,19 +250,25 @@ a:hover{
 
 .how-it-works-item{
 	width: 100%;
-	padding: 1em 1em 0 0;
+	padding: .6em 1em 0 0;
 	vertical-align:top;
 	text-align: center;
 	color: #306691;
 	overflow: hidden; 
 }
 
+.how-it-works-subtitle-container{
+	float: left;
+	width:80%;	
+}
+
 .how-it-works-subtitle{
 	font-size: 1.4em;
 	margin-left: 1em;
 	margin-bottom: 0;
-	height: 42px;
-	line-height: 42px;
+	text-align: left;
+	vertical-align: -webkit-baseline-middle;
+	margin-top: .5em;
 }
 
 .how-it-works-subtitle a{

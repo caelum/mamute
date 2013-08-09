@@ -5,5 +5,7 @@
 
 <li class="how-it-works-item">
 	<a class="how-it-works-info" href="${linkTo[QuestionController].questionForm}"><span class="${icon} how-it-works-icon icon-3x"></span></a>
-	<p class="how-it-works-info how-it-works-subtitle"><a href="${linkTo[QuestionController].questionForm}"><fmt:message key="${key}"/></a></p>
+	<div class="how-it-works-subtitle-container">
+		<a class="how-it-works-info how-it-works-subtitle" href="${linkTo[QuestionController].questionForm}"><fmt:message key="${key}"/></a>
+	</div>
 </li>
