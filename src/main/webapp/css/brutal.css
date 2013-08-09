@@ -207,7 +207,7 @@ a:hover{
 
 /* About Banner */
 .about-banner{
-	padding: 1.2em;
+	padding: 1em;
 	margin-bottom:1.4em;
 	background-color: #F2F2F2;
 	overflow: hidden;
@@ -262,16 +262,13 @@ a:hover{
 	width:80%;	
 }
 
-.how-it-works-subtitle{
+a.how-it-works-subtitle{
 	font-size: 1.4em;
 	margin-left: 1em;
 	margin-bottom: 0;
 	text-align: left;
 	vertical-align: -webkit-baseline-middle;
 	margin-top: .5em;
-}
-
-.how-it-works-subtitle a{
 	color: #244B69;
 }
 
