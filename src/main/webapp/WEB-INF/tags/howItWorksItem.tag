@@ -4,6 +4,6 @@
 <%@attribute name="key" required="true" type="java.lang.String" %>
 
 <li class="how-it-works-item">
-	<a href="${linkTo[QuestionController].questionForm}"><span class="${icon} how-it-works-icon icon-4x"></span></a>
-	<p><a href="${linkTo[QuestionController].questionForm}"><fmt:message key="${key}"/></a></p>
+	<a class="how-it-works-info" href="${linkTo[QuestionController].questionForm}"><span class="${icon} how-it-works-icon icon-3x"></span></a>
+	<p class="how-it-works-info how-it-works-subtitle"><a href="${linkTo[QuestionController].questionForm}"><fmt:message key="${key}"/></a></p>
 </li>

@@ -10,11 +10,13 @@
 	<section class="about-banner">
 		<span class="minimize-banner icon-minus"></span>
 		<div class="about-content tell-me-more">
-			<fmt:message key="about.home_banner.text"/>
+			<h3 class="about-title title"><fmt:message key="about.home_banner.welcome"/></h3>
+			<div class="about-text">
+				<fmt:message key="about.home_banner.text"/>
+			</div>
 			<a href="${linkTo[NavigationController].about}"><fmt:message key="about.home_banner.text.link"/></a>
 		</div>
 		<div class="about-content how-it-works">
-			<h3 class="title page-title"><fmt:message key="about.home_banner.how_it_works.title"/></h3>
 			<ul>
 				<tags:howItWorksItem icon="icon-comment" key="about.home_banner.how_it_works.anyone_ask"/>
 				<tags:howItWorksItem icon="icon-chat-empty" key="about.home_banner.how_it_works.anyone_answer"/>

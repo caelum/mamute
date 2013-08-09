@@ -20,6 +20,10 @@ a:hover{
 	text-decoration: underline;
 }
 
+.bold-it{
+	font-weight: bold;
+}
+
 .sprite {
 	display: block;
 	background-repeat: no-repeat;
@@ -203,11 +207,30 @@ a:hover{
 
 /* About Banner */
 .about-banner{
-	padding: 1em;
-	border: 1px dashed #AAA;
+	padding: 1.2em;
 	margin-bottom:1.4em;
-	background-color: #FDFDFD;
+	background-color: #F2F2F2;
 	overflow: hidden;
+}
+
+.about-banner a{
+	color: #000080;
+}
+
+
+.about-title{
+	margin-bottom: .5em;
+	color: #244B69;
+	font-size: 1.3em;
+}
+
+.about-text{
+	margin-bottom: 1em;
+}
+
+.about-text p{
+	margin: 0;
+	line-height: 1.4em;	
 }
 
 .about-content{
@@ -215,23 +238,40 @@ a:hover{
 }
 
 .tell-me-more{
-	width: 35%;
-	color: #777;
-	padding-right: 1.5em;
+	width: 50%;
+	color: #333;
+	padding-right: 8.5em;
 	padding-top: .3em;
+	font-size: 1.2em;
 }
 
 .how-it-works{
-	width: 63%;
+	width: 48%;
 }
 
 .how-it-works-item{
-	display: inline-block;
-	width: 31%;
+	width: 100%;
 	padding: 1em 1em 0 0;
 	vertical-align:top;
 	text-align: center;
 	color: #306691;
+	overflow: hidden; 
+}
+
+.how-it-works-subtitle{
+	font-size: 1.4em;
+	margin-left: 1em;
+	margin-bottom: 0;
+	height: 42px;
+	line-height: 42px;
+}
+
+.how-it-works-subtitle a{
+	color: #244B69;
+}
+
+.how-it-works-info{
+	float: left;	
 }
 
 .how-it-works-icon{
@@ -257,6 +297,14 @@ a:hover{
 .minimized-banner p{
 	margin-bottom: .2em;
 	display: inline;
+}
+
+.minimized-banner .about-title{
+	display: none;
+}
+
+.minimized-banner .about-text{
+	margin-bottom: .2em;
 }
 
 /*Markdown*/
