@@ -19,8 +19,8 @@ public class BrutalAds {
 		if(!loggedUser.isLoggedIn()) return true;
 		User current = loggedUser.getCurrent();
 		if(current.getKarma() <= 50) return true;
-		if(current.getKarma() <= 1000) return shouldShowWithPercentage(20);
-		return shouldShowWithPercentage(10);
+		if(current.getKarma() <= 1000) return shouldShowWithPercentage(50);
+		return shouldShowWithPercentage(25);
 	}
 
 	private boolean shouldShowWithPercentage(int percentage) {
