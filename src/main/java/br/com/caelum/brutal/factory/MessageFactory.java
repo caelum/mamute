@@ -1,8 +1,7 @@
 package br.com.caelum.brutal.factory;
 
-import br.com.caelum.vraptor.core.Localization;
-import br.com.caelum.vraptor.ioc.Component;
-import br.com.caelum.vraptor.validator.I18nMessage;
+import br.com.caelum.vraptor4.core.Localization;
+import br.com.caelum.vraptor4.validator.I18nMessage;
 
 @Component
 public class MessageFactory {

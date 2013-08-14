@@ -10,7 +10,6 @@ import org.joda.time.DateTime;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.TagUsage;
 import br.com.caelum.brutal.model.User;
-import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class TagDAO {

@@ -3,7 +3,6 @@ package br.com.caelum.brutal.model.flag;
 import java.util.List;
 
 import br.com.caelum.brutal.model.interfaces.Flaggable;
-import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class FlagTrigger {

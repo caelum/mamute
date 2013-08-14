@@ -6,13 +6,12 @@ import br.com.caelum.brutal.brutauth.auth.rules.LoggedRule;
 import br.com.caelum.brutal.validators.LoginValidator;
 import br.com.caelum.brutal.validators.UrlValidator;
 import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
-import br.com.caelum.vraptor.Get;
-import br.com.caelum.vraptor.Post;
-import br.com.caelum.vraptor.Resource;
-import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor4.Get;
+import br.com.caelum.vraptor4.Post;
+import br.com.caelum.vraptor4.Result;
 
-@Resource
-public class AuthController extends Controller {
+@br.com.caelum.vraptor4.Controller
+public class AuthController extends BaseController {
 	
 	private final DefaultAuthenticator auth;
 	private final FacebookAuthService facebook;

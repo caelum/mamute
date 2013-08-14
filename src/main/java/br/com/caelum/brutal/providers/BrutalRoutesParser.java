@@ -7,10 +7,8 @@ import org.apache.log4j.Logger;
 
 import br.com.caelum.brutal.controllers.ListController;
 import br.com.caelum.vraptor.environment.Environment;
-import br.com.caelum.vraptor.http.route.PathAnnotationRoutesParser;
-import br.com.caelum.vraptor.http.route.Router;
-import br.com.caelum.vraptor.ioc.ApplicationScoped;
-import br.com.caelum.vraptor.ioc.Component;
+import br.com.caelum.vraptor4.http.route.PathAnnotationRoutesParser;
+import br.com.caelum.vraptor4.http.route.Router;
 
 @Component
 @ApplicationScoped

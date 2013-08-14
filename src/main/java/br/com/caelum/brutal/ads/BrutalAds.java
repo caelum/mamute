@@ -4,7 +4,6 @@ import java.util.Random;
 
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.User;
-import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class BrutalAds {

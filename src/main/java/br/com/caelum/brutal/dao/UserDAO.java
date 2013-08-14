@@ -15,7 +15,6 @@ import br.com.caelum.brutal.infra.Digester;
 import br.com.caelum.brutal.model.MethodType;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.UserSession;
-import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 @SuppressWarnings("unchecked")

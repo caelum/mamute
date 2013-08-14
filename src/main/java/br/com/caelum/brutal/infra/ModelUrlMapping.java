@@ -7,8 +7,6 @@ import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.News;
 import br.com.caelum.brutal.model.Question;
-import br.com.caelum.vraptor.ioc.ApplicationScoped;
-import br.com.caelum.vraptor.ioc.Component;
 
 @ApplicationScoped
 @Component

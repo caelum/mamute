@@ -3,8 +3,6 @@ package br.com.caelum.brutal.infra;
 import br.com.caelum.brutal.dao.FlaggableDAO;
 import br.com.caelum.brutal.dao.InformationDAO;
 import br.com.caelum.brutal.model.LoggedUser;
-import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class MenuInfo {

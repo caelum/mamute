@@ -5,8 +5,6 @@ import javax.annotation.PreDestroy;
 
 import br.com.caelum.brutal.components.RecentTagsContainer;
 import br.com.caelum.brutal.migration.MigrationRunner;
-import br.com.caelum.vraptor.ioc.ApplicationScoped;
-import br.com.caelum.vraptor.ioc.Component;
 
 @ApplicationScoped
 @Component

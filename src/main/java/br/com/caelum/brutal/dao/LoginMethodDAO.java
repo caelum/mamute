@@ -3,7 +3,6 @@ package br.com.caelum.brutal.dao;
 import org.hibernate.Session;
 
 import br.com.caelum.brutal.model.LoginMethod;
-import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class LoginMethodDAO {

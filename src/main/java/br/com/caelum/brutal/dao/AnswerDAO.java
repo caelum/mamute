@@ -8,7 +8,6 @@ import br.com.caelum.brutal.dao.WithUserPaginatedDAO.OrderType;
 import br.com.caelum.brutal.dao.WithUserPaginatedDAO.UserRole;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.User;
-import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class AnswerDAO implements PaginatableDAO{

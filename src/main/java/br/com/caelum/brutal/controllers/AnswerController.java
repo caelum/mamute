@@ -22,16 +22,16 @@ import br.com.caelum.brutal.notification.NotificationManager;
 import br.com.caelum.brutal.reputation.rules.KarmaCalculator;
 import br.com.caelum.brutal.validators.AnsweredByValidator;
 import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
-import br.com.caelum.vraptor.Get;
-import br.com.caelum.vraptor.Post;
-import br.com.caelum.vraptor.Resource;
-import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.Validator;
-import br.com.caelum.vraptor.core.Localization;
 import br.com.caelum.vraptor.plugin.hibernate4.extra.Load;
-import br.com.caelum.vraptor.view.Results;
+import br.com.caelum.vraptor4.Controller;
+import br.com.caelum.vraptor4.Get;
+import br.com.caelum.vraptor4.Post;
+import br.com.caelum.vraptor4.Result;
+import br.com.caelum.vraptor4.Validator;
+import br.com.caelum.vraptor4.core.Localization;
+import br.com.caelum.vraptor4.view.Results;
 
-@Resource
+@Controller
 public class AnswerController {
 	private final Result result;
 	private final AnswerDAO answers;

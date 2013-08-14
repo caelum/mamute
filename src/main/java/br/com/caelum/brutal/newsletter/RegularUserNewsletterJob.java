@@ -1,15 +1,15 @@
 package br.com.caelum.brutal.newsletter;
 
+import javax.annotation.Resource;
+
 import org.apache.log4j.Logger;
 import org.hibernate.ScrollableResults;
 
 import br.com.caelum.brutal.dao.NewsletterSentLogDAO;
 import br.com.caelum.brutal.dao.UserDAO;
-import br.com.caelum.vraptor.Path;
-import br.com.caelum.vraptor.Resource;
-import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.quartzjob.CronTask;
+import br.com.caelum.vraptor4.Path;
 
 @Resource
 public class RegularUserNewsletterJob implements CronTask {

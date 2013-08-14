@@ -2,8 +2,6 @@ package br.com.caelum.brutal.validators;
 
 import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.factory.MessageFactory;
-import br.com.caelum.vraptor.Validator;
-import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class UserNameValidator {

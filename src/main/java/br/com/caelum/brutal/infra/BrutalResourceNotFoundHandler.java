@@ -7,10 +7,7 @@ import javax.servlet.ServletException;
 
 import org.apache.log4j.Logger;
 
-import br.com.caelum.vraptor.InterceptionException;
-import br.com.caelum.vraptor.core.RequestInfo;
-import br.com.caelum.vraptor.ioc.Component;
-import br.com.caelum.vraptor.resource.ResourceNotFoundHandler;
+import br.com.caelum.vraptor4.InterceptionException;
 
 @Component
 public class BrutalResourceNotFoundHandler implements ResourceNotFoundHandler {

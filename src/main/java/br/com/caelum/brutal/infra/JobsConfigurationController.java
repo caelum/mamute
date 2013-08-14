@@ -1,12 +1,12 @@
 package br.com.caelum.brutal.infra;
 
+import javax.annotation.Resource;
+
 import org.apache.log4j.Logger;
 import org.quartz.SchedulerException;
 
-import br.com.caelum.vraptor.Get;
-import br.com.caelum.vraptor.Resource;
-import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.quartzjob.QuartzController;
+import br.com.caelum.vraptor4.Get;
 
 @Resource
 public class JobsConfigurationController {

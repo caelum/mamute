@@ -10,7 +10,6 @@ import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.model.interfaces.RssContent;
 import br.com.caelum.vraptor.environment.Environment;
-import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class RssFeedFactory {

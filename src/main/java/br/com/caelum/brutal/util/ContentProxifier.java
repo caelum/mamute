@@ -4,10 +4,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import br.com.caelum.brutal.sanitizer.HtmlSanitizer;
-import br.com.caelum.vraptor.ioc.Component;
-import br.com.caelum.vraptor.proxy.MethodInvocation;
-import br.com.caelum.vraptor.proxy.Proxifier;
-import br.com.caelum.vraptor.proxy.SuperMethod;
+import br.com.caelum.vraptor4.proxy.MethodInvocation;
+import br.com.caelum.vraptor4.proxy.Proxifier;
+import br.com.caelum.vraptor4.proxy.SuperMethod;
 
 @Component
 public class ContentProxifier {

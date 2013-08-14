@@ -8,12 +8,11 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import sun.awt.ComponentFactory;
 import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.dto.UserAndSession;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.UserSession;
-import br.com.caelum.vraptor.ioc.Component;
-import br.com.caelum.vraptor.ioc.ComponentFactory;
 
 @Component
 public class Access implements ComponentFactory<User> {

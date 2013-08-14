@@ -12,11 +12,11 @@ import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
 import br.com.caelum.brutal.model.User;
-import br.com.caelum.vraptor.Post;
-import br.com.caelum.vraptor.Resource;
-import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor4.Controller;
+import br.com.caelum.vraptor4.Post;
+import br.com.caelum.vraptor4.Result;
 
-@Resource
+@Controller
 public class VerifyUsersController {
 	
 	private final Session session;

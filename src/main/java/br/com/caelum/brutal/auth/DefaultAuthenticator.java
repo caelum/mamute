@@ -2,8 +2,6 @@ package br.com.caelum.brutal.auth;
 
 import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.model.User;
-import br.com.caelum.vraptor.ioc.Component;
-import br.com.caelum.vraptor.ioc.RequestScoped;
 
 @Component
 @RequestScoped

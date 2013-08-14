@@ -7,7 +7,6 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.SimpleExpression;
 
 import br.com.caelum.brutal.model.LoggedUser;
-import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class InvisibleForUsersRule implements QueryFilter{

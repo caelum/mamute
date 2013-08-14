@@ -18,7 +18,6 @@ import br.com.caelum.brutal.dao.WithUserPaginatedDAO.UserRole;
 import br.com.caelum.brutal.model.News;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.interfaces.RssContent;
-import br.com.caelum.vraptor.ioc.Component;
 @Component
 public class NewsDAO implements PaginatableDAO  {
     private static final long SPAM_BOUNDARY = -5;

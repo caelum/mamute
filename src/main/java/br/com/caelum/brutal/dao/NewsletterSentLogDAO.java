@@ -4,7 +4,6 @@ import org.hibernate.Session;
 import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.model.NewsletterSentLog;
-import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class NewsletterSentLogDAO {

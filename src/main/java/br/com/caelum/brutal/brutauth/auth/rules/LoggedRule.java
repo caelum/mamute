@@ -4,7 +4,6 @@ import br.com.caelum.brutal.brutauth.auth.handlers.LoggedHandler;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutauth.auth.annotations.HandledBy;
 import br.com.caelum.brutauth.auth.rules.CustomBrutauthRule;
-import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 @HandledBy(LoggedHandler.class)

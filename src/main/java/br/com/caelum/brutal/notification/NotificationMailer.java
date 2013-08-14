@@ -22,11 +22,10 @@ import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.interfaces.Watchable;
 import br.com.caelum.brutal.vraptor.Linker;
-import br.com.caelum.vraptor.core.Localization;
 import br.com.caelum.vraptor.environment.Environment;
-import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.simplemail.Mailer;
 import br.com.caelum.vraptor.simplemail.template.TemplateMailer;
+import br.com.caelum.vraptor4.core.Localization;
 
 @Component
 public class NotificationMailer {

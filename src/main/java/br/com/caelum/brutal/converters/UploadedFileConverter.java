@@ -4,9 +4,8 @@ import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
 
-import br.com.caelum.vraptor.Convert;
-import br.com.caelum.vraptor.Converter;
-import br.com.caelum.vraptor.interceptor.multipart.UploadedFile;
+import br.com.caelum.vraptor4.Convert;
+import br.com.caelum.vraptor4.interceptor.multipart.UploadedFile;
 
 @Convert(UploadedFile.class)
 public class UploadedFileConverter implements Converter<UploadedFile>{

@@ -9,10 +9,8 @@ import br.com.caelum.brutal.dao.WatcherDAO;
 import br.com.caelum.brutal.infra.AfterSuccessfulTransaction;
 import br.com.caelum.brutal.infra.ThreadPoolContainer;
 import br.com.caelum.brutal.mail.action.EmailAction;
-import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.interfaces.Watchable;
 import br.com.caelum.brutal.model.watch.Watcher;
-import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class NotificationManager {

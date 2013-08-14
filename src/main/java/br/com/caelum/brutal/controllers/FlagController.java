@@ -1,7 +1,5 @@
 package br.com.caelum.brutal.controllers;
 
-import static br.com.caelum.vraptor.view.Results.page;
-
 import java.util.List;
 
 import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
@@ -23,13 +21,13 @@ import br.com.caelum.brutal.model.interfaces.Flaggable;
 import br.com.caelum.brutauth.auth.annotations.AccessLevel;
 import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
 import br.com.caelum.brutauth.auth.annotations.SimpleBrutauthRules;
-import br.com.caelum.vraptor.Get;
-import br.com.caelum.vraptor.Post;
-import br.com.caelum.vraptor.Resource;
-import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.view.Results;
+import br.com.caelum.vraptor4.Controller;
+import br.com.caelum.vraptor4.Get;
+import br.com.caelum.vraptor4.Post;
+import br.com.caelum.vraptor4.Result;
+import br.com.caelum.vraptor4.view.Results;
 
-@Resource
+@Controller
 public class FlagController {
 	
 	private final Result result;

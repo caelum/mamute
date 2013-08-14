@@ -10,7 +10,6 @@ import br.com.caelum.brutal.model.Information;
 import br.com.caelum.brutal.model.ModeratableAndPendingHistory;
 import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.UpdateStatus;
-import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class InformationDAO {

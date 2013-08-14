@@ -8,7 +8,6 @@ import org.joda.time.Period;
 
 import br.com.caelum.brutal.infra.Digester;
 import br.com.caelum.brutal.model.interfaces.ViewCountable;
-import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class PostViewCounter {

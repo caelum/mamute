@@ -7,10 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import br.com.caelum.brutal.controllers.AuthController;
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutauth.auth.handlers.RuleHandler;
-import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.core.Localization;
-import br.com.caelum.vraptor.ioc.Component;
-import br.com.caelum.vraptor.view.Results;
+import br.com.caelum.vraptor4.core.Localization;
 
 @Component
 public class LoggedHandler implements RuleHandler{

@@ -1,7 +1,6 @@
 package br.com.caelum.brutal.controllers;
 
 import static br.com.caelum.brutal.util.TagsSplitter.splitTags;
-import static br.com.caelum.vraptor.view.Results.json;
 
 import java.util.List;
 
@@ -9,12 +8,12 @@ import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOnlyRule;
 import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
-import br.com.caelum.vraptor.Get;
-import br.com.caelum.vraptor.Post;
-import br.com.caelum.vraptor.Resource;
-import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor4.Controller;
+import br.com.caelum.vraptor4.Get;
+import br.com.caelum.vraptor4.Post;
+import br.com.caelum.vraptor4.Result;
 
-@Resource
+@Controller
 public class TagController {
 
 	private final Result result;

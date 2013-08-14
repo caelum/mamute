@@ -3,8 +3,6 @@ package br.com.caelum.brutal.vraptor;
 import javax.servlet.ServletContext;
 
 import br.com.caelum.vraptor.environment.Environment;
-import br.com.caelum.vraptor.ioc.ApplicationScoped;
-import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 @ApplicationScoped

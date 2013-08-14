@@ -1,11 +1,11 @@
 package br.com.caelum.brutal.controllers;
 
-import br.com.caelum.vraptor.Get;
-import br.com.caelum.vraptor.Resource;
-import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.environment.Environment;
+import br.com.caelum.vraptor4.Controller;
+import br.com.caelum.vraptor4.Get;
+import br.com.caelum.vraptor4.Result;
 
-@Resource
+@Controller
 public class SearchController {
     
     private final Result result;

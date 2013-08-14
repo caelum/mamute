@@ -19,7 +19,6 @@ import br.com.caelum.brutal.model.Vote;
 import br.com.caelum.brutal.model.VoteType;
 import br.com.caelum.brutal.model.interfaces.Commentable;
 import br.com.caelum.brutal.model.interfaces.Votable;
-import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 @SuppressWarnings("rawtypes")

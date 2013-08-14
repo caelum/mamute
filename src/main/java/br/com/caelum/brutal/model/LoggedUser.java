@@ -3,8 +3,6 @@ package br.com.caelum.brutal.model;
 import javax.annotation.Nullable;
 import javax.servlet.http.HttpServletRequest;
 
-import br.com.caelum.vraptor.ioc.Component;
-
 @Component
 public class LoggedUser {
 	

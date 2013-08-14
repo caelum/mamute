@@ -6,9 +6,8 @@ import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.FacebookApi;
 import org.scribe.oauth.OAuthService;
 
+import sun.awt.ComponentFactory;
 import br.com.caelum.vraptor.environment.Environment;
-import br.com.caelum.vraptor.ioc.Component;
-import br.com.caelum.vraptor.ioc.ComponentFactory;
 
 @Component
 public class OAuthServiceCreator implements ComponentFactory<OAuthService> {

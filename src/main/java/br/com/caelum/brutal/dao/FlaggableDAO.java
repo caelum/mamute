@@ -11,7 +11,6 @@ import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.interfaces.Flaggable;
-import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class FlaggableDAO {

@@ -4,11 +4,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import br.com.caelum.brutal.infra.AfterSuccessfulTransaction;
-import br.com.caelum.vraptor.Intercepts;
-import br.com.caelum.vraptor.Validator;
-import br.com.caelum.vraptor.core.InterceptorStack;
-import br.com.caelum.vraptor.interceptor.Interceptor;
-import br.com.caelum.vraptor.resource.ResourceMethod;
+import br.com.caelum.vraptor4.Intercepts;
+import br.com.caelum.vraptor4.core.InterceptorStack;
 
 @Intercepts
 public class TransactionInterceptor implements Interceptor {

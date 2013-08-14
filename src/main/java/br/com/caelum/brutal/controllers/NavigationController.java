@@ -1,10 +1,10 @@
 package br.com.caelum.brutal.controllers;
 
-import br.com.caelum.vraptor.Get;
-import br.com.caelum.vraptor.Resource;
+import br.com.caelum.vraptor4.Controller;
+import br.com.caelum.vraptor4.Get;
 
-@Resource
-public class NavigationController extends Controller{
+@Controller
+public class NavigationController extends BaseController{
 
 	@Get("/sobre")
 	public void about() {}

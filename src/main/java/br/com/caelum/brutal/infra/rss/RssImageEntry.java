@@ -1,6 +1,5 @@
 package br.com.caelum.brutal.infra.rss;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 
 @XStreamConverter(value=RssImageEntryConverter.class)

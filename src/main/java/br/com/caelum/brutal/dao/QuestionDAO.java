@@ -22,7 +22,6 @@ import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.interfaces.RssContent;
-import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 @SuppressWarnings("unchecked")

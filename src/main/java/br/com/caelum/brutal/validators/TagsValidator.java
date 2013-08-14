@@ -4,8 +4,6 @@ import java.util.List;
 
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.Tag;
-import br.com.caelum.vraptor.Validator;
-import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class TagsValidator {

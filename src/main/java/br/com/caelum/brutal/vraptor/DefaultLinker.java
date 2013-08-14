@@ -2,12 +2,10 @@ package br.com.caelum.brutal.vraptor;
 
 import java.lang.reflect.Method;
 
-import br.com.caelum.vraptor.http.route.Router;
-import br.com.caelum.vraptor.ioc.ApplicationScoped;
-import br.com.caelum.vraptor.ioc.Component;
-import br.com.caelum.vraptor.proxy.MethodInvocation;
-import br.com.caelum.vraptor.proxy.Proxifier;
-import br.com.caelum.vraptor.proxy.SuperMethod;
+import br.com.caelum.vraptor4.http.route.Router;
+import br.com.caelum.vraptor4.proxy.MethodInvocation;
+import br.com.caelum.vraptor4.proxy.Proxifier;
+import br.com.caelum.vraptor4.proxy.SuperMethod;
 
 @ApplicationScoped
 @Component

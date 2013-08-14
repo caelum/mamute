@@ -3,7 +3,6 @@ package br.com.caelum.brutal.dao;
 import org.hibernate.Criteria;
 
 import br.com.caelum.brutal.model.LoggedUser;
-import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class ModeratorOrVisibleNewsFilter implements QueryFilter{

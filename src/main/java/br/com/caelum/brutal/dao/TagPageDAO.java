@@ -5,7 +5,6 @@ import org.hibernate.Session;
 
 import br.com.caelum.brutal.infra.NotFoundException;
 import br.com.caelum.brutal.model.TagPage;
-import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class TagPageDAO {

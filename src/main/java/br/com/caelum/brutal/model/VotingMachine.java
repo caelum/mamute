@@ -6,7 +6,6 @@ import br.com.caelum.brutal.model.interfaces.Votable;
 import br.com.caelum.brutal.reputation.rules.KarmaCalculator;
 import br.com.caelum.brutal.reputation.rules.ReceivedVoteEvent;
 import br.com.caelum.brutal.reputation.rules.VotedAtSomethingEvent;
-import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class VotingMachine {

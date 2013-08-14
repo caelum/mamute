@@ -1,10 +1,8 @@
 package br.com.caelum.brutal.template;
 
 import br.com.caelum.brutal.controllers.BrutalTemplatesController;
-import br.com.caelum.vraptor.http.FormatResolver;
-import br.com.caelum.vraptor.ioc.Component;
-import br.com.caelum.vraptor.resource.ResourceMethod;
-import br.com.caelum.vraptor.view.DefaultPathResolver;
+import br.com.caelum.vraptor4.http.FormatResolver;
+import br.com.caelum.vraptor4.view.DefaultPathResolver;
 
 @Component
 public class TemplatePathResolver extends DefaultPathResolver{

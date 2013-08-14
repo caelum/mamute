@@ -24,8 +24,8 @@
 	<dependencies>
 		<dependency>
 			<groupId>br.com.caelum</groupId>
-			<artifactId>vraptor</artifactId>
-			<version>3.5.1</version>
+			<artifactId>vraptor4</artifactId>
+			<version>4.0-SNAPSHOT</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.hamcrest</groupId>
@@ -50,12 +50,12 @@
 		<dependency>
 			<groupId>br.com.caelum.vraptor</groupId>
 			<artifactId>vraptor-freemarker</artifactId>
-			<version>1.1.2</version>
+			<version>1.1.3-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>br.com.caelum.vraptor</groupId>
 			<artifactId>vraptor-quartzjob</artifactId>
-			<version>1.0.3</version>
+			<version>1.0.9-SNAPSHOT</version>
 			<exclusions>
 				<exclusion>
 					<groupId>br.com.caelum.vraptor</groupId>
@@ -70,33 +70,38 @@
 		<dependency>
 			<groupId>br.com.caelum.vraptor</groupId>
 			<artifactId>vraptor-environment</artifactId>
-			<version>1.1.4</version>
+			<version>1.1.5-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>br.com.caelum.vraptor</groupId>
 			<artifactId>vraptor-error-control</artifactId>
-			<version>1.1.1</version>
+			<version>1.1.2-SNAPSHOT</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.mockito</groupId>
 					<artifactId>mockito-all</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>br.com.caelum</groupId>
+					<artifactId>vraptor</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>br.com.caelum.vraptor</groupId>
 			<artifactId>vraptor-simplemail</artifactId>
-			<version>1.3.1</version>
-		</dependency>
-		<dependency>
-			<groupId>br.com.caelum.vraptor</groupId>
-			<artifactId>vraptor-environment</artifactId>
-			<version>1.1.4</version>
+			<version>1.3.2-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>br.com.caelum.vraptor</groupId>
 			<artifactId>vraptor-brutauth</artifactId>
 			<version>1.0.1</version>
+			<exclusions>
+				<exclusion>
+					<groupId>br.com.caelum</groupId>
+					<artifactId>vraptor</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<!-- end of VRaptor plugins -->
 		

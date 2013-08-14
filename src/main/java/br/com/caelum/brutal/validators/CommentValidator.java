@@ -5,9 +5,6 @@ import static br.com.caelum.brutal.model.Comment.ERROR_LENGTH;
 import static br.com.caelum.brutal.model.Comment.ERROR_NOT_EMPTY;
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.Comment;
-import br.com.caelum.vraptor.Validator;
-import br.com.caelum.vraptor.View;
-import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class CommentValidator {

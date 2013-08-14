@@ -1,11 +1,11 @@
 package br.com.caelum.brutal.cron;
 
+import javax.annotation.Resource;
+
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
 import br.com.caelum.brutal.components.RecentTagsContainer;
-import br.com.caelum.vraptor.Resource;
-import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.quartzjob.CronTask;
 
 @Resource

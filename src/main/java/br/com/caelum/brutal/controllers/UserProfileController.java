@@ -20,14 +20,14 @@ import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.validators.UserPersonalInfoValidator;
 import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
-import br.com.caelum.vraptor.Get;
-import br.com.caelum.vraptor.Post;
-import br.com.caelum.vraptor.Resource;
-import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.plugin.hibernate4.extra.Load;
+import br.com.caelum.vraptor4.Controller;
+import br.com.caelum.vraptor4.Get;
+import br.com.caelum.vraptor4.Post;
+import br.com.caelum.vraptor4.Result;
 
-@Resource
-public class UserProfileController extends Controller{
+@Controller
+public class UserProfileController extends BaseController{
 	
 	private Result result;
 	private UserDAO users;

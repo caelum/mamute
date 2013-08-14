@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.controller;
 
+import javax.annotation.Resource;
+
 import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOnlyRule;
 import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.dao.TagPageDAO;
@@ -7,10 +9,9 @@ import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.TagPage;
 import br.com.caelum.brutal.validators.TagPageValidator;
 import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
-import br.com.caelum.vraptor.Get;
-import br.com.caelum.vraptor.Post;
-import br.com.caelum.vraptor.Resource;
-import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor4.Get;
+import br.com.caelum.vraptor4.Post;
+import br.com.caelum.vraptor4.Result;
 
 @Resource
 public class TagPageController {

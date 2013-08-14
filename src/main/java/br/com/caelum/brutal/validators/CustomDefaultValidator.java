@@ -3,14 +3,12 @@ package br.com.caelum.brutal.validators;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.core.Localization;
-import br.com.caelum.vraptor.ioc.Component;
-import br.com.caelum.vraptor.proxy.Proxifier;
-import br.com.caelum.vraptor.validator.BeanValidator;
-import br.com.caelum.vraptor.validator.DefaultValidator;
-import br.com.caelum.vraptor.validator.Outjector;
-import br.com.caelum.vraptor.view.ValidationViewsFactory;
+import br.com.caelum.vraptor4.core.Localization;
+import br.com.caelum.vraptor4.proxy.Proxifier;
+import br.com.caelum.vraptor4.validator.BeanValidator;
+import br.com.caelum.vraptor4.validator.DefaultValidator;
+import br.com.caelum.vraptor4.validator.Outjector;
+import br.com.caelum.vraptor4.view.ValidationViewsFactory;
 
 @Component
 public class CustomDefaultValidator extends DefaultValidator {

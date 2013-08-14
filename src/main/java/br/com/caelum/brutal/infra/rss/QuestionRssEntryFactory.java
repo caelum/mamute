@@ -9,7 +9,6 @@ import java.util.List;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.interfaces.RssContent;
 import br.com.caelum.vraptor.environment.Environment;
-import br.com.caelum.vraptor.ioc.Component;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.core.util.QuickWriter;

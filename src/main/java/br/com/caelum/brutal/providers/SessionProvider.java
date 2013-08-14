@@ -6,8 +6,7 @@ import javax.annotation.PreDestroy;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import br.com.caelum.vraptor.ioc.Component;
-import br.com.caelum.vraptor.ioc.ComponentFactory;
+import sun.awt.ComponentFactory;
 
 @Component
 public class SessionProvider implements ComponentFactory<Session>{

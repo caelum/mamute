@@ -12,6 +12,7 @@ import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import sun.awt.ComponentFactory;
 import br.com.caelum.brutal.components.HerokuDatabaseInformation;
 import br.com.caelum.brutal.migration.DatabaseManager;
 import br.com.caelum.brutal.model.Answer;
@@ -32,9 +33,6 @@ import br.com.caelum.brutal.model.UserSession;
 import br.com.caelum.brutal.model.Vote;
 import br.com.caelum.brutal.model.watch.Watcher;
 import br.com.caelum.vraptor.environment.Environment;
-import br.com.caelum.vraptor.ioc.ApplicationScoped;
-import br.com.caelum.vraptor.ioc.Component;
-import br.com.caelum.vraptor.ioc.ComponentFactory;
 
 @Component
 @ApplicationScoped
