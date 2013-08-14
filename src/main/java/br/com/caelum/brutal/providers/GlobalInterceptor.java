@@ -19,15 +19,19 @@ import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.infra.MenuInfo;
 import br.com.caelum.brutal.infra.NotFoundException;
 import br.com.caelum.brutal.util.BrutalDateFormat;
+import br.com.caelum.brutauth.interceptors.CustomBrutauthRuleInterceptor;
+import br.com.caelum.brutauth.interceptors.SimpleBrutauthRuleInterceptor;
 import br.com.caelum.vraptor.environment.Environment;
+import br.com.caelum.vraptor.plugin.hibernate4.extra.ParameterLoaderInterceptor;
 import br.com.caelum.vraptor4.InterceptionException;
+import br.com.caelum.vraptor4.Intercepts;
 import br.com.caelum.vraptor4.Result;
 import br.com.caelum.vraptor4.core.InterceptorStack;
 import br.com.caelum.vraptor4.core.Localization;
 import br.com.caelum.vraptor4.interceptor.Interceptor;
 import br.com.caelum.vraptor4.restfulie.controller.ControllerMethod;
 
-//@Intercepts(before={ParameterLoaderInterceptor.class, CustomBrutauthRuleInterceptor.class, SimpleBrutauthRuleInterceptor.class})
+@Intercepts(before={ParameterLoaderInterceptor.class, CustomBrutauthRuleInterceptor.class, SimpleBrutauthRuleInterceptor.class})
 public class GlobalInterceptor implements Interceptor {
 	
 	private static final String SLASH_AT_END = "/$";

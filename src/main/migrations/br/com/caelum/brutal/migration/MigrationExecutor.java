@@ -9,7 +9,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.StatelessSession;
 
-import br.com.caelum.brutal.providers.SessionFactoryCreator;
 import br.com.caelum.vraptor4.ioc.ApplicationScoped;
 
 @ApplicationScoped
@@ -18,17 +17,17 @@ public class MigrationExecutor {
 	private SessionFactory sf;
 	private int currentMigration = -1;
 	private Session session;
-	private SessionFactoryCreator creator;
 	private StatelessSession statelessSession;
+	private DatabaseManager databaseManager;
 
 	@Deprecated
 	public MigrationExecutor() {
 	}
 
 	@Inject
-	public MigrationExecutor(SessionFactory sf, SessionFactoryCreator creator) {
+	public MigrationExecutor(SessionFactory sf, DatabaseManager databaseManager) {
 		this.sf = sf;
-		this.creator = creator;
+		this.databaseManager = databaseManager;
 	}
 
 	public void begin() {
@@ -79,7 +78,7 @@ public class MigrationExecutor {
 		session.createSQLQuery("create table if not exists brutalmigration (number int(11))").executeUpdate();
 		BigInteger result = (BigInteger) session.createSQLQuery("select count(*) from brutalmigration").uniqueResult();
 		if (result.equals(BigInteger.ZERO)) {
-			creator.createFromScratch();
+			databaseManager.importAll("/db_structure.sql");
 			session.createSQLQuery("insert into brutalmigration values(0)").executeUpdate();
 		}
 	}

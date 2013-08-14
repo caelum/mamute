@@ -6,25 +6,41 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import br.com.caelum.brutal.infra.AfterSuccessfulTransaction;
+import br.com.caelum.vraptor.plugin.hibernate4.HibernateTransactionInterceptor;
 import br.com.caelum.vraptor4.Intercepts;
 import br.com.caelum.vraptor4.Validator;
-import br.com.caelum.vraptor4.core.InterceptorStack;
-import br.com.caelum.vraptor4.interceptor.Interceptor;
-import br.com.caelum.vraptor4.restfulie.controller.ControllerMethod;
+import br.com.caelum.vraptor4.core.OverrideComponent;
+import br.com.caelum.vraptor4.interceptor.SimpleInterceptorStack;
 
+//TODO: override original interceptor using cdi
 @Intercepts
-public class TransactionInterceptor implements Interceptor {
+@OverrideComponent
+public class TransactionInterceptor extends HibernateTransactionInterceptor {
 
-	@Inject private Session session;
-	@Inject private Validator validator;
-	@Inject private AfterSuccessfulTransaction afterTransaction;
-
+	private Session session;
+	private Validator validator;
+	private AfterSuccessfulTransaction afterTransaction;
 	
-	public void intercept(InterceptorStack stack, ControllerMethod method, Object instance) {
+	@Deprecated //CDI eyes only
+	public TransactionInterceptor() {
+	}
+	
+	@Inject
+	public TransactionInterceptor(Session session, Validator validator,
+			AfterSuccessfulTransaction afterTransaction) {
+		super(session, validator);
+		this.session = session;
+		this.validator = validator;
+		this.afterTransaction = afterTransaction;
+	}
+
+	@Override
+	public void intercept(SimpleInterceptorStack stack) {
+		super.intercept(stack);
 		Transaction transaction = null;
 		try {
 			transaction = session.beginTransaction();
-			stack.next(method, instance);
+			stack.next();
 			if (!validator.hasErrors() && transaction.isActive()) {
 				transaction.commit();
 				afterTransaction.run();
@@ -36,12 +52,4 @@ public class TransactionInterceptor implements Interceptor {
 		}
 	}
 
-	/**
-	 * to avoid misterious bugs, every transaction should be inside a transaction, either get or post
-	 */
-    @Override
-    public boolean accepts(ControllerMethod method) {
-    	return true;
-    }
-    
 }

@@ -3,11 +3,11 @@ package br.com.caelum.brutal.providers;
 import java.net.URL;
 import java.util.Properties;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
@@ -15,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import br.com.caelum.brutal.components.HerokuDatabaseInformation;
-import br.com.caelum.brutal.migration.DatabaseManager;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.AnswerInformation;
 import br.com.caelum.brutal.model.Comment;
@@ -34,8 +33,10 @@ import br.com.caelum.brutal.model.UserSession;
 import br.com.caelum.brutal.model.Vote;
 import br.com.caelum.brutal.model.watch.Watcher;
 import br.com.caelum.vraptor.environment.Environment;
+import br.com.caelum.vraptor4.core.OverrideComponent;
 import br.com.caelum.vraptor4.ioc.ApplicationScoped;
 
+@OverrideComponent
 @ApplicationScoped
 public class SessionFactoryCreator {
 	
@@ -45,6 +46,7 @@ public class SessionFactoryCreator {
 	
 	private Configuration cfg;
 	private SessionFactory factory;
+	private Environment env;
 
 	@Deprecated
 	public SessionFactoryCreator() {
@@ -52,6 +54,12 @@ public class SessionFactoryCreator {
 
 	@Inject
 	public SessionFactoryCreator(Environment env) {
+		this.env = env;
+
+	}
+
+	@PostConstruct
+	private void init() {
 		URL xml = env.getResource("/hibernate.cfg.xml");
 		LOGGER.info("Loading hibernate xml from " + xml);
 		this.cfg = new Configuration().configure(xml);
@@ -85,11 +93,8 @@ public class SessionFactoryCreator {
 		cfg.addAnnotatedClass(NewsletterSentLog.class);
 		cfg.addAnnotatedClass(TagPage.class);
 
-		init();
-	}
-
-	private void init() {
 		this.factory = cfg.buildSessionFactory();
+		
 	}
 
 
@@ -123,8 +128,4 @@ public class SessionFactoryCreator {
 		return cfg;
 	}
 	
-	public void createFromScratch() {
-		final Session session = factory.openSession();
-		new DatabaseManager(session).importAll("/db_structure.sql");
-	}
 }

@@ -8,6 +8,9 @@ import javax.inject.Inject;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import br.com.caelum.vraptor4.core.OverrideComponent;
+
+@OverrideComponent
 public class SessionProvider {
 
 	private SessionFactory factory;

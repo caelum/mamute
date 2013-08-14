@@ -7,6 +7,10 @@
        <alternatives>
                <class>br.com.caelum.vraptor4.validator.ValidatorFactoryCreator</class>
                <class>br.com.caelum.vraptor4.validator.ValidatorCreator</class>
+               <class>br.com.caelum.brutal.providers.SessionFactoryCreator</class>
        </alternatives>
+       <scan>
+       	<exclude name="br.com.caelum.brutal.integration.**"/>
+       </scan>
 
 </beans>

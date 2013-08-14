@@ -1,15 +1,16 @@
 package br.com.caelum.brutal.vraptor;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.servlet.ServletContext;
 
 import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor4.ioc.ApplicationScoped;
 
 @ApplicationScoped
+@Named("brutalEnv")
 public class Env {
 
-	
 	@Inject private Environment env;
 	@Inject private ServletContext context;
 
