@@ -1,15 +1,22 @@
 package br.com.caelum.brutal.validators;
 
+import javax.inject.Inject;
+
 import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.factory.MessageFactory;
+import br.com.caelum.vraptor4.Validator;
 
-@Component
 public class EmailValidator {
 	
 	private UserDAO users;
 	private Validator validator;
 	private MessageFactory messageFactory;
+	
+	@Deprecated
+	public EmailValidator() {
+	}
 
+	@Inject
 	public EmailValidator(Validator validator, UserDAO users, MessageFactory messageFactory) {
 		this.users = users;
 		this.validator = validator;

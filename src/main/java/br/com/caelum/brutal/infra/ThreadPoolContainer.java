@@ -5,6 +5,8 @@ import java.util.concurrent.Executors;
 
 import org.apache.log4j.Logger;
 
+import br.com.caelum.vraptor4.ioc.ApplicationScoped;
+
 @ApplicationScoped
 public class ThreadPoolContainer {
 

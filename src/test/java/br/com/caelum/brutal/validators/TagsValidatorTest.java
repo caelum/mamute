@@ -14,10 +14,10 @@ import br.com.caelum.brutal.dao.TestCase;
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
-import br.com.caelum.vraptor.Validator;
-import br.com.caelum.vraptor.core.Localization;
-import br.com.caelum.vraptor.util.test.MockLocalization;
-import br.com.caelum.vraptor.util.test.MockValidator;
+import br.com.caelum.vraptor4.Validator;
+import br.com.caelum.vraptor4.core.Localization;
+import br.com.caelum.vraptor4.util.test.MockLocalization;
+import br.com.caelum.vraptor4.util.test.MockValidator;
 
 public class TagsValidatorTest extends TestCase {
 	

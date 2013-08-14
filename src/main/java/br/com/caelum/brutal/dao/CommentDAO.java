@@ -2,17 +2,23 @@ package br.com.caelum.brutal.dao;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 
 import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.Post;
 
-@Component
 public class CommentDAO {
 
-	private final Session session;
+	private Session session;
 
+	@Deprecated
+	public CommentDAO() {
+	}
+
+	@Inject
 	public CommentDAO(Session session) {
 		this.session = session;
 	}

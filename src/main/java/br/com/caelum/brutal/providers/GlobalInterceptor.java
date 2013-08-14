@@ -1,11 +1,13 @@
 package br.com.caelum.brutal.providers;
 
+import static java.util.Arrays.asList;
+
 import java.util.Enumeration;
 
 import javax.inject.Inject;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.ocpsoft.prettytime.PrettyTime;
 
 import br.com.caelum.brutal.ads.BrutalAds;
@@ -13,58 +15,37 @@ import br.com.caelum.brutal.auth.BannedUserException;
 import br.com.caelum.brutal.components.RecentTagsContainer;
 import br.com.caelum.brutal.controllers.AuthController;
 import br.com.caelum.brutal.dao.NewsDAO;
+import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.infra.MenuInfo;
-import br.com.caelum.brutal.model.LoggedUser;
+import br.com.caelum.brutal.infra.NotFoundException;
 import br.com.caelum.brutal.util.BrutalDateFormat;
-import br.com.caelum.brutauth.interceptors.CustomBrutauthRuleInterceptor;
-import br.com.caelum.brutauth.interceptors.SimpleBrutauthRuleInterceptor;
-import br.com.caelum.vraptor.plugin.hibernate4.extra.ParameterLoaderInterceptor;
-import br.com.caelum.vraptor4.BeforeCall;
-import br.com.caelum.vraptor4.Intercepts;
+import br.com.caelum.vraptor.environment.Environment;
+import br.com.caelum.vraptor4.InterceptionException;
+import br.com.caelum.vraptor4.Result;
+import br.com.caelum.vraptor4.core.InterceptorStack;
 import br.com.caelum.vraptor4.core.Localization;
+import br.com.caelum.vraptor4.interceptor.Interceptor;
+import br.com.caelum.vraptor4.restfulie.controller.ControllerMethod;
 
-
-@Intercepts(before={ParameterLoaderInterceptor.class, CustomBrutauthRuleInterceptor.class, SimpleBrutauthRuleInterceptor.class})
-public class GlobalInterceptor {
+//@Intercepts(before={ParameterLoaderInterceptor.class, CustomBrutauthRuleInterceptor.class, SimpleBrutauthRuleInterceptor.class})
+public class GlobalInterceptor implements Interceptor {
 	
 	private static final String SLASH_AT_END = "/$";
-	private final Environment env;
-	private final Result result;
-	private final HttpServletRequest req;
-	private final Localization localization;
 	private static final Logger LOG = Logger.getLogger(GlobalInterceptor.class);
-	private final MenuInfo menuInfo;
-	private NewsDAO newses;
-	private RecentTagsContainer recentTagsContainer;
-	private BrutalDateFormat brutalDateFormat;
-	private final MessageFactory messageFactory;
-	private final BrutalAds ads;
+	
+	@Inject private Environment env;
+	@Inject private Result result;
+	@Inject private HttpServletRequest req;
+	@Inject private Localization localization;
+	@Inject private MenuInfo menuInfo;
+	@Inject private NewsDAO newses;
+	@Inject private RecentTagsContainer recentTagsContainer;
+	@Inject private BrutalDateFormat brutalDateFormat;
+	@Inject private MessageFactory messageFactory;
+	@Inject private BrutalAds ads;
 
-	@Deprecated
-	public GlobalInterceptor() {}
-
-	@Inject
-	public GlobalInterceptor(Environment env, Result result, 
-			HttpServletRequest req, Localization localization,  
-			ServletContext servletContext, LoggedUser loggedUser,
-			MenuInfo menuInfo, NewsDAO newses,
-			RecentTagsContainer recentTagsContainer,
-			BrutalDateFormat brutalDateFormat, MessageFactory messageFactory,
-			BrutalAds ads) {
-		this.env = env;
-		this.result = result;
-		this.req = req;
-		this.localization = localization;
-		this.menuInfo = menuInfo;
-		this.newses = newses;
-		this.recentTagsContainer = recentTagsContainer;
-		this.brutalDateFormat = brutalDateFormat;
-		this.messageFactory = messageFactory;
-		this.ads = ads;
-	}
-
-	@BeforeCall
-	public void intercept() {
+	public void intercept(InterceptorStack stack, ControllerMethod method,
+			Object resourceInstance) throws InterceptionException {
 		menuInfo.include();
 		result.include("env", env);
 		result.include("prettyTimeFormatter", new PrettyTime(localization.getLocale()));
@@ -81,6 +62,8 @@ public class GlobalInterceptor {
 				.redirectTo(AuthController.class).loginForm("");
 		
 		logHeaders();
+		
+		stack.next(method, resourceInstance);
 	}
 
 	private String deployTimestamp() {
@@ -109,6 +92,10 @@ public class GlobalInterceptor {
 			LOG.debug(key);
 			LOG.debug(value);
 		}
+	}
+
+	public boolean accepts(ControllerMethod method) {
+		return true;
 	}
 
 }

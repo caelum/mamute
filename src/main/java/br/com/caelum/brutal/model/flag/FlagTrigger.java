@@ -2,16 +2,21 @@ package br.com.caelum.brutal.model.flag;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import br.com.caelum.brutal.model.interfaces.Flaggable;
 
-@Component
 public class FlagTrigger {
 	
-	private final List<FlagAction> actions;
+	private List<FlagAction> actions;
 
+	@Deprecated
+	public FlagTrigger() {
+	}
+	
+	@Inject
 	public FlagTrigger(List<FlagAction> actions) {
 		this.actions = actions;
-		
 	}
 
 	public void fire(Flaggable flaggable) {

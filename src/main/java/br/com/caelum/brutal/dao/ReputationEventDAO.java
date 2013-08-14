@@ -5,6 +5,8 @@ import static br.com.caelum.brutal.model.EventType.ASKER_RELATED_EVENTS;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -16,13 +18,17 @@ import br.com.caelum.brutal.model.ReputationEvent;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
 
-@Component
 public class ReputationEventDAO {
-
 	private static final int TOP_ANSWERERS = 20;
-	private final Session session;
-	private final InvisibleForUsersRule invisible;
+	
+	private Session session;
+	private InvisibleForUsersRule invisible;
 
+	@Deprecated
+	public ReputationEventDAO() {
+	}
+
+	@Inject
 	public ReputationEventDAO(Session session, InvisibleForUsersRule invisible) {
 		this.session = session;
 		this.invisible = invisible;

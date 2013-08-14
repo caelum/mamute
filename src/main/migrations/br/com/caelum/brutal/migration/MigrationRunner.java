@@ -3,24 +3,29 @@ package br.com.caelum.brutal.migration;
 import java.util.Collections;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import br.com.caelum.vraptor.environment.Environment;
-import br.com.caelum.vraptor.ioc.ApplicationScoped;
-import br.com.caelum.vraptor.ioc.Component;
+import br.com.caelum.vraptor4.ioc.ApplicationScoped;
 
-@Component
 @ApplicationScoped
 public class MigrationRunner {
 
-	private final List<SchemaMigration> migrations;
-	private final NumberExtractor extractNumber;
 	private final static Logger LOGGER = LoggerFactory
 			.getLogger(MigrationRunner.class);
-	private final MigrationExecutor executor;
-	private final Environment env;
+	private List<SchemaMigration> migrations;
+	private NumberExtractor extractNumber;
+	private MigrationExecutor executor;
+	private Environment env;
 
+	@Deprecated
+	public MigrationRunner() {
+	}
+
+	@Inject
 	public MigrationRunner(List<SchemaMigration> migrations, NumberExtractor number,
 			MigrationExecutor executor, Environment env) {
 		this.extractNumber = number;

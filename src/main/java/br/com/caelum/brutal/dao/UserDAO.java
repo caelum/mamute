@@ -4,6 +4,8 @@ import static org.hibernate.criterion.Restrictions.eq;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import net.vidageek.mirror.dsl.Mirror;
 
 import org.hibernate.Query;
@@ -16,13 +18,17 @@ import br.com.caelum.brutal.model.MethodType;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.UserSession;
 
-@Component
 @SuppressWarnings("unchecked")
 public class UserDAO {
-
 	private static final Integer PAGE_SIZE = 36;
-	private final Session session;
+	
+	private Session session;
 
+	@Deprecated
+	public UserDAO() {
+	}
+
+	@Inject
 	public UserDAO(Session session) {
 		this.session = session;
 	}

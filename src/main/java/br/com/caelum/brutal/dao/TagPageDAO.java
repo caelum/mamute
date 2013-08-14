@@ -1,15 +1,21 @@
 package br.com.caelum.brutal.dao;
 
+import javax.inject.Inject;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 
 import br.com.caelum.brutal.infra.NotFoundException;
 import br.com.caelum.brutal.model.TagPage;
 
-@Component
 public class TagPageDAO {
-	private final Session session;
+	private Session session;
 
+	@Deprecated
+	public TagPageDAO() {
+	}
+
+	@Inject
 	public TagPageDAO(Session session) {
 		this.session = session;
 	}

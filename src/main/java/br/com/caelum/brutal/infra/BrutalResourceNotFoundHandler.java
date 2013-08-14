@@ -2,21 +2,21 @@ package br.com.caelum.brutal.infra;
 
 import java.io.IOException;
 
+import javax.inject.Inject;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 
 import org.apache.log4j.Logger;
 
 import br.com.caelum.vraptor4.InterceptionException;
+import br.com.caelum.vraptor4.core.RequestInfo;
+import br.com.caelum.vraptor4.core.OverrideComponent;
+import br.com.caelum.vraptor4.restfulie.controller.ControllerNotFoundHandler;
 
-@Component
-public class BrutalResourceNotFoundHandler implements ResourceNotFoundHandler {
+@OverrideComponent
+public class BrutalResourceNotFoundHandler implements ControllerNotFoundHandler {
 	
-	private final MenuInfo menuInfo;
-
-	public BrutalResourceNotFoundHandler(MenuInfo menuInfo) {
-		this.menuInfo = menuInfo;
-	}
+	@Inject private MenuInfo menuInfo;
 
 	private static final Logger LOG = Logger.getLogger(BrutalResourceNotFoundHandler.class);
 	

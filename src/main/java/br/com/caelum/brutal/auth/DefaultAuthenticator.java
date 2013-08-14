@@ -1,19 +1,14 @@
 package br.com.caelum.brutal.auth;
 
+import javax.inject.Inject;
+
 import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.model.User;
 
-@Component
-@RequestScoped
 public class DefaultAuthenticator {
 
-	private final UserDAO users;
-	private final Access system;
-
-	public DefaultAuthenticator(UserDAO users, Access system) {
-		this.users = users;
-		this.system = system;
-	}
+	@Inject private UserDAO users;
+	@Inject private Access system;
 
 	public boolean authenticate(String email, String password) {
 		User retrieved = users.findByMailAndPassword(email, password);

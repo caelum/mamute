@@ -3,24 +3,29 @@ package br.com.caelum.brutal.migration;
 import java.math.BigInteger;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.StatelessSession;
 
 import br.com.caelum.brutal.providers.SessionFactoryCreator;
-import br.com.caelum.vraptor.ioc.ApplicationScoped;
-import br.com.caelum.vraptor.ioc.Component;
+import br.com.caelum.vraptor4.ioc.ApplicationScoped;
 
-@Component
 @ApplicationScoped
 public class MigrationExecutor {
 
-	private final SessionFactory sf;
+	private SessionFactory sf;
 	private int currentMigration = -1;
 	private Session session;
-	private final SessionFactoryCreator creator;
+	private SessionFactoryCreator creator;
 	private StatelessSession statelessSession;
 
+	@Deprecated
+	public MigrationExecutor() {
+	}
+
+	@Inject
 	public MigrationExecutor(SessionFactory sf, SessionFactoryCreator creator) {
 		this.sf = sf;
 		this.creator = creator;

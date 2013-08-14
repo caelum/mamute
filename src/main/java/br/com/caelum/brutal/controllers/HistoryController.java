@@ -1,8 +1,10 @@
 package br.com.caelum.brutal.controllers;
 
+import static br.com.caelum.vraptor4.view.Results.http;
+
 import java.util.List;
 
-import javax.annotation.Nullable;
+import javax.inject.Inject;
 
 import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOrKarmaRule;
@@ -30,27 +32,13 @@ import br.com.caelum.vraptor4.Result;
 @Controller
 public class HistoryController {
 
-	private final Result result;
-    private final User currentUser;
-    private final InformationDAO informations;
-	private final ModeratableDao moderatables;
-    private final KarmaCalculator calculator;
-	private final ModelUrlMapping urlMapping;
-	private final ReputationEventDAO reputationEvents;
-
-	public HistoryController(Result result, @Nullable User currentUser,
-			InformationDAO informations, ModeratableDao moderatables,
-			KarmaCalculator calculator, ModelUrlMapping urlMapping,
-			ReputationEventDAO reputationEvents) {
-		this.result = result;
-        this.currentUser = currentUser;
-        this.informations = informations;
-		this.moderatables = moderatables;
-        this.calculator = calculator;
-		this.urlMapping = urlMapping;
-		this.reputationEvents = reputationEvents;
-	}
-	
+	@Inject private Result result;
+    @Inject private User currentUser;
+    @Inject private InformationDAO informations;
+	@Inject private ModeratableDao moderatables;
+    @Inject private KarmaCalculator calculator;
+	@Inject private ModelUrlMapping urlMapping;
+	@Inject private ReputationEventDAO reputationEvents;
 
 	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
 	@AccessLevel(PermissionRulesConstants.MODERATE_EDITS)

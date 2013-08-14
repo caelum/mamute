@@ -9,6 +9,8 @@ import static org.hibernate.criterion.Restrictions.isNull;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
@@ -23,16 +25,20 @@ import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.interfaces.RssContent;
 
-@Component
 @SuppressWarnings("unchecked")
 public class QuestionDAO implements PaginatableDAO {
-	
     protected static final Integer PAGE_SIZE = 35;
 	public static final long SPAM_BOUNDARY = -5;
-	private final Session session;
-    private final WithUserPaginatedDAO<Question> withAuthor;
-	private final InvisibleForUsersRule invisible;
+	
+	private Session session;
+    private WithUserPaginatedDAO<Question> withAuthor;
+	private InvisibleForUsersRule invisible;
 
+	@Deprecated
+	public QuestionDAO() {
+	}
+
+	@Inject
     public QuestionDAO(Session session, InvisibleForUsersRule invisible) {
         this.session = session;
 		this.invisible = invisible;

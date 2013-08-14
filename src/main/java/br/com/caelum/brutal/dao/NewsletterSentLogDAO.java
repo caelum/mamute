@@ -1,14 +1,19 @@
 package br.com.caelum.brutal.dao;
 
+import javax.inject.Inject;
+
 import org.hibernate.Session;
 import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.model.NewsletterSentLog;
 
-@Component
 public class NewsletterSentLogDAO {
-	private final Session session;
+	private Session session;
 
+	@Deprecated
+	public NewsletterSentLogDAO() {	}
+	
+	@Inject
 	public NewsletterSentLogDAO(Session session) {
 		this.session = session;
 	}

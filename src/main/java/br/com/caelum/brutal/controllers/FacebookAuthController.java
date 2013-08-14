@@ -4,6 +4,8 @@ import static java.util.Arrays.asList;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.apache.log4j.Logger;
 
 import br.com.caelum.brutal.auth.Access;
@@ -24,15 +26,21 @@ import br.com.caelum.vraptor4.validator.I18nMessage;
 @Controller
 public class FacebookAuthController extends BaseController{
 	
-	private final FacebookAuthService facebook;
-	private final UserDAO users;
-	private final LoginMethodDAO loginMethods;
-	private final Result result;
-	private final Access access;
-	private final MessageFactory messageFactory;
-	private UrlValidator urlValidator;
 	private final static Logger LOG = Logger.getLogger(FacebookAuthController.class);
+	private FacebookAuthService facebook;
+	private UserDAO users;
+	private LoginMethodDAO loginMethods;
+	private Result result;
+	private Access access;
+	private MessageFactory messageFactory;
+	private UrlValidator urlValidator;
+	
+	//CDI eyes only
+	@Deprecated
+	public FacebookAuthController() {
+	}
 
+	@Inject
 	public FacebookAuthController(FacebookAuthService facebook, UserDAO users, 
 			LoginMethodDAO loginMethods, Result result, Access access,
 			MessageFactory messageFactory, UrlValidator urlValidator) {

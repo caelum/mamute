@@ -2,6 +2,8 @@ package br.com.caelum.brutal.converters;
 
 import java.util.ResourceBundle;
 
+import javax.inject.Inject;
+
 import org.joda.time.DateTime;
 import org.joda.time.IllegalFieldValueException;
 import org.joda.time.format.DateTimeFormat;
@@ -9,22 +11,17 @@ import org.joda.time.format.DateTimeFormatter;
 
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.vraptor4.Convert;
+import br.com.caelum.vraptor4.Converter;
+import br.com.caelum.vraptor4.Validator;
 import br.com.caelum.vraptor4.core.Localization;
 
 @Convert(DateTime.class)
 public class DateTimeConverter implements Converter<DateTime>{
 
-	private Validator validator;
-	private Localization localization;
-	private MessageFactory messageFactory;
+	@Inject private Validator validator;
+	@Inject private Localization localization;
+	@Inject private MessageFactory messageFactory;
 
-	public DateTimeConverter(Validator validator, Localization localization, MessageFactory messageFactory){
-		this.validator = validator;
-		this.localization = localization;
-		this.messageFactory = messageFactory;
-		
-	}
-	
 	@Override
 	public DateTime convert(String value, Class<? extends DateTime> type,
 			ResourceBundle bundle) {

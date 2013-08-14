@@ -2,6 +2,8 @@ package br.com.caelum.brutal.controllers;
 
 import java.util.Arrays;
 
+import javax.inject.Inject;
+
 import br.com.caelum.brutal.brutauth.auth.rules.EditAnswerRule;
 import br.com.caelum.brutal.brutauth.auth.rules.LoggedRule;
 import br.com.caelum.brutal.dao.AnswerDAO;
@@ -33,18 +35,23 @@ import br.com.caelum.vraptor4.view.Results;
 
 @Controller
 public class AnswerController {
-	private final Result result;
-	private final AnswerDAO answers;
-	private final LoggedUser currentUser;
-	private final Localization localization;
-    private final KarmaCalculator calculator;
-	private final MessageFactory messageFactory;
-	private final Validator validator;
-	private final AnsweredByValidator answeredByValidator;
-	private final NotificationManager notificationManager;
-	private final WatcherDAO watchers;
-	private final ReputationEventDAO reputationEvents;
-
+	private Result result;
+	private AnswerDAO answers;
+	private LoggedUser currentUser;
+	private Localization localization;
+    private KarmaCalculator calculator;
+	private MessageFactory messageFactory;
+	private Validator validator;
+	private AnsweredByValidator answeredByValidator;
+	private NotificationManager notificationManager;
+	private WatcherDAO watchers;
+	private ReputationEventDAO reputationEvents;
+	
+	@Deprecated //CDI eyes only
+	public AnswerController() {
+	}
+	
+	@Inject
 	public AnswerController(Result result, AnswerDAO dao, 
 			LoggedUser user, Localization localization,
 	        KarmaCalculator calculator, MessageFactory messageFactory, 

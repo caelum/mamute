@@ -1,6 +1,7 @@
 package br.com.caelum.brutal.controllers;
 
 import static br.com.caelum.brutal.util.TagsSplitter.splitTags;
+import static br.com.caelum.vraptor4.view.Results.json;
 
 import java.util.List;
 

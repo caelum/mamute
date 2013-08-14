@@ -2,14 +2,21 @@ package br.com.caelum.brutal.validators;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.Tag;
+import br.com.caelum.vraptor4.Validator;
 
-@Component
 public class TagsValidator {
-	private final Validator validator;
+	private Validator validator;
 	private MessageFactory messageFactory;
 
+	@Deprecated
+	public TagsValidator() {
+	}
+
+	@Inject
 	public TagsValidator(Validator validator, MessageFactory messageFactory) {
 		this.validator = validator;
 		this.messageFactory = messageFactory;

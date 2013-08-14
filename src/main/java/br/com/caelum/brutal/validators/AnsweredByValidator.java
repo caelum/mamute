@@ -1,15 +1,22 @@
 package br.com.caelum.brutal.validators;
 
+import javax.inject.Inject;
+
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.Question;
+import br.com.caelum.vraptor4.Validator;
 
-@Component
 public class AnsweredByValidator {
-	private final Validator validator;
-	private final LoggedUser user;
-	private final MessageFactory factory;
+	private Validator validator;
+	private LoggedUser user;
+	private MessageFactory factory;
 
+	@Deprecated
+	public AnsweredByValidator() {
+	}
+	
+	@Inject
 	public AnsweredByValidator(Validator validator, LoggedUser user, MessageFactory factory) {
 		this.validator = validator;
 		this.user = user;

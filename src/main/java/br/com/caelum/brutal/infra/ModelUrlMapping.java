@@ -7,11 +7,11 @@ import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.News;
 import br.com.caelum.brutal.model.Question;
+import br.com.caelum.vraptor4.ioc.ApplicationScoped;
 
 @ApplicationScoped
-@Component
 public class ModelUrlMapping {
-	Map<String, Class<?>> classForUrl = new HashMap<>();
+	private Map<String, Class<?>> classForUrl = new HashMap<>();
 	
 	public ModelUrlMapping() {
 		classForUrl.put("pergunta", Question.class);

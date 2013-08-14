@@ -2,6 +2,8 @@ package br.com.caelum.brutal.controllers;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOnlyRule;
@@ -15,19 +17,26 @@ import br.com.caelum.brutal.model.VoteType;
 import br.com.caelum.brutal.reputation.rules.KarmaCalculator;
 import br.com.caelum.brutal.reputation.rules.MassiveVoteRevertEvent;
 import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
+import br.com.caelum.vraptor4.Controller;
 import br.com.caelum.vraptor4.Get;
 import br.com.caelum.vraptor4.Post;
 import br.com.caelum.vraptor4.Result;
 
-@BaseController
+@Controller
 public class AntiHackController {
 
-	private final VoteDAO votes;
-	private final Result result;
-	private final ReputationEventDAO reputationEvents;
-	private final KarmaCalculator karmaCalculator;
-	private final UserDAO users;
+	private VoteDAO votes;
+	private Result result;
+	private ReputationEventDAO reputationEvents;
+	private KarmaCalculator karmaCalculator;
+	private UserDAO users;
+	
+	@Deprecated
+	//CDI eyes only
+	public AntiHackController() {
+	}
 
+	@Inject
 	public AntiHackController(VoteDAO votes, Result result, ReputationEventDAO reputationEvents, KarmaCalculator karmaCalculator, UserDAO users) {
 		this.votes = votes;
 		this.result = result;

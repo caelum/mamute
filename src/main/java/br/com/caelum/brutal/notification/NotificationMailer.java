@@ -4,6 +4,8 @@ import static org.joda.time.format.DateTimeFormat.forPattern;
 
 import java.util.Locale;
 
+import javax.inject.Inject;
+
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
 import org.apache.log4j.Logger;
@@ -27,25 +29,15 @@ import br.com.caelum.vraptor.simplemail.Mailer;
 import br.com.caelum.vraptor.simplemail.template.TemplateMailer;
 import br.com.caelum.vraptor4.core.Localization;
 
-@Component
 public class NotificationMailer {
+	private static final Logger LOG = Logger.getLogger(NotificationMailer.class);
+	private static final PolicyFactory POLICY = new HtmlPolicyBuilder().toFactory();
     
-    private final Mailer mailer;
-    private final TemplateMailer templates;
-    private final Localization localization;
-    private final Linker linker;
-    private static final Logger LOG = Logger.getLogger(NotificationMailer.class);
-    private static final PolicyFactory POLICY = new HtmlPolicyBuilder().toFactory();
-	private final Environment env;
-
-    public NotificationMailer(Mailer mailer, TemplateMailer templates, 
-    		Localization localization, Linker linker, Environment env) {
-        this.mailer = mailer;
-        this.templates = templates;
-        this.localization = localization;
-        this.linker = linker;
-		this.env = env;
-    }
+    @Inject private Mailer mailer;
+    @Inject private TemplateMailer templates;
+    @Inject private Localization localization;
+    @Inject private Linker linker;
+	@Inject private Environment env;
 
 	public void send(NotificationMail notificationMail) {
 		User to = notificationMail.getTo();

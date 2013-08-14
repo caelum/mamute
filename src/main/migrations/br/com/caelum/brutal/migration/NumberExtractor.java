@@ -1,10 +1,6 @@
 package br.com.caelum.brutal.migration;
 
-import br.com.caelum.vraptor.ioc.ApplicationScoped;
-import br.com.caelum.vraptor.ioc.Component;
 
-@Component
-@ApplicationScoped
 public class NumberExtractor {
 
 	public int from(SchemaMigration clazz) {

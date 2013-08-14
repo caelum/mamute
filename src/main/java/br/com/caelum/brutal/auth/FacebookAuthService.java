@@ -1,22 +1,20 @@
 package br.com.caelum.brutal.auth;
 
+import javax.inject.Inject;
+
 import org.scribe.model.Token;
 import org.scribe.model.Verifier;
 import org.scribe.oauth.OAuthService;
 
 import com.google.gson.JsonObject;
 
-@Component
 public class FacebookAuthService {
 	
 	private static final Token EMPTY_TOKEN = null;
-	private final OAuthService service;
+	
+	@Inject private OAuthService service;
 	private Token accessToken;
 
-	public FacebookAuthService(OAuthService service) {
-		this.service = service;
-	}
-	
 	public String getOauthUrl(String state) {
 		String url = service.getAuthorizationUrl(EMPTY_TOKEN) + "&scope=email,user_location";
 		if (state == null) {

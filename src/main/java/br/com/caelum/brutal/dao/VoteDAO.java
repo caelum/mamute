@@ -3,6 +3,8 @@ package br.com.caelum.brutal.dao;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.joda.time.DateTime;
@@ -20,11 +22,15 @@ import br.com.caelum.brutal.model.VoteType;
 import br.com.caelum.brutal.model.interfaces.Commentable;
 import br.com.caelum.brutal.model.interfaces.Votable;
 
-@Component
 @SuppressWarnings("rawtypes")
 public class VoteDAO {
-	private final Session session;
+	private Session session;
 
+	@Deprecated
+	public VoteDAO() {
+	}
+
+	@Inject
 	public VoteDAO(Session session) {
 		this.session = session;
 	}

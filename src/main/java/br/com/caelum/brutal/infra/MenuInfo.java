@@ -1,24 +1,19 @@
 package br.com.caelum.brutal.infra;
 
+import javax.inject.Inject;
+
 import br.com.caelum.brutal.dao.FlaggableDAO;
 import br.com.caelum.brutal.dao.InformationDAO;
 import br.com.caelum.brutal.model.LoggedUser;
+import br.com.caelum.vraptor4.Result;
 
-@Component
 public class MenuInfo {
 	
-	private final Result result;
-	private final LoggedUser loggedUser;
-	private final FlaggableDAO flaggables;
-	private final InformationDAO informations;
+	@Inject private Result result;
+	@Inject private LoggedUser loggedUser;
+	@Inject private FlaggableDAO flaggables;
+	@Inject private InformationDAO informations;
 
-	public MenuInfo(Result result, LoggedUser loggedUser, InformationDAO informations, FlaggableDAO flaggables) {
-		this.result = result;
-		this.loggedUser = loggedUser;
-		this.informations = informations;
-		this.flaggables = flaggables;
-	}
-	
 	public void include() {
 		result.include("currentUser", loggedUser);
 		if (loggedUser.canModerate()) {

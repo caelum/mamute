@@ -3,20 +3,19 @@ package br.com.caelum.brutal.validators;
 import static br.com.caelum.brutal.model.Comment.COMMENT_MIN_LENGTH;
 import static br.com.caelum.brutal.model.Comment.ERROR_LENGTH;
 import static br.com.caelum.brutal.model.Comment.ERROR_NOT_EMPTY;
+
+import javax.inject.Inject;
+
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.Comment;
+import br.com.caelum.vraptor4.Validator;
+import br.com.caelum.vraptor4.View;
 
-@Component
 public class CommentValidator {
 
-	private Validator validator;
-	private final MessageFactory factory;
+	@Inject private Validator validator;
+	@Inject private MessageFactory factory;
 
-	public CommentValidator(Validator validator, MessageFactory factory) {
-		this.validator = validator;
-		this.factory = factory;
-	}
-	
 	public boolean validate(Comment comment){
 		validator.validate(comment);
 		return !validator.hasErrors();

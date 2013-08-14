@@ -3,30 +3,31 @@ package br.com.caelum.brutal.interceptors;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import net.vidageek.mirror.dsl.ClassController;
 import net.vidageek.mirror.dsl.Mirror;
 import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.reputation.rules.KarmaCalculator;
 import br.com.caelum.vraptor4.InterceptionException;
 import br.com.caelum.vraptor4.Intercepts;
+import br.com.caelum.vraptor4.Result;
 import br.com.caelum.vraptor4.core.InterceptorStack;
+import br.com.caelum.vraptor4.interceptor.Interceptor;
+import br.com.caelum.vraptor4.restfulie.controller.ControllerMethod;
 
 @Intercepts
-public class RulesInterceptor implements Interceptor{
+public class RulesInterceptor implements Interceptor {
 
-private Result result;
-
-	public RulesInterceptor(Result result) {
-		this.result = result;
-	}
+	@Inject private Result result;
 	
 	@Override
-	public boolean accepts(ResourceMethod method) {
+	public boolean accepts(ControllerMethod method) {
 		return true;
 	}
 
 	@Override
-	public void intercept(InterceptorStack stack, ResourceMethod method,
+	public void intercept(InterceptorStack stack, ControllerMethod method,
 			Object obj) throws InterceptionException {
 		ClassController<KarmaCalculator> mirrorOnKarma = new Mirror().on(KarmaCalculator.class);
 		List<Field> karmaCalculatorFields = mirrorOnKarma.reflectAll().fields();

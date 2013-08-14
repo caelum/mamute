@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.controllers;
 
+import static br.com.caelum.vraptor4.view.Results.http;
+import static br.com.caelum.vraptor4.view.Results.json;
 import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOrKarmaRule;
 import br.com.caelum.brutal.dao.VoteDAO;

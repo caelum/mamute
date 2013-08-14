@@ -2,29 +2,26 @@ package br.com.caelum.brutal.vraptor;
 
 import java.lang.reflect.Method;
 
+import javax.inject.Inject;
+
 import br.com.caelum.vraptor4.http.route.Router;
+import br.com.caelum.vraptor4.ioc.ApplicationScoped;
 import br.com.caelum.vraptor4.proxy.MethodInvocation;
 import br.com.caelum.vraptor4.proxy.Proxifier;
 import br.com.caelum.vraptor4.proxy.SuperMethod;
 
 @ApplicationScoped
-@Component
 @SuppressWarnings({"rawtypes","unchecked"})
 public class DefaultLinker implements Linker {
 
-	public Method method;
-	public Object[] args;
-	private final Proxifier proxifier;
-	private final Router router;
+	@Inject private Proxifier proxifier;
+	@Inject private Router router;
+	@Inject private Env env;
+
 	private Class controllerType;
-	private final Env env;
-
-	DefaultLinker(Proxifier p, Router router, Env env) {
-		this.proxifier = p;
-		this.router = router;
-		this.env = env;
-	}
-
+	private Method method;
+	private Object[] args;
+	
 	@Override
 	public <T> T linkTo(T controller) {
 		return (T) linkTo(controller.getClass());

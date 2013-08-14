@@ -4,6 +4,8 @@ import java.net.URL;
 import java.util.Properties;
 
 import javax.annotation.PreDestroy;
+import javax.enterprise.inject.Produces;
+import javax.inject.Inject;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -12,7 +14,6 @@ import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import sun.awt.ComponentFactory;
 import br.com.caelum.brutal.components.HerokuDatabaseInformation;
 import br.com.caelum.brutal.migration.DatabaseManager;
 import br.com.caelum.brutal.model.Answer;
@@ -33,17 +34,23 @@ import br.com.caelum.brutal.model.UserSession;
 import br.com.caelum.brutal.model.Vote;
 import br.com.caelum.brutal.model.watch.Watcher;
 import br.com.caelum.vraptor.environment.Environment;
+import br.com.caelum.vraptor4.ioc.ApplicationScoped;
 
-@Component
 @ApplicationScoped
-public class SessionFactoryCreator implements ComponentFactory<SessionFactory> {
+public class SessionFactoryCreator {
 	
 	public static final String JODA_TIME_TYPE= "org.jadira.usertype.dateandtime.joda.PersistentDateTime";
-
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(SessionFactoryCreator.class);
+	
 	private Configuration cfg;
+	private SessionFactory factory;
 
+	@Deprecated
+	public SessionFactoryCreator() {
+	}
+
+	@Inject
 	public SessionFactoryCreator(Environment env) {
 		URL xml = env.getResource("/hibernate.cfg.xml");
 		LOGGER.info("Loading hibernate xml from " + xml);
@@ -85,8 +92,8 @@ public class SessionFactoryCreator implements ComponentFactory<SessionFactory> {
 		this.factory = cfg.buildSessionFactory();
 	}
 
-	private SessionFactory factory;
 
+	@Produces
 	public SessionFactory getInstance() {
 		return factory;
 	}

@@ -1,12 +1,18 @@
 package br.com.caelum.brutal.validators;
 
+import javax.inject.Inject;
+
 import br.com.caelum.vraptor.environment.Environment;
 
-@Component
 public class UrlValidator {
 
 	private String siteUrl;
+	
+	@Deprecated
+	public UrlValidator() {
+	}
 
+	@Inject
 	public UrlValidator(Environment env) {
 		this.siteUrl = env.get("host");
 	}

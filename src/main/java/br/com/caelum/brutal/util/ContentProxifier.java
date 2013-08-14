@@ -3,20 +3,26 @@ package br.com.caelum.brutal.util;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import javax.inject.Inject;
+
 import br.com.caelum.brutal.sanitizer.HtmlSanitizer;
 import br.com.caelum.vraptor4.proxy.MethodInvocation;
 import br.com.caelum.vraptor4.proxy.Proxifier;
 import br.com.caelum.vraptor4.proxy.SuperMethod;
 
-@Component
 public class ContentProxifier {
 	
-	private final Proxifier proxifier;
+	private Proxifier proxifier;
 
+	@Deprecated
+	public ContentProxifier() {
+	}
+	
+	@Inject
 	public ContentProxifier(Proxifier proxifier) {
 		this.proxifier = proxifier;
 	}
-	
+
 	public <T> T safeProxyFor(final T object, Class<T> clazz) {
 		T proxied = proxifier.proxify(clazz, new MethodInvocation<T>() {
 			@Override

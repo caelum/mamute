@@ -3,6 +3,8 @@ package br.com.caelum.brutal.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.joda.time.DateTime;
@@ -11,11 +13,15 @@ import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.TagUsage;
 import br.com.caelum.brutal.model.User;
 
-@Component
 public class TagDAO {
 
-	private final Session session;
+	private Session session;
 
+	@Deprecated
+	public TagDAO() {
+	}
+
+	@Inject
 	public TagDAO(Session session) {
 		this.session = session;
 	}

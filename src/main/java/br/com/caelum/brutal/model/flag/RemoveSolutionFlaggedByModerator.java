@@ -1,14 +1,20 @@
 package br.com.caelum.brutal.model.flag;
 
+import javax.inject.Inject;
+
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.interfaces.Flaggable;
 
-@Component
 public class RemoveSolutionFlaggedByModerator implements FlagAction {
 	
-	private final LoggedUser loggedUser;
+	private LoggedUser loggedUser;
 
+	@Deprecated
+	public RemoveSolutionFlaggedByModerator() {
+	}
+
+	@Inject
 	public RemoveSolutionFlaggedByModerator(LoggedUser loggedUser) {
 		this.loggedUser = loggedUser;
 	}

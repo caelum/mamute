@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.model;
 
+import javax.inject.Inject;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,12 +10,16 @@ import org.joda.time.Period;
 import br.com.caelum.brutal.infra.Digester;
 import br.com.caelum.brutal.model.interfaces.ViewCountable;
 
-@Component
 public class PostViewCounter {
 	
-	private final HttpServletRequest request;
-	private final HttpServletResponse response;
+	private HttpServletRequest request;
+	private HttpServletResponse response;
 
+	@Deprecated
+	public PostViewCounter() {
+	}
+	
+	@Inject
 	public PostViewCounter(HttpServletRequest request, HttpServletResponse response) {
 		this.request = request;
 		this.response = response;

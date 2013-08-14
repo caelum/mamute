@@ -1,16 +1,15 @@
 package br.com.caelum.brutal.auth;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.inject.Produces;
+import javax.inject.Inject;
 
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.FacebookApi;
 import org.scribe.oauth.OAuthService;
 
-import sun.awt.ComponentFactory;
 import br.com.caelum.vraptor.environment.Environment;
-
-@Component
-public class OAuthServiceCreator implements ComponentFactory<OAuthService> {
+public class OAuthServiceCreator {
 	
 	public static final String FACEBOOK_APP_SECRET = "facebook.app_secret";
 	public static final String FACEBOOK_REDIRECT_URI = "facebook.redirect_uri";
@@ -20,7 +19,11 @@ public class OAuthServiceCreator implements ComponentFactory<OAuthService> {
 	private String appSecret;
 	private String redirectUri;
 	private String clientId;
+	
+	@Deprecated
+	public OAuthServiceCreator(){}
 
+	@Inject
 	public OAuthServiceCreator(Environment env) {
 		this.clientId = env.get(FACEBOOK_CLIENT_ID);
 		this.redirectUri = env.get(FACEBOOK_REDIRECT_URI);
@@ -37,7 +40,7 @@ public class OAuthServiceCreator implements ComponentFactory<OAuthService> {
 			.build();
 	}
 
-	@Override
+	@Produces
 	public OAuthService getInstance() {
 		return service;
 	}
