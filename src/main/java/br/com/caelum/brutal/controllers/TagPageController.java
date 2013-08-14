@@ -1,4 +1,4 @@
-package br.com.caelum.brutal.controller;
+package br.com.caelum.brutal.controllers;
 
 import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOnlyRule;
 import br.com.caelum.brutal.dao.TagDAO;
