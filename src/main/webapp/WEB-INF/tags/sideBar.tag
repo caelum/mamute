@@ -11,6 +11,7 @@
 		<div id="adSideBar" class="ad medium-ads"></div>
 	</c:if>
 	<tags:recentTagsUsage tagsUsage="${recentTags}"/>
+	<tags:feed rssFeed="${jobs}"/>
 	<c:if test="${relatedQuestions != null }">
 		<tags:relatedQuestions questions="${relatedQuestions}"/>
 	</c:if>

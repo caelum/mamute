@@ -1,15 +1,14 @@
 package br.com.caelum.brutal.infra.rss.read;
 
-import java.io.IOException;
 import java.io.InputStream;
 
-import org.apache.http.client.ClientProtocolException;
-
 import br.com.caelum.brutal.infra.rss.converter.RSSDateTimeConverter;
+import br.com.caelum.vraptor.ioc.ApplicationScoped;
 import br.com.caelum.vraptor.ioc.Component;
 
 import com.thoughtworks.xstream.XStream;
 
+@ApplicationScoped
 @Component
 public class FeedConverter {
 	private XStream xStream;
@@ -24,7 +23,7 @@ public class FeedConverter {
 		xStream.registerConverter(new RSSDateTimeConverter());
 	}
 	
-	public RSSFeed convert(InputStream content) throws ClientProtocolException, IOException{
+	public RSSFeed convert(InputStream content){
 		return (RSSFeed) xStream.fromXML(content);
 	}
 }

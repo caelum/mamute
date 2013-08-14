@@ -5,14 +5,15 @@ import java.io.InputStream;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import br.com.caelum.vraptor.ioc.ApplicationScoped;
 import br.com.caelum.vraptor.ioc.Component;
 
 
+@ApplicationScoped
 @Component
 public class FeedReader {
 
@@ -22,19 +23,22 @@ public class FeedReader {
 		this.converter = converter;
 	}
 	
-	public RSSFeed read(String uri) throws ClientProtocolException, IOException{
+	public RSSFeed read(String uri) {
 		InputStream rssXml = getXmlFrom(uri);
 		return converter.convert(rssXml);
 	}
 
-	private InputStream getXmlFrom(String uri) throws IOException,
-			ClientProtocolException {
+	private InputStream getXmlFrom(String uri){
 		HttpGet httpGet = new HttpGet(uri);
 		HttpClient httpClient = new DefaultHttpClient();
-		HttpResponse response = httpClient.execute(httpGet);
-		HttpEntity entity = response.getEntity();
-		InputStream content = entity.getContent();
-		return content;
+		try {
+			HttpResponse response = httpClient.execute(httpGet);
+			HttpEntity entity = response.getEntity();
+			InputStream content = entity.getContent();
+			return content;
+		} catch (IOException e) {
+			throw new RuntimeException("Cant get rss from uri:"+uri, e);
+		}
 	}
 	
 }

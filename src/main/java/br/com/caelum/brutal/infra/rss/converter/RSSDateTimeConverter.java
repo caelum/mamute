@@ -15,7 +15,7 @@ public class RSSDateTimeConverter implements Converter {
 	private static final DateTimeFormatter RSS_PATTERN = DateTimeFormat.forPattern("E, dd MMM yyyy HH:mm:ss Z");
 
 	@Override
-	public boolean canConvert(Class type) {
+	public boolean canConvert(@SuppressWarnings("rawtypes") Class type) {
 		return DateTime.class.isAssignableFrom(type);
 	}
 
