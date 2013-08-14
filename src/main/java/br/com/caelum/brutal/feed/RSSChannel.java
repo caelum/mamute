@@ -1,48 +1,22 @@
 package br.com.caelum.brutal.feed;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.joda.time.DateTime;
 
-import com.thoughtworks.xstream.annotation.XStreamUnmarshalling;
-
 public class RSSChannel {
-	private final String title;
-	private final String description;
-	private final String language;
-	private final String webMaster;
-	private final String managingEditor;
-	private final String copyright;
-	private final String docs;
-	private final String ttl;
-	private final RSSImage image;
-	private final DateTime pubDate;
-	private final String link;
-	private final List<RSSItem> items;
-	
-	public RSSChannel() {
-		this(null, null, null, null, null, null, null, null, null, null, null, null);
-	}
-	
-	@XStreamUnmarshalling
-	public RSSChannel(String title, String description, String language,
-			String webMaster, String managingEditor, String copyright,
-			String docs, String ttl, RSSImage image, DateTime pubDate,
-			String link, ArrayList<RSSItem> items) {
-		this.title = title;
-		this.description = description;
-		this.language = language;
-		this.webMaster = webMaster;
-		this.managingEditor = managingEditor;
-		this.copyright = copyright;
-		this.docs = docs;
-		this.ttl = ttl;
-		this.image = image;
-		this.pubDate = pubDate;
-		this.link = link;
-		this.items = items;
-	}
+	private String title;
+	private String description;
+	private String language;
+	private String webMaster;
+	private String managingEditor;
+	private String copyright;
+	private String docs;
+	private String ttl;
+	private RSSImage image;
+	private DateTime pubDate;
+	private String link;
+	private List<RSSItem> items;
 	
 	public String getTitle() {
 		return title;

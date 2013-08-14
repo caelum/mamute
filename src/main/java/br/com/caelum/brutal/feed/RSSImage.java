@@ -1,22 +1,10 @@
 package br.com.caelum.brutal.feed;
 
-import com.thoughtworks.xstream.annotation.XStreamUnmarshalling;
 
 public class RSSImage {
-	private final String url;
-	private final String title;
-	private final String link;
-
-	public RSSImage() {
-		this(null, null, null);
-	}
-	
-	@XStreamUnmarshalling
-	public RSSImage(String url, String title, String link) {
-		this.url = url;
-		this.title = title;
-		this.link = link;
-	}
+	private String url;
+	private String title;
+	private String link;
 
 	public String getUrl() {
 		return url;
