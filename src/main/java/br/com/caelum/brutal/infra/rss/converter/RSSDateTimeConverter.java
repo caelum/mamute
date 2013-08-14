@@ -1,4 +1,4 @@
-package br.com.caelum.brutal.feed.converter;
+package br.com.caelum.brutal.infra.rss.converter;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;

@@ -5,7 +5,7 @@ import java.io.InputStream;
 
 import org.apache.http.client.ClientProtocolException;
 
-import br.com.caelum.brutal.feed.converter.RSSDateTimeConverter;
+import br.com.caelum.brutal.infra.rss.converter.RSSDateTimeConverter;
 import br.com.caelum.vraptor.ioc.Component;
 
 import com.thoughtworks.xstream.XStream;
