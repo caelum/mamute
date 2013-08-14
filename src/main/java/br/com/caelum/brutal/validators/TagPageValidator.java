@@ -1,6 +1,6 @@
 package br.com.caelum.brutal.validators;
 
-import br.com.caelum.brutal.controller.TagPageController;
+import br.com.caelum.brutal.controllers.TagPageController;
 import br.com.caelum.brutal.dao.TagPageDAO;
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.TagPage;

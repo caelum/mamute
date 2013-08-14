@@ -9,6 +9,12 @@ import org.apache.http.client.ClientProtocolException;
 import org.joda.time.DateTime;
 import org.junit.Test;
 
+import br.com.caelum.brutal.infra.rss.read.FeedConverter;
+import br.com.caelum.brutal.infra.rss.read.RSSChannel;
+import br.com.caelum.brutal.infra.rss.read.RSSFeed;
+import br.com.caelum.brutal.infra.rss.read.RSSImage;
+import br.com.caelum.brutal.infra.rss.read.RSSItem;
+
 public class FeedConverterTest {
 
 	@Test

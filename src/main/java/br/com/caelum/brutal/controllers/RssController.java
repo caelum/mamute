@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.caelum.brutal.dao.NewsDAO;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.TagDAO;
-import br.com.caelum.brutal.infra.rss.RssFeedFactory;
+import br.com.caelum.brutal.infra.rss.write.RssFeedFactory;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.interfaces.RssContent;
 import br.com.caelum.vraptor.Get;

@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import br.com.caelum.brutal.builder.QuestionBuilder;
 import br.com.caelum.brutal.dao.TestCase;
+import br.com.caelum.brutal.infra.rss.write.QuestionRssEntryFactory;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.vraptor.environment.DefaultEnvironment;
 

@@ -1,6 +1,6 @@
-package br.com.caelum.brutal.infra.rss;
+package br.com.caelum.brutal.infra.rss.write;
 
-import static br.com.caelum.brutal.infra.rss.RssEntryBuilder.RSS_DATE_FORMATTER;
+import static br.com.caelum.brutal.infra.rss.write.RssEntryBuilder.RSS_DATE_FORMATTER;
 
 import java.io.OutputStream;
 import java.io.PrintStream;

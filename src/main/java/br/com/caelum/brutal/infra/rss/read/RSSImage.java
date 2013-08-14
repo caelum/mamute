@@ -1,4 +1,4 @@
-package br.com.caelum.brutal.feed;
+package br.com.caelum.brutal.infra.rss.read;
 
 
 public class RSSImage {

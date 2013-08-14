@@ -1,4 +1,4 @@
-package br.com.caelum.brutal.feed;
+package br.com.caelum.brutal.infra.rss.read;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,11 +25,6 @@ public class FeedConverter {
 	}
 	
 	public RSSFeed convert(InputStream content) throws ClientProtocolException, IOException{
-//		HttpGet httpGet = new HttpGet(url);
-//		HttpClient httpClient = new DefaultHttpClient();
-//		HttpResponse response = httpClient.execute(httpGet);
-//		HttpEntity entity = response.getEntity();
-//		InputStream content = entity.getContent();
 		return (RSSFeed) xStream.fromXML(content);
 	}
 }
