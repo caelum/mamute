@@ -16,6 +16,7 @@ public class FeedConverterTest {
 		FeedConverter feedConverter = new FeedConverter();
 		RSSFeed feed = feedConverter.convert(FeedConverterTest.class.getResourceAsStream("/rss-example.xml"));
 		RSSChannel channel = feed.getChannel();
+		
 		assertEquals("OndeTrabalhar.com", channel.getTitle());
 		assertEquals("encontre vagas de emprego para trabalhar com o que deseja", channel.getDescription());
 		assertEquals("pt-BR", channel.getLanguage());
@@ -37,6 +38,7 @@ public class FeedConverterTest {
 		FeedConverter feedConverter = new FeedConverter();
 		RSSFeed feed = feedConverter.convert(FeedConverterTest.class.getResourceAsStream("/rss-example.xml"));
 		RSSImage image = feed.getChannel().getImage();
+
 		assertEquals("http://ondetralhar.com/images/logo-box.png?1247568237", image.getUrl());
 		assertEquals("OndeTrabalhar.com", image.getTitle());
 		assertEquals("http://ondetrabalhar.com/", image.getLink());
@@ -48,10 +50,10 @@ public class FeedConverterTest {
 		FeedConverter feedConverter = new FeedConverter();
 		RSSFeed feed = feedConverter.convert(FeedConverterTest.class.getResourceAsStream("/rss-example.xml"));
 		RSSItem item = feed.getChannel().getItems().get(0);
+		
 		assertEquals("Senior Tech Leader", item.getTitle());
 		assertEquals("http://ondetrabalhar.com/vagas/3649/senior-tech-leader", item.getLink());
 		assertEquals("Fast growing Web Company based in São Paulo invested by Venture Capital funds is looking for an Senior Technical Leader to manage engineer teams.", item.getDescription());
-		
 		
 		DateTime rssDay = new DateTime().withDate(2013, 8, 12);
 		assertEquals(rssDay.getMonthOfYear(), item.getPubDate().getMonthOfYear());
