@@ -71,6 +71,15 @@
 	.answer-form > .hint {
 		width: 51%;
 	}
+	
+	.complete-user .user-info {
+		width: 50%;
+	}
+	
+	.complete-user .user-info * {
+		height: auto;
+	}
+	
 }
 
 @media only screen and (max-width: 1000px) {
@@ -96,6 +105,14 @@
 	.news-big-items:nth-child(2n+2){
 		border-left: 0;	
 	}
+}
+
+@media only screen and (max-width: 900px) {
+
+	.post-touchs .user-info {
+		width: 40%;
+	}
+	
 }
 
 @media only screen and (max-width: 840px) {
@@ -502,14 +519,6 @@
 	
 	.ranking-item {
 		width: 45%;
-	}
-	
-	.complete-user .user-info {
-		width: 50%;
-	}
-	
-	.complete-user .user-info * {
-		height: auto;
 	}
 	
 	.big-logo.logo{
