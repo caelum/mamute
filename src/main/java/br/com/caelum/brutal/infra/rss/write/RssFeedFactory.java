@@ -6,18 +6,23 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.model.interfaces.RssContent;
 import br.com.caelum.vraptor.environment.Environment;
-import br.com.caelum.vraptor.ioc.Component;
 
-@Component
 public class RssFeedFactory {
 	private QuestionRssEntryFactory entryFactory;
 	private PrintStream stream;
 	private String home;
-	
+
+	@Deprecated
+	public RssFeedFactory() {
+	}
+
+	@Inject
 	public RssFeedFactory(Environment env, QuestionRssEntryFactory questionRssEntryFactory) {
 		this.home = env.get("host") + env.get("home.url");
 		this.entryFactory = questionRssEntryFactory;

@@ -4,20 +4,15 @@ import static br.com.caelum.brutal.auth.rules.ComposedRule.composedRule;
 import static br.com.caelum.brutal.auth.rules.Rules.hasKarma;
 import static br.com.caelum.brutal.auth.rules.Rules.isModerator;
 
-import javax.annotation.Nullable;
+import javax.inject.Inject;
 
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutauth.auth.rules.SimpleBrutauthRule;
-import br.com.caelum.vraptor.ioc.Component;
 
-@Component
 public class ModeratorOrKarmaRule implements SimpleBrutauthRule {
 	
-	private User user;
+	@Inject private User user;
 
-	public ModeratorOrKarmaRule(@Nullable User user) {
-		this.user = user;
-	}
 
 	@Override
 	public boolean isAllowed(long accessLevel) {

@@ -2,6 +2,8 @@ package br.com.caelum.brutal.components;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.exception.SQLGrammarException;
@@ -11,21 +13,16 @@ import org.slf4j.LoggerFactory;
 
 import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.model.TagUsage;
-import br.com.caelum.vraptor.ioc.ApplicationScoped;
-import br.com.caelum.vraptor.ioc.Component;
+import br.com.caelum.vraptor4.ioc.ApplicationScoped;
 
 @ApplicationScoped
-@Component
 public class RecentTagsContainer {
 	
 	private final static Logger LOGGER = LoggerFactory.getLogger(RecentTagsContainer.class);
 
 	private List<TagUsage> recentTagsUsage;
-	private final SessionFactory sf;
+	@Inject private SessionFactory sf;
 	
-	public RecentTagsContainer(SessionFactory sf) {
-		this.sf = sf;
-	}
 
 	public List<TagUsage> getRecentTagsUsage() {
 		return recentTagsUsage;

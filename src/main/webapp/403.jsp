@@ -1,4 +1,4 @@
-<fmt:message key="metas.unauthorized.title" var="title"/>
+ <fmt:message key="metas.unauthorized.title" var="title"/>
 <fmt:message key="metas.generic.title" var="genericTitle" />
 <tags:header title="${genericTitle} - ${title}"/>
 

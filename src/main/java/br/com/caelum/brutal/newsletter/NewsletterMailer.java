@@ -2,6 +2,8 @@ package br.com.caelum.brutal.newsletter;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.apache.commons.mail.Email;
 import org.apache.log4j.Logger;
 import org.hibernate.ScrollableResults;
@@ -11,7 +13,6 @@ import org.owasp.html.PolicyFactory;
 
 import br.com.caelum.brutal.dao.NewsDAO;
 import br.com.caelum.brutal.dao.QuestionDAO;
-import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.model.News;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
@@ -19,37 +20,21 @@ import br.com.caelum.brutal.notification.NotificationMailer;
 import br.com.caelum.brutal.notification.NotificationMailer.LinkToHelper;
 import br.com.caelum.brutal.util.BrutalDateFormat;
 import br.com.caelum.brutal.vraptor.Linker;
-import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.core.Localization;
-import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.simplemail.Mailer;
 import br.com.caelum.vraptor.simplemail.template.TemplateMailer;
+import br.com.caelum.vraptor4.core.Localization;
 
-@Component
 public class NewsletterMailer {
 	
-	private QuestionDAO questions;
-	private Mailer mailer;
-	private TemplateMailer templates;
-	private Linker linker;
 	private static final PolicyFactory POLICY = new HtmlPolicyBuilder().toFactory();
 	private static final Logger LOG = Logger.getLogger(ModeratorsNewsletterJob.class);
-	private Localization localization;
-	private NewsDAO news;
-	private BrutalDateFormat brutalDateFormat;
-
-	public NewsletterMailer(QuestionDAO questions, Result result, 
-			Mailer mailer, TemplateMailer templates, 
-			UserDAO users, Linker linker, Localization localization, 
-			NewsDAO news, BrutalDateFormat brutalDateFormat) {
-		this.questions = questions;
-		this.mailer = mailer;
-		this.templates = templates;
-		this.linker = linker;
-		this.localization = localization;
-		this.news = news;
-		this.brutalDateFormat = brutalDateFormat;
-	}
+	@Inject private QuestionDAO questions;
+	@Inject private Mailer mailer;
+	@Inject private TemplateMailer templates;
+	@Inject private Linker linker;
+	@Inject private Localization localization;
+	@Inject private NewsDAO news;
+	@Inject private BrutalDateFormat brutalDateFormat;
 
 	public void sendTo(ScrollableResults results) {
 		DateTime pastWeek = new DateTime().minusWeeks(1);

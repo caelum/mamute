@@ -9,12 +9,12 @@ import br.com.caelum.brutal.model.LoginMethod;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.validators.SignupValidator;
 import br.com.caelum.brutal.vraptor.Linker;
-import br.com.caelum.vraptor.Get;
-import br.com.caelum.vraptor.Post;
-import br.com.caelum.vraptor.Resource;
-import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor4.Controller;
+import br.com.caelum.vraptor4.Get;
+import br.com.caelum.vraptor4.Post;
+import br.com.caelum.vraptor4.Result;
 
-@Resource
+@Controller
 public class SignupController {
 
 	private final SignupValidator validator;

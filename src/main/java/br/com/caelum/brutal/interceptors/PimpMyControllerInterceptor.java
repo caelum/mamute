@@ -2,13 +2,13 @@ package br.com.caelum.brutal.interceptors;
 
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.infra.ThreadLocals;
-import br.com.caelum.vraptor.InterceptionException;
-import br.com.caelum.vraptor.Intercepts;
-import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.core.InterceptorStack;
-import br.com.caelum.vraptor.interceptor.ExecuteMethodInterceptor;
-import br.com.caelum.vraptor.interceptor.Interceptor;
-import br.com.caelum.vraptor.resource.ResourceMethod;
+import br.com.caelum.vraptor4.InterceptionException;
+import br.com.caelum.vraptor4.Intercepts;
+import br.com.caelum.vraptor4.Result;
+import br.com.caelum.vraptor4.core.InterceptorStack;
+import br.com.caelum.vraptor4.interceptor.ExecuteMethodInterceptor;
+import br.com.caelum.vraptor4.interceptor.Interceptor;
+import br.com.caelum.vraptor4.restfulie.controller.ControllerMethod;
 
 @Intercepts(before = ExecuteMethodInterceptor.class)
 public class PimpMyControllerInterceptor implements Interceptor {
@@ -20,14 +20,14 @@ public class PimpMyControllerInterceptor implements Interceptor {
 		this.result = result;
 		this.factory = factory;
 	}
-
+	
 	@Override
-	public boolean accepts(ResourceMethod arg0) {
+	public boolean accepts(ControllerMethod arg0) {
 		return true;
 	}
 
 	@Override
-	public void intercept(InterceptorStack stack, ResourceMethod method,
+	public void intercept(InterceptorStack stack, ControllerMethod method,
 			Object obj) throws InterceptionException {
 		try {
 			locals.reset().put(Result.class, result).put(MessageFactory.class, factory);

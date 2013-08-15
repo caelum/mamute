@@ -7,6 +7,8 @@ import static org.hibernate.criterion.Restrictions.gt;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -18,15 +20,19 @@ import br.com.caelum.brutal.dao.WithUserPaginatedDAO.UserRole;
 import br.com.caelum.brutal.model.News;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.interfaces.RssContent;
-import br.com.caelum.vraptor.ioc.Component;
-@Component
 public class NewsDAO implements PaginatableDAO  {
     private static final long SPAM_BOUNDARY = -5;
-	private final WithUserPaginatedDAO<News> withAuthor;
+    
+	private WithUserPaginatedDAO<News> withAuthor;
 	private Session session;
 	private QueryFilter invisible;
-	private final VisibleNewsFilter visibleFilter;
-    
+	
+	private VisibleNewsFilter visibleFilter;
+	@Deprecated
+	public NewsDAO() {
+	}
+
+	@Inject
     public NewsDAO(Session session, ModeratorOrVisibleNewsFilter moderatorOrVisible, VisibleNewsFilter visibleFilter) {
         this.session = session;
 		this.invisible = moderatorOrVisible;

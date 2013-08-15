@@ -2,19 +2,25 @@ package br.com.caelum.brutal.providers;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.enterprise.inject.Produces;
+import javax.inject.Inject;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import br.com.caelum.vraptor.ioc.Component;
-import br.com.caelum.vraptor.ioc.ComponentFactory;
+import br.com.caelum.vraptor4.core.OverrideComponent;
 
-@Component
-public class SessionProvider implements ComponentFactory<Session>{
+@OverrideComponent
+public class SessionProvider {
 
-	private final SessionFactory factory;
+	private SessionFactory factory;
     private Session session;
+
+    @Deprecated
+    public SessionProvider() {
+	}
 	
+    @Inject
 	public SessionProvider(SessionFactory factory) {
 		this.factory = factory;
 	}
@@ -24,7 +30,7 @@ public class SessionProvider implements ComponentFactory<Session>{
 	    session = this.factory.openSession();
 	}
 
-	@Override
+	@Produces
 	public Session getInstance() {
 		return session; 
 	}

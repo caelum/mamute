@@ -1,10 +1,10 @@
 package br.com.caelum.brutal.controllers;
 
-import static br.com.caelum.vraptor.view.Results.http;
+import static br.com.caelum.vraptor4.view.Results.http;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
+import javax.inject.Inject;
 
 import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOrKarmaRule;
@@ -24,35 +24,21 @@ import br.com.caelum.brutal.model.interfaces.Moderatable;
 import br.com.caelum.brutal.reputation.rules.KarmaCalculator;
 import br.com.caelum.brutauth.auth.annotations.AccessLevel;
 import br.com.caelum.brutauth.auth.annotations.SimpleBrutauthRules;
-import br.com.caelum.vraptor.Get;
-import br.com.caelum.vraptor.Post;
-import br.com.caelum.vraptor.Resource;
-import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor4.Controller;
+import br.com.caelum.vraptor4.Get;
+import br.com.caelum.vraptor4.Post;
+import br.com.caelum.vraptor4.Result;
 
-@Resource
+@Controller
 public class HistoryController {
 
-	private final Result result;
-    private final User currentUser;
-    private final InformationDAO informations;
-	private final ModeratableDao moderatables;
-    private final KarmaCalculator calculator;
-	private final ModelUrlMapping urlMapping;
-	private final ReputationEventDAO reputationEvents;
-
-	public HistoryController(Result result, @Nullable User currentUser,
-			InformationDAO informations, ModeratableDao moderatables,
-			KarmaCalculator calculator, ModelUrlMapping urlMapping,
-			ReputationEventDAO reputationEvents) {
-		this.result = result;
-        this.currentUser = currentUser;
-        this.informations = informations;
-		this.moderatables = moderatables;
-        this.calculator = calculator;
-		this.urlMapping = urlMapping;
-		this.reputationEvents = reputationEvents;
-	}
-	
+	@Inject private Result result;
+    @Inject private User currentUser;
+    @Inject private InformationDAO informations;
+	@Inject private ModeratableDao moderatables;
+    @Inject private KarmaCalculator calculator;
+	@Inject private ModelUrlMapping urlMapping;
+	@Inject private ReputationEventDAO reputationEvents;
 
 	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
 	@AccessLevel(PermissionRulesConstants.MODERATE_EDITS)

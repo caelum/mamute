@@ -1,17 +1,22 @@
 package br.com.caelum.brutal.dao;
 
+import javax.inject.Inject;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 
 import br.com.caelum.brutal.model.Flag;
 import br.com.caelum.brutal.model.User;
-import br.com.caelum.vraptor.ioc.Component;
 
-@Component
 public class FlagDao {
 
-	private final Session session;
+	private Session session;
 
+	@Deprecated
+	public FlagDao() {
+	}
+
+	@Inject
 	public FlagDao(Session session) {
 		this.session = session;
 	}

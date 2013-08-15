@@ -5,6 +5,7 @@ import static br.com.caelum.brutal.infra.JobsConfigurationController.CONFIG_PATH
 import java.io.IOException;
 
 import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
@@ -12,19 +13,13 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 
 import br.com.caelum.vraptor.environment.Environment;
-import br.com.caelum.vraptor.ioc.ApplicationScoped;
-import br.com.caelum.vraptor.ioc.Component;
+import br.com.caelum.vraptor4.ioc.ApplicationScoped;
 
-@Component
 @ApplicationScoped
 public class JobsScheduler {
 
 	private static final Logger LOG = Logger.getLogger(JobsScheduler.class);
-	private final Environment env;
-
-	public JobsScheduler(Environment env) {
-		this.env = env;
-	}
+	@Inject private Environment env;
 
 	@PostConstruct
 	public void makeRequest() throws HttpException, IOException {

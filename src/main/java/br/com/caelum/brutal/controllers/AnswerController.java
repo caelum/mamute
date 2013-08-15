@@ -2,6 +2,8 @@ package br.com.caelum.brutal.controllers;
 
 import java.util.Arrays;
 
+import javax.inject.Inject;
+
 import br.com.caelum.brutal.brutauth.auth.rules.EditAnswerRule;
 import br.com.caelum.brutal.brutauth.auth.rules.LoggedRule;
 import br.com.caelum.brutal.dao.AnswerDAO;
@@ -22,29 +24,34 @@ import br.com.caelum.brutal.notification.NotificationManager;
 import br.com.caelum.brutal.reputation.rules.KarmaCalculator;
 import br.com.caelum.brutal.validators.AnsweredByValidator;
 import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
-import br.com.caelum.vraptor.Get;
-import br.com.caelum.vraptor.Post;
-import br.com.caelum.vraptor.Resource;
-import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.Validator;
-import br.com.caelum.vraptor.core.Localization;
 import br.com.caelum.vraptor.plugin.hibernate4.extra.Load;
-import br.com.caelum.vraptor.view.Results;
+import br.com.caelum.vraptor4.Controller;
+import br.com.caelum.vraptor4.Get;
+import br.com.caelum.vraptor4.Post;
+import br.com.caelum.vraptor4.Result;
+import br.com.caelum.vraptor4.Validator;
+import br.com.caelum.vraptor4.core.Localization;
+import br.com.caelum.vraptor4.view.Results;
 
-@Resource
+@Controller
 public class AnswerController {
-	private final Result result;
-	private final AnswerDAO answers;
-	private final LoggedUser currentUser;
-	private final Localization localization;
-    private final KarmaCalculator calculator;
-	private final MessageFactory messageFactory;
-	private final Validator validator;
-	private final AnsweredByValidator answeredByValidator;
-	private final NotificationManager notificationManager;
-	private final WatcherDAO watchers;
-	private final ReputationEventDAO reputationEvents;
-
+	private Result result;
+	private AnswerDAO answers;
+	private LoggedUser currentUser;
+	private Localization localization;
+    private KarmaCalculator calculator;
+	private MessageFactory messageFactory;
+	private Validator validator;
+	private AnsweredByValidator answeredByValidator;
+	private NotificationManager notificationManager;
+	private WatcherDAO watchers;
+	private ReputationEventDAO reputationEvents;
+	
+	@Deprecated //CDI eyes only
+	public AnswerController() {
+	}
+	
+	@Inject
 	public AnswerController(Result result, AnswerDAO dao, 
 			LoggedUser user, Localization localization,
 	        KarmaCalculator calculator, MessageFactory messageFactory, 

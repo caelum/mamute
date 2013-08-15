@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -12,16 +13,22 @@ import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
 import br.com.caelum.brutal.model.User;
-import br.com.caelum.vraptor.Post;
-import br.com.caelum.vraptor.Resource;
-import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor4.Controller;
+import br.com.caelum.vraptor4.Post;
+import br.com.caelum.vraptor4.Result;
 
-@Resource
+@Controller
 public class VerifyUsersController {
 	
-	private final Session session;
-	private final Logger LOG = Logger.getLogger(VerifyUsersController.class);
+	private Session session;
+	private Logger LOG = Logger.getLogger(VerifyUsersController.class);
+	
+	@Deprecated
+	//CDI eyes only
+	public VerifyUsersController() {
+	}
 
+	@Inject
 	public VerifyUsersController(Session session) {
 		this.session = session;
 	}

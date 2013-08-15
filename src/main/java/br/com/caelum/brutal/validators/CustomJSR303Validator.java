@@ -3,22 +3,32 @@ package br.com.caelum.brutal.validators;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Priority;
+import javax.enterprise.inject.Alternative;
+import javax.inject.Inject;
+import javax.interceptor.Interceptor;
 import javax.validation.MessageInterpolator;
 import javax.validation.Validator;
 
 import br.com.caelum.brutal.factory.MessageFactory;
-import br.com.caelum.vraptor.core.Localization;
-import br.com.caelum.vraptor.ioc.Component;
-import br.com.caelum.vraptor.validator.DefaultBeanValidator;
-import br.com.caelum.vraptor.validator.Message;
+import br.com.caelum.vraptor4.core.Localization;
+import br.com.caelum.vraptor4.validator.DefaultBeanValidator;
+import br.com.caelum.vraptor4.validator.Message;
 
-@Component
+@Alternative
+@Priority(Interceptor.Priority.APPLICATION)
 public class CustomJSR303Validator extends DefaultBeanValidator {
 
 	private MessageFactory messageFactory;
 
+	@Deprecated
+	public CustomJSR303Validator() {
+	}
+
+	@Inject
 	public CustomJSR303Validator(Localization localization,
-			Validator validator, MessageInterpolator interpolator, MessageFactory messageFactory) {
+			Validator validator, MessageInterpolator interpolator, 
+			MessageFactory messageFactory) {
 		super(localization, validator, interpolator);
 		this.messageFactory = messageFactory;
 	}

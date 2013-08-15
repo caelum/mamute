@@ -10,7 +10,6 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
-import br.com.caelum.brutal.dao.util.QuantityOfPagesCalculator;
 import br.com.caelum.brutal.model.Post;
 import br.com.caelum.brutal.model.User;
 

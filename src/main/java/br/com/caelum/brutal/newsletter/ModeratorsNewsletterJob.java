@@ -1,31 +1,25 @@
 package br.com.caelum.brutal.newsletter;
 
+import javax.inject.Inject;
+
 import org.apache.log4j.Logger;
 import org.hibernate.ScrollableResults;
 
 import br.com.caelum.brutal.dao.UserDAO;
-import br.com.caelum.vraptor.Resource;
-import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.quartzjob.CronTask;
+import br.com.caelum.vraptor4.Controller;
+import br.com.caelum.vraptor4.Result;
 
-@Resource
+@Controller
 public class ModeratorsNewsletterJob implements CronTask {
-	
-	private final Result result;
-	private final UserDAO users;
-	private final NewsletterMailer newsMailer;
-	private final Environment env;
-	private static final Logger LOG = Logger.getLogger(ModeratorsNewsletterJob.class);
-	
-	public ModeratorsNewsletterJob(Result result, UserDAO users,
-			NewsletterMailer newsMailer, Environment env) {
-		this.result = result;
-		this.users = users;
-		this.newsMailer = newsMailer;
-		this.env = env;
-	}
 
+	private static final Logger LOG = Logger.getLogger(ModeratorsNewsletterJob.class);
+	@Inject private Result result;
+	@Inject private UserDAO users;
+	@Inject private NewsletterMailer newsMailer;
+	@Inject private Environment env;
+	
 	@Override
 	public void execute() {
 		LOG.info("executing " + getClass().getSimpleName());

@@ -1,26 +1,23 @@
 package br.com.caelum.brutal.cron;
 
+import javax.inject.Inject;
+
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
 import br.com.caelum.brutal.components.RecentTagsContainer;
-import br.com.caelum.vraptor.Resource;
-import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.quartzjob.CronTask;
+import br.com.caelum.vraptor4.Controller;
+import br.com.caelum.vraptor4.Result;
 
-@Resource
+@Controller
 public class RecentTagsJob implements CronTask {
 	
-	private final RecentTagsContainer recentTagsContainer;
-    private final Session session;
-	private final Result result;
-	private final static Logger LOG = Logger.getLogger(Logger.class);
+	@Inject private RecentTagsContainer recentTagsContainer;
+    @Inject private Session session;
+	@Inject private Result result;
+	@Inject private static Logger LOG = Logger.getLogger(Logger.class);
 
-	public RecentTagsJob(RecentTagsContainer recentTagsContainer, Session session, Result result) {
-		this.recentTagsContainer = recentTagsContainer;
-        this.session = session;
-		this.result = result;
-	}
 
 	@Override
 	public void execute() {

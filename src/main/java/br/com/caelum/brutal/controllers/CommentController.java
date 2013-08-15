@@ -1,7 +1,7 @@
 package br.com.caelum.brutal.controllers;
 
-import static br.com.caelum.vraptor.view.Results.http;
-import static br.com.caelum.vraptor.view.Results.status;
+import static br.com.caelum.vraptor4.view.Results.http;
+import static br.com.caelum.vraptor4.view.Results.status;
 import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOrKarmaRule;
 import br.com.caelum.brutal.dao.CommentDAO;
@@ -18,11 +18,12 @@ import br.com.caelum.brutal.notification.NotificationManager;
 import br.com.caelum.brutal.validators.CommentValidator;
 import br.com.caelum.brutauth.auth.annotations.AccessLevel;
 import br.com.caelum.brutauth.auth.annotations.SimpleBrutauthRules;
-import br.com.caelum.vraptor.Post;
-import br.com.caelum.vraptor.Resource;
-import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor4.Controller;
+import br.com.caelum.vraptor4.Post;
+import br.com.caelum.vraptor4.Result;
+import br.com.caelum.vraptor4.view.Results;
 
-@Resource
+@Controller
 public class CommentController {
 
 	private final Result result;
@@ -54,7 +55,7 @@ public class CommentController {
 		Class<?> type = getType(onWhat);
 		
 		validator.validate(newComment);
-		validator.onErrorUse(http()).setStatusCode(400);
+		validator.onErrorUse(Results.http()).setStatusCode(400);
 		
 		br.com.caelum.brutal.model.Post commentable = comments.loadCommentable(type, id);
 		commentable.add(newComment);

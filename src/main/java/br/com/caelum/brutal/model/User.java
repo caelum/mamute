@@ -27,6 +27,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.enterprise.inject.Vetoed;
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -56,8 +57,8 @@ import br.com.caelum.brutal.providers.SessionFactoryCreator;
 @Cache(usage=CacheConcurrencyStrategy.READ_WRITE, region="cache")
 @Table(name="Users")
 @Entity
+@Vetoed
 public class User implements Identifiable {
-
 	
 	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
 	private final DateTime createdAt = new DateTime();

@@ -4,6 +4,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Priority;
+import javax.enterprise.inject.Alternative;
+import javax.enterprise.inject.Produces;
+import javax.inject.Inject;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,18 +16,20 @@ import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.dto.UserAndSession;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.UserSession;
-import br.com.caelum.vraptor.ioc.Component;
-import br.com.caelum.vraptor.ioc.ComponentFactory;
 
-@Component
-public class Access implements ComponentFactory<User> {
+public class Access {
 	
 	public static final String BRUTAL_SESSION = "brutal_session";
     private UserAndSession userAndSession;
-    private final HttpServletResponse response;
-    private final HttpServletRequest request;
-    private final UserDAO users; 
+    private HttpServletResponse response;
+    private HttpServletRequest request;
+    private UserDAO users; 
+    
+    @Deprecated
+    public Access() {
+	}
 	
+    @Inject
 	public Access(HttpServletResponse response, HttpServletRequest request, UserDAO users) {
 	    this.response = response;
         this.request = request;
@@ -44,19 +50,23 @@ public class Access implements ComponentFactory<User> {
 		return user;
 	}
 
-	@Override
+	@Produces
 	public User getInstance() {
 		User user = userAndSession == null ? null : userAndSession.getUser();
 		return user;
 	}
 	
-	@PostConstruct
 	public boolean tryToAutoLogin() {
 	    String key = extractKeyFromCookies();
 	    if (key != null) {
 	    	this.userAndSession = users.findBySessionKey(key);
 	    }
 	    return this.userAndSession != null;
+	}
+	
+	@PostConstruct
+	public void initialize() {
+		tryToAutoLogin();
 	}
 	
     private String extractKeyFromCookies() {
