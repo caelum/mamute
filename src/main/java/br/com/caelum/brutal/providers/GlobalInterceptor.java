@@ -27,11 +27,12 @@ import br.com.caelum.vraptor4.Intercepts;
 import br.com.caelum.vraptor4.Result;
 import br.com.caelum.vraptor4.core.InterceptorStack;
 import br.com.caelum.vraptor4.core.Localization;
+import br.com.caelum.vraptor4.interceptor.Interceptor;
 import br.com.caelum.vraptor4.restfulie.controller.ControllerMethod;
 
 
 @Intercepts(before={ParameterLoaderInterceptor.class, CustomBrutauthRuleInterceptor.class, SimpleBrutauthRuleInterceptor.class})
-public class GlobalInterceptor{
+public class GlobalInterceptor implements Interceptor{
 	
 	private static final String SLASH_AT_END = "/$";
 	private static final Logger LOG = Logger.getLogger(GlobalInterceptor.class);	
@@ -93,6 +94,11 @@ public class GlobalInterceptor{
 			LOG.debug(key);
 			LOG.debug(value);
 		}
+	}
+
+	@Override
+	public boolean accepts(ControllerMethod method) {
+		return true;
 	}
 
 }

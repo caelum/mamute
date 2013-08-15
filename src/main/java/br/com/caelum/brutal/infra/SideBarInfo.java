@@ -1,26 +1,19 @@
 package br.com.caelum.brutal.infra;
 
+import javax.inject.Inject;
+
 import br.com.caelum.brutal.components.RecentTagsContainer;
 import br.com.caelum.brutal.dao.NewsDAO;
 import br.com.caelum.brutal.infra.rss.read.FeedsMap;
-import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.ioc.Component;
+import br.com.caelum.vraptor4.Result;
 
-@Component
 public class SideBarInfo {
 
-	private final NewsDAO newses;
-	private final Result result;
-	private final RecentTagsContainer tagsContainer;
-	private final FeedsMap feedsMap;
+	@Inject private NewsDAO newses;
+	@Inject private Result result;
+	@Inject private RecentTagsContainer tagsContainer;
+	@Inject private FeedsMap feedsMap;
 
-	public SideBarInfo(NewsDAO newsDAO, RecentTagsContainer container, Result result, FeedsMap feedsMap) {
-		this.newses = newsDAO;
-		this.result = result;
-		this.tagsContainer = container;
-		this.feedsMap = feedsMap;
-	}
-	
 	public void include(){
 		result.include("sidebarNews", newses.allVisibleAndApproved(5));
 		result.include("recentTags", tagsContainer.getRecentTagsUsage());

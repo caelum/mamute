@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.controllers;
 
+import javax.inject.Inject;
+
 import br.com.caelum.brutal.brutauth.auth.rules.EditNewsRule;
 import br.com.caelum.brutal.brutauth.auth.rules.LoggedRule;
 import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOnlyRule;
@@ -23,23 +25,13 @@ import br.com.caelum.vraptor4.Result;
 @Controller
 public class NewsController {
 
-	private final LoggedUser currentUser;
-	private final NewsDAO newses;
-	private final Result result;
-	private final VoteDAO votes;
-	private PostViewCounter viewCounter;
-	private final WatcherDAO watchers;
+	@Inject private LoggedUser currentUser;
+	@Inject private NewsDAO newses;
+	@Inject private Result result;
+	@Inject private VoteDAO votes;
+	@Inject private PostViewCounter viewCounter;
+	@Inject private WatcherDAO watchers;
 
-	public NewsController(LoggedUser currentUser, NewsDAO newses, Result result, 
-			VoteDAO votes, PostViewCounter viewCounter, WatcherDAO watchers) {
-		this.currentUser = currentUser;
-		this.newses = newses;
-		this.result = result;
-		this.votes = votes;
-		this.viewCounter = viewCounter;
-		this.watchers = watchers;
-	}
-	
 	@Post("/nova-noticia")
 	@CustomBrutauthRules(LoggedRule.class)
 	public void newNews(String title, String description) {

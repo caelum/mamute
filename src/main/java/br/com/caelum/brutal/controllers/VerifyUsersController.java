@@ -20,18 +20,8 @@ import br.com.caelum.vraptor4.Result;
 @Controller
 public class VerifyUsersController {
 	
-	private Session session;
 	private Logger LOG = Logger.getLogger(VerifyUsersController.class);
-	
-	@Deprecated
-	//CDI eyes only
-	public VerifyUsersController() {
-	}
-
-	@Inject
-	public VerifyUsersController(Session session) {
-		this.session = session;
-	}
+	@Inject private Session session;
 	
 	@SuppressWarnings("unchecked")
 	@Post("/asjkdjnjsaknfknsdklglas")

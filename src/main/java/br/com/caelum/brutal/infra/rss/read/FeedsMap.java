@@ -5,22 +5,17 @@ import static java.lang.Integer.valueOf;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import br.com.caelum.vraptor.environment.Environment;
-import br.com.caelum.vraptor.ioc.ApplicationScoped;
-import br.com.caelum.vraptor.ioc.Component;
+import br.com.caelum.vraptor4.ioc.ApplicationScoped;
 
 @ApplicationScoped
-@Component
 public class FeedsMap {
 
 	private Map<String, RSSFeed> hashMap = new HashMap<String, RSSFeed>();
-	private final FeedReader feedReader;
-	private final Environment env;
-	
-	public FeedsMap(Environment env, FeedReader feedReader) {
-		this.env = env;
-		this.feedReader = feedReader;
-	}
+	@Inject private FeedReader feedReader;
+	@Inject	private Environment env;
 	
 	public void putOrUpdate(String feedBaseKey){
 		hashMap.remove(feedBaseKey);

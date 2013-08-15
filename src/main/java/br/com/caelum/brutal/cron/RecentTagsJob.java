@@ -18,7 +18,6 @@ public class RecentTagsJob implements CronTask {
 	@Inject private Result result;
 	@Inject private static Logger LOG = Logger.getLogger(Logger.class);
 
-
 	@Override
 	public void execute() {
 		LOG.info("executing RecentTagsJob...");

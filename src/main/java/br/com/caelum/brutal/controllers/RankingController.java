@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.controllers;
 
+import javax.inject.Inject;
+
 import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.dao.ReputationEventDAO;
@@ -13,17 +15,11 @@ import br.com.caelum.vraptor4.Result;
 @Controller
 public class RankingController {
 	
-	private final Result result;
-	private final UserDAO users;
-	private final TagDAO tags;
-	private final ReputationEventDAO reputationEvents;
+	@Inject private Result result;
+	@Inject private UserDAO users;
+	@Inject private TagDAO tags;
+	@Inject private ReputationEventDAO reputationEvents;
 
-	public RankingController(Result result, UserDAO users, TagDAO tags, ReputationEventDAO reputationEvents) {
-		this.result = result;
-		this.users = users;
-		this.tags = tags;
-		this.reputationEvents = reputationEvents;
-	}
 
 	@Get("/ranking")
 	public void rank(Integer p) {

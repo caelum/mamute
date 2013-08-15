@@ -27,31 +27,13 @@ import br.com.caelum.vraptor4.validator.I18nMessage;
 public class FacebookAuthController extends BaseController{
 	
 	private final static Logger LOG = Logger.getLogger(FacebookAuthController.class);
-	private FacebookAuthService facebook;
-	private UserDAO users;
-	private LoginMethodDAO loginMethods;
-	private Result result;
-	private Access access;
-	private MessageFactory messageFactory;
-	private UrlValidator urlValidator;
-	
-	//CDI eyes only
-	@Deprecated
-	public FacebookAuthController() {
-	}
-
-	@Inject
-	public FacebookAuthController(FacebookAuthService facebook, UserDAO users, 
-			LoginMethodDAO loginMethods, Result result, Access access,
-			MessageFactory messageFactory, UrlValidator urlValidator) {
-		this.facebook = facebook;
-		this.users = users;
-		this.loginMethods = loginMethods;
-		this.result = result;
-		this.access = access;
-		this.messageFactory = messageFactory;
-		this.urlValidator = urlValidator;
-	}
+	@Inject private FacebookAuthService facebook;
+	@Inject private UserDAO users;
+	@Inject private LoginMethodDAO loginMethods;
+	@Inject private Result result;
+	@Inject private Access access;
+	@Inject private MessageFactory messageFactory;
+	@Inject private UrlValidator urlValidator;
 	
 	@Get("/cadastrar/facebook/")
 	public void signupViaFacebook(String code, String state) {

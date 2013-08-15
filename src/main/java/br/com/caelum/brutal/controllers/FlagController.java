@@ -5,10 +5,11 @@ import static br.com.caelum.vraptor4.view.Results.page;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOnlyRule;
 import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOrKarmaRule;
-import br.com.caelum.brutal.dao.CommentDAO;
 import br.com.caelum.brutal.dao.FlagDao;
 import br.com.caelum.brutal.dao.FlaggableDAO;
 import br.com.caelum.brutal.dto.FlaggableAndFlagCount;
@@ -32,23 +33,12 @@ import br.com.caelum.vraptor4.Result;
 @Controller
 public class FlagController {
 	
-	private final Result result;
-	private final FlagDao flags;
-	private final LoggedUser loggedUser;
-	private final FlaggableDAO flaggables;
-	private final ModelUrlMapping urlMapping;
-	private final FlagTrigger flagTrigger;
-
-	public FlagController(Result result, CommentDAO comments, FlagDao flags,
-			LoggedUser loggedUser, FlaggableDAO flaggables, 
-			ModelUrlMapping urlMapping, FlagTrigger flagTrigger) {
-		this.result = result;
-		this.flags = flags;
-		this.loggedUser = loggedUser;
-		this.flaggables = flaggables;
-		this.urlMapping = urlMapping;
-		this.flagTrigger = flagTrigger;
-	}
+	@Inject private Result result;
+	@Inject private FlagDao flags;
+	@Inject private LoggedUser loggedUser;
+	@Inject private FlaggableDAO flaggables;
+	@Inject private ModelUrlMapping urlMapping;
+	@Inject private FlagTrigger flagTrigger;
 
 	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
 	@AccessLevel(PermissionRulesConstants.CREATE_FLAG)
