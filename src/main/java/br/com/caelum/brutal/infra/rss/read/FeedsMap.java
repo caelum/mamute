@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.infra.rss.read;
 
+import static java.lang.Integer.valueOf;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,7 +24,10 @@ public class FeedsMap {
 	
 	public void putOrUpdate(String feedBaseKey){
 		hashMap.remove(feedBaseKey);
-		hashMap.put(feedBaseKey, feedReader.read(env.get(feedBaseKey+".url")));
+		String uri = env.get(feedBaseKey+".url");
+		Integer numberOfItems = valueOf(env.get(feedBaseKey+".items"));
+		RSSFeed feed = feedReader.read(uri, numberOfItems);
+		hashMap.put(feedBaseKey, feed);
 	}
 	
 	public RSSFeed get(String feedBaseKey){

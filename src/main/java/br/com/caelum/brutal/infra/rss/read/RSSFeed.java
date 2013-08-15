@@ -13,6 +13,10 @@ public class RSSFeed {
 	public String toString() {
 		return "RSSFeed [channel=" + channel + "]";
 	}
+
+	public void limitItems(Integer numberOfItems) {
+		getChannel().limitItems(numberOfItems);		
+	}
 	
 	
 }

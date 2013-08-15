@@ -23,9 +23,14 @@ public class FeedReader {
 		this.converter = converter;
 	}
 	
-	public RSSFeed read(String uri) {
+	public RSSFeed read(String uri, Integer numberOfItems) {
 		InputStream rssXml = getXmlFrom(uri);
-		return converter.convert(rssXml);
+		return limitItems(converter.convert(rssXml), numberOfItems);
+	}
+
+	private RSSFeed limitItems(RSSFeed feed, Integer numberOfItems) {
+		feed.limitItems(numberOfItems);
+		return feed;
 	}
 
 	private InputStream getXmlFrom(String uri){

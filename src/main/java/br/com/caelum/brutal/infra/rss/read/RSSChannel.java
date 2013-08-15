@@ -75,5 +75,9 @@ public class RSSChannel {
 	public List<RSSItem> getItems() {
 		return items;
 	}
+
+	public void limitItems(Integer numberOfItems) {
+		items = getItems().subList(0, numberOfItems);		
+	}
 	
 }
