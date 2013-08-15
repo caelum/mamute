@@ -35,43 +35,18 @@ import br.com.caelum.vraptor4.view.Results;
 
 @Controller
 public class AnswerController {
-	private Result result;
-	private AnswerDAO answers;
-	private LoggedUser currentUser;
-	private Localization localization;
-    private KarmaCalculator calculator;
-	private MessageFactory messageFactory;
-	private Validator validator;
-	private AnsweredByValidator answeredByValidator;
-	private NotificationManager notificationManager;
-	private WatcherDAO watchers;
-	private ReputationEventDAO reputationEvents;
+	@Inject private Result result;
+	@Inject private AnswerDAO answers;
+	@Inject private LoggedUser currentUser;
+	@Inject private Localization localization;
+    @Inject private KarmaCalculator calculator;
+	@Inject private MessageFactory messageFactory;
+	@Inject private Validator validator;
+	@Inject private AnsweredByValidator answeredByValidator;
+	@Inject private NotificationManager notificationManager;
+	@Inject private WatcherDAO watchers;
+	@Inject private ReputationEventDAO reputationEvents;
 	
-	@Deprecated //CDI eyes only
-	public AnswerController() {
-	}
-	
-	@Inject
-	public AnswerController(Result result, AnswerDAO dao, 
-			LoggedUser user, Localization localization,
-	        KarmaCalculator calculator, MessageFactory messageFactory, 
-	        Validator validator, AnsweredByValidator answeredByValidator,
-	        NotificationManager notificationManager,
-	        WatcherDAO watchers, ReputationEventDAO reputationEvents) {
-		this.result = result;
-		this.answers = dao;
-		this.currentUser = user;
-		this.localization = localization;
-        this.calculator = calculator;
-		this.messageFactory = messageFactory;
-		this.validator = validator;
-		this.answeredByValidator = answeredByValidator;
-		this.notificationManager = notificationManager;
-		this.watchers = watchers;
-		this.reputationEvents = reputationEvents;
-	}
-
-
 	@Get("/resposta/editar/{answer.id}")
 	@CustomBrutauthRules(EditAnswerRule.class)
 	public void answerEditForm(@Load Answer answer) {

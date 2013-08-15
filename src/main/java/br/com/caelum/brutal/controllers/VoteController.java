@@ -2,6 +2,9 @@ package br.com.caelum.brutal.controllers;
 
 import static br.com.caelum.vraptor4.view.Results.http;
 import static br.com.caelum.vraptor4.view.Results.json;
+
+import javax.inject.Inject;
+
 import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOrKarmaRule;
 import br.com.caelum.brutal.dao.VoteDAO;
@@ -20,20 +23,11 @@ import br.com.caelum.vraptor4.Result;
 @Controller
 public class VoteController {
 
-	private final Result result;
-	private final LoggedUser currentUser;
-	private final VoteDAO votes;
-	private final VotingMachine votingMachine;
-	private final ModelUrlMapping mapping;
-
-	public VoteController(Result result,  LoggedUser currentUser, 
-			VoteDAO voteDAO, VotingMachine votingMachine, ModelUrlMapping mapping) {
-		this.result = result;
-		this.currentUser = currentUser;
-		this.votes = voteDAO;
-        this.votingMachine = votingMachine;
-		this.mapping = mapping;
-	}
+	@Inject private Result result;
+	@Inject private LoggedUser currentUser;
+	@Inject private VoteDAO votes;
+	@Inject private VotingMachine votingMachine;
+	@Inject private ModelUrlMapping mapping;
 
 	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
 	@AccessLevel(PermissionRulesConstants.VOTE_UP)

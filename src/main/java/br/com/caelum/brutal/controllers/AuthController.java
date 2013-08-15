@@ -1,32 +1,26 @@
 package br.com.caelum.brutal.controllers;
 
+import javax.inject.Inject;
+
 import br.com.caelum.brutal.auth.DefaultAuthenticator;
 import br.com.caelum.brutal.auth.FacebookAuthService;
 import br.com.caelum.brutal.brutauth.auth.rules.LoggedRule;
 import br.com.caelum.brutal.validators.LoginValidator;
 import br.com.caelum.brutal.validators.UrlValidator;
 import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
+import br.com.caelum.vraptor4.Controller;
 import br.com.caelum.vraptor4.Get;
 import br.com.caelum.vraptor4.Post;
 import br.com.caelum.vraptor4.Result;
 
-@br.com.caelum.vraptor4.Controller
+@Controller
 public class AuthController extends BaseController {
 	
-	private final DefaultAuthenticator auth;
-	private final FacebookAuthService facebook;
-	private final Result result;
-	private final UrlValidator urlValidator;
-	private final LoginValidator validator;
-	
-	public AuthController(DefaultAuthenticator auth, FacebookAuthService facebook, 
-			Result result, UrlValidator urlValidator, LoginValidator validator) {
-		this.auth = auth;
-		this.facebook = facebook;
-		this.result = result;
-		this.urlValidator = urlValidator;
-		this.validator = validator;
-	}
+	@Inject private DefaultAuthenticator auth;
+	@Inject private FacebookAuthService facebook;
+	@Inject private Result result;
+	@Inject private UrlValidator urlValidator;
+	@Inject private LoginValidator validator;
 	
 	@Get("/login")
 	public void loginForm(String redirectUrl) {

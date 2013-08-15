@@ -6,6 +6,8 @@ import static java.util.Arrays.asList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import br.com.caelum.brutal.auth.FacebookAuthService;
 import br.com.caelum.brutal.brutauth.auth.rules.EditQuestionRule;
 import br.com.caelum.brutal.brutauth.auth.rules.LoggedRule;
@@ -43,21 +45,28 @@ import com.thoughtworks.xstream.XStream;
 @Controller
 public class QuestionController {
 
-	private final Result result;
-	private final QuestionDAO questions;
-	private final TagDAO tags;
-	private final VoteDAO votes;
-	private final LoggedUser currentUser;
-	private final TagsValidator tagsValidator;
-	private final MessageFactory messageFactory;
-	private final Validator validator;
-	private final FacebookAuthService facebook;
-	private final PostViewCounter viewCounter;
+	private Result result;
+	private QuestionDAO questions;
+	private TagDAO tags;
+	private VoteDAO votes;
+	private LoggedUser currentUser;
+	private TagsValidator tagsValidator;
+	private MessageFactory messageFactory;
+	private Validator validator;
+	private FacebookAuthService facebook;
+	private PostViewCounter viewCounter;
 	private Linker linker;
-	private final WatcherDAO watchers;
-	private final ReputationEventDAO reputationEvents;
+	private WatcherDAO watchers;
+	private ReputationEventDAO reputationEvents;
 	private XStream json;
 
+	/**
+	 * @deprecated CDI eyes only 
+	 */
+	public QuestionController() {
+	}
+	
+	@Inject
 	public QuestionController(Result result, QuestionDAO questionDAO, TagDAO tags, 
 			VoteDAO votes, LoggedUser currentUser, FacebookAuthService facebook,
 			TagsValidator tagsValidator, MessageFactory messageFactory,

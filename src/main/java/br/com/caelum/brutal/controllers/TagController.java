@@ -5,6 +5,8 @@ import static br.com.caelum.vraptor4.view.Results.json;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOnlyRule;
 import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.model.Tag;
@@ -17,13 +19,9 @@ import br.com.caelum.vraptor4.Result;
 @Controller
 public class TagController {
 
-	private final Result result;
-	private final TagDAO tags;
+	@Inject private Result result;
+	@Inject private TagDAO tags;
 
-	public TagController(Result result, TagDAO tags) {
-		this.result = result;
-		this.tags = tags;
-	}
 	
 	@Get("/tags-similares/{tagChunk}")
 	public void getTagsLike(String tagChunk){

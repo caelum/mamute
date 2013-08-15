@@ -4,12 +4,13 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.caelum.brutal.dao.NewsDAO;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.TagDAO;
-import br.com.caelum.brutal.infra.rss.RssFeedFactory;
+import br.com.caelum.brutal.infra.rss.write.RssFeedFactory;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.interfaces.RssContent;
 import br.com.caelum.vraptor4.Controller;
@@ -19,26 +20,14 @@ import br.com.caelum.vraptor4.core.Localization;
 
 @Controller
 public class RssController {
-	private final RssFeedFactory rssFactory;
-	private final QuestionDAO questions;
-	private final HttpServletResponse response;
-	private final Result result;
-	private final TagDAO tags;
 	private static final int MAX_RESULTS = 30;
-	private NewsDAO news;
-	private Localization localization;
-
-	public RssController(RssFeedFactory rssFactory, QuestionDAO questions, 
-			HttpServletResponse response, Result result, 
-			TagDAO tags, NewsDAO news, Localization localization) {
-		this.rssFactory = rssFactory;
-		this.questions = questions;
-		this.response = response;
-		this.result = result;
-		this.tags = tags;
-		this.news = news;
-		this.localization = localization;
-	}
+	@Inject private RssFeedFactory rssFactory;
+	@Inject private QuestionDAO questions;
+	@Inject private HttpServletResponse response;
+	@Inject private Result result;
+	@Inject private TagDAO tags;
+	@Inject private NewsDAO news;
+	@Inject private Localization localization;
 	
 	@Get("/rss")
 	public void rss() throws IOException {

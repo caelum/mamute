@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.interceptors;
 
+import javax.inject.Inject;
+
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.infra.ThreadLocals;
 import br.com.caelum.vraptor4.InterceptionException;
@@ -13,14 +15,9 @@ import br.com.caelum.vraptor4.restfulie.controller.ControllerMethod;
 @Intercepts(before = ExecuteMethodInterceptor.class)
 public class PimpMyControllerInterceptor implements Interceptor {
 
-	private final Result result;
-	private final MessageFactory factory;
+	@Inject private Result result;
+	@Inject private MessageFactory factory;
 
-	public PimpMyControllerInterceptor(Result result, MessageFactory factory) {
-		this.result = result;
-		this.factory = factory;
-	}
-	
 	@Override
 	public boolean accepts(ControllerMethod arg0) {
 		return true;

@@ -2,6 +2,9 @@ package br.com.caelum.brutal.controllers;
 
 import static br.com.caelum.vraptor4.view.Results.http;
 import static br.com.caelum.vraptor4.view.Results.status;
+
+import javax.inject.Inject;
+
 import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOrKarmaRule;
 import br.com.caelum.brutal.dao.CommentDAO;
@@ -26,25 +29,13 @@ import br.com.caelum.vraptor4.view.Results;
 @Controller
 public class CommentController {
 
-	private final Result result;
-	private final CommentDAO comments;
-	private final CommentValidator validator;
-	private final ModelUrlMapping urlMapping;
-	private final LoggedUser currentUser;
-	private final NotificationManager notificationManager;
-	private final WatcherDAO watchers;
-
-	public CommentController(Result result, LoggedUser currentUser, CommentDAO comments,
-			CommentValidator validator, ModelUrlMapping urlMapping,
-			NotificationManager notificationManager, WatcherDAO watchers) {
-		this.result = result;
-		this.currentUser = currentUser;
-		this.comments = comments;
-		this.validator = validator;
-		this.urlMapping = urlMapping;
-		this.notificationManager = notificationManager;
-		this.watchers = watchers;
-	}
+	@Inject private Result result;
+	@Inject private CommentDAO comments;
+	@Inject private CommentValidator validator;
+	@Inject private ModelUrlMapping urlMapping;
+	@Inject private LoggedUser currentUser;
+	@Inject private NotificationManager notificationManager;
+	@Inject private WatcherDAO watchers;
 
 	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
 	@AccessLevel(PermissionRulesConstants.CREATE_COMMENT)

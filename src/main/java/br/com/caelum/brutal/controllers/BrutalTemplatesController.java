@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.controllers;
 
+import javax.inject.Inject;
+
 import br.com.caelum.brutal.dao.PaginatableDAO;
 import br.com.caelum.brutal.dao.WithUserPaginatedDAO.OrderType;
 import br.com.caelum.brutal.model.Comment;
@@ -10,11 +12,8 @@ import br.com.caelum.vraptor4.Result;
 @Controller
 public class BrutalTemplatesController {
 
-	private final Result result;
+	@Inject private Result result;
 
-	public BrutalTemplatesController(Result result) {
-		this.result = result;
-	}
 	
 	public void comment(Comment comment){
 		result.include("comment", comment);

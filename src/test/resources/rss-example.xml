@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+  <channel>
+    <title>OndeTrabalhar.com</title>
+    <description>encontre vagas de emprego para trabalhar com o que deseja</description>
+    <language>pt-BR</language>
+    <webMaster>contato@ondetrabalhar.com</webMaster>
+    <managingEditor>contato@ondetrabalhar.com</managingEditor>
+    <copyright>Copyright 2013, Caelum - http://www.caelum.com.br</copyright>
+    <docs>http://blogs.law.harvard.edu/tech/rss</docs>
+    <ttl>20</ttl>
+    <image>
+      <url>http://ondetralhar.com/images/logo-box.png?1247568237</url>
+      <title>OndeTrabalhar.com</title>
+      <link>http://ondetrabalhar.com/</link>
+    </image>
+    <pubDate>Mon, 12 Aug 2013 12:38:45 -0300</pubDate>
+    <link>http://ondetrabalhar.com/vagas</link>
+    <item>
+      <title>Senior Tech Leader</title>
+      <link>http://ondetrabalhar.com/vagas/3649/senior-tech-leader</link>
+      <description>Fast growing Web Company based in S&#227;o Paulo invested by Venture Capital funds is looking for an Senior Technical Leader to manage engineer teams.</description>
+      <pubDate>Mon, 12 Aug 2013 12:38:45 -0300</pubDate>
+      <guid>http://ondetrabalhar.com/vagas/3649/senior-tech-leader</guid>
+    </item>
+  </channel>
+</rss>

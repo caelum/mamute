@@ -1,6 +1,5 @@
 package br.com.caelum.brutal.newsletter;
 
-import javax.annotation.Resource;
 import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
@@ -10,10 +9,11 @@ import br.com.caelum.brutal.dao.NewsletterSentLogDAO;
 import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.quartzjob.CronTask;
+import br.com.caelum.vraptor4.Controller;
 import br.com.caelum.vraptor4.Path;
 import br.com.caelum.vraptor4.Result;
 
-@Resource
+@Controller
 public class RegularUserNewsletterJob implements CronTask {
 	
 	private static final Logger LOG = Logger.getLogger(RegularUserNewsletterJob.class);

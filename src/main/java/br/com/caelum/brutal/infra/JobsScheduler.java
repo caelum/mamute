@@ -2,13 +2,10 @@ package br.com.caelum.brutal.infra;
 
 import static br.com.caelum.brutal.infra.JobsConfigurationController.CONFIG_PATH;
 
-import java.io.IOException;
-
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 
@@ -22,8 +19,9 @@ public class JobsScheduler {
 	@Inject private Environment env;
 
 	@PostConstruct
-	public void makeRequest() throws HttpException, IOException {
+	public void makeRequest(){
 		String url = (env.get("host") + CONFIG_PATH);
+		LOG.info("Verifying if should schedule jobs on startup");
 		if ("true".equals(env.get("schedule_jobs_on_startup"))) {
 			LOG.info("Starting thread to schedule jobs");
 			new Thread(new StartQuartz(url)).start();

@@ -1,4 +1,4 @@
-package br.com.caelum.brutal.infra.rss;
+package br.com.caelum.brutal.infra.rss.write;
 
 import com.thoughtworks.xstream.converters.Converter;
 import com.thoughtworks.xstream.converters.MarshallingContext;

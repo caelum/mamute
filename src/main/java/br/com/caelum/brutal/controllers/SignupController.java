@@ -1,6 +1,9 @@
 package br.com.caelum.brutal.controllers;
 
 import static java.util.Arrays.asList;
+
+import javax.inject.Inject;
+
 import br.com.caelum.brutal.auth.FacebookAuthService;
 import br.com.caelum.brutal.dao.LoginMethodDAO;
 import br.com.caelum.brutal.dao.UserDAO;
@@ -17,26 +20,14 @@ import br.com.caelum.vraptor4.Result;
 @Controller
 public class SignupController {
 
-	private final SignupValidator validator;
-	private final UserDAO users;
-	private final Result result;
-	private MessageFactory messageFactory;
-	private LoginMethodDAO loginMethods;
-	private final FacebookAuthService facebook;
-	private final Linker linker;
+	@Inject private SignupValidator validator;
+	@Inject private UserDAO users;
+	@Inject private Result result;
+	@Inject private MessageFactory messageFactory;
+	@Inject private LoginMethodDAO loginMethods;
+	@Inject private FacebookAuthService facebook;
+	@Inject private Linker linker;
 
-	public SignupController(SignupValidator validator, UserDAO users, Result result,
-			MessageFactory messageFactory, LoginMethodDAO loginMethods,
-			FacebookAuthService facebook, Linker linker) {
-		this.validator = validator;
-		this.users = users;
-		this.result = result;
-		this.messageFactory = messageFactory;
-		this.loginMethods = loginMethods;
-		this.facebook = facebook;
-		this.linker = linker;
-	}
-	
 	@Get("/cadastrar")
 	public void signupForm() {
 		String facebookUrl = facebook.getOauthUrl(null);

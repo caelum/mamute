@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.controllers;
 
+import javax.inject.Inject;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.stat.Statistics;
 
@@ -9,13 +11,8 @@ import br.com.caelum.vraptor4.Result;
 
 @Controller
 public class HibernateStatisticsController {
-	private final SessionFactory sf;
-	private final Result result;
-
-	public HibernateStatisticsController(SessionFactory sf, Result result) {
-		this.sf = sf;
-		this.result = result;
-	}
+	@Inject private SessionFactory sf;
+	@Inject private Result result;
 	
 	@Get("/alsjkdalkjsjdhadskj")
 	public void show() {

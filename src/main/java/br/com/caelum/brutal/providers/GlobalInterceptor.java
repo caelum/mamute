@@ -12,12 +12,11 @@ import org.ocpsoft.prettytime.PrettyTime;
 
 import br.com.caelum.brutal.ads.BrutalAds;
 import br.com.caelum.brutal.auth.BannedUserException;
-import br.com.caelum.brutal.components.RecentTagsContainer;
 import br.com.caelum.brutal.controllers.AuthController;
-import br.com.caelum.brutal.dao.NewsDAO;
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.infra.MenuInfo;
 import br.com.caelum.brutal.infra.NotFoundException;
+import br.com.caelum.brutal.infra.SideBarInfo;
 import br.com.caelum.brutal.util.BrutalDateFormat;
 import br.com.caelum.brutauth.interceptors.CustomBrutauthRuleInterceptor;
 import br.com.caelum.brutauth.interceptors.SimpleBrutauthRuleInterceptor;
@@ -31,34 +30,33 @@ import br.com.caelum.vraptor4.core.Localization;
 import br.com.caelum.vraptor4.interceptor.Interceptor;
 import br.com.caelum.vraptor4.restfulie.controller.ControllerMethod;
 
+
 @Intercepts(before={ParameterLoaderInterceptor.class, CustomBrutauthRuleInterceptor.class, SimpleBrutauthRuleInterceptor.class})
-public class GlobalInterceptor implements Interceptor {
+public class GlobalInterceptor implements Interceptor{
 	
 	private static final String SLASH_AT_END = "/$";
-	private static final Logger LOG = Logger.getLogger(GlobalInterceptor.class);
-	
+	private static final Logger LOG = Logger.getLogger(GlobalInterceptor.class);	
 	@Inject private Environment env;
 	@Inject private Result result;
 	@Inject private HttpServletRequest req;
 	@Inject private Localization localization;
 	@Inject private MenuInfo menuInfo;
-	@Inject private NewsDAO newses;
-	@Inject private RecentTagsContainer recentTagsContainer;
 	@Inject private BrutalDateFormat brutalDateFormat;
 	@Inject private MessageFactory messageFactory;
 	@Inject private BrutalAds ads;
+	@Inject private SideBarInfo sideBarInfo;
 
 	public void intercept(InterceptorStack stack, ControllerMethod method,
 			Object resourceInstance) throws InterceptionException {
 		menuInfo.include();
+		sideBarInfo.include();
+		
 		result.include("env", env);
 		result.include("prettyTimeFormatter", new PrettyTime(localization.getLocale()));
 		result.include("literalFormatter", brutalDateFormat.getInstance("date.joda.pattern"));
 		result.include("currentUrl", getCurrentUrl());
 		result.include("contextPath", req.getContextPath());
 		result.include("deployTimestamp", deployTimestamp());
-		result.include("sidebarNews", newses.allVisibleAndApproved(5));
-		result.include("recentTags", recentTagsContainer.getRecentTagsUsage());
 		result.include("shouldShowAds", ads.shouldShowAds());
 		result.on(NotFoundException.class).notFound();
 		result.on(BannedUserException.class)
@@ -98,6 +96,7 @@ public class GlobalInterceptor implements Interceptor {
 		}
 	}
 
+	@Override
 	public boolean accepts(ControllerMethod method) {
 		return true;
 	}

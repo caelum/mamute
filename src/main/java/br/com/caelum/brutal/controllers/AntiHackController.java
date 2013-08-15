@@ -25,26 +25,11 @@ import br.com.caelum.vraptor4.Result;
 @Controller
 public class AntiHackController {
 
-	private VoteDAO votes;
-	private Result result;
-	private ReputationEventDAO reputationEvents;
-	private KarmaCalculator karmaCalculator;
-	private UserDAO users;
-	
-	@Deprecated
-	//CDI eyes only
-	public AntiHackController() {
-	}
-
-	@Inject
-	public AntiHackController(VoteDAO votes, Result result, ReputationEventDAO reputationEvents, KarmaCalculator karmaCalculator, UserDAO users) {
-		this.votes = votes;
-		this.result = result;
-		this.reputationEvents = reputationEvents;
-		this.karmaCalculator = karmaCalculator;
-		this.users = users;
-		
-	}
+	@Inject private VoteDAO votes;
+	@Inject private Result result;
+	@Inject private ReputationEventDAO reputationEvents;
+	@Inject private KarmaCalculator karmaCalculator;
+	@Inject private UserDAO users;
 	
 	@Get("/antihack")
 	@CustomBrutauthRules(ModeratorOnlyRule.class)

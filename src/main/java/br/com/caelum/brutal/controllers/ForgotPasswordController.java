@@ -2,6 +2,8 @@ package br.com.caelum.brutal.controllers;
 
 import java.util.Arrays;
 
+import javax.inject.Inject;
+
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
 
@@ -21,25 +23,14 @@ import br.com.caelum.vraptor4.core.Localization;
 @Controller
 public class ForgotPasswordController {
 	
-	private final Mailer mailer;
-	private final TemplateMailer templates;
-	private final Result result;
-	private final UserDAO users;
-	private final DefaultLinker linker;
-	private final Validator validator;
-	private final Localization localization;
-	private final MessageFactory messageFactory;
-
-	public ForgotPasswordController(Mailer mailer, TemplateMailer templates, Result result, UserDAO users, DefaultLinker linker, Validator validator, Localization localization, MessageFactory messageFactory) {
-		this.mailer = mailer;
-		this.templates = templates;
-		this.result = result;
-		this.users = users;
-		this.linker = linker;
-		this.validator = validator;
-		this.localization = localization;
-		this.messageFactory = messageFactory;
-	}
+	@Inject private Mailer mailer;
+	@Inject private TemplateMailer templates;
+	@Inject private Result result;
+	@Inject private UserDAO users;
+	@Inject private DefaultLinker linker;
+	@Inject private Validator validator;
+	@Inject private Localization localization;
+	@Inject private MessageFactory messageFactory;
 
 	@Get("/esqueci-minha-senha")
 	public void forgotPasswordForm() {
