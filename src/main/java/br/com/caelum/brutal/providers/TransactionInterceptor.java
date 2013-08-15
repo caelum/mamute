@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.providers;
 
+import javax.enterprise.inject.Specializes;
 import javax.inject.Inject;
 
 import org.hibernate.Session;
@@ -9,12 +10,10 @@ import br.com.caelum.brutal.infra.AfterSuccessfulTransaction;
 import br.com.caelum.vraptor.plugin.hibernate4.HibernateTransactionInterceptor;
 import br.com.caelum.vraptor4.Intercepts;
 import br.com.caelum.vraptor4.Validator;
-import br.com.caelum.vraptor4.core.OverrideComponent;
 import br.com.caelum.vraptor4.interceptor.SimpleInterceptorStack;
 
-//TODO: override original interceptor using cdi
 @Intercepts
-@OverrideComponent
+@Specializes
 public class TransactionInterceptor extends HibernateTransactionInterceptor {
 
 	private Session session;

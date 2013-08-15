@@ -3,19 +3,22 @@ package br.com.caelum.brutal.providers;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
+import javax.annotation.Priority;
+import javax.enterprise.inject.Alternative;
 import javax.inject.Inject;
+import javax.interceptor.Interceptor;
 
 import org.apache.log4j.Logger;
 
 import br.com.caelum.brutal.controllers.ListController;
 import br.com.caelum.vraptor.environment.Environment;
-import br.com.caelum.vraptor4.core.OverrideComponent;
 import br.com.caelum.vraptor4.http.route.PathAnnotationRoutesParser;
 import br.com.caelum.vraptor4.http.route.Router;
 import br.com.caelum.vraptor4.ioc.ApplicationScoped;
 
 @ApplicationScoped
-@OverrideComponent
+@Alternative
+@Priority(Interceptor.Priority.APPLICATION)
 public class BrutalRoutesParser extends PathAnnotationRoutesParser {
 	private static final Logger LOG = Logger.getLogger(BrutalRoutesParser.class);
 

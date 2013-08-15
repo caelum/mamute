@@ -1,14 +1,17 @@
 package br.com.caelum.brutal.template;
 
+import javax.annotation.Priority;
+import javax.enterprise.inject.Alternative;
 import javax.inject.Inject;
+import javax.interceptor.Interceptor;
 
 import br.com.caelum.brutal.controllers.BrutalTemplatesController;
-import br.com.caelum.vraptor4.core.OverrideComponent;
 import br.com.caelum.vraptor4.http.FormatResolver;
 import br.com.caelum.vraptor4.restfulie.controller.ControllerMethod;
 import br.com.caelum.vraptor4.view.DefaultPathResolver;
 
-@OverrideComponent
+@Alternative
+@Priority(Interceptor.Priority.APPLICATION)
 public class TemplatePathResolver extends DefaultPathResolver{
 
 	@Deprecated

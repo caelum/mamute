@@ -1,16 +1,19 @@
 package br.com.caelum.brutal.providers;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
+import javax.annotation.Priority;
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Alternative;
+import javax.enterprise.inject.Disposes;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
+import javax.interceptor.Interceptor;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import br.com.caelum.vraptor4.core.OverrideComponent;
-
-@OverrideComponent
+@Alternative
+@Priority(Interceptor.Priority.APPLICATION)
 public class SessionProvider {
 
 	private SessionFactory factory;
@@ -31,12 +34,12 @@ public class SessionProvider {
 	}
 
 	@Produces
+	@RequestScoped
 	public Session getInstance() {
 		return session; 
 	}
 	
-	@PreDestroy
-	public void destroy() {
+	public void destroy(@Disposes Session session) {
 	    session.close();
 	}
 	

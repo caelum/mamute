@@ -4,8 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Priority;
-import javax.enterprise.inject.Alternative;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.servlet.http.Cookie;
@@ -17,6 +16,7 @@ import br.com.caelum.brutal.dto.UserAndSession;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.UserSession;
 
+@RequestScoped
 public class Access {
 	
 	public static final String BRUTAL_SESSION = "brutal_session";
@@ -50,6 +50,7 @@ public class Access {
 		return user;
 	}
 
+	@RequestScoped
 	@Produces
 	public User getInstance() {
 		User user = userAndSession == null ? null : userAndSession.getUser();

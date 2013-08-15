@@ -2,7 +2,10 @@ package br.com.caelum.brutal.infra;
 
 import java.io.IOException;
 
+import javax.annotation.Priority;
+import javax.enterprise.inject.Alternative;
 import javax.inject.Inject;
+import javax.interceptor.Interceptor;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 
@@ -10,10 +13,10 @@ import org.apache.log4j.Logger;
 
 import br.com.caelum.vraptor4.InterceptionException;
 import br.com.caelum.vraptor4.core.RequestInfo;
-import br.com.caelum.vraptor4.core.OverrideComponent;
 import br.com.caelum.vraptor4.restfulie.controller.ControllerNotFoundHandler;
 
-@OverrideComponent
+@Alternative
+@Priority(Interceptor.Priority.APPLICATION)
 public class BrutalResourceNotFoundHandler implements ControllerNotFoundHandler {
 	
 	@Inject private MenuInfo menuInfo;

@@ -4,9 +4,9 @@ import java.net.URL;
 import java.util.Properties;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.annotation.Priority;
 import javax.enterprise.inject.Alternative;
+import javax.enterprise.inject.Disposes;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.interceptor.Interceptor;
@@ -100,22 +100,21 @@ public class SessionFactoryCreator {
 		
 	}
 
-
 	@Produces
+	@javax.enterprise.context.ApplicationScoped
 	public SessionFactory getInstance() {
 		return factory;
 	}
 
-	@PreDestroy
-	void destroy() {
-		if(!factory.isClosed()) {
-		factory.close();
+	void destroy(@Disposes SessionFactory factory) {
+		if (!factory.isClosed()) {
+			factory.close();
 		}
 		factory = null;
 	}
 
 	public void dropAndCreate() {
-		destroy();
+		destroy(this.factory);
 		new SchemaExport(cfg).drop(true, true);
 		new SchemaExport(cfg).create(true, true);
 		init();
