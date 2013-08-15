@@ -5,8 +5,11 @@ import java.util.Properties;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.annotation.Priority;
+import javax.enterprise.inject.Alternative;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
+import javax.interceptor.Interceptor;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -33,11 +36,11 @@ import br.com.caelum.brutal.model.UserSession;
 import br.com.caelum.brutal.model.Vote;
 import br.com.caelum.brutal.model.watch.Watcher;
 import br.com.caelum.vraptor.environment.Environment;
-import br.com.caelum.vraptor4.core.OverrideComponent;
 import br.com.caelum.vraptor4.ioc.ApplicationScoped;
 
-@OverrideComponent
 @ApplicationScoped
+@Alternative
+@Priority(Interceptor.Priority.APPLICATION)
 public class SessionFactoryCreator {
 	
 	public static final String JODA_TIME_TYPE= "org.jadira.usertype.dateandtime.joda.PersistentDateTime";
