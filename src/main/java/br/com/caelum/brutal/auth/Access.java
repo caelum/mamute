@@ -4,8 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Priority;
-import javax.enterprise.inject.Alternative;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.servlet.http.Cookie;
