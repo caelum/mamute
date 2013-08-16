@@ -6,18 +6,18 @@ import static br.com.caelum.brutal.auth.rules.Rules.isModerator;
 
 import javax.inject.Inject;
 
-import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutauth.auth.rules.SimpleBrutauthRule;
 
 public class ModeratorOrKarmaRule implements SimpleBrutauthRule {
 	
-	@Inject private User user;
+	@Inject private LoggedUser user;
 
 
 	@Override
 	public boolean isAllowed(long accessLevel) {
 		long karma = accessLevel;
-    	return composedRule(isModerator()).or(hasKarma(karma)).isAllowed(user, null); 
+    	return composedRule(isModerator()).or(hasKarma(karma)).isAllowed(user.getCurrent(), null); 
 	}
 
 }

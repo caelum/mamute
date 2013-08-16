@@ -1,20 +1,13 @@
 package br.com.caelum.brutal.model;
 
-import javax.annotation.Nullable;
-import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 public class LoggedUser {
 	
 	private User user;
 	private HttpServletRequest request;
-
-	@Deprecated
-	public LoggedUser() {
-	}
-
-	@Inject
-	public LoggedUser(@Nullable User user, HttpServletRequest request) {
+	
+	public LoggedUser(User user, HttpServletRequest request) {
 		this.user = user;
 		this.request = request;
 	}

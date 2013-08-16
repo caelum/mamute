@@ -15,6 +15,7 @@ import br.com.caelum.brutal.infra.ModelUrlMapping;
 import br.com.caelum.brutal.model.AnswerInformation;
 import br.com.caelum.brutal.model.EventType;
 import br.com.caelum.brutal.model.Information;
+import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.ModeratableAndPendingHistory;
 import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.ReputationEvent;
@@ -33,7 +34,7 @@ import br.com.caelum.vraptor4.Result;
 public class HistoryController {
 
 	@Inject private Result result;
-    @Inject private User currentUser;
+    @Inject private LoggedUser currentUser;
     @Inject private InformationDAO informations;
 	@Inject private ModeratableDao moderatables;
     @Inject private KarmaCalculator calculator;
@@ -102,7 +103,7 @@ public class HistoryController {
         
         User approvedAuthor = approved.getAuthor();
         refusePending(aprovedInformationId, pending);
-        currentUser.approve(moderatable, approved);
+        currentUser.getCurrent().approve(moderatable, approved);
         ReputationEvent editAppoved = new ReputationEvent(EventType.EDIT_APPROVED, moderatable.getQuestion(), approvedAuthor);
         int karma = calculator.karmaFor(editAppoved);
         approvedAuthor.increaseKarma(karma);
@@ -114,7 +115,7 @@ public class HistoryController {
 	@Post("/rejeitar/{typeName}/{informationId}")
 	public void reject(Long informationId, String typeName) {
 		Information informationRefused = informations.getById(informationId, typeName);
-		informationRefused.moderate(currentUser, UpdateStatus.REFUSED);
+		informationRefused.moderate(currentUser.getCurrent(), UpdateStatus.REFUSED);
 		Long moderatableId = informationRefused.getModeratable().getId();
 		if (typeName.equals(AnswerInformation.class.getSimpleName())) {
 			result.redirectTo(this).similarAnswers(moderatableId);
@@ -126,7 +127,7 @@ public class HistoryController {
     private void refusePending(Long aprovedHistoryId, List<Information> pending) {
         for (Information refused : pending) {
 	        if (!refused.getId().equals(aprovedHistoryId)) {
-	            refused.moderate(currentUser, UpdateStatus.REFUSED);
+	            refused.moderate(currentUser.getCurrent(), UpdateStatus.REFUSED);
 	        }
         }
     }

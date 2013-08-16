@@ -8,6 +8,7 @@ import static br.com.caelum.brutal.auth.rules.Rules.isModerator;
 import javax.inject.Inject;
 
 import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
+import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutauth.auth.rules.CustomBrutauthRule;
@@ -20,8 +21,8 @@ public class EditQuestionRule implements CustomBrutauthRule{
 	}
 
 	@Inject
-	public EditQuestionRule(User user) {
-		this.user = user;
+	public EditQuestionRule(LoggedUser user) {
+		this.user = user.getCurrent();
 	}
 
 	public boolean isAllowed(Question question) {

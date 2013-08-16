@@ -9,6 +9,7 @@ import javax.inject.Inject;
 
 import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.model.Answer;
+import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutauth.auth.rules.CustomBrutauthRule;
 
@@ -20,8 +21,8 @@ public class EditAnswerRule implements CustomBrutauthRule {
 	}
 	
 	@Inject
-	public EditAnswerRule(User user) {
-		this.user = user;
+	public EditAnswerRule(LoggedUser user) {
+		this.user = user.getCurrent();
 	}
 
 	public boolean isAllowed(Answer answer) {

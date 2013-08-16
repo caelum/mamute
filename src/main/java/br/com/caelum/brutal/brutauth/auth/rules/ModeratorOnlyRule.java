@@ -4,16 +4,16 @@ import static br.com.caelum.brutal.auth.rules.Rules.isModerator;
 
 import javax.inject.Inject;
 
-import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutauth.auth.rules.CustomBrutauthRule;
 
 public class ModeratorOnlyRule implements CustomBrutauthRule{
 	
-	@Inject private User user;
+	@Inject private LoggedUser user;
 
 	
 	public boolean isAllowed(){
-		return isModerator().isAllowed(user, null);
+		return isModerator().isAllowed(user.getCurrent(), null);
 	}
 	
 }

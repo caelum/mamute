@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.dto.UserAndSession;
+import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.UserSession;
 
@@ -50,11 +51,10 @@ public class Access {
 		return user;
 	}
 
-	@RequestScoped
 	@Produces
-	public User getInstance() {
+	public LoggedUser getInstance() {
 		User user = userAndSession == null ? null : userAndSession.getUser();
-		return user;
+		return new LoggedUser(user, request);
 	}
 	
 	public boolean tryToAutoLogin() {
