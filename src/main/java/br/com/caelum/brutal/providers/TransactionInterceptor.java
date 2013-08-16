@@ -35,7 +35,6 @@ public class TransactionInterceptor extends HibernateTransactionInterceptor {
 
 	@Override
 	public void intercept(SimpleInterceptorStack stack) {
-		super.intercept(stack);
 		Transaction transaction = null;
 		try {
 			transaction = session.beginTransaction();
