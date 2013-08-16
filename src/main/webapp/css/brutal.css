@@ -1192,7 +1192,11 @@ a.button.ask-a-question:hover{
 
 .news-information{
 	width: 10%;
-	margin-top: 2%;  
+	margin-top: 1%;  
+}
+
+.news-simple-information {
+	float:left;
 }
 
 .news-summary{
@@ -1204,7 +1208,13 @@ a.button.ask-a-question:hover{
 }
 
 .news-summary .last-touch{
-	width: 30%
+	width: 20%;
+}
+
+.news-title {
+	float:left;
+	padding-left: 2em;
+	padding-right: 2em;
 }
 
 .news-guideline {
@@ -1242,13 +1252,15 @@ a.button.ask-a-question:hover{
 .news-big-items{
 	float: left;
 	height: 7em;
-	width: 50%;
+	width: 100%;
 	padding: 1.5em 2%;
 }
 
-.news-big-items:nth-child(2n+2){
-	border-left: 1px solid #EAEAEA;
-}
+/* 
+.news-big-items:nth-child(2n+2){ 
+ 	border-left: 1px solid #EAEAEA; 
+} 
+*/
 
 .home-news-title {
 	margin-bottom: 0;
@@ -2475,4 +2487,10 @@ a.button.ask-a-question:hover{
 .medium-ads{
 	width: 300px;
 	height: 250px;
+}
+
+.description-news{
+	padding-left: 2em;
+	padding-top: .5em;
+	width: 80%;
 }

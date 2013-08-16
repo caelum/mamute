@@ -10,17 +10,22 @@
 		</div>
 		<div class="summary news-summary">
 			<div class="item-title-wrapper">
-				<h3 class="title item-title">
+				<h3 class="title item-title news-title">
 					<a href="${linkTo[NewsController].showNews[news][news.sluggedTitle]}">${news.title}</a>
 				</h3>
-				<div class="post-simple-information">
+				<div class="post-simple-information news-simple-information">
 					${news.views} <tags:pluralize key="post.list.view" count="${news.views}"/>
 				</div>
-				<div class="comments post-simple-information">
+				<div class="comments post-simple-information news-simple-information">
 					${news.getVisibleCommentsFor(currentUser.current).size()} <tags:pluralize key="post.list.comment" count="${news.getVisibleCommentsFor(currentUser.current).size()}"/>
 				</div>
 			</div>
+			
 			<tags:lastTouchFor touchable="${news}" prettyFormat="${false}"/>
+			
+			<div class="summary description-news">
+				${news.getTrimmedContent()}
+			</div>
 		</div>		
 		<c:if test="${not news.approved && currentUser.moderator}">
 			<a class="approve-news" href="${linkTo[NewsController].approve[news]}"><fmt:message key="news.approve"/></a>
