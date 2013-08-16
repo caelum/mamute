@@ -60,6 +60,10 @@ public class TagPage {
 	public String getAbout() {
 		return about;
 	}
+
+	public String getTagUriName() {
+		return tag.getUriName();
+	}
 	
 	
 }

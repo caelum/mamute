@@ -52,7 +52,7 @@ public class TagPageController {
 			validator.onErrorRedirectTo(TagPageController.class).editTagPageForm(tagPage.getTagName());
 			return;
 		}
-		result.redirectTo(this).showTagPage(tagName);
+		result.redirectTo(this).showTagPage(tagPage.getTagName());
 	}
 	
 	@Post("/tag/{tagName}/sobre/novo")
@@ -66,7 +66,7 @@ public class TagPageController {
 			return;
 		}
 		tagPages.save(tagPage);
-		result.redirectTo(this).showTagPage(tagPage.getTagName());
+		result.redirectTo(this).showTagPage(tagPage.getTagName()); 
 	}
 	
 	@Get("/tag/{tagName}/sobre")
