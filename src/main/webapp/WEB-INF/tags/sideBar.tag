@@ -7,9 +7,7 @@
 
 <aside class="sidebar">
 	<tags:homeNewsList newses="${sidebarNews}" />
-	<c:if test="${shouldShowAds}">
-		<div id="adSideBar" class="ad medium-ads"></div>
-	</c:if>
+	<div id="adSideBar" class="ad medium-ads"></div>
 	<tags:recentTagsUsage tagsUsage="${recentTags}"/>
 	<tags:feed rssFeed="${jobs}"/>
 	<c:if test="${relatedQuestions != null }">
