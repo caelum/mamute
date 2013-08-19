@@ -1,10 +1,11 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@attribute name="rssFeed" type="br.com.caelum.brutal.infra.rss.read.RSSFeed" required="true" %>
 
 <c:if test="${not empty rssFeed.channel.items}">
-	<h2 class="title page-title subheader">Ofertas de Empregos</h2>
+	<h2 class="title page-title subheader"><fmt:message key="jobs.rss.title"/></h2>
 	
 	<ol>
 		<c:forEach items="${rssFeed.channel.items}" var="item">
