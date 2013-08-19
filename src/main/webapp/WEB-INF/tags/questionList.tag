@@ -16,8 +16,7 @@
 			<a href="<c:url value='/ranking/${tag.name}'/>" title='<fmt:message key="users.ranking.tag.title"/> ${tag.name}' class="icon-award"><fmt:message key="users.ranking.tag"/></a>
 		</c:if>
 	</h2>
-	<span class="main-tags-title"><fmt:message key="tags.main"/>:</span> 
-	<tags:brutal-include value="mainTags"/>
+	<tags:brutal-include value="headerTags"/>
 	<c:if test="${not empty rssUrl}">
 		<a href="${rssUrl}" class="rss-link"><i class="icon-rss"></i></a>
 	</c:if>

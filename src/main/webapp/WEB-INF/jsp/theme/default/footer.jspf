@@ -36,7 +36,7 @@
 		</ul>
 	</div>
 	<div class="dark-footer">
-		<tags:brutal-include value="mainTags"/>
+		<tags:brutal-include value="footerTags"/>
 		<ol class="main-tags main-tags-second">
 			<li><a class="tag-brutal" href="http://www.lumpa.com.br/tag/photoshop">photoshop</a></li>
 			<li><a class="tag-brutal" href="http://www.lumpa.com.br/tag/illustrator">illustrator</a></li>
