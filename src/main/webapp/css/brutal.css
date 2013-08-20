@@ -57,7 +57,6 @@ a:hover{
 
 .title,.title a {
 	font-family: Trebuchet MS, Liberation Sans, DejaVu Sans, sans-serif;
-	line-height: 2.2em;
 }
 
 .subheader {
@@ -129,6 +128,7 @@ a:hover{
 
 .page-title,.page-title a {
 	font-size: 1.4em;
+	line-height: 2.2em;
 }
 
 .section-title,.section-title a {
