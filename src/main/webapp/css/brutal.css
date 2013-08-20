@@ -2500,11 +2500,18 @@ a.button.ask-a-question:hover{
 
 .main-tags-header {
 	background: #c0d6e5;	
-	width: 84%;
 	height: 40px;
 	box-shadow: 2px 2px 2px #ccc;
 	border-radius: 5px;
 	margin-left: 1em; 
+}
+
+.subheader-with-tag .main-tags-header {
+	width: 70%;
+}
+
+.subheader-without-tag .main-tags-header {
+	width: 84%;
 }
 
 .main-tags-sprite {

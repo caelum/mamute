@@ -8,7 +8,7 @@
 <%@attribute name="rssUrl" type="java.lang.String" required="false"%>
 <%@attribute name="tag" type="br.com.caelum.brutal.model.Tag" required="false"%>
 
-<div class="subheader">
+<div class="subheader ${not empty tag? 'subheader-with-tag' : 'subheader-without-tag' }">
 	<h2 class="title page-title">
 		${title}
 		<c:if test="${not empty tag}">
