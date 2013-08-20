@@ -1061,6 +1061,36 @@ a.button.ask-a-question:hover{
 	margin-bottom: 0;
 }
 
+.sidebar-list {
+	margin-bottom: 0.5em;
+	overflow: hidden;
+}
+
+.sidebar-item {
+	padding: 1% 0;
+}
+
+.sidebar-item a {
+	font-family: Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif;
+}
+
+.sidebar-summary{
+	width: 90%;
+}
+
+.sidebar-item-title {
+	margin-bottom: 0;
+	font-size: 1em;
+	display: inline;
+}
+
+.more-items {
+	margin-bottom: 1em;
+	display: inline-block;
+	width: 100%;
+	text-align: right;
+}
+
 /*BUTTON*/
 .button {
 	padding: 0 1.5em;
@@ -1221,32 +1251,12 @@ a.button.ask-a-question:hover{
 	display: block;
 }
 
-.other-news {
-	margin-bottom: 1em;
-	display: inline-block;
-	width: 100%;
-	text-align: right;
-}
-
 .post-under-review{
 	opacity: 0.5;
 }
 
 .post-under-review .news-summary{
 	width: 75%;
-}
-
-.news-item {
-	padding: 1% 0;
-}
-
-.news-list {
-	margin-bottom: 0.5em;
-	overflow: hidden;
-}
-
-.news-item a {
-	font-family: Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif;
 }
 
 .news-big-items{
@@ -1261,12 +1271,6 @@ a.button.ask-a-question:hover{
  	border-left: 1px solid #EAEAEA; 
 } 
 */
-
-.home-news-title {
-	margin-bottom: 0;
-	font-size: 1em;
-	display: inline;
-}
 
 .news-summary time {
 	font-size: 0.9em;
