@@ -41,7 +41,9 @@
 	.menu-rank{
 		display: none;
 	}
-		
+	.main-tags-header {
+		width: 80%;
+	}	
 	
 }
 
@@ -79,6 +81,10 @@
 	.complete-user .user-info * {
 		height: auto;
 	}
+	.main-tags-header {
+		width: 75%;
+	}	
+	
 	
 }
 
@@ -176,6 +182,10 @@
 	.big-ads {
 		display: block;
 	}
+	.main-tags-text {
+		padding-left: 2.7em;
+	}
+	
 }
 	
 @media only screen and (max-width: 800px) {
@@ -361,6 +371,10 @@
 	.tag-ranking-section{
 		width: 100%;
 	}
+	.main-tags-header {
+		width: 80%;
+	}	
+	
 }
 
 @media only screen and (max-width: 620px) {
@@ -396,7 +410,9 @@
 	.profile-image {
 		width: 98%;
 	}
-	
+	.main-tags-header {
+		width: 75%;
+	}	
 	
 }
 
@@ -455,6 +471,10 @@
 	.data-section .data-description {
 		width: 60%;
 	}
+	
+	.main-tags-header {
+		width: 77%;
+	}	
 }
 
 
@@ -493,6 +513,9 @@
 		width: 35%;
 		padding-right: 1%;
 	}
+	.main-tags-header {
+		width: 70%;
+	}	
 }
 
 @media only screen and (max-width: 400px) {
@@ -531,5 +554,8 @@
 
 	.ranking-item{
 		width:100;
+	}	
+	.main-tags-header {
+		width: 54%;
 	}	
 }
