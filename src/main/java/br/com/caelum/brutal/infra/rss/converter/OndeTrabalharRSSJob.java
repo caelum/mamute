@@ -21,9 +21,9 @@ public class OndeTrabalharRSSJob implements CronTask{
 	@Override
 	@Path("/asjkfnaowo21jkhwe12341")
 	public void execute() {
-		LOG.info("executing " + getClass().getSimpleName());
+		LOG.debug("executing " + getClass().getSimpleName());
 		feedsMap.putOrUpdate(JOBS_BASE_KEY);
-		LOG.info(feedsMap.get(JOBS_BASE_KEY));
+		LOG.debug(feedsMap.get(JOBS_BASE_KEY));
 		result.notFound();
 	}
 
