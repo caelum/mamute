@@ -1235,7 +1235,7 @@ a.button.ask-a-question:hover{
 }
 
 .news-summary .item-title-wrapper{
-	width: 70%;
+	width: 80%;
 }
 
 .news-summary .last-touch{
@@ -1246,6 +1246,14 @@ a.button.ask-a-question:hover{
 	float:left;
 	padding-left: 2em;
 	padding-right: 2em;
+	max-width: 75%;
+}
+
+
+.news-description{
+	padding-left: 2em;
+	padding-top: .5em;
+	width: 95%;
 }
 
 .news-guideline {
@@ -2495,12 +2503,6 @@ a.button.ask-a-question:hover{
 .medium-ads{
 	width: 300px;
 	height: 250px;
-}
-
-.description-news{
-	padding-left: 2em;
-	padding-top: .5em;
-	width: 80%;
 }
 
 .main-tags-header {

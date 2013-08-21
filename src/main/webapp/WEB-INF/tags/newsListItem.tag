@@ -19,13 +19,13 @@
 				<div class="comments post-simple-information news-simple-information">
 					${news.getVisibleCommentsFor(currentUser.current).size()} <tags:pluralize key="post.list.comment" count="${news.getVisibleCommentsFor(currentUser.current).size()}"/>
 				</div>
+				<div class="summary news-description ellipsis">
+					${news.getTrimmedContent()}
+				</div>
 			</div>
 			
 			<tags:lastTouchFor touchable="${news}" prettyFormat="${false}"/>
 			
-			<div class="summary description-news">
-				${news.getTrimmedContent()}
-			</div>
 		</div>		
 		<c:if test="${not news.approved && currentUser.moderator}">
 			<a class="approve-news" href="${linkTo[NewsController].approve[news]}"><fmt:message key="news.approve"/></a>

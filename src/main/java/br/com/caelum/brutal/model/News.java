@@ -18,6 +18,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+import org.owasp.html.HtmlPolicyBuilder;
 
 import br.com.caelum.brutal.infra.NotFoundException;
 import br.com.caelum.brutal.model.interfaces.Moderatable;
@@ -305,8 +306,12 @@ public class News extends Moderatable implements Post, ViewCountable, Watchable,
     public String getTrimmedContent() {
         String markedDescription = getMarkedDescription();
         if (markedDescription.length() < 125)
-            return markedDescription;
-        return markedDescription.substring(0, 125) + "...";
+            return sanitize(markedDescription);
+        return sanitize(markedDescription.substring(0, 125));
     }
+
+	private String sanitize(String markedDescription) {
+		return new HtmlPolicyBuilder().toFactory().sanitize(markedDescription) + "...";
+	}
 }
 
