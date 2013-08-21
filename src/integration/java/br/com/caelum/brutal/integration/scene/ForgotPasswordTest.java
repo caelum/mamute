@@ -23,6 +23,7 @@ public class ForgotPasswordTest extends AcceptanceTestBase implements ServerInfo
     @BeforeClass
     public static void setup() throws IOException {
         SessionFactoryCreator sessionFactoryCreator = new SessionFactoryCreator(env);
+        sessionFactoryCreator.init();
         SessionFactory sf = sessionFactoryCreator.getInstance();
         SESSION = sf.openSession();
     }

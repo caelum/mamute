@@ -62,7 +62,7 @@ public class SessionFactoryCreator {
 	}
 
 	@PostConstruct
-	private void init() {
+	public void init() {
 		URL xml = env.getResource("/hibernate.cfg.xml");
 		LOGGER.info("Loading hibernate xml from " + xml);
 		this.cfg = new Configuration().configure(xml);

@@ -17,6 +17,7 @@ public class ScriptSessionFactoryCreator {
     public ScriptSessionFactoryCreator() {
     	Environment env = buildEnv();
     	sessionFactoryCreator = new SessionFactoryCreator(env);
+    	sessionFactoryCreator.init();
 	}
     
     public void dropAndCreate(){
