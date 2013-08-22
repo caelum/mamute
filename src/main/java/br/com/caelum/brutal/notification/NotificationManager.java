@@ -1,11 +1,17 @@
 package br.com.caelum.brutal.notification;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
+import org.jboss.weld.context.bound.BoundRequestContext;
+import org.jboss.weld.context.bound.BoundSessionContext;
 
 import br.com.caelum.brutal.dao.WatcherDAO;
 import br.com.caelum.brutal.infra.AfterSuccessfulTransaction;
@@ -13,6 +19,7 @@ import br.com.caelum.brutal.infra.ThreadPoolContainer;
 import br.com.caelum.brutal.mail.action.EmailAction;
 import br.com.caelum.brutal.model.interfaces.Watchable;
 import br.com.caelum.brutal.model.watch.Watcher;
+import br.com.caelum.vraptor4.core.RequestInfo;
 
 public class NotificationManager {
 	private final static Logger LOG = Logger.getLogger(NotificationManager.class);
@@ -20,7 +27,13 @@ public class NotificationManager {
 	@Inject private WatcherDAO watchers;
 	@Inject private NotificationMailer mailer;
 	@Inject private ThreadPoolContainer threadPoolContainer;
-	@Inject private AfterSuccessfulTransaction afterTransaction; 
+	@Inject private AfterSuccessfulTransaction afterTransaction;
+	
+	
+	@Inject	private BoundRequestContext requestContext;
+	@Inject	private BoundSessionContext sessionContext;
+	@Inject private RequestInfo requestInfo;
+	@Inject	private BeanManager beanManager;
 
 	public void sendEmailsAndInactivate(EmailAction emailAction) {
 		Watchable watchable = emailAction.getMainThread();
@@ -48,9 +61,23 @@ public class NotificationManager {
 	}
 
 	private void sendMailsAsynchronously(final List<NotificationMail> mails) {
+		
 		threadPoolContainer.execute(new Runnable() {
 			@Override
 			public void run() {
+				
+				Map<String, Object> requestDataStore = Collections
+						.synchronizedMap(new HashMap<String, Object>());
+				requestContext.associate(requestDataStore);
+				requestContext.activate();
+				
+				Map<String, Object> sessionDataStore = Collections
+						.synchronizedMap(new HashMap<String, Object>());
+				sessionContext.associate(sessionDataStore);
+				sessionContext.activate();
+				
+				beanManager.fireEvent(requestInfo);
+				
 				for (NotificationMail notificationMail : mails) {
 					try {
 						LOG.info("Sending email: " + notificationMail);
@@ -59,6 +86,13 @@ public class NotificationManager {
 						LOG.error("Could not send email: " + notificationMail, e);
 					}
 				}
+				
+				requestContext.invalidate();
+				requestContext.deactivate();
+				requestContext.dissociate(requestDataStore);
+				sessionContext.invalidate();
+				sessionContext.deactivate();
+				sessionContext.dissociate(sessionDataStore);
 			}
 		});
 	}

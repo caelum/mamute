@@ -13,6 +13,7 @@ import org.joda.time.format.DateTimeFormatter;
 import org.owasp.html.HtmlPolicyBuilder;
 import org.owasp.html.PolicyFactory;
 
+import br.com.caelum.brutal.components.OutOfSessionLocalization;
 import br.com.caelum.brutal.controllers.ListController;
 import br.com.caelum.brutal.controllers.NewsController;
 import br.com.caelum.brutal.controllers.QuestionController;
@@ -27,7 +28,6 @@ import br.com.caelum.brutal.vraptor.Linker;
 import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.simplemail.Mailer;
 import br.com.caelum.vraptor.simplemail.template.TemplateMailer;
-import br.com.caelum.vraptor4.core.Localization;
 
 public class NotificationMailer {
 	private static final Logger LOG = Logger.getLogger(NotificationMailer.class);
@@ -35,7 +35,7 @@ public class NotificationMailer {
     
     @Inject private Mailer mailer;
     @Inject private TemplateMailer templates;
-    @Inject private Localization localization;
+    @Inject private OutOfSessionLocalization localization;
     @Inject private Linker linker;
 	@Inject private Environment env;
 
