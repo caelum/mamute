@@ -13,13 +13,16 @@ import org.apache.log4j.Logger;
 import org.jboss.weld.context.bound.BoundRequestContext;
 import org.jboss.weld.context.bound.BoundSessionContext;
 
+import br.com.caelum.brutal.components.CDIFakeRequestProvider;
 import br.com.caelum.brutal.dao.WatcherDAO;
 import br.com.caelum.brutal.infra.AfterSuccessfulTransaction;
 import br.com.caelum.brutal.infra.ThreadPoolContainer;
 import br.com.caelum.brutal.mail.action.EmailAction;
 import br.com.caelum.brutal.model.interfaces.Watchable;
 import br.com.caelum.brutal.model.watch.Watcher;
+import br.com.caelum.vraptor4.core.Execution;
 import br.com.caelum.vraptor4.core.RequestInfo;
+import br.com.caelum.vraptor4.ioc.Container;
 
 public class NotificationManager {
 	private final static Logger LOG = Logger.getLogger(NotificationManager.class);
@@ -29,11 +32,7 @@ public class NotificationManager {
 	@Inject private ThreadPoolContainer threadPoolContainer;
 	@Inject private AfterSuccessfulTransaction afterTransaction;
 	
-	
-	@Inject	private BoundRequestContext requestContext;
-	@Inject	private BoundSessionContext sessionContext;
-	@Inject private RequestInfo requestInfo;
-	@Inject	private BeanManager beanManager;
+	@Inject	private CDIFakeRequestProvider fakeProvider;
 
 	public void sendEmailsAndInactivate(EmailAction emailAction) {
 		Watchable watchable = emailAction.getMainThread();
@@ -65,34 +64,20 @@ public class NotificationManager {
 		threadPoolContainer.execute(new Runnable() {
 			@Override
 			public void run() {
-				
-				Map<String, Object> requestDataStore = Collections
-						.synchronizedMap(new HashMap<String, Object>());
-				requestContext.associate(requestDataStore);
-				requestContext.activate();
-				
-				Map<String, Object> sessionDataStore = Collections
-						.synchronizedMap(new HashMap<String, Object>());
-				sessionContext.associate(sessionDataStore);
-				sessionContext.activate();
-				
-				beanManager.fireEvent(requestInfo);
-				
-				for (NotificationMail notificationMail : mails) {
-					try {
-						LOG.info("Sending email: " + notificationMail);
-						mailer.send(notificationMail);
-					} catch (Exception e) {
-						LOG.error("Could not send email: " + notificationMail, e);
+				fakeProvider.insideRequest(new Execution<Void>() {
+					@Override
+					public Void insideRequest(Container container) {
+						for (NotificationMail notificationMail : mails) {
+							try {
+								LOG.info("Sending email: " + notificationMail);
+								mailer.send(notificationMail);
+							} catch (Exception e) {
+								LOG.error("Could not send email: " + notificationMail, e);
+							}
+						}
+						return null;
 					}
-				}
-				
-				requestContext.invalidate();
-				requestContext.deactivate();
-				requestContext.dissociate(requestDataStore);
-				sessionContext.invalidate();
-				sessionContext.deactivate();
-				sessionContext.dissociate(sessionDataStore);
+				});
 			}
 		});
 	}
