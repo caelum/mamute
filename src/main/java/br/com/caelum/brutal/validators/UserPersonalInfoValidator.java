@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.validators;
 
+import javax.inject.Inject;
+
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
@@ -38,6 +40,7 @@ public class UserPersonalInfoValidator {
 	public UserPersonalInfoValidator() {
 	}
 
+	@Inject
 	public UserPersonalInfoValidator(Validator validator, EmailValidator emailValidator, 
 			MessageFactory messageFactory, Localization localization){
 		this.validator = validator;
