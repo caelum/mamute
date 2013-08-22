@@ -549,6 +549,11 @@
 	}
 }
 
+@media only screen and (max-width: 350px) {
+	.main-tags-header{
+		display: none;	
+	}
+}
 
 @media only screen and (max-width: 340px) {
 
