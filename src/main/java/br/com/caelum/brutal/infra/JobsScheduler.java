@@ -2,40 +2,33 @@ package br.com.caelum.brutal.infra;
 
 import static br.com.caelum.brutal.infra.JobsConfigurationController.CONFIG_PATH;
 
-import java.io.IOException;
-
-import javax.annotation.PostConstruct;
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
 
 import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 
 import br.com.caelum.vraptor.environment.Environment;
-import br.com.caelum.vraptor.ioc.ApplicationScoped;
-import br.com.caelum.vraptor.ioc.Component;
+import br.com.caelum.vraptor4.events.VRaptorInitialized;
+import br.com.caelum.vraptor4.ioc.ApplicationScoped;
 
-@Component
 @ApplicationScoped
 public class JobsScheduler {
 
 	private static final Logger LOG = Logger.getLogger(JobsScheduler.class);
-	private final Environment env;
+	@Inject private Environment env;
 
-	public JobsScheduler(Environment env) {
-		this.env = env;
-	}
-
-	@PostConstruct
-	public void makeRequest() throws HttpException, IOException {
+	public void makeRequest(@Observes VRaptorInitialized initialized) {
 		String url = (env.get("host") + CONFIG_PATH);
+		LOG.info("Verifying if should schedule jobs on startup");
 		if ("true".equals(env.get("schedule_jobs_on_startup"))) {
 			LOG.info("Starting thread to schedule jobs");
 			new Thread(new StartQuartz(url)).start();
 		}
 	}
 
-	class StartQuartz implements Runnable {
+	static class StartQuartz implements Runnable {
 		private final String url;
 
 		public StartQuartz(String url) {

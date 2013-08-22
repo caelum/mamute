@@ -1,34 +1,29 @@
 package br.com.caelum.brutal.infra.rss.converter;
 
+import javax.inject.Inject;
+
 import org.apache.log4j.Logger;
 
 import br.com.caelum.brutal.infra.rss.read.FeedsMap;
-import br.com.caelum.vraptor.Path;
-import br.com.caelum.vraptor.Resource;
-import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.quartzjob.CronTask;
+import br.com.caelum.vraptor4.Controller;
+import br.com.caelum.vraptor4.Path;
+import br.com.caelum.vraptor4.Result;
 
-@Resource
+@Controller
 public class OndeTrabalharRSSJob implements CronTask{
 	private static final String JOBS_BASE_KEY = "jobs";
-	private final Result result;
 	private static final Logger LOG = Logger.getLogger(OndeTrabalharRSSJob.class);
-	private final FeedsMap feedsMap;
-	private final Environment env;
+	@Inject private Result result;
+	@Inject private FeedsMap feedsMap;
 
-	public OndeTrabalharRSSJob(Result result, FeedsMap feedsMap, Environment env) {
-		this.result = result;
-		this.feedsMap = feedsMap;
-		this.env = env;
-	}
 
 	@Override
 	@Path("/asjkfnaowo21jkhwe12341")
 	public void execute() {
-		LOG.info("executing " + getClass().getSimpleName());
+		LOG.debug("executing " + getClass().getSimpleName());
 		feedsMap.putOrUpdate(JOBS_BASE_KEY);
-		LOG.info(feedsMap.get(JOBS_BASE_KEY));
+		LOG.debug(feedsMap.get(JOBS_BASE_KEY));
 		result.notFound();
 	}
 

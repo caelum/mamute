@@ -24,6 +24,7 @@ public abstract class DatabaseTestCase extends TestCase {
 		try {
 			Environment testing = new DefaultEnvironment("testing");
 			creator = new SessionFactoryCreator(testing);
+			creator.init();
 			factory = creator.getInstance();
 		} catch (IOException e) {
 			throw new RuntimeException(e);

@@ -44,7 +44,7 @@
         </layout>
     </appender>
 
-    <category name="br.com.caelum.vraptor">
+    <category name="br.com.caelum.vraptor4">
         <priority value="INFO"/>
         <appender-ref ref="main"/>
     </category>

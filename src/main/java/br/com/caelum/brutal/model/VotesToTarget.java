@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import br.com.caelum.vraptor.ioc.ApplicationScoped;
-
 public class VotesToTarget {
 	Map<User, VotesFromAuthor> votesToTarget = new HashMap<User, VotesFromAuthor>();
 	private final VoteType votesType;

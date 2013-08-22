@@ -4,7 +4,7 @@ import static java.util.Arrays.asList;
 
 import java.util.Enumeration;
 
-import javax.servlet.ServletContext;
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
@@ -20,50 +20,33 @@ import br.com.caelum.brutal.infra.SideBarInfo;
 import br.com.caelum.brutal.util.BrutalDateFormat;
 import br.com.caelum.brutauth.interceptors.CustomBrutauthRuleInterceptor;
 import br.com.caelum.brutauth.interceptors.SimpleBrutauthRuleInterceptor;
-import br.com.caelum.vraptor.InterceptionException;
-import br.com.caelum.vraptor.Intercepts;
-import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.core.InterceptorStack;
-import br.com.caelum.vraptor.core.Localization;
 import br.com.caelum.vraptor.environment.Environment;
-import br.com.caelum.vraptor.interceptor.Interceptor;
-import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.plugin.hibernate4.extra.ParameterLoaderInterceptor;
-import br.com.caelum.vraptor.resource.ResourceMethod;
+import br.com.caelum.vraptor4.InterceptionException;
+import br.com.caelum.vraptor4.Intercepts;
+import br.com.caelum.vraptor4.Result;
+import br.com.caelum.vraptor4.core.InterceptorStack;
+import br.com.caelum.vraptor4.core.Localization;
+import br.com.caelum.vraptor4.interceptor.Interceptor;
+import br.com.caelum.vraptor4.restfulie.controller.ControllerMethod;
 
-@Component
+
 @Intercepts(before={ParameterLoaderInterceptor.class, CustomBrutauthRuleInterceptor.class, SimpleBrutauthRuleInterceptor.class})
-public class GlobalInterceptor implements Interceptor {
+public class GlobalInterceptor implements Interceptor{
 	
 	private static final String SLASH_AT_END = "/$";
-	private final Environment env;
-	private final Result result;
-	private final HttpServletRequest req;
-	private final Localization localization;
-	private static final Logger LOG = Logger.getLogger(GlobalInterceptor.class);
-	private final MenuInfo menuInfo;
-	private BrutalDateFormat brutalDateFormat;
-	private final MessageFactory messageFactory;
-	private final BrutalAds ads;
-	private final SideBarInfo sideBarInfo;
+	private static final Logger LOG = Logger.getLogger(GlobalInterceptor.class);	
+	@Inject private Environment env;
+	@Inject private Result result;
+	@Inject private HttpServletRequest req;
+	@Inject private Localization localization;
+	@Inject private MenuInfo menuInfo;
+	@Inject private BrutalDateFormat brutalDateFormat;
+	@Inject private MessageFactory messageFactory;
+	@Inject private BrutalAds ads;
+	@Inject private SideBarInfo sideBarInfo;
 
-	public GlobalInterceptor(Environment env, Result result, 
-			HttpServletRequest req, Localization localization,  
-			ServletContext servletContext, MenuInfo menuInfo, SideBarInfo sideBarInfo,
-			BrutalDateFormat brutalDateFormat, MessageFactory messageFactory,
-			BrutalAds ads) {
-		this.env = env;
-		this.result = result;
-		this.req = req;
-		this.localization = localization;
-		this.menuInfo = menuInfo;
-		this.sideBarInfo = sideBarInfo;
-		this.brutalDateFormat = brutalDateFormat;
-		this.messageFactory = messageFactory;
-		this.ads = ads;
-	}
-
-	public void intercept(InterceptorStack stack, ResourceMethod method,
+	public void intercept(InterceptorStack stack, ControllerMethod method,
 			Object resourceInstance) throws InterceptionException {
 		menuInfo.include();
 		sideBarInfo.include();
@@ -113,7 +96,8 @@ public class GlobalInterceptor implements Interceptor {
 		}
 	}
 
-	public boolean accepts(ResourceMethod method) {
+	@Override
+	public boolean accepts(ControllerMethod method) {
 		return true;
 	}
 

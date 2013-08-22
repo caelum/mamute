@@ -3,9 +3,14 @@ package br.com.caelum.brutal.providers;
 import java.net.URL;
 import java.util.Properties;
 
-import javax.annotation.PreDestroy;
+import javax.annotation.PostConstruct;
+import javax.annotation.Priority;
+import javax.enterprise.inject.Alternative;
+import javax.enterprise.inject.Disposes;
+import javax.enterprise.inject.Produces;
+import javax.inject.Inject;
+import javax.interceptor.Interceptor;
 
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
@@ -13,7 +18,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import br.com.caelum.brutal.components.HerokuDatabaseInformation;
-import br.com.caelum.brutal.migration.DatabaseManager;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.AnswerInformation;
 import br.com.caelum.brutal.model.Comment;
@@ -32,21 +36,33 @@ import br.com.caelum.brutal.model.UserSession;
 import br.com.caelum.brutal.model.Vote;
 import br.com.caelum.brutal.model.watch.Watcher;
 import br.com.caelum.vraptor.environment.Environment;
-import br.com.caelum.vraptor.ioc.ApplicationScoped;
-import br.com.caelum.vraptor.ioc.Component;
-import br.com.caelum.vraptor.ioc.ComponentFactory;
+import br.com.caelum.vraptor4.ioc.ApplicationScoped;
 
-@Component
 @ApplicationScoped
-public class SessionFactoryCreator implements ComponentFactory<SessionFactory> {
+@Alternative
+@Priority(Interceptor.Priority.APPLICATION)
+public class SessionFactoryCreator {
 	
 	public static final String JODA_TIME_TYPE= "org.jadira.usertype.dateandtime.joda.PersistentDateTime";
-
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(SessionFactoryCreator.class);
+	
 	private Configuration cfg;
+	private SessionFactory factory;
+	private Environment env;
 
+	@Deprecated
+	public SessionFactoryCreator() {
+	}
+
+	@Inject
 	public SessionFactoryCreator(Environment env) {
+		this.env = env;
+
+	}
+
+	@PostConstruct
+	public void init() {
 		URL xml = env.getResource("/hibernate.cfg.xml");
 		LOGGER.info("Loading hibernate xml from " + xml);
 		this.cfg = new Configuration().configure(xml);
@@ -80,29 +96,25 @@ public class SessionFactoryCreator implements ComponentFactory<SessionFactory> {
 		cfg.addAnnotatedClass(NewsletterSentLog.class);
 		cfg.addAnnotatedClass(TagPage.class);
 
-		init();
-	}
-
-	private void init() {
 		this.factory = cfg.buildSessionFactory();
+		
 	}
 
-	private SessionFactory factory;
-
+	@Produces
+	@javax.enterprise.context.ApplicationScoped
 	public SessionFactory getInstance() {
 		return factory;
 	}
 
-	@PreDestroy
-	void destroy() {
-		if(!factory.isClosed()) {
-		factory.close();
+	void destroy(@Disposes SessionFactory factory) {
+		if (!factory.isClosed()) {
+			factory.close();
 		}
 		factory = null;
 	}
 
 	public void dropAndCreate() {
-		destroy();
+		destroy(this.factory);
 		new SchemaExport(cfg).drop(true, true);
 		new SchemaExport(cfg).create(true, true);
 		init();
@@ -118,8 +130,4 @@ public class SessionFactoryCreator implements ComponentFactory<SessionFactory> {
 		return cfg;
 	}
 	
-	public void createFromScratch() {
-		final Session session = factory.openSession();
-		new DatabaseManager(session).importAll("/db_structure.sql");
-	}
 }

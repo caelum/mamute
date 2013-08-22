@@ -4,6 +4,8 @@ import static br.com.caelum.brutal.dao.WithUserPaginatedDAO.OrderType.ByDate;
 import static br.com.caelum.brutal.dao.WithUserPaginatedDAO.OrderType.ByVotes;
 import static java.util.Arrays.asList;
 
+import javax.inject.Inject;
+
 import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOnlyRule;
@@ -20,43 +22,27 @@ import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.validators.UserPersonalInfoValidator;
 import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
-import br.com.caelum.vraptor.Get;
-import br.com.caelum.vraptor.Post;
-import br.com.caelum.vraptor.Resource;
-import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.plugin.hibernate4.extra.Load;
+import br.com.caelum.vraptor4.Controller;
+import br.com.caelum.vraptor4.Get;
+import br.com.caelum.vraptor4.Post;
+import br.com.caelum.vraptor4.Result;
 
-@Resource
-public class UserProfileController extends Controller{
+@Controller
+public class UserProfileController extends BaseController{
 	
-	private Result result;
-	private UserDAO users;
-	private LoggedUser currentUser;
-	private final QuestionDAO questions;
-	private final AnswerDAO answers;
-	private UserPersonalInfoValidator infoValidator;
-    private final TagDAO tags;
 	private static final String HTTP = "http://";
-	private final WatcherDAO watchers;
-	private ReputationEventDAO reputationEvents;
-	private MessageFactory messageFactory;
+	@Inject private Result result;
+	@Inject private UserDAO users;
+	@Inject private LoggedUser currentUser;
+	@Inject private UserPersonalInfoValidator infoValidator;
+	@Inject private QuestionDAO questions;
+	@Inject private AnswerDAO answers;
+    @Inject private TagDAO tags;
+	@Inject private WatcherDAO watchers;
+	@Inject private ReputationEventDAO reputationEvents;
+	@Inject private MessageFactory messageFactory;
 
-    public UserProfileController(Result result, UserDAO users, LoggedUser currentUser,
-            QuestionDAO questions, AnswerDAO answers, TagDAO tags, WatcherDAO watchers,
-            UserPersonalInfoValidator infoValidator, ReputationEventDAO reputationEvents,
-            MessageFactory messageFactory) {
-		this.result = result;
-		this.users = users;
-		this.currentUser = currentUser;
-		this.answers = answers;
-		this.questions = questions;
-		this.tags = tags;
-		this.watchers = watchers;
-		this.infoValidator = infoValidator;
-		this.reputationEvents = reputationEvents;
-		this.messageFactory = messageFactory;
-	}
-	
 	@Get("/usuario/{user.id:[0-9]+}/{sluggedName}")
 	public void showProfile(@Load User user, String sluggedName){
 		if (redirectToRightSluggedName(user, sluggedName)) {

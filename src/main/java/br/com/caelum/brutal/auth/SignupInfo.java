@@ -8,7 +8,6 @@ import br.com.caelum.brutal.model.MethodType;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-
 public class SignupInfo {
 
 	private final MethodType method;

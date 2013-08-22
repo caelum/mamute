@@ -1,5 +1,8 @@
 package br.com.caelum.brutal.controllers;
 
+import javax.annotation.Resource;
+import javax.inject.Inject;
+
 import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOnlyRule;
 import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.dao.TagPageDAO;
@@ -7,27 +10,18 @@ import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.TagPage;
 import br.com.caelum.brutal.validators.TagPageValidator;
 import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
-import br.com.caelum.vraptor.Get;
-import br.com.caelum.vraptor.Post;
-import br.com.caelum.vraptor.Resource;
-import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor4.Get;
+import br.com.caelum.vraptor4.Post;
+import br.com.caelum.vraptor4.Result;
 
 @Resource
 public class TagPageController {
 
-	private final TagDAO tags;
-	private final Result result;
-	private final TagPageDAO tagPages;
-	private final TagPageValidator validator;
+	@Inject private TagDAO tags;
+	@Inject private Result result;
+	@Inject private TagPageDAO tagPages;
+	@Inject private TagPageValidator validator;
 
-	public TagPageController(TagDAO tags, Result result, TagPageDAO tagPages,
-			TagPageValidator validator) {
-		this.tags = tags;
-		this.result = result;
-		this.tagPages = tagPages;
-		this.validator = validator;
-	}
-	
 	@Get("/tag/{tagName}/sobre/novo")
 	@CustomBrutauthRules(ModeratorOnlyRule.class)
 	public void tagPageForm(String tagName){

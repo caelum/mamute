@@ -6,6 +6,8 @@ import static java.util.Arrays.asList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import br.com.caelum.brutal.auth.FacebookAuthService;
 import br.com.caelum.brutal.brutauth.auth.rules.EditQuestionRule;
 import br.com.caelum.brutal.brutauth.auth.rules.LoggedRule;
@@ -29,35 +31,42 @@ import br.com.caelum.brutal.model.watch.Watcher;
 import br.com.caelum.brutal.validators.TagsValidator;
 import br.com.caelum.brutal.vraptor.Linker;
 import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
-import br.com.caelum.vraptor.Get;
-import br.com.caelum.vraptor.Post;
-import br.com.caelum.vraptor.Resource;
-import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.plugin.hibernate4.extra.Load;
-import br.com.caelum.vraptor.serialization.xstream.XStreamBuilder;
-import br.com.caelum.vraptor.view.Results;
+import br.com.caelum.vraptor4.Controller;
+import br.com.caelum.vraptor4.Get;
+import br.com.caelum.vraptor4.Post;
+import br.com.caelum.vraptor4.Result;
+import br.com.caelum.vraptor4.Validator;
+import br.com.caelum.vraptor4.serialization.xstream.XStreamBuilder;
+import br.com.caelum.vraptor4.view.Results;
 
 import com.thoughtworks.xstream.XStream;
 
-@Resource
+@Controller
 public class QuestionController {
 
-	private final Result result;
-	private final QuestionDAO questions;
-	private final TagDAO tags;
-	private final VoteDAO votes;
-	private final LoggedUser currentUser;
-	private final TagsValidator tagsValidator;
-	private final MessageFactory messageFactory;
-	private final Validator validator;
-	private final FacebookAuthService facebook;
-	private final PostViewCounter viewCounter;
+	private Result result;
+	private QuestionDAO questions;
+	private TagDAO tags;
+	private VoteDAO votes;
+	private LoggedUser currentUser;
+	private TagsValidator tagsValidator;
+	private MessageFactory messageFactory;
+	private Validator validator;
+	private FacebookAuthService facebook;
+	private PostViewCounter viewCounter;
 	private Linker linker;
-	private final WatcherDAO watchers;
-	private final ReputationEventDAO reputationEvents;
+	private WatcherDAO watchers;
+	private ReputationEventDAO reputationEvents;
 	private XStream json;
 
+	/**
+	 * @deprecated CDI eyes only 
+	 */
+	public QuestionController() {
+	}
+	
+	@Inject
 	public QuestionController(Result result, QuestionDAO questionDAO, TagDAO tags, 
 			VoteDAO votes, LoggedUser currentUser, FacebookAuthService facebook,
 			TagsValidator tagsValidator, MessageFactory messageFactory,

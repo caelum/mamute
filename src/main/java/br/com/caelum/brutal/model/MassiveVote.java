@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 
-import br.com.caelum.vraptor.ioc.ApplicationScoped;
+import br.com.caelum.vraptor4.ioc.ApplicationScoped;
 
 @ApplicationScoped
 public class MassiveVote {

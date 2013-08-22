@@ -1,33 +1,44 @@
 package br.com.caelum.brutal.providers;
 
+import javax.enterprise.inject.Specializes;
+import javax.inject.Inject;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import br.com.caelum.brutal.infra.AfterSuccessfulTransaction;
-import br.com.caelum.vraptor.Intercepts;
-import br.com.caelum.vraptor.Validator;
-import br.com.caelum.vraptor.core.InterceptorStack;
-import br.com.caelum.vraptor.interceptor.Interceptor;
-import br.com.caelum.vraptor.resource.ResourceMethod;
+import br.com.caelum.vraptor.plugin.hibernate4.HibernateTransactionInterceptor;
+import br.com.caelum.vraptor4.Intercepts;
+import br.com.caelum.vraptor4.Validator;
+import br.com.caelum.vraptor4.interceptor.SimpleInterceptorStack;
 
 @Intercepts
-public class TransactionInterceptor implements Interceptor {
+@Specializes
+public class TransactionInterceptor extends HibernateTransactionInterceptor {
 
-	private final Session session;
-	private final Validator validator;
-	private final AfterSuccessfulTransaction afterTransaction;
-
-	public TransactionInterceptor(Session session, Validator validator, AfterSuccessfulTransaction afterTransaction) {
+	private Session session;
+	private Validator validator;
+	private AfterSuccessfulTransaction afterTransaction;
+	
+	@Deprecated //CDI eyes only
+	public TransactionInterceptor() {
+	}
+	
+	@Inject
+	public TransactionInterceptor(Session session, Validator validator,
+			AfterSuccessfulTransaction afterTransaction) {
+		super(session, validator);
 		this.session = session;
 		this.validator = validator;
 		this.afterTransaction = afterTransaction;
-    }
-	
-	public void intercept(InterceptorStack stack, ResourceMethod method, Object instance) {
+	}
+
+	@Override
+	public void intercept(SimpleInterceptorStack stack) {
 		Transaction transaction = null;
 		try {
 			transaction = session.beginTransaction();
-			stack.next(method, instance);
+			stack.next();
 			if (!validator.hasErrors() && transaction.isActive()) {
 				transaction.commit();
 				afterTransaction.run();
@@ -39,12 +50,4 @@ public class TransactionInterceptor implements Interceptor {
 		}
 	}
 
-	/**
-	 * to avoid misterious bugs, every transaction should be inside a transaction, either get or post
-	 */
-    @Override
-    public boolean accepts(ResourceMethod method) {
-    	return true;
-    }
-    
 }

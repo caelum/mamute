@@ -3,25 +3,35 @@ package br.com.caelum.brutal.providers;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
+import javax.annotation.Priority;
+import javax.enterprise.inject.Alternative;
+import javax.inject.Inject;
+import javax.interceptor.Interceptor;
+
 import org.apache.log4j.Logger;
 
 import br.com.caelum.brutal.controllers.ListController;
 import br.com.caelum.vraptor.environment.Environment;
-import br.com.caelum.vraptor.http.route.PathAnnotationRoutesParser;
-import br.com.caelum.vraptor.http.route.Router;
-import br.com.caelum.vraptor.ioc.ApplicationScoped;
-import br.com.caelum.vraptor.ioc.Component;
+import br.com.caelum.vraptor4.http.route.PathAnnotationRoutesParser;
+import br.com.caelum.vraptor4.http.route.Router;
+import br.com.caelum.vraptor4.ioc.ApplicationScoped;
 
-@Component
 @ApplicationScoped
+@Alternative
+@Priority(Interceptor.Priority.APPLICATION)
 public class BrutalRoutesParser extends PathAnnotationRoutesParser {
+	private static final Logger LOG = Logger.getLogger(BrutalRoutesParser.class);
 
 	private Class<ListController> homeClazz;
 	private Method homeMethod;
 	private String homePath;
 	private boolean shouldHack = false;
-	private static final Logger LOG = Logger.getLogger(BrutalRoutesParser.class);
+	
+	@Deprecated
+	public BrutalRoutesParser() {
+	}
 
+	@Inject
 	public BrutalRoutesParser(Router router, Environment env) {
 		super(router);
 		String hack = env.get("use.routes.parser.hack", "false");

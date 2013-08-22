@@ -4,11 +4,11 @@ import java.util.Arrays;
 import java.util.Map;
 
 import br.com.caelum.brutal.interceptors.PimpMyControllerInterceptor;
-import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.View;
-import br.com.caelum.vraptor.validator.I18nMessage;
+import br.com.caelum.vraptor4.Result;
+import br.com.caelum.vraptor4.View;
+import br.com.caelum.vraptor4.validator.I18nMessage;
 
-public class Controller {
+public class BaseController {
 
 	protected Result result() {
 		return PimpMyControllerInterceptor.getResult();

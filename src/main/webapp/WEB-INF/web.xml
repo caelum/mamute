@@ -6,7 +6,7 @@
   <display-name>gujstack</display-name>
   <filter>
     <filter-name>vraptor</filter-name>
-    <filter-class>br.com.caelum.vraptor.VRaptor</filter-class>
+    <filter-class>br.com.caelum.vraptor4.VRaptor</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>vraptor</filter-name>
@@ -32,7 +32,7 @@
 		<param-value>br.com.caelum.vraptor.plugin.hibernate4.extra</param-value>
 	</context-param>
 	<context-param>
-		<param-name>br.com.caelum.vraptor.encoding</param-name>
+		<param-name>br.com.caelum.vraptor4.encoding</param-name>
 		<param-value>UTF-8</param-value>
 	</context-param>
 
@@ -89,4 +89,19 @@
 		</cookie-config>
 		<tracking-mode>COOKIE</tracking-mode>
 	</session-config>
+	
+	
+	<listener>
+	   <listener-class>org.jboss.weld.environment.servlet.Listener</listener-class>
+	</listener>
+<!-- 	<listener> -->
+<!-- 	   <listener-class>org.jboss.weld.environment.servlet.BeanManagerResourceBindingListener</listener-class> -->
+<!-- 	</listener> -->
+<!-- 	<resource-env-ref> -->
+<!-- 	   <resource-env-ref-name>BeanManager</resource-env-ref-name> -->
+<!-- 	   <resource-env-ref-type> -->
+<!-- 	      javax.enterprise.inject.spi.BeanManager -->
+<!-- 	   </resource-env-ref-type> -->
+<!-- 	</resource-env-ref> -->
+	
 </web-app>

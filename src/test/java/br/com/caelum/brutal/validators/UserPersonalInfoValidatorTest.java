@@ -15,9 +15,9 @@ import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.dto.UserPersonalInfo;
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.User;
-import br.com.caelum.vraptor.Validator;
-import br.com.caelum.vraptor.core.Localization;
-import br.com.caelum.vraptor.util.test.JSR303MockValidator;
+import br.com.caelum.vraptor4.Validator;
+import br.com.caelum.vraptor4.core.Localization;
+import br.com.caelum.vraptor4.util.test.JSR303MockValidator;
 
 public class UserPersonalInfoValidatorTest extends TestCase{
 

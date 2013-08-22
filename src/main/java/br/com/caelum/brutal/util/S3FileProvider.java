@@ -5,23 +5,27 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import br.com.caelum.vraptor.ioc.Component;
+import javax.inject.Inject;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 
-@Component
 public class S3FileProvider {
 
-    private final AmazonS3Client amazonS3Client;
+    private AmazonS3Client amazonS3Client;
 
+    @Deprecated
+	public S3FileProvider() {
+	}
+	
+    @Inject
     public S3FileProvider(AmazonS3Client amazonS3Client) {
-        this.amazonS3Client = amazonS3Client;
-    }
+		this.amazonS3Client = amazonS3Client;
+	}
 
-    public URL store(File file, String dir, String key) {
+	public URL store(File file, String dir, String key) {
         PutObjectRequest putObjectRequest = new PutObjectRequest(dir, key, file)
             .withCannedAcl(CannedAccessControlList.PublicRead);
         amazonS3Client.putObject(putObjectRequest);

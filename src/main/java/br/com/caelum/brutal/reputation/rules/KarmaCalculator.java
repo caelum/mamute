@@ -1,9 +1,7 @@
 package br.com.caelum.brutal.reputation.rules;
 
 import br.com.caelum.brutal.model.ReputationEvent;
-import br.com.caelum.vraptor.ioc.Component;
 
-@Component
 public class KarmaCalculator {
 
     public static final int SOLVED_QUESTION_AUTHOR = 5;

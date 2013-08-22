@@ -3,11 +3,9 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.caelum.vraptor.ioc.Component;
-import br.com.caelum.vraptor.ioc.RequestScoped;
+import br.com.caelum.vraptor4.ioc.RequestScoped;
 
 @RequestScoped
-@Component
 public class AfterSuccessfulTransaction {
 
 	private List<Runnable> actions = new ArrayList<>();

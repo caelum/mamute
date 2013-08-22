@@ -60,6 +60,10 @@ public abstract class TestCase {
 	    return user;
 	}
 	
+	protected LoggedUser loggedUser(String name, String email, Long id) {
+		return new LoggedUser(user(name, email, id), null);
+	}
+	
 	protected User userWithPassword(String name, String email) {
 		User user = user(name, email);
 		LoginMethod brutalLogin = LoginMethod.brutalLogin(user, email, "123456");

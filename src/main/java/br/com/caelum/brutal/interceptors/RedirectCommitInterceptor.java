@@ -1,35 +1,31 @@
 package br.com.caelum.brutal.interceptors;
 
+import javax.inject.Inject;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import br.com.caelum.vraptor.Intercepts;
-import br.com.caelum.vraptor.Validator;
-import br.com.caelum.vraptor.core.InterceptorStack;
-import br.com.caelum.vraptor.http.MutableResponse;
-import br.com.caelum.vraptor.http.MutableResponse.RedirectListener;
-import br.com.caelum.vraptor.interceptor.Interceptor;
-import br.com.caelum.vraptor.resource.ResourceMethod;
+import br.com.caelum.vraptor4.Intercepts;
+import br.com.caelum.vraptor4.Validator;
+import br.com.caelum.vraptor4.core.InterceptorStack;
+import br.com.caelum.vraptor4.http.MutableResponse;
+import br.com.caelum.vraptor4.http.MutableResponse.RedirectListener;
+import br.com.caelum.vraptor4.interceptor.Interceptor;
+import br.com.caelum.vraptor4.restfulie.controller.ControllerMethod;
 
 @Intercepts
 public class RedirectCommitInterceptor implements Interceptor {
-	private Session session;
-	private MutableResponse response;
-	private final Validator validator;
-
-	public RedirectCommitInterceptor(Session session, MutableResponse response, Validator validator) {
-		this.session = session;
-		this.response = response;
-		this.validator = validator;
-	}
+	@Inject private Session session;
+	@Inject private MutableResponse response;
+	@Inject private Validator validator;
 
 	@Override
-	public boolean accepts(ResourceMethod method) {
+	public boolean accepts(ControllerMethod method) {
 		return true;
 	}
 
 	@Override
-	public void intercept(InterceptorStack stack, ResourceMethod method,
+	public void intercept(InterceptorStack stack, ControllerMethod method,
 			Object instance) {
 		response.addRedirectListener(new RedirectListener() {
 			@Override

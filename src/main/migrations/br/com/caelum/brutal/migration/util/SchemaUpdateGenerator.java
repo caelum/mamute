@@ -12,7 +12,9 @@ import br.com.caelum.vraptor.environment.DefaultEnvironment;
 public class SchemaUpdateGenerator {
 
 	public static void main(String[] args) throws IOException {
-		Configuration cfg = new SessionFactoryCreator(new DefaultEnvironment("development")).getCfg();
+		SessionFactoryCreator sessionFactoryCreator = new SessionFactoryCreator(new DefaultEnvironment("development"));
+		sessionFactoryCreator.init();
+		Configuration cfg = sessionFactoryCreator.getCfg();
 		
 		SchemaUpdate su = new SchemaUpdate(cfg);
 		su.execute(true, false);

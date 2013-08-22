@@ -1,17 +1,22 @@
 package br.com.caelum.brutal.validators;
 
+import javax.inject.Inject;
+
 import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.factory.MessageFactory;
-import br.com.caelum.vraptor.Validator;
-import br.com.caelum.vraptor.ioc.Component;
+import br.com.caelum.vraptor4.Validator;
 
-@Component
 public class UserNameValidator {
 
-	Validator validator;
-	UserDAO users;
+	private Validator validator;
+	private UserDAO users;
 	private MessageFactory messageFactory;
 	
+	@Deprecated
+	public UserNameValidator() {
+	}
+	
+	@Inject
 	public UserNameValidator(Validator validator, UserDAO users, MessageFactory messageFactory) {
 		this.validator = validator;
 		this.users = users;

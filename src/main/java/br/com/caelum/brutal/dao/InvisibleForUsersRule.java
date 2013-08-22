@@ -3,17 +3,22 @@ package br.com.caelum.brutal.dao;
 import static org.hibernate.criterion.Restrictions.eq;
 import static org.hibernate.criterion.Restrictions.or;
 
+import javax.inject.Inject;
+
 import org.hibernate.Criteria;
 import org.hibernate.criterion.SimpleExpression;
 
 import br.com.caelum.brutal.model.LoggedUser;
-import br.com.caelum.vraptor.ioc.Component;
 
-@Component
 public class InvisibleForUsersRule implements QueryFilter{
 
-	private final LoggedUser currentUser;
+	private LoggedUser currentUser;
 
+	@Deprecated
+	public InvisibleForUsersRule() {
+	}
+
+	@Inject
 	public InvisibleForUsersRule(LoggedUser currentUser) {
 		this.currentUser = currentUser;
 	}

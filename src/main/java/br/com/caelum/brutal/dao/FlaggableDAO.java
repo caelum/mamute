@@ -3,6 +3,8 @@ package br.com.caelum.brutal.dao;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -11,14 +13,17 @@ import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.interfaces.Flaggable;
-import br.com.caelum.vraptor.ioc.Component;
 
-@Component
 public class FlaggableDAO {
-
 	private static final long MIN_FLAGS = 2l;
-	private final Session session;
 
+	private Session session;
+
+	@Deprecated
+	public FlaggableDAO() {
+	}
+	
+	@Inject
 	public FlaggableDAO(Session session) {
 		this.session = session;
 	}

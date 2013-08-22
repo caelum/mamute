@@ -1,36 +1,39 @@
 package br.com.caelum.brutal.notification;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.enterprise.inject.spi.BeanManager;
+import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
+import org.jboss.weld.context.bound.BoundRequestContext;
+import org.jboss.weld.context.bound.BoundSessionContext;
 
+import br.com.caelum.brutal.components.CDIFakeRequestProvider;
 import br.com.caelum.brutal.dao.WatcherDAO;
 import br.com.caelum.brutal.infra.AfterSuccessfulTransaction;
 import br.com.caelum.brutal.infra.ThreadPoolContainer;
 import br.com.caelum.brutal.mail.action.EmailAction;
-import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.interfaces.Watchable;
 import br.com.caelum.brutal.model.watch.Watcher;
-import br.com.caelum.vraptor.ioc.Component;
+import br.com.caelum.vraptor4.core.Execution;
+import br.com.caelum.vraptor4.core.RequestInfo;
+import br.com.caelum.vraptor4.ioc.Container;
 
-@Component
 public class NotificationManager {
-
-	private final WatcherDAO watchers;
-	private final NotificationMailer mailer;
-	private final ThreadPoolContainer threadPoolContainer;
 	private final static Logger LOG = Logger.getLogger(NotificationManager.class);
-	private final AfterSuccessfulTransaction afterTransaction; 
 
-	public NotificationManager(WatcherDAO watchers, NotificationMailer notificationMailer, 
-			ThreadPoolContainer threadPoolContainer, AfterSuccessfulTransaction afterTransaction) {
-		this.watchers = watchers;
-		this.mailer = notificationMailer;
-		this.threadPoolContainer = threadPoolContainer;
-		this.afterTransaction = afterTransaction;
-	}
+	@Inject private WatcherDAO watchers;
+	@Inject private NotificationMailer mailer;
+	@Inject private ThreadPoolContainer threadPoolContainer;
+	@Inject private AfterSuccessfulTransaction afterTransaction;
 	
+	@Inject	private CDIFakeRequestProvider fakeProvider;
+
 	public void sendEmailsAndInactivate(EmailAction emailAction) {
 		Watchable watchable = emailAction.getMainThread();
 		List<Watcher> watchList = watchers.of(watchable);
@@ -57,17 +60,24 @@ public class NotificationManager {
 	}
 
 	private void sendMailsAsynchronously(final List<NotificationMail> mails) {
+		
 		threadPoolContainer.execute(new Runnable() {
 			@Override
 			public void run() {
-				for (NotificationMail notificationMail : mails) {
-					try {
-						LOG.info("Sending email: " + notificationMail);
-						mailer.send(notificationMail);
-					} catch (Exception e) {
-						LOG.error("Could not send email: " + notificationMail, e);
+				fakeProvider.insideRequest(new Execution<Void>() {
+					@Override
+					public Void insideRequest(Container container) {
+						for (NotificationMail notificationMail : mails) {
+							try {
+								LOG.info("Sending email: " + notificationMail);
+								mailer.send(notificationMail);
+							} catch (Exception e) {
+								LOG.error("Could not send email: " + notificationMail, e);
+							}
+						}
+						return null;
 					}
-				}
+				});
 			}
 		});
 	}

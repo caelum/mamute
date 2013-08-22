@@ -5,45 +5,41 @@ import org.joda.time.format.DateTimeFormat;
 
 import br.com.caelum.brutal.dto.UserPersonalInfo;
 import br.com.caelum.brutal.factory.MessageFactory;
-import br.com.caelum.vraptor.Validator;
-import br.com.caelum.vraptor.core.Localization;
-import br.com.caelum.vraptor.ioc.Component;
+import br.com.caelum.vraptor4.Validator;
+import br.com.caelum.vraptor4.core.Localization;
 
-@Component
 public class UserPersonalInfoValidator {
 	
 	public static final int NAME_MIN_LENGTH = 4;
 	public static final int NAME_MAX_LENGTH = 100;
-	
 	public static final int WEBSITE_MIN_LENGTH = 0;
 	public static final int WEBSITE_MAX_LENGHT = 200;
-	
 	public static final int EMAIL_MIN_LENGTH = 6;
 	public static final int EMAIL_MAX_LENGTH = 100;
-	
 	public static final int LOCATION_MAX_LENGTH = 100;
-	
 	public static final int ABOUT_MIN_LENGTH = 6;
 	public static final int ABOUT_MAX_LENGTH = 500;
 	public static final int MARKED_ABOUT_MAX_LENGTH = 600;
-	
 	public static final String NAME_LENGTH_MESSAGE = "user.errors.name.length";
 	public static final String LOCATION_LENGTH_MESSAGE = "user.errors.location.length";
 	public static final String REALNAME_LENGTH_MESSAGE = "user.errors.realName.length";
 	public static final String WEBSITE_LENGTH_MESSAGE = "user.errors.website.length";
 	public static final String EMAIL_LENGTH_MESSAGE = "user.errors.email.length";
 	public static final String ABOUT_LENGTH_MESSAGE = "user.errors.about.length";
-	
 	public static final String EMAIL_NOT_VALID = "user.errors.email.invalid";
-	
 	public static final String NAME_REQUIRED = "user.errors.name.required";
 	
-	private final Validator validator;
-	private final EmailValidator emailValidator;
-	private final MessageFactory messageFactory;
-	private final Localization localization;
+	private Validator validator;
+	private EmailValidator emailValidator;
+	private MessageFactory messageFactory;
+	private Localization localization;
 
-	public UserPersonalInfoValidator(Validator validator, EmailValidator emailValidator, MessageFactory messageFactory, Localization localization){
+	@Deprecated
+	public UserPersonalInfoValidator() {
+	}
+
+	public UserPersonalInfoValidator(Validator validator, EmailValidator emailValidator, 
+			MessageFactory messageFactory, Localization localization){
 		this.validator = validator;
 		this.emailValidator = emailValidator;
 		this.messageFactory = messageFactory;

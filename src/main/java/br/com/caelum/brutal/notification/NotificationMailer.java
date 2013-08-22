@@ -4,6 +4,8 @@ import static org.joda.time.format.DateTimeFormat.forPattern;
 
 import java.util.Locale;
 
+import javax.inject.Inject;
+
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
 import org.apache.log4j.Logger;
@@ -11,6 +13,7 @@ import org.joda.time.format.DateTimeFormatter;
 import org.owasp.html.HtmlPolicyBuilder;
 import org.owasp.html.PolicyFactory;
 
+import br.com.caelum.brutal.components.OutOfSessionLocalization;
 import br.com.caelum.brutal.controllers.ListController;
 import br.com.caelum.brutal.controllers.NewsController;
 import br.com.caelum.brutal.controllers.QuestionController;
@@ -22,31 +25,19 @@ import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.interfaces.Watchable;
 import br.com.caelum.brutal.vraptor.Linker;
-import br.com.caelum.vraptor.core.Localization;
 import br.com.caelum.vraptor.environment.Environment;
-import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.simplemail.Mailer;
 import br.com.caelum.vraptor.simplemail.template.TemplateMailer;
 
-@Component
 public class NotificationMailer {
+	private static final Logger LOG = Logger.getLogger(NotificationMailer.class);
+	private static final PolicyFactory POLICY = new HtmlPolicyBuilder().toFactory();
     
-    private final Mailer mailer;
-    private final TemplateMailer templates;
-    private final Localization localization;
-    private final Linker linker;
-    private static final Logger LOG = Logger.getLogger(NotificationMailer.class);
-    private static final PolicyFactory POLICY = new HtmlPolicyBuilder().toFactory();
-	private final Environment env;
-
-    public NotificationMailer(Mailer mailer, TemplateMailer templates, 
-    		Localization localization, Linker linker, Environment env) {
-        this.mailer = mailer;
-        this.templates = templates;
-        this.localization = localization;
-        this.linker = linker;
-		this.env = env;
-    }
+    @Inject private Mailer mailer;
+    @Inject private TemplateMailer templates;
+    @Inject private OutOfSessionLocalization localization;
+    @Inject private Linker linker;
+	@Inject private Environment env;
 
 	public void send(NotificationMail notificationMail) {
 		User to = notificationMail.getTo();

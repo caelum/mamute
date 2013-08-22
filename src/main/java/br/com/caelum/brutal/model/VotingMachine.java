@@ -1,20 +1,25 @@
 package br.com.caelum.brutal.model;
 
+import javax.inject.Inject;
+
 import br.com.caelum.brutal.dao.ReputationEventDAO;
 import br.com.caelum.brutal.dao.VoteDAO;
 import br.com.caelum.brutal.model.interfaces.Votable;
 import br.com.caelum.brutal.reputation.rules.KarmaCalculator;
 import br.com.caelum.brutal.reputation.rules.ReceivedVoteEvent;
 import br.com.caelum.brutal.reputation.rules.VotedAtSomethingEvent;
-import br.com.caelum.vraptor.ioc.Component;
 
-@Component
 public class VotingMachine {
     private VoteDAO votes;
-    private final KarmaCalculator karmaCalculator;
-	private final ReputationEventDAO reputationEvents;
-	private final MassiveVote voteChecker;
+    private KarmaCalculator karmaCalculator;
+	private ReputationEventDAO reputationEvents;
+	private MassiveVote voteChecker;
 
+	@Deprecated
+	public VotingMachine() {
+	}
+
+	@Inject
     public VotingMachine(VoteDAO votes, KarmaCalculator karmaCalculator, ReputationEventDAO reputationEvents, MassiveVote voteChecker) {
         this.votes = votes;
         this.karmaCalculator = karmaCalculator;

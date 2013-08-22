@@ -6,6 +6,8 @@ import static org.hibernate.criterion.Restrictions.eq;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -16,15 +18,18 @@ import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.interfaces.Watchable;
 import br.com.caelum.brutal.model.watch.Watcher;
-import br.com.caelum.vraptor.ioc.Component;
 
-@Component
-public class WatcherDAO implements PaginatableDAO{
-
+public class WatcherDAO implements PaginatableDAO {
 	private static final int PAGE_SIZE = 5;
-	private final Session session;
-	private final InvisibleForUsersRule invisible;
 
+	private Session session;
+	private InvisibleForUsersRule invisible;
+
+	@Deprecated
+	public WatcherDAO() {
+	}
+
+	@Inject
 	public WatcherDAO(Session session, InvisibleForUsersRule invisible) {
 		this.session = session;
 		this.invisible = invisible;

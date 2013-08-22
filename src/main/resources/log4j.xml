@@ -37,7 +37,7 @@
         </layout>
     </appender>
 
-    <category name="br.com.caelum.vraptor">
+    <category name="br.com.caelum.vraptor4">
         <priority value="INFO"/>
         <appender-ref ref="main"/>
     </category>
@@ -120,6 +120,10 @@
         <appender-ref ref="main"/>
     </category>
     <category name="freemarker">
+        <priority value="WARN"/>
+        <appender-ref ref="main"/>
+    </category>
+    <category name="org.jboss.weld">
         <priority value="WARN"/>
         <appender-ref ref="main"/>
     </category>

@@ -2,6 +2,8 @@ package br.com.caelum.brutal.dao;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -10,14 +12,17 @@ import br.com.caelum.brutal.model.Information;
 import br.com.caelum.brutal.model.ModeratableAndPendingHistory;
 import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.UpdateStatus;
-import br.com.caelum.vraptor.ioc.Component;
 
-@Component
 public class InformationDAO {
+	private static final String MODEL_PACKAGE = "br.com.caelum.brutal.model.";
 
-    private final Session session;
-    private static final String MODEL_PACKAGE = "br.com.caelum.brutal.model.";
+    private Session session;
 
+    @Deprecated
+    public InformationDAO() {
+	}
+
+    @Inject
     public InformationDAO(Session session) {
         this.session = session;
     }

@@ -1,6 +1,9 @@
 package br.com.caelum.brutal.controllers;
 
 import static java.util.Arrays.asList;
+
+import javax.inject.Inject;
+
 import br.com.caelum.brutal.auth.FacebookAuthService;
 import br.com.caelum.brutal.dao.LoginMethodDAO;
 import br.com.caelum.brutal.dao.UserDAO;
@@ -9,34 +12,22 @@ import br.com.caelum.brutal.model.LoginMethod;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.validators.SignupValidator;
 import br.com.caelum.brutal.vraptor.Linker;
-import br.com.caelum.vraptor.Get;
-import br.com.caelum.vraptor.Post;
-import br.com.caelum.vraptor.Resource;
-import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor4.Controller;
+import br.com.caelum.vraptor4.Get;
+import br.com.caelum.vraptor4.Post;
+import br.com.caelum.vraptor4.Result;
 
-@Resource
+@Controller
 public class SignupController {
 
-	private final SignupValidator validator;
-	private final UserDAO users;
-	private final Result result;
-	private MessageFactory messageFactory;
-	private LoginMethodDAO loginMethods;
-	private final FacebookAuthService facebook;
-	private final Linker linker;
+	@Inject private SignupValidator validator;
+	@Inject private UserDAO users;
+	@Inject private Result result;
+	@Inject private MessageFactory messageFactory;
+	@Inject private LoginMethodDAO loginMethods;
+	@Inject private FacebookAuthService facebook;
+	@Inject private Linker linker;
 
-	public SignupController(SignupValidator validator, UserDAO users, Result result,
-			MessageFactory messageFactory, LoginMethodDAO loginMethods,
-			FacebookAuthService facebook, Linker linker) {
-		this.validator = validator;
-		this.users = users;
-		this.result = result;
-		this.messageFactory = messageFactory;
-		this.loginMethods = loginMethods;
-		this.facebook = facebook;
-		this.linker = linker;
-	}
-	
 	@Get("/cadastrar")
 	public void signupForm() {
 		String facebookUrl = facebook.getOauthUrl(null);

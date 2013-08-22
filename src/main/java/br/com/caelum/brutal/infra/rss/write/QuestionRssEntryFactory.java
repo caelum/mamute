@@ -6,10 +6,11 @@ import java.io.OutputStream;
 import java.io.Writer;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.interfaces.RssContent;
 import br.com.caelum.vraptor.environment.Environment;
-import br.com.caelum.vraptor.ioc.Component;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.core.util.QuickWriter;
@@ -17,11 +18,15 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.XppDriver;
 
-@Component
 public class QuestionRssEntryFactory {
 	
 	private String home;
+	
+	@Deprecated
+	public QuestionRssEntryFactory() {
+	}
 
+	@Inject
 	public QuestionRssEntryFactory(Environment env) {
 		this.home = env.get("host") + "/";
 		home = home.endsWith("/") ? home : home + "/";

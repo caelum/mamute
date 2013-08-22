@@ -4,14 +4,21 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Scanner;
 
+import javax.inject.Inject;
+
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
 public class DatabaseManager {
 
-	private final Session session;
 	private static final Logger LOG = Logger.getLogger(DatabaseManager.class);
+	private Session session;
 
+	@Deprecated //CDI eyes only
+	public DatabaseManager() {
+	}
+	
+	@Inject
 	public DatabaseManager(Session session) {
 		this.session = session;
 	}

@@ -1,10 +1,10 @@
 package br.com.caelum.brutal.controllers;
 
-import static br.com.caelum.vraptor.view.Results.http;
+import static br.com.caelum.vraptor4.view.Results.http;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
+import javax.inject.Inject;
 
 import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOrKarmaRule;
@@ -15,6 +15,7 @@ import br.com.caelum.brutal.infra.ModelUrlMapping;
 import br.com.caelum.brutal.model.AnswerInformation;
 import br.com.caelum.brutal.model.EventType;
 import br.com.caelum.brutal.model.Information;
+import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.ModeratableAndPendingHistory;
 import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.ReputationEvent;
@@ -24,35 +25,21 @@ import br.com.caelum.brutal.model.interfaces.Moderatable;
 import br.com.caelum.brutal.reputation.rules.KarmaCalculator;
 import br.com.caelum.brutauth.auth.annotations.AccessLevel;
 import br.com.caelum.brutauth.auth.annotations.SimpleBrutauthRules;
-import br.com.caelum.vraptor.Get;
-import br.com.caelum.vraptor.Post;
-import br.com.caelum.vraptor.Resource;
-import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor4.Controller;
+import br.com.caelum.vraptor4.Get;
+import br.com.caelum.vraptor4.Post;
+import br.com.caelum.vraptor4.Result;
 
-@Resource
+@Controller
 public class HistoryController {
 
-	private final Result result;
-    private final User currentUser;
-    private final InformationDAO informations;
-	private final ModeratableDao moderatables;
-    private final KarmaCalculator calculator;
-	private final ModelUrlMapping urlMapping;
-	private final ReputationEventDAO reputationEvents;
-
-	public HistoryController(Result result, @Nullable User currentUser,
-			InformationDAO informations, ModeratableDao moderatables,
-			KarmaCalculator calculator, ModelUrlMapping urlMapping,
-			ReputationEventDAO reputationEvents) {
-		this.result = result;
-        this.currentUser = currentUser;
-        this.informations = informations;
-		this.moderatables = moderatables;
-        this.calculator = calculator;
-		this.urlMapping = urlMapping;
-		this.reputationEvents = reputationEvents;
-	}
-	
+	@Inject private Result result;
+    @Inject private LoggedUser currentUser;
+    @Inject private InformationDAO informations;
+	@Inject private ModeratableDao moderatables;
+    @Inject private KarmaCalculator calculator;
+	@Inject private ModelUrlMapping urlMapping;
+	@Inject private ReputationEventDAO reputationEvents;
 
 	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
 	@AccessLevel(PermissionRulesConstants.MODERATE_EDITS)
@@ -116,7 +103,7 @@ public class HistoryController {
         
         User approvedAuthor = approved.getAuthor();
         refusePending(aprovedInformationId, pending);
-        currentUser.approve(moderatable, approved);
+        currentUser.getCurrent().approve(moderatable, approved);
         ReputationEvent editAppoved = new ReputationEvent(EventType.EDIT_APPROVED, moderatable.getQuestion(), approvedAuthor);
         int karma = calculator.karmaFor(editAppoved);
         approvedAuthor.increaseKarma(karma);
@@ -128,7 +115,7 @@ public class HistoryController {
 	@Post("/rejeitar/{typeName}/{informationId}")
 	public void reject(Long informationId, String typeName) {
 		Information informationRefused = informations.getById(informationId, typeName);
-		informationRefused.moderate(currentUser, UpdateStatus.REFUSED);
+		informationRefused.moderate(currentUser.getCurrent(), UpdateStatus.REFUSED);
 		Long moderatableId = informationRefused.getModeratable().getId();
 		if (typeName.equals(AnswerInformation.class.getSimpleName())) {
 			result.redirectTo(this).similarAnswers(moderatableId);
@@ -140,7 +127,7 @@ public class HistoryController {
     private void refusePending(Long aprovedHistoryId, List<Information> pending) {
         for (Information refused : pending) {
 	        if (!refused.getId().equals(aprovedHistoryId)) {
-	            refused.moderate(currentUser, UpdateStatus.REFUSED);
+	            refused.moderate(currentUser.getCurrent(), UpdateStatus.REFUSED);
 	        }
         }
     }

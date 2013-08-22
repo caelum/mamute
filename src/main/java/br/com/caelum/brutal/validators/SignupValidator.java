@@ -1,19 +1,25 @@
 package br.com.caelum.brutal.validators;
 
+import javax.inject.Inject;
+
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.User;
-import br.com.caelum.vraptor.Validator;
-import br.com.caelum.vraptor.ioc.Component;
+import br.com.caelum.vraptor4.Validator;
 
 
-@Component
 public class SignupValidator {
-	private final Validator validator;
-	private UserValidator userValidator;
 	public static final int PASSWORD_MIN_LENGTH = 6;
 	public static final int PASSWORD_MAX_LENGTH = 100;
+	
+	private UserValidator userValidator;
+	private Validator validator;
 	private MessageFactory messageFactory;
+	
+	@Deprecated
+	public SignupValidator() {
+	}
 
+	@Inject
 	public SignupValidator(Validator validator, UserValidator userValidator, MessageFactory messageFactory) {
 		this.validator = validator;
 		this.userValidator = userValidator;
