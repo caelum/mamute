@@ -2499,16 +2499,15 @@ px
 }
 
 .subheader-with-tag .main-tags-header {
-	width: 70%;
+	max-width: 70%;
 }
 
 .subheader-without-tag .main-tags-header {
-	width: 84%;
+	max-width: 84%;
 }
 
 .main-tags-header {
 	background: #c0d6e5;
-	height: 40px;
 	box-shadow: 2px 2px 2px #ccc;
 	border-radius: 5px;
 	margin-left: 1em;
