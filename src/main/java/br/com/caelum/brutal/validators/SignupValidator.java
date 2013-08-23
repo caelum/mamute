@@ -5,8 +5,9 @@ import javax.inject.Inject;
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor4.Validator;
+import br.com.caelum.vraptor4.ioc.RequestScoped;
 
-
+@RequestScoped
 public class SignupValidator {
 	public static final int PASSWORD_MIN_LENGTH = 6;
 	public static final int PASSWORD_MAX_LENGTH = 100;

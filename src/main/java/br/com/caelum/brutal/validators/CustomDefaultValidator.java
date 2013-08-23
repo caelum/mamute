@@ -10,12 +10,14 @@ import javax.interceptor.Interceptor;
 
 import br.com.caelum.vraptor4.Result;
 import br.com.caelum.vraptor4.core.Localization;
+import br.com.caelum.vraptor4.ioc.RequestScoped;
 import br.com.caelum.vraptor4.proxy.Proxifier;
 import br.com.caelum.vraptor4.validator.BeanValidator;
 import br.com.caelum.vraptor4.validator.DefaultValidator;
 import br.com.caelum.vraptor4.validator.Outjector;
 import br.com.caelum.vraptor4.view.ValidationViewsFactory;
 
+@RequestScoped
 @Alternative
 @Priority(Interceptor.Priority.APPLICATION)
 public class CustomDefaultValidator extends DefaultValidator {
