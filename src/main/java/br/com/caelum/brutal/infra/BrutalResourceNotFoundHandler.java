@@ -12,8 +12,8 @@ import javax.servlet.ServletException;
 import org.apache.log4j.Logger;
 
 import br.com.caelum.vraptor4.InterceptionException;
+import br.com.caelum.vraptor4.controller.ControllerNotFoundHandler;
 import br.com.caelum.vraptor4.core.RequestInfo;
-import br.com.caelum.vraptor4.restfulie.controller.ControllerNotFoundHandler;
 
 @Alternative
 @Priority(Interceptor.Priority.APPLICATION)

@@ -6,8 +6,8 @@ import javax.inject.Inject;
 import javax.interceptor.Interceptor;
 
 import br.com.caelum.brutal.controllers.BrutalTemplatesController;
+import br.com.caelum.vraptor4.controller.ControllerMethod;
 import br.com.caelum.vraptor4.http.FormatResolver;
-import br.com.caelum.vraptor4.restfulie.controller.ControllerMethod;
 import br.com.caelum.vraptor4.view.DefaultPathResolver;
 
 @Alternative
