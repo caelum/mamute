@@ -3,9 +3,14 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@attribute name="rssFeed" type="br.com.caelum.brutal.infra.rss.read.RSSFeed" required="true" %>
+<%@attribute name="rssUrl" type="java.lang.String" required="true" %>
 <c:if test="${not empty rssFeed.channel.items}">
-	<h2 class="title page-title subheader"><fmt:message key="jobs.rss.title"/></h2>
-	
+	<div class="subheader">
+		<h2 class="title page-title">
+			<fmt:message key="jobs.rss.title"/>
+		</h2>
+		<a href="${rssUrl}" class="rss-link"><i class="icon-rss"></i></a>
+	</div>
 	<ol class="sidebar-list">
 		<c:forEach items="${rssFeed.channel.items}" var="item">
 			<li class="post-item sidebar-item">

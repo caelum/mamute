@@ -9,7 +9,7 @@
 	<tags:homeNewsList newses="${sidebarNews}" />
 	<div id="adSideBar" class="ad medium-ads"></div>
 	<tags:recentTagsUsage tagsUsage="${recentTags}"/>
-	<tags:feed rssFeed="${jobs}"/>
+	<tags:feed rssUrl="${env.get('jobs.url')}" rssFeed="${jobs}"/>
 	<c:if test="${relatedQuestions != null }">
 		<tags:relatedQuestions questions="${relatedQuestions}"/>
 	</c:if>
