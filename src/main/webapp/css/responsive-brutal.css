@@ -10,6 +10,9 @@
 	.medium-ads {
 		display: none;
 	}
+	.main-tags-header {
+		max-width: 84%;
+	}
 }
 
 @media only screen and (max-width: 1220px) {
@@ -118,7 +121,6 @@
 	.post-touchs .user-info {
 		width: 40%;
 	}
-	
 }
 
 @media only screen and (max-width: 840px) {
@@ -183,7 +185,7 @@
 		display: block;
 	}
 	.main-tags-sprite {
-		padding-left: 2.7em;
+		padding-left: .7em;
 	}
 	
 }
