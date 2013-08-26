@@ -65,5 +65,8 @@ public class TagPage {
 		return tag.getUriName();
 	}
 	
+	public Tag getTag() {
+		return tag;
+	}
 	
 }

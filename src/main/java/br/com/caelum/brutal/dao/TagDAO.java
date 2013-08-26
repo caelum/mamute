@@ -91,4 +91,9 @@ public class TagDAO {
 	public void save(Tag tag) {
 		session.save(tag);
 	}
+
+	public boolean hasAbout(Tag tag) {
+		List list = session.createQuery("select page from TagPage page where page.tag = :tag").setParameter("tag", tag).list();
+		return !list.isEmpty();
+	}
 }

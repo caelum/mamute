@@ -90,6 +90,7 @@ public class ListController {
 			result.include("recentTags", recentTagsContainer.getRecentTagsUsage());
 			result.include("questions", questionsWithTag);
 			result.include("currentPage", page);
+			result.include("hasAbout", tags.hasAbout(tag));
 		}else{
 			result.notFound();
 		}

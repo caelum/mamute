@@ -7,20 +7,13 @@
 <%@attribute name="questions" type="java.util.List" required="true"%>
 <%@attribute name="rssUrl" type="java.lang.String" required="false"%>
 <%@attribute name="tag" type="br.com.caelum.brutal.model.Tag" required="false"%>
+	
+<tags:rssTagHeader tag="${tag}" rssUrl="${rssUrl}" title ="${title}"/>
+	
+<c:if test="${not empty tag}">
+	<tags:tagTabs tag="${tag}" hasAbout="${hasAbout}"/>
+</c:if>
 
-<div class="subheader ${not empty tag? 'subheader-with-tag' : 'subheader-without-tag' }">
-	<h2 class="title page-title">
-		${title}
-		<c:if test="${not empty tag}">
-			: <tags:tag tag="${tag}"/>
-			<a href="<c:url value='/ranking/${tag.name}'/>" title='<fmt:message key="users.ranking.tag.title"/> ${tag.name}' class="icon-award"><fmt:message key="users.ranking.tag"/></a>
-		</c:if>
-	</h2>
-	<tags:brutal-include value="headerTags"/>
-	<c:if test="${not empty rssUrl}">
-		<a href="${rssUrl}" class="rss-link"><i class="icon-rss"></i></a>
-	</c:if>
-</div>
 <c:if test="${not empty questions}">
 	<ol class="question-list">
 		<c:forEach var="question" items="${questions }">

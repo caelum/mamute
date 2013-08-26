@@ -1,6 +1,5 @@
 package br.com.caelum.brutal.controllers;
 
-import javax.annotation.Resource;
 import javax.inject.Inject;
 
 import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOnlyRule;
@@ -10,11 +9,12 @@ import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.TagPage;
 import br.com.caelum.brutal.validators.TagPageValidator;
 import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
+import br.com.caelum.vraptor4.Controller;
 import br.com.caelum.vraptor4.Get;
 import br.com.caelum.vraptor4.Post;
 import br.com.caelum.vraptor4.Result;
 
-@Resource
+@Controller
 public class TagPageController {
 
 	@Inject private TagDAO tags;
@@ -67,5 +67,6 @@ public class TagPageController {
 	public void showTagPage(String tagName){
 		TagPage tagPage = tagPages.findByTag(tagName);
 		result.include(tagPage);
+		result.include("hasAbout", tags.hasAbout(tagPage.getTag()));
 	}
 }
