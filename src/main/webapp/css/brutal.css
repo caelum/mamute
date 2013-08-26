@@ -2493,6 +2493,7 @@ solid
 	border-radius: 5px;
 	color: #735005;
 	margin-bottom: 0.7em;
+	border: 1px solid #BA160C;
 }
 
 .question-warnings .hint-tip:before {

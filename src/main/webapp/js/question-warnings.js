@@ -7,7 +7,7 @@ $(function() {
 		.html("<h4 class='section-title hint-title'>Reveja o conteúdo da sua postagem:</h4><ul></ul>")
 		.hide();
 	
-	$(".md-panel.md-preview").before(warnings);
+	$(".validated-form").eq(0).before(warnings);
 	var messages = warnings.find("ul");
 	
 	function validateRule(isValid, message, messageClass) {
