@@ -22,7 +22,7 @@ public class NewsletterSentLogDAOTest extends DatabaseTestCase{
 	
 	@Test
 	public void should_return_true_if_was_already_sent_this_week() {
-		TimeMachine.goTo(new DateTime().withDayOfWeek(1)).andExecute(new Block<NewsletterSentLog>() {
+		TimeMachine.goTo(new DateTime().withDayOfWeek(1).withHourOfDay(00)).andExecute(new Block<NewsletterSentLog>() {
 			@Override
 			public NewsletterSentLog run() {
 				newsletterSentLogs.saveLog();
