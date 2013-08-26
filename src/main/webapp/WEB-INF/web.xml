@@ -35,6 +35,10 @@
 		<param-name>br.com.caelum.vraptor4.encoding</param-name>
 		<param-value>UTF-8</param-value>
 	</context-param>
+<!-- 	<context-param> -->
+<!--         <param-name>br.com.caelum.vraptor.environment</param-name> -->
+<!--         <param-value>emailTest</param-value> -->
+<!--     </context-param> -->
 
 	<servlet>
 	<servlet-name>error</servlet-name>
