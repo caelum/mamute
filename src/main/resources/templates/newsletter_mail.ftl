@@ -69,8 +69,15 @@
 			</tr>
 		</#list>
 		<tr>
-			<td><a href="${unsubscribeLink}" style="display:block; color: #aaa; font-size: 10px;text-decoration:none; text-align: right; margin-top: 5em;">${l10n.getMessage("newsletter_mail.unsubscribe", [siteName])}</a></td>
+			<td>
+				<a href="http://www.caelum.com.br/" style="color: #666; font-size: 1.2em;text-decoration:none; margin-top: 2em; padding: 0px 10px 0px 10px;display: block;float: left;">Cursos da Caelum</a>
+				<a href="http://www.casadocodigo.com.br/" style="color: #666; font-size: 1.2em;text-decoration:none; margin-top: 2em; padding: 0px 10px 0px 10px;display: block;float: left;">Livros da Casa do Código</a>
+				<a href="http://www.alura.com.br/" style="color: #666; font-size: 1.2em;text-decoration:none; margin-top: 2em; padding: 0px 10px 0px 10px;display: block;float: left;">Cursos online de tecnologia do Alura</a>
+			</td>
+		</tr>
 		<tr>
+			<td><a href="${unsubscribeLink}" style="display:block; color: #aaa; font-size: 10px;text-decoration:none; text-align: right; margin-top: 5em;">${l10n.getMessage("newsletter_mail.unsubscribe", [siteName])}</a></td>
+		</tr>
 	</table>
 </body>
 </html>
