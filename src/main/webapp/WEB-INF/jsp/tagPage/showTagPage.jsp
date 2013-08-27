@@ -8,7 +8,7 @@
 	
 	<tags:tagTabs tag="${tagPage.tag}" hasAbout="${hasAbout}"/>
 
-	<div class="post-container">
+	<div class="post-container about-tag">
 		<div itemprop="articleBody" class="post-text">
 			${tagPage.markedAbout}
 		</div>

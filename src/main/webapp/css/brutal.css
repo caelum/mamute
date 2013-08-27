@@ -1321,6 +1321,7 @@ a.button.ask-a-question:hover {
 
 .tabs-tag {
 	float: left;
+	margin-left: .7em;
 }
 
 .history-comparison>* {
@@ -2652,6 +2653,11 @@ solid
 	background-position: -10px 1px;
 }
 
-.tabs-tag .tag-brutal {
-	
+.about-tag {
+	text-align: justify;
+	padding-left: 10px;
+	padding-top:10px;
+	padding-right: 15px;
+	text-indent: 4%;
+	width: 100%;
 }
