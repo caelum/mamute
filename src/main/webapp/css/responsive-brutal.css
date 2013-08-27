@@ -85,7 +85,7 @@
 		height: auto;
 	}
 	.main-tags-header {
-		width: 75%;
+		max-width: 74%;
 	}	
 	
 	
@@ -187,7 +187,9 @@
 	.main-tags-sprite {
 		padding-left: .7em;
 	}
-	
+	.main-tags-header {
+		max-width: 83%;
+	}
 }
 	
 @media only screen and (max-width: 800px) {
@@ -475,7 +477,7 @@
 	}
 	
 	.main-tags-header {
-		width: 77%;
+		width: 76%;
 	}	
 }
 
@@ -516,7 +518,7 @@
 		padding-right: 1%;
 	}
 	.main-tags-header {
-		width: 70%;
+		width: 69%;
 	}	
 }
 
