@@ -70,9 +70,9 @@
 		</#list>
 		<tr>
 			<td>
-				<a href="http://www.caelum.com.br/" style="color: #666; font-size: 1.2em;text-decoration:none; margin-top: 2em; padding: 0px 10px 0px 10px;display: block;float: left;">Cursos da Caelum</a>
-				<a href="http://www.casadocodigo.com.br/" style="color: #666; font-size: 1.2em;text-decoration:none; margin-top: 2em; padding: 0px 10px 0px 10px;display: block;float: left;">Livros da Casa do Código</a>
-				<a href="http://www.alura.com.br/" style="color: #666; font-size: 1.2em;text-decoration:none; margin-top: 2em; padding: 0px 10px 0px 10px;display: block;float: left;">Cursos online de tecnologia do Alura</a>
+				<a href="http://www.caelum.com.br/" style="color: #666; font-size: 1.2em;text-decoration:none; margin-top: 2em; padding: 0px 10px 0px 10px;display: block;float: left;">${l10n.getMessage("newsletter.link.text.caelum")}</a>
+				<a href="http://www.casadocodigo.com.br/" style="color: #666; font-size: 1.2em;text-decoration:none; margin-top: 2em; padding: 0px 10px 0px 10px;display: block;float: left;">${l10n.getMessage("newsletter.link.text.cdc")}</a>
+				<a href="http://www.alura.com.br/" style="color: #666; font-size: 1.2em;text-decoration:none; margin-top: 2em; padding: 0px 10px 0px 10px;display: block;float: left;">${l10n.getMessage("newsletter.link.text.alura")}</a>
 			</td>
 		</tr>
 		<tr>
