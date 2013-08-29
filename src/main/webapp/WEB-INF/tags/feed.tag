@@ -25,6 +25,6 @@
 			</li>
 		</c:forEach>
 	</ol>
-	<a class="more-items" href="<c:url value='/jobs'/>"><fmt:message key="jobs.rss.more" /></a>
+	<a class="more-items" href="http://ondetrabalhar.com/"><fmt:message key="jobs.rss.more" /></a>
 	
 </c:if>
