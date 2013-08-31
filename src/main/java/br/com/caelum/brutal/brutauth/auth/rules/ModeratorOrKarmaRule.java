@@ -16,8 +16,9 @@ public class ModeratorOrKarmaRule implements SimpleBrutauthRule {
 
 	@Override
 	public boolean isAllowed(long accessLevel) {
+		if(!user.isLoggedIn()) return false;
 		long karma = accessLevel;
-    	return composedRule(isModerator()).or(hasKarma(karma)).isAllowed(user.getCurrent(), null); 
+		return composedRule(isModerator()).or(hasKarma(karma)).isAllowed(user.getCurrent(), null); 
 	}
 
 }
