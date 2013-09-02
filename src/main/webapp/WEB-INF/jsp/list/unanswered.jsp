@@ -6,7 +6,8 @@
 <fmt:message key="menu.unanswered" var="title"/>
 <section class="first-content content">
 	<tags:questionList recentTags="${recentTags}" 
-		questions="${questions}" title="${title}" rssUrl="${rssUrl}"/>
+		questions="${questions}" title="${title}" 
+		rssUrl="${rssUrl}" unansweredTagLinks="${true}"/>
 </section>
 <tags:sideBar recentTags="${recentTags}" />
 <tags:joyrideIntro />

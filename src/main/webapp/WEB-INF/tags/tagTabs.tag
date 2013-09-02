@@ -3,10 +3,12 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tags" %>
 <%@attribute type="br.com.caelum.brutal.model.Tag" name="tag" required="false"%>
 <%@attribute type="java.lang.Boolean" name="hasAbout" required="true"%>
-
+<%@attribute name="unansweredTagLinks" type="java.lang.Boolean" required="false"%>
 <tags:tabs titleKey="">
 	<fmt:message key="tag_list.title" />
-	<a href="${linkTo[ListController].withTag[tag.uriName]}">${tag.name}</a>
+	<a href="${linkTo[ListController].withTag[tag.uriName]}">
+		${tag.name}
+	</a>
 	<c:if test="${hasAbout}">
 		<a href="${linkTo[TagPageController].showTagPage[tag.uriName]}"><fmt:message key="about.link"/></a>
 	</c:if>

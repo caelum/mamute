@@ -3,6 +3,11 @@
 <%@attribute type="br.com.caelum.brutal.model.Tag" name="tag" required="false"%>
 <%@attribute type="java.lang.String" name="rssUrl" required="false"%>
 <%@attribute type="java.lang.String" name="title" required="false"%>
+<%@attribute name="unansweredTagLinks" type="java.lang.Boolean" required="false"%>
+
+<c:if test="${empty unansweredTagLinks}">
+	<c:set value="${false}" var="unansweredTagLinks" />
+</c:if>
 
 <div class="subheader ${not empty tag? 'subheader-with-tag' : 'subheader-without-tag' }">
 	<c:if test="${not empty title}">
@@ -10,8 +15,13 @@
 			${title}
 		</h2>
 	</c:if>
+	<c:if test="${unansweredTagLinks}">
+		<tags:brutal-include value="headerTagsWithNoAnswer"/>
+	</c:if>
+	<c:if test="${not unansweredTagLinks}">
 		<tags:brutal-include value="headerTags"/>
-		<c:if test="${not empty rssUrl}">
-			<a href="${rssUrl}" class="rss-link"><i class="icon-rss"></i></a>
-		</c:if>
+	</c:if>
+	<c:if test="${not empty rssUrl}">
+		<a href="${rssUrl}" class="rss-link"><i class="icon-rss"></i></a>
+	</c:if>
 </div>

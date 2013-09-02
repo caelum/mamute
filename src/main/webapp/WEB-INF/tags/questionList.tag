@@ -7,9 +7,8 @@
 <%@attribute name="questions" type="java.util.List" required="true"%>
 <%@attribute name="rssUrl" type="java.lang.String" required="false"%>
 <%@attribute name="tag" type="br.com.caelum.brutal.model.Tag" required="false"%>
-	
-<tags:rssTagHeader tag="${tag}" rssUrl="${rssUrl}" title ="${title}"/>
-	
+<%@attribute name="unansweredTagLinks" type="java.lang.Boolean" required="false"%>
+<tags:rssTagHeader unansweredTagLinks="${unansweredTagLinks}"  tag="${tag}" rssUrl="${rssUrl}" title ="${title}"/>
 <c:if test="${not empty tag}">
 	<tags:tagTabs tag="${tag}" hasAbout="${hasAbout}"/>
 </c:if>
