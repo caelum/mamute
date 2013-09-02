@@ -8,7 +8,7 @@
 	<fmt:message key="tag_list.title" />
 	<a href="${linkTo[ListController].withTag[tag.uriName]}">${tag.name}</a>
 	<c:if test="${hasAbout}">
-		<a href="${linkTo[TagPageController].showTagPage[tag.name]}"><fmt:message key="about.link"/></a>
+		<a href="${linkTo[TagPageController].showTagPage[tag.uriName]}"><fmt:message key="about.link"/></a>
 	</c:if>
 	<a href="<c:url value='/ranking/${tag.name}'/>" title='<fmt:message key="users.ranking.tag.title"/> ${tag.name}' class="icon-award"><fmt:message key="users.ranking.tag"/></a>
 </tags:tabs>
