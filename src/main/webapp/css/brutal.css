@@ -2606,15 +2606,15 @@ solid
 	background-repeat: no-repeat;
 	display: inline-block;
 	vertical-align: middle;
-	width: 37px;
-	height: 37px;
+	width: 34px;
+	height: 39px;
 }
 
 .main-tags-text {
 	color: #3e6d8e;
-	font-size: 1.3em;
-	padding-right: .3em;
-	padding-left: .3em;
+	font-size: 1.2em;
+	padding-right: .5em;
+	padding-left: .5em;
 }
 
 .main-tags-java:before {
