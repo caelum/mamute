@@ -9,7 +9,7 @@
 </c:if>
 
 <c:if test="${unansweredTagLinks}">
-	<c:set value="?sem-respostas=true" var="append" />
+	<c:set value="?semRespostas=true" var="append" />
 </c:if>
 
 <ol class="main-tags ${tagClass}">

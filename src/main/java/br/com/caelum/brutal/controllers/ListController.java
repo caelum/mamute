@@ -80,11 +80,11 @@ public class ListController {
 	}
 	
 	@Get("/tag/{tagName}")
-	public void withTag(String tagName, Integer p) {
+	public void withTag(String tagName, Integer p, boolean semRespostas) {
 		Integer page = getPage(p);
 		Tag tag = tags.findByName(tagName);
 		if(tag != null){
-			List<Question> questionsWithTag = questions.withTagVisible(tag, page);
+			List<Question> questionsWithTag = questions.withTagVisible(tag, page, semRespostas);
 			result.include("totalPages", questions.numberOfPages(tag));
 			result.include("tag", tag);
 			result.include("recentTags", recentTagsContainer.getRecentTagsUsage());

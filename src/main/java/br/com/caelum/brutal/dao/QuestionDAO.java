@@ -94,7 +94,7 @@ public class QuestionDAO implements PaginatableDAO {
 		return getById(question.getId());
 	}
 
-	public List<Question> withTagVisible(Tag tag, Integer page) {
+	public List<Question> withTagVisible(Tag tag, Integer page, boolean semRespostas) {
 		Criteria criteria = session.createCriteria(Question.class, "q")
 				.createAlias("q.information.tags", "t")
 				.add(Restrictions.eq("t.id", tag.getId()))
@@ -102,6 +102,10 @@ public class QuestionDAO implements PaginatableDAO {
 				.setFirstResult(firstResultOf(page))
 				.setMaxResults(50)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		
+		if (semRespostas) {
+			criteria.add(Restrictions.eq("q.answerCount", 0l));
+		}
 
 		
 		return addInvisibleFilter(criteria).list();
@@ -215,6 +219,10 @@ public class QuestionDAO implements PaginatableDAO {
 	
 	private Criteria addInvisibleFilter(Criteria criteria) {
 		return invisible.addFilter("q", criteria);
+	}
+
+	public List<Question> withTagVisible(Tag tag, int page) {
+		return withTagVisible(tag, page, false);
 	}
 }
 

@@ -86,7 +86,7 @@ public class NotificationMailer {
         }
         
         public String tagLink(Tag t) {
-        	linker.linkTo(ListController.class).withTag(t.getName(), 1);
+        	linker.linkTo(ListController.class).withTag(t.getName(), 1, false);
         	return linker.get();
         }
         public String newsLink(News n) {
