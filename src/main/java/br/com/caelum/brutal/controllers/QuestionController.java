@@ -10,6 +10,7 @@ import javax.inject.Inject;
 
 import br.com.caelum.brutal.auth.FacebookAuthService;
 import br.com.caelum.brutal.brutauth.auth.rules.EditQuestionRule;
+import br.com.caelum.brutal.brutauth.auth.rules.InputRule;
 import br.com.caelum.brutal.brutauth.auth.rules.LoggedRule;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.ReputationEventDAO;
@@ -92,7 +93,7 @@ public class QuestionController {
 
 	@Get("/perguntar")
 	@IncludeAllTags
-	@CustomBrutauthRules(LoggedRule.class)
+	@CustomBrutauthRules({LoggedRule.class, InputRule.class})
 	public void questionForm() {
 		String allTags = json.toXML(tags.all());
 		result.include("allTags", allTags);
@@ -159,7 +160,7 @@ public class QuestionController {
 	}
 
 	@Post("/perguntar")
-	@CustomBrutauthRules(LoggedRule.class)
+	@CustomBrutauthRules({LoggedRule.class, InputRule.class})
 	public void newQuestion(String title, String description, String tagNames, boolean watching) {
 		List<String> splitedTags = splitTags(tagNames);
 		List<Tag> foundTags = tags.findAllDistinct(splitedTags);

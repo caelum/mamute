@@ -3,6 +3,7 @@ package br.com.caelum.brutal.controllers;
 import javax.inject.Inject;
 
 import br.com.caelum.brutal.brutauth.auth.rules.EditNewsRule;
+import br.com.caelum.brutal.brutauth.auth.rules.InputRule;
 import br.com.caelum.brutal.brutauth.auth.rules.LoggedRule;
 import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOnlyRule;
 import br.com.caelum.brutal.dao.NewsDAO;
@@ -33,7 +34,7 @@ public class NewsController {
 	@Inject private WatcherDAO watchers;
 
 	@Post("/nova-noticia")
-	@CustomBrutauthRules(LoggedRule.class)
+	@CustomBrutauthRules({LoggedRule.class, InputRule.class})
 	public void newNews(String title, String description) {
 		NewsInformation information = new NewsInformation(title, description, currentUser, "new news");
 		User author = currentUser.getCurrent();
@@ -45,7 +46,7 @@ public class NewsController {
 	}
 	
 	@Get("/nova-noticia")
-	@CustomBrutauthRules(LoggedRule.class)
+	@CustomBrutauthRules({LoggedRule.class, InputRule.class})
 	public void newsForm() {
 	}
 	

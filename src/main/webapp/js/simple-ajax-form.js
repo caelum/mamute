@@ -76,6 +76,9 @@ $(function() {
 			success: success,
 			error: error,
 			dataType : 'html',
+		    headers: { 
+		        Accept : "application/json"
+		    },
 			data : form.serialize(),
 			method: "POST"
 		});

@@ -5,6 +5,7 @@ import java.util.Arrays;
 import javax.inject.Inject;
 
 import br.com.caelum.brutal.brutauth.auth.rules.EditAnswerRule;
+import br.com.caelum.brutal.brutauth.auth.rules.InputRule;
 import br.com.caelum.brutal.brutauth.auth.rules.LoggedRule;
 import br.com.caelum.brutal.dao.AnswerDAO;
 import br.com.caelum.brutal.dao.ReputationEventDAO;
@@ -70,7 +71,7 @@ public class AnswerController {
 	}
 	
 	@Post("/responder/{question.id}")
-	@CustomBrutauthRules(LoggedRule.class)
+	@CustomBrutauthRules({LoggedRule.class, InputRule.class})
 	public void newAnswer(@Load Question question, String description, boolean watching) {
 		User current = currentUser.getCurrent();
 		boolean canAnswer = answeredByValidator.validate(question);

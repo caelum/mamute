@@ -36,6 +36,6 @@ public class LoggedUser {
 	public String toString() {
 		return "[user = " + user + ", ip = " + getIp() + "]";
 	}
-	
+
 
 }
