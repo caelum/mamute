@@ -8,9 +8,14 @@
 
 <div class="not-found">
 	<p>
-		<fmt:message key="unauthorized.message">
-			<fmt:param value="${linkTo[NavigationController].about}"/>
-		</fmt:message>
+		<c:if test="${empty unauthorizedMessage}">
+			<fmt:message key="unauthorized.message">
+				<fmt:param value="${linkTo[NavigationController].about}"/>
+			</fmt:message>
+		</c:if>
+		<c:if test="${not empty unauthorizedMessage}">
+			${unauthorizedMessage}
+		</c:if>
 	</p>
 </div>
 <div class="error-code">
