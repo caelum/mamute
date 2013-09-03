@@ -93,7 +93,7 @@ public class QuestionController {
 
 	@Get("/perguntar")
 	@IncludeAllTags
-	@CustomBrutauthRules({LoggedRule.class, InputRule.class})
+	@CustomBrutauthRules(LoggedRule.class)
 	public void questionForm() {
 		String allTags = json.toXML(tags.all());
 		result.include("allTags", allTags);

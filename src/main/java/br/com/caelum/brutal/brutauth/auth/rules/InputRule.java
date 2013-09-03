@@ -23,7 +23,7 @@ public class InputRule implements CustomBrutauthRule{
 		if("acceptance".equals(env.getName())) return true;
 		User current = user.getCurrent();
 		boolean isAllowed = input.can(current);
-		if(isAllowed && "POST".equals(request.getMethod())) input.ping(current);
+		if(isAllowed) input.ping(current);
 		return isAllowed;
 	}
 
