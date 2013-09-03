@@ -5,10 +5,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.joda.time.DateTime;
 import org.junit.Test;
 
 import br.com.caelum.brutal.builder.QuestionBuilder;
 import br.com.caelum.brutal.dao.TestCase;
+import br.com.caelum.timemachine.Block;
+import br.com.caelum.timemachine.TimeMachine;
 
 public class QuestionTest  extends TestCase{
 	private QuestionBuilder question = new QuestionBuilder();
@@ -196,6 +199,27 @@ public class QuestionTest  extends TestCase{
 				.build();
 		assertTrue(q.getMetaDescription().contains(title));
 		assertFalse(q.getMetaDescription().contains(description));
+	}
+	
+	
+
+	@Test
+	public void return_true_if_answer_was_last_touched_two_months_ago() throws Exception {
+		Question inactiveQuestion = TimeMachine.goTo(new DateTime().minusMonths(2)).andExecute(new Block<Question>() {
+			@Override
+			public Question run() {
+				return question.withTitle("question title").withDescription("description").build();
+			}
+		});
+		
+		assertTrue(inactiveQuestion.isInactiveForOneMonth());
+	}
+	
+	@Test
+	public void return_false_if_answer_was_last_touched_today() throws Exception {
+		final Question myQuestion = question.withTitle("question title").withDescription("description").build();
+		
+		assertFalse(myQuestion.isInactiveForOneMonth());
 	}
 
 	private String bigString(char c, int repetitions) {

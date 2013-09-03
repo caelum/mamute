@@ -63,4 +63,5 @@ public class AnswerTest extends TestCase {
 		assertTrue(answer.hasPendingEdits());
 		
 	}
+	
 }

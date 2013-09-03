@@ -63,6 +63,11 @@
 					<fmt:param value="${MODERATE_EDITS}"/>
 				</fmt:message>
 			</li>
+			<li>
+				<fmt:message key="about.reputation.interact_inactive_question">
+					<fmt:param value="${INACTIVE_QUESTION}"/>
+				</fmt:message>
+			</li>
 		</ul>
 	</div><!-- big-text -->
 </div><!-- about-section -->
