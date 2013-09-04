@@ -6,7 +6,6 @@ import static br.com.caelum.vraptor4.view.Results.status;
 import javax.inject.Inject;
 
 import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
-import br.com.caelum.brutal.brutauth.auth.rules.InactiveQuestionRequiresMoreKarmaRule;
 import br.com.caelum.brutal.brutauth.auth.rules.InputRule;
 import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOrKarmaRule;
 import br.com.caelum.brutal.dao.CommentDAO;
@@ -42,7 +41,7 @@ public class CommentController {
 
 	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
 	@AccessLevel(PermissionRulesConstants.CREATE_COMMENT)
-	@CustomBrutauthRules({InputRule.class, InactiveQuestionRequiresMoreKarmaRule.class})
+	@CustomBrutauthRules(InputRule.class)
 	@Post("/{onWhat}/{id}/comentar")
 	public void comment(Long id, String onWhat, String comment, boolean watching) {
 		User current = currentUser.getCurrent();
