@@ -420,4 +420,8 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 	public String getLinkPath() {
 		return id + "-" + getSluggedTitle();
 	}
+
+	public boolean isInactiveForOneMonth() {
+		return lastUpdatedAt.isBefore(new DateTime().minusMonths(1));
+	}
 }
