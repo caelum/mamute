@@ -10,9 +10,6 @@
 	.medium-ads {
 		display: none;
 	}
-	.main-tags-header {
-		max-width: 84%;
-	}
 }
 
 @media only screen and (max-width: 1220px) {
@@ -44,10 +41,6 @@
 	.menu-rank{
 		display: none;
 	}
-	.main-tags-header {
-		width: 80%;
-	}	
-	
 }
 
 @media only screen and (max-width: 1160px) {
@@ -84,11 +77,6 @@
 	.complete-user .user-info * {
 		height: auto;
 	}
-	.main-tags-header {
-		max-width: 74%;
-	}	
-	
-	
 }
 
 @media only screen and (max-width: 1000px) {
@@ -186,9 +174,6 @@
 	}
 	.main-tags-sprite {
 		padding-left: .7em;
-	}
-	.main-tags-header {
-		max-width: 83%;
 	}
 }
 	
@@ -375,10 +360,6 @@
 	.tag-ranking-section{
 		width: 100%;
 	}
-	.main-tags-header {
-		width: 80%;
-	}	
-	
 }
 
 @media only screen and (max-width: 620px) {
@@ -414,10 +395,6 @@
 	.profile-image {
 		width: 98%;
 	}
-	.main-tags-header {
-		width: 75%;
-	}	
-	
 }
 
 @media only screen and (max-width: 500px){
@@ -475,12 +452,7 @@
 	.data-section .data-description {
 		width: 60%;
 	}
-	
-	.main-tags-header {
-		width: 76%;
-	}	
 }
-
 
 @media only screen and (max-width: 450px) {
 
@@ -517,9 +489,6 @@
 		width: 35%;
 		padding-right: 1%;
 	}
-	.main-tags-header {
-		width: 69%;
-	}	
 }
 
 @media only screen and (max-width: 400px) {
@@ -563,8 +532,5 @@
 
 	.ranking-item{
 		width:100;
-	}	
-	.main-tags-header {
-		width: 54%;
 	}	
 }

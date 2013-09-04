@@ -82,7 +82,6 @@ a:hover {
 }
 
 .subheader .main-tags {
-	float: left;
 	padding: 0 0 0 0em;
 	font-size: 0.9em;
 }
@@ -2586,16 +2585,15 @@ solid
 }
 .main-tags-header {
 	background: #c0d6e5;
-	margin-left: 1em;
 }
 
 .main-tags-header-item {
+	display: block;
 	line-height: 40px;
 }
 
 .main-tags-header-item:hover {
 	background-color: #B0CADA;
-	border-radius: 5px;
 }
 
 .main-tags-sprite:before {
@@ -2611,8 +2609,8 @@ solid
 .main-tags-text {
 	color: #3e6d8e;
 	font-size: 1.2em;
-	padding-right: .5em;
-	padding-left: .5em;
+	padding-right: .8em;
+	padding-left: .8em;
 }
 
 .main-tags-java:before {
