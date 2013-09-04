@@ -10,16 +10,17 @@
 </c:if>
 
 <div class="subheader ${not empty tag? 'subheader-with-tag' : 'subheader-without-tag' }">
-	<c:if test="${not empty title}">
-		<h2 class="title page-title">
-			${title}
-		</h2>
-	</c:if>
 	<c:if test="${unansweredTagLinks}">
 		<tags:brutal-include value="headerTagsWithNoAnswer"/>
 	</c:if>
 	<c:if test="${not unansweredTagLinks}">
 		<tags:brutal-include value="headerTags"/>
+	</c:if>
+
+	<c:if test="${not empty title}">
+		<h2 class="title page-title">
+			${title}
+		</h2>
 	</c:if>
 	<c:if test="${not empty rssUrl}">
 		<a href="${rssUrl}" class="rss-link"><i class="icon-rss"></i></a>
