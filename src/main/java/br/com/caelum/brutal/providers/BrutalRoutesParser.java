@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import javax.annotation.Priority;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Alternative;
 import javax.inject.Inject;
 import javax.interceptor.Interceptor;
@@ -14,7 +15,6 @@ import br.com.caelum.brutal.controllers.ListController;
 import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor4.http.route.PathAnnotationRoutesParser;
 import br.com.caelum.vraptor4.http.route.Router;
-import br.com.caelum.vraptor4.ioc.ApplicationScoped;
 
 @ApplicationScoped
 @Alternative

@@ -6,8 +6,8 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import javax.annotation.Priority;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Alternative;
-import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.interceptor.Interceptor;
 import javax.servlet.ServletContext;
@@ -20,7 +20,6 @@ import org.slf4j.LoggerFactory;
 import br.com.caelum.vraptor4.core.Localization;
 import br.com.caelum.vraptor4.core.RequestInfo;
 import br.com.caelum.vraptor4.core.SafeResourceBundle;
-import br.com.caelum.vraptor4.ioc.RequestScoped;
 import br.com.caelum.vraptor4.util.EmptyBundle;
 
 import com.google.common.base.Strings;

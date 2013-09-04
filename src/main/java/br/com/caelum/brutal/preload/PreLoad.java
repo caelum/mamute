@@ -2,11 +2,11 @@ package br.com.caelum.brutal.preload;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import br.com.caelum.brutal.components.RecentTagsContainer;
 import br.com.caelum.brutal.migration.MigrationRunner;
-import br.com.caelum.vraptor4.ioc.ApplicationScoped;
 
 @ApplicationScoped
 public class PreLoad {

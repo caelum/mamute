@@ -1,11 +1,11 @@
 package br.com.caelum.brutal.validators;
 
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor4.Validator;
-import br.com.caelum.vraptor4.ioc.RequestScoped;
 
 @RequestScoped
 public class SignupValidator {

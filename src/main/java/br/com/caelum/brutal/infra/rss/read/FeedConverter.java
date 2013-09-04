@@ -2,8 +2,9 @@ package br.com.caelum.brutal.infra.rss.read;
 
 import java.io.InputStream;
 
+import javax.enterprise.context.ApplicationScoped;
+
 import br.com.caelum.brutal.infra.rss.converter.RSSDateTimeConverter;
-import br.com.caelum.vraptor4.ioc.ApplicationScoped;
 
 import com.thoughtworks.xstream.XStream;
 

@@ -1,11 +1,11 @@
 package br.com.caelum.brutal.vraptor;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
 
 import br.com.caelum.vraptor.environment.Environment;
-import br.com.caelum.vraptor4.ioc.ApplicationScoped;
 
 @ApplicationScoped
 @Named("brutalEnv")

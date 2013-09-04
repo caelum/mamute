@@ -2,6 +2,7 @@ package br.com.caelum.brutal.components;
 
 import java.util.List;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import org.hibernate.Session;
@@ -13,7 +14,6 @@ import org.slf4j.LoggerFactory;
 
 import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.model.TagUsage;
-import br.com.caelum.vraptor4.ioc.ApplicationScoped;
 
 @ApplicationScoped
 public class RecentTagsContainer {

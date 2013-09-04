@@ -2,6 +2,7 @@ package br.com.caelum.brutal.infra;
 
 import static br.com.caelum.brutal.infra.JobsConfigurationController.CONFIG_PATH;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
@@ -11,7 +12,6 @@ import org.apache.log4j.Logger;
 
 import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor4.events.VRaptorInitialized;
-import br.com.caelum.vraptor4.ioc.ApplicationScoped;
 
 @ApplicationScoped
 public class JobsScheduler {

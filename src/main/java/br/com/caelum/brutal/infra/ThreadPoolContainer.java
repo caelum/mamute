@@ -3,9 +3,9 @@ package br.com.caelum.brutal.infra;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import org.apache.log4j.Logger;
+import javax.enterprise.context.ApplicationScoped;
 
-import br.com.caelum.vraptor4.ioc.ApplicationScoped;
+import org.apache.log4j.Logger;
 
 @ApplicationScoped
 public class ThreadPoolContainer {

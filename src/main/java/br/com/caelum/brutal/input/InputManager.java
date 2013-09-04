@@ -5,10 +5,11 @@ import static org.joda.time.Seconds.secondsBetween;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.enterprise.context.ApplicationScoped;
+
 import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.model.User;
-import br.com.caelum.vraptor4.ioc.ApplicationScoped;
 
 @ApplicationScoped
 public class InputManager {

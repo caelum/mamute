@@ -1,7 +1,8 @@
 package br.com.caelum.brutal.migration.all;
 
+import javax.enterprise.context.ApplicationScoped;
+
 import br.com.caelum.brutal.migration.SimpleSchemaMigration;
-import br.com.caelum.vraptor4.ioc.ApplicationScoped;
 
 @ApplicationScoped
 public class M001CreateTableNewsletterSentLog extends SimpleSchemaMigration {

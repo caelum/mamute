@@ -3,7 +3,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.caelum.vraptor4.ioc.RequestScoped;
+import javax.enterprise.context.RequestScoped;
 
 @RequestScoped
 public class AfterSuccessfulTransaction {

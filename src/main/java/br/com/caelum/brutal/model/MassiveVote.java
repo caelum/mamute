@@ -2,9 +2,9 @@ package br.com.caelum.brutal.model;
 
 import java.util.List;
 
-import org.joda.time.DateTime;
+import javax.enterprise.context.ApplicationScoped;
 
-import br.com.caelum.vraptor4.ioc.ApplicationScoped;
+import org.joda.time.DateTime;
 
 @ApplicationScoped
 public class MassiveVote {
