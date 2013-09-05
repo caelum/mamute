@@ -29,6 +29,6 @@ public class OndeTrabalharRSSJob implements CronTask{
 
 	@Override
 	public String frequency() {
-		return "*/59 * * ? * *";//every x seconds, defined at environment.properties 
+		return "0 0/15 * * * ?";//fire every hour 
 	}
 }
