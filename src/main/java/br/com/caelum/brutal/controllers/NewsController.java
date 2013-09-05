@@ -42,18 +42,21 @@ public class NewsController {
 		result.include("news", news);
 		newses.save(news);
 		result.redirectTo(this).showNews(news, news.getSluggedTitle());
-
 	}
 	
 	@Get("/nova-noticia")
 	@CustomBrutauthRules({LoggedRule.class, InputRule.class})
 	public void newsForm() {
+		result.include("newsActive", true);
+		result.include("noDefaultActive", true);
 	}
 	
 	@Get("/noticia/editar/{news.id}")
 	@CustomBrutauthRules(EditNewsRule.class)
 	public void newsEditForm(@Load News news) {
 		result.include("news", news);
+		result.include("newsActive", true);
+		result.include("noDefaultActive", true);
 	}
 	
 	@Post("/noticia/editar/{news.id}")
@@ -77,6 +80,8 @@ public class NewsController {
 		result.include("news", news);
 		result.include("isWatching", isWatching);
 		result.include("userMediumPhoto", true);
+		result.include("newsActive", true);
+		result.include("noDefaultActive", true);
 	}
 	
 	@Post("/noticias/aprovar/{news.id}")

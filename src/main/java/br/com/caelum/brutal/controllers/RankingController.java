@@ -27,6 +27,8 @@ public class RankingController {
 		result.include("topUsers", users.getRank(page));
 		result.include("pages", users.numberOfPages());
 		result.include("currentPage", Integer.valueOf(page));
+		result.include("usersActive", true);
+		result.include("noDefaultActive", true);
 	}
 	
 	@Get("/ranking/{tagName}")
@@ -42,5 +44,7 @@ public class RankingController {
 		result.include("answerersLastMonth", reputationEvents.getTopAnswerersSummaryAfter(tag, after));
 		result.include("askersAllTime", reputationEvents.getTopAskersSummaryAllTime(tag));
 		result.include("askersLastMonth", reputationEvents.getTopAskersSummaryAfter(tag, after));
+		result.include("usersActive", true);
+		result.include("noDefaultActive", true);
 	}
 }

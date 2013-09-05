@@ -12,22 +12,22 @@
 			<nav class="nav main-nav piped-nav">
 				<ul class="nav-items">
 					<li class="nav-item">
-						<a class="button" href="${linkTo[ListController].home}">
+						<a class="button ${empty noDefaultActive ? 'current' : ''}" href="${linkTo[ListController].home}">
 							<fmt:message key="menu.questions"/>
 						</a>
 					</li>
 					<li class="nav-item menu-unanswered">
-						<a class="button unanswered" href="${linkTo[ListController].unanswered}">
+						<a class="button unanswered ${not empty unansweredActive ? 'current' : ''}" href="${linkTo[ListController].unanswered}">
 							<fmt:message key="menu.unanswered" />
 						</a>
 					</li>
 					<li class="nav-item menu-rank">
-						<a class="button" href="${linkTo[RankingController].rank}">
+						<a class="button ${not empty usersActive ? 'current' : ''}" href="${linkTo[RankingController].rank}">
 							<fmt:message key="menu.users" />
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="button" href="${linkTo[ListController].news}">
+						<a class="button ${not empty newsActive ? 'current' : ''}" href="${linkTo[ListController].news}">
 							<fmt:message key="menu.news" />
 						</a>
 					</li>

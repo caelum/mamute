@@ -65,6 +65,8 @@ public class UserProfileController extends BaseController{
 		
 		result.include("mainTags", tags.findMainTagsOfUser(user));
 		result.include("selectedUser", user);
+		result.include("usersActive", true);
+		result.include("noDefaultActive", true);
 	}
 	
 	@Get("/usuario/{user.id:[0-9]+}/{sluggedName}/reputacao")
@@ -74,6 +76,8 @@ public class UserProfileController extends BaseController{
 		}
 		result.include("selectedUser", user);
 		result.include("reputationHistory", reputationEvents.karmaWonByQuestion(user).getHistory());
+		result.include("usersActive", true);
+		result.include("noDefaultActive", true);
 	}
 	
 	private boolean redirectToRightSluggedName(User user, String sluggedName) {
@@ -90,7 +94,7 @@ public class UserProfileController extends BaseController{
 		User author = users.findById(id);
 		order = order == null ? ByVotes : order;
 		Integer page = p == null ? 1 : p;
-		result.forwardTo(BrutalTemplatesController.class).userProfilePagination(questions, author, order, page, "perguntas");
+		result.forwardTo(BrutalTemplatesController.class).userProfilePagination(questions, author, order, page, "perguntas");		
 	}
 	
 	@Get("/usuario/{id}/{sluggedName}/respostas")
@@ -115,6 +119,8 @@ public class UserProfileController extends BaseController{
 			return;
 		}
 		result.include("user", user);
+		result.include("usersActive", true);
+		result.include("noDefaultActive", true);
 	}
 	
 	@Post("/usuario/editar/{user.id:[0-9]+}")

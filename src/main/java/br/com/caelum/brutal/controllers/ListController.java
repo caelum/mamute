@@ -63,6 +63,8 @@ public class ListController {
 		result.include("newses", visible);
 		result.include("totalPages", newses.numberOfPages(50));
 		result.include("currentPage", page);
+		result.include("newsActive", true);
+		result.include("noDefaultActive", true);
 	}
 	
 	@Get("/nao-resolvido")
@@ -81,12 +83,18 @@ public class ListController {
 		result.include("recentTags", recentTagsContainer.getRecentTagsUsage());
 		result.include("currentPage", page);
 		result.include("totalPages", questions.totalPagesWithoutAnswers());
+		result.include("unansweredActive", true);
+		result.include("noDefaultActive", true);
 	}
 	
 	@Get("/tag/{tagName}")
 	public void withTag(String tagName, Integer p, boolean semRespostas) {
 		Integer page = getPage(p);
 		Tag tag = tags.findByName(tagName);
+		if (semRespostas) {
+			result.include("unansweredActive", true);
+			result.include("noDefaultActive", true);			
+		}
 		if(tag != null){
 			List<Question> questionsWithTag = questions.withTagVisible(tag, page, semRespostas);
 			result.include("totalPages", questions.numberOfPages(tag));
