@@ -7,7 +7,7 @@
 <c:url value="/rss/${tag.name}" var="rssUrl" />
 <section class="first-content content">
 	<tags:questionList recentTags="${recentTags}" 
-		questions="${questions}" title="${}" rssUrl="${rssUrl}"/>
+		questions="${questions}" title="${}" rssUrl="${rssUrl}" unansweredTagLinks="${unansweredTagLinks}"/>
 </section>
 <tags:sideBar recentTags="${recentTags}" />
 <tags:joyrideIntro />

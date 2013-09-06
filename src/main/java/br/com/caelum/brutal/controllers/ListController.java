@@ -91,20 +91,21 @@ public class ListController {
 	public void withTag(String tagName, Integer p, boolean semRespostas) {
 		Integer page = getPage(p);
 		Tag tag = tags.findByName(tagName);
+		if(tag == null){
+			result.notFound();
+			return;
+		}
+		List<Question> questionsWithTag = questions.withTagVisible(tag, page, semRespostas);
+		result.include("totalPages", questions.numberOfPages(tag));
+		result.include("tag", tag);
+		result.include("recentTags", recentTagsContainer.getRecentTagsUsage());
+		result.include("questions", questionsWithTag);
+		result.include("currentPage", page);
+		result.include("hasAbout", tags.hasAbout(tag));
 		if (semRespostas) {
 			result.include("unansweredActive", true);
-			result.include("noDefaultActive", true);			
-		}
-		if(tag != null){
-			List<Question> questionsWithTag = questions.withTagVisible(tag, page, semRespostas);
-			result.include("totalPages", questions.numberOfPages(tag));
-			result.include("tag", tag);
-			result.include("recentTags", recentTagsContainer.getRecentTagsUsage());
-			result.include("questions", questionsWithTag);
-			result.include("currentPage", page);
-			result.include("hasAbout", tags.hasAbout(tag));
-		}else{
-			result.notFound();
+			result.include("noDefaultActive", true);
+			result.include("unansweredTagLinks", true);
 		}
 	}
 	
