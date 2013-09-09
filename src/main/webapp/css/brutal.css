@@ -2587,13 +2587,8 @@ solid
 	background: #c0d6e5;
 }
 
-.main-tags-header-item {
-	display: block;
-	line-height: 40px;
-}
-
-.main-tags-header-item:hover {
-	background-color: #B0CADA;
+.main-tags-current {
+	background-color: #afc2cc;	
 }
 
 .main-tags-sprite:before {
@@ -2611,6 +2606,12 @@ solid
 	font-size: 1.2em;
 	padding-right: .8em;
 	padding-left: .8em;
+	display: block;
+	line-height: 40px;
+}
+
+.main-tags-text:hover {
+	background-color: #a2b0b8;
 }
 
 .main-tags-java:before {

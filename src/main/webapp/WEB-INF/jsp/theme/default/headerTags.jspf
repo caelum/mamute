@@ -1,3 +1,3 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 
-<tags:mainTags tagClass="main-tags-header" tagClassLi="main-tags-header-item main-tags-text" useSprite = "true"/>
+<tags:mainTags tagClass="main-tags-header" tagClassLi="main-tags-text" useSprite = "true"/>
