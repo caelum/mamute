@@ -40,7 +40,6 @@ public class WatcherDAO implements PaginatableDAO {
 		String query = "select watchers from "+ watchable.getType().getSimpleName() +" watchable join watchable.watchers watchers" +
 				" join watchers.watcher watcher" +
 				" where watchers.active = true and" +
-				" watcher.isSubscribed = true and" +
 				" watchable = :watchable";
 		Query selectWatchers = session.createQuery(query)
 							  .setParameter("watchable", watchable);

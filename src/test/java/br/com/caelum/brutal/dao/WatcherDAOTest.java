@@ -40,17 +40,6 @@ public class WatcherDAOTest extends DatabaseTestCase{
 	}
 	
 	@Test
-	public void should_not_get_unsubscribed_users_of_a_question() {
-		User unsubscribedWatcher = user("watcher", "watcher@watcher.com");
-		unsubscribedWatcher.setSubscribed(false);
-		session.save(unsubscribedWatcher);
-
-		watchers.add(question, new Watcher(unsubscribedWatcher));
-		
-		assertThat(watchers.of(question), empty());
-	}
-	
-	@Test
 	public void should_not_get_innactive_watchers_of_a_question() {
 		User subscribedWatcher = user("watcher", "watcher@watcher.com");
 		session.save(subscribedWatcher);
