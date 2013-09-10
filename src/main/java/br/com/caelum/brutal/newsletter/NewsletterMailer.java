@@ -19,10 +19,11 @@ import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.notification.NotificationMailer;
 import br.com.caelum.brutal.notification.NotificationMailer.LinkToHelper;
 import br.com.caelum.brutal.util.BrutalDateFormat;
-import br.com.caelum.brutal.vraptor.Linker;
+import br.com.caelum.brutal.vraptor.Env;
 import br.com.caelum.vraptor.simplemail.Mailer;
 import br.com.caelum.vraptor.simplemail.template.TemplateMailer;
 import br.com.caelum.vraptor4.core.Localization;
+import br.com.caelum.vraptor4.http.route.Router;
 
 public class NewsletterMailer {
 	
@@ -31,10 +32,11 @@ public class NewsletterMailer {
 	@Inject private QuestionDAO questions;
 	@Inject private Mailer mailer;
 	@Inject private TemplateMailer templates;
-	@Inject private Linker linker;
+	@Inject private Router router;
 	@Inject private Localization localization;
 	@Inject private NewsDAO news;
 	@Inject private BrutalDateFormat brutalDateFormat;
+	@Inject private Env brutalEnv;
 
 	public void sendTo(ScrollableResults results) {
 		DateTime pastWeek = new DateTime().minusWeeks(1);
@@ -42,7 +44,7 @@ public class NewsletterMailer {
 		List<News> hotNews = news.hotNews();
 		List<Question> hotQuestions = questions.hot(pastWeek, 8);
 		List<Question> unanswered = questions.randomUnanswered(pastWeek, twelveHoursAgo, 8);
-		LinkToHelper linkToHelper = new NotificationMailer.LinkToHelper(linker);
+		LinkToHelper linkToHelper = new NotificationMailer.LinkToHelper(router, brutalEnv);
 		String siteName = localization.getMessage("site.name");
 		String date = brutalDateFormat.getInstance("date.joda.newsletter.pattern").print(new DateTime());
 		

@@ -2,9 +2,12 @@ package br.com.caelum.brutal.notification;
 
 import static org.joda.time.format.DateTimeFormat.forPattern;
 
+import java.lang.reflect.Method;
 import java.util.Locale;
 
 import javax.inject.Inject;
+
+import net.vidageek.mirror.dsl.Mirror;
 
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
@@ -24,10 +27,11 @@ import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.interfaces.Watchable;
-import br.com.caelum.brutal.vraptor.Linker;
+import br.com.caelum.brutal.vraptor.Env;
 import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.simplemail.Mailer;
 import br.com.caelum.vraptor.simplemail.template.TemplateMailer;
+import br.com.caelum.vraptor4.http.route.Router;
 
 public class NotificationMailer {
 	private static final Logger LOG = Logger.getLogger(NotificationMailer.class);
@@ -36,8 +40,9 @@ public class NotificationMailer {
     @Inject private Mailer mailer;
     @Inject private TemplateMailer templates;
     @Inject private OutOfSessionLocalization localization;
-    @Inject private Linker linker;
 	@Inject private Environment env;
+	@Inject private Env brutalEnv;
+	@Inject private Router router;
 
 	public void send(NotificationMail notificationMail) {
 		User to = notificationMail.getTo();
@@ -60,7 +65,7 @@ public class NotificationMailer {
 				.with("sanitizer", POLICY)
 				.with("localization", localization)
 				.with("watcher", to)
-				.with("linkerHelper", new LinkToHelper(linker))
+				.with("linkerHelper", new LinkToHelper(router, brutalEnv))
 				.with("logoUrl", env.get("mail_logo_url"))
 				.to(to.getName(), to.getEmail())
 				.setSubject(localization.getMessage("answer_notification_mail", action.getMainThread().getTitle()));
@@ -68,44 +73,55 @@ public class NotificationMailer {
 	}
     
 	public static class LinkToHelper {
-        private Linker linker;
 
-        public LinkToHelper(Linker linker) {
-            this.linker = linker;
+        private final Router router;
+		private final Env env;
+		
+        public LinkToHelper(Router router, Env env) {
+			this.router = router;
+			this.env = env;
         }
         
         public String mainThreadLink(Watchable watchable) {
 			if(watchable.getType().isAssignableFrom(News.class)) {
 				News news = (News) watchable;
-        		linker.linkTo(NewsController.class).showNews(news, news.getSluggedTitle());
+        		return urlFor(NewsController.class, "showNews", news, news.getSluggedTitle());
 			}else{
 				Question question = (Question) watchable;
-        		linker.linkTo(QuestionController.class).showQuestion(question, question.getSluggedTitle());
+				return urlFor(QuestionController.class, "showQuestion", question, question.getSluggedTitle());
         	}
-    		return linker.get();
         }
         
-        public String tagLink(Tag t) {
-        	linker.linkTo(ListController.class).withTag(t.getName(), 1, false);
-        	return linker.get();
+		public String tagLink(Tag t) {
+			return urlFor(ListController.class, "withTag", t.getName(),1 , false);
         }
-        public String newsLink(News n) {
-        	linker.linkTo(NewsController.class).showNews(n, n.getSluggedTitle());
-        	return linker.get();
+        
+		public String newsLink(News n) {
+        	return urlFor(NewsController.class, "showNews", n, n.getSluggedTitle());
         }
+
         public String questionLink(Question q) {
-        	linker.linkTo(QuestionController.class).showQuestion(q, q.getSluggedTitle());
-        	return linker.get();
-        }
-        public String userLink(User u) {
-        	linker.linkTo(UserProfileController.class).showProfile(u, u.getSluggedName());
-        	return linker.get();
-        }
-        public String unsubscribeLink(User user) {
-        	linker.linkTo(UserProfileController.class).unsubscribe(user, user.getUnsubscribeHash());
-        	return linker.get();
+        	return urlFor(QuestionController.class, "showQuestion", q, q.getSluggedTitle());
         }
         
+        public String userLink(User u) {
+        	return urlFor(UserProfileController.class, "showProfile", u, u.getSluggedName());
+        }
+        
+        public String unsubscribeLink(User user) {
+        	return urlFor(UserProfileController.class, "unsubscribe", user, user.getUnsubscribeHash());
+        }
+
+
+		private String urlFor(Class<?> clazz, String method,
+				Object...args) {
+			String relativePath = router.urlFor(clazz, method(clazz, method), args);
+			return env.getHostAndContext() + relativePath;
+		}
+
+		private Method method(Class<?> clazz, String method) {
+			return new Mirror().on(clazz).reflect().method(method).withAnyArgs();
+		}
     }
 
 }
