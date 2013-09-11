@@ -16,6 +16,7 @@ import br.com.caelum.vraptor4.Intercepts;
 import br.com.caelum.vraptor4.Result;
 import br.com.caelum.vraptor4.controller.ControllerMethod;
 import br.com.caelum.vraptor4.core.InterceptorStack;
+import br.com.caelum.vraptor4.interceptor.ControllerInvocationException;
 import br.com.caelum.vraptor4.interceptor.Interceptor;
 
 @Intercepts(before=GlobalInterceptor.class)
@@ -33,7 +34,7 @@ public class InternalErrorInterceptor implements Interceptor {
 	public void intercept(InterceptorStack stack, ControllerMethod method,
 			Object instance) throws InterceptionException {
 		try {
-			stack.next(method, instance);
+		stack.next(method, instance);
 		}catch (Exception e) {
 			
 			StringWriter sw = new StringWriter();
@@ -50,7 +51,7 @@ public class InternalErrorInterceptor implements Interceptor {
 				log.error(sw.toString());
 			}
 			
-			e.printStackTrace(pw);
+			cause.printStackTrace(pw);
 			
 			pw.close();
 			result.include("stacktrace", sw.toString());
