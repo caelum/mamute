@@ -63,7 +63,7 @@ public class GlobalInterceptor implements Interceptor{
 				.include("errors", asList(messageFactory.build("error", "user.errors.banned")))
 				.redirectTo(AuthController.class).loginForm("");
 		
-		LOG.info("request for: " + req.getRequestURI());
+		LOG.debug("request for: " + req.getRequestURI());
 		logHeaders();
 		
 		stack.next(method, resourceInstance);
