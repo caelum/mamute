@@ -1,9 +1,7 @@
 package br.com.caelum.brutal.model;
 
 import static br.com.caelum.brutal.model.UpdateStatus.PENDING;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.joda.time.DateTime;
 import org.junit.Test;
@@ -222,6 +220,35 @@ public class QuestionTest  extends TestCase{
 		assertFalse(myQuestion.isInactiveForOneMonth());
 	}
 
+	@Test
+	public void should_verify_show_mark_as_solution_rules_for_author() throws Exception {
+		User author = user("Fernanda", "bla@bla.com", 1l);
+		Question question = question(author);
+		assertFalse(question.showMarkAsSolution(author));
+		question.add(answer("", question, author));
+		assertTrue(question.showMarkAsSolution(author));
+	}
+	
+	@Test
+	public void should_return_false_if_is_author_and_there_is_solution() throws Exception {
+		User author = user("Fernanda", "bla@bla.com", 1l);
+		Question question = question(author);
+		Answer answer = answer("", question, author);
+		question.markAsSolvedBy(answer);
+		assertFalse(question.showMarkAsSolution(author));
+	}
+	
+	@Test
+	public void should_return_false_if_is__not_author() throws Exception {
+		User author = user("Fernanda", "bla@bla.com", 1l);
+		User user = user("Chico", "bla@b.com", 2L);
+		Question question = question(author);
+		assertFalse(question.showMarkAsSolution(user));
+		Answer answer = answer("", question, author);
+		question.markAsSolvedBy(answer);
+		assertFalse(question.showMarkAsSolution(user));
+	}
+	
 	private String bigString(char c, int repetitions) {
 		StringBuilder builder = new StringBuilder();
 		for (int i = 0; i < repetitions; i++) {
@@ -229,5 +256,4 @@ public class QuestionTest  extends TestCase{
 		}
 		return builder.toString();
 	}
-	
 }

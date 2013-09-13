@@ -424,4 +424,8 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 	public boolean isInactiveForOneMonth() {
 		return lastUpdatedAt.isBefore(new DateTime().minusMonths(1));
 	}
+	
+	public boolean showMarkAsSolution (User user) {
+		return (user.getId().equals(author.getId()) && solution == null && answerCount != 0); 
+	}
 }
