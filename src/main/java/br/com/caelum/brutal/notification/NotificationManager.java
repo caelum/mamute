@@ -1,17 +1,13 @@
 package br.com.caelum.brutal.notification;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.mail.EmailException;
 import org.apache.log4j.Logger;
-import org.jboss.weld.context.bound.BoundRequestContext;
-import org.jboss.weld.context.bound.BoundSessionContext;
 
 import br.com.caelum.brutal.components.CDIFakeRequestProvider;
 import br.com.caelum.brutal.dao.WatcherDAO;
@@ -20,8 +16,11 @@ import br.com.caelum.brutal.infra.ThreadPoolContainer;
 import br.com.caelum.brutal.mail.action.EmailAction;
 import br.com.caelum.brutal.model.interfaces.Watchable;
 import br.com.caelum.brutal.model.watch.Watcher;
+import br.com.caelum.vraptor.environment.Environment;
+import br.com.caelum.vraptor.errormail.mail.ErrorMail;
+import br.com.caelum.vraptor.errormail.mail.ErrorMailFactory;
+import br.com.caelum.vraptor.errormail.mail.ErrorMailer;
 import br.com.caelum.vraptor4.core.Execution;
-import br.com.caelum.vraptor4.core.RequestInfo;
 import br.com.caelum.vraptor4.ioc.Container;
 
 public class NotificationManager {
@@ -31,6 +30,9 @@ public class NotificationManager {
 	@Inject private NotificationMailer mailer;
 	@Inject private ThreadPoolContainer threadPoolContainer;
 	@Inject private AfterSuccessfulTransaction afterTransaction;
+	@Inject private ErrorMailer errorMailer;
+	@Inject private HttpServletRequest req;
+	@Inject private Environment env;
 	
 	@Inject	private CDIFakeRequestProvider fakeProvider;
 
@@ -61,25 +63,44 @@ public class NotificationManager {
 
 	private void sendMailsAsynchronously(final List<NotificationMail> mails) {
 		
-		threadPoolContainer.execute(new Runnable() {
-			@Override
-			public void run() {
-				fakeProvider.insideRequest(new Execution<Void>() {
-					@Override
-					public Void insideRequest(Container container) {
-						for (NotificationMail notificationMail : mails) {
-							try {
-								LOG.info("Sending email: " + notificationMail);
-								mailer.send(notificationMail);
-							} catch (Exception e) {
-								LOG.error("Could not send email: " + notificationMail, e);
-							}
-						}
-						return null;
-					}
-				});
-			}
-		});
+		threadPoolContainer.execute(new SendNotifications(mails));
 	}
+	 
+	private class SendNotifications implements Runnable{
+		private List<NotificationMail> mails;
 
+		public SendNotifications(List<NotificationMail> mails) {
+			this.mails = mails;
+		}
+
+		@Override
+		public void run() {
+			fakeProvider.insideRequest(new Execution<Void>() {
+				
+				@Override
+				public Void insideRequest(Container container) {
+					for (NotificationMail notificationMail : mails) {
+						try {
+							LOG.info("Sending email: " + notificationMail);
+							mailer.send(notificationMail);
+						} catch (Exception e) {
+							LOG.error("Could not send email: " + notificationMail, e);
+							sendErrorMail(e);
+						}
+					}
+					return null;
+				}
+
+				private void sendErrorMail(Exception exception) {
+					try {
+						req.setAttribute(ErrorMailFactory.EXCEPTION, exception);
+						ErrorMail errorMail = new ErrorMailFactory(req, env).build();
+						errorMailer.register(errorMail);
+					} catch (EmailException e) {
+						LOG.error("Could not send message error: ", e);
+					}
+				}
+			});
+		}		
+	}
 }
