@@ -21,6 +21,9 @@
 	</span>
 </div>
 <section class="first-content content">
+	<c:if test="${markAsSolution}">
+		<p class = "banner-mark-as-solution"><fmt:message key="question.banner.remember" /></p>		
+	</c:if>
 	<tags:questionWith question="${question}" commentVotes="${commentsWithVotes}"/>
 	<div class="subheader">
 		<h2 class="title page-title">

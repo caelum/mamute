@@ -132,6 +132,8 @@ public class QuestionController {
 	public void showQuestion(@Load Question question, String sluggedTitle){
 		User current = currentUser.getCurrent();
 		if (question.isVisibleFor(current)){
+			result.include("markAsSolution", question.showMarkAsSolution(current));
+			
 			redirectToRightUrl(question, sluggedTitle);
 			viewCounter.ping(question);
 			boolean isWatching = watchers.ping(question, current);
