@@ -402,5 +402,12 @@ public class User implements Identifiable {
 	public void undoBan() {
 		this.isBanned = false;
 	}
+
+	public void votedUp() {
+		this.lastUpvote = new DateTime();
+	}
 	
+	public boolean showUpvoteBanner(){
+		return lastUpvote.isBefore(new DateTime().minusWeeks(1));
+	}
 }

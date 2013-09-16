@@ -28,12 +28,14 @@ public class VoteController {
 	@Inject private VoteDAO votes;
 	@Inject private VotingMachine votingMachine;
 	@Inject private ModelUrlMapping mapping;
-
+	@Inject private LoggedUser loggedUser;
+	
 	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
 	@AccessLevel(PermissionRulesConstants.VOTE_UP)
 	@Post("/{type}/{id}/voto/positivo")
 	public void voteUp(Long id, String type) {
 		tryToVoteVotable(id, VoteType.UP, mapping.getClassFor(type));
+		loggedUser.getCurrent().votedUp();
 	}
 
 	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
@@ -41,6 +43,7 @@ public class VoteController {
 	@Post("/{type}/{id}/voto/negativo")
 	public void voteDown(Long id, String type) {
 		tryToVoteVotable(id, VoteType.DOWN, mapping.getClassFor(type));
+		
 	}
 
 	@SuppressWarnings("rawtypes")
