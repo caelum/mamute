@@ -13,10 +13,10 @@ import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.infra.rss.write.RssFeedFactory;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.interfaces.RssContent;
-import br.com.caelum.vraptor4.Controller;
-import br.com.caelum.vraptor4.Get;
-import br.com.caelum.vraptor4.Result;
-import br.com.caelum.vraptor4.core.Localization;
+import br.com.caelum.vraptor.Controller;
+import br.com.caelum.vraptor.Get;
+import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.core.Localization;
 
 @Controller
 public class RssController {

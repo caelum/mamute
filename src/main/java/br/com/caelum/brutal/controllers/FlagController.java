@@ -1,7 +1,6 @@
 package br.com.caelum.brutal.controllers;
 
-import static br.com.caelum.vraptor4.view.Results.http;
-import static br.com.caelum.vraptor4.view.Results.page;
+import static br.com.caelum.vraptor.view.Results.http;
 
 import java.util.List;
 
@@ -25,10 +24,11 @@ import br.com.caelum.brutal.model.interfaces.Flaggable;
 import br.com.caelum.brutauth.auth.annotations.AccessLevel;
 import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
 import br.com.caelum.brutauth.auth.annotations.SimpleBrutauthRules;
-import br.com.caelum.vraptor4.Controller;
-import br.com.caelum.vraptor4.Get;
-import br.com.caelum.vraptor4.Post;
-import br.com.caelum.vraptor4.Result;
+import br.com.caelum.vraptor.Controller;
+import br.com.caelum.vraptor.Get;
+import br.com.caelum.vraptor.Post;
+import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.view.Results;
 
 @Controller
 public class FlagController {
@@ -93,7 +93,7 @@ public class FlagController {
 	private void topFlagged(Class<?> model) {
 		List<FlaggableAndFlagCount> flaggedAndCount = flaggables.flaggedButVisible(model);
 		result.include("flagged", flaggedAndCount);
-		result.use(page()).forwardTo("/WEB-INF/jsp/flag/topFlagged" + model.getSimpleName() + "s.jsp");
+		result.use(Results.page()).forwardTo("/WEB-INF/jsp/flag/topFlagged" + model.getSimpleName() + "s.jsp");
 	}
 	
 }

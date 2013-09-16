@@ -6,10 +6,10 @@ import org.apache.log4j.Logger;
 import org.hibernate.ScrollableResults;
 
 import br.com.caelum.brutal.dao.UserDAO;
+import br.com.caelum.vraptor.Controller;
+import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.quartzjob.CronTask;
-import br.com.caelum.vraptor4.Controller;
-import br.com.caelum.vraptor4.Result;
 
 @Controller
 public class ModeratorsNewsletterJob implements CronTask {

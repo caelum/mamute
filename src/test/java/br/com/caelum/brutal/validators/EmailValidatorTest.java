@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.factory.MessageFactory;
-import br.com.caelum.vraptor4.util.test.MockValidator;
+import br.com.caelum.vraptor.util.test.MockValidator;
 
 public class EmailValidatorTest {
 	

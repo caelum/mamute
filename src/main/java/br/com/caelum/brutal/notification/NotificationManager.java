@@ -16,12 +16,12 @@ import br.com.caelum.brutal.infra.ThreadPoolContainer;
 import br.com.caelum.brutal.mail.action.EmailAction;
 import br.com.caelum.brutal.model.interfaces.Watchable;
 import br.com.caelum.brutal.model.watch.Watcher;
+import br.com.caelum.vraptor.core.Execution;
 import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.errormail.mail.ErrorMail;
 import br.com.caelum.vraptor.errormail.mail.ErrorMailFactory;
 import br.com.caelum.vraptor.errormail.mail.ErrorMailer;
-import br.com.caelum.vraptor4.core.Execution;
-import br.com.caelum.vraptor4.ioc.Container;
+import br.com.caelum.vraptor.ioc.Container;
 
 public class NotificationManager {
 	private final static Logger LOG = Logger.getLogger(NotificationManager.class);

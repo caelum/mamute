@@ -6,9 +6,9 @@ import java.lang.reflect.Method;
 import javax.inject.Inject;
 
 import br.com.caelum.brutal.sanitizer.HtmlSanitizer;
-import br.com.caelum.vraptor4.proxy.MethodInvocation;
-import br.com.caelum.vraptor4.proxy.Proxifier;
-import br.com.caelum.vraptor4.proxy.SuperMethod;
+import br.com.caelum.vraptor.proxy.MethodInvocation;
+import br.com.caelum.vraptor.proxy.Proxifier;
+import br.com.caelum.vraptor.proxy.SuperMethod;
 
 public class ContentProxifier {
 	

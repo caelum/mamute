@@ -1,8 +1,5 @@
 package br.com.caelum.brutal.controllers;
 
-import static br.com.caelum.vraptor4.view.Results.http;
-import static br.com.caelum.vraptor4.view.Results.status;
-
 import javax.inject.Inject;
 
 import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
@@ -23,10 +20,10 @@ import br.com.caelum.brutal.validators.CommentValidator;
 import br.com.caelum.brutauth.auth.annotations.AccessLevel;
 import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
 import br.com.caelum.brutauth.auth.annotations.SimpleBrutauthRules;
-import br.com.caelum.vraptor4.Controller;
-import br.com.caelum.vraptor4.Post;
-import br.com.caelum.vraptor4.Result;
-import br.com.caelum.vraptor4.view.Results;
+import br.com.caelum.vraptor.Controller;
+import br.com.caelum.vraptor.Post;
+import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.view.Results;
 
 @Controller
 public class CommentController {
@@ -69,7 +66,7 @@ public class CommentController {
 	public void edit(Long id, String comment) {
 		Comment original = comments.getById(id);
 		if (!currentUser.getCurrent().isAuthorOf(original)) {
-			result.use(status()).badRequest("comment.edit.not_author");
+			result.use(Results.status()).badRequest("comment.edit.not_author");
 			return;
 		}
 		if (validator.validate(comment)) {
@@ -77,7 +74,7 @@ public class CommentController {
 			comments.save(original);
 			result.forwardTo(BrutalTemplatesController.class).comment(original);
 		}
-		validator.onErrorUse(http()).setStatusCode(400);
+		validator.onErrorUse(Results.http()).setStatusCode(400);
 	}
 	
 	private Class<?> getType(String name) {

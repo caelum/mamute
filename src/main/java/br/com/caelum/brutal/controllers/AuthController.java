@@ -8,10 +8,10 @@ import br.com.caelum.brutal.brutauth.auth.rules.LoggedRule;
 import br.com.caelum.brutal.validators.LoginValidator;
 import br.com.caelum.brutal.validators.UrlValidator;
 import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
-import br.com.caelum.vraptor4.Controller;
-import br.com.caelum.vraptor4.Get;
-import br.com.caelum.vraptor4.Post;
-import br.com.caelum.vraptor4.Result;
+import br.com.caelum.vraptor.Controller;
+import br.com.caelum.vraptor.Get;
+import br.com.caelum.vraptor.Post;
+import br.com.caelum.vraptor.Result;
 
 @Controller
 public class AuthController extends BaseController {

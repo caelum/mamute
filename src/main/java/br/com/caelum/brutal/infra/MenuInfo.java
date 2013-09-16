@@ -5,7 +5,7 @@ import javax.inject.Inject;
 import br.com.caelum.brutal.dao.FlaggableDAO;
 import br.com.caelum.brutal.dao.InformationDAO;
 import br.com.caelum.brutal.model.LoggedUser;
-import br.com.caelum.vraptor4.Result;
+import br.com.caelum.vraptor.Result;
 
 public class MenuInfo {
 	

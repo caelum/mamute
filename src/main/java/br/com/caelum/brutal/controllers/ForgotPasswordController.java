@@ -11,14 +11,14 @@ import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.vraptor.DefaultLinker;
+import br.com.caelum.vraptor.Controller;
+import br.com.caelum.vraptor.Get;
+import br.com.caelum.vraptor.Post;
+import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.core.Localization;
 import br.com.caelum.vraptor.simplemail.Mailer;
 import br.com.caelum.vraptor.simplemail.template.TemplateMailer;
-import br.com.caelum.vraptor4.Controller;
-import br.com.caelum.vraptor4.Get;
-import br.com.caelum.vraptor4.Post;
-import br.com.caelum.vraptor4.Result;
-import br.com.caelum.vraptor4.Validator;
-import br.com.caelum.vraptor4.core.Localization;
 
 @Controller
 public class ForgotPasswordController {

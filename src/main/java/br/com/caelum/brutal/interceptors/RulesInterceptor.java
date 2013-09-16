@@ -9,12 +9,12 @@ import net.vidageek.mirror.dsl.ClassController;
 import net.vidageek.mirror.dsl.Mirror;
 import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.reputation.rules.KarmaCalculator;
-import br.com.caelum.vraptor4.InterceptionException;
-import br.com.caelum.vraptor4.Intercepts;
-import br.com.caelum.vraptor4.Result;
-import br.com.caelum.vraptor4.controller.ControllerMethod;
-import br.com.caelum.vraptor4.core.InterceptorStack;
-import br.com.caelum.vraptor4.interceptor.Interceptor;
+import br.com.caelum.vraptor.InterceptionException;
+import br.com.caelum.vraptor.Intercepts;
+import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.controller.ControllerMethod;
+import br.com.caelum.vraptor.core.InterceptorStack;
+import br.com.caelum.vraptor.interceptor.Interceptor;
 
 @Intercepts
 public class RulesInterceptor implements Interceptor {

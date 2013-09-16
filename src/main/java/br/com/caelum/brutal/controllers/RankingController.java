@@ -8,9 +8,9 @@ import br.com.caelum.brutal.dao.ReputationEventDAO;
 import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.model.Tag;
-import br.com.caelum.vraptor4.Controller;
-import br.com.caelum.vraptor4.Get;
-import br.com.caelum.vraptor4.Result;
+import br.com.caelum.vraptor.Controller;
+import br.com.caelum.vraptor.Get;
+import br.com.caelum.vraptor.Result;
 
 @Controller
 public class RankingController {

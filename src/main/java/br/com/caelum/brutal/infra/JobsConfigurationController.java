@@ -5,10 +5,10 @@ import javax.inject.Inject;
 import org.apache.log4j.Logger;
 import org.quartz.SchedulerException;
 
+import br.com.caelum.vraptor.Controller;
+import br.com.caelum.vraptor.Get;
+import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.quartzjob.QuartzController;
-import br.com.caelum.vraptor4.Controller;
-import br.com.caelum.vraptor4.Get;
-import br.com.caelum.vraptor4.Result;
 
 @Controller
 public class JobsConfigurationController {

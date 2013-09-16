@@ -7,7 +7,7 @@ import javax.inject.Inject;
 
 import br.com.caelum.brutal.components.RecentTagsContainer;
 import br.com.caelum.brutal.migration.MigrationRunner;
-import br.com.caelum.vraptor4.events.VRaptorInitialized;
+import br.com.caelum.vraptor.events.VRaptorInitialized;
 
 @ApplicationScoped
 public class PreLoad {

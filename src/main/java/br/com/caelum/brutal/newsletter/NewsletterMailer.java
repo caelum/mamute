@@ -20,10 +20,10 @@ import br.com.caelum.brutal.notification.NotificationMailer;
 import br.com.caelum.brutal.notification.NotificationMailer.LinkToHelper;
 import br.com.caelum.brutal.util.BrutalDateFormat;
 import br.com.caelum.brutal.vraptor.Env;
+import br.com.caelum.vraptor.core.Localization;
+import br.com.caelum.vraptor.http.route.Router;
 import br.com.caelum.vraptor.simplemail.Mailer;
 import br.com.caelum.vraptor.simplemail.template.TemplateMailer;
-import br.com.caelum.vraptor4.core.Localization;
-import br.com.caelum.vraptor4.http.route.Router;
 
 public class NewsletterMailer {
 	

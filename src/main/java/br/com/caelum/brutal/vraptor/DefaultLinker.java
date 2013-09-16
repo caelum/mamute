@@ -5,10 +5,10 @@ import java.lang.reflect.Method;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-import br.com.caelum.vraptor4.http.route.Router;
-import br.com.caelum.vraptor4.proxy.MethodInvocation;
-import br.com.caelum.vraptor4.proxy.Proxifier;
-import br.com.caelum.vraptor4.proxy.SuperMethod;
+import br.com.caelum.vraptor.http.route.Router;
+import br.com.caelum.vraptor.proxy.MethodInvocation;
+import br.com.caelum.vraptor.proxy.Proxifier;
+import br.com.caelum.vraptor.proxy.SuperMethod;
 
 @ApplicationScoped
 @SuppressWarnings({"rawtypes","unchecked"})

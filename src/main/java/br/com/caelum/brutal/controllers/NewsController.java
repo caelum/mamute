@@ -17,11 +17,11 @@ import br.com.caelum.brutal.model.PostViewCounter;
 import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
+import br.com.caelum.vraptor.Controller;
+import br.com.caelum.vraptor.Get;
+import br.com.caelum.vraptor.Post;
+import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.plugin.hibernate4.extra.Load;
-import br.com.caelum.vraptor4.Controller;
-import br.com.caelum.vraptor4.Get;
-import br.com.caelum.vraptor4.Post;
-import br.com.caelum.vraptor4.Result;
 
 @Controller
 public class NewsController {

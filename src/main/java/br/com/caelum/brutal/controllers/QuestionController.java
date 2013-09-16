@@ -32,14 +32,14 @@ import br.com.caelum.brutal.model.watch.Watcher;
 import br.com.caelum.brutal.validators.TagsValidator;
 import br.com.caelum.brutal.vraptor.Linker;
 import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
+import br.com.caelum.vraptor.Controller;
+import br.com.caelum.vraptor.Get;
+import br.com.caelum.vraptor.Post;
+import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.plugin.hibernate4.extra.Load;
-import br.com.caelum.vraptor4.Controller;
-import br.com.caelum.vraptor4.Get;
-import br.com.caelum.vraptor4.Post;
-import br.com.caelum.vraptor4.Result;
-import br.com.caelum.vraptor4.Validator;
-import br.com.caelum.vraptor4.serialization.xstream.XStreamBuilder;
-import br.com.caelum.vraptor4.view.Results;
+import br.com.caelum.vraptor.serialization.xstream.XStreamBuilder;
+import br.com.caelum.vraptor.view.Results;
 
 import com.thoughtworks.xstream.XStream;
 

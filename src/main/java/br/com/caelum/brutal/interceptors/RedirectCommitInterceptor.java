@@ -5,13 +5,13 @@ import javax.inject.Inject;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import br.com.caelum.vraptor4.Intercepts;
-import br.com.caelum.vraptor4.Validator;
-import br.com.caelum.vraptor4.controller.ControllerMethod;
-import br.com.caelum.vraptor4.core.InterceptorStack;
-import br.com.caelum.vraptor4.http.MutableResponse;
-import br.com.caelum.vraptor4.http.MutableResponse.RedirectListener;
-import br.com.caelum.vraptor4.interceptor.Interceptor;
+import br.com.caelum.vraptor.Intercepts;
+import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.controller.ControllerMethod;
+import br.com.caelum.vraptor.core.InterceptorStack;
+import br.com.caelum.vraptor.http.MutableResponse;
+import br.com.caelum.vraptor.http.MutableResponse.RedirectListener;
+import br.com.caelum.vraptor.interceptor.Interceptor;
 
 @Intercepts
 public class RedirectCommitInterceptor implements Interceptor {

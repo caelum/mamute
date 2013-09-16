@@ -11,7 +11,7 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 
 import br.com.caelum.vraptor.environment.Environment;
-import br.com.caelum.vraptor4.events.VRaptorInitialized;
+import br.com.caelum.vraptor.events.VRaptorInitialized;
 
 @ApplicationScoped
 public class JobsScheduler {

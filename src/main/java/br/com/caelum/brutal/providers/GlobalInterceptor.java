@@ -20,15 +20,15 @@ import br.com.caelum.brutal.infra.SideBarInfo;
 import br.com.caelum.brutal.util.BrutalDateFormat;
 import br.com.caelum.brutauth.interceptors.CustomBrutauthRuleInterceptor;
 import br.com.caelum.brutauth.interceptors.SimpleBrutauthRuleInterceptor;
+import br.com.caelum.vraptor.InterceptionException;
+import br.com.caelum.vraptor.Intercepts;
+import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.controller.ControllerMethod;
+import br.com.caelum.vraptor.core.InterceptorStack;
+import br.com.caelum.vraptor.core.Localization;
 import br.com.caelum.vraptor.environment.Environment;
+import br.com.caelum.vraptor.interceptor.Interceptor;
 import br.com.caelum.vraptor.plugin.hibernate4.extra.ParameterLoaderInterceptor;
-import br.com.caelum.vraptor4.InterceptionException;
-import br.com.caelum.vraptor4.Intercepts;
-import br.com.caelum.vraptor4.Result;
-import br.com.caelum.vraptor4.controller.ControllerMethod;
-import br.com.caelum.vraptor4.core.InterceptorStack;
-import br.com.caelum.vraptor4.core.Localization;
-import br.com.caelum.vraptor4.interceptor.Interceptor;
 
 
 @Intercepts(before={ParameterLoaderInterceptor.class, CustomBrutauthRuleInterceptor.class, SimpleBrutauthRuleInterceptor.class})

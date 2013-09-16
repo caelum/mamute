@@ -5,7 +5,7 @@ import javax.inject.Inject;
 import br.com.caelum.brutal.components.RecentTagsContainer;
 import br.com.caelum.brutal.dao.NewsDAO;
 import br.com.caelum.brutal.infra.rss.read.FeedsMap;
-import br.com.caelum.vraptor4.Result;
+import br.com.caelum.vraptor.Result;
 
 public class SideBarInfo {
 

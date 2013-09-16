@@ -2,8 +2,8 @@ package br.com.caelum.brutal.factory;
 
 import javax.inject.Inject;
 
-import br.com.caelum.vraptor4.core.Localization;
-import br.com.caelum.vraptor4.validator.I18nMessage;
+import br.com.caelum.vraptor.core.Localization;
+import br.com.caelum.vraptor.validator.I18nMessage;
 
 public class MessageFactory {
 	private Localization localization;

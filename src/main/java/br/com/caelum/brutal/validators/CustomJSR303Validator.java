@@ -11,9 +11,9 @@ import javax.validation.MessageInterpolator;
 import javax.validation.Validator;
 
 import br.com.caelum.brutal.factory.MessageFactory;
-import br.com.caelum.vraptor4.core.Localization;
-import br.com.caelum.vraptor4.validator.DefaultBeanValidator;
-import br.com.caelum.vraptor4.validator.Message;
+import br.com.caelum.vraptor.core.Localization;
+import br.com.caelum.vraptor.validator.Message;
+import br.com.caelum.vraptor.validator.beanvalidation.DefaultBeanValidator;
 
 @Alternative
 @Priority(Interceptor.Priority.APPLICATION)

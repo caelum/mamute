@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOnlyRule;
-import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOrKarmaRule;
 import br.com.caelum.brutal.components.RecentTagsContainer;
 import br.com.caelum.brutal.dao.NewsDAO;
 import br.com.caelum.brutal.dao.QuestionDAO;
@@ -14,11 +12,10 @@ import br.com.caelum.brutal.model.News;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.providers.BrutalRoutesParser;
-import br.com.caelum.brutauth.auth.annotations.AccessLevel;
-import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
-import br.com.caelum.vraptor4.Controller;
-import br.com.caelum.vraptor4.Get;
-import br.com.caelum.vraptor4.Result;
+import br.com.caelum.vraptor.Controller;
+import br.com.caelum.vraptor.Get;
+import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.errormail.mail.ErrorMailer;
 
 @Controller
 public class ListController {
@@ -28,7 +25,8 @@ public class ListController {
 	@Inject private TagDAO tags;
 	@Inject private RecentTagsContainer recentTagsContainer;
 	@Inject private NewsDAO newses;
-
+	@Inject private ErrorMailer mailer;
+	
 	/**
 	 * actually, this path will not be used, we use the path defined in the current environment
 	 * be careful when modifying its signature
