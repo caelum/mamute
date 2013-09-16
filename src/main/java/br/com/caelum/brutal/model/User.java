@@ -34,6 +34,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -121,6 +122,10 @@ public class User implements Identifiable {
 	
 	@OneToMany(mappedBy = "watcher")
 	private final List<Watcher> watches = new ArrayList<>();
+	
+	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
+	private DateTime lastUpvote = new DateTime();
+	
 	
 	static {
 		GHOST = new User("", "");

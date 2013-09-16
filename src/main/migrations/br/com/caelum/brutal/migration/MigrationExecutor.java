@@ -24,19 +24,20 @@ public class MigrationExecutor {
 	}
 
 	@Inject
-	public MigrationExecutor(SessionFactory sf, DatabaseManager databaseManager) {
+	public MigrationExecutor(SessionFactory sf) {
 		this.sf = sf;
-		this.databaseManager = databaseManager;
 	}
 
 	public void begin() {
 		session = sf.openSession();
 		statelessSession = sf.openStatelessSession();
+		databaseManager = new DatabaseManager(session);
 		statelessSession.beginTransaction();
 		session.beginTransaction();
 	}
 
 	public void end() {
+		databaseManager = null;
 		session.getTransaction().commit();
 		statelessSession.getTransaction().commit();
 	}
