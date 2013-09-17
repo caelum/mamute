@@ -41,6 +41,19 @@
 	
 	<c:if test="${currentPage + delta < totalPages}">
 		...
+		<c:if test="${currentPage + delta < totalPages-1}">
+			<li class="page-item ${(currentPage == totalPages-1) ? 'current' : ''}">
+				<c:choose>
+					<c:when test="${not empty order}">
+						<a rel="nofollow" href="${url}?order=${order}&p=${totalPages-1}" data-type="${type}" data-target-id="${targetId}">${totalPages-1}</a>
+					</c:when>
+					<c:otherwise>
+						<a rel="nofollow" href="${url}?p=${totalPages-1}" data-type="${type}" data-target-id="${targetId}">${totalPages-1}</a>
+					</c:otherwise>
+				</c:choose>
+			</li>
+		
+		</c:if>
 		<li class="page-item ${(currentPage == totalPages) ? 'current' : ''}">
 			<c:choose>
 				<c:when test="${not empty order}">
