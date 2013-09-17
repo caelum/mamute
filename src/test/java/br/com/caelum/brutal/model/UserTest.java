@@ -7,12 +7,15 @@ import static org.junit.Assert.assertTrue;
 import java.net.URL;
 import java.util.ArrayList;
 
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.builder.QuestionBuilder;
 import br.com.caelum.brutal.dao.TestCase;
+import br.com.caelum.timemachine.Block;
+import br.com.caelum.timemachine.TimeMachine;
 
 public class UserTest extends TestCase {
 
@@ -141,5 +144,30 @@ public class UserTest extends TestCase {
 		String photo = user.getPhoto(10, 10);
 
 		assertEquals(uri + "?width=10&height=10", photo);
+	}
+	
+	@Test
+	public void should_not_show_upvote_banner() throws Exception {
+		User user = TimeMachine.goTo(new DateTime().minusWeeks(1)).andExecute(new Block<User>() {
+			@Override
+			public User run() {
+				return new User("name", "name@brutal.com");
+			}
+		}); 
+		user.votedUp();
+		
+		assertFalse(user.showUpvoteBanner());
+	}
+	
+	@Test
+	public void should_show_upvote_banner() throws Exception {
+		User user = TimeMachine.goTo(new DateTime().minusWeeks(1)).andExecute(new Block<User>() {
+			@Override
+			public User run() {
+				return new User("name", "name@brutal.com");
+			}
+		}); 
+		
+		assertTrue(user.showUpvoteBanner());
 	}
 }
