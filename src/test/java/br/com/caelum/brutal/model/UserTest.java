@@ -153,21 +153,11 @@ public class UserTest extends TestCase {
 			public User run() {
 				return new User("name", "name@brutal.com");
 			}
-		}); 
+		});
+		assertTrue(user.showUpvoteBanner());
+		
 		user.votedUp();
 		
 		assertFalse(user.showUpvoteBanner());
-	}
-	
-	@Test
-	public void should_show_upvote_banner() throws Exception {
-		User user = TimeMachine.goTo(new DateTime().minusWeeks(1)).andExecute(new Block<User>() {
-			@Override
-			public User run() {
-				return new User("name", "name@brutal.com");
-			}
-		}); 
-		
-		assertTrue(user.showUpvoteBanner());
 	}
 }
