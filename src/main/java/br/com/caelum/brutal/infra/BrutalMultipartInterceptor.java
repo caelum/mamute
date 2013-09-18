@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
-import br.com.caelum.vraptor4.InterceptionException;
-import br.com.caelum.vraptor4.Intercepts;
-import br.com.caelum.vraptor4.Validator;
-import br.com.caelum.vraptor4.controller.ControllerMethod;
-import br.com.caelum.vraptor4.core.InterceptorStack;
-import br.com.caelum.vraptor4.http.MutableRequest;
-import br.com.caelum.vraptor4.interceptor.ControllerLookupInterceptor;
-import br.com.caelum.vraptor4.interceptor.multipart.CommonsUploadMultipartInterceptor;
-import br.com.caelum.vraptor4.interceptor.multipart.MultipartConfig;
-import br.com.caelum.vraptor4.interceptor.multipart.ServletFileUploadCreator;
+import br.com.caelum.vraptor.InterceptionException;
+import br.com.caelum.vraptor.Intercepts;
+import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.controller.ControllerMethod;
+import br.com.caelum.vraptor.core.InterceptorStack;
+import br.com.caelum.vraptor.http.MutableRequest;
+import br.com.caelum.vraptor.interceptor.ControllerLookupInterceptor;
+import br.com.caelum.vraptor.interceptor.multipart.CommonsUploadMultipartInterceptor;
+import br.com.caelum.vraptor.interceptor.multipart.MultipartConfig;
+import br.com.caelum.vraptor.interceptor.multipart.ServletFileUploadCreator;
 
 @Intercepts(before = ControllerLookupInterceptor.class, after = {})
 @Alternative

@@ -10,9 +10,9 @@ import javax.inject.Inject;
 import org.jboss.weld.context.bound.BoundRequestContext;
 import org.jboss.weld.context.bound.BoundSessionContext;
 
-import br.com.caelum.vraptor4.core.Execution;
-import br.com.caelum.vraptor4.core.RequestInfo;
-import br.com.caelum.vraptor4.ioc.Container;
+import br.com.caelum.vraptor.core.Execution;
+import br.com.caelum.vraptor.core.RequestInfo;
+import br.com.caelum.vraptor.ioc.Container;
 
 public class CDIFakeRequestProvider {
 	

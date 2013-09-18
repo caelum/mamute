@@ -2,10 +2,10 @@ package br.com.caelum.brutal.controllers;
 
 import javax.inject.Inject;
 
+import br.com.caelum.vraptor.Controller;
+import br.com.caelum.vraptor.Get;
+import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.environment.Environment;
-import br.com.caelum.vraptor4.Controller;
-import br.com.caelum.vraptor4.Get;
-import br.com.caelum.vraptor4.Result;
 
 @Controller
 public class SearchController {

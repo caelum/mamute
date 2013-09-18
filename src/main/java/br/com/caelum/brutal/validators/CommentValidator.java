@@ -8,8 +8,8 @@ import javax.inject.Inject;
 
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.Comment;
-import br.com.caelum.vraptor4.Validator;
-import br.com.caelum.vraptor4.View;
+import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.View;
 
 public class CommentValidator {
 

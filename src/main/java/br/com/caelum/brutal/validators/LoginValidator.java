@@ -3,7 +3,7 @@ package br.com.caelum.brutal.validators;
 import javax.inject.Inject;
 
 import br.com.caelum.brutal.factory.MessageFactory;
-import br.com.caelum.vraptor4.Validator;
+import br.com.caelum.vraptor.Validator;
 
 public class LoginValidator {
 	public static final int PASSWORD_MIN_LENGTH = 6;

@@ -6,9 +6,9 @@ import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
 import br.com.caelum.brutal.components.RecentTagsContainer;
+import br.com.caelum.vraptor.Controller;
+import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.quartzjob.CronTask;
-import br.com.caelum.vraptor4.Controller;
-import br.com.caelum.vraptor4.Result;
 
 @Controller
 public class RecentTagsJob implements CronTask {

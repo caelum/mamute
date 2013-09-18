@@ -13,9 +13,9 @@ import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
 import br.com.caelum.brutal.model.User;
-import br.com.caelum.vraptor4.Controller;
-import br.com.caelum.vraptor4.Post;
-import br.com.caelum.vraptor4.Result;
+import br.com.caelum.vraptor.Controller;
+import br.com.caelum.vraptor.Post;
+import br.com.caelum.vraptor.Result;
 
 @Controller
 public class VerifyUsersController {

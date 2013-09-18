@@ -18,10 +18,10 @@ import br.com.caelum.brutal.model.LoginMethod;
 import br.com.caelum.brutal.model.MethodType;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.validators.UrlValidator;
-import br.com.caelum.vraptor4.Controller;
-import br.com.caelum.vraptor4.Get;
-import br.com.caelum.vraptor4.Result;
-import br.com.caelum.vraptor4.validator.I18nMessage;
+import br.com.caelum.vraptor.Controller;
+import br.com.caelum.vraptor.Get;
+import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.validator.I18nMessage;
 
 @Controller
 public class FacebookAuthController extends BaseController{

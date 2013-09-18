@@ -4,7 +4,7 @@ import javax.inject.Inject;
 
 import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.factory.MessageFactory;
-import br.com.caelum.vraptor4.Validator;
+import br.com.caelum.vraptor.Validator;
 
 public class EmailValidator {
 	

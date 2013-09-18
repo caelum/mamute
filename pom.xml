@@ -138,6 +138,11 @@
 			<version>5.0.0.Final</version>
 		</dependency>
 		<dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-validator-cdi</artifactId>
+		    <version>5.0.0.Final</version>
+		</dependency>
+		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-c3p0</artifactId>
 			<version>4.2.3.Final</version>

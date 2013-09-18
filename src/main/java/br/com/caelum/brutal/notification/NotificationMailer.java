@@ -29,9 +29,9 @@ import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.interfaces.Watchable;
 import br.com.caelum.brutal.vraptor.Env;
 import br.com.caelum.vraptor.environment.Environment;
+import br.com.caelum.vraptor.http.route.Router;
 import br.com.caelum.vraptor.simplemail.Mailer;
 import br.com.caelum.vraptor.simplemail.template.TemplateMailer;
-import br.com.caelum.vraptor4.http.route.Router;
 
 public class NotificationMailer {
 	private static final Logger LOG = Logger.getLogger(NotificationMailer.class);

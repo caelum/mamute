@@ -1,7 +1,5 @@
 package br.com.caelum.brutal.controllers;
 
-import static br.com.caelum.vraptor4.view.Results.http;
-
 import java.util.List;
 
 import javax.inject.Inject;
@@ -25,10 +23,11 @@ import br.com.caelum.brutal.model.interfaces.Moderatable;
 import br.com.caelum.brutal.reputation.rules.KarmaCalculator;
 import br.com.caelum.brutauth.auth.annotations.AccessLevel;
 import br.com.caelum.brutauth.auth.annotations.SimpleBrutauthRules;
-import br.com.caelum.vraptor4.Controller;
-import br.com.caelum.vraptor4.Get;
-import br.com.caelum.vraptor4.Post;
-import br.com.caelum.vraptor4.Result;
+import br.com.caelum.vraptor.Controller;
+import br.com.caelum.vraptor.Get;
+import br.com.caelum.vraptor.Post;
+import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.view.Results;
 
 @Controller
 public class HistoryController {
@@ -97,7 +96,7 @@ public class HistoryController {
         List<Information> pending = informations.pendingFor(moderatableId, moderatableClass);
         
         if (!approved.isPending()) {
-        	result.use(http()).sendError(403);
+        	result.use(Results.http()).sendError(403);
         	return;
         }
         

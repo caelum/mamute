@@ -17,10 +17,10 @@ import javax.servlet.jsp.jstl.fmt.LocalizationContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import br.com.caelum.vraptor4.core.Localization;
-import br.com.caelum.vraptor4.core.RequestInfo;
-import br.com.caelum.vraptor4.core.SafeResourceBundle;
-import br.com.caelum.vraptor4.util.EmptyBundle;
+import br.com.caelum.vraptor.core.Localization;
+import br.com.caelum.vraptor.core.RequestInfo;
+import br.com.caelum.vraptor.core.SafeResourceBundle;
+import br.com.caelum.vraptor.util.EmptyBundle;
 
 import com.google.common.base.Strings;
 

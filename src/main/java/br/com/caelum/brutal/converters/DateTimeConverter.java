@@ -10,10 +10,10 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import br.com.caelum.brutal.factory.MessageFactory;
-import br.com.caelum.vraptor4.Convert;
-import br.com.caelum.vraptor4.Converter;
-import br.com.caelum.vraptor4.Validator;
-import br.com.caelum.vraptor4.core.Localization;
+import br.com.caelum.vraptor.Convert;
+import br.com.caelum.vraptor.Converter;
+import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.core.Localization;
 
 @Convert(DateTime.class)
 public class DateTimeConverter implements Converter<DateTime>{

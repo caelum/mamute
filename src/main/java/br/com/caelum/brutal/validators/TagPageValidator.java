@@ -6,7 +6,7 @@ import br.com.caelum.brutal.controllers.TagPageController;
 import br.com.caelum.brutal.dao.TagPageDAO;
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.TagPage;
-import br.com.caelum.vraptor4.Validator;
+import br.com.caelum.vraptor.Validator;
 
 public class TagPageValidator {
 	private Validator validator;

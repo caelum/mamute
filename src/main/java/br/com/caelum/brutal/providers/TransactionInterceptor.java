@@ -7,10 +7,10 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import br.com.caelum.brutal.infra.AfterSuccessfulTransaction;
+import br.com.caelum.vraptor.Intercepts;
+import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.interceptor.SimpleInterceptorStack;
 import br.com.caelum.vraptor.plugin.hibernate4.HibernateTransactionInterceptor;
-import br.com.caelum.vraptor4.Intercepts;
-import br.com.caelum.vraptor4.Validator;
-import br.com.caelum.vraptor4.interceptor.SimpleInterceptorStack;
 
 @Intercepts
 @Specializes

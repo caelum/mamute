@@ -5,10 +5,10 @@ import javax.inject.Inject;
 import org.apache.log4j.Logger;
 
 import br.com.caelum.brutal.infra.rss.read.FeedsMap;
+import br.com.caelum.vraptor.Controller;
+import br.com.caelum.vraptor.Path;
+import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.quartzjob.CronTask;
-import br.com.caelum.vraptor4.Controller;
-import br.com.caelum.vraptor4.Path;
-import br.com.caelum.vraptor4.Result;
 
 @Controller
 public class OndeTrabalharRSSJob implements CronTask{
