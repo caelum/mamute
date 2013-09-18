@@ -224,9 +224,9 @@ public class QuestionTest  extends TestCase{
 	public void should_verify_show_mark_as_solution_rules_for_author() throws Exception {
 		User author = user("Fernanda", "bla@bla.com", 1l);
 		Question question = question(author);
-		assertFalse(question.showMarkAsSolution(author));
+		assertFalse(question.canMarkAsSolution(author));
 		question.add(answer("", question, author));
-		assertTrue(question.showMarkAsSolution(author));
+		assertTrue(question.canMarkAsSolution(author));
 	}
 	
 	@Test
@@ -235,7 +235,7 @@ public class QuestionTest  extends TestCase{
 		Question question = question(author);
 		Answer answer = answer("", question, author);
 		question.markAsSolvedBy(answer);
-		assertFalse(question.showMarkAsSolution(author));
+		assertFalse(question.canMarkAsSolution(author));
 	}
 	
 	@Test
@@ -243,10 +243,10 @@ public class QuestionTest  extends TestCase{
 		User author = user("Fernanda", "bla@bla.com", 1l);
 		User user = user("Chico", "bla@b.com", 2L);
 		Question question = question(author);
-		assertFalse(question.showMarkAsSolution(user));
+		assertFalse(question.canMarkAsSolution(user));
 		Answer answer = answer("", question, author);
 		question.markAsSolvedBy(answer);
-		assertFalse(question.showMarkAsSolution(user));
+		assertFalse(question.canMarkAsSolution(user));
 	}
 	
 	private String bigString(char c, int repetitions) {

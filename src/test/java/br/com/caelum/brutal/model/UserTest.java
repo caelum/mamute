@@ -154,10 +154,10 @@ public class UserTest extends TestCase {
 				return new User("name", "name@brutal.com");
 			}
 		});
-		assertTrue(user.showUpvoteBanner());
+		assertFalse(user.isVotingEnough());
 		
 		user.votedUp();
 		
-		assertFalse(user.showUpvoteBanner());
+		assertTrue(user.isVotingEnough());
 	}
 }
