@@ -25,7 +25,7 @@
 		<p class = "banner-mark-as-solution"><fmt:message key="question.banner.remember" /></p>		
 	</c:if>
 	
-	<c:if test="${showUpvoteBanner && !markAsSolution}">
+	<c:if test="${!isVotingEnough && !markAsSolution}">
 		<p class = "banner-mark-as-solution"><fmt:message key="question.banner.upvote" /></p>		
 	</c:if>
 	

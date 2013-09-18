@@ -407,7 +407,7 @@ public class User implements Identifiable {
 		this.lastUpvote = new DateTime();
 	}
 	
-	public boolean showUpvoteBanner(){
-		return lastUpvote.isBefore(new DateTime().minusWeeks(1));
+	public boolean isVotingEnough(){
+		return !lastUpvote.isBefore(new DateTime().minusWeeks(1));
 	}
 }

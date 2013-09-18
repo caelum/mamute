@@ -425,7 +425,7 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 		return lastUpdatedAt.isBefore(new DateTime().minusMonths(1));
 	}
 	
-	public boolean showMarkAsSolution (User user) {
-		return (user.getId().equals(author.getId()) && solution == null && answerCount != 0); 
+	public boolean canMarkAsSolution (User user) {
+		return (user.equals(author) && solution == null && answerCount != 0); 
 	}
 }
