@@ -133,7 +133,7 @@ public class QuestionController {
 		User current = currentUser.getCurrent();
 		if (question.isVisibleFor(current)){
 			result.include("markAsSolution", question.canMarkAsSolution(current));
-			result.include("isVotingEnough", current.isVotingEnough());
+			result.include("showUpvoteBanner", !current.isVotingEnough());
 			
 			redirectToRightUrl(question, sluggedTitle);
 			viewCounter.ping(question);
