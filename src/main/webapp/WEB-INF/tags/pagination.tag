@@ -8,16 +8,19 @@
 <%@attribute name="targetId" type="java.lang.String" required="false"%>
 <%@attribute name="order" type="java.lang.String" required="false"%>
 
+<c:if test="${unansweredTagLinks}">
+	<c:set value="semRespostas=true&" var="append" />
+</c:if>
 
 <ul class="pager">
 	<c:if test="${currentPage > delta + 1 }">
 		<li class="page-item ${(currentPage == 1) ? 'current' : ''}">
 			<c:choose>
 				<c:when test="${not empty order}">
-					<a rel="nofollow" href="${url}?order=${order}&p=1" data-type="${type}" data-target-id="${targetId}">1</a>
+					<a rel="nofollow" href="${url}?${append}order=${order}&p=1" data-type="${type}" data-target-id="${targetId}">1</a>
 				</c:when>
 				<c:otherwise>			
-					<a rel="nofollow" href="${url}?p=1" data-type="${type}" data-target-id="${targetId}">1</a>
+					<a rel="nofollow" href="${url}?${append}p=1" data-type="${type}" data-target-id="${targetId}">1</a>
 				</c:otherwise>
 			</c:choose>
 		</li>
@@ -29,10 +32,10 @@
 			<li class="page-item ${(p == currentPage) ? 'current' : ''}">
 				<c:choose>
 					<c:when test="${not empty order}">
-						<a rel="nofollow" href="${url}?order=${order}&p=${p}" data-type="${type}" data-target-id="${targetId}">${p}</a>
+						<a rel="nofollow" href="${url}?${append}order=${order}&p=${p}" data-type="${type}" data-target-id="${targetId}">${p}</a>
 					</c:when>
 					<c:otherwise>
-						<a rel="nofollow" href="${url}?p=${p}" data-type="${type}" data-target-id="${targetId}">${p}</a>
+						<a rel="nofollow" href="${url}?${append}p=${p}" data-type="${type}" data-target-id="${targetId}">${p}</a>
 					</c:otherwise>
 				</c:choose>
 			</li>
@@ -45,10 +48,10 @@
 			<li class="page-item ${(currentPage == totalPages-1) ? 'current' : ''}">
 				<c:choose>
 					<c:when test="${not empty order}">
-						<a rel="nofollow" href="${url}?order=${order}&p=${totalPages-1}" data-type="${type}" data-target-id="${targetId}">${totalPages-1}</a>
+						<a rel="nofollow" href="${url}?${append}order=${order}&p=${totalPages-1}" data-type="${type}" data-target-id="${targetId}">${totalPages-1}</a>
 					</c:when>
 					<c:otherwise>
-						<a rel="nofollow" href="${url}?p=${totalPages-1}" data-type="${type}" data-target-id="${targetId}">${totalPages-1}</a>
+						<a rel="nofollow" href="${url}?${append}p=${totalPages-1}" data-type="${type}" data-target-id="${targetId}">${totalPages-1}</a>
 					</c:otherwise>
 				</c:choose>
 			</li>
@@ -57,10 +60,10 @@
 		<li class="page-item ${(currentPage == totalPages) ? 'current' : ''}">
 			<c:choose>
 				<c:when test="${not empty order}">
-					<a rel="nofollow" href="${url}?order=${order}&p=${totalPages}" data-type="${type}" data-target-id="${targetId}">${totalPages}</a>
+					<a rel="nofollow" href="${url}?${append}order=${order}&p=${totalPages}" data-type="${type}" data-target-id="${targetId}">${totalPages}</a>
 				</c:when>
 				<c:otherwise>
-					<a rel="nofollow" href="${url}?p=${totalPages}" data-type="${type}" data-target-id="${targetId}">${totalPages}</a>
+					<a rel="nofollow" href="${url}?${append}p=${totalPages}" data-type="${type}" data-target-id="${targetId}">${totalPages}</a>
 				</c:otherwise>
 			</c:choose>
 		</li>
