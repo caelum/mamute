@@ -9,7 +9,7 @@
 	<c:set value="${false}" var="unansweredTagLinks" />
 </c:if>
 
-<div class="subheader ${not empty tag? 'subheader-with-tag' : 'subheader-without-tag' }">
+<div class="subheader">
 	<c:if test="${unansweredTagLinks}">
 		<tags:brutal-include value="headerTagsWithNoAnswer"/>
 	</c:if>
