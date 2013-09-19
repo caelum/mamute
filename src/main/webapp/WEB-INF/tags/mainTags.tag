@@ -14,47 +14,47 @@
 
 <ol class="main-tags ${tagClass}">
 	<li>
-		<a class="${tag.name == 'java' && useSprite ? 'main-tags-current' : ''} ${tagClassLi} ${useSprite? 'main-tags-sprite main-tags-java' : '' }" href="<c:url value="/tag/java${append}" />">
+		<a class="${(tag.name == 'java' || question.mostImportantTag.name == 'java') && useSprite ? 'main-tags-current' : ''} ${tagClassLi} ${useSprite? 'main-tags-sprite main-tags-java' : '' }" href="<c:url value="/tag/java${append}" />">
 			java
 		</a>
 	</li>
 	<li>
-		<a class="${tag.name == 'android' && useSprite ? 'main-tags-current' : ''} ${tagClassLi} ${useSprite? 'main-tags-sprite main-tags-android' : '' }" href="<c:url value="/tag/android${append}" />">
+		<a class="${(tag.name == 'android' || question.mostImportantTag.name == 'android') && useSprite ? 'main-tags-current' : ''} ${tagClassLi} ${useSprite? 'main-tags-sprite main-tags-android' : '' }" href="<c:url value="/tag/android${append}" />">
 			android
 		</a>
 	</li>
 	<li>
-		<a class="${tag.name == 'c#' && useSprite ? 'main-tags-current' : ''} ${tagClassLi} ${useSprite? 'main-tags-sprite main-tags-c' : '' }" href="<c:url value="/tag/c%23${append}" />">
+		<a class="${(tag.name == 'c#' || question.mostImportantTag.name == 'c#') && useSprite ? 'main-tags-current' : ''} ${tagClassLi} ${useSprite? 'main-tags-sprite main-tags-c' : '' }" href="<c:url value="/tag/c%23${append}" />">
 			c#
 		</a>
 	</li>
 	<li>
-		<a class="${tag.name == '.net' && useSprite ? 'main-tags-current' : ''} ${tagClassLi} ${useSprite? 'main-tags-sprite main-tags-net' : '' }" href="<c:url value="/tag/.net${append}" />">
+		<a class="${(tag.name == '.net' || question.mostImportantTag.name == '.net') && useSprite ? 'main-tags-current' : ''} ${tagClassLi} ${useSprite? 'main-tags-sprite main-tags-net' : '' }" href="<c:url value="/tag/.net${append}" />">
 			.net
 		</a>
 	</li>
 	<li>
-		<a class="${tag.name == 'javascript' && useSprite ? 'main-tags-current' : ''} ${tagClassLi} ${useSprite? 'main-tags-sprite main-tags-javascript' : '' }" href="<c:url value="/tag/javascript${append}" />">
+		<a class="${(tag.name == 'javascript' || question.mostImportantTag.name == 'javascript') && useSprite ? 'main-tags-current' : ''} ${tagClassLi} ${useSprite? 'main-tags-sprite main-tags-javascript' : '' }" href="<c:url value="/tag/javascript${append}" />">
 			javascript
 		</a>
 	</li>
 	<li>	
-		<a class="${tag.name == 'php' && useSprite ? 'main-tags-current' : ''} ${tagClassLi} ${useSprite? 'main-tags-sprite main-tags-php' : '' }" href="<c:url value="/tag/php${append}" />">
+		<a class="${(tag.name == 'php' || question.mostImportantTag.name == 'php') && useSprite ? 'main-tags-current' : ''} ${tagClassLi} ${useSprite? 'main-tags-sprite main-tags-php' : '' }" href="<c:url value="/tag/php${append}" />">
 			php
 		</a>
 	</li>
 	<li>
-		<a class="${tag.name == 'jquery' && useSprite ? 'main-tags-current' : ''} ${tagClassLi} ${useSprite? 'main-tags-sprite main-tags-jquery' : '' }" href="<c:url value="/tag/jquery${append}" />">
+		<a class="${(tag.name == 'jquery' || question.mostImportantTag.name == 'jquery') && useSprite ? 'main-tags-current' : ''} ${tagClassLi} ${useSprite? 'main-tags-sprite main-tags-jquery' : '' }" href="<c:url value="/tag/jquery${append}" />">
 			jquery
 		</a>
 	</li>
 	<li>
-		<a class="${tag.name == 'html' && useSprite ? 'main-tags-current' : ''} ${tagClassLi} ${useSprite? 'main-tags-sprite main-tags-html' : '' }" href="<c:url value="/tag/html${append}" />">
+		<a class="${(tag.name == 'html' || question.mostImportantTag.name == 'html') && useSprite ? 'main-tags-current' : ''} ${tagClassLi} ${useSprite? 'main-tags-sprite main-tags-html' : '' }" href="<c:url value="/tag/html${append}" />">
 			html
 		</a>
 	</li>
 	<li>
-		<a class="${tag.name == 'sql' && useSprite ? 'main-tags-current' : ''} ${tagClassLi} ${useSprite? 'main-tags-sprite main-tags-sql' : '' }" href="<c:url value="/tag/sql${append}"/>">
+		<a class="${(tag.name == 'sql' || question.mostImportantTag.name == 'sql') && useSprite ? 'main-tags-current' : ''} ${tagClassLi} ${useSprite? 'main-tags-sprite main-tags-sql' : '' }" href="<c:url value="/tag/sql${append}"/>">
 			sql
 		</a>
 	</li>
