@@ -1024,12 +1024,12 @@ textarea {
 }
 
 a.button.ask-a-question {
-	background-color: #dc962c;
+	background-color: #84bc41;
 	line-height: 4em;
 }
 
 a.button.ask-a-question:hover {
-	background-color: #dc962c;
+	background-color: #97D74A;
 }
 
 .button:hover .menu-subtitle {
@@ -2665,7 +2665,7 @@ solid
 	text-align: center;
 	color: #141414;
 	padding: .5em 0;
-	background-color: #EEB55F;
+	background-color: #B7F869;
 	width: 100%;
 	margin: 1em auto .6em;
 }
