@@ -1407,7 +1407,8 @@ margin
 }
 
 .main-tags {
-	padding: 15px 0;
+	padding: 0 0 0 0em;
+	font-size: 0.9em;
 }
 
 .main-tags li {
@@ -2665,6 +2666,6 @@ solid
 	color: #141414;
 	padding: .5em 0;
 	background-color: #EEB55F;
-	width: 90%;
-	margin: .2em auto .6em;
+	width: 100%;
+	margin: 1em auto .6em;
 }
