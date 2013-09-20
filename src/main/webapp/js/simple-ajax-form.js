@@ -42,6 +42,7 @@ $(function() {
 			return;
 
 		form.find(".submit").attr("disabled", true);
+		form.find(".cancel").attr("disabled", false);
 		var error = function(jqXHR) {
 			resetForm(form);
 			if (jqXHR.status == 400) {
