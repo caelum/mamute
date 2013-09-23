@@ -24,7 +24,7 @@ public class OndeTrabalharRSSJob implements CronTask{
 		LOG.debug("executing " + getClass().getSimpleName());
 		feedsMap.putOrUpdate(JOBS_BASE_KEY);
 		LOG.debug(feedsMap.get(JOBS_BASE_KEY));
-		result.notFound();
+		result.nothing();
 	}
 
 	@Override
