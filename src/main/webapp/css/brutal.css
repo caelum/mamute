@@ -2598,15 +2598,15 @@ solid
 	background-repeat: no-repeat;
 	display: inline-block;
 	vertical-align: middle;
-	width: 34px;
-	height: 39px;
+	width: 37px;
+	height: 40px;
 }
 
 .main-tags-text {
 	color: #3e6d8e;
 	font-size: 1.2em;
-	padding-right: .8em;
-	padding-left: .8em;
+	padding-right: .6em;
+	padding-left: .6em;
 	display: block;
 	line-height: 40px;
 }
@@ -2616,39 +2616,39 @@ solid
 }
 
 .main-tags-java:before {
-	background-position: -13px -45px;
+	background-position: -48px -7px;
 }
 
 .main-tags-android:before {
-	background-position: -10px -277px;
+	background-position: -281px -7px;
 }
 
 .main-tags-c:before {
-	background-position: -10px 1px;
+	background-position: -561px -7px;
 }
 
 .main-tags-net:before {
-	background-position: -10px -319px;
+	background-position: -323px -7px;
 }
 
 .main-tags-javascript:before {
-	background-position: -10px 1px;
+	background-position: -408px -7px;
 }
 
 .main-tags-php:before {
-	background-position: -10px -138px;
+	background-position: -140px -7px;
 }
 
 .main-tags-jquery:before {
-	background-position: -10px 1px;
+	background-position: -463px -7px;
 }
 
 .main-tags-html:before {
-	background-position: -9px -229px;
+	background-position: -235px -7px;
 }
 
 .main-tags-sql:before {
-	background-position: -10px 1px;
+	background-position: -509px -7px;
 }
 
 .about-tag {

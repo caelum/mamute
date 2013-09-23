@@ -1,7 +1,7 @@
-@media only screen and (max-width: 1350px) {
+@media only screen and (min-width: 1360px) {
 	.main-tags-text {
-		padding-right: .6em;
-		padding-left: .6em;
+		padding-right: .7em;
+		padding-left: .7em;
 	}
 }
 
@@ -16,6 +16,13 @@
 	
 	.medium-ads {
 		display: none;
+	}
+}
+
+@media only screen and (max-width: 1310px) {
+	.main-tags-text {
+		padding-right: .5em;
+		padding-left: .5em;
 	}
 }
 
