@@ -6,6 +6,7 @@ import static br.com.caelum.brutal.model.Comment.ERROR_NOT_EMPTY;
 
 import javax.inject.Inject;
 
+import br.com.caelum.brutal.controllers.BrutalValidator;
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.vraptor.Validator;
@@ -15,9 +16,10 @@ public class CommentValidator {
 
 	@Inject private Validator validator;
 	@Inject private MessageFactory factory;
+	@Inject private BrutalValidator gambeta;
 
 	public boolean validate(Comment comment){
-		validator.validate(comment);
+		gambeta.validate(comment);
 		return !validator.hasErrors();
 	}
 	

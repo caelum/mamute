@@ -5,19 +5,24 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.util.ResourceBundle;
+
+import javax.validation.Validation;
+
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeUtils;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.com.caelum.brutal.controllers.BrutalValidator;
 import br.com.caelum.brutal.dao.TestCase;
 import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.dto.UserPersonalInfo;
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.Validator;
-import br.com.caelum.vraptor.core.Localization;
-import br.com.caelum.vraptor.util.test.JSR303MockValidator;
+import br.com.caelum.vraptor.simplemail.template.BundleFormatter;
+import br.com.caelum.vraptor.util.test.MockValidator;
 
 public class UserPersonalInfoValidatorTest extends TestCase{
 
@@ -25,19 +30,21 @@ public class UserPersonalInfoValidatorTest extends TestCase{
 	private Validator validator;
 	private EmailValidator emailValidator;
 	private MessageFactory messageFactory;
-	private Localization localization;
 	private UserDAO users;
 	private UserPersonalInfoValidator infoValidator;
+	private BundleFormatter bundle;
 	
 	@Before
 	public void setup() {
+		this.bundle = mock(BundleFormatter.class);
 		this.validEmail = "artur.adam@caelum.com.br";
 		this.users = mock(UserDAO.class);
-		this.validator = new JSR303MockValidator();
-		this.localization = mock(Localization.class);
-		this.messageFactory = new MessageFactory(localization);
+		this.validator = new MockValidator();
+		this.messageFactory = new MessageFactory(mock(ResourceBundle.class));
 		this.emailValidator = new EmailValidator(validator, users, messageFactory);
-		this.infoValidator = new UserPersonalInfoValidator(validator, emailValidator, messageFactory, localization);
+		javax.validation.Validator javaxValidator = Validation.buildDefaultValidatorFactory().getValidator();
+		BrutalValidator brutalValidator = new BrutalValidator(javaxValidator, validator);
+		this.infoValidator = new UserPersonalInfoValidator(validator, emailValidator, messageFactory, bundle, brutalValidator);
 	}
 
 	@Test
@@ -70,7 +77,7 @@ public class UserPersonalInfoValidatorTest extends TestCase{
 				.withName("newName")
 				.withEmail(artur.getEmail());
 		
-		when(localization.getMessage("date.joda.simple.pattern")).thenReturn("dd/MM/YYYY");
+		when(bundle.getMessage("date.joda.simple.pattern")).thenReturn("dd/MM/YYYY");
 		assertFalse(infoValidator.validate(info));
 	}
 	
@@ -83,7 +90,7 @@ public class UserPersonalInfoValidatorTest extends TestCase{
 				.withName("newName")
 				.withEmail(artur.getEmail());
 		
-		when(localization.getMessage("date.joda.simple.pattern")).thenReturn("dd/MM/YYYY");
+		when(bundle.getMessage("date.joda.simple.pattern")).thenReturn("dd/MM/YYYY");
 		assertTrue(infoValidator.validate(info));
 		DateTimeUtils.setCurrentMillisSystem();
 	}

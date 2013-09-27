@@ -5,10 +5,11 @@ import javax.inject.Inject;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
+import br.com.caelum.brutal.controllers.BrutalValidator;
 import br.com.caelum.brutal.dto.UserPersonalInfo;
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.vraptor.Validator;
-import br.com.caelum.vraptor.core.Localization;
+import br.com.caelum.vraptor.simplemail.template.BundleFormatter;
 
 public class UserPersonalInfoValidator {
 	
@@ -34,7 +35,8 @@ public class UserPersonalInfoValidator {
 	private Validator validator;
 	private EmailValidator emailValidator;
 	private MessageFactory messageFactory;
-	private Localization localization;
+	private BundleFormatter bundle;
+	private BrutalValidator brutalValidator;
 
 	@Deprecated
 	public UserPersonalInfoValidator() {
@@ -42,17 +44,16 @@ public class UserPersonalInfoValidator {
 
 	@Inject
 	public UserPersonalInfoValidator(Validator validator, EmailValidator emailValidator, 
-			MessageFactory messageFactory, Localization localization){
+			MessageFactory messageFactory, BundleFormatter bundle, BrutalValidator brutalValidator){
 		this.validator = validator;
 		this.emailValidator = emailValidator;
 		this.messageFactory = messageFactory;
-		this.localization = localization;
+		this.bundle = bundle;
+		this.brutalValidator = brutalValidator;
 	}
 	
 	public boolean validate(UserPersonalInfo info) {
-		
-		validator.validate(info);
-		
+		brutalValidator.validate(info);
 		if(validator.hasErrors()){
 			return false;
 		}
@@ -76,7 +77,7 @@ public class UserPersonalInfoValidator {
 				validator.add(messageFactory.build(
 						"error", 
 						"user.errors.name.min_time", 
-						nameLastTouchedAt.plusDays(30).toString(DateTimeFormat.forPattern(localization.getMessage("date.joda.simple.pattern")))
+						nameLastTouchedAt.plusDays(30).toString(DateTimeFormat.forPattern(bundle.getMessage("date.joda.simple.pattern")))
 				));
 			}
 		}

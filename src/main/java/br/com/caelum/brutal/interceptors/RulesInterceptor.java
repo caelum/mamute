@@ -14,9 +14,10 @@ import br.com.caelum.vraptor.Intercepts;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.controller.ControllerMethod;
 import br.com.caelum.vraptor.core.InterceptorStack;
+import br.com.caelum.vraptor.interceptor.FlashInterceptor;
 import br.com.caelum.vraptor.interceptor.Interceptor;
 
-@Intercepts
+@Intercepts(after=FlashInterceptor.class)
 public class RulesInterceptor implements Interceptor {
 
 	@Inject private Result result;

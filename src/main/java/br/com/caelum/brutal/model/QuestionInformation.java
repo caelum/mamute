@@ -51,7 +51,7 @@ public class QuestionInformation implements Information, Taggable {
 
 	@Lob
 	@Length(min = DESCRIPTION_MIN_LENGTH, message = "question.errors.description.length")
-	@NotEmpty(message = "question.errors.description.length")
+	@NotEmpty
 	private String description;
 
 	@Type(type = "text")
@@ -59,7 +59,7 @@ public class QuestionInformation implements Information, Taggable {
 	private String sluggedTitle;
 	
 	@NotNull(message = "question.errors.comment.not_null")
-	@Length(min = COMMENT_MIN_LENGTH, message = "question.errors.comment.length")
+	@Length(min = COMMENT_MIN_LENGTH, message = "{question.errors.comment.length}")
 	@NotEmpty(message = "question.errors.comment.length")
 	@Type(type = "text")
 	private String comment;

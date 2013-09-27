@@ -1,6 +1,7 @@
 package br.com.caelum.brutal.controllers;
 
 import java.util.Arrays;
+import java.util.ResourceBundle;
 
 import javax.inject.Inject;
 
@@ -31,7 +32,6 @@ import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
-import br.com.caelum.vraptor.core.Localization;
 import br.com.caelum.vraptor.plugin.hibernate4.extra.Load;
 import br.com.caelum.vraptor.view.Results;
 
@@ -40,7 +40,6 @@ public class AnswerController {
 	@Inject private Result result;
 	@Inject private AnswerDAO answers;
 	@Inject private LoggedUser currentUser;
-	@Inject private Localization localization;
     @Inject private KarmaCalculator calculator;
 	@Inject private MessageFactory messageFactory;
 	@Inject private Validator validator;
@@ -48,6 +47,8 @@ public class AnswerController {
 	@Inject private NotificationManager notificationManager;
 	@Inject private WatcherDAO watchers;
 	@Inject private ReputationEventDAO reputationEvents;
+	@Inject private ResourceBundle bundle;
+	@Inject private BrutalValidator brutalValidator;
 	
 	@Get("/resposta/editar/{answer.id}")
 	@CustomBrutauthRules(EditAnswerRule.class)
@@ -59,8 +60,8 @@ public class AnswerController {
 	@CustomBrutauthRules(EditAnswerRule.class)
 	public void edit(@Load Answer original, String description, String comment) {
 		AnswerInformation information = new AnswerInformation(description, currentUser, comment);
-
-		validator.validate(information);
+		brutalValidator.validate(information);
+		
 		validator.onErrorRedirectTo(this).answerEditForm(original);
 		
 		UpdateStatus status = original.updateWith(information);
@@ -101,7 +102,7 @@ public class AnswerController {
 		Answer solution = answers.getById(solutionId);
 		Question question = solution.getMainThread();
         if (!currentUser.getCurrent().isAuthorOf(question)) {
-			result.use(Results.status()).forbidden(localization.getMessage("answer.error.not_autor"));
+			result.use(Results.status()).forbidden(bundle.getString("answer.error.not_autor"));
 			result.redirectTo(QuestionController.class).showQuestion(question,
 					question.getSluggedTitle());
 			return;

@@ -5,17 +5,20 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.util.ResourceBundle;
+
+import javax.validation.Validation;
+
 import org.junit.Before;
 import org.junit.Test;
 
+import br.com.caelum.brutal.controllers.BrutalValidator;
 import br.com.caelum.brutal.dao.TestCase;
 import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.Validator;
-import br.com.caelum.vraptor.core.Localization;
-import br.com.caelum.vraptor.util.test.JSR303MockValidator;
-import br.com.caelum.vraptor.util.test.MockLocalization;
+import br.com.caelum.vraptor.util.test.MockValidator;
 
 public class SignupValidatorTest extends TestCase {
 
@@ -25,16 +28,18 @@ public class SignupValidatorTest extends TestCase {
 	private UserValidator userValidator;
 	private EmailValidator emailValidator;
 	private MessageFactory messageFactory;
-	private Localization localization;
+	private ResourceBundle bundle;
     
     @Before
     public void setup() {
+    	bundle = mock(ResourceBundle.class);
         users = mock(UserDAO.class);
-        validator = new JSR303MockValidator();
-        localization = new MockLocalization();
-        messageFactory = new MessageFactory(localization);
+        validator = new MockValidator();
+        messageFactory = new MessageFactory(bundle);
         emailValidator = new EmailValidator(validator, users, messageFactory);
-        userValidator = new UserValidator(validator, emailValidator, messageFactory);
+        javax.validation.Validator javaxValidator = Validation.buildDefaultValidatorFactory().getValidator();
+        BrutalValidator brutalValidator = new BrutalValidator(javaxValidator, validator);
+        userValidator = new UserValidator(validator, emailValidator, messageFactory, brutalValidator);
         signupValidator = new SignupValidator(validator, userValidator, messageFactory);
     }
 

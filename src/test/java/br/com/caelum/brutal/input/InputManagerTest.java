@@ -1,8 +1,11 @@
 package br.com.caelum.brutal.input;
 
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import org.joda.time.DateTime;
-import static org.junit.Assert.*;
 import org.junit.Test;
 
 import br.com.caelum.brutal.dao.TestCase;

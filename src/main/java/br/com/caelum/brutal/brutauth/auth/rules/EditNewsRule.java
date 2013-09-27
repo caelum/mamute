@@ -8,7 +8,6 @@ import javax.inject.Inject;
 
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.News;
-import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutauth.auth.rules.CustomBrutauthRule;
 
 public class EditNewsRule implements CustomBrutauthRule{

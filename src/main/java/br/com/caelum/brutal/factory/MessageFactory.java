@@ -1,25 +1,26 @@
 package br.com.caelum.brutal.factory;
 
+import java.util.ResourceBundle;
+
 import javax.inject.Inject;
 
-import br.com.caelum.vraptor.core.Localization;
 import br.com.caelum.vraptor.validator.I18nMessage;
 
 public class MessageFactory {
-	private Localization localization;
+	private ResourceBundle bundle;
 
 	@Deprecated
 	public MessageFactory() {
 	}
 	
 	@Inject
-	public MessageFactory(Localization localization) {
-		this.localization = localization;
+	public MessageFactory(ResourceBundle bundle) {
+		this.bundle = bundle;
 	}
 
 	public I18nMessage build(String category, String key, Object... parameters) {
 		I18nMessage message = new I18nMessage(category, key, parameters);
-		message.setBundle(localization.getBundle());
+		message.setBundle(bundle);
 		return message;
 	}
 	

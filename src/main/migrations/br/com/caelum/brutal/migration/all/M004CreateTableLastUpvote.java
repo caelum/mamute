@@ -7,7 +7,6 @@ import javax.enterprise.context.ApplicationScoped;
 import br.com.caelum.brutal.migration.MigrationOperation;
 import br.com.caelum.brutal.migration.RawSQLOperation;
 import br.com.caelum.brutal.migration.SchemaMigration;
-import br.com.caelum.brutal.migration.SimpleSchemaMigration;
 
 @ApplicationScoped
 public class M004CreateTableLastUpvote implements SchemaMigration {
