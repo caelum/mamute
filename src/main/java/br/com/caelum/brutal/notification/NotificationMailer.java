@@ -32,6 +32,7 @@ import br.com.caelum.brutal.vraptor.Env;
 import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.http.route.Router;
 import br.com.caelum.vraptor.simplemail.Mailer;
+import br.com.caelum.vraptor.simplemail.template.BundleFormatter;
 import br.com.caelum.vraptor.simplemail.template.TemplateMailer;
 
 public class NotificationMailer {
@@ -44,7 +45,7 @@ public class NotificationMailer {
 	@Inject private Environment env;
 	@Inject private Env brutalEnv;
 	@Inject private Router router;
-	@Inject private ResourceBundle bundle;
+	@Inject private BundleFormatter bundle;
 
 	public void send(NotificationMail notificationMail) {
 		User to = notificationMail.getTo();
@@ -65,12 +66,12 @@ public class NotificationMailer {
 				.with("emailAction", action)
 				.with("dateFormat", dateFormat)
 				.with("sanitizer", POLICY)
-				.with("locale", locale)
+				.with("bundle", bundle)
 				.with("watcher", to)
 				.with("linkerHelper", new LinkToHelper(router, brutalEnv))
 				.with("logoUrl", env.get("mail_logo_url"))
 				.to(to.getName(), to.getEmail())
-				.setSubject(format(bundle.getString("answer_notification_mail"), action.getMainThread().getTitle()));
+				.setSubject(format(bundle.getMessage("answer_notification_mail"), action.getMainThread().getTitle()));
 		return email;
 	}
     

@@ -3,17 +3,17 @@
 	<img style="margin-bottom:30px;" src="${logoUrl}" />
 	
 	<p>	
-		${localization.getMessage("notification_mail.welcome", [watcher.getName()])}
+		${bundle.getMessage("notification_mail.welcome", [watcher.getName()])}
 	</p>
 	
 	<p>
 		<#assign answerId = emailAction.what.id?c >
 		<#assign url = linkerHelper.mainThreadLink(emailAction.getMainThread()) + "#answer-" + answerId>
-		${localization.getMessage("notification_mail.where", [url, emailAction.getMainThread().getTitle()])}
+		${bundle.getMessage("notification_mail.where", [url, emailAction.getMainThread().getTitle()])}
 	</p>
 	
 	<p>
-		${localization.getMessage("notification_mail.answer", [emailAction.getWhat().getAuthor().getName(), sanitizer.sanitize(emailAction.getWhat().getTrimmedContent())])}
+		${bundle.getMessage("notification_mail.answer", [emailAction.getWhat().getAuthor().getName(), sanitizer.sanitize(emailAction.getWhat().getTrimmedContent())])}
 	</p>
 	
 	<#if emailAction.getMainThread().hasAuthor(watcher)>
@@ -25,7 +25,7 @@
 	
 	<hr />
 	<span style="display:block; color: #aaa;">
-		${localization.getMessage("notification_mail.footer_message")}
+		${bundle.getMessage("notification_mail.footer_message")}
 	</span>
 </body>
 </html>
