@@ -1,6 +1,7 @@
 package br.com.caelum.brutal.validators;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 
 import br.com.caelum.brutal.controllers.TagPageController;
 import br.com.caelum.brutal.dao.TagPageDAO;
@@ -32,8 +33,7 @@ public class TagPageValidator {
 		return !validator.hasErrors();
 	}
 
-	public boolean validate(TagPage tagPage) {
-		validator.validate(tagPage);
+	public boolean validate(@Valid TagPage tagPage) {
 		return !validator.hasErrors();
 	}
 	

@@ -1,7 +1,9 @@
 package br.com.caelum.brutal.model;
 
 import static br.com.caelum.brutal.model.UpdateStatus.PENDING;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.joda.time.DateTime;
 import org.junit.Test;

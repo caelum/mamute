@@ -3,6 +3,7 @@ package br.com.caelum.brutal.controllers;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +17,6 @@ import br.com.caelum.brutal.model.interfaces.RssContent;
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.core.Localization;
 
 @Controller
 public class RssController {
@@ -27,13 +27,13 @@ public class RssController {
 	@Inject private Result result;
 	@Inject private TagDAO tags;
 	@Inject private NewsDAO news;
-	@Inject private Localization localization;
+	@Inject private ResourceBundle bundle;
 	
 	@Get("/rss")
 	public void rss() throws IOException {
 		List<RssContent> orderedByDate = questions.orderedByCreationDate(MAX_RESULTS);
-		String title = localization.getMessage("questions.rss.title");
-		String description = localization.getMessage("questions.rss.description");
+		String title = bundle.getString("questions.rss.title");
+		String description = bundle.getString("questions.rss.description");
 		buildRss(orderedByDate, title, description);
 	}
 	
@@ -46,16 +46,16 @@ public class RssController {
 		}
 		
 		List<RssContent> orderedByDate = questions.orderedByCreationDate(MAX_RESULTS, tag);
-		String title = localization.getMessage("questions.rss.title");
-		String description = localization.getMessage("questions.rss.description");
+		String title = bundle.getString("questions.rss.title");
+		String description = bundle.getString("questions.rss.description");
 		buildRss(orderedByDate, title, description);
 	}
 
 	@Get("/noticias/rss")
 	public void newsRss() throws IOException {
 		List<RssContent> orderedByDate = news.orderedByCreationDate(MAX_RESULTS);
-		String title = localization.getMessage("news.rss.title");
-		String description = localization.getMessage("news.rss.description");
+		String title = bundle.getString("news.rss.title");
+		String description = bundle.getString("news.rss.description");
 		buildRss(orderedByDate, title, description);
 	}
 	

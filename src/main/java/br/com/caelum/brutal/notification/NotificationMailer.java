@@ -1,9 +1,11 @@
 package br.com.caelum.brutal.notification;
 
+import static java.text.MessageFormat.format;
 import static org.joda.time.format.DateTimeFormat.forPattern;
 
 import java.lang.reflect.Method;
 import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.inject.Inject;
 
@@ -16,7 +18,6 @@ import org.joda.time.format.DateTimeFormatter;
 import org.owasp.html.HtmlPolicyBuilder;
 import org.owasp.html.PolicyFactory;
 
-import br.com.caelum.brutal.components.OutOfSessionLocalization;
 import br.com.caelum.brutal.controllers.ListController;
 import br.com.caelum.brutal.controllers.NewsController;
 import br.com.caelum.brutal.controllers.QuestionController;
@@ -39,10 +40,11 @@ public class NotificationMailer {
     
     @Inject private Mailer mailer;
     @Inject private TemplateMailer templates;
-    @Inject private OutOfSessionLocalization localization;
+    @Inject private Locale locale;
 	@Inject private Environment env;
 	@Inject private Env brutalEnv;
 	@Inject private Router router;
+	@Inject private ResourceBundle bundle;
 
 	public void send(NotificationMail notificationMail) {
 		User to = notificationMail.getTo();
@@ -63,12 +65,12 @@ public class NotificationMailer {
 				.with("emailAction", action)
 				.with("dateFormat", dateFormat)
 				.with("sanitizer", POLICY)
-				.with("localization", localization)
+				.with("locale", locale)
 				.with("watcher", to)
 				.with("linkerHelper", new LinkToHelper(router, brutalEnv))
 				.with("logoUrl", env.get("mail_logo_url"))
 				.to(to.getName(), to.getEmail())
-				.setSubject(localization.getMessage("answer_notification_mail", action.getMainThread().getTitle()));
+				.setSubject(format(bundle.getString("answer_notification_mail"), action.getMainThread().getTitle()));
 		return email;
 	}
     

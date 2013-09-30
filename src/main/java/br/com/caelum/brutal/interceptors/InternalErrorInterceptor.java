@@ -16,9 +16,10 @@ import br.com.caelum.vraptor.Intercepts;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.controller.ControllerMethod;
 import br.com.caelum.vraptor.core.InterceptorStack;
+import br.com.caelum.vraptor.interceptor.FlashInterceptor;
 import br.com.caelum.vraptor.interceptor.Interceptor;
 
-@Intercepts(before=GlobalInterceptor.class)
+@Intercepts(before=GlobalInterceptor.class, after=FlashInterceptor.class)
 public class InternalErrorInterceptor implements Interceptor {
 	
 	@Inject private Result result;

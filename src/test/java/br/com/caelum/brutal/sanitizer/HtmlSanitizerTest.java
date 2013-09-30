@@ -4,7 +4,6 @@ import static br.com.caelum.brutal.sanitizer.HtmlSanitizer.sanitize;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class HtmlSanitizerTest {

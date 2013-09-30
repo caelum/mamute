@@ -4,13 +4,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Scanner;
 
-import javax.annotation.PreDestroy;
 import javax.enterprise.inject.Vetoed;
-import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 
 @Vetoed
 public class DatabaseManager {

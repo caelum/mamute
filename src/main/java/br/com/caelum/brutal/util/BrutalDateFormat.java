@@ -1,17 +1,19 @@
 package br.com.caelum.brutal.util;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 import javax.inject.Inject;
 
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import br.com.caelum.vraptor.core.Localization;
-
 public class BrutalDateFormat {
 	
-	@Inject private Localization localization;
+	@Inject private Locale locale;
+	@Inject private ResourceBundle bundle;
 	
 	public DateTimeFormatter getInstance (String pattern) {
-		return DateTimeFormat.forPattern(localization.getMessage(pattern)).withLocale(localization.getLocale());
+		return DateTimeFormat.forPattern(bundle.getString(pattern)).withLocale(locale);
 	}
 }

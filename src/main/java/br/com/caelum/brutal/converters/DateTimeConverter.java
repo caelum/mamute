@@ -13,18 +13,16 @@ import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.vraptor.Convert;
 import br.com.caelum.vraptor.Converter;
 import br.com.caelum.vraptor.Validator;
-import br.com.caelum.vraptor.core.Localization;
 
 @Convert(DateTime.class)
 public class DateTimeConverter implements Converter<DateTime>{
 
 	@Inject private Validator validator;
-	@Inject private Localization localization;
 	@Inject private MessageFactory messageFactory;
+	@Inject private ResourceBundle bundle;
 
 	@Override
-	public DateTime convert(String value, Class<? extends DateTime> type,
-			ResourceBundle bundle) {
+	public DateTime convert(String value, Class<? extends DateTime> type) {
 		
 		if (value == null || value.isEmpty()){
 			return null;
@@ -40,7 +38,7 @@ public class DateTimeConverter implements Converter<DateTime>{
 			return null;
 		}
 		
-		DateTimeFormatter pattern = DateTimeFormat.forPattern(localization.getMessage("date.joda.simple.pattern"));
+		DateTimeFormatter pattern = DateTimeFormat.forPattern(bundle.getString("date.joda.simple.pattern"));
 		try {
 			DateTime date = pattern.parseDateTime(value);
 			return date;
@@ -49,5 +47,4 @@ public class DateTimeConverter implements Converter<DateTime>{
 		}
 		return null;
 	}
-
 }

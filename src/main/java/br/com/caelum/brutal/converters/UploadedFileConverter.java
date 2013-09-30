@@ -1,7 +1,5 @@
 package br.com.caelum.brutal.converters;
 
-import java.util.ResourceBundle;
-
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,8 +13,7 @@ public class UploadedFileConverter implements Converter<UploadedFile>{
     @Inject private HttpServletRequest request;
 
 	@Override
-	public UploadedFile convert(String value, Class<? extends UploadedFile> type,
-			ResourceBundle bundle) {
+	public UploadedFile convert(String value, Class<? extends UploadedFile> type) {
 		 Object upload = request.getAttribute(value);
 		return type.cast(upload);
 	}
