@@ -1,7 +1,6 @@
 package br.com.caelum.brutal.controllers;
 
 import java.util.Arrays;
-import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -18,6 +17,7 @@ import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.simplemail.Mailer;
+import br.com.caelum.vraptor.simplemail.template.BundleFormatter;
 import br.com.caelum.vraptor.simplemail.template.TemplateMailer;
 
 @Controller
@@ -29,8 +29,8 @@ public class ForgotPasswordController {
 	@Inject private UserDAO users;
 	@Inject private DefaultLinker linker;
 	@Inject private Validator validator;
-	@Inject private Locale locale;
 	@Inject private MessageFactory messageFactory;
+	@Inject private BundleFormatter bundle;
 
 	@Get("/esqueci-minha-senha")
 	public void forgotPasswordForm() {
@@ -96,7 +96,7 @@ public class ForgotPasswordController {
 	private Email emailWithTokenFor(User user) {
 		String url = tokenUrlFor(user);
 		return templates.template("forgot_password_mail")
-				.with("localization", locale)
+				.with("bundle", bundle)
 				.with("user_name", user.getName())
 				.with("url", url)
 				.to(user.getName(), user.getEmail());
