@@ -36,7 +36,7 @@ public class AnswerInformation implements Information {
 
 	@Lob
 	@Length(min = 30)
-	@NotEmpty(message="answer.errors.comment.length")
+	@NotEmpty
 	private String description;
 
 	@ManyToOne(optional = false, fetch = EAGER)

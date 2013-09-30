@@ -60,7 +60,7 @@ public class QuestionController {
 	private WatcherDAO watchers;
 	private ReputationEventDAO reputationEvents;
 	private XStream json;
-	private BrutalValidator gambeta;
+	private BrutalValidator brutalValidator;
 
 
 	/**
@@ -76,7 +76,7 @@ public class QuestionController {
 			Validator validator, PostViewCounter viewCounter,
 			Linker linker, WatcherDAO watchers, 
 			ReputationEventDAO reputationEvents, 
-			XStreamBuilder xstreamBuilder, BrutalValidator gambeta) {
+			XStreamBuilder xstreamBuilder, BrutalValidator brutalValidator) {
 		this.result = result;
 		this.questions = questionDAO;
 		this.tags = tags;
@@ -90,7 +90,7 @@ public class QuestionController {
 		this.linker = linker;
 		this.watchers = watchers;
 		this.reputationEvents = reputationEvents;
-		this.gambeta = gambeta;
+		this.brutalValidator = brutalValidator;
 		this.json = xstreamBuilder.withoutRoot().jsonInstance();
 	}
 
@@ -119,7 +119,7 @@ public class QuestionController {
 		List<String> splitedTags = splitTags(tagNames);
 		List<Tag> loadedTags = tags.findAllDistinct(splitedTags);
 		QuestionInformation information = new QuestionInformation(title, description, this.currentUser, loadedTags, comment);
-		gambeta.validate(information);
+		brutalValidator.validate(information);
 		UpdateStatus status = original.updateWith(information);
 		
 		result.include("editComment", comment);
@@ -173,7 +173,7 @@ public class QuestionController {
 		List<String> splitedTags = splitTags(tagNames);
 		List<Tag> foundTags = tags.findAllDistinct(splitedTags);
 		QuestionInformation information = new QuestionInformation(title, description, currentUser, foundTags, "new question");
-		gambeta.validate(information);
+		brutalValidator.validate(information);
 		User author = currentUser.getCurrent();
 		Question question = new Question(information, author);
 		

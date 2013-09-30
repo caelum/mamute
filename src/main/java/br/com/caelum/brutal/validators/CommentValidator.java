@@ -16,10 +16,10 @@ public class CommentValidator {
 
 	@Inject private Validator validator;
 	@Inject private MessageFactory factory;
-	@Inject private BrutalValidator gambeta;
+	@Inject private BrutalValidator brutalValidator;
 
 	public boolean validate(Comment comment){
-		gambeta.validate(comment);
+		brutalValidator.validate(comment);
 		return !validator.hasErrors();
 	}
 	
