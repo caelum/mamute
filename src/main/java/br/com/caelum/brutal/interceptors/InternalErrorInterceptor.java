@@ -51,7 +51,7 @@ public class InternalErrorInterceptor implements Interceptor {
 				log.error(sw.toString());
 			}
 			
-			cause.printStackTrace(pw);
+			e.printStackTrace(pw);
 			
 			pw.close();
 			result.include("stacktrace", sw.toString());
