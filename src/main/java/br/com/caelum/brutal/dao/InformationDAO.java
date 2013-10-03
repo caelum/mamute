@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.dao;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -10,6 +11,7 @@ import org.hibernate.Session;
 import br.com.caelum.brutal.model.AnswerInformation;
 import br.com.caelum.brutal.model.Information;
 import br.com.caelum.brutal.model.ModeratableAndPendingHistory;
+import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.UpdateStatus;
 
@@ -27,16 +29,24 @@ public class InformationDAO {
         this.session = session;
     }
 
-    @SuppressWarnings("unchecked")
     public List<Information> pendingFor(Long questionId, Class<?> clazz) {
-        String hql = "select info from " + clazz.getSimpleName() + " updatable " +
+        return selectUpdatableWithStatus(questionId, clazz, Arrays.asList(UpdateStatus.PENDING));
+    }
+
+    public List<Information> historyForQuestion(Long questionId) {
+        return selectUpdatableWithStatus(questionId, Question.class, Arrays.asList(UpdateStatus.APPROVED, UpdateStatus.NO_NEED_TO_APPROVE));
+    }
+    
+    @SuppressWarnings("unchecked")
+	private List<Information> selectUpdatableWithStatus(Long questionId, Class<?> clazz, List<UpdateStatus> status) {
+		String hql = "select info from " + clazz.getSimpleName() + " updatable " +
                 "join updatable.history info " +
-                "where updatable.id=:id and info.status=:pending";
+                "where updatable.id=:id and info.status in :status";
         return session.createQuery(hql)
                 .setParameter("id", questionId)
-                .setParameter("pending", UpdateStatus.PENDING)
+                .setParameterList("status", status)
                 .list();
-    }
+	}
 
 	@SuppressWarnings("unchecked")
 	public ModeratableAndPendingHistory pendingByUpdatables(Class<?> clazz) {
