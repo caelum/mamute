@@ -1,6 +1,6 @@
 package br.com.caelum.brutal.dao;
 
-import static br.com.caelum.brutal.model.UpdateStatus.PENDING;
+import static br.com.caelum.brutal.model.UpdateStatus.*;
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
@@ -18,6 +18,7 @@ import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.QuestionInformationBuilder;
 import br.com.caelum.brutal.model.Tag;
+import br.com.caelum.brutal.model.UpdateStatus;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.interfaces.Moderatable;
 
@@ -26,6 +27,8 @@ public class InformationDAOTest extends DatabaseTestCase {
 	private LoggedUser currentAuthor;
 	private User author;
 	private Tag java;
+	private InformationDAO informations;
+	private Question question;
 
 	@Before
 	public void setup(){
@@ -34,17 +37,15 @@ public class InformationDAOTest extends DatabaseTestCase {
 		java = new Tag("java", "", null);
 		session.save(author);
 		session.save(java);
+		informations = new InformationDAO(session);
+		question = newQuestion(author);
 	}
 	
     @Test
     public void should_find_pending_answers_edits() {
-        InformationDAO informations = new InformationDAO(session);
-        
-        Question question = newQuestion(author);
-        
         Answer answer = answer("info1 info1 info1 info1 info1 info1 info1 ", question, author);
         session.save(answer);
-        newPendingChanges(answer, 2);
+        newPendingChangesAnswer(answer, 2);
         
         ModeratableAndPendingHistory pendingByUpdatables = informations.pendingByUpdatables(Answer.class);
         
@@ -54,15 +55,13 @@ public class InformationDAOTest extends DatabaseTestCase {
 
     @Test
     public void should_get_pending_history() {
-        InformationDAO informations = new InformationDAO(session);
-
         newQuestion(author);
         
         Question question2 = newQuestion(author);
-        newPendingChanges(question2, 2);
+        newChangesWithStatus(question2, 2, PENDING);
         
         Question question3 = newQuestion(author);
-        newPendingChanges(question3, 3);
+        newChangesWithStatus(question3, 3, PENDING);
         
         ModeratableAndPendingHistory pending = informations.pendingByUpdatables(Question.class);
         List<Moderatable> questions = pending.moderatables();
@@ -74,33 +73,60 @@ public class InformationDAOTest extends DatabaseTestCase {
         List<Information> pendingQuestion3 = pending.pendingInfoFor(questions.get(1));
         assertEquals(3, pendingQuestion3.size());
     }
+
     
     @Test
     public void should_get_pending_count() {
-        InformationDAO informations = new InformationDAO(session);
-        
-        Question question = newQuestion(author);
-        
         Answer answer = answer("info1 info1 info1 info1 info1 info1 info1 ", question, author);
         session.save(answer);
-        newPendingChanges(answer, 2);
-        newPendingChanges(question, 3);
+        newPendingChangesAnswer(answer, 2);
+        newChangesWithStatus(question, 3, PENDING);
         
         Long count = informations.pendingCount();
         
         assertEquals(5l, count.longValue());
     }
+
+    @Test
+    public void should_get_history_for_question_with_approved_editions() {
+    	newChangesWithStatus(question, 2, APPROVED);
+    	List<Information> approved = informations.historyForQuestion(question.getId());
+    	
+    	assertEquals(3, approved.size());
+    }
     
-
-
-	private void newPendingChanges(Question question, int times) {
-		for (int i = 0; i < times; i++) {
-			QuestionInformation pendingInfo = new QuestionInformationBuilder().withTag(java).with(author).build();
-			question.enqueueChange(pendingInfo, PENDING);
+    @Test
+    public void should_get_history_for_question_with_pending_editions() {
+    	newChangesWithStatus(question, 2, PENDING);
+    	List<Information> approved = informations.historyForQuestion(question.getId());
+    	
+    	assertEquals(1, approved.size());
+    }
+    
+    @Test
+    public void should_get_history_for_question_with_auto_approved_editions() {
+    	newChangesWithStatus(question, 2, NO_NEED_TO_APPROVE);
+    	List<Information> approved = informations.historyForQuestion(question.getId());
+    	
+    	assertEquals(3, approved.size());
+    }
+    
+    @Test
+    public void should_get_history_for_question_with_refused_editions() {
+    	newChangesWithStatus(question, 2, REFUSED);
+    	List<Information> approved = informations.historyForQuestion(question.getId());
+    	
+    	assertEquals(1, approved.size());
+    }
+    
+    private void newChangesWithStatus(Question question, int times, UpdateStatus status) {
+    	for (int i = 0; i < times; i++) {
+			QuestionInformation questionInfo = new QuestionInformationBuilder().withTag(java).with(author).build();
+			question.enqueueChange(questionInfo, status);
 		}
-	}
+    }
 	
-	private void newPendingChanges(Answer answer, int times) {
+	private void newPendingChangesAnswer(Answer answer, int times) {
 		for (int i = 0; i < times; i++) {
 	        AnswerInformation pendingInfo = new AnswerInformation("info2 info2 info2 info2 info2 info2 info2 ", currentAuthor, answer, "new answer");
 	        answer.enqueueChange(pendingInfo, PENDING);
