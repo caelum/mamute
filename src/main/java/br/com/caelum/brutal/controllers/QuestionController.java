@@ -59,7 +59,7 @@ public class QuestionController {
 	private Linker linker;
 	private WatcherDAO watchers;
 	private ReputationEventDAO reputationEvents;
-	private XStream json;
+	private XStream xml;
 	private BrutalValidator brutalValidator;
 
 
@@ -91,14 +91,14 @@ public class QuestionController {
 		this.watchers = watchers;
 		this.reputationEvents = reputationEvents;
 		this.brutalValidator = brutalValidator;
-		this.json = xstreamBuilder.withoutRoot().jsonInstance();
+		this.xml = xstreamBuilder.withoutRoot().xmlInstance();
 	}
 
 	@Get("/perguntar")
 	@IncludeAllTags
 	@CustomBrutauthRules(LoggedRule.class)
 	public void questionForm() {
-		String allTags = json.toXML(tags.all());
+		String allTags = xml.toXML(tags.all());
 		result.include("allTags", allTags);
 	}
 	
@@ -107,7 +107,7 @@ public class QuestionController {
 	@CustomBrutauthRules(EditQuestionRule.class)
 	public void questionEditForm(@Load Question question) {
 		result.include("question",  question);
-		String allTags = json.toXML(tags.all());
+		String allTags = xml.toXML(tags.all());
 		result.include("allTags", allTags);
 	}
 
