@@ -24,6 +24,8 @@
 	<meta property="og:image" content="<env:get key="host"/><c:url value="/imgs/guj-fb-logo.png"/>">
 </c:if>
 
+
+
 <c:if test="${environment.name != 'production'}" >
 	<link rel="stylesheet" href="<c:url value="/css/reset.css"/>">
 	
@@ -44,8 +46,17 @@
 <c:if test="${environment.name == 'production'}" >
 	<link rel="stylesheet" href="<c:url value="/css/all-brutal${deployTimestamp}.css"/>">
 </c:if>
+
 <!--[if lt IE 9]>
 	<script src="<c:url value="/js/html5shiv.js"/>"></script>
+<![endif]-->
+
+<!--[if lte IE 8]>
+	<script type="text/javascript">
+		var htmlshim='abbr,article,aside,audio,canvas,details,figcaption,figure,footer,header,mark,meter,nav,output,progress,section,summary,time,video'.split(',');
+		var htmlshimtotal=htmlshim.length;
+		for(var i=0;i<htmlshimtotal;i++) document.createElement(htmlshim[i]);
+	</script>
 <![endif]-->
 
 <link rel="canonical" href="${currentUrl}"/>
