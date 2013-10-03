@@ -15,6 +15,7 @@ import br.com.caelum.brutal.model.EventType;
 import br.com.caelum.brutal.model.Information;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.ModeratableAndPendingHistory;
+import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.QuestionInformation;
 import br.com.caelum.brutal.model.ReputationEvent;
 import br.com.caelum.brutal.model.UpdateStatus;
@@ -77,12 +78,21 @@ public class HistoryController {
 		similar("pergunta", moderatableId);
 	}
 	
+	@Get("/{questionId}/historico")
+	public void questionHistory(Long questionId) {
+		result.include("histories", informations.historyForQuestion(questionId));
+		result.include("post", moderatables.getById(questionId, Question.class));
+		result.include("userMediumPhoto", true);
+		result.include("isHistoryQuestion", true);
+	}
+
 	private void similar(String moderatableType, Long moderatableId) {
 		Class<?> clazz = urlMapping.getClassFor(moderatableType);
 		result.include("histories", informations.pendingFor(moderatableId, clazz));
 		result.include("post", moderatables.getById(moderatableId, clazz));
 		result.include("type", moderatableType);
 		result.include("userMediumPhoto", true);
+		result.include("isHistoryQuestion", false);
 	}
 
 	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})

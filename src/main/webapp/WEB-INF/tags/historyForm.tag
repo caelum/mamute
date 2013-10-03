@@ -6,9 +6,11 @@
 <%@attribute name="information" type="br.com.caelum.brutal.model.Information" required="true" %>
 <%@attribute name="index" type="java.lang.Integer" required="true" %>
 <%@attribute name="type" type="java.lang.String" required="true" %>
+<%@attribute name="isHistoryQuestion" type="java.lang.Boolean" required="false" %>
+
 <div class="history-forms-area ${index != 0 ? 'hidden' : ''}">
 	<form method="post" class="history-form moderate-form" action="<c:url value="/publicar/${type}" />">
-		<c:if test="${information.beforeCurrent}">
+		<c:if test="${information.beforeCurrent && !isHistoryQuestion}">
 			<p class="alert"><fmt:message key="moderation.version_before_current"/></p>
 		</c:if>
 	
@@ -17,7 +19,6 @@
 		<jsp:doBody/>
 		<div class="history-diff post-text"></div>
 		<div class="history-version"><jsp:invoke fragment="tagList"/></div>
-		
 	
 		<ul class="post-touchs clear">
 			<li class="touch author-touch">
@@ -35,16 +36,18 @@
 			${information.comment}
 		</p>
 		
-		<c:if test="${information.beforeCurrent}">
-			<p class="alert"><fmt:message key="moderation.version_before_current"/></p>
+		<c:if test="${!isHistoryQuestion}">
+				<c:if test="${information.beforeCurrent}">
+					<p class="alert"><fmt:message key="moderation.version_before_current"/></p>
+				</c:if>
+		
+				<input type="hidden" name="aprovedInformationType" value="${information.typeName}"/>
+				<input type="hidden" name="moderatableId" value="${information.moderatable.id}"/>
+				<input type="hidden" name="aprovedInformationId" value="${information.id}"/>
+				<input type="submit" class="post-submit big-submit submit" value='<fmt:message key="moderation.accept" />' />
+			</form>
+			<form method="post" action="${linkTo[HistoryController].reject[information.id][information.typeName]}">
+				<input type="submit" class="post-submit big-submit submit" value='<fmt:message key="moderation.reject" />' />
 		</c:if>
-	
-		<input type="hidden" name="aprovedInformationType" value="${information.typeName}"/>
-		<input type="hidden" name="moderatableId" value="${information.moderatable.id}"/>
-		<input type="hidden" name="aprovedInformationId" value="${information.id}"/>
-		<input type="submit" class="post-submit big-submit submit" value='<fmt:message key="moderation.accept" />' />
-	</form>
-	<form method="post" action="${linkTo[HistoryController].reject[information.id][information.typeName]}">
-		<input type="submit" class="post-submit big-submit submit" value='<fmt:message key="moderation.reject" />' />
 	</form>
 </div>

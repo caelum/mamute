@@ -17,13 +17,15 @@
 
 <tags:completeUser user="${touchable.information.author}" edited="true" microdata="${microdata}">
 	<c:if test="${showTime}">
-		<time class="when" ${microdata ? 'itemprop="dateModified"' : ""} datetime="${touchable.information.createdAt}"><fmt:message key='touch.edited'/>
-			<c:if test="${prettyFormat}">
-				<tags:prettyTime time="${touchable.information.createdAt}"/>
-			</c:if>
-			<c:if test="${not prettyFormat}">
-				<fmt:formatDate value="${touchable.information.createdAt.toGregorianCalendar().time}" pattern="dd/MM/yyyy"/>
-			</c:if>
-		</time>
+		<a href="${linkTo[HistoryController].questionHistory[touchable.id]}">
+			<time class="when" ${microdata ? 'itemprop="dateModified"' : ""} datetime="${touchable.information.createdAt}"><fmt:message key='touch.edited'/>
+				<c:if test="${prettyFormat}">
+					<tags:prettyTime time="${touchable.information.createdAt}"/>
+				</c:if>
+				<c:if test="${not prettyFormat}">
+					<fmt:formatDate value="${touchable.information.createdAt.toGregorianCalendar().time}" pattern="dd/MM/yyyy"/>
+				</c:if>
+			</time>
+		</a>
 	</c:if>
 </tags:completeUser>
