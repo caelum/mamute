@@ -43,7 +43,7 @@ public class UserPersonalInfoValidatorTest extends TestCase{
 		this.messageFactory = new MessageFactory(mock(ResourceBundle.class));
 		this.emailValidator = new EmailValidator(validator, users, messageFactory);
 		javax.validation.Validator javaxValidator = Validation.buildDefaultValidatorFactory().getValidator();
-		BrutalValidator brutalValidator = new BrutalValidator(javaxValidator, validator);
+		BrutalValidator brutalValidator = new BrutalValidator(javaxValidator, validator, messageFactory);
 		this.infoValidator = new UserPersonalInfoValidator(validator, emailValidator, messageFactory, bundle, brutalValidator);
 	}
 

@@ -38,7 +38,7 @@ public class SignupValidatorTest extends TestCase {
         messageFactory = new MessageFactory(bundle);
         emailValidator = new EmailValidator(validator, users, messageFactory);
         javax.validation.Validator javaxValidator = Validation.buildDefaultValidatorFactory().getValidator();
-        BrutalValidator brutalValidator = new BrutalValidator(javaxValidator, validator);
+        BrutalValidator brutalValidator = new BrutalValidator(javaxValidator, validator, messageFactory);
         userValidator = new UserValidator(validator, emailValidator, messageFactory, brutalValidator);
         signupValidator = new SignupValidator(validator, userValidator, messageFactory);
     }
