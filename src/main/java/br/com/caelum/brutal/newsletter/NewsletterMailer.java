@@ -38,7 +38,7 @@ public class NewsletterMailer {
 	@Inject private Env brutalEnv;
 	@Inject private BundleFormatter bundle;
 
-	public void sendTo(ScrollableResults results) {
+	public void sendTo(ScrollableResults results, boolean isTestNewsletter) {
 		DateTime pastWeek = new DateTime().minusWeeks(1);
 		DateTime twelveHoursAgo = new DateTime().minusHours(12);
 		List<News> hotNews = news.hotNews();
@@ -48,10 +48,12 @@ public class NewsletterMailer {
 		String siteName = bundle.getMessage("site.name");
 		String date = brutalDateFormat.getInstance("date.joda.newsletter.pattern").print(new DateTime());
 		
+		String teste = isTestNewsletter ? bundle.getMessage("newsletter_mail_test") : "";
+		
 		while (results.next()) {
 			User user = (User) results.get()[0];
 			try {
-				Email email = templates.template("newsletter_mail", date, siteName)
+				Email email = templates.template("newsletter_mail", date, siteName, teste)
 						.with("hotNews", hotNews)
 						.with("hotQuestions", hotQuestions)
 						.with("unansweredQuestions", unanswered)

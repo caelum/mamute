@@ -45,7 +45,7 @@ public class RegularUserNewsletterJob implements CronTask {
 		if (shouldSendNewsletter()) {
 			LOG.info("sending newsletter emails");
 			ScrollableResults results = users.newsletterConfirmed();
-			newsMailer.sendTo(results);
+			newsMailer.sendTo(results, false);
 			newsletterSentLogs.saveLog();
 			result.notFound();
 		}

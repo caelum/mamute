@@ -26,7 +26,7 @@ public class ModeratorsNewsletterJob implements CronTask {
 		if ("true".equals(env.get("newsletter.settings.active"))) {
 			LOG.info("sending newsletter emails");
 			ScrollableResults results = users.moderators();
-			newsMailer.sendTo(results);
+			newsMailer.sendTo(results, true);
 			result.notFound();
 		}
 	}
