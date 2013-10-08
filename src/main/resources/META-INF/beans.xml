@@ -6,6 +6,7 @@
                version="1.1" bean-discovery-mode="all">
        <scan>
        	<exclude name="br.com.caelum.brutal.integration.**"/>
+       	<exclude name="br.com.caelum.brutal.model.*"/>
        </scan>
 
 </beans>
