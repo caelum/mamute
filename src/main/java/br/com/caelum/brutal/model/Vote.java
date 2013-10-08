@@ -86,7 +86,7 @@ public class Vote {
         return true;
     }
 
-    VoteType getType() {
+    public VoteType getType() {
         return type;
     }
     

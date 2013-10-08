@@ -13,6 +13,8 @@ import br.com.caelum.brutal.dao.ReputationEventDAO;
 import br.com.caelum.brutal.dao.TestCase;
 import br.com.caelum.brutal.dao.VoteDAO;
 import br.com.caelum.brutal.model.interfaces.Votable;
+import br.com.caelum.brutal.model.vote.MassiveVote;
+import br.com.caelum.brutal.model.vote.VotingMachine;
 import br.com.caelum.brutal.reputation.rules.KarmaCalculator;
 
 public class VotingMachineTest extends TestCase {

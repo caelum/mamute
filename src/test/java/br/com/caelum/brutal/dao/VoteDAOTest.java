@@ -15,7 +15,6 @@ import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.Comment;
 import br.com.caelum.brutal.model.CommentsAndVotes;
 import br.com.caelum.brutal.model.LoggedUser;
-import br.com.caelum.brutal.model.MassiveVote;
 import br.com.caelum.brutal.model.News;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.ReputationEventContext;
@@ -23,8 +22,9 @@ import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.Vote;
 import br.com.caelum.brutal.model.VoteType;
-import br.com.caelum.brutal.model.VotingMachine;
 import br.com.caelum.brutal.model.interfaces.Votable;
+import br.com.caelum.brutal.model.vote.MassiveVote;
+import br.com.caelum.brutal.model.vote.VotingMachine;
 import br.com.caelum.brutal.reputation.rules.KarmaCalculator;
 
 public class VoteDAOTest extends DatabaseTestCase{

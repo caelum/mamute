@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.brutal.dao.TestCase;
+import br.com.caelum.brutal.model.vote.MassiveVote;
 import br.com.caelum.timemachine.Block;
 import br.com.caelum.timemachine.TimeMachine;
 

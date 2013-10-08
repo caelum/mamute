@@ -14,6 +14,7 @@ import org.junit.Test;
 import br.com.caelum.brutal.builder.NewsBuilder;
 import br.com.caelum.brutal.builder.QuestionBuilder;
 import br.com.caelum.brutal.dao.TestCase;
+import br.com.caelum.brutal.model.post.PostViewCounter;
 
 public class PostViewCounterTest extends TestCase {
 	private HttpServletRequest request;

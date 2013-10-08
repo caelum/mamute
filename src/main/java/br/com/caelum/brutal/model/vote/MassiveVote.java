@@ -1,10 +1,15 @@
-package br.com.caelum.brutal.model;
+package br.com.caelum.brutal.model.vote;
 
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 
 import org.joda.time.DateTime;
+
+import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.model.Vote;
+import br.com.caelum.brutal.model.VoteType;
+import br.com.caelum.brutal.model.VotesToTarget;
 
 @ApplicationScoped
 public class MassiveVote {

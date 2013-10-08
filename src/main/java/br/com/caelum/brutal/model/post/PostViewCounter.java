@@ -1,4 +1,4 @@
-package br.com.caelum.brutal.model;
+package br.com.caelum.brutal.model.post;
 
 import javax.inject.Inject;
 import javax.servlet.http.Cookie;
@@ -49,7 +49,7 @@ public class PostViewCounter {
 	}
 	
 	
-	String cookieKeyFor(ViewCountable  post) {
+	public String cookieKeyFor(ViewCountable  post) {
 		String cookiePrefix = Digester.md5(post.getClass().getSimpleName());
 		String cookieKey = cookiePrefix + "-" + post.getId();
 		return cookieKey;

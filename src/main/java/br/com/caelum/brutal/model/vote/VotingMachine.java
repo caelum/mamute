@@ -1,9 +1,13 @@
-package br.com.caelum.brutal.model;
+package br.com.caelum.brutal.model.vote;
 
 import javax.inject.Inject;
 
 import br.com.caelum.brutal.dao.ReputationEventDAO;
 import br.com.caelum.brutal.dao.VoteDAO;
+import br.com.caelum.brutal.model.ReputationEvent;
+import br.com.caelum.brutal.model.ReputationEventContext;
+import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.model.Vote;
 import br.com.caelum.brutal.model.interfaces.Votable;
 import br.com.caelum.brutal.reputation.rules.KarmaCalculator;
 import br.com.caelum.brutal.reputation.rules.ReceivedVoteEvent;
