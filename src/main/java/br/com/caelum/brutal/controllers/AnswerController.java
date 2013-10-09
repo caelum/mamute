@@ -1,7 +1,6 @@
 package br.com.caelum.brutal.controllers;
 
 import java.util.Arrays;
-import java.util.ResourceBundle;
 
 import javax.inject.Inject;
 
@@ -33,6 +32,7 @@ import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.plugin.hibernate4.extra.Load;
+import br.com.caelum.vraptor.simplemail.template.BundleFormatter;
 import br.com.caelum.vraptor.view.Results;
 
 @Controller
@@ -47,7 +47,7 @@ public class AnswerController {
 	@Inject private NotificationManager notificationManager;
 	@Inject private WatcherDAO watchers;
 	@Inject private ReputationEventDAO reputationEvents;
-	@Inject private ResourceBundle bundle;
+	@Inject private BundleFormatter bundle;
 	@Inject private BrutalValidator brutalValidator;
 	
 	@Get("/resposta/editar/{answer.id}")
@@ -102,7 +102,7 @@ public class AnswerController {
 		Answer solution = answers.getById(solutionId);
 		Question question = solution.getMainThread();
         if (!currentUser.getCurrent().isAuthorOf(question)) {
-			result.use(Results.status()).forbidden(bundle.getString("answer.error.not_autor"));
+			result.use(Results.status()).forbidden(bundle.getMessage("answer.error.not_autor"));
 			result.redirectTo(QuestionController.class).showQuestion(question,
 					question.getSluggedTitle());
 			return;
