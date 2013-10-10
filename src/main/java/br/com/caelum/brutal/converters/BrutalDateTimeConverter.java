@@ -1,7 +1,6 @@
 package br.com.caelum.brutal.converters;
 
-import java.util.ResourceBundle;
-
+import javax.enterprise.inject.Specializes;
 import javax.inject.Inject;
 
 import org.joda.time.DateTime;
@@ -11,12 +10,12 @@ import org.joda.time.format.DateTimeFormatter;
 
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.vraptor.Convert;
-import br.com.caelum.vraptor.Converter;
 import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.converter.jodatime.DateTimeConverter;
 import br.com.caelum.vraptor.simplemail.template.BundleFormatter;
 
-@Convert(DateTime.class)
-public class DateTimeConverter implements Converter<DateTime>{
+@Convert(DateTime.class) @Specializes
+public class BrutalDateTimeConverter extends DateTimeConverter{
 
 	@Inject private Validator validator;
 	@Inject private MessageFactory messageFactory;
