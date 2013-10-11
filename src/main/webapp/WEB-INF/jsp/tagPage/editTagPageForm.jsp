@@ -4,4 +4,4 @@
 
 <h2 class="title subheader page-title main-thread-title"><fmt:message key="tag_page.form.edit.title"/> ${tag.name}</h2>
 
-<tags:tagPageForm uri="${linkTo[TagPageController].editTagPage[tag.name]}" submitTextKey="tag_page.form.edit.submit"/>
+<tags:tagPageForm uri="${linkTo[TagPageController].editTagPage(tag.name)}" submitTextKey="tag_page.form.edit.submit"/>

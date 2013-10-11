@@ -46,7 +46,7 @@
 				<input type="hidden" name="aprovedInformationId" value="${information.id}"/>
 				<input type="submit" class="post-submit big-submit submit" value='<fmt:message key="moderation.accept" />' />
 			</form>
-			<form method="post" action="${linkTo[HistoryController].reject[information.id][information.typeName]}">
+			<form method="post" action="${linkTo[HistoryController].reject(information.id,information.typeName)}">
 				<input type="submit" class="post-submit big-submit submit" value='<fmt:message key="moderation.reject" />' />
 		</c:if>
 	</form>

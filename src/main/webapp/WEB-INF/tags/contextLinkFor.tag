@@ -5,10 +5,10 @@
 
 <c:choose>
 	<c:when test="${context.typeName == 'News'}">
-		<a href="${linkTo[NewsController].showNews[context][context.sluggedTitle] }">
+		<a href="${linkTo[NewsController].showNews(context,context.sluggedTitle) }">
 	</c:when>
 	<c:otherwise>
-		<a href="${linkTo[QuestionController].showQuestion[context][context.sluggedTitle] }">
+		<a href="${linkTo[QuestionController].showQuestion(context,context.sluggedTitle) }">
 	</c:otherwise>
 </c:choose>
 			<c:out value="${context.title}" escapeXml="${true}"/> 

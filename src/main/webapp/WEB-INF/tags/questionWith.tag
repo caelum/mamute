@@ -68,7 +68,7 @@
 		</div>
 		<tags:add-a-comment type="pergunta" item="${question}" votes="${commentVotes}"/>
 		<c:if test="${currentUser.moderator && question.hasPendingEdits()}">
-			<a class="message moderator-alert" href="${linkTo[HistoryController].similarQuestions[question.id]}"><fmt:message key="question.warns.has_edits"/></a>
+			<a class="message moderator-alert" href="${linkTo[HistoryController].similarQuestions(question.id)}"><fmt:message key="question.warns.has_edits"/></a>
 		</c:if>
 	</div>
 </section>

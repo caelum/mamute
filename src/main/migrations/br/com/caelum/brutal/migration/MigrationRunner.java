@@ -4,10 +4,14 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Any;
+import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.common.collect.Lists;
 
 import br.com.caelum.vraptor.environment.Environment;
 
@@ -22,16 +26,21 @@ public class MigrationRunner {
 	private Environment env;
 
 	@Deprecated
-	public MigrationRunner() {
+	MigrationRunner() {
 	}
 
 	@Inject
-	public MigrationRunner(List<SchemaMigration> migrations, NumberExtractor number,
+	public MigrationRunner(@Any Instance<SchemaMigration> migrations, NumberExtractor number,
+			MigrationExecutor executor, Environment env) {
+		this((Iterable<SchemaMigration>) migrations, number, executor, env);
+	}
+	
+	public MigrationRunner(Iterable<SchemaMigration> migrations, NumberExtractor number,
 			MigrationExecutor executor, Environment env) {
 		this.extractNumber = number;
 		this.executor = executor;
 		this.env = env;
-		this.migrations = sort(migrations);
+		this.migrations = sort(Lists.newArrayList(migrations));
 	}
 
 	private List<SchemaMigration> sort(List<SchemaMigration> unsortedMigrations) {

@@ -10,13 +10,13 @@ import org.apache.commons.mail.EmailException;
 import org.apache.log4j.Logger;
 
 import br.com.caelum.brutal.components.CDIFakeRequestProvider;
+import br.com.caelum.brutal.components.Execution;
 import br.com.caelum.brutal.dao.WatcherDAO;
 import br.com.caelum.brutal.infra.AfterSuccessfulTransaction;
 import br.com.caelum.brutal.infra.ThreadPoolContainer;
 import br.com.caelum.brutal.mail.action.EmailAction;
 import br.com.caelum.brutal.model.interfaces.Watchable;
 import br.com.caelum.brutal.model.watch.Watcher;
-import br.com.caelum.vraptor.core.Execution;
 import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.errormail.mail.ErrorMail;
 import br.com.caelum.vraptor.errormail.mail.ErrorMailFactory;

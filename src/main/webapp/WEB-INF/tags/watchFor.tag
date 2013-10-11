@@ -4,7 +4,7 @@
 <%@attribute name="watchable" type="br.com.caelum.brutal.model.interfaces.Watchable" required="true" %>
 <%@attribute name="type" type="java.lang.String" required="true" %>
 <div>
-	<a rel="nofollow" class="watch requires-login" href="${linkTo[WatchController].watch[watchable.id][type]}">
+	<a rel="nofollow" class="watch requires-login" href="${linkTo[WatchController].watch(watchable.id,type)}">
 		<c:choose>
 			<c:when test="${isWatching}">
 				<span class="icon-eye icon-2x container" 

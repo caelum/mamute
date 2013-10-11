@@ -3,7 +3,7 @@
 <%@attribute name="answer" type="br.com.caelum.brutal.model.Answer" required="true" %>
 <div class="${answer.solution ? 'solution-container' : 'not-solution-container'}">
 	<c:if test="${currentUser.current.isAuthorOf(answer.question)}">
-		<a class="mark-as-solution requires-login" href="${linkTo[AnswerController].markAsSolution[answer.id]}">
+		<a class="mark-as-solution requires-login" href="${linkTo[AnswerController].markAsSolution(answer.id)}">
 			<span class="icon-ok-circled icon-2x icon-muted container solution-tick"></span>
 			<span class="mark-as-solution-subtitle">Marcar como certa</span>
 		</a>

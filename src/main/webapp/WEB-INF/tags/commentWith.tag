@@ -29,7 +29,7 @@
 	
 		<fmt:message  key="edit_form.submit" var="submit"/>
 		<c:if test="${currentUser.current.isAuthorOf(comment)}">
-			<tags:simpleAjaxFormWith action="${linkTo[CommentController].edit[comment.id]}" 
+			<tags:simpleAjaxFormWith action="${linkTo[CommentController].edit(comment.id)}" 
 				field="comment" onCallback="replace" callbackTarget="comment-${comment.id}" 
 				submit="${submit}" value="${comment.comment}">
 				<a class="requires-login requires-karma" data-author="${currentUser.current.isAuthorOf(comment)}" href="#">

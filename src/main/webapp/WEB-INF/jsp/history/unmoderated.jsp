@@ -9,7 +9,7 @@
 		<li class="pending">
 			<c:if test="${type eq 'pergunta'}">
 				<h3 class="title item-title">
-					<a href="${linkTo[HistoryController].similarQuestions[entry.key.id]}">
+					<a href="${linkTo[HistoryController].similarQuestions(entry.key.id)}">
 						<c:out value="${entry.key.title}" escapeXml="true" /> - (${entry.value.size()})
 					</a>
 				</h3>
@@ -17,7 +17,7 @@
 			</c:if>
 			<c:if test="${type eq 'resposta'}">
 				<h3 class="title item-title">
-					<a href="${linkTo[HistoryController].similarAnswers[entry.key.id]}">
+					<a href="${linkTo[HistoryController].similarAnswers(entry.key.id)}">
 						<c:out value="${entry.key.question.title}" escapeXml="true" /> - (${entry.value.size()})
 					</a>
 				</h3>

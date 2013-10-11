@@ -18,7 +18,7 @@
 					<a class="post-action edit requires-login requires-karma"
 							data-author="${currentUser.current.isAuthorOf(answer)}"
 							data-karma="${EDIT_ANSWER}" 
-							href="${linkTo[AnswerController].answerEditForm[answer]}"><fmt:message key="edit" /></a>
+							href="${linkTo[AnswerController].answerEditForm(answer)}"><fmt:message key="edit" /></a>
 				</li>
 				<li class="nav-item">
 					<c:if test="${currentUser.loggedIn && !answer.alreadyFlaggedBy(currentUser.current)}">
@@ -35,7 +35,7 @@
 		</div>
 		<tags:add-a-comment type="resposta" item="${answer}" votes="${commentVotes}"/>
 		<c:if test="${currentUser.moderator && answer.hasPendingEdits()}">
-			<a class="message moderator-alert" href="${linkTo[HistoryController].similarAnswers[answer.id]}"><fmt:message key="answer.warns.has_edits"/></a>
+			<a class="message moderator-alert" href="${linkTo[HistoryController].similarAnswers(answer.id)}"><fmt:message key="answer.warns.has_edits"/></a>
 		</c:if>
 	</div>
 </section>

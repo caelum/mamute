@@ -11,7 +11,7 @@
 		<div class="summary news-summary">
 			<div class="item-title-wrapper">
 				<h3 class="title item-title news-title">
-					<a href="${linkTo[NewsController].showNews[news][news.sluggedTitle]}">${news.title}</a>
+					<a href="${linkTo[NewsController].showNews(news,news.sluggedTitle)}">${news.title}</a>
 				</h3>
 				<div class="post-simple-information news-simple-information">
 					${news.views} <tags:pluralize key="post.list.view" count="${news.views}"/>
@@ -28,7 +28,7 @@
 			
 		</div>		
 		<c:if test="${not news.approved && currentUser.moderator}">
-			<a class="approve-news" href="${linkTo[NewsController].approve[news]}"><fmt:message key="news.approve"/></a>
+			<a class="approve-news" href="${linkTo[NewsController].approve(news)}"><fmt:message key="news.approve"/></a>
 		</c:if>
 	</li>
 </c:if>

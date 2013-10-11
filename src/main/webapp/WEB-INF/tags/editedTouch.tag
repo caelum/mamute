@@ -18,7 +18,7 @@
 <tags:completeUser user="${touchable.information.author}" edited="true" microdata="${microdata}">
 	<c:if test="${showTime}">
 		<c:set var="nameClass" value="${touchable.class.simpleName eq 'Question'}"/>
-		<c:if test="${nameClass}"> <a href="${linkTo[HistoryController].questionHistory[touchable.id]}"> </c:if>
+		<c:if test="${nameClass}"> <a href="${linkTo[HistoryController].questionHistory(touchable.id)}"> </c:if>
 			<time class="when" ${microdata ? 'itemprop="dateModified"' : ""} datetime="${touchable.information.createdAt}"><fmt:message key='touch.edited'/>
 				<c:if test="${prettyFormat}">
 					<tags:prettyTime time="${touchable.information.createdAt}"/>

@@ -10,11 +10,11 @@
 		<tags:userProfileLink user="${selectedUser}" htmlClass="title page-title" isPrivate="true"/>
 			<ul class="subheader-menu">
 		<c:if test="${isCurrentUser}">
-				<li><a href="${linkTo[UserProfileController].editProfile[selectedUser]}"><fmt:message key="user_profile.edit" /></a></li>
+				<li><a href="${linkTo[UserProfileController].editProfile(selectedUser)}"><fmt:message key="user_profile.edit" /></a></li>
 		</c:if>
 				<c:if test="${currentUser.current.isModerator()}">
 					<li>
-						<a class="ban-user" href="#" data-url="${linkTo[UserProfileController].toogleBanned[selectedUser]}">
+						<a class="ban-user" href="#" data-url="${linkTo[UserProfileController].toogleBanned(selectedUser)}">
 							<fmt:message key="${selectedUser.isBanned() ? 'user_profile.undo_ban' : 'user_profile.ban'}"/>
 						</a>
 					</li>
@@ -63,7 +63,7 @@
 	<div class="about-me">
 		<c:if test="${isCurrentUser && empty selectedUser.markedAbout}">
 			<fmt:message key="user_profile.blank_about_me"/>
-			<a href="${linkTo[UserProfileController].editProfile[selectedUser]}"><fmt:message key="user_profile.blank_about_me.click"/></a>
+			<a href="${linkTo[UserProfileController].editProfile(selectedUser)}"><fmt:message key="user_profile.blank_about_me.click"/></a>
 		</c:if>
 		${selectedUser.markedAbout}
 	</div>

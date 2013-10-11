@@ -18,7 +18,7 @@
 			<ul class="post-action-nav piped-nav nav">
 				<li class="nav-item">
 					<a class="post-action requires-login"
-					    href="${linkTo[TagPageController].editTagPageForm[tagPage.tagUriName]}">
+					    href="${linkTo[TagPageController].editTagPageForm(tagPage.tagUriName)}">
 						<fmt:message key="edit" />
 					</a>
 				</li>

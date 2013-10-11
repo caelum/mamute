@@ -9,7 +9,7 @@
 <%@attribute name="after" type="java.lang.String" required="false" %>
 <%@attribute name="microdata" required="false" %>
 
-<a class="${htmlClass}" ${microdata ? 'itemprop="name"' : ''} href="${linkTo[UserProfileController].showProfile[user][user.sluggedName]}">
+<a class="${htmlClass}" ${microdata ? 'itemprop="name"' : ''} href="${linkTo[UserProfileController].showProfile(user,user.sluggedName)}">
 	${before}
 	<c:choose>
 		<c:when test="${not empty value}">

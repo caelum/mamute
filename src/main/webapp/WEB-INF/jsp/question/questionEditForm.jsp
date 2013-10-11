@@ -3,7 +3,7 @@
 <tags:header title="${genericTitle} - ${title}"/>
 
 <h2 class="title subheader page-title"><fmt:message key="question.edit_form.title"/></h2>
-<form class="validated-form question-form hinted-form" action='${linkTo[QuestionController].edit[question.id][null][null][null][null]}' method="post" >
+<form class="validated-form question-form hinted-form" action='${linkTo[QuestionController].edit(question.id,null,null,null,null)}' method="post" >
 	<label for="question-title"><fmt:message key="question.title.label"/></label>
 	<input id="question-title" type="text" class="required hintable text-input" value="<c:out value="${question.title}" escapeXml="true"/>" data-hint-id="question-title-hint" minlength="15" maxlength="150" name="title">
 	<tags:markDown value="${question.description}" hintId="question-description-hint" htmlClass="required" minlength="30"/>
