@@ -48,7 +48,7 @@
 </c:if>
 
 <!--[if lt IE 9]>
-	<script src="<c:url value="/js/html5shiv.js"/>"></script>
+	<script src="<c:url value="/js/deps/html5shiv.js"/>"></script>
 <![endif]-->
 
 <!--[if lte IE 8]>
