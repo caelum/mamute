@@ -66,7 +66,7 @@ public class BrutalRoutesParser extends PathAnnotationRoutesParser {
 		ArrayList<String> myUrls = new ArrayList<>();
 		for (String uri : urIsFor) {
 			myUrls.add(uri);
-			myUrls.add(uri+"/");
+			if(!uri.endsWith("/")) myUrls.add(uri+"/");
 		}
 		return myUrls.toArray(new String[]{});
 	}
