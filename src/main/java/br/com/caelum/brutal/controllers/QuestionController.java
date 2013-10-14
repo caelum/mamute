@@ -139,6 +139,7 @@ public class QuestionController {
 		if (question.isVisibleFor(current)){
 			result.include("markAsSolution", question.canMarkAsSolution(current));
 			result.include("showUpvoteBanner", !current.isVotingEnough());
+			result.include("editedLink", true);
 			
 			redirectToRightUrl(question, sluggedTitle);
 			viewCounter.ping(question);
