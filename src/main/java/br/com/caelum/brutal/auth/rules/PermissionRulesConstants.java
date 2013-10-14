@@ -14,7 +14,7 @@ public class PermissionRulesConstants {
 	/**
 	 * to answer own question
 	 */
-	public static final int ANSWER_OWN_QUESTION = 50;
+	public static final int ANSWER_OWN_QUESTION = 0;
 	
 	/**
 	 * to flag anything
