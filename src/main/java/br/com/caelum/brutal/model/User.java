@@ -409,4 +409,8 @@ public class User implements Identifiable {
 	public boolean isVotingEnough(){
 		return !lastUpvote.isBefore(new DateTime().minusWeeks(1));
 	}
+
+	public boolean hasKarma() {
+		return (this.karma > 0);
+	}
 }

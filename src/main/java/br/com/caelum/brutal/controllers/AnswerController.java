@@ -77,6 +77,7 @@ public class AnswerController {
 	public void newAnswer(@Load Question question, String description, boolean watching) {
 		User current = currentUser.getCurrent();
 		boolean canAnswer = answeredByValidator.validate(question);
+		boolean isUserWithKarma = current.hasKarma();
 		AnswerInformation information = new AnswerInformation(description, currentUser, "new answer");
 		Answer answer  = new Answer(information, question, current);
 		if (canAnswer) {
@@ -84,7 +85,7 @@ public class AnswerController {
         	answers.save(answer);
         	ReputationEvent reputationEvent = new ReputationEvent(EventType.CREATED_ANSWER, question, current);
         	reputationEvents.save(reputationEvent);
-    		current.increaseKarma(reputationEvent.getKarmaReward());
+    		if (isUserWithKarma) current.increaseKarma(reputationEvent.getKarmaReward());
         	result.redirectTo(QuestionController.class).showQuestion(question, question.getSluggedTitle());
 			notificationManager.sendEmailsAndInactivate(new EmailAction(answer, question));
 			if (watching) {
