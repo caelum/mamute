@@ -411,6 +411,6 @@ public class User implements Identifiable {
 	}
 
 	public boolean hasKarma() {
-		return (this.karma > 0);
+		return (this.karma >= 0);
 	}
 }
