@@ -9,6 +9,7 @@ import org.hibernate.Transaction;
 import br.com.caelum.brutal.infra.AfterSuccessfulTransaction;
 import br.com.caelum.vraptor.Intercepts;
 import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.http.MutableResponse;
 import br.com.caelum.vraptor.interceptor.SimpleInterceptorStack;
 import br.com.caelum.vraptor.plugin.hibernate4.HibernateTransactionInterceptor;
 
@@ -26,8 +27,8 @@ public class TransactionInterceptor extends HibernateTransactionInterceptor {
 	
 	@Inject
 	public TransactionInterceptor(Session session, Validator validator,
-			AfterSuccessfulTransaction afterTransaction) {
-		super(session, validator);
+			AfterSuccessfulTransaction afterTransaction, MutableResponse response) {
+		super(session, validator, response);
 		this.session = session;
 		this.validator = validator;
 		this.afterTransaction = afterTransaction;
