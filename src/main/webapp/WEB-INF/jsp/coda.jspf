@@ -5,6 +5,7 @@
 
 <tags:brutal-include value="footer"/>
 
+<script src="<c:url value="/js/deps/jquery.js"/>"></script>
 
 <script type="text/javascript">
 	//UI flags (GLOBAL VARIABLES)
@@ -12,11 +13,8 @@
 	var MODERATOR = ${currentUser.moderator};
 	var KARMA = ${currentUser.current.karma};
 	var CONTEXT_PATH = "${contextPath}";
-	var ALL_TAGS = ${empty allTags ? '{}' : allTags};
+	var ALL_TAGS = $.getJSON("/pergunta/allTags");
 </script>
-
-	
-<script src="<c:url value="/js/deps/jquery.js"/>"></script>
 	
 <c:if test="${environment.name != 'production'}" >
 	<script src="<c:url value="/js/deps/diff_match_patch.js"/>"></script>

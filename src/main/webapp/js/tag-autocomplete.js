@@ -1,5 +1,7 @@
 var autoCompleteId;
 
+ALL_TAGS = $.parseJSON(ALL_TAGS.responseText);
+
 var ALL_TAG_NAMES = $.makeArray(
 	$(ALL_TAGS).map(function(index, element){
 		return element.name;

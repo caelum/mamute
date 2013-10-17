@@ -1,6 +1,7 @@
 package br.com.caelum.brutal.controllers;
 
 import static br.com.caelum.brutal.util.TagsSplitter.splitTags;
+import static br.com.caelum.vraptor.view.Results.json;
 import static java.util.Arrays.asList;
 
 import java.util.Arrays;
@@ -38,10 +39,7 @@ import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.plugin.hibernate4.extra.Load;
-import br.com.caelum.vraptor.serialization.xstream.XStreamBuilder;
 import br.com.caelum.vraptor.view.Results;
-
-import com.thoughtworks.xstream.XStream;
 
 @Controller
 public class QuestionController {
@@ -59,7 +57,6 @@ public class QuestionController {
 	private Linker linker;
 	private WatcherDAO watchers;
 	private ReputationEventDAO reputationEvents;
-	private XStream xml;
 	private BrutalValidator brutalValidator;
 
 
@@ -75,8 +72,7 @@ public class QuestionController {
 			TagsValidator tagsValidator, MessageFactory messageFactory,
 			Validator validator, PostViewCounter viewCounter,
 			Linker linker, WatcherDAO watchers, 
-			ReputationEventDAO reputationEvents, 
-			XStreamBuilder xstreamBuilder, BrutalValidator brutalValidator) {
+			ReputationEventDAO reputationEvents, BrutalValidator brutalValidator) {
 		this.result = result;
 		this.questions = questionDAO;
 		this.tags = tags;
@@ -91,15 +87,12 @@ public class QuestionController {
 		this.watchers = watchers;
 		this.reputationEvents = reputationEvents;
 		this.brutalValidator = brutalValidator;
-		this.xml = xstreamBuilder.withoutRoot().xmlInstance();
 	}
 
 	@Get("/perguntar")
 	@IncludeAllTags
 	@CustomBrutauthRules(LoggedRule.class)
 	public void questionForm() {
-		String allTags = xml.toXML(tags.all());
-		result.include("allTags", allTags);
 	}
 	
 	@Get("/pergunta/editar/{question.id}")
@@ -107,8 +100,11 @@ public class QuestionController {
 	@CustomBrutauthRules(EditQuestionRule.class)
 	public void questionEditForm(@Load Question question) {
 		result.include("question",  question);
-		String allTags = xml.toXML(tags.all());
-		result.include("allTags", allTags);
+	}
+	
+	@Get("/pergunta/allTags")
+	public void jsonTags () {
+		result.use(json()).withoutRoot().from(tags.all()).serialize();
 	}
 
 	@Post("/pergunta/editar/{original.id}")
