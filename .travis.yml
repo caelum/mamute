@@ -2,8 +2,11 @@ language: java
 
 notifications:
  email:
-  - marcosalles@gmail.com
-  - template:
+  recipients:
+   marcosalles@gmail.com
+  on_success: [always|never|change] # default: change
+  on_failure: [always|never|change] # default: always
+  template:
    - "%{repository}#%{build_number} (%{branch} - %{commit} : %{author}): %{message}"
    - "Change view : %{compare_url}"
    - "Build details : %{build_url}"
