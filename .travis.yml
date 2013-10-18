@@ -12,7 +12,10 @@ notifications:
    - "Build details : %{build_url}"
 
 before_script:
- - ./scripts/mysql-setup.sh
+ - ./scripts/mysql-setup.sh install
 
 script:
  - mvn clean jacoco:prepare-agent test jacoco:report > logs/build.log
+
+after_script:
+ - ./scripts/mysql-setup.sh uninstall
