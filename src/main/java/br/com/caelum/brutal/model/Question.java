@@ -428,4 +428,9 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 	public boolean canMarkAsSolution (User user) {
 		return (user.equals(author) && solution == null && answerCount != 0); 
 	}
+
+	@Override
+	public List<Vote> getVotes() {
+		return votes;
+	}
 }

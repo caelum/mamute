@@ -2,6 +2,7 @@ package br.com.caelum.brutal.model.vote;
 
 import javax.inject.Inject;
 
+import br.com.caelum.brutal.controllers.RetrieveKarmaDownvote;
 import br.com.caelum.brutal.dao.ReputationEventDAO;
 import br.com.caelum.brutal.dao.VoteDAO;
 import br.com.caelum.brutal.model.ReputationEvent;
@@ -18,17 +19,19 @@ public class VotingMachine {
     private KarmaCalculator karmaCalculator;
 	private ReputationEventDAO reputationEvents;
 	private MassiveVote voteChecker;
+	private RetrieveKarmaDownvote retrieveDownvote;
 
 	@Deprecated
 	public VotingMachine() {
 	}
 
 	@Inject
-    public VotingMachine(VoteDAO votes, KarmaCalculator karmaCalculator, ReputationEventDAO reputationEvents, MassiveVote voteChecker) {
+    public VotingMachine(VoteDAO votes, KarmaCalculator karmaCalculator, ReputationEventDAO reputationEvents, MassiveVote voteChecker, RetrieveKarmaDownvote retrieveDownvote) {
         this.votes = votes;
         this.karmaCalculator = karmaCalculator;
 		this.reputationEvents = reputationEvents;
 		this.voteChecker = voteChecker;
+		this.retrieveDownvote = retrieveDownvote;
     }
 
     public void register(Votable votable, Vote current, Class<?> votableType) {
@@ -59,6 +62,11 @@ public class VotingMachine {
         voter.increaseKarma(karmaCalculator.karmaFor(votedAtSomething));
         reputationEvents.save(receivedVote);
         reputationEvents.save(votedAtSomething);
+
+        if (votable.getVoteCount() <= -5) {
+        	votable.getQuestion().remove();
+        	retrieveDownvote.retrieveKarma(votable.getVotes()); 
+        }
     }
 
 }

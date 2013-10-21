@@ -128,4 +128,13 @@ public class VoteDAO {
     public void save(Vote vote) {
         session.save(vote);
     }
+
+	public List<Vote> getDownVotes(Serializable id, Class type) {
+		String hql = "select v from "
+				+ type.getSimpleName()
+				+ " q join q.votes as v where q.id = :votable and v.type = :voteType";
+		Query query = session.createQuery(hql);
+		return query.setParameter("votable", id)
+				.setParameter("voteType", VoteType.DOWN).list();
+	}
 }

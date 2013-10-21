@@ -1,6 +1,7 @@
 package br.com.caelum.brutal.model.interfaces;
 
 import java.io.Serializable;
+import java.util.List;
 
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
@@ -13,4 +14,5 @@ public interface Votable {
 	long getVoteCount();
     Class<? extends Votable> getType();
 	Question getQuestion();
+	List<Vote> getVotes();
 }

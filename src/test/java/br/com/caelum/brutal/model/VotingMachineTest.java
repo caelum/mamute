@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.brutal.builder.QuestionBuilder;
+import br.com.caelum.brutal.controllers.RetrieveKarmaDownvote;
 import br.com.caelum.brutal.dao.ReputationEventDAO;
 import br.com.caelum.brutal.dao.TestCase;
 import br.com.caelum.brutal.dao.VoteDAO;
@@ -30,7 +31,7 @@ public class VotingMachineTest extends TestCase {
     public void setUp() {
         votes = mock(VoteDAO.class);
         ReputationEventDAO reputationEvents = mock(ReputationEventDAO.class);
-		votingMachine = new VotingMachine(votes, new KarmaCalculator(), reputationEvents, new MassiveVote());
+		votingMachine = new VotingMachine(votes, new KarmaCalculator(), reputationEvents, new MassiveVote(), new RetrieveKarmaDownvote());
         voter = user("chico", "chico@brutal.com", 1l);
         author = user("author", "author@brutal.com", 2l);
         votable = question.withTitle("title").withDescription("description").withAuthor(author).build();

@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.brutal.builder.NewsBuilder;
+import br.com.caelum.brutal.controllers.RetrieveKarmaDownvote;
 import br.com.caelum.brutal.dto.SuspectMassiveVote;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.Comment;
@@ -47,7 +48,7 @@ public class VoteDAOTest extends DatabaseTestCase{
 			session.save(tag);
 		}
 		InvisibleForUsersRule invisibleRule = new InvisibleForUsersRule(new LoggedUser(currentUser, null));
-		votingMachine = new VotingMachine(votes, new KarmaCalculator(), new ReputationEventDAO(session, invisibleRule), new MassiveVote());
+		votingMachine = new VotingMachine(votes, new KarmaCalculator(), new ReputationEventDAO(session, invisibleRule), new MassiveVote(), new RetrieveKarmaDownvote());
 	}
 	
 	@Test

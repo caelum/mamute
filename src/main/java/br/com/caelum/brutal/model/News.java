@@ -313,5 +313,10 @@ public class News extends Moderatable implements Post, ViewCountable, Watchable,
 	private String sanitize(String markedDescription) {
 		return new HtmlPolicyBuilder().toFactory().sanitize(markedDescription) + "...";
 	}
+
+	@Override
+	public List<Vote> getVotes() {
+		return votes;
+	}
 }
 

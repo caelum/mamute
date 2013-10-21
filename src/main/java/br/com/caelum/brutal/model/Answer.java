@@ -292,4 +292,9 @@ public class Answer extends Moderatable implements Post, Notifiable {
 	public Question getQuestion() {
 		return question;
 	}
+
+	@Override
+	public List<Vote> getVotes() {
+		return votes;
+	}
 }
