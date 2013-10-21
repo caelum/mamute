@@ -60,7 +60,6 @@ public class QuestionDAO implements PaginatableDAO {
 				.createAlias("q.lastTouchedBy", "ql")
 				.createAlias("q.solution", "s", Criteria.LEFT_JOIN)
 				.createAlias("q.solution.information", "si", Criteria.LEFT_JOIN)
-				.add(criterionSpamFilter())
 				.addOrder(desc("q.lastUpdatedAt"))
 				.setFirstResult(firstResultOf(page))
 				.setMaxResults(PAGE_SIZE);
@@ -70,7 +69,7 @@ public class QuestionDAO implements PaginatableDAO {
 
 	public List<Question> unsolvedVisible(Integer page) {
 		Criteria criteria = session.createCriteria(Question.class, "q")
-				.add(Restrictions.and(criterionSpamFilter(), isNull("q.solution")))
+				.add(isNull("q.solution"))
 				.addOrder(Order.desc("q.lastUpdatedAt"))
 				.setMaxResults(PAGE_SIZE)
 				.setFirstResult(firstResultOf(page))
@@ -168,7 +167,6 @@ public class QuestionDAO implements PaginatableDAO {
 	
 	public long numberOfPages() {
 		Criteria criteria = session.createCriteria(Question.class, "q")
-				.add(criterionSpamFilter())
 				.setProjection(rowCount());
 		Long totalItems = (Long) addInvisibleFilter(criteria).list().get(0);
 		return calculatePages(totalItems);
@@ -178,7 +176,6 @@ public class QuestionDAO implements PaginatableDAO {
 		Criteria criteria = session.createCriteria(Question.class, "q")
 				.createAlias("q.information", "qi")
 				.createAlias("qi.tags", "t")
-				.add(criterionSpamFilter())
 				.add(eq("t.id", tag.getId()))
 				.setProjection(rowCount());
 		Long totalItems = (Long) addInvisibleFilter(criteria).list().get(0);
@@ -213,10 +210,6 @@ public class QuestionDAO implements PaginatableDAO {
 		return result;
 	}
 
-	private Criterion criterionSpamFilter() {
-		return Restrictions.gt("q.voteCount", SPAM_BOUNDARY);
-	}
-	
 	private Criteria addInvisibleFilter(Criteria criteria) {
 		return invisible.addFilter("q", criteria);
 	}
