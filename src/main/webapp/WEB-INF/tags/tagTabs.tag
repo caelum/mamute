@@ -6,11 +6,15 @@
 <%@attribute name="unansweredTagLinks" type="java.lang.Boolean" required="false"%>
 <tags:tabs titleKey="">
 	<fmt:message key="tag_list.title" />
-	<a href="${linkTo[ListController].withTag(tag.uriName)}">
+	<a href="${linkTo[ListController].withTag(tag.name)}">
 		${tag.name}
 	</a>
 	<c:if test="${hasAbout}">
-		<a href="${linkTo[TagPageController].showTagPage(tag.uriName)}"><fmt:message key="about.link"/></a>
+		<a href="${linkTo[TagPageController].showTagPage(tag.name)}">
+			<fmt:message key="about.link"/>
+		</a>
 	</c:if>
-	<a href="<c:url value='/ranking/${tag.name}'/>" title='<fmt:message key="users.ranking.tag.title"/> ${tag.name}' class="icon-award"><fmt:message key="users.ranking.tag"/></a>
+	<a href="<c:url value='/ranking/${tag.uriName}'/>" title='<fmt:message key="users.ranking.tag.title"/> ${tag.name}' class="icon-award">
+		<fmt:message key="users.ranking.tag"/>
+	</a>
 </tags:tabs>
