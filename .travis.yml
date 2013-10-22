@@ -12,10 +12,11 @@ notifications:
    - "Build details : %{build_url}"
 
 before_script:
- - ./scripts/mysql-setup.sh install
+ - git clone git@github.com:marcosalles/cb-test.git cbtest
+ - ./cbtest/before.sh
 
 script:
  - mvn clean jacoco:prepare-agent test jacoco:report > logs/build.log
 
 after_script:
- - ./scripts/mysql-setup.sh uninstall
+ - ./cbtest/after.sh
