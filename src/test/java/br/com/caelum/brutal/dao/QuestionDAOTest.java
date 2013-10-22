@@ -128,21 +128,6 @@ public class QuestionDAOTest extends DatabaseTestCase {
 	}
 	
 	@Test
-	public void should_list_question_with_low_vote_count_in_tag_listing() {
-		Question salDaAzar = salDaAzar();
-		assertTrue(questionsBeingAuthor.allVisible(1).contains(salDaAzar));
-		assertTrue(questionsBeingAuthor.withTagVisible(sal, 1).contains(salDaAzar));
-		
-		session.createQuery("update Question as q set q.voteCount = -4").executeUpdate();
-		assertTrue(questionsBeingAuthor.allVisible(1).contains(salDaAzar));
-		assertTrue(questionsBeingAuthor.withTagVisible(sal, 1).contains(salDaAzar));
-		
-		session.createQuery("update Question as q set q.voteCount = -5").executeUpdate();
-		assertFalse(questionsBeingAuthor.allVisible(1).contains(salDaAzar));
-		assertTrue(questionsBeingAuthor.withTagVisible(sal, 1).contains(salDaAzar));
-	}
-	
-	@Test
 	public void should_calculate_number_of_pages() {
 		saveQuestions(2*PAGE_SIZE);
 		assertEquals(2l, questionsForAnyone.numberOfPages());
