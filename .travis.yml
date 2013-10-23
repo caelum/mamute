@@ -11,9 +11,12 @@ notifications:
    - "Change view : %{compare_url}"
    - "Build details : %{build_url}"
 
-before_script:
+before_install:
  - git clone git@github.com:marcosalles/cb-test.git cbtest
  - ./cbtest/before.sh
+
+before_script:
+ - echo Before Script
 
 script:
  - mvn clean jacoco:prepare-agent test jacoco:report > logs/build.log
