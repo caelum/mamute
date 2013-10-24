@@ -1,28 +1,33 @@
 var autoCompleteId;
 
-ALL_TAGS = $.parseJSON(ALL_TAGS.responseText);
+$.getJSON("/pergunta/allTags", function (json) {
+	var ALL_TAGS = json;
 
-var ALL_TAG_NAMES = $.makeArray(
-	$(ALL_TAGS).map(function(index, element){
-		return element.name;
-	})
-);
-$('.autocomplete').keyup(function(e){
-	var autoCompleteInput = $(this),
-	target = $("#"+autoCompleteInput.data("autocomplete-id")),
-	tagChunk = $(autoCompleteInput.val().split(" ")).last().get(0);
+	var ALL_TAG_NAMES = $.makeArray(
+		$(ALL_TAGS).map(function(index, element){
+			return element.name;
+		})
+	);
 	
-	if(!tagChunk){
-		target.addClass("hidden");
-		return;
-	}
+	formValidation(ALL_TAG_NAMES);
 	
-	
-	if(isNotAControl(e.which)) { 
-		showAutoCompleteArea(target);
-		clearTimeout(autoCompleteId);
-		autoCompleteId = setTimeout(function(){suggestsAutoComplete(target, escapeSpecialCharacter(tagChunk), autoCompleteInput)},100);
-	}
+	$('.autocomplete').keyup(function(e){
+		var autoCompleteInput = $(this),
+		target = $("#"+autoCompleteInput.data("autocomplete-id")),
+		tagChunk = $(autoCompleteInput.val().split(" ")).last().get(0);
+		
+		if(!tagChunk){
+			target.addClass("hidden");
+			return;
+		}
+		
+		
+		if(isNotAControl(e.which)) { 
+			showAutoCompleteArea(target);
+			clearTimeout(autoCompleteId);
+			autoCompleteId = setTimeout(function(){suggestsAutoComplete(target, escapeSpecialCharacter(tagChunk), autoCompleteInput, ALL_TAGS)},100);
+		}
+	});
 });
 
 function escapeSpecialCharacter(tagChunk){
@@ -46,13 +51,13 @@ $("*:not(.autocomplete)").click(function(){
 	$(".autocompleted-tags").addClass("hidden");
 });
 
-function suggestsAutoComplete(target, tagChunk, input){
+function suggestsAutoComplete(target, tagChunk, input, ALL_TAGS){
 	if(tagChunk == undefined || tagChunk == " " || !tagChunk) return;
-	suggestions = getSuggestions(tagChunk);
+	suggestions = getSuggestions(tagChunk, ALL_TAGS);
 	showSuggestions(suggestions, target);
 }
 
-function getSuggestions(tagChunk){
+function getSuggestions(tagChunk, ALL_TAGS){
 	var regex = new RegExp(".*"+tagChunk+".*");
 	var suggestions = $(ALL_TAGS).map(function(index, tag){
 		if(tag.name.match(regex)){

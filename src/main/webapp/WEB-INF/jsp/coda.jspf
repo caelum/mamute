@@ -13,7 +13,6 @@
 	var MODERATOR = ${currentUser.moderator};
 	var KARMA = ${currentUser.current.karma};
 	var CONTEXT_PATH = "${contextPath}";
-	var ALL_TAGS = $.getJSON("/pergunta/allTags");
 </script>
 	
 <c:if test="${environment.name != 'production'}" >
