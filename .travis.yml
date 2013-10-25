@@ -13,13 +13,16 @@ notifications:
 
 before_install:
  - git clone git@github.com:marcosalles/cb-test.git sc
- - ./sc/before.sh
+ - ./sc/before_install.sh
 
 install:
  - ./sc/install.sh
+
+before_script:
+ - ./sc/before_script.sh
 
 script:
  - ./sc/script.sh
 
 after_script:
- - ./sc/after.sh
+ - ./sc/after_script.sh
