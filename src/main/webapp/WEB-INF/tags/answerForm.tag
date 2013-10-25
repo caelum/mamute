@@ -11,7 +11,7 @@
 <c:if test="${sameAuthor}">
 	<fmt:message key="answer.form.sameauthor.placeholder" var="placeholder" />
 	<div class="hidden same-author-confirmation hinted-form answer-form">
-		<button class="post-submit big-submit">Desejo adicionar uma solução a minha pergunta</button>
+		<button class="post-submit big-submit"><fmt:message key="newanswer.answer.add_own_answer"/></button>
 	</div>
 </c:if>
 
