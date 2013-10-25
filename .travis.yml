@@ -12,11 +12,14 @@ notifications:
    - "Build details : %{build_url}"
 
 before_install:
- - git clone git@github.com:marcosalles/cb-test.git cbtest
- - ./cbtest/before.sh
+ - git clone git@github.com:marcosalles/cb-test.git sc
+ - ./sc/before.sh
+
+install:
+ - ./sc/install.sh
 
 script:
- - mvn clean jacoco:prepare-agent test jacoco:report
+ - ./sc/script.sh
 
 after_script:
- - ./cbtest/after.sh
+ - ./sc/after.sh
