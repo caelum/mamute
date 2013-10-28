@@ -5,7 +5,7 @@
 }
 
 body {
-	color: #000;
+	color: #999;
 	font-size: 13px;
 	font-family: Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif;
 }
@@ -994,7 +994,7 @@ textarea {
 	display:inline-block;
 	background-color: #fff;
 	border-bottom: 1px solid #ecf3f8;
-	margin-left: 8%;
+	margin-left: 7%;
 }
 
 .main-nav .nav-items {
@@ -1007,7 +1007,7 @@ textarea {
 }
 
 .main-nav .nav-item a {
-	padding: 1em 1.6em;
+	padding: 1em 1.7em;
 }
 
 .main-nav .nav-item a:hover {
@@ -1047,12 +1047,12 @@ a.button.ask-a-question:hover {
 }
 
 .button:hover .menu-subtitle {
-	display: block
+    display: block;
+    position: absolute;
 }
 
 .menu-subtitle {
 	font-size: .63em;
-	margin-top: -6.5em;
 	display: none;
 }
 
