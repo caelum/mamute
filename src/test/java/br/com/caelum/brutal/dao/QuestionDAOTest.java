@@ -3,6 +3,7 @@ package br.com.caelum.brutal.dao;
 import static br.com.caelum.brutal.dao.QuestionDAO.PAGE_SIZE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -12,7 +13,9 @@ import javax.validation.ConstraintViolationException;
 
 import net.vidageek.mirror.dsl.Mirror;
 
+import org.hamcrest.Matchers;
 import org.joda.time.DateTime;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -171,7 +174,7 @@ public class QuestionDAOTest extends DatabaseTestCase {
 	}
 	
 	@Test
-	public void should_find_hot_questions() throws Exception {
+	public void should_find_hot_questions_ignoring_invisibles() throws Exception {
 		DateTime pastWeek = new DateTime().minusWeeks(1);
 		Question oldQuestion = TimeMachine.goTo(pastWeek.minusDays(1)).andExecute(new Block<Question>() {
 			@Override
@@ -184,18 +187,21 @@ public class QuestionDAOTest extends DatabaseTestCase {
 		Question withTenVotes = question(author, sal);
 		Question withFiveVotes = question(author, sal);
 		Question withNoVotes = question(author, sal);
+		Question invisible = question(author, sal);
 		setVoteCount(withTenVotes, 10);
 		setVoteCount(withFiveVotes, 5);
+		setVoteCount(invisible, 15);
+		invisible.remove();
 		
 		session.save(oldQuestion);
 		session.save(withTenVotes);
 		session.save(withFiveVotes);
 		session.save(withNoVotes);
+		session.save(invisible);
+		session.flush();
 		
-		List<Question> questions = questionsForAnyone.hot(pastWeek, 2);
-		assertEquals(2, questions.size());
-		assertEquals(withTenVotes, questions.get(0));
-		assertEquals(withFiveVotes, questions.get(1));
+		List<Question> questions = questionsForAnyone.hot(pastWeek, 3);
+		assertThat(questions, Matchers.containsInAnyOrder(withFiveVotes, withTenVotes, withNoVotes));
 	}
 
 	private void setVoteCount(Question withTenVotes, long count) {

@@ -144,6 +144,7 @@ public class QuestionDAO implements PaginatableDAO {
 	public List<Question> hot(DateTime since, int count) {
 		return session.createCriteria(Question.class, "q")
 				.add(gt("q.createdAt", since))
+				.add(and(Restrictions.eq("q.moderationOptions.invisible", false)))
 				.addOrder(Order.desc("q.voteCount"))
 				.setMaxResults(count)
 				.list();
@@ -152,6 +153,7 @@ public class QuestionDAO implements PaginatableDAO {
 	public List<Question> randomUnanswered(DateTime after, DateTime before, int count) {
 		return session.createCriteria(Question.class, "q")
 				.add(and(isNull("q.solution"), Restrictions.between("q.createdAt", after, before)))
+				.add(and(Restrictions.eq("q.moderationOptions.invisible", false)))
 				.add(Restrictions.sqlRestriction("1=1 order by rand()"))
 				.setMaxResults(count)
 				.list();
