@@ -21,7 +21,7 @@
 	<meta property="og:site_name" content="guj.com.br">
 	<meta property="og:url" content='${currentUrl}'>
 	<meta property="og:type" content="website">
-	<meta property="og:image" content="<env:get key="host"/><c:url value="/imgs/guj-fb-logo.png"/>">
+	<meta property="og:image" content="<env:get key="host"/><c:url value="/imgs/logo-guj-fb.png"/>">
 </c:if>
 
 
