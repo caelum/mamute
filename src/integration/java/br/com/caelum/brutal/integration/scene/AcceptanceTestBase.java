@@ -65,7 +65,7 @@ public abstract class AcceptanceTestBase implements ServerInfo.AcceptanceTest {
 		capabilities.setJavascriptEnabled(true);
 		capabilities.setCapability("takesScreenshot", true);
 		try {
-			return new RemoteWebDriver(new URL("http://localhost:8787/"), capabilities);
+			return new RemoteWebDriver(new URL("http://127.0.0.1:8787/"), capabilities);
 		} catch (MalformedURLException e) {
 			throw new RuntimeException("could not build ghost driver", e);
 		}
