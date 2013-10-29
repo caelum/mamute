@@ -19,6 +19,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriver.Navigation;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -98,7 +99,10 @@ public abstract class AcceptanceTestBase implements ServerInfo.AcceptanceTest {
 		if ("remote".equals(localTest)) {
 			driver = ghostDriver();
 		} else {
-			driver = new FirefoxDriver();
+			FirefoxBinary firefox = new FirefoxBinary();
+            String display = System.getProperty("DISPLAY", ":0");
+            firefox.setEnvironmentProperty("DISPLAY", display);
+            driver = new FirefoxDriver(firefox, null);
 		}
 		driver.manage().window().setSize(new Dimension(1920, 1080));
 		waitForFirstBodyPresence();
