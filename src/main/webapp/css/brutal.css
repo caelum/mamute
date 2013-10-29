@@ -31,11 +31,11 @@ a:hover {
 	text-indent: -999999em;
 }
 
-.logo {;
+.logo {
 	margin: .5% 0;
 	display: inline-block;
-
-	vertical-align: middle;}
+	vertical-align: middle;
+}
 
 .big-logo {
 	background-image: url('../imgs/logo-guj.png');
@@ -888,7 +888,7 @@ textarea {
 
 /*HEADER*/
 .header {
-	margin-bottom: 20px;
+	margin-bottom: 2.5em;
 	height: 9em;
 }
 
@@ -1024,7 +1024,7 @@ textarea {
 
 .nav-item {
 	float: left;
-	padding-right: .8em;
+	padding-right: 0.8em;
 }
 
 .piped-nav .nav-item.ask {
