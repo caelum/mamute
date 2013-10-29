@@ -32,16 +32,16 @@ a:hover {
 }
 
 .logo {
-	float: left;
 	margin: .5% 0;
-	display: block;
+	display: inline-block;
+	vertical-align: middle;
 }
 
 .big-logo {
-	background-image: url('../imgs/guj-logo.png');
+	background-image: url('../imgs/logo-guj.png');
 	background-position: 0px 0px;
 	width: 250px;
-	height: 61px;
+	height: 81px;
 }
 
 .container {
@@ -49,6 +49,7 @@ a:hover {
 	margin-right: auto;
 	max-width: 90%;
 	overflow: hidden;
+	position: relative;
 }
 
 .title {
@@ -887,7 +888,16 @@ textarea {
 
 /*HEADER*/
 .header {
-	margin-bottom: 20px;
+	margin-bottom: 2.5em;
+	height: 9em;
+}
+
+.second-header .container:before {
+	content: "";
+	display:inline-block;
+	width:0;
+	height: 100%;
+	vertical-align:middle;
 }
 
 .first-header,.search-form {
@@ -895,7 +905,7 @@ textarea {
 }
 
 .first-header {
-	background-color: #397db2;
+	background-color: #4f95d1;
 	padding: .3em .15em;
 }
 
@@ -904,7 +914,7 @@ textarea {
 }
 
 .second-header {
-	background-color: #244b69;
+	background-color: #f4f8f9;
 }
 
 .user-area {
@@ -967,7 +977,6 @@ textarea {
 
 /* Piped menu */
 .piped-nav .nav-item {
-	border-left: 1px solid;
 	padding: 0;
 }
 
@@ -981,7 +990,11 @@ textarea {
 }
 
 .main-nav {
-	height: 5.35em;
+	vertical-align: middle;
+	display:inline-block;
+	background-color: #fff;
+	border-bottom: 1px solid #ecf3f8;
+	margin-left: 7%;
 }
 
 .main-nav .nav-items {
@@ -990,9 +1003,11 @@ textarea {
 }
 
 .main-nav .nav-item,.main-nav .nav-item a {
-	height: 100%;
-	line-height: 5em;
-	border-color: #3c5f7b;
+	color: #37485e;
+}
+
+.main-nav .nav-item a {
+	padding: 1em 1.7em;
 }
 
 .main-nav .nav-item a:hover {
@@ -1004,41 +1019,40 @@ textarea {
 }
 
 .nav-item .current {
-	background-color: #306691;
-}
-
-.nav-item,.nav-item a {
-	height: 28px;
-	line-height: 28px;
+	background-color: #7CB7E8;
 }
 
 .nav-item {
 	float: left;
-	padding-right: .8em;
+	padding-right: 0.8em;
 }
 
 .piped-nav .nav-item.ask {
 	float: right;
 	border: none;
-	height: 80%;
+	height: 4.7em;
+	position: absolute;
+	right: 0;
 }
 
 a.button.ask-a-question {
-	background-color: #84bc41;
-	line-height: 4em;
+	background-color: #3fb061;
+	border-bottom: 1px solid #2b934a;
+	color: #fff;
+	padding: 1em 3.4em;
 }
 
 a.button.ask-a-question:hover {
-	background-color: #97D74A;
+	background-color: #70D88F;
 }
 
 .button:hover .menu-subtitle {
-	display: block
+    display: block;
+    position: absolute;
 }
 
 .menu-subtitle {
 	font-size: .63em;
-	margin-top: -6.5em;
 	display: none;
 }
 
@@ -1102,12 +1116,12 @@ a.button.ask-a-question:hover {
 .button {
 	padding: 0 1.5em;
 	display: block;
-	color: #fff;
+	color: #37485e;
 	font-size: 1.23em;
 }
 
 .button:hover {
-	background-color: #2b5b81;
+	background-color: #B5D7F3;
 }
 
 /*HOME*/

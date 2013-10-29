@@ -13,7 +13,7 @@
 	<table width="600" align="center">
 		<tr>
 	        <td style="border-bottom: 1px solid #222; padding-bottom: 10px">
-	        	<img src="http://www.guj.com.br/imgs/guj-mail-logo.png">
+	        	<img src="http://www.guj.com.br/imgs/logo-guj-mail.png">
 	        	<h1 style="${mainTitleStyle}">${l10n.getMessage("newsletter_mail", [date, siteName, ""])}</h1>
         	</td>
 		</tr>
