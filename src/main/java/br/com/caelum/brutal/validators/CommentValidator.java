@@ -9,8 +9,8 @@ import javax.inject.Inject;
 import br.com.caelum.brutal.controllers.BrutalValidator;
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.Comment;
-import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.View;
+import br.com.caelum.vraptor.validator.Validator;
 
 public class CommentValidator {
 

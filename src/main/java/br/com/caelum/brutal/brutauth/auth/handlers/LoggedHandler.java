@@ -2,8 +2,6 @@ package br.com.caelum.brutal.brutauth.auth.handlers;
 
 import static java.util.Arrays.asList;
 
-import java.util.ResourceBundle;
-
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 

@@ -32,6 +32,7 @@ public class VRaptorServer {
 
 	public void start() throws Exception {
 		server.setHandler(contexts);
+		if (server.isStarted()) server.stop();
 		server.start();
 	}
 

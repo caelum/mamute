@@ -10,9 +10,9 @@ import org.joda.time.format.DateTimeFormatter;
 
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.vraptor.Convert;
-import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.converter.jodatime.DateTimeConverter;
 import br.com.caelum.vraptor.simplemail.template.BundleFormatter;
+import br.com.caelum.vraptor.validator.Validator;
 
 @Convert(DateTime.class) @Specializes
 public class BrutalDateTimeConverter extends DateTimeConverter{

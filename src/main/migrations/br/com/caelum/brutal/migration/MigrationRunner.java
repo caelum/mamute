@@ -11,9 +11,9 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.collect.Lists;
-
 import br.com.caelum.vraptor.environment.Environment;
+
+import com.google.common.collect.Lists;
 
 @ApplicationScoped
 public class MigrationRunner {

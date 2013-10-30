@@ -6,14 +6,16 @@ import javax.inject.Inject;
 
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.Tag;
-import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.validator.Validator;
 
 public class TagsValidator {
-	private Validator validator;
-	private MessageFactory messageFactory;
+	
+	private final Validator validator;
+	private final MessageFactory messageFactory;
 
 	@Deprecated
 	public TagsValidator() {
+		this(null, null);
 	}
 
 	@Inject

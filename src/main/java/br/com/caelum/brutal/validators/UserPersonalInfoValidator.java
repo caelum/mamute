@@ -8,8 +8,8 @@ import org.joda.time.format.DateTimeFormat;
 import br.com.caelum.brutal.controllers.BrutalValidator;
 import br.com.caelum.brutal.dto.UserPersonalInfo;
 import br.com.caelum.brutal.factory.MessageFactory;
-import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.simplemail.template.BundleFormatter;
+import br.com.caelum.vraptor.validator.Validator;
 
 public class UserPersonalInfoValidator {
 	

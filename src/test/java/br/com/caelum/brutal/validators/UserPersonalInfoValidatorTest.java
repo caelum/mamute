@@ -20,9 +20,9 @@ import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.dto.UserPersonalInfo;
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.User;
-import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.simplemail.template.BundleFormatter;
 import br.com.caelum.vraptor.util.test.MockValidator;
+import br.com.caelum.vraptor.validator.Validator;
 
 public class UserPersonalInfoValidatorTest extends TestCase{
 
