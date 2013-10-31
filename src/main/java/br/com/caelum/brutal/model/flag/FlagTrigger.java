@@ -6,9 +6,9 @@ import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
-import com.google.common.collect.Lists;
-
 import br.com.caelum.brutal.model.interfaces.Flaggable;
+
+import com.google.common.collect.Lists;
 
 public class FlagTrigger {
 	

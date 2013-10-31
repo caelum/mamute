@@ -1,6 +1,9 @@
 package br.com.caelum.brutal.dao;
 
-import static br.com.caelum.brutal.model.UpdateStatus.*;
+import static br.com.caelum.brutal.model.UpdateStatus.APPROVED;
+import static br.com.caelum.brutal.model.UpdateStatus.NO_NEED_TO_APPROVE;
+import static br.com.caelum.brutal.model.UpdateStatus.PENDING;
+import static br.com.caelum.brutal.model.UpdateStatus.REFUSED;
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;

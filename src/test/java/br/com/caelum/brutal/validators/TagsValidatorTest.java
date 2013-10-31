@@ -15,8 +15,8 @@ import br.com.caelum.brutal.dao.TestCase;
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
-import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.util.test.MockValidator;
+import br.com.caelum.vraptor.validator.Validator;
 
 public class TagsValidatorTest extends TestCase {
 	

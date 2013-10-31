@@ -5,7 +5,7 @@ import javax.inject.Inject;
 
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.User;
-import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.validator.Validator;
 
 @RequestScoped
 public class SignupValidator {

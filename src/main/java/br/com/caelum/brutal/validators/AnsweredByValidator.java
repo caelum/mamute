@@ -5,7 +5,7 @@ import javax.inject.Inject;
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.Question;
-import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.validator.Validator;
 
 public class AnsweredByValidator {
 	private Validator validator;

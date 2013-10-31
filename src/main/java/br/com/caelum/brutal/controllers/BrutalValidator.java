@@ -6,7 +6,7 @@ import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
 
 import br.com.caelum.brutal.factory.MessageFactory;
-import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.validator.Validator;
 
 public class BrutalValidator {
 
