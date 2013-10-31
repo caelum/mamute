@@ -43,11 +43,11 @@ public abstract class AcceptanceTestBase implements ServerInfo.AcceptanceTest {
 	protected static WebDriver driver;
 
 	protected static HttpClient client;
-	
+
 	protected static Environment env;
-	
+
 	private AppMessages messages = new AppMessages();
-	
+
 	@AfterClass
 	public static void close() {
 		if (driver != null)
@@ -60,13 +60,14 @@ public abstract class AcceptanceTestBase implements ServerInfo.AcceptanceTest {
 		driver.setJavascriptEnabled(true);
 		return driver;
 	}
-	
+
 	private static WebDriver ghostDriver() {
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		capabilities.setJavascriptEnabled(true);
 		capabilities.setCapability("takesScreenshot", true);
 		try {
-			return new RemoteWebDriver(new URL("http://127.0.0.1:8787/"), capabilities);
+			return new RemoteWebDriver(new URL("http://localhost:8787/"),
+					capabilities);
 		} catch (MalformedURLException e) {
 			throw new RuntimeException("could not build ghost driver", e);
 		}
@@ -75,7 +76,7 @@ public abstract class AcceptanceTestBase implements ServerInfo.AcceptanceTest {
 	protected Navigation browser() {
 		return driver.navigate();
 	}
-	
+
 	protected Home home() {
 		return new Home(driver);
 	}
@@ -84,60 +85,64 @@ public abstract class AcceptanceTestBase implements ServerInfo.AcceptanceTest {
 	public void setUpEnv() {
 		client = new HttpClient();
 	}
-	
+
 	@Before
 	public void setUpImplicitWait() {
-		driver.manage().timeouts().implicitlyWait(implicitWaitSeconds(), TimeUnit.SECONDS);
+		driver.manage().timeouts()
+				.implicitlyWait(implicitWaitSeconds(), TimeUnit.SECONDS);
 	}
-	
 
 	@BeforeClass
 	public static void buildDriver() {
-//		System.setProperty("webdriver.chrome.driver", "/home/csokol/programas/chromedriver/chromedriver");
+//		System.setProperty("webdriver.chrome.driver",
+//				"/home/csokol/programas/chromedriver/chromedriver");
 //		driver = new ChromeDriver();
 		String localTest = System.getenv("LOCAL_TEST");
 		if ("remote".equals(localTest)) {
 			driver = ghostDriver();
 		} else {
 			FirefoxBinary firefox = new FirefoxBinary();
-            String display = System.getProperty("DISPLAY", ":0");
-            firefox.setEnvironmentProperty("DISPLAY", display);
-            driver = new FirefoxDriver(firefox, null);
+			String display = System.getProperty("DISPLAY", ":0");
+			firefox.setEnvironmentProperty("DISPLAY", display);
+			driver = new FirefoxDriver();
 		}
 		driver.manage().window().setSize(new Dimension(1920, 1080));
 		waitForFirstBodyPresence();
 	}
-	
+
 	public static WebDriver getDriver() {
 		return driver;
 	}
-	
+
 	@BeforeClass
 	public static void getHttpClient() {
-	    client = new HttpClient();
-	    String homeUri = SERVER.urlFor("");
-	    try {
-	        HttpMethod method = new GetMethod(homeUri);
-	        int status = client.executeMethod(method);
-	        int digit = status % 100;
-	        if (digit == 5 || digit == 4) {
-	            throw new RuntimeException("server responded with "+ status + " status for a GET request to uri: " + homeUri + ", is the server ok?");
-	        }
-	    } catch (IOException e) {
-	        throw new RuntimeException("could not execute GET to: " + homeUri + ", is the server up?", e);
-	    }
-	}
-	
-	@BeforeClass
-	public static void getEnv() throws IOException {
-	    String homologEnv = System.getenv("ACCEPTANCE_ENV");
-        if (homologEnv == null) {
-            homologEnv = "development";
-        }
-        env = new DefaultEnvironment(homologEnv);
+		client = new HttpClient();
+		String homeUri = SERVER.urlFor("");
+		try {
+			HttpMethod method = new GetMethod(homeUri);
+			int status = client.executeMethod(method);
+			int digit = status % 100;
+			if (digit == 5 || digit == 4) {
+				throw new RuntimeException("server responded with " + status
+						+ " status for a GET request to uri: " + homeUri
+						+ ", is the server ok?");
+			}
+		} catch (IOException e) {
+			throw new RuntimeException("could not execute GET to: " + homeUri
+					+ ", is the server up?", e);
+		}
 	}
 
-    private static void waitForFirstBodyPresence() {
+	@BeforeClass
+	public static void getEnv() throws IOException {
+		String homologEnv = System.getenv("ACCEPTANCE_ENV");
+		if (homologEnv == null) {
+			homologEnv = "development";
+		}
+		env = new DefaultEnvironment(homologEnv);
+	}
+
+	private static void waitForFirstBodyPresence() {
 		driver.get(SERVER.urlFor(""));
 		ExpectedCondition<WebElement> homeAppear = new ExpectedCondition<WebElement>() {
 			@Override
@@ -147,19 +152,21 @@ public abstract class AcceptanceTestBase implements ServerInfo.AcceptanceTest {
 		};
 		new WebDriverWait(driver, 40).until(homeAppear);
 	}
-    
-    protected String message(String text) {
-        return messages.getMessage(text);
-    }
-    
-    protected QuestionPage createQuestion() {
-		return home().toNewQuestionPage()
-            .newQuestion("question title question title question title", 
-                "question description question description question description question description ", 
-                "java");
+
+	protected String message(String text) {
+		return messages.getMessage(text);
 	}
-    
-	protected void removeBindsFromElement(By by){
+
+	protected QuestionPage createQuestion() {
+		return home()
+				.toNewQuestionPage()
+				.newQuestion(
+						"question title question title question title",
+						"question description question description question description question description ",
+						"java");
+	}
+
+	protected void removeBindsFromElement(By by) {
 		WebElement element = driver.findElement(by);
 		if (driver instanceof JavascriptExecutor) {
 			JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -167,19 +174,20 @@ public abstract class AcceptanceTestBase implements ServerInfo.AcceptanceTest {
 		}
 	}
 
-	private String getScript(String file){
+	private String getScript(String file) {
 		String script;
 		try {
 			InputStream is = AcceptanceTestBase.class.getResourceAsStream(file);
 			script = IOUtils.toString(is);
 			return script;
 		} catch (IOException e) {
-			throw new RuntimeException("You need to create the file: '"+ file + "' at src/integration/resources");
+			throw new RuntimeException("You need to create the file: '" + file
+					+ "' at src/integration/resources");
 		}
 	}
-    
-    public int implicitWaitSeconds() {
-    	return TIME_WAIT;
-    }
-    
+
+	public int implicitWaitSeconds() {
+		return TIME_WAIT;
+	}
+
 }
