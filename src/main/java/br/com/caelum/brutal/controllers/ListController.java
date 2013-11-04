@@ -16,6 +16,7 @@ import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.errormail.mail.ErrorMailer;
+import br.com.caelum.vraptor.view.Results;
 
 @Controller
 public class ListController {
@@ -110,6 +111,11 @@ public class ListController {
 	@Get("/tags")
 	public void listTags(){
 		result.include("tags", tags.all());
+	}
+	
+	@Get("/mediakit")
+	public void mediakit(){
+		result.forwardTo("/WEB-INF/jsp/list/mediakit.jspf");
 	}
 
 	private Integer getPage(Integer p) {
