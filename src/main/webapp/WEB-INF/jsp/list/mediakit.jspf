@@ -13,34 +13,22 @@
 				<h1 class="guj">GUJ</h1>
 				<h2 class="mediakit">MediaKit</h2>
 			</div>
-			<nav class="main-nav">
-				<ul class="main-nav-links">
-					<li class="main-nav-item"><a class="main-nav-link" href="#2">O que é?</a></li>
-					<li class="main-nav-item"><a class="main-nav-link" href="#3">História</a></li>
-					<li class="main-nav-item"><a class="main-nav-link" href="#4">Estatísticas</a></li>
-					<li class="main-nav-item"><a class="main-nav-link" href="#5">A Rede</a></li>
-					<li class="main-nav-item"><a class="main-nav-link" href="#6">Eventos</a></li>
-					<li class="main-nav-item"><a class="main-nav-link" href="#7">Anunciantes</a></li>
-					<li class="main-nav-item"><a class="main-nav-link" href="#8">Formato</a></li>
-					<li class="main-nav-item"><a class="main-nav-link" href="#9">Contato</a></li>
-				</ul>
-			</nav>
 		</section>
 
 		<section id="2" class="mediakit-section">
-			<div class="container color-dark ideia">
+			<div class="container color-light ideia">
 				<h2>O que é?</h2>
 				<p>O GUJ é um sistema onde desenvolvedores, programadores e líderes de tecnologia podem trocar experiências através de perguntas e respostas.</p>
 			</div>
-			<tags:mediakitNav navColor="color-light" />
+			<div class="color-dark"></div>
 		</section>
 		
 		<section id="3" class="mediakit-section">
-			<div class="container color-light linguagens">
+			<div class="container color-dark linguagens">
 				<h2>História</h2>
 				<p>Nascido dentro da Universidade de São Paulo em 2002, foi criado com o foco em Java, com o tempo diversas linguagens e tecnologias foram incluídas.</p>
 			</div>
-			<tags:mediakitNav navColor="color-dark" />
+			<div class="color-light"></div>
 		</section>
 		
 		<section id="4" class="mediakit-section">
@@ -62,7 +50,7 @@
 					</li>
 				</ul>
 			</div>
-			<tags:mediakitNav navColor="color-dark" />
+			<div class="color-dark"></div>
 		</section>
 
 		<section id="5" class="mediakit-section">
@@ -70,8 +58,7 @@
 				<h2>A Rede</h2>
 				<p>O GUJ foi o ponto de partida para a criação de uma rede de ensino e tecnologia, com diversas areas de atuação.</p>
 			</div>
-			
-			<tags:mediakitNav navColor="color-light" />
+			<div class="color-light"></div>
 		</section>
 		
 		<section id="6" class="mediakit-section">
@@ -79,32 +66,32 @@
 				<h2>Eventos</h2>
 				<p>O GUJ também se mantém ativo na comunidade de desenvolvedores brasileiros com a participação, divulgação, organização e criação de diversos eventos. </p>
 			</div>
-			<tags:mediakitNav navColor="color-dark" />
+			<div class="color-dark"></div>
 		</section>
 		
 		<section id="7" class="mediakit-section">
-			<div class="container color-light anunciantes">
+			<div class="container color-dark anunciantes">
 				<h2>Anunciantes</h2>
 				<p>O GUJ oferece o ambiente certo para se comunicar com os desenvolvedores do Brasil com audiencia especializada e influência na comunidade de tecnologia e desenvolvimento.</p>
 			</div>
-			<tags:mediakitNav navColor="color-dark" />
+			<div class="color-light"></div>
 		</section>
 		
 		<section id="8" class="mediakit-section">
-			<div class="container color-dark formato">
+			<div class="container color-light formato">
 				<h2>Formato</h2>
 				<p>O GUJ disponibiliza duas areas de anuncios, que estão em todas as páginas de perguntas e na página inicial. Com as proporções de 728x90 que aparece na parte superior da página e 300x250 que aparece na lateral. Os formatos de arquivos suportados são imagens em JPEG, PNG e GIFs animados, códigos HTML ou animações em Flash . O custo por anuncio é só R$19 CPM. </p>
 			</div>
-			<tags:mediakitNav navColor="color-light" />
+			<div class="color-dark"></div>
 		</section>
 		
 		<section id="9" class="mediakit-section">
-			<div class="container color-light">
+			<div class="container color-dark">
 				<h2>Contato</h2>
 				<p>Para anunciar entre em contato através do e-mail:</p>
 				<span class="email">guj@guj.com.br</span>
 			</div>
-			<tags:mediakitNav navColor="color-dark" />
+			<div class="color-light"></div>
 		</section>
 	</div>
 	
