@@ -15,19 +15,19 @@
 			</div>
 			<nav class="main-nav">
 				<ul class="main-nav-links">
-					<li class="main-nav-item"><a class="main-nav-link" href="#sobre">O que é?</a></li>
-					<li class="main-nav-item"><a class="main-nav-link" href="#historia">História</a></li>
-					<li class="main-nav-item"><a class="main-nav-link" href="#estatisticas">Estatísticas</a></li>
-					<li class="main-nav-item"><a class="main-nav-link" href="#rede">A Rede</a></li>
-					<li class="main-nav-item"><a class="main-nav-link" href="#eventos">Eventos</a></li>
-					<li class="main-nav-item"><a class="main-nav-link" href="#anunciantes">Anunciantes</a></li>
-					<li class="main-nav-item"><a class="main-nav-link" href="#formato">Formato</a></li>
-					<li class="main-nav-item"><a class="main-nav-link" href="#contato">Contato</a></li>
+					<li class="main-nav-item"><a class="main-nav-link" href="#2">O que é?</a></li>
+					<li class="main-nav-item"><a class="main-nav-link" href="#3">História</a></li>
+					<li class="main-nav-item"><a class="main-nav-link" href="#4">Estatísticas</a></li>
+					<li class="main-nav-item"><a class="main-nav-link" href="#5">A Rede</a></li>
+					<li class="main-nav-item"><a class="main-nav-link" href="#6">Eventos</a></li>
+					<li class="main-nav-item"><a class="main-nav-link" href="#7">Anunciantes</a></li>
+					<li class="main-nav-item"><a class="main-nav-link" href="#8">Formato</a></li>
+					<li class="main-nav-item"><a class="main-nav-link" href="#9">Contato</a></li>
 				</ul>
 			</nav>
 		</section>
 
-		<section id="sobre" class="mediakit-section">
+		<section id="2" class="mediakit-section">
 			<div class="container color-dark ideia">
 				<h2>O que é?</h2>
 				<p>O GUJ é um sistema onde desenvolvedores, programadores e líderes de tecnologia podem trocar experiências através de perguntas e respostas.</p>
@@ -35,7 +35,7 @@
 			<tags:mediakitNav navColor="color-light" />
 		</section>
 		
-		<section id="historia" class="mediakit-section">
+		<section id="3" class="mediakit-section">
 			<div class="container color-light linguagens">
 				<h2>História</h2>
 				<p>Nascido dentro da Universidade de São Paulo em 2002, foi criado com o foco em Java, com o tempo diversas linguagens e tecnologias foram incluídas.</p>
@@ -43,7 +43,7 @@
 			<tags:mediakitNav navColor="color-dark" />
 		</section>
 		
-		<section id="estatisticas" class="mediakit-section">
+		<section id="4" class="mediakit-section">
 			<div class="container color-light">
 				<h2>Estatísticas</h2>
 				<p>O GUJ é um dos maiores sites de duvidas sobre programação do Brasil com cerca de 2 milhões de visualizações por mês e 500 mil visitantes únicos por mês. </p>
@@ -65,7 +65,7 @@
 			<tags:mediakitNav navColor="color-dark" />
 		</section>
 
-		<section id="rede" class="mediakit-section">
+		<section id="5" class="mediakit-section">
 			<div class="container color-dark logos">
 				<h2>A Rede</h2>
 				<p>O GUJ foi o ponto de partida para a criação de uma rede de ensino e tecnologia, com diversas areas de atuação.</p>
@@ -74,7 +74,7 @@
 			<tags:mediakitNav navColor="color-light" />
 		</section>
 		
-		<section id="eventos" class="mediakit-section">
+		<section id="6" class="mediakit-section">
 			<div class="container color-light eventos">
 				<h2>Eventos</h2>
 				<p>O GUJ também se mantém ativo na comunidade de desenvolvedores brasileiros com a participação, divulgação, organização e criação de diversos eventos. </p>
@@ -82,7 +82,7 @@
 			<tags:mediakitNav navColor="color-dark" />
 		</section>
 		
-		<section id="anunciantes" class="mediakit-section">
+		<section id="7" class="mediakit-section">
 			<div class="container color-light anunciantes">
 				<h2>Anunciantes</h2>
 				<p>O GUJ oferece o ambiente certo para se comunicar com os desenvolvedores do Brasil com audiencia especializada e influência na comunidade de tecnologia e desenvolvimento.</p>
@@ -90,7 +90,7 @@
 			<tags:mediakitNav navColor="color-dark" />
 		</section>
 		
-		<section id="formato" class="mediakit-section">
+		<section id="8" class="mediakit-section">
 			<div class="container color-dark formato">
 				<h2>Formato</h2>
 				<p>O GUJ disponibiliza duas areas de anuncios, que estão em todas as páginas de perguntas e na página inicial. Com as proporções de 728x90 que aparece na parte superior da página e 300x250 que aparece na lateral. Os formatos de arquivos suportados são imagens em JPEG, PNG e GIFs animados, códigos HTML ou animações em Flash . O custo por anuncio é só R$19 CPM. </p>
@@ -98,7 +98,7 @@
 			<tags:mediakitNav navColor="color-light" />
 		</section>
 		
-		<section id="contato" class="mediakit-section">
+		<section id="9" class="mediakit-section">
 			<div class="container color-light">
 				<h2>Contato</h2>
 				<p>Para anunciar entre em contato através do e-mail:</p>
