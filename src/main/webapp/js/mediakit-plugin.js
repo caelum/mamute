@@ -219,7 +219,10 @@
 			}
 			lastAnimation = timeNow;
 		}
-
+		
+		//MENSAGENS DO MENU DA HOME
+		var messages = ["O que é?", "História", "Estatísticas", "A Rede", "Eventos", "Anunciantes", "Formato", "Contato"];
+		
 		// Prepare everything before binding wheel scroll
 
 		el.addClass("onepage-wrapper").css("position", "relative");
@@ -231,7 +234,7 @@
 			topPos = topPos + 100;
 			if (settings.pagination == true) {
 				paginationList += "<li><a data-index='" + (i + 1) + "' href='#"
-						+ (i + 1) + "'></a></li>"
+						+ (i + 1) + "' data-message='" + messages[i-1] +"'class = 'text'></a></li>"
 			}
 		});
 

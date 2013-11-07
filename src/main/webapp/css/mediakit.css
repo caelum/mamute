@@ -32,37 +32,29 @@ body, .onepage-wrapper, html {
 .onepage-pagination {
   position: absolute;
   right: 3.5%;
-  z-index: 1;
+  z-index: 3;
   top: 4%;
   list-style: none;
   margin: 0.5em 0;
   padding: 0;
 }
-.nav-link{
-    background-color: #fff;
-}
+
 .onepage-pagination li {
   padding: 0;
   text-align: center;
 }
 .onepage-pagination li a{
-  padding: 10px;
   width: 1.7vw;
   height: 1.7vw;
+  margin-bottom: 1.5vw;
   display: inline-block;
-}
-.onepage-pagination li a:before{
-  content: "";
-  position: absolute;
-  width: 1.7vw;
-  height: 1.7vw;
   background: #fff;
   border-radius: 50%;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
 }
-
-.onepage-pagination li a.active:before{
+	
+.onepage-pagination li a.active{
   width: 1.7vw;
   height: 1.7vw;
   background: #84ba41;
@@ -82,18 +74,20 @@ html, body, section {
     font-size: 115%;
     color: #fff;
 }
-.main-title,
-.main-nav {
+
+.main-title, .main-nav {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     height: 100%;
     float: left;
 }
+
 .main-title {
     width: 74%;
     background-color: #435466;
     border-right: 15px solid #489ad4;
 }
+
 .main-nav {
     width: 26%;
     font-size: 1.2em;
@@ -120,36 +114,6 @@ html, body, section {
     top: 26.5%; /* .guj->top - 10% (height) - 1% (margem) */
     color: white;
 }
-.main-nav-links {
-    width: 80%;
-    position: absolute;
-    left: 10%;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    transform: translateY(-50%);
-    margin: 0;
-    padding: 0;
-}
-.main-nav-item {
-    list-style: none;
-    text-align: right;
-    color: #435466;
-    margin: 0.4em 0;
-}
-.main-nav-link {
-    color: inherit;
-    text-decoration: none;
-}
-.main-nav-link:after {
-    content: "";
-    border-radius: 50%;
-    display: inline-block;
-    vertical-align: middle;
-    margin-left: .25em;
-    width: 1em;
-    height: 1em;
-    background-color: #435466;
-}
 
 h2{
 	margin: 0;
@@ -162,18 +126,21 @@ h2{
 	box-sizing: border-box;
 	border-right: .3em solid #fff;
 	float: left;
+	z-index: 1;
 	padding: 5%;
 }
 
-
-
 .color-light .current, .color-dark{
-	background-color: #435466;
 	height: 100%;
+	background: #435466;
+}
+
+.color-dark li a {
+	background: #435466;
 }
 
 .color-dark .current, .color-light {
-	background-color: #489ad4;
+	background: #489ad4;
 	height: 100%;
 }
 
@@ -269,4 +236,13 @@ h2{
 
 .onepage-pagination li:first-child {
 	display: none;
+}
+
+.text:before {
+	content: attr(data-message);
+	display: inline-block;
+	position: absolute;
+	margin-left: -8em;
+	font-size: 120%;
+	color: #435466;
 }

@@ -3,15 +3,24 @@ $(document).ready(function(){
 		sectionContainer: ".mediakit-section",
 		loop:true,
 		pagination: true,
-		afterMove: currentLink,
-		updateURL: true
+		animationTime : 500,
+		afterMove: home,
+		beforeMove: home
 	});
 });
 
-function currentLink(){
-	var index = window.location.href.split("#")[1];
-	var id = $(".mediakit-section[data-index*="+index+"]").attr("id");
-	$(".nav-link").removeClass("current");
-	var links = $("a[href*="+id+"]");
-	$(links).addClass("current");
+$(document).ready(home);
+
+function home () {
+	var id = $("section.active").attr("id");	
+	var menu = $(".onepage-pagination");
+	var links = $(".onepage-pagination li a");
+	if(id=="home") {
+		menu.addClass("color-dark");
+		links.addClass("text");
+	} else {
+		menu.removeClass("color-dark");
+		links.removeClass("text");
+	}
+
 }
