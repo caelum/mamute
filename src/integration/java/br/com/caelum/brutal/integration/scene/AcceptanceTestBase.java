@@ -106,7 +106,7 @@ public abstract class AcceptanceTestBase implements ServerInfo.AcceptanceTest {
 			firefox.setEnvironmentProperty("DISPLAY", display);
 			driver = new FirefoxDriver();
 		}
-		driver.manage().window().setSize(new Dimension(1920, 1080));
+		driver.manage().window().setSize(new Dimension(1280, 800));
 		waitForFirstBodyPresence();
 	}
 

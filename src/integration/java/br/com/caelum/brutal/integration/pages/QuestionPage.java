@@ -102,6 +102,7 @@ public class QuestionPage extends PageObject{
 	}
 
 	private WebElement firstAnswer() {
+		waitForElement(By.className("answer"), 3);
 		return byClassName("answer");
 	}
 
