@@ -4,7 +4,7 @@ $(function() {
 		if (form.data("same-author") && !form.data("warned")) {
 			var confirm = $(".same-author-confirmation");
 			var textarea = form.find("textarea");
-			var submitButton=form.find("input[type='submit']");
+			var submitButton = form.find("input[type='submit']");
 			var markdownBar = $("#wmd-button-bar");
 			var inputs = form.find("input");
 			
@@ -20,6 +20,7 @@ $(function() {
 				markdownBar.removeClass("opaque");
 				submitButton.removeClass("opaque");
 				inputs.attr("disabled", false);
+				return false;
 			});
 			textarea.hide();
 			form.data("warned", true);
