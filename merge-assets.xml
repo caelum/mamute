@@ -16,10 +16,11 @@
 		<delete file="${css.dir}/all.css" />
 		<concat destfile="${css.dir}/all.css">
 			<fileset file="${css.dir}/reset.css" />
-			<fileset file="${css.dir}/deps/*.css" />
+			<fileset file="${css.dir}/deps/*.css"/>
 			<fileset file="${css.dir}/deps/pickadate/*.css" />
 			<fileset file="${css.dir}/brutal.css" />
 			<fileset file="${css.dir}/responsive-brutal.css" />
+
 		</concat>
 		<mkdir dir="${webapp.dir}/font" />
 		<copy todir="${webapp.dir}/font">
@@ -41,7 +42,8 @@
 			<fileset file="${js.deps.dir}/filepicker.js"/>
 			<fileset file="${js.deps.dir}/feather.js"/>
 
-			<fileset file="${js.dir}/*.js"/>
+			<fileset dir="${js.dir}" includes="/*.js" excludes="/mediakit-plugin.js, /mediakit.js" />
+			
 		</concat>
 	</target>
 	
