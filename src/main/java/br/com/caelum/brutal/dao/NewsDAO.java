@@ -72,7 +72,7 @@ public class NewsDAO implements PaginatableDAO  {
 
 	public long numberOfPages(Integer pageSize) {
 		Criteria criteria = session.createCriteria(News.class, "n")
-				.add(and(criterionSpamFilter(), Restrictions.eq("n.approved", true)))
+				.add(and(criterionSpamFilter()))
 				.setProjection(rowCount())
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 
