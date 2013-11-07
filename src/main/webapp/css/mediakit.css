@@ -46,7 +46,7 @@ body, .onepage-wrapper, html {
 .onepage-pagination li a{
   width: 1.7vw;
   height: 1.7vw;
-  margin-bottom: 1.5vw;
+  margin-bottom: 2vw;
   display: inline-block;
   background: #fff;
   border-radius: 50%;
