@@ -20,5 +20,6 @@
 			</div>
 		</div>
 		<tags:lastTouchFor touchable="${question}"/>
-	</div>		
+	</div>
+	<div class="${question.hasInteraction(currentUser.current) ? 'interaction' : ''}" title="<fmt:message key='user.interactions'/>"> </div>
 </li>

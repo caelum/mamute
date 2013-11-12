@@ -2683,3 +2683,19 @@ solid
 	width: 100%;
 	margin: 1em auto .6em;
 }
+
+.interaction:after {
+	content: "";
+	width: 10px;
+	height: 10px;
+	display: inline-block;
+	background-color: #70D88F;
+	vertical-align: middle;
+	position: absolute;
+	box-shadow: 1px 1px 1px #96ECB0;
+	margin-left: -1.2em;
+}
+
+.interaction:hover {
+	content:"Você participa dessa questão";
+}
