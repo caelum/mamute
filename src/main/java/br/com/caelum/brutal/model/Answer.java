@@ -130,6 +130,7 @@ public class Answer extends Moderatable implements Post, Notifiable {
     @Override
     public void substitute(Vote previous, Vote vote) {
     	this.voteCount += vote.substitute(previous, votes);
+    	this.question.addUserInteraction(vote.getAuthor());
     }
 	
 	@Override
@@ -157,6 +158,7 @@ public class Answer extends Moderatable implements Post, Notifiable {
 	@Override
 	public Comment add(Comment comment) {
 		this.comments.add(comment);
+		this.getQuestion().addUserInteraction(comment.getAuthor());
 		return comment;
 	}
 	

@@ -8,6 +8,7 @@ import br.com.caelum.brutal.components.RecentTagsContainer;
 import br.com.caelum.brutal.dao.NewsDAO;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.TagDAO;
+import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.News;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
@@ -21,6 +22,7 @@ import br.com.caelum.vraptor.view.Results;
 @Controller
 public class ListController {
 
+	@Inject private LoggedUser loggedUser;
 	@Inject private QuestionDAO questions;
 	@Inject private Result result;
 	@Inject private TagDAO tags;
@@ -44,6 +46,7 @@ public class ListController {
 		result.include("questions", visible);
 		result.include("totalPages", questions.numberOfPages());
 		result.include("currentPage", page);
+		result.include("currentUser", loggedUser);
 	}
 	
 	@Get("/perguntas")

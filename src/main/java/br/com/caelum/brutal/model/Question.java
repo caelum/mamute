@@ -5,7 +5,9 @@ import static javax.persistence.FetchType.EAGER;
 import static org.hibernate.annotations.CascadeType.SAVE_UPDATE;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Embedded;
@@ -93,9 +95,12 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 	@OneToMany
 	private final List<Watcher> watchers = new ArrayList<>();
 	
+	@JoinTable(name = "Question_Interactions")
+	@OneToMany	
+	private final Set<User> userInteractions= new HashSet<>();
+	
     public static final long SPAM_BOUNDARY = -5;
     
-	
 	/**
 	 * @deprecated hibernate eyes only
 	 */
@@ -104,7 +109,7 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 	}
 
 	public Question(QuestionInformation questionInformation, User author) {
-		this.author = author;
+		setAuthor(author);
 		enqueueChange(questionInformation, UpdateStatus.NO_NEED_TO_APPROVE);
 	}
 
@@ -117,6 +122,7 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 		if (this.author != null)
 			return;
 		this.author = author;
+		addUserInteraction(author);
 		touchedBy(author);
 	}
 
@@ -138,6 +144,7 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 			throw new IllegalStateException("This question already have the answer with id: "+ a.getId());
 		}
 	    answers.add(a);
+	    addUserInteraction(a.getAuthor());
 	    answerCount++;
 	}
 
@@ -195,6 +202,7 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 	@Override
 	public void substitute(Vote previous, Vote vote) {
 		this.voteCount += vote.substitute(previous, votes);
+		addUserInteraction(vote.getAuthor());
 	}
 
 	@Override
@@ -209,6 +217,7 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 	@Override
 	public Comment add(Comment comment) {
 		this.comments.add(comment);
+		addUserInteraction(comment.getAuthor());
 		return comment;
 	}
 	
@@ -432,5 +441,17 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 	@Override
 	public List<Vote> getVotes() {
 		return votes;
+	}
+
+	public boolean hasInteraction(User user) {
+		return userInteractions.contains(user);
+	}
+
+	public void addUserInteractions(List<User> users) {
+		userInteractions.addAll(users);
+	}
+
+	public void addUserInteraction(User user) {
+		userInteractions.add(user);
 	}
 }
