@@ -1,7 +1,10 @@
 package br.com.caelum.brutal.integration.scene.vraptor;
 
-import static org.junit.Assert.*;
+import java.io.File;
+import java.io.IOException;
 
+import org.apache.commons.io.FileUtils;
+import org.junit.AfterClass;
 import org.junit.Test;
 
 import br.com.caelum.vraptor.test.VRaptorIntegration;
@@ -23,6 +26,19 @@ public class EditAnswerTest extends VRaptorIntegration {
 		).followRedirect().execute();
 		System.out.println("** "+result.getResponseBody());
 		System.out.println(result.getLastPath());
+	}
+
+	@Test
+	public void simple() throws Exception {
+		VRaptorTestResult result = navigate()
+				.get("/").followRedirect().execute();
+		System.out.println("** "+result.getResponseBody());
+		System.out.println(result.getLastPath());
+	}
+	
+	@AfterClass
+	public static void tearDownClass() throws IOException {
+		FileUtils.deleteDirectory(new File("jsp-compilation/"));
 	}
 
 }
