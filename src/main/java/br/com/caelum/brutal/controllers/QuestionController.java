@@ -196,6 +196,7 @@ public class QuestionController {
 	
 	@Get("/{question.id:[0-9]+}-{sluggedTitle}/details")
 	public void showVoteInformation (@Load Question question, String sluggedTitle){
+		result.include("question", question);
 		redirectToRightUrl(question, sluggedTitle);
 	}
 }

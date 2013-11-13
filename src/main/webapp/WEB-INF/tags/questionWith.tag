@@ -16,7 +16,7 @@
 	</div>
 	<div class="post-container">
 	<c:if test="${currentUser.moderator}">
-		<a class="message moderator-link" href="${linkTo[QuestionController].showVoteInformation()}"><fmt:message key="user.moderation.details"/></a><br/>
+		<a class="message moderator-link" href="${linkTo[QuestionController].showVoteInformation(question, question.sluggedTitle)}"><fmt:message key="user.moderation.details"/></a><br/>
 	</c:if>
 		<div itemprop="articleBody" class="post-text question-description" id="question-description-${question.id }">
 			${question.markedDescription}
