@@ -479,6 +479,11 @@ em {
 	color: #f00;
 }
 
+.moderator-link {
+	color: #666;
+	float: right;
+}
+
 /*Validations*/
 .validated-form .error {
 	color: #8e0000;

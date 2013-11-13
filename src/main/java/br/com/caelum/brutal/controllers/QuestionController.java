@@ -193,4 +193,9 @@ public class QuestionController {
 	private boolean validate(List<Tag> foundTags, List<String> splitedTags) {
 		return tagsValidator.validate(foundTags, splitedTags);
 	}
+	
+	@Get("/{question.id:[0-9]+}-{sluggedTitle}/details")
+	public void showVoteInformation (@Load Question question, String sluggedTitle){
+		redirectToRightUrl(question, sluggedTitle);
+	}
 }
