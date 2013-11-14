@@ -7,18 +7,38 @@
 <c:set var="isQuestion" value="${votable.class.name == 'br.com.caelum.brutal.model.Question'}" />
 
 <section>
-	<ul>
-		<li>
-			<b>${votable.author.name}</b>
-		</li>
-		
-		<c:if test="${votable.votes.size == 0}">
-			No votes
-		</c:if>
+	<c:if test="${isQuestion}">
+		<h2 class="title page-title">${votable.title}</h2>
+	</c:if>
+	<c:if test="${! isQuestion}">
+		<h3 class="title page-title">Answer Id: ${votable.id}</h3>
+	</c:if>
+	<span class="post-text question-description"><fmt:message key="user.moderation.details.author"/>: ${votable.author.name}</span>
+	<table class="details">
+		<tr>
+			<th>
+				<fmt:message key="user.moderation.details.type"/>
+			</th>
+			<th>
+				<fmt:message key="user.moderation.details.author"/>
+			</th>
+			<th>
+				<fmt:message key="user.moderation.details.date"/>
+			</th>
+		</tr>
+	
 		<c:forEach items="${votable.votes}" var="vote">
-			<li>
-				${vote.lastUpdatedAt} - ${vote.type} - ${vote.author.name}
-			</li>
+			<tr>
+				<td>
+					${vote.type}
+				</td>
+				<td>
+					${vote.author.name}
+				</td>
+				<td>
+					${vote.lastUpdatedAt}
+				</td>
+			</tr>
 		</c:forEach>
-	</ul>
+	</table>
 </section>
