@@ -6,6 +6,7 @@
 <%@attribute name="commentVotes" type="br.com.caelum.brutal.model.CommentsAndVotes" required="true" %>
 <section itemscope itemtype="http://schema.org/Article" class="post-area question-area ${question.isVisibleForModeratorAndNotAuthor(currentUser.current) ? 'highlight-post' : '' }" >
 	<h1 itemprop="name" class="title subheader main-thread-title question-title"><c:out value="${question.title}" escapeXml="${true}"/></h1>
+	
 	<c:if test="${shouldShowAds && !markAsSolution && !showUpvoteBanner}">
 		<div id="adQuestion" class="ad big-ads"></div>
 	</c:if>
@@ -14,6 +15,9 @@
 		<tags:watchFor watchable="${question}" type="pergunta"/>
 	</div>
 	<div class="post-container">
+	<c:if test="${currentUser.moderator}">
+		<a class="message moderator-link" href="${linkTo[QuestionController].showVoteInformation(question, question.sluggedTitle)}"><fmt:message key="user.moderation.details"/></a><br/>
+	</c:if>
 		<div itemprop="articleBody" class="post-text question-description" id="question-description-${question.id }">
 			${question.markedDescription}
 		</div>
