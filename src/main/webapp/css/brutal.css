@@ -2706,40 +2706,11 @@ solid
 }
 
 
-
-
-
-.details-table {
-	padding: 0.5em 1em;
-	color: gray;
+.vote-time {
+	width: 10em;
 }
 
-.details-table-header {
-	background-color: #c7c7c7;
-}
-
-.details-table-vote-up {
-	background-color: #66e4a9;
-}
-
-.details-table-vote-down {
-	background-color: #eea98b;
-}
-
-.details-table-row {
-	border: 1px solid black;
-	display: table-row;	
-}
-
-.details-table-cell {
-	padding: 0.5em 1em;
-	display: table-cell;
-}
-
-.details-table-author {
-	width: 25em;
-}
-
-.details-table-date {
-	width: 35em;
+.counter.karma-value.centered-karma {
+	text-align: center;
+	width: 2em;
 }
