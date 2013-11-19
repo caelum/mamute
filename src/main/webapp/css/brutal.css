@@ -2714,3 +2714,16 @@ solid
 	text-align: center;
 	width: 2em;
 }
+
+/* Created by Yuri, 19/11/2013 */
+.stats {
+	float: right;
+}
+
+.title.item-title {
+	margin-bottom: 1.3em;
+}
+
+.moderator-text {
+	margin-bottom: 1.7em;
+}

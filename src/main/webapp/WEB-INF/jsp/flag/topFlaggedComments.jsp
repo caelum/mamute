@@ -6,7 +6,8 @@
 
 <ul>
 	<c:forEach items="${flagged}" var="commentAndFlag">
-		<li>
+		<li class="title item-title">
+			<!-- Eu preciso colocar um link para o author do comment e se possível para a question em que o comment está!! -->
 			${commentAndFlag.flaggable.comment} - ${commentAndFlag.flaggable.author.name} - ${commentAndFlag.flagCount} <fmt:message key="moderation.flags"/> 
 		</li>
 	</c:forEach>

@@ -10,23 +10,26 @@
 			<c:if test="${type eq 'pergunta'}">
 				<h3 class="title item-title">
 					<a href="${linkTo[HistoryController].similarQuestions(entry.key.id)}">
-						<c:out value="${entry.key.title}" escapeXml="true" /> - (${entry.value.size()})
+						<c:out value="${entry.key.title}" escapeXml="true" />
 					</a>
 				</h3>
+				<p class="moderator-text">Quantidade de edições : ${entry.value.size()}</p>
 				<tags:tagsFor taggable="${entry.key}"></tags:tagsFor>
 			</c:if>
 			<c:if test="${type eq 'resposta'}">
 				<h3 class="title item-title">
 					<a href="${linkTo[HistoryController].similarAnswers(entry.key.id)}">
-						<c:out value="${entry.key.question.title}" escapeXml="true" /> - (${entry.value.size()})
+						<c:out value="${entry.key.question.title}" escapeXml="true" />
 					</a>
 				</h3>
+				<p class="moderator-text">Quantidade de edições : ${entry.value.size()}</p>
 				<tags:tagsFor taggable="${entry.key.question}"></tags:tagsFor>
 			</c:if>
 			
 			<div class="stats">
 				<c:set var="information" value="${entry.value[fn:length(entry.value)-1]}"/>
 				<span class="last-updated-at"><tags:prettyTime time="${information.createdAt}" /></span>
+				<span>- último usuário a editar :</span>
 				<tags:userProfileLink user="${information.author}" isPrivate="false"></tags:userProfileLink>
 			</div>
 		</li>
