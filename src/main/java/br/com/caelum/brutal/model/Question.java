@@ -14,7 +14,9 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
@@ -95,8 +97,11 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 	@OneToMany
 	private final List<Watcher> watchers = new ArrayList<>();
 	
-	@JoinTable(name = "Question_Interactions")
-	@OneToMany	
+	@JoinTable(name = "Question_Interactions", 
+			inverseJoinColumns=@JoinColumn(name="userInteractions_id"), 
+			joinColumns=@JoinColumn(name="Question_id")
+	)
+	@ManyToMany	
 	private final Set<User> userInteractions= new HashSet<>();
 	
     public static final long SPAM_BOUNDARY = -5;
