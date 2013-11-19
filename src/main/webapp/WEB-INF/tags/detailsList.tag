@@ -1,44 +1,28 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 
 <%@attribute name="votable" type="br.com.caelum.brutal.model.interfaces.Votable" required="true" %>
 
 <c:set var="isQuestion" value="${votable.class.name == 'br.com.caelum.brutal.model.Question'}" />
 
-<section>
-	<c:if test="${isQuestion}">
-		<h2 class="title page-title">${votable.title}</h2>
-	</c:if>
-	<c:if test="${! isQuestion}">
-		<h3 class="title page-title">Answer Id: ${votable.id}</h3>
-	</c:if>
-	<span class="post-text question-description"><fmt:message key="user.moderation.details.author"/>: ${votable.author.name}</span>
-	<table class="details">
-		<tr>
-			<th>
-				<fmt:message key="user.moderation.details.type"/>
-			</th>
-			<th>
-				<fmt:message key="user.moderation.details.author"/>
-			</th>
-			<th>
-				<fmt:message key="user.moderation.details.date"/>
-			</th>
-		</tr>
-	
-		<c:forEach items="${votable.votes}" var="vote">
-			<tr>
-				<td>
-					${vote.type}
-				</td>
-				<td>
-					${vote.author.name}
-				</td>
-				<td>
-					${vote.lastUpdatedAt}
-				</td>
-			</tr>
+<h2 class="title page-title">
+	<span class="grey-text">
+		<c:if test="${isQuestion}">
+			${votable.title}
+		</c:if>
+		<c:if test="${! isQuestion}">
+			Answer Id: ${votable.id}
+		</c:if>
+	</span>
+</h2>
+<section class="advanced-user-data user-data">
+	<ul class="karma-history">
+		<c:forEach var="vote" items="${votable.votes}">
+			<tags:voteHistoryItem vote="${vote}">
+				<span class="vote-time"><fmt:formatDate value="${vote.lastUpdatedAt.toGregorianCalendar().time}" pattern="hh:mm:ss  dd/MM/yyyy"/></span>
+			</tags:voteHistoryItem>
 		</c:forEach>
-	</table>
+	</ul>
 </section>

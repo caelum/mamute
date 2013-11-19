@@ -2705,14 +2705,12 @@ solid
 	content:"Você participa dessa questão";
 }
 
-.details {
-	
+
+.vote-time {
+	width: 10em;
 }
 
-.details tr {
-	padding: 0.5em 1em;
-}
-
-.details td {
-	padding: 0.5em 1em;
+.counter.karma-value.centered-karma {
+	text-align: center;
+	width: 2em;
 }
