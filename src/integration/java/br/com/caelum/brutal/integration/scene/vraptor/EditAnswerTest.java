@@ -21,7 +21,8 @@ public class EditAnswerTest extends CustomVRaptorIntegration {
 	@Test
 	public void should_edit_answer_of_other_author() throws Exception {
 		UserFlow navigation = login(navigate(), "moderator@caelum.com.br", "123456");
-		navigation = createQuestion (navigation, "Titulo da questao hahaha", "Descricao da questao longa demais", "java");
+		navigation = createQuestion(navigation, "Titulo da questao hahaha", "Descricao da questao longa demais", "java", false);
+		
 		VRaptorTestResult questionCreated = navigation.followRedirect().execute();
 		questionCreated.wasStatus(200);
 		System.out.println(questionCreated.getLastPath());
@@ -47,6 +48,11 @@ public class EditAnswerTest extends CustomVRaptorIntegration {
 //        
 //        assertTrue(containsConfirmationMessage);
 
+	}
+
+	private UserFlow firstQuestionFromList(UserFlow navigation) {
+		navigation.get("/");
+		return navigation;
 	}
 
 	@Test

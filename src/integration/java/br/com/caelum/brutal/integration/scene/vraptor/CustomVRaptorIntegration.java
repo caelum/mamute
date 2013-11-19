@@ -11,14 +11,14 @@ public class CustomVRaptorIntegration extends VRaptorIntegration {
 		System.setProperty(ServletBasedEnvironment.ENVIRONMENT_PROPERTY, "acceptance");
 	}
 
-	protected UserFlow login(UserFlow navigate, String email, String password) {
-		return navigate.post("/login", Parameters.initWith("email", email).add("password", password));
+	protected UserFlow login(UserFlow navigation, String email, String password) {
+		return navigation.post("/login", Parameters.initWith("email", email).add("password", password));
 		
 	}
 
 	protected UserFlow createQuestion(UserFlow navigation, String title, String description,
-			String tagNames) {
-				return navigation.post("/perguntar", Parameters.initWith("title", title).add("description", description).add("tagNames", tagNames));
+			String tagNames, boolean watching) {
+				return navigation.post("/perguntar", Parameters.initWith("title", title).add("description", description).add("tagNames", tagNames).add("watching", watching));
 			}
 	
 	
