@@ -2705,14 +2705,41 @@ solid
 	content:"Você participa dessa questão";
 }
 
-.details {
-	
+
+
+
+
+.details-table {
+	padding: 0.5em 1em;
+	color: gray;
 }
 
-.details tr {
-	padding: 0.5em 1em;
+.details-table-header {
+	background-color: #c7c7c7;
 }
 
-.details td {
+.details-table-vote-up {
+	background-color: #66e4a9;
+}
+
+.details-table-vote-down {
+	background-color: #eea98b;
+}
+
+.details-table-row {
+	border: 1px solid black;
+	display: table-row;	
+}
+
+.details-table-cell {
 	padding: 0.5em 1em;
+	display: table-cell;
+}
+
+.details-table-author {
+	width: 25em;
+}
+
+.details-table-date {
+	width: 35em;
 }
