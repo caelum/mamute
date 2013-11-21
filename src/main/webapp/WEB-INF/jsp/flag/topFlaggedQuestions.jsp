@@ -4,20 +4,16 @@
 
 <tags:moderationTabs />
 
-<!-- Tanto aqui quanto na topFlaggedAnswers, não poderia ser separado em uma tag?? -->
-
 <ul>
 	<c:forEach items="${flagged}" var="questionAndFlag">
-		<li class="title item-title">
+		<li class="title item-title ${ questionAndFlag.flagCount >= 3 ? 'heavy-flagged' : '' } ">
 			<c:set var="question" value="${questionAndFlag.flaggable}" />
 			<a href="${linkTo[QuestionController].showQuestion(question,question.sluggedTitle)}">
 				<c:out value="${questionAndFlag.flaggable.information.title}" escapeXml="true"/>
-				<!-- Deveriamos colocar um link para author.name !! Yuri -->
-			</a> - ${question.author.name} -  
-			<c:choose>
-				<c:when test="${questionAndFlag.flagCount >= 4 }"><span style="color: red;">${questionAndFlag.flagCount}</span></c:when>
-				<c:otherwise>${questionAndFlag.flagCount}</c:otherwise>
-			</c:choose>
+			</a>
+			<p class="flagged-author">Autor: <tags:userProfileLink user="${question.author}" isPrivate="false"></tags:userProfileLink></p> 
+			<span>${questionAndFlag.flagCount}</span>
+			
 			<fmt:message key="moderation.flags"/>
 		</li>
 	</c:forEach>

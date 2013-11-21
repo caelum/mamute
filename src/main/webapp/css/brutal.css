@@ -2727,3 +2727,12 @@ solid
 .moderator-text {
 	margin-bottom: 1.7em;
 }
+
+.heavy-flagged {
+	background-color: #fce4b4;
+	padding: 1.4em .6em !important;	
+}
+
+.flagged-author {
+	margin: 1.2em 0;
+}
