@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.controllers;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -43,9 +45,40 @@ public class ListController {
 			result.notFound();
 			return;
 		}
+		List<String> tabs = Arrays.asList("voted", "answered", "viewed");
+		result.include("tabs", tabs);
+
 		result.include("questions", visible);
 		result.include("totalPages", questions.numberOfPages());
 		result.include("currentPage", page);
+		result.include("currentUser", loggedUser);
+	}
+
+	@Get("/top")
+	public void topRaw() {
+		result.redirectTo(this).top("voted");
+	}
+
+	@Get("/top/{section}")
+	public void top(String section) {
+		Integer count = 35;
+		
+		List<String> tabs = Arrays.asList("voted", "answered", "viewed");
+		if (!tabs.contains(section)) {
+			section = tabs.get(0);
+			result.redirectTo(this).top(section);
+			return;
+		}
+		
+		List<Question> top = questions.top(section, count);
+		
+		if (top.isEmpty()) {
+			result.notFound();
+			return;
+		}
+		result.include("tabs", tabs);
+		result.include("section", section);
+		result.include("questions", top);
 		result.include("currentUser", loggedUser);
 	}
 	
