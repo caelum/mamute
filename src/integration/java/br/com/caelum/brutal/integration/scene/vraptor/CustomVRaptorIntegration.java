@@ -1,5 +1,8 @@
 package br.com.caelum.brutal.integration.scene.vraptor;
 
+import java.io.IOException;
+
+import br.com.caelum.brutal.util.DataImport;
 import br.com.caelum.vraptor.environment.ServletBasedEnvironment;
 import br.com.caelum.vraptor.test.VRaptorIntegration;
 import br.com.caelum.vraptor.test.http.Parameters;
@@ -9,6 +12,15 @@ public class CustomVRaptorIntegration extends VRaptorIntegration {
 
 	{
 		System.setProperty(ServletBasedEnvironment.ENVIRONMENT_PROPERTY, "acceptance");
+//		importData();
+	}
+
+	private void importData() {
+		try {
+			new DataImport().run();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	protected UserFlow login(UserFlow navigation, String email, String password) {

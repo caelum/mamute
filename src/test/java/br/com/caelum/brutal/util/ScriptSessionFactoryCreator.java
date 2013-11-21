@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.util;
 
+import static br.com.caelum.vraptor.environment.ServletBasedEnvironment.ENVIRONMENT_PROPERTY;
+
 import java.io.IOException;
 
 import org.apache.log4j.Logger;
@@ -9,6 +11,7 @@ import org.hibernate.SessionFactory;
 import br.com.caelum.brutal.providers.SessionFactoryCreator;
 import br.com.caelum.vraptor.environment.DefaultEnvironment;
 import br.com.caelum.vraptor.environment.Environment;
+import br.com.caelum.vraptor.environment.ServletBasedEnvironment;
 
 public class ScriptSessionFactoryCreator {
     private static final Logger LOG = Logger.getLogger(ScriptSessionFactoryCreator.class);
@@ -33,6 +36,7 @@ public class ScriptSessionFactoryCreator {
         Environment env;
         try {
             String envName = System.getenv("DATAIMPORT_ENV");
+            envName = envName == null? System.getProperty(ENVIRONMENT_PROPERTY) : envName; 
             envName = envName == null? "development" : envName;
             env = new DefaultEnvironment(envName);
             LOG.info("using env '" + envName + "' for data import");
