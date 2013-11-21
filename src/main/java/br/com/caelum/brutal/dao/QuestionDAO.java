@@ -149,6 +149,25 @@ public class QuestionDAO implements PaginatableDAO {
 				.list();
 	}
 	
+	public List<Question> top(String section, int count) {
+		Order order;
+		if (section.equals("viewed")) {
+			order = Order.desc("q.views");
+		}
+		else if (section.equals("answered")) {
+			order = Order.desc("q.answerCount");
+		}
+		else /*if (section.equals("voted"))*/ {
+			order = Order.desc("q.voteCount");
+		}
+		
+		return session.createCriteria(Question.class, "q")
+				.add(and(Restrictions.eq("q.moderationOptions.invisible", false)))
+				.addOrder(order)
+				.setMaxResults(count)
+				.list();
+	}
+	
 	public List<Question> randomUnanswered(DateTime after, DateTime before, int count) {
 		return session.createCriteria(Question.class, "q")
 				.add(and(isNull("q.solution"), Restrictions.between("q.createdAt", after, before)))
@@ -218,5 +237,6 @@ public class QuestionDAO implements PaginatableDAO {
 	public List<Question> withTagVisible(Tag tag, int page) {
 		return withTagVisible(tag, page, false);
 	}
+
 }
 

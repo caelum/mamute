@@ -1314,6 +1314,7 @@ a.button.ask-a-question:hover {
 .tabs {
 	float: right;
 	margin-top: 15px;
+	margin-right: 2em; 
 }
 
 .tabs a {
