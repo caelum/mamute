@@ -42,8 +42,7 @@ public class NewsDAO implements PaginatableDAO  {
     
 	@SuppressWarnings("unchecked")
 	public List<News> allVisible(Integer initPage, Integer pageSize) {
-		Criteria criteria = defaultPagedCriteria(initPage, pageSize)
-							.createAlias("n.comments.comments", "c", Criteria.LEFT_JOIN);
+		Criteria criteria = defaultPagedCriteria(initPage, pageSize);
 		return addModeratorOrApprovedFilter(criteria).list();
 	}
 
@@ -72,7 +71,7 @@ public class NewsDAO implements PaginatableDAO  {
 
 	public long numberOfPages(Integer pageSize) {
 		Criteria criteria = session.createCriteria(News.class, "n")
-				.add(and(criterionSpamFilter()))
+				.add(criterionSpamFilter())
 				.setProjection(rowCount())
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 

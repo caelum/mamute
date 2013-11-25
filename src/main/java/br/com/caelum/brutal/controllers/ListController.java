@@ -90,13 +90,13 @@ public class ListController {
 	@Get({"/noticias", "/noticias/"})
 	public void news(Integer p) {
 		Integer page = getPage(p);
-		List<News> visible = newses.allVisible(page, 50);
+		List<News> visible = newses.allVisible(page, 25);
 		if (visible.isEmpty() && page != 1) {
 			result.notFound();
 			return;
 		}
 		result.include("newses", visible);
-		result.include("totalPages", newses.numberOfPages(50));
+		result.include("totalPages", newses.numberOfPages(25));
 		result.include("currentPage", page);
 		result.include("newsActive", true);
 		result.include("noDefaultActive", true);
