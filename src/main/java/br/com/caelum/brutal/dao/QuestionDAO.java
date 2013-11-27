@@ -15,6 +15,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
 import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.dao.WithUserPaginatedDAO.OrderType;
@@ -54,11 +55,7 @@ public class QuestionDAO implements PaginatableDAO {
 	
 	public List<Question> allVisible(Integer page) {
 		Criteria criteria = session.createCriteria(Question.class, "q")
-				.createAlias("q.information", "qi")
-				.createAlias("q.author", "qa")
-				.createAlias("q.lastTouchedBy", "ql")
-				.createAlias("q.solution", "s", Criteria.LEFT_JOIN)
-				.createAlias("q.solution.information", "si", Criteria.LEFT_JOIN)
+				.createCriteria("q.solution.information", JoinType.LEFT_OUTER_JOIN)
 				.addOrder(desc("q.lastUpdatedAt"))
 				.setFirstResult(firstResultOf(page))
 				.setMaxResults(PAGE_SIZE);
@@ -160,9 +157,10 @@ public class QuestionDAO implements PaginatableDAO {
 		else /*if (section.equals("voted"))*/ {
 			order = Order.desc("q.voteCount");
 		}
-		
+		DateTime since = DateTime.now().minusMonths(2);
 		return session.createCriteria(Question.class, "q")
 				.add(and(Restrictions.eq("q.moderationOptions.invisible", false)))
+				.add(gt("q.createdAt", since))
 				.addOrder(order)
 				.setMaxResults(count)
 				.list();
