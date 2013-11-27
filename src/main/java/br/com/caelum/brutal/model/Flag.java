@@ -48,8 +48,16 @@ public class Flag {
 		return user.getId().equals(author.getId());
 	}
 	
-	String getReason() {
+	public String getReason() {
 		return reason;
+	}
+	
+	public User getAuthor() {
+		return author;
+	}
+	
+	public FlagType getType() {
+		return type;
 	}
 	
 }

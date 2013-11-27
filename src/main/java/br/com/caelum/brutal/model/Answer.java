@@ -299,4 +299,8 @@ public class Answer extends Moderatable implements Post, Notifiable {
 	public List<Vote> getVotes() {
 		return votes;
 	}
+	
+	public List<Flag> getFlags() {
+		return flags;
+	}
 }

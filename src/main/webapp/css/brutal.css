@@ -2705,7 +2705,6 @@ solid
 	content:"Você participa dessa questão";
 }
 
-
 .vote-time {
 	width: 10em;
 }
@@ -2726,4 +2725,8 @@ solid
 
 .moderator-text {
 	margin-bottom: 1.7em;
+}
+
+.detail-info {
+	width: 20em;
 }
