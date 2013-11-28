@@ -12,10 +12,13 @@ public class AnswerQuestionTest extends AuthenticatedAcceptanceTest{
 		loginWithALotOfKarma();
 		
 		String newDescription = "My very very awsome Answer big enough :)";
-		boolean firstAnswerHasDescription = home().toNewQuestionPage()
+		home().toNewQuestionPage()
 				.newQuestion("my question my question my question",
 				"my description my description my description", "java")
-				.answer(newDescription)
+				.answer(newDescription);
+
+		boolean firstAnswerHasDescription = home()
+				.toFirstQuestionPage()
 				.firstAnswerHasDescription(newDescription);
 		
 		assertTrue(firstAnswerHasDescription);
@@ -42,10 +45,13 @@ public class AnswerQuestionTest extends AuthenticatedAcceptanceTest{
 		loginWithALotOfKarma();
 
 		String newDescription = "My very very awsome Answer big enough :)";
-		boolean isAnswerFormDisplayed = home().toNewQuestionPage()
+		home().toNewQuestionPage()
 				.newQuestion("my question my question my question",
 				"my description my description my description", "java")
-				.answer(newDescription)		
+				.answer(newDescription);
+		
+		boolean isAnswerFormDisplayed = home()
+				.toFirstQuestionPage()
 				.isAnswerFormDisplayed();
 		
 		assertFalse(isAnswerFormDisplayed);

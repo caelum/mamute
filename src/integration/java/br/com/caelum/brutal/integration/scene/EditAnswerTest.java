@@ -34,19 +34,23 @@ public class EditAnswerTest extends AuthenticatedAcceptanceTest {
     public void should_edit_and_automatically_approve_author_edit() throws Exception {
         loginWithALotOfKarma();
         
-        QuestionPage questionPage = home().toNewQuestionPage()
-            .newQuestion("question title question title question title", 
-                "question description question description question description question description ", 
-                "java");
-
         String newDescription = "my new description of the first answer also with more than 30 characters";
-        
-        questionPage.answer("my new answer with more than 30 characters hahahahaha")
+        home().toNewQuestionPage()
+        	.newQuestion("question title question title question title",
+        			"question description question description question description question description ",
+        			"java")
+        	.answer("my new answer with more than 30 characters hahahahaha");
+        QuestionPage questionPage = home().toFirstQuestionPage()
         	.toEditFirstAnswerPage()
             .edit(newDescription, "'cause I have to test it");
         
-		questionPage.firstAnswerHasDescription(newDescription);
-        questionPage.confirmationMessages().contains(message("status.no_need_to_approve"));
+        boolean firstAnswerHasDescription = questionPage.firstAnswerHasDescription(newDescription);
+        
+        boolean containsConfirmationMessage = questionPage.confirmationMessages()
+                .contains(message("status.no_need_to_approve"));
+
+        assertTrue(firstAnswerHasDescription);
+        assertTrue(containsConfirmationMessage);
     }
     
     @Test
