@@ -2727,15 +2727,31 @@ solid
 	margin-bottom: 1.7em;
 }
 
-.heavy-flagged {
-	background-color: #fce4b4;
-	padding: 1.4em .6em !important;	
-}
-
 .flagged-author {
 	margin: 1.2em 0;
 }
 
 .detail-info {
 	width: 20em;
+}
+
+.heavy-flagged:after {
+	content: "";
+	width: 10px;
+	height: 10px;
+	display: inline-block;
+	background-color: #F33;
+	vertical-align: middle;
+	position: absolute;
+	box-shadow: 1px 1px 1px #96ECB0;
+	margin-left: -1.2em;
+	margin-top: 2em;
+}
+
+.heavy-flagged {
+	content:"Essa questão tem 5 ou mais flags";
+}
+
+.pull-center {
+	text-align: center;
 }

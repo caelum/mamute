@@ -153,6 +153,10 @@ public class Comment implements Notifiable, Votable, Flaggable {
 	public long getVoteCount() {
 		return voteCount;
 	}
+	
+	public List<Flag> getFlags() {
+		return flags;
+	}
 
 	@Override
 	public void remove() {
