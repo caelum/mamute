@@ -11,12 +11,14 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.log4j.Logger;
 
 
 @ApplicationScoped
 public class FeedReader {
 
 	@Inject private FeedConverter converter;
+	private static final Logger LOG = Logger.getLogger(FeedReader.class);
 	
 	public RSSFeed read(String uri, Integer numberOfItems) {
 		InputStream rssXml = getXmlFrom(uri);
@@ -35,6 +37,8 @@ public class FeedReader {
 			HttpResponse response = httpClient.execute(httpGet);
 			HttpEntity entity = response.getEntity();
 			InputStream content = entity.getContent();
+			LOG.debug("Receiving RSS from " + uri);
+			LOG.debug(content);
 			return content;
 		} catch (IOException e) {
 			throw new RuntimeException("Cant get rss from uri:"+uri, e);
