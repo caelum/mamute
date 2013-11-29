@@ -6,25 +6,20 @@
 
 <ul class="pending-questions">
 	<c:forEach var="entry" items="${pending.entrySet}">
+		
 		<li class="pending">
-			<c:if test="${type eq 'pergunta'}">
-				<h3 class="title item-title">
-					<a href="${linkTo[HistoryController].similarQuestions(entry.key.id)}">
-						<c:out value="${entry.key.title}" escapeXml="true" />
-					</a>
-				</h3>
-				<p class="moderator-text">Quantidade de edições : ${entry.value.size()}</p>
-				<tags:tagsFor taggable="${entry.key}"></tags:tagsFor>
-			</c:if>
-			<c:if test="${type eq 'resposta'}">
-				<h3 class="title item-title">
-					<a href="${linkTo[HistoryController].similarAnswers(entry.key.id)}">
-						<c:out value="${entry.key.question.title}" escapeXml="true" />
-					</a>
-				</h3>
-				<p class="moderator-text">Quantidade de edições : ${entry.value.size()}</p>
-				<tags:tagsFor taggable="${entry.key.question}"></tags:tagsFor>
-			</c:if>
+			<h3 class="title item-title">
+				<c:if test="${type eq 'pergunta'}">
+					<tags:similarQuestionsLinkFor question="${entry.key}"/>
+					<p class="moderator-text">Quantidade de edições : ${entry.value.size()}</p>
+					<tags:tagsFor taggable="${entry.key}"></tags:tagsFor>
+				</c:if>
+				<c:if test="${type eq 'resposta'}">
+					<tags:similarQuestionsLinkFor answer="${entry.key}"/>
+					<p class="moderator-text">Quantidade de edições : ${entry.value.size()}</p>
+					<tags:tagsFor taggable="${entry.key.question}"></tags:tagsFor>
+				</c:if>
+			</h3>
 			
 			<div class="stats">
 				<c:set var="information" value="${entry.value[fn:length(entry.value)-1]}"/>
