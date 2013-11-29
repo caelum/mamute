@@ -18,7 +18,7 @@
 				<div class="item-title-wrapper">
 				<h5>Flags: ${answer.flags.size()}</h5>
 					<h3 class="title item-title main-thread-title question-title">
-						<tags:questionLinkForAnswer answer="${answer}" />
+						<tags:questionLinkFor answer="${answer}" />
 					</h3>
 					<p class="ellipsis">${answer.description}</p>
 				</div>
