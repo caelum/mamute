@@ -7,11 +7,13 @@ import static org.hibernate.criterion.Restrictions.eq;
 import static org.hibernate.criterion.Restrictions.gt;
 import static org.hibernate.criterion.Restrictions.isNull;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -146,7 +148,7 @@ public class QuestionDAO implements PaginatableDAO {
 				.list();
 	}
 	
-	public List<Question> top(String section, int count) {
+	public List<Question> top(String section, int count, DateTime since) {
 		Order order;
 		if (section.equals("viewed")) {
 			order = Order.desc("q.views");
@@ -157,7 +159,6 @@ public class QuestionDAO implements PaginatableDAO {
 		else /*if (section.equals("voted"))*/ {
 			order = Order.desc("q.voteCount");
 		}
-		DateTime since = DateTime.now().minusMonths(2);
 		return session.createCriteria(Question.class, "q")
 				.add(and(Restrictions.eq("q.moderationOptions.invisible", false)))
 				.add(gt("q.createdAt", since))
@@ -234,6 +235,19 @@ public class QuestionDAO implements PaginatableDAO {
 
 	public List<Question> withTagVisible(Tag tag, int page) {
 		return withTagVisible(tag, page, false);
+	}
+
+	public Question fromCommentId (Long id) {
+		String sql = "SELECT Question_id FROM Question_Comments " +
+				"WHERE comments_id = :id ";
+		Query query = session.createSQLQuery(sql);
+		List<BigInteger> idList = query.setParameter("id", id).list();
+		Long questionId = null;
+		if (idList.size() > 0) {
+			questionId = idList.get(0).longValue();
+			return getById(questionId);
+		}
+		return null;
 	}
 
 }

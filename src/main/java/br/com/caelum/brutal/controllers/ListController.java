@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.joda.time.DateTime;
+
 import br.com.caelum.brutal.components.RecentTagsContainer;
 import br.com.caelum.brutal.dao.NewsDAO;
 import br.com.caelum.brutal.dao.QuestionDAO;
@@ -65,8 +67,9 @@ public class ListController {
 			result.redirectTo(this).top(section);
 			return;
 		}
-		
-		List<Question> top = questions.top(section, count);
+
+		DateTime since = DateTime.now().minusMonths(2);
+		List<Question> top = questions.top(section, count, since);
 		
 		if (top.isEmpty()) {
 			result.notFound();
