@@ -1,6 +1,5 @@
 package br.com.caelum.brutal.controllers;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,8 +17,6 @@ import br.com.caelum.brutal.providers.BrutalRoutesParser;
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.errormail.mail.ErrorMailer;
-import br.com.caelum.vraptor.view.Results;
 
 @Controller
 public class ListController {
@@ -30,7 +27,6 @@ public class ListController {
 	@Inject private TagDAO tags;
 	@Inject private RecentTagsContainer recentTagsContainer;
 	@Inject private NewsDAO newses;
-	@Inject private ErrorMailer mailer;
 	
 	/**
 	 * actually, this path will not be used, we use the path defined in the current environment

@@ -41,6 +41,7 @@ public class FlaggableDAOTest extends DatabaseTestCase {
 		session.save(commentWithOneFlag);
 		session.save(tag);
 		session.save(question);
+		session.flush();
 	}
 	
 	@Test
