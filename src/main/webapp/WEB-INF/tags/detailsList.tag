@@ -7,7 +7,7 @@
 
 <c:set var="isQuestion" value="${votable.class.name == 'br.com.caelum.brutal.model.Question'}" />
 
-<h2 class="title page-title grey-text ellipsis">
+<h2 class="title page-title ellipsis">
 	${isQuestion ? votable.title : votable.description}
 </h2>
 <section class="advanced-user-data user-data">
