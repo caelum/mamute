@@ -2,6 +2,7 @@ package br.com.caelum.brutal.controllers;
 
 import static br.com.caelum.vraptor.view.Results.http;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -9,8 +10,10 @@ import javax.inject.Inject;
 import br.com.caelum.brutal.auth.rules.PermissionRulesConstants;
 import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOnlyRule;
 import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOrKarmaRule;
+import br.com.caelum.brutal.dao.AnswerDAO;
 import br.com.caelum.brutal.dao.FlagDao;
 import br.com.caelum.brutal.dao.FlaggableDAO;
+import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dto.FlaggableAndFlagCount;
 import br.com.caelum.brutal.infra.ModelUrlMapping;
 import br.com.caelum.brutal.model.Answer;
@@ -28,7 +31,6 @@ import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.view.Results;
 
 @Controller
 public class FlagController {
@@ -37,6 +39,8 @@ public class FlagController {
 	@Inject private FlagDao flags;
 	@Inject private LoggedUser loggedUser;
 	@Inject private FlaggableDAO flaggables;
+	@Inject private QuestionDAO questions;
+	@Inject private AnswerDAO answers;
 	@Inject private ModelUrlMapping urlMapping;
 	@Inject private FlagTrigger flagTrigger;
 
@@ -76,9 +80,18 @@ public class FlagController {
 		List<FlaggableAndFlagCount> flaggedAnswers = flaggables.flaggedButVisible(Answer.class);
 		List<FlaggableAndFlagCount> flaggedComments = flaggables.flaggedButVisible(Comment.class);
 		
+		List<Question> commentQuestions = new ArrayList<>();
+		for (FlaggableAndFlagCount flaggable : flaggedComments) {
+			Comment comment = (Comment) flaggable.getFlaggable();
+			Question q = questions.fromCommentId(comment.getId());
+			if (q == null) q = answers.fromCommentId(comment.getId()).getQuestion();
+			commentQuestions.add(q);
+		}
+
 		result.include("questions", flaggedQuestions);
 		result.include("answers", flaggedAnswers);
 		result.include("comments", flaggedComments);
+		result.include("commentQuestions", commentQuestions);
 	}
-	
+
 }
