@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@attribute name="list" type="java.util.List" required="true" %>
 <ul>
+	<h1 class="flagged-item-title-moderator">Respostas</h1>
 	<c:forEach var="flaggableAnswer" items="${list}">
 	<c:set var="answer" value="${flaggableAnswer.flaggable}"/>
 		<li class="post-item question-item ${answer.isVisibleForModeratorAndNotAuthor(currentUser.current) ? 'highlight-post' : '' }">
