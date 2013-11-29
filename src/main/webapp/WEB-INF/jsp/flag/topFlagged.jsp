@@ -6,4 +6,4 @@
 
 <tags:flaggedQuestionsList list="${questions}" />
 <tags:flaggedAnswersList list="${answers}" />
-<tags:flaggedCommentsList list="${comments}" />
+<tags:flaggedCommentsList list="${comments}" links="${commentQuestions}"/>
