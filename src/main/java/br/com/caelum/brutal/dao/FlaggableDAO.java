@@ -42,7 +42,9 @@ public class FlaggableDAO {
 				"left join flaggable.flags flags " +
 				"where flaggable.moderationOptions.invisible = false " +
 				"group by flaggable " +
-				"having count(flags) >= :min ";
+				"having count(flags) >= :min " +
+				"order by count(flags) desc";
+		
 		Query query = session.createQuery(hql);
 		return query.setParameter("min", MIN_FLAGS).list();
 	}

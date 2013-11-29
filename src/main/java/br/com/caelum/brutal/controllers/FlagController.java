@@ -69,31 +69,16 @@ public class FlagController {
 		result.nothing();
 	}
 	
-
 	@CustomBrutauthRules(ModeratorOnlyRule.class)
-	@Get("/perguntas/marcadas")
-	public void topFlaggedQuestions() {
-		topFlagged(Question.class);
-	}
-	
-
-	@CustomBrutauthRules(ModeratorOnlyRule.class)
-	@Get("/comentarios/marcados")
-	public void topFlaggedComments() {
-		topFlagged(Comment.class);
-	}
-	
-
-	@CustomBrutauthRules(ModeratorOnlyRule.class)
-	@Get("/respostas/marcados")
-	public void topFlaggedAnswers() {
-		topFlagged(Answer.class);
-	}
-
-	private void topFlagged(Class<?> model) {
-		List<FlaggableAndFlagCount> flaggedAndCount = flaggables.flaggedButVisible(model);
-		result.include("flagged", flaggedAndCount);
-		result.use(Results.page()).forwardTo("/WEB-INF/jsp/flag/topFlagged" + model.getSimpleName() + "s.jsp");
+	@Get("/marcadas")
+	public void topFlagged() {
+		List<FlaggableAndFlagCount> flaggedQuestions = flaggables.flaggedButVisible(Question.class);
+		List<FlaggableAndFlagCount> flaggedAnswers = flaggables.flaggedButVisible(Answer.class);
+		List<FlaggableAndFlagCount> flaggedComments = flaggables.flaggedButVisible(Comment.class);
+		
+		result.include("questions", flaggedQuestions);
+		result.include("answers", flaggedAnswers);
+		result.include("comments", flaggedComments);
 	}
 	
 }

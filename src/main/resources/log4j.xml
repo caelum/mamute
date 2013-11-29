@@ -68,7 +68,7 @@
     </category>
 
     <category name="br.com.caelum.brutal">
-        <priority value="INFO"/>
+        <priority value="DEBUG"/>
         <appender-ref ref="main"/>
     </category>
     

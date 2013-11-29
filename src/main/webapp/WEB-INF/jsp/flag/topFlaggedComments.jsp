@@ -6,9 +6,11 @@
 
 <ul>
 	<c:forEach items="${flagged}" var="commentAndFlag">
-		<li class="title item-title">
-			<!-- Eu preciso colocar um link para o author do comment e se possível para a question em que o comment está!! -->
-			${commentAndFlag.flaggable.comment} - ${commentAndFlag.flaggable.author.name} - ${commentAndFlag.flagCount} <fmt:message key="moderation.flags"/> 
+		<li class="title item-title ${ commentAndFlag.flagCount >= 3 ? 'heavy-flagged' : '' }">
+			${commentAndFlag.flaggable.getTrimmedContent()}
+			<p class="flagged-author">Autor:<tags:userProfileLink user="${commentAndFlag.flaggable.author}" isPrivate="false"></tags:userProfileLink></p>
+			${commentAndFlag.flagCount}
+			<fmt:message key="moderation.flags"/> 
 		</li>
 	</c:forEach>
 </ul>
