@@ -52,7 +52,7 @@ a:hover {
 	position: relative;
 }
 
-.title {
+.title, .flagged-item-title-moderator {
 	color: #000;
 }
 
@@ -188,25 +188,10 @@ a:hover {
 	margin-left: 2em;
 }
 
-.link-tip
- 
-.hint-tip
-:not
- 
-(
-:last-child
- 
-)
-{
-margin-bottom
-:
- 
-0
-.7em
-;
-
-
+.link-tip .hint-tip:not(:last-child) {
+	margin-bottom: 0.7em;
 }
+
 .hint-same-author {
 	color: #ae0000;
 }
@@ -1365,27 +1350,11 @@ a.button.ask-a-question:hover {
 	margin-bottom: 2%;
 }
 
-.toggle-version
-:not
- 
-(
-.hidden
- 
-)
-{
-display
-:
- 
-block
-;
-
-	
-margin
-:
- 
-4%
-0;
+.toggle-version:not ( .hidden ) {
+	display: block;
+	margin: 4% 0;
 }
+
 .history-diff ins {
 	background-color: #dfd;
 	text-decoration: none;
@@ -1472,6 +1441,11 @@ margin
 
 .complete-tag .tag-brutal {
 	margin-bottom: 5%;
+}
+
+.flagged-item-title-moderator {
+	font-size: 1.4em;
+	margin-top: 1.4em;
 }
 
 /* BIG TEXT */

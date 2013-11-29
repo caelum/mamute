@@ -7,6 +7,6 @@
 	<a href="${linkTo[HistoryController].unmoderated('pergunta')}"><fmt:message key="moderation.questions"/></a>
 	<a href="${linkTo[HistoryController].unmoderated('resposta')}"><fmt:message key="moderation.answers"/></a>
 	<c:if test="${currentUser.moderator}">
-		<a href="${linkTo[FlagController].topFlagged}"><fmt:message key="moderation.flagged.questions"/></a>
+		<a href="${linkTo[FlagController].topFlagged}"><fmt:message key="moderation.flagged.questions-answers-comments"/></a>
 	</c:if>
 </tags:tabs>

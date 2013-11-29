@@ -5,6 +5,7 @@
 <%@attribute name="list" type="java.util.List" required="true" %>
 
 <ul>
+	<h1 class="flagged-item-title-moderator">Comentarios</h1>
 	<c:forEach var="flaggableComment" items="${list}">
 	<c:set var="comment" value="${flaggableComment.flaggable}"/>
 		<li class="post-item question-item ${comment.isVisibleForModeratorAndNotAuthor(currentUser.current) ? 'highlight-post' : '' }">
