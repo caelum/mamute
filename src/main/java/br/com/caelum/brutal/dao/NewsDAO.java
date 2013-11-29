@@ -2,7 +2,6 @@ package br.com.caelum.brutal.dao;
 
 import static org.hibernate.criterion.Order.desc;
 import static org.hibernate.criterion.Projections.rowCount;
-import static org.hibernate.criterion.Restrictions.and;
 import static org.hibernate.criterion.Restrictions.gt;
 
 import java.util.List;
@@ -13,7 +12,6 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Restrictions;
 
 import br.com.caelum.brutal.dao.WithUserPaginatedDAO.OrderType;
 import br.com.caelum.brutal.dao.WithUserPaginatedDAO.UserRole;
