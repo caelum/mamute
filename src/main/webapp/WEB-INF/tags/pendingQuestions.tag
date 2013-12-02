@@ -2,14 +2,14 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@attribute name="list" type="java.util.List" required="true" %>
+<%@attribute name="history" type="br.com.caelum.brutal.model.ModeratableAndPendingHistory" required="true" %>
 
 <ul>
 	<h1 class="flagged-item-title-moderator">
 		<fmt:message key="menu.questions"/>
 	</h1>
-	<c:forEach var="flaggableQuestion" items="${list}">
-	<c:set var="question" value="${flaggableQuestion.flaggable}"/>
+	<c:forEach var="entry" items="${history.entrySet}">
+		<c:set var="question" value="${entry.key}"/>
 		<li class="post-item question-item ${question.isVisibleForModeratorAndNotAuthor(currentUser.current) ? 'highlight-post' : '' }">
 			
 			<div class="post-information question-information">
@@ -24,13 +24,11 @@
 			
 			<div class="summary question-summary">
 				<div class="item-title-wrapper">
-				<h5>
-					<fmt:message key="moderation.flags">
-						<fmt:param value="${question.flags.size()}"/>
+					<fmt:message key="moderation.edits">
+						<fmt:param value="${entry.value.size()}"/>
 					</fmt:message>
-				</h5>
 					<h3 class="title item-title main-thread-title question-title">
-						<tags:questionLinkFor question="${question}" />
+						<tags:similarQuestionsLinkFor question="${entry.key}"/>
 					</h3>
 					<tags:tagsFor taggable="${question}" />
 					<div class="post-simple-information">
@@ -44,11 +42,6 @@
 			<div
 				class="${question.hasInteraction(currentUser.current) ? 'interaction' : ''}"
 				title="<fmt:message key='user.interactions'/>">
-			</div>
-			
-			<div
-				class="${question.flags.size() >= 5 ? 'heavy-flagged' : ''}"
-				title="<fmt:message key='moderation.flagged.lots'/>">
 			</div>
 		</li>
 	</c:forEach>

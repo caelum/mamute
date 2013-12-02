@@ -10,6 +10,7 @@ import br.com.caelum.brutal.dao.InformationDAO;
 import br.com.caelum.brutal.dao.ModeratableDao;
 import br.com.caelum.brutal.dao.ReputationEventDAO;
 import br.com.caelum.brutal.infra.ModelUrlMapping;
+import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.AnswerInformation;
 import br.com.caelum.brutal.model.EventType;
 import br.com.caelum.brutal.model.Information;
@@ -45,24 +46,20 @@ public class HistoryController {
 	@AccessLevel(PermissionRulesConstants.MODERATE_EDITS)
 	@Get("/historico")
 	public void history() {
-		result.redirectTo(this).unmoderated("pergunta");
+		ModeratableAndPendingHistory pendingQuestions = informations.pendingByUpdatables(Question.class);			
+		result.include("questions", pendingQuestions);
+
+		ModeratableAndPendingHistory pendingAnswers = informations.pendingByUpdatables(Answer.class);
+		result.include("answers", pendingAnswers);
 	}
 
 	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
 	@AccessLevel(PermissionRulesConstants.MODERATE_EDITS)
 	@Get("/historico/{moderatableType}")
 	public void unmoderated(String moderatableType) {
-		try{
-			Class<?> clazz = urlMapping.getClassFor(moderatableType);
-			ModeratableAndPendingHistory pending = informations.pendingByUpdatables(clazz);
-			
-			result.include("pending", pending);
-			result.include("type", moderatableType);
-		}catch(IllegalArgumentException e){
-			result.notFound();
-		}
+		result.redirectTo(this).history();
 	}
-
+	
 	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
 	@AccessLevel(PermissionRulesConstants.MODERATE_EDITS)
 	@Get("/historico/resposta/{moderatableId}/versoes")
@@ -118,7 +115,7 @@ public class HistoryController {
         approvedAuthor.increaseKarma(karma);
         reputationEvents.save(editAppoved);
         
-        result.redirectTo(this).unmoderated(moderatableType);
+        result.redirectTo(this).history();
     }
 	
 	@Post("/rejeitar/{typeName}/{informationId}")

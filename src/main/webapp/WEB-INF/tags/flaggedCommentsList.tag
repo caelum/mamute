@@ -6,7 +6,9 @@
 <%@attribute name="links" type="java.util.List" required="false" %>
 
 <ul>
-	<h1 class="flagged-item-title-moderator">Comentarios</h1>
+	<h1 class="flagged-item-title-moderator">
+		<fmt:message key="menu.comments"/>
+	</h1>
 	<c:forEach var="flaggableComment" items="${list}" varStatus="i">
 	
 		<c:set var="comment" value="${flaggableComment.flaggable}"/>
@@ -22,11 +24,19 @@
 			
 			<div class="summary question-summary">
 				<div class="item-title-wrapper">
-					<h5 class="">Flags: ${comment.flags.size()}</h5>
+					<fmt:message key="moderation.flags">
+						<fmt:param value="${comment.flags.size()}"/>
+					</fmt:message>
 					<h3 class="title item-title main-thread-title question-title">
 						<tags:questionLinkFor question="${question}" />
 					</h3>
 					<p class="ellipsis">${comment.comment}</p>
+					<tags:tagsFor taggable="${question}" />
+					<div class="post-simple-information">
+						${question.views}
+						<tags:pluralize key="post.list.view" count="${question.views}" />
+					</div>
+					
 				</div>
 				<div>
 					<tags:userProfileLink user="${comment.author}" htmlClass="user-name ellipsis" isPrivate="false"/>
