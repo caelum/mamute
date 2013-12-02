@@ -44,6 +44,11 @@
 			</div>
 			
 			<div
+				class="${question.hasInteraction(currentUser.current) ? 'interaction' : ''}"
+				title="<fmt:message key='user.interactions'/>">
+			</div>
+			
+			<div
 				class="${comment.flags.size() >= 5 ? 'heavy-flagged' : ''}"
 				title="<fmt:message key='moderation.flagged.lots'/>">
 			</div>

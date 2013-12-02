@@ -35,6 +35,11 @@
 				</div>
 				<tags:lastTouchFor touchable="${answer}" />
 			</div>
+
+			<div
+				class="${question.hasInteraction(currentUser.current) ? 'interaction' : ''}"
+				title="<fmt:message key='user.interactions'/>">
+			</div>
 			
 			<div
 				class="${answer.flags.size() >= 5 ? 'heavy-flagged' : ''}"
