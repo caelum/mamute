@@ -86,13 +86,13 @@ public class QuestionPage extends PageObject{
 
 	public QuestionPage answer(String description) {
 		WebElement answerForm = byClassName("answer-form");
-		byCSS("#wmd-input").sendKeys(description);
+		byCSS("#wmd-input").sendKeys("");
 		By buttonSelector = By.cssSelector(".same-author-confirmation button");
 		if (isElementPresent(buttonSelector, answerForm)) {
 			waitForClickableElement(buttonSelector, 5);
 			answerForm.findElement(buttonSelector).click();
-			byCSS("#wmd-input").sendKeys(description);
 		}
+		byCSS("#wmd-input").sendKeys(description);
 		answerForm.submit();
 		return new QuestionPage(driver);
 	}
