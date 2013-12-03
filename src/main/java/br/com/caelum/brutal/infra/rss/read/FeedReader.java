@@ -22,7 +22,7 @@ public class FeedReader {
 	private static final Logger LOG = Logger.getLogger(FeedReader.class);
 	
 	public RSSFeed read(String uri, Integer numberOfItems) {
-		InputStream rssXml = getXmlFrom(uri);
+		String rssXml = getXmlFrom(uri);
 		return limitItems(converter.convert(rssXml), numberOfItems);
 	}
 
@@ -31,7 +31,7 @@ public class FeedReader {
 		return feed;
 	}
 
-	private InputStream getXmlFrom(String uri){
+	private String getXmlFrom(String uri){
 		HttpGet httpGet = new HttpGet(uri);
 		HttpClient httpClient = new DefaultHttpClient();
 		try {
@@ -39,8 +39,9 @@ public class FeedReader {
 			HttpEntity entity = response.getEntity();
 			InputStream content = entity.getContent();
 			LOG.debug("Receiving RSS from " + uri);
-			LOG.debug(IOUtils.toString(content));
-			return content;
+			String stringContent = IOUtils.toString(content);
+			LOG.debug(stringContent);
+			return stringContent;
 		} catch (IOException e) {
 			throw new RuntimeException("Cant get rss from uri:"+uri, e);
 		}
