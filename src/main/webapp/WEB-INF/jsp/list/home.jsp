@@ -29,7 +29,7 @@
 
 <section class="first-content content">
 	<tags:questionList recentTags="${recentTags}" 
-		questions="${questions}" title="${title}" rssUrl="${rssUrl}"/>
+		questions="${questions}" title="${title}" rssUrl="${rssUrl}" tabs="${tabs}"/>
 </section>
 <tags:joyrideIntro />
 

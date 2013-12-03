@@ -32,7 +32,11 @@ public class Vote {
     @Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
     private DateTime lastUpdatedAt = new DateTime();
     
-    /**
+    public DateTime getLastUpdatedAt() {
+		return lastUpdatedAt;
+	}
+
+	/**
      * @deprecated hibernate eyes
      */
     Vote() {

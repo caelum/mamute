@@ -15,7 +15,6 @@ import net.vidageek.mirror.dsl.Mirror;
 
 import org.hamcrest.Matchers;
 import org.joda.time.DateTime;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 

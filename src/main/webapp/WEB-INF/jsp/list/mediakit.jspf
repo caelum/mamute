@@ -3,6 +3,7 @@
 
 <html>
 <head>
+	<title>GUJ - Mediakit</title>
 	<link rel="stylesheet" type="text/css" href="css/mediakit.css">
 	<meta name="viewport" content="width=device-width">
 </head>

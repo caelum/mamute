@@ -23,7 +23,7 @@
 
 
 <section class="first-content content">
-	<tags:mainTags tagClass="main-tags-header" tagClassLi="main-tags-text" useSprite = "true"/>
+	<tags:mainTags tagClass="main-tags-header" tagClassLi="main-tags-text" useSprite = "true" currentQuestion="${question}"/>
 	<c:if test="${markAsSolution}">
 		<p class = "banner-mark-as-solution"><fmt:message key="question.banner.remember" /></p>		
 	</c:if>

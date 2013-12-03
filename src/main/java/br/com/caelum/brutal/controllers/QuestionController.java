@@ -13,6 +13,7 @@ import br.com.caelum.brutal.auth.FacebookAuthService;
 import br.com.caelum.brutal.brutauth.auth.rules.EditQuestionRule;
 import br.com.caelum.brutal.brutauth.auth.rules.InputRule;
 import br.com.caelum.brutal.brutauth.auth.rules.LoggedRule;
+import br.com.caelum.brutal.brutauth.auth.rules.ModeratorOnlyRule;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.ReputationEventDAO;
 import br.com.caelum.brutal.dao.TagDAO;
@@ -192,5 +193,12 @@ public class QuestionController {
 
 	private boolean validate(List<Tag> foundTags, List<String> splitedTags) {
 		return tagsValidator.validate(foundTags, splitedTags);
+	}
+	
+	@CustomBrutauthRules(ModeratorOnlyRule.class)
+	@Get("/{question.id:[0-9]+}-{sluggedTitle}/details")
+	public void showVoteInformation (@Load Question question, String sluggedTitle){
+		result.include("question", question);
+		redirectToRightUrl(question, sluggedTitle);
 	}
 }

@@ -22,7 +22,7 @@ public class FeedConverter {
 		xStream.registerConverter(new RSSDateTimeConverter());
 	}
 	
-	public RSSFeed convert(InputStream content){
+	public RSSFeed convert(String content){
 		return (RSSFeed) xStream.fromXML(content);
 	}
 }

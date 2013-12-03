@@ -8,14 +8,17 @@
 <%@attribute name="rssUrl" type="java.lang.String" required="false"%>
 <%@attribute name="tag" type="br.com.caelum.brutal.model.Tag" required="false"%>
 <%@attribute name="unansweredTagLinks" type="java.lang.Boolean" required="false"%>
-<tags:rssTagHeader unansweredTagLinks="${unansweredTagLinks}"  tag="${tag}" rssUrl="${rssUrl}" title ="${title}"/>
+<%@attribute name="tabs" type="java.util.List" required="false"%>
+
+<tags:rssTagHeader unansweredTagLinks="${unansweredTagLinks}" tag="${tag}" rssUrl="${rssUrl}"
+title ="${title}" showTabs="${not empty tabs}"/>
 <c:if test="${not empty tag}">
 	<tags:tagTabs tag="${tag}" hasAbout="${hasAbout}"/>
 </c:if>
 
 <c:if test="${not empty questions}">
 	<ol class="question-list">
-		<c:forEach var="question" items="${questions }">
+		<c:forEach var="question" items="${questions}">
 			<tags:questionListItem question="${question}"/>
 		</c:forEach>
 	</ol>

@@ -4,7 +4,7 @@
 <%@attribute type="br.com.caelum.brutal.model.Tag" name="tag" required="false"%>
 <%@attribute type="java.lang.Boolean" name="hasAbout" required="true"%>
 <%@attribute name="unansweredTagLinks" type="java.lang.Boolean" required="false"%>
-<tags:tabs titleKey="">
+<tags:tabs titleKey="" useSubheader="${true}">
 	<fmt:message key="tag_list.title" />
 	<a href="${linkTo[ListController].withTag(tag.name)}">
 		${tag.name}

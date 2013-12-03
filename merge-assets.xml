@@ -42,7 +42,7 @@
 			<fileset file="${js.deps.dir}/filepicker.js"/>
 			<fileset file="${js.deps.dir}/feather.js"/>
 
-			<fileset dir="${js.dir}" includes="/*.js" excludes="/mediakit-plugin.js, /mediakit.js" />
+			<fileset dir="${js.dir}" includes="*.js" excludes="mediakit-plugin.js, mediakit.js" />
 			
 		</concat>
 	</target>

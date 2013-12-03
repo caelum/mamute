@@ -7,14 +7,17 @@ import static org.hibernate.criterion.Restrictions.eq;
 import static org.hibernate.criterion.Restrictions.gt;
 import static org.hibernate.criterion.Restrictions.isNull;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
 import org.joda.time.DateTime;
 
 import br.com.caelum.brutal.dao.WithUserPaginatedDAO.OrderType;
@@ -54,11 +57,7 @@ public class QuestionDAO implements PaginatableDAO {
 	
 	public List<Question> allVisible(Integer page) {
 		Criteria criteria = session.createCriteria(Question.class, "q")
-				.createAlias("q.information", "qi")
-				.createAlias("q.author", "qa")
-				.createAlias("q.lastTouchedBy", "ql")
-				.createAlias("q.solution", "s", Criteria.LEFT_JOIN)
-				.createAlias("q.solution.information", "si", Criteria.LEFT_JOIN)
+				.createCriteria("q.solution.information", JoinType.LEFT_OUTER_JOIN)
 				.addOrder(desc("q.lastUpdatedAt"))
 				.setFirstResult(firstResultOf(page))
 				.setMaxResults(PAGE_SIZE);
@@ -149,6 +148,25 @@ public class QuestionDAO implements PaginatableDAO {
 				.list();
 	}
 	
+	public List<Question> top(String section, int count, DateTime since) {
+		Order order;
+		if (section.equals("viewed")) {
+			order = Order.desc("q.views");
+		}
+		else if (section.equals("answered")) {
+			order = Order.desc("q.answerCount");
+		}
+		else /*if (section.equals("voted"))*/ {
+			order = Order.desc("q.voteCount");
+		}
+		return session.createCriteria(Question.class, "q")
+				.add(and(Restrictions.eq("q.moderationOptions.invisible", false)))
+				.add(gt("q.createdAt", since))
+				.addOrder(order)
+				.setMaxResults(count)
+				.list();
+	}
+	
 	public List<Question> randomUnanswered(DateTime after, DateTime before, int count) {
 		return session.createCriteria(Question.class, "q")
 				.add(and(isNull("q.solution"), Restrictions.between("q.createdAt", after, before)))
@@ -218,5 +236,19 @@ public class QuestionDAO implements PaginatableDAO {
 	public List<Question> withTagVisible(Tag tag, int page) {
 		return withTagVisible(tag, page, false);
 	}
+
+	public Question fromCommentId (Long id) {
+		String sql = "SELECT Question_id FROM Question_Comments " +
+				"WHERE comments_id = :id ";
+		Query query = session.createSQLQuery(sql);
+		List<BigInteger> idList = query.setParameter("id", id).list();
+		Long questionId = null;
+		if (idList.size() > 0) {
+			questionId = idList.get(0).longValue();
+			return getById(questionId);
+		}
+		return null;
+	}
+
 }
 

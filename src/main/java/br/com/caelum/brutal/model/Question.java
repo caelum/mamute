@@ -459,4 +459,8 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 	public void addUserInteraction(User user) {
 		userInteractions.add(user);
 	}
+	
+	public List<Flag> getFlags() {
+		return flags;
+	}
 }

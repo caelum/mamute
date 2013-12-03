@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.http.client.ClientProtocolException;
 import org.joda.time.DateTime;
 import org.junit.Test;
@@ -20,7 +21,7 @@ public class FeedConverterTest {
 	@Test
 	public void should_convert_channel_correctly() throws ClientProtocolException, IOException {
 		FeedConverter feedConverter = new FeedConverter();
-		RSSFeed feed = feedConverter.convert(FeedConverterTest.class.getResourceAsStream("/rss-example.xml"));
+		RSSFeed feed = feedConverter.convert(getRss());
 		RSSChannel channel = feed.getChannel();
 		
 		assertEquals("OndeTrabalhar.com", channel.getTitle());
@@ -42,7 +43,7 @@ public class FeedConverterTest {
 	@Test
 	public void should_convert_image_correctly() throws ClientProtocolException, IOException {
 		FeedConverter feedConverter = new FeedConverter();
-		RSSFeed feed = feedConverter.convert(FeedConverterTest.class.getResourceAsStream("/rss-example.xml"));
+		RSSFeed feed = feedConverter.convert(getRss());
 		RSSImage image = feed.getChannel().getImage();
 
 		assertEquals("http://ondetralhar.com/images/logo-box.png?1247568237", image.getUrl());
@@ -54,7 +55,7 @@ public class FeedConverterTest {
 	@Test
 	public void should_convert_item_correctly() throws ClientProtocolException, IOException {
 		FeedConverter feedConverter = new FeedConverter();
-		RSSFeed feed = feedConverter.convert(FeedConverterTest.class.getResourceAsStream("/rss-example.xml"));
+		RSSFeed feed = feedConverter.convert(getRss());
 		RSSItem item = feed.getChannel().getItems().get(0);
 		
 		assertEquals("Senior Tech Leader", item.getTitle());
@@ -66,6 +67,10 @@ public class FeedConverterTest {
 		assertEquals(rssDay.getYear(), item.getPubDate().getYear());
 		assertEquals("http://ondetrabalhar.com/vagas/3649/senior-tech-leader", item.getGuid());
 		
+	}
+
+	private String getRss() throws IOException {
+		return IOUtils.toString(FeedConverterTest.class.getResourceAsStream("/rss-example.xml"));
 	}
 
 }
