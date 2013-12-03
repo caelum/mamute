@@ -6,6 +6,7 @@ import java.io.InputStream;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -38,7 +39,7 @@ public class FeedReader {
 			HttpEntity entity = response.getEntity();
 			InputStream content = entity.getContent();
 			LOG.debug("Receiving RSS from " + uri);
-			LOG.debug(content);
+			LOG.debug(IOUtils.toString(content));
 			return content;
 		} catch (IOException e) {
 			throw new RuntimeException("Cant get rss from uri:"+uri, e);
