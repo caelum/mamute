@@ -4,6 +4,8 @@ import static java.lang.Integer.valueOf;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -27,6 +29,10 @@ public class FeedsMap {
 	
 	public RSSFeed get(String feedBaseKey){
 		return hashMap.get(feedBaseKey);
+	}
+
+	public Set<Entry<String, RSSFeed>> entrySet() {
+		return hashMap.entrySet();
 	}
 	
 }
