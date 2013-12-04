@@ -69,4 +69,33 @@ public class EditAnswerTest extends CustomVRaptorIntegration {
 		}
 	}
 
+	@Test
+    public void should_edit_and_automatically_approve_moderator() throws Exception {
+		Question question = createQuestionWithDao(moderator(),
+				"Titulo da questao hahaha",
+				"Descricao da questao longa demais", tag("java"));
+
+		Answer answer = answerQuestionWithDao(karmaNigga(), question,
+				"Resposta da questao do teste de edicao", false);
+
+		String newDescription = "my new description of the first answer";
+
+		UserFlow navigation = login(navigate(), "moderator@caelum.com.br",
+				"123456");
+		navigation = editAnswerWithFlow(navigation, answer, newDescription,
+				"comment");
+
+		VRaptorTestResult answerEdited = navigation.followRedirect().execute();
+		answerEdited.wasStatus(200).isValid();
+
+		List<String> messagesList = messagesList(answerEdited);
+		assertTrue(messagesList.contains(message("status.no_need_to_approve")));
+
+		AnswerAndVotes answerAndVotes = answerEdited.getObject("answers");
+		Set<Answer> answers = answerAndVotes.getVotes().keySet();
+		for (Answer answerInSet : answers) {
+			Assert.assertEquals(newDescription, answerInSet.getDescription());
+		}
+    }
+
 }
