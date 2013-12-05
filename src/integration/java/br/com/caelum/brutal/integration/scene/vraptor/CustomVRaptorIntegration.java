@@ -64,6 +64,10 @@ public class CustomVRaptorIntegration extends VRaptorIntegration {
 	}
 
 	/*** USER FLOW LOGIC ***/
+	protected UserFlow logout(UserFlow navigation) {
+		return navigation.post("/logout");
+	}
+
 	protected UserFlow login(UserFlow navigation, String email, String password) {
 		return navigation.post("/login",
 				initWith("email", email).add("password", password));
