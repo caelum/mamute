@@ -1,11 +1,14 @@
 package br.com.caelum.brutal.integration.scene.vraptor;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.brutal.model.Answer;
@@ -63,10 +66,8 @@ public class EditAnswerTest extends CustomVRaptorIntegration {
 		assertTrue(messagesList.contains(message("status.no_need_to_approve")));
 
 		AnswerAndVotes answerAndVotes = answerEdited.getObject("answers");
-		Set<Answer> answers = answerAndVotes.getVotes().keySet();
-		for (Answer answerInSet : answers) {
-			Assert.assertEquals(newDescription, answerInSet.getDescription());
-		}
+		List<Answer> answers = new ArrayList<Answer>(answerAndVotes.getVotes().keySet());
+		assertEquals(newDescription, answers.get(0).getDescription());
 	}
 
 	@Test
@@ -92,10 +93,8 @@ public class EditAnswerTest extends CustomVRaptorIntegration {
 		assertTrue(messagesList.contains(message("status.no_need_to_approve")));
 
 		AnswerAndVotes answerAndVotes = answerEdited.getObject("answers");
-		Set<Answer> answers = answerAndVotes.getVotes().keySet();
-		for (Answer answerInSet : answers) {
-			Assert.assertEquals(newDescription, answerInSet.getDescription());
-		}
+		List<Answer> answers = new ArrayList<Answer>(answerAndVotes.getVotes().keySet());
+		assertEquals(newDescription, answers.get(0).getDescription());
     }
 
 }
