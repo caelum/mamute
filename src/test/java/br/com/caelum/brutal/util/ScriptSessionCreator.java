@@ -13,11 +13,11 @@ import br.com.caelum.vraptor.environment.DefaultEnvironment;
 import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.environment.ServletBasedEnvironment;
 
-public class ScriptSessionFactoryCreator {
-    private static final Logger LOG = Logger.getLogger(ScriptSessionFactoryCreator.class);
+public class ScriptSessionCreator {
+    private static final Logger LOG = Logger.getLogger(ScriptSessionCreator.class);
 	private SessionFactoryCreator sessionFactoryCreator; 
 
-    public ScriptSessionFactoryCreator() {
+    public ScriptSessionCreator() {
     	Environment env = buildEnv();
     	sessionFactoryCreator = new SessionFactoryCreator(env);
     	sessionFactoryCreator.init();
@@ -39,7 +39,7 @@ public class ScriptSessionFactoryCreator {
             envName = envName == null? System.getProperty(ENVIRONMENT_PROPERTY) : envName; 
             envName = envName == null? "development" : envName;
             env = new DefaultEnvironment(envName);
-            LOG.info("using env '" + envName + "' for data import");
+            LOG.info("using env '" + envName + "' for scrip session creator");
             return env;
         } catch (IOException e) {
             throw new RuntimeException(e);
