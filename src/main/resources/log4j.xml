@@ -42,6 +42,11 @@
         <appender-ref ref="main"/>
     </category>
 
+    <category name="br.com.caelum.vraptor.test">
+        <priority value="DEBUG"/>
+        <appender-ref ref="main"/>
+    </category>
+
     <category name="org.eclipse">
         <priority value="INFO"/>
         <appender-ref ref="tagsFile"/>
