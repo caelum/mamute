@@ -27,8 +27,7 @@ public class EditAnswerTest extends CustomVRaptorIntegration {
 
 		String newDescription = "my new description of the first answer";
 
-		UserFlow navigation = login(navigate(), "karma.nigga@caelum.com.br",
-				"123456");
+		UserFlow navigation = login(navigate(), "karma.nigga@caelum.com.br");
 		navigation = editAnswerWithFlow(navigation, answer, newDescription,
 				"comment");
 
@@ -51,8 +50,7 @@ public class EditAnswerTest extends CustomVRaptorIntegration {
 
 		String newDescription = "my new description of the first answer";
 
-		UserFlow navigation = login(navigate(), "karma.nigga@caelum.com.br",
-				"123456");
+		UserFlow navigation = login(navigate(), "karma.nigga@caelum.com.br");
 		navigation = editAnswerWithFlow(navigation, answer, newDescription,
 				"comment");
 
@@ -78,8 +76,7 @@ public class EditAnswerTest extends CustomVRaptorIntegration {
 
 		String newDescription = "my new description of the first answer";
 
-		UserFlow navigation = login(navigate(), "moderator@caelum.com.br",
-				"123456");
+		UserFlow navigation = login(navigate(), "moderator@caelum.com.br");
 		navigation = editAnswerWithFlow(navigation, answer, newDescription,
 				"comment");
 
