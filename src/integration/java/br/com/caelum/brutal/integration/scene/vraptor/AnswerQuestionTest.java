@@ -1,10 +1,7 @@
 package br.com.caelum.brutal.integration.scene.vraptor;
 
-import static org.junit.Assert.assertTrue;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -44,5 +41,5 @@ public class AnswerQuestionTest extends CustomVRaptorIntegration {
 	@Test
 	public void should_not_display_answer_form_when_already_answered(){
 	}
-	
+
 }
