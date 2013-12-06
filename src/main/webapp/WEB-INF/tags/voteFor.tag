@@ -3,7 +3,7 @@
 <%@attribute name="type" required="true" type="java.lang.String" %>
 <%@attribute name="item" type="br.com.caelum.brutal.model.interfaces.Votable" required="true" %>
 <%@attribute type="br.com.caelum.brutal.model.Vote" name="vote" required="true" %>
-<div class="vote-container post-vote container">
+<div class="vote-container post-vote">
 	<a rel="nofollow" class="container requires-login requires-karma author-cant
 		      up-vote up-arrow arrow vote-option 
 		       ${(not empty vote and vote.countValue == 1) ? 'voted' : '' }"
@@ -26,7 +26,7 @@
 	 		  title="<fmt:message key='${type}.downvote'>
 	 		  			<fmt:param value="${MY_ANSWER_VOTED_DOWN}"/>
 	 		  			<fmt:param value="${DOWNVOTED_QUESTION_OR_ANSWER}"/>
-	 		  		</fmt:message>"> 
+	 		  		</fmt:message>">
 		down 
 	</a>
 </div>

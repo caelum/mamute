@@ -49,9 +49,7 @@ a:hover {
 	margin-right: auto;
 	max-width: 90%;
 	overflow: hidden;
-	/* Isso foi retirado para ajeitar o problema do popup
-	que surge na hora de erro de validação de voto em questões. */
-	/* position: relative; */
+	position: relative;
 }
 
 .title, .flagged-item-title-moderator {
@@ -493,6 +491,7 @@ em {
 	cursor: pointer;
 	padding: 1.3em;
 	text-align: center;
+	z-index: 1;
 }
 
 .popup-error-message {
