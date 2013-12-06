@@ -49,7 +49,9 @@ a:hover {
 	margin-right: auto;
 	max-width: 90%;
 	overflow: hidden;
-	position: relative;
+	/* Isso foi retirado para ajeitar o problema do popup
+	que surge na hora de erro de validação de voto em questões. */
+	/* position: relative; */
 }
 
 .title, .flagged-item-title-moderator {
@@ -677,6 +679,13 @@ textarea {
 
 .up-arrow {
 	border-bottom-color: #818185;
+}
+
+.arrow-popup-fix {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 90%;
+	overflow: hidden;
 }
 
 /*Complete User*/

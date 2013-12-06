@@ -1,4 +1,4 @@
-<tags:header facebookMetas="${true}" 
+ <tags:header facebookMetas="${true}" 
 	title="${question.mostImportantTag.name} - ${question.title}" 
 	description="${question.metaDescription}"/>
 <div class="breadcrumb" itemprop="breadcrumb" xmlns:v="http://rdf.data-vocabulary.org/#">
