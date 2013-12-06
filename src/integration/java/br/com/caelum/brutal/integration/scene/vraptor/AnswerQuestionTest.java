@@ -6,8 +6,6 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.junit.Assert;
 import org.junit.Test;
@@ -71,12 +69,6 @@ public class AnswerQuestionTest extends CustomVRaptorIntegration {
 
 		Elements answerForm = getElementsByClass(questionPage.getResponseBody(), "answer-form");
 		assertTrue(answerForm.isEmpty());
-	}
-
-	private Elements getElementsByClass(String html, String cssClass) {
-		Document document = Jsoup.parse(html);
-		Elements elements = document.getElementsByClass(cssClass);
-		return elements;
 	}
 
 	private UserFlow goToQuestionPage(UserFlow navigation, Question question) {
