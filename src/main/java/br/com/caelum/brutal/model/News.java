@@ -97,6 +97,12 @@ public class News extends Moderatable implements Post, ViewCountable, Watchable,
 	public void substitute(Vote previous, Vote current) {
 		this.voteCount += current.substitute(previous, votes);
 	}
+	
+	public void remove(Vote previous) {
+		votes.remove(previous);
+		this.voteCount -= previous.getCountValue();
+//		addUserInteraction(vote.getAuthor());
+	}
 
 	@Override
 	public User getAuthor() {
