@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import org.hibernate.Session;
 import org.jsoup.Jsoup;
@@ -15,6 +16,7 @@ import org.jsoup.select.Elements;
 import br.com.caelum.brutal.builder.QuestionBuilder;
 import br.com.caelum.brutal.dao.AnswerDAO;
 import br.com.caelum.brutal.dao.InvisibleForUsersRule;
+import br.com.caelum.brutal.dao.LoginMethodDAO;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.dao.TagDAO;
 import br.com.caelum.brutal.dao.UserDAO;
@@ -22,6 +24,7 @@ import br.com.caelum.brutal.integration.util.AppMessages;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.AnswerInformation;
 import br.com.caelum.brutal.model.LoggedUser;
+import br.com.caelum.brutal.model.LoginMethod;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
@@ -39,6 +42,7 @@ public class CustomVRaptorIntegration extends VRaptorIntegration {
 	private Session session;
 
 	private AppMessages messages = new AppMessages();
+	private Random randomizer = new Random();
 
 	{
 		System.setProperty(ServletBasedEnvironment.ENVIRONMENT_PROPERTY, "acceptance");
@@ -46,7 +50,6 @@ public class CustomVRaptorIntegration extends VRaptorIntegration {
 			try {
 				new DataImport().run();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			runDataImport = false;
@@ -85,35 +88,53 @@ public class CustomVRaptorIntegration extends VRaptorIntegration {
 				initWith("email", email).add("password", "123456"));
 	}
 
+	protected User randomUser() {
+		String email = String.format("acceptance%f@brutal.com", randomizer.nextFloat());
+		User user = new User("Acceptance Test User", email);
+		LoginMethod brutalLogin = LoginMethod.brutalLogin(user, email, "123456");
+		user.add(brutalLogin);
+	    userDao().save(user);
+	    new LoginMethodDAO(session).save(brutalLogin);
+
+		return user;
+	}
+
 	protected UserFlow createQuestionWithFlow(UserFlow navigation,
 			String title, String description, String tagNames, boolean watching) {
-		return navigation.post(
-				"/perguntar",
-				initWith("title", title).add("description", description)
-						.add("tagNames", tagNames).add("watching", watching));
+		return navigation.post("/perguntar",
+				initWith("title", title)
+					.add("description", description)
+					.add("tagNames", tagNames)
+					.add("watching", watching));
 	}
 
 	protected UserFlow editQuestionWithFlow(UserFlow navigation,
 			Long questionId, String title, String description, String comment,
 			String tags) {
-		return navigation.post(
-				"/pergunta/editar/" + questionId,
-				initWith("title", title).add("description", description)
-						.add("comment", comment).add("tagNames", tags));
+		String url = String.format("/pergunta/editar/%s", questionId);
+		return navigation.post(url,
+				initWith("title", title)
+					.add("description", description)
+					.add("comment", comment)
+					.add("tagNames", tags));
 	}
 	
 	protected UserFlow answerQuestionWithFlow(UserFlow navigation, Question question,
 			String description, boolean watching) {
-		return navigation.post("/responder/" + question.getId(),
-				initWith("question", question).add("description", description)
+		String url = String.format("/responder/%s", question.getId());
+		return navigation.post(url,
+				initWith("question", question)
+					.add("description", description)
 					.add("watching", watching));
 	}
 
 	protected UserFlow editAnswerWithFlow(UserFlow navigation, Answer answer,
 			String description, String comment) {
-		return navigation.post("/resposta/editar/" + answer.getId(),
-				initWith("original", answer).add("description", description)
-						.add("comment", comment));
+		String url = String.format("/resposta/editar/%s", answer.getId());
+		return navigation.post(url,
+				initWith("original", answer)
+					.add("description", description)
+					.add("comment", comment));
 	}
 
 	/*** DAO LOGIC ***/
