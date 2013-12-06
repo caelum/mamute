@@ -148,6 +148,12 @@ public class Comment implements Notifiable, Votable, Flaggable {
 	public void substitute(Vote previous, Vote vote) {
 		this.voteCount += vote.substitute(previous, votes);
 	}
+	
+	public void remove(Vote previous) {
+		votes.remove(previous);
+		this.voteCount -= previous.getCountValue();
+//		addUserInteraction(vote.getAuthor());
+	}
 
 	@Override
 	public long getVoteCount() {
