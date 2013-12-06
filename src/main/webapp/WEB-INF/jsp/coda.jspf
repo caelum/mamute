@@ -80,7 +80,7 @@ $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
 
 function errorPopup(text, target, clazz){
 	clazz = clazz || "";
-	if(!$(".validation-error.popup").is(":visible")){
+	if(!$(".validation-error.popup").is(":visible")) {
 		var errorPopup = $("<div class='"+ clazz +" validation-error popup close-popup'><div class='popup-error-message'>"+text+"</div><div class='subtitle'>(clique para fechar)</div></div>");
 		errorPopup.insertAfter(target).show();
 	}

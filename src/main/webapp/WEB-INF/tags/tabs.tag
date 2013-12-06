@@ -4,7 +4,7 @@
 <%@attribute name="title" type="java.lang.String" required="false" %>
 <%@attribute name="useSubheader" type="java.lang.Boolean" required="false"%>
 
-<div class="${useSubheader?'subheader':''} subheader-with-tab">
+<div class="${useSubheader?'subheader':''} subheader-with-tab ${titleKey eq 'moderation' ? 'subheader' : ''}">
 	<c:if test="${not empty titleKey}">
 		<h2 class="title page-title">
 			<fmt:message key="${titleKey}"/>

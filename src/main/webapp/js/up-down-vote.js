@@ -85,7 +85,6 @@ function updateCount(link, count) {
 function fakeUpdateIncrement(link, vote) {
 	var value;
 	var countWithoutAjax = parseInt($(link).closest(".vote-container").find(".vote-count").html());
-//	var alreadyVoted = link.siblings().hasClass("voted");
 	
 	if(vote == "positivo") value = countWithoutAjax + 1;
 	else value = countWithoutAjax - 1;
@@ -96,7 +95,6 @@ function fakeUpdateIncrement(link, vote) {
 function fakeUpdateDecrement(link, vote) {
 	var value;
 	var countWithoutAjax = parseInt($(link).closest(".vote-container").find(".vote-count").html());
-//	var alreadyVoted = link.siblings().hasClass("voted");
 	
 	if(vote == "positivo") value = countWithoutAjax - 1;
 	else value = countWithoutAjax + 1;
