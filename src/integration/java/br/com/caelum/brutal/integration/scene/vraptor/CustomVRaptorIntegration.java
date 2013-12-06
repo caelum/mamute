@@ -2,11 +2,15 @@ package br.com.caelum.brutal.integration.scene.vraptor;
 
 import static br.com.caelum.vraptor.test.http.Parameters.initWith;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 import br.com.caelum.brutal.builder.QuestionBuilder;
 import br.com.caelum.brutal.dao.AnswerDAO;
@@ -21,6 +25,7 @@ import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
+import br.com.caelum.brutal.util.DataImport;
 import br.com.caelum.brutal.util.ScriptSessionCreator;
 import br.com.caelum.vraptor.environment.ServletBasedEnvironment;
 import br.com.caelum.vraptor.test.VRaptorIntegration;
@@ -30,12 +35,22 @@ import br.com.caelum.vraptor.validator.I18nMessage;
 
 public class CustomVRaptorIntegration extends VRaptorIntegration {
 
-    private Session session;
+	private static boolean runDataImport = true;
+	private Session session;
 
 	private AppMessages messages = new AppMessages();
 
 	{
 		System.setProperty(ServletBasedEnvironment.ENVIRONMENT_PROPERTY, "acceptance");
+		if (runDataImport) {
+			try {
+				new DataImport().run();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			runDataImport = false;
+		}
 		ScriptSessionCreator sessionFactoryCreator = new ScriptSessionCreator();
 		session = sessionFactoryCreator.getSession();
 		session.beginTransaction();
@@ -52,6 +67,12 @@ public class CustomVRaptorIntegration extends VRaptorIntegration {
 			messages.add(message.getMessage());
 		}
 		return messages;
+	}
+
+	protected Elements getElementsByClass(String html, String cssClass) {
+		Document document = Jsoup.parse(html);
+		Elements elements = document.getElementsByClass(cssClass);
+		return elements;
 	}
 
 	/*** USER FLOW LOGIC ***/
