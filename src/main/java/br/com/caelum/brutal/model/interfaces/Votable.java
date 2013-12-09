@@ -9,6 +9,7 @@ import br.com.caelum.brutal.model.Vote;
 
 public interface Votable {
 	void substitute(Vote previous, Vote current);
+	void remove(Vote previous);
 	User getAuthor();
 	Serializable getId();
 	long getVoteCount();

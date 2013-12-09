@@ -5,16 +5,23 @@
 <%@attribute name="list" type="java.util.List" required="true" %>
 <%@attribute name="links" type="java.util.List" required="false" %>
 
-<ul>
+<c:if test="${empty list}">
+	<h2 class="title section-title"><fmt:message key="moderation.flagged.comments.empty" /></h2>
+</c:if>
+
+<c:if test="${not empty list}">
 	<h1 class="flagged-item-title-moderator">
-		<fmt:message key="menu.comments"/>
+			<fmt:message key="menu.comments"/>
 	</h1>
+</c:if>
+
+<ul>
 	<c:forEach var="flaggableComment" items="${list}" varStatus="i">
 	
 		<c:set var="comment" value="${flaggableComment.flaggable}"/>
 		<c:set var="question" value="${links.get(i.count-1)}"/>
 		
-		<li class="post-item question-item ${comment.isVisibleForModeratorAndNotAuthor(currentUser.current) ? 'highlight-post' : '' }">
+		<li class="post-item flagged-moderator-item question-item ${comment.isVisibleForModeratorAndNotAuthor(currentUser.current) ? 'highlight-post' : '' }">
 			
 			<div class="post-information question-information">
 				<tags:postItemInformation key="post.list.vote"
@@ -27,7 +34,7 @@
 					<fmt:message key="moderation.flags">
 						<fmt:param value="${comment.flags.size()}"/>
 					</fmt:message>
-					<h3 class="title item-title main-thread-title question-title">
+					<h3 class="moderator-title item-title main-thread-title question-title">
 						<tags:questionLinkFor question="${question}" />
 					</h3>
 					<p class="ellipsis">${comment.comment}</p>

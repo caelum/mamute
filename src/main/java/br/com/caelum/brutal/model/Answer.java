@@ -132,6 +132,12 @@ public class Answer extends Moderatable implements Post, Notifiable {
     	this.voteCount += vote.substitute(previous, votes);
     	this.question.addUserInteraction(vote.getAuthor());
     }
+    
+    public void remove(Vote previous) {
+		votes.remove(previous);
+		this.voteCount -= previous.getCountValue();
+//		addUserInteraction(vote.getAuthor());
+	}
 	
 	@Override
 	public boolean equals(Object obj) {

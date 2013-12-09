@@ -102,7 +102,7 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 			joinColumns=@JoinColumn(name="Question_id")
 	)
 	@ManyToMany	
-	private final Set<User> userInteractions= new HashSet<>();
+	private final Set<User> userInteractions = new HashSet<>();
 	
     public static final long SPAM_BOUNDARY = -5;
     
@@ -208,6 +208,12 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 	public void substitute(Vote previous, Vote vote) {
 		this.voteCount += vote.substitute(previous, votes);
 		addUserInteraction(vote.getAuthor());
+	}
+	
+	public void remove(Vote previous) {
+		votes.remove(previous);
+		this.voteCount -= previous.getCountValue();
+//		addUserInteraction(vote.getAuthor());
 	}
 
 	@Override

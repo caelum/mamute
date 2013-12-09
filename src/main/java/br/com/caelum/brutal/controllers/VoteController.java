@@ -43,6 +43,22 @@ public class VoteController {
 		tryToVoteVotable(id, VoteType.DOWN, mapping.getClassFor(type));
 		
 	}
+	
+	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
+	@AccessLevel(PermissionRulesConstants.VOTE_UP)
+	@Post("/{type}/{id}/voto/remove/positivo")
+	public void voteUpRemoval(Long id, String type) {
+		tryToRemoveVoteVotable(id, VoteType.UP, mapping.getClassFor(type));
+		loggedUser.getCurrent().votedUp();
+	}
+
+	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
+	@AccessLevel(PermissionRulesConstants.VOTE_DOWN)
+	@Post("/{type}/{id}/voto/remove/negativo")
+	public void voteDownRemoval(Long id, String type) {
+		tryToRemoveVoteVotable(id, VoteType.DOWN, mapping.getClassFor(type));
+		
+	}
 
 	@SuppressWarnings("rawtypes")
 	private void tryToVoteVotable(Long id, VoteType voteType, Class votableType) {
@@ -51,6 +67,20 @@ public class VoteController {
 		    Vote current = new Vote(currentUser.getCurrent(), voteType);
 		    votingMachine.register(votable, current, votableType);
 		    votes.save(current);
+		    result.use(Results.json()).withoutRoot().from(votable.getVoteCount()).serialize();
+		} catch (IllegalArgumentException e) {
+		    result.use(Results.http()).sendError(409);
+		    return;
+        }
+	}
+	
+	@SuppressWarnings("rawtypes")
+	private void tryToRemoveVoteVotable(Long id, VoteType voteType, Class votableType) {
+		try {
+		    Votable votable = votes.loadVotable(votableType, id);
+		    Vote current = new Vote(currentUser.getCurrent(), voteType);
+		    votingMachine.unRegister(votable, current, votableType);
+//		    votes.save(current);
 		    result.use(Results.json()).withoutRoot().from(votable.getVoteCount()).serialize();
 		} catch (IllegalArgumentException e) {
 		    result.use(Results.http()).sendError(409);

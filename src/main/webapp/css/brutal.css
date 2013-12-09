@@ -491,6 +491,7 @@ em {
 	cursor: pointer;
 	padding: 1.3em;
 	text-align: center;
+	z-index: 1;
 }
 
 .popup-error-message {
@@ -677,6 +678,13 @@ textarea {
 
 .up-arrow {
 	border-bottom-color: #818185;
+}
+
+.arrow-popup-fix {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 90%;
+	overflow: hidden;
 }
 
 /*Complete User*/
@@ -1130,6 +1138,10 @@ a.button.ask-a-question:hover {
 	padding-top: 2%;
 }
 
+.flagged-moderator-item {
+	padding: 1.4% 0;
+}
+
 .highlight-post {
 	background-color: #fce4b4;
 }
@@ -1445,8 +1457,9 @@ a.button.ask-a-question:hover {
 }
 
 .flagged-item-title-moderator {
-	font-size: 1.4em;
+	font-size: 1.3em;
 	margin-top: 1.4em;
+	padding-bottom: 1em;
 }
 
 /* BIG TEXT */
@@ -2713,4 +2726,12 @@ solid
 
 .pull-center {
 	text-align: center;
+}
+
+.moderador-flagged-separator {
+	border-top: 0.1em solid #CCC;	
+}
+
+.moderator-title {
+	margin-bottom: 0;
 }
