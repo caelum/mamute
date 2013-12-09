@@ -1101,6 +1101,7 @@ a.button.ask-a-question:hover {
 	margin-bottom: 0;
 	font-size: 1em;
 	display: inline;
+	line-height: 1.2em;
 }
 
 .more-items {

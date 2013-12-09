@@ -8,8 +8,10 @@ import java.io.IOException;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.ClientProtocolException;
 import org.joda.time.DateTime;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import br.com.caelum.brutal.infra.rss.RSSType;
 import br.com.caelum.brutal.infra.rss.read.FeedConverter;
 import br.com.caelum.brutal.infra.rss.read.RSSChannel;
 import br.com.caelum.brutal.infra.rss.read.RSSFeed;
@@ -17,11 +19,20 @@ import br.com.caelum.brutal.infra.rss.read.RSSImage;
 import br.com.caelum.brutal.infra.rss.read.RSSItem;
 
 public class FeedConverterTest {
+	
+	private static String rssOndeTrabalhar;
+	private static String rssInfoQ;
+
+	@BeforeClass
+	public static void setup() throws IOException {
+		rssOndeTrabalhar = IOUtils.toString(FeedConverterTest.class.getResourceAsStream("/rss-ondetrabalhar-example.xml"));
+		rssInfoQ = IOUtils.toString(FeedConverterTest.class.getResourceAsStream("/rss-infoq-example.xml"));
+	}
 
 	@Test
-	public void should_convert_channel_correctly() throws ClientProtocolException, IOException {
-		FeedConverter feedConverter = new FeedConverter();
-		RSSFeed feed = feedConverter.convert(getRss());
+	public void should_convert_channel_correctly_onde_trabalhar() throws ClientProtocolException, IOException {
+		FeedConverter feedConverter = new FeedConverter(RSSType.ONDE_TRABALHAR);
+		RSSFeed feed = feedConverter.convert(rssOndeTrabalhar);
 		RSSChannel channel = feed.getChannel();
 		
 		assertEquals("OndeTrabalhar.com", channel.getTitle());
@@ -37,13 +48,12 @@ public class FeedConverterTest {
 		assertEquals(rssDay.getMonthOfYear(), channel.getPubDate().getMonthOfYear());
 		assertEquals(rssDay.getYear(), channel.getPubDate().getYear());
 		assertEquals(rssDay.getDayOfMonth(), channel.getPubDate().getDayOfMonth());
-		
 	}
 	
 	@Test
-	public void should_convert_image_correctly() throws ClientProtocolException, IOException {
-		FeedConverter feedConverter = new FeedConverter();
-		RSSFeed feed = feedConverter.convert(getRss());
+	public void should_convert_image_correct_onde_trabalharly() throws ClientProtocolException, IOException {
+		FeedConverter feedConverter = new FeedConverter(RSSType.ONDE_TRABALHAR);
+		RSSFeed feed = feedConverter.convert(rssOndeTrabalhar);
 		RSSImage image = feed.getChannel().getImage();
 
 		assertEquals("http://ondetralhar.com/images/logo-box.png?1247568237", image.getUrl());
@@ -53,9 +63,9 @@ public class FeedConverterTest {
 	}
 	
 	@Test
-	public void should_convert_item_correctly() throws ClientProtocolException, IOException {
-		FeedConverter feedConverter = new FeedConverter();
-		RSSFeed feed = feedConverter.convert(getRss());
+	public void should_convert_item_correctly_onde_trabalhar() throws ClientProtocolException, IOException {
+		FeedConverter feedConverter = new FeedConverter(RSSType.ONDE_TRABALHAR);
+		RSSFeed feed = feedConverter.convert(rssOndeTrabalhar);
 		RSSItem item = feed.getChannel().getItems().get(0);
 		
 		assertEquals("Senior Tech Leader", item.getTitle());
@@ -66,11 +76,26 @@ public class FeedConverterTest {
 		assertEquals(rssDay.getMonthOfYear(), item.getPubDate().getMonthOfYear());
 		assertEquals(rssDay.getYear(), item.getPubDate().getYear());
 		assertEquals("http://ondetrabalhar.com/vagas/3649/senior-tech-leader", item.getGuid());
+	}
+	
+	@Test
+	public void should_convert_channel_correctly_info_q() throws ClientProtocolException, IOException {
+		FeedConverter feedConverter = new FeedConverter(RSSType.INFO_Q);
+		RSSFeed feed = feedConverter.convert(rssInfoQ);
+		RSSChannel channel = feed.getChannel();
 		
+		assertEquals("InfoQ Personalized Feed for Unregistered User - Register to upgrade!", channel.getTitle());
+		assertEquals("http://www.infoq.com", channel.getLink());
+		assertEquals("This RSS feed is a personalized feed, unique to your account on InfoQ.com.", channel.getDescription());
+		RSSItem item = channel.getItems().get(0);
+		assertEquals("Article: Applying Lean Thinking to Software Development", item.getTitle());
+		assertEquals("http://www.infoq.com/articles/applying-lean-thinking-to-software-development", item.getLink());
+		assertEquals("Scrum", item.getCategory().get(0));
+		assertEquals("Lean", item.getCategory().get(1));
+		
+		DateTime rssDay = new DateTime().withDate(2013, 12, 5);
+		assertEquals(rssDay.getMonthOfYear(), item.getPubDate().getMonthOfYear());
+		assertEquals(rssDay.getYear(), item.getPubDate().getYear());
+		assertEquals(rssDay.getDayOfMonth(), item.getPubDate().getDayOfMonth());
 	}
-
-	private String getRss() throws IOException {
-		return IOUtils.toString(FeedConverterTest.class.getResourceAsStream("/rss-example.xml"));
-	}
-
 }
