@@ -74,8 +74,12 @@ public class CustomVRaptorIntegration extends VRaptorIntegration {
 
 	protected Elements getElementsByClass(String html, String cssClass) {
 		Document document = Jsoup.parse(html);
-		Elements elements = document.getElementsByClass(cssClass);
-		return elements;
+		return document.getElementsByClass(cssClass);
+	}
+
+	protected Elements getElementsByTag(String html, String tagName) {
+		Document document = Jsoup.parse(html);
+		return document.getElementsByTag(tagName);
 	}
 
 	/*** USER FLOW LOGIC ***/
@@ -109,11 +113,12 @@ public class CustomVRaptorIntegration extends VRaptorIntegration {
 	}
 
 	protected UserFlow editQuestionWithFlow(UserFlow navigation,
-			Long questionId, String title, String description, String comment,
+			Question question, String title, String description, String comment,
 			String tags) {
-		String url = String.format("/pergunta/editar/%s", questionId);
+		String url = String.format("/pergunta/editar/%s", question.getId());
 		return navigation.post(url,
-				initWith("title", title)
+				initWith("original", question)
+					.add("title", title)
 					.add("description", description)
 					.add("comment", comment)
 					.add("tagNames", tags));
