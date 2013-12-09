@@ -25,6 +25,7 @@ import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.AnswerInformation;
 import br.com.caelum.brutal.model.LoggedUser;
 import br.com.caelum.brutal.model.LoginMethod;
+import br.com.caelum.brutal.model.Post;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
@@ -140,6 +141,17 @@ public class CustomVRaptorIntegration extends VRaptorIntegration {
 				initWith("original", answer)
 					.add("description", description)
 					.add("comment", comment));
+	}
+
+	protected UserFlow commentWithFlow(UserFlow navigation, Post post, String comment,
+			boolean watching) {
+		String onWhat = (post instanceof Question ? "pergunta" : "resposta");
+		String url = String.format("/%s/%s/comentar", onWhat, post.getId());
+		return navigation.post(url,
+				initWith("id", post.getId())
+					.add("onWhat", onWhat)
+					.add("comment", comment)
+					.add("watching", watching));
 	}
 
 	/*** DAO LOGIC ***/
