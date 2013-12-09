@@ -2,7 +2,7 @@ package br.com.caelum.brutal.infra.rss.read;
 
 import java.util.List;
 
-import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 
 public class RSSChannel {
 	private String title;
@@ -14,7 +14,7 @@ public class RSSChannel {
 	private String docs;
 	private String ttl;
 	private RSSImage image;
-	private DateTime pubDate;
+	private LocalDateTime pubDate;
 	private String link;
 	private List<RSSItem> items;
 	
@@ -54,7 +54,7 @@ public class RSSChannel {
 		return image;
 	}
 	
-	public DateTime getPubDate() {
+	public LocalDateTime getPubDate() {
 		return pubDate;
 	}
 	

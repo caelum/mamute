@@ -10,19 +10,20 @@ import java.util.Set;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+import br.com.caelum.brutal.infra.rss.RSSType;
 import br.com.caelum.vraptor.environment.Environment;
 
 @ApplicationScoped
 public class FeedsMap {
 
 	private Map<String, RSSFeed> hashMap = new HashMap<String, RSSFeed>();
-	@Inject private FeedReader feedReader;
 	@Inject	private Environment env;
 	
-	public void putOrUpdate(String feedBaseKey){
+	public void putOrUpdate(String feedBaseKey, RSSType type){
 		hashMap.remove(feedBaseKey);
 		String uri = env.get(feedBaseKey+".url");
 		Integer numberOfItems = valueOf(env.get(feedBaseKey+".items"));
+		FeedReader feedReader = new FeedReader(type);
 		RSSFeed feed = feedReader.read(uri, numberOfItems);
 		hashMap.put(feedBaseKey, feed);
 	}
