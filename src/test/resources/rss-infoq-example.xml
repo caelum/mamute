@@ -1,0 +1,32 @@
+<rss xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:taxo="http://purl.org/rss/1.0/modules/taxonomy/"
+	version="2.0">
+	<channel>
+		<title>InfoQ Personalized Feed for Unregistered User - Register to upgrade!</title>
+		<link>http://www.infoq.com</link>
+		<description>This RSS feed is a personalized feed, unique to your account on InfoQ.com.</description>
+		<item>
+			<title>Article: Applying Lean Thinking to Software Development</title>
+			<link>http://www.infoq.com/articles/applying-lean-thinking-to-software-development</link>
+			<description>
+			Ben Johnson discusses the Raft protocol and how it works. Raft is a consensus distributed protocol.
+			<i>By Ben Johnson</i>
+			</description>
+			<category>Scrum</category>
+			<category>Lean</category>
+			<category>Quality</category>
+			<category>Kanban</category>
+			<category>Removing Waste</category>
+			<category>WIP</category>
+			<category>Process Practices</category>
+			<category>Enterprise Architecture</category>
+			<category>Requirements Management</category>
+			<category>content.articles.category</category>
+			<pubDate>Thu, 05 Dec 2013 12:22:00 GMT</pubDate>
+			<guid>http://www.infoq.com/articles/applying-lean-thinking-to-software-development</guid>
+			<dc:creator>Steven Peeters</dc:creator>
+			<dc:date>2013-12-05T12:22:00Z</dc:date>
+			<dc:identifier>/articles/applying-lean-thinking-to-software-development</dc:identifier>
+		</item>
+	</channel>
+</rss>
