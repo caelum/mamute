@@ -4,10 +4,11 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@attribute name="rssFeed" type="br.com.caelum.brutal.infra.rss.read.RSSFeed" required="true" %>
 <%@attribute name="rssUrl" type="java.lang.String" required="true" %>
+<%@attribute name="rssType" type="java.lang.String" required="true" %>
 <c:if test="${not empty rssFeed.channel.items}">
 	<div class="subheader">
 		<h2 class="title page-title">
-			<fmt:message key="jobs.rss.title"/>
+			<fmt:message key="${rssType}.rss.title"/>
 		</h2>
 		<a href="${rssUrl}" class="rss-link"><i class="icon-rss"></i></a>
 	</div>
@@ -16,7 +17,7 @@
 			<li class="post-item sidebar-item">
 				<div class="summary sidebar-summary">
 					<time class="when" datetime="${item.pubDate}">
-						<fmt:formatDate value="${item.pubDate.toGregorianCalendar().time}" pattern="dd/MM/yyyy"/>
+						<fmt:formatDate value="${item.pubDate.toDate()}" pattern="dd/MM/yyyy"/>
 					</time> -
 					<h3 class="title item-title sidebar-item-title">
 						<a href="${item.link}"><c:out escapeXml="${true}" value="${item.title}"/></a>
@@ -25,6 +26,6 @@
 			</li>
 		</c:forEach>
 	</ol>
-	<a class="more-items" href="http://ondetrabalhar.com/"><fmt:message key="jobs.rss.more" /></a>
+	<a class="more-items" href="<fmt:message key="${rssType}.rss.url" />"><fmt:message key="${rssType}.rss.more" /></a>
 	
 </c:if>
