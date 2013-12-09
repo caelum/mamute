@@ -3,14 +3,22 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@attribute name="list" type="java.util.List" required="true" %>
-<ul>
+
+<c:if test="${empty list}">
+	<h2 class="title section-title"><fmt:message key="moderation.flagged.answers.empty" /></h2>
+</c:if>
+
+<c:if test="${not empty list}">
 	<h1 class="flagged-item-title-moderator">
 		<fmt:message key="menu.answers"/>
 	</h1>
+</c:if>
+
+<ul>
 	<c:forEach var="flaggableAnswer" items="${list}">
 		<c:set var="answer" value="${flaggableAnswer.flaggable}"/>
 		<c:set var="question" value="${answer.question}"/>
-		<li class="post-item question-item ${answer.isVisibleForModeratorAndNotAuthor(currentUser.current) ? 'highlight-post' : '' }">
+		<li class="post-item flagged-moderator-item question-item ${answer.isVisibleForModeratorAndNotAuthor(currentUser.current) ? 'highlight-post' : '' }">
 			<div class="post-information question-information">
 				<tags:postItemInformation key="post.list.vote"
 					count="${answer.voteCount}" information="votes"	
@@ -22,7 +30,7 @@
 					<fmt:message key="moderation.flags">
 						<fmt:param value="${answer.flags.size()}"/>
 					</fmt:message>
-					<h3 class="title item-title main-thread-title question-title">
+					<h3 class=" moderator-title item-title main-thread-title question-title">
 						<tags:questionLinkFor answer="${answer}" />
 					</h3>
 					<p class="ellipsis">${answer.description}</p>

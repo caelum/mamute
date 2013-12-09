@@ -24,9 +24,9 @@
 			<h2 class="title page-title">${title}</h2>
 		</c:if>
 	</c:if>
-	<c:if test="${not empty rssUrl}">
+	<%-- <c:if test="${not empty rssUrl}">
 		<a href="${rssUrl}" class="rss-link"><i class="icon-rss"></i></a>
-	</c:if>
+	</c:if> --%>
 	<c:if test="${not empty tabs}">
 		<tags:tabs title="${title}" useSubheader="${false}">
 			<c:forEach var="tab" items="${tabs}">
