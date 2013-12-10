@@ -93,17 +93,6 @@ public class CustomVRaptorIntegration extends VRaptorIntegration {
 				initWith("email", email).add("password", "123456"));
 	}
 
-	protected User randomUser() {
-		String email = String.format("acceptance%f@brutal.com", randomizer.nextFloat());
-		User user = new User("Acceptance Test User", email);
-		LoginMethod brutalLogin = LoginMethod.brutalLogin(user, email, "123456");
-		user.add(brutalLogin);
-	    userDao().save(user);
-	    new LoginMethodDAO(session).save(brutalLogin);
-
-		return user;
-	}
-
 	protected UserFlow createQuestionWithFlow(UserFlow navigation,
 			String title, String description, String tagNames, boolean watching) {
 		return navigation.post("/perguntar",
@@ -154,7 +143,27 @@ public class CustomVRaptorIntegration extends VRaptorIntegration {
 					.add("watching", watching));
 	}
 
+	protected UserFlow goToQuestionPage(UserFlow navigation, Question question) {
+		String url = String.format("/%s-mock", question.getId());
+		return navigation.get(url,
+				initWith("question", question)
+					.add("sluggedTitle", question.getSluggedTitle()));
+	}
+
 	/*** DAO LOGIC ***/
+
+	protected User randomUser() {
+		String email = String.format("acceptance%f@brutal.com", randomizer.nextFloat());
+		User user = new User("Acceptance Test User", email);
+		LoginMethod brutalLogin = LoginMethod.brutalLogin(user, email, "123456");
+		user.add(brutalLogin);
+		userDao().save(user);
+		new LoginMethodDAO(session).save(brutalLogin);
+		commit();
+
+		return user;
+	}
+
 	protected QuestionDAO questionDao() {
 		InvisibleForUsersRule invisible = new InvisibleForUsersRule(new LoggedUser(null, null));
 		return new QuestionDAO(session, invisible);
