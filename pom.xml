@@ -452,6 +452,7 @@
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
 			<version>1.7.3</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
@@ -613,6 +614,7 @@
 						</goals>
 						<configuration>
 							<outputDirectory>src/main/webapp/WEB-INF/lib</outputDirectory>
+							<includeScope>compile</includeScope>
 						</configuration>
 					</execution>
 				</executions>
