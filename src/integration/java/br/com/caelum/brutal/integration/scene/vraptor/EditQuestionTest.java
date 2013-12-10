@@ -7,7 +7,6 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 
 import org.jsoup.select.Elements;
-import org.junit.Assert;
 import org.junit.Test;
 
 import br.com.caelum.brutal.model.Question;
