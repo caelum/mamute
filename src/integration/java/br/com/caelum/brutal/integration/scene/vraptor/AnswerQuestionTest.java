@@ -1,6 +1,5 @@
 package br.com.caelum.brutal.integration.scene.vraptor;
 
-import static br.com.caelum.vraptor.test.http.Parameters.initWith;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -26,7 +25,7 @@ public class AnswerQuestionTest extends CustomVRaptorIntegration {
 
 		String description = "Resposta da questao do teste de edicao";
 
-		UserFlow navigation = login(navigate(), "karma.nigga@caelum.com.br");
+		UserFlow navigation = login(navigate(), karmaNigga().getEmail());
 		navigation = answerQuestionWithFlow(navigation, question, description, false);
 
 		VRaptorTestResult questionAnswered = navigation.followRedirect().execute();
@@ -61,7 +60,7 @@ public class AnswerQuestionTest extends CustomVRaptorIntegration {
 		answerQuestionWithDao(karmaNigga(), question,
 				"Resposta da questao do teste de edicao", false);
 
-		UserFlow navigation = login(navigate(), "karma.nigga@caelum.com.br");
+		UserFlow navigation = login(navigate(), karmaNigga().getEmail());
 		navigation = goToQuestionPage(navigation, question);
 
 		VRaptorTestResult questionPage = navigation.followRedirect().execute();
@@ -69,13 +68,6 @@ public class AnswerQuestionTest extends CustomVRaptorIntegration {
 
 		Elements answerForm = getElementsByClass(questionPage.getResponseBody(), "answer-form");
 		assertTrue(answerForm.isEmpty());
-	}
-
-	private UserFlow goToQuestionPage(UserFlow navigation, Question question) {
-		String url = String.format("/%s-mock", question.getId());
-		return navigation.get(url,
-				initWith("question", question)
-					.add("sluggedTitle", question.getSluggedTitle()));
 	}
 
 }
