@@ -2,11 +2,16 @@ package br.com.caelum.brutal.integration.scene;
 
 import static org.junit.Assert.assertEquals;
 
+import org.hibernate.Session;
 import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.brutal.integration.pages.QuestionPage;
+import br.com.caelum.brutal.integration.util.DaoManager;
+import br.com.caelum.brutal.model.Question;
+import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.VoteType;
+import br.com.caelum.brutal.util.ScriptSessionCreator;
 
 public class VoteUpDownTest extends AuthenticatedAcceptanceTest {
     
@@ -15,13 +20,15 @@ public class VoteUpDownTest extends AuthenticatedAcceptanceTest {
     
     @Before
     public void login() {
-    	loginRandomly();
-    	createQuestion();
-    	logout();
-    	loginRandomly();
-    	home().toFirstQuestionPage().answer("blablablablablablablablablablablablablab");
-    	logout();
-    	loginWithALotOfKarma();
+		ScriptSessionCreator sessionFactoryCreator = new ScriptSessionCreator();
+		Session session = sessionFactoryCreator.getSession();
+		DaoManager manager = new DaoManager(session);
+
+		User author = manager.randomUser();
+		Question question = manager.createQuestion(author);
+		manager.answerQuestion(author, question);
+
+		loginWithALotOfKarma();
         questionPage = home().toFirstQuestionPage();
     }
     
