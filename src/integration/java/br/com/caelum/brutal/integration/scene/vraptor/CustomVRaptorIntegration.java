@@ -154,6 +154,7 @@ public class CustomVRaptorIntegration extends VRaptorIntegration {
 
 	protected User randomUser() {
 		String email = String.format("acceptance%f@brutal.com", randomizer.nextFloat());
+		email = email.replace(",", ".");
 		User user = new User("Acceptance Test User", email);
 		LoginMethod brutalLogin = LoginMethod.brutalLogin(user, email, "123456");
 		user.add(brutalLogin);
