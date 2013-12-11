@@ -32,7 +32,7 @@ public class SignupValidator {
 		userValidator.validate(user);
 		
 		if (password == null || password.length() < PASSWORD_MIN_LENGTH || password.length() > PASSWORD_MAX_LENGTH){
-			validator.add(messageFactory.build("error", "user.errors.password.length"));
+			validator.add(messageFactory.build("error", "signup.errors.password.length"));
 		}
 		
 		if (password != null && !password.equals(passwordConfirmation)) {
