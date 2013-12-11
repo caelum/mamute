@@ -13,6 +13,10 @@
 	<c:set value="?semRespostas=true" var="append" />
 </c:if>
 
+<c:if test="${not unansweredTagLinks}">
+	<c:set value="/" var="append" />
+</c:if>
+
 <ol class="main-tags ${tagClass}">
 	<li>
 		<a class="${(tag.name == 'java' || currentQuestion.mostImportantTag.name == 'java') && useSprite ? 'main-tags-current' : ''} ${tagClassLi} ${useSprite? 'main-tags-sprite main-tags-java' : '' }" href="<c:url value="/tag/java${append}" />">
