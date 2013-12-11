@@ -39,6 +39,7 @@ import br.com.caelum.vraptor.validator.I18nMessage;
 
 public class CustomVRaptorIntegration extends VRaptorIntegration {
 
+	protected final String DEFAULT_PASSWORD = "123456";
 	private static boolean runDataImport = true;
 	private Session session;
 
@@ -73,6 +74,15 @@ public class CustomVRaptorIntegration extends VRaptorIntegration {
 		return messages;
 	}
 
+	protected List<String> errorsList(VRaptorTestResult result) {
+		List<I18nMessage> errorMessages = result.getObject("errors");
+		List<String> messages = new ArrayList<>();
+		for (I18nMessage message : errorMessages) {
+			messages.add(message.getMessage());
+		}
+		return messages;
+	}
+
 	protected Elements getElementsByClass(String html, String cssClass) {
 		Document document = Jsoup.parse(html);
 		return document.getElementsByClass(cssClass);
@@ -90,7 +100,7 @@ public class CustomVRaptorIntegration extends VRaptorIntegration {
 
 	protected UserFlow login(UserFlow navigation, String email) {
 		return navigation.post("/login",
-				initWith("email", email).add("password", "123456"));
+				initWith("email", email).add("password", DEFAULT_PASSWORD));
 	}
 
 	protected UserFlow createQuestionWithFlow(UserFlow navigation,
@@ -153,10 +163,9 @@ public class CustomVRaptorIntegration extends VRaptorIntegration {
 	/*** DAO LOGIC ***/
 
 	protected User randomUser() {
-		String email = String.format("acceptance%f@brutal.com", randomizer.nextFloat());
-		email = email.replace(",", ".");
+		String email = String.format("acceptance%l@brutal.com", randomizer.nextLong());
 		User user = new User("Acceptance Test User", email);
-		LoginMethod brutalLogin = LoginMethod.brutalLogin(user, email, "123456");
+		LoginMethod brutalLogin = LoginMethod.brutalLogin(user, email, DEFAULT_PASSWORD);
 		user.add(brutalLogin);
 		userDao().save(user);
 		new LoginMethodDAO(session).save(brutalLogin);
@@ -189,16 +198,16 @@ public class CustomVRaptorIntegration extends VRaptorIntegration {
 	}
 
 	protected User moderator() {
-		return userDao().findByMailAndPassword("moderator@caelum.com.br", "123456");
+		return userDao().findByMailAndPassword("moderator@caelum.com.br", DEFAULT_PASSWORD);
 	}
 
 	protected User karmaNigga() {
 		return userDao().findByMailAndPassword("karma.nigga@caelum.com.br",
-				"123456");
+				DEFAULT_PASSWORD);
 	}
 
 	protected User user(String email) {
-		return userDao().findByMailAndPassword(email, "123456");
+		return userDao().findByMailAndPassword(email, DEFAULT_PASSWORD);
 	}
 
 	protected Question createQuestionWithDao(User author, String title,
