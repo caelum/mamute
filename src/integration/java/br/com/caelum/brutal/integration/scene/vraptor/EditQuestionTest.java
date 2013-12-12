@@ -9,6 +9,7 @@ import java.util.List;
 import org.jsoup.select.Elements;
 import org.junit.Test;
 
+import br.com.caelum.brutal.integration.util.DaoManager;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.test.VRaptorTestResult;
@@ -83,7 +84,7 @@ public class EditQuestionTest extends CustomVRaptorIntegration {
 
 	@Test
 	public void should_touch_question() throws Exception {
-		User user = randomUser();
+		User user = new DaoManager().randomUser();
 
 		Question question = createQuestionWithDao(user(user.getEmail()),
 				"Question question question question question",

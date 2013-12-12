@@ -162,18 +162,6 @@ public class CustomVRaptorIntegration extends VRaptorIntegration {
 
 	/*** DAO LOGIC ***/
 
-	protected User randomUser() {
-		String email = String.format("acceptance%l@brutal.com", randomizer.nextLong());
-		User user = new User("Acceptance Test User", email);
-		LoginMethod brutalLogin = LoginMethod.brutalLogin(user, email, DEFAULT_PASSWORD);
-		user.add(brutalLogin);
-		userDao().save(user);
-		new LoginMethodDAO(session).save(brutalLogin);
-		commit();
-
-		return user;
-	}
-
 	protected QuestionDAO questionDao() {
 		InvisibleForUsersRule invisible = new InvisibleForUsersRule(new LoggedUser(null, null));
 		return new QuestionDAO(session, invisible);

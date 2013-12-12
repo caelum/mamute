@@ -16,9 +16,7 @@ public class CommentQuestionTest extends AuthenticatedAcceptanceTest {
 
 	@Before
 	public void login() {
-		ScriptSessionCreator sessionFactoryCreator = new ScriptSessionCreator();
-		Session session = sessionFactoryCreator.getSession();
-		DaoManager manager = new DaoManager(session);
+		DaoManager manager = new DaoManager();
 
 		User author = manager.randomUser();
 		manager.createQuestion(author);
