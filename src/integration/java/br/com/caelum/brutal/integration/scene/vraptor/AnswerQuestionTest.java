@@ -12,6 +12,7 @@ import org.junit.Test;
 import br.com.caelum.brutal.model.Answer;
 import br.com.caelum.brutal.model.AnswerAndVotes;
 import br.com.caelum.brutal.model.Question;
+import br.com.caelum.brutal.model.User;
 import br.com.caelum.vraptor.test.VRaptorTestResult;
 import br.com.caelum.vraptor.test.requestflow.UserFlow;
 
@@ -57,10 +58,11 @@ public class AnswerQuestionTest extends CustomVRaptorIntegration {
 				"Titulo da questao hahaha",
 				"Descricao da questao longa demais", tag("java"));
 
-		answerQuestionWithDao(karmaNigga(), question,
+		User karmaNigga = karmaNigga();
+		answerQuestionWithDao(karmaNigga, question,
 				"Resposta da questao do teste de edicao", false);
 
-		UserFlow navigation = login(navigate(), karmaNigga().getEmail());
+		UserFlow navigation = login(navigate(), karmaNigga.getEmail());
 		navigation = goToQuestionPage(navigation, question);
 
 		VRaptorTestResult questionPage = navigation.followRedirect().execute();
