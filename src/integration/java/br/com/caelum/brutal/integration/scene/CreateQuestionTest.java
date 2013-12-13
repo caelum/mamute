@@ -18,18 +18,6 @@ public class CreateQuestionTest extends AuthenticatedAcceptanceTest {
 	}
 
 	@Test
-	public void should_make_a_question() {
-		String title = "My new question about java";
-		String description = "just a question that i have about java hahahhaha";
-		String tags = "java";
-		boolean isTheQuestion = home()
-			.toNewQuestionPage()
-			.newQuestion(title, description, tags)
-			.hasInformation(title, description, tags);
-		assertTrue(isTheQuestion);
-	}
-	
-	@Test
 	public void should_suggest_auto_complete() throws InterruptedException {
 		boolean hasAutoCompleteSuggestion = home()
 				.toNewQuestionPage()
