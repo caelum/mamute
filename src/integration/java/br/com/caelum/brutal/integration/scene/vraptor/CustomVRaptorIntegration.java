@@ -30,7 +30,7 @@ public class CustomVRaptorIntegration extends VRaptorIntegration {
 	private static boolean runDataImport = true;
 
 	private AppMessages messages = new AppMessages();
-	protected DaoManager daoManager;
+	private DaoManager daoManager;
 
 	{
 		System.setProperty(ServletBasedEnvironment.ENVIRONMENT_PROPERTY, "acceptance");
@@ -83,7 +83,7 @@ public class CustomVRaptorIntegration extends VRaptorIntegration {
 	}
 
 	protected User karmaNigga() {
-		return daoManager.moderator();
+		return daoManager.karmaNigga();
 	}
 
 	protected User user(String email) {
