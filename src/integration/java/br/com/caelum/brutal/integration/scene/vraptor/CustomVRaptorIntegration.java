@@ -4,33 +4,20 @@ import static br.com.caelum.vraptor.test.http.Parameters.initWith;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
-import org.hibernate.Session;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-import br.com.caelum.brutal.builder.QuestionBuilder;
-import br.com.caelum.brutal.dao.AnswerDAO;
-import br.com.caelum.brutal.dao.InvisibleForUsersRule;
-import br.com.caelum.brutal.dao.LoginMethodDAO;
-import br.com.caelum.brutal.dao.QuestionDAO;
-import br.com.caelum.brutal.dao.TagDAO;
-import br.com.caelum.brutal.dao.UserDAO;
 import br.com.caelum.brutal.integration.util.AppMessages;
+import br.com.caelum.brutal.integration.util.DaoManager;
 import br.com.caelum.brutal.model.Answer;
-import br.com.caelum.brutal.model.AnswerInformation;
-import br.com.caelum.brutal.model.LoggedUser;
-import br.com.caelum.brutal.model.LoginMethod;
 import br.com.caelum.brutal.model.Post;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.Tag;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.util.DataImport;
-import br.com.caelum.brutal.util.ScriptSessionCreator;
 import br.com.caelum.vraptor.environment.ServletBasedEnvironment;
 import br.com.caelum.vraptor.test.VRaptorIntegration;
 import br.com.caelum.vraptor.test.VRaptorTestResult;
@@ -41,10 +28,9 @@ public class CustomVRaptorIntegration extends VRaptorIntegration {
 
 	protected final String DEFAULT_PASSWORD = "123456";
 	private static boolean runDataImport = true;
-	private Session session;
 
 	private AppMessages messages = new AppMessages();
-	private Random randomizer = new Random();
+	protected DaoManager daoManager;
 
 	{
 		System.setProperty(ServletBasedEnvironment.ENVIRONMENT_PROPERTY, "acceptance");
@@ -56,9 +42,7 @@ public class CustomVRaptorIntegration extends VRaptorIntegration {
 			}
 			runDataImport = false;
 		}
-		ScriptSessionCreator sessionFactoryCreator = new ScriptSessionCreator();
-		session = sessionFactoryCreator.getSession();
-		session.beginTransaction();
+		daoManager = new DaoManager();
 	}
 
 	protected String message(String key) {
@@ -91,6 +75,43 @@ public class CustomVRaptorIntegration extends VRaptorIntegration {
 	protected Elements getElementsByTag(String html, String tagName) {
 		Document document = Jsoup.parse(html);
 		return document.getElementsByTag(tagName);
+	}
+
+	/*** DAO LOGIC ***/
+	protected User moderator() {
+		return daoManager.moderator();
+	}
+
+	protected User karmaNigga() {
+		return daoManager.moderator();
+	}
+
+	protected User user(String email) {
+		return daoManager.user(email);
+	}
+
+	protected User randomUser() {
+		return daoManager.randomUser();
+	}
+
+	protected Question createQuestionWithDao(User author) {
+		return daoManager.createQuestion(author);
+	}
+
+	protected Question createQuestionWithDao(User author, String title, String description, Tag... tags) {
+		return daoManager.createQuestion(author, title, description, tags);
+	}
+
+	protected Answer answerQuestionWithDao (User author, Question question) {
+		return daoManager.answerQuestion(author, question);
+	}
+
+	protected Answer answerQuestionWithDao (User author, Question question, String description, boolean watching) {
+		return daoManager.answerQuestion(author, question, description, watching);
+	}
+
+	protected Tag tag (String tagName) {
+		return daoManager.tag(tagName);
 	}
 
 	/*** USER FLOW LOGIC ***/
@@ -158,65 +179,6 @@ public class CustomVRaptorIntegration extends VRaptorIntegration {
 		return navigation.get(url,
 				initWith("question", question)
 					.add("sluggedTitle", question.getSluggedTitle()));
-	}
-
-	/*** DAO LOGIC ***/
-
-	protected QuestionDAO questionDao() {
-		InvisibleForUsersRule invisible = new InvisibleForUsersRule(new LoggedUser(null, null));
-		return new QuestionDAO(session, invisible);
-	}
-
-	protected AnswerDAO answerDao() {
-		InvisibleForUsersRule invisible = new InvisibleForUsersRule(new LoggedUser(null, null));
-		return new AnswerDAO(session, invisible);
-	}
-
-	protected void commit() {
-		session.getTransaction().commit();
-		session.beginTransaction();
-	}
-
-	protected UserDAO userDao() {
-		return new UserDAO(session);
-	}
-
-	protected Tag tag(String name) {
-		return new TagDAO(this.session).findByName(name);
-	}
-
-	protected User moderator() {
-		return userDao().findByMailAndPassword("moderator@caelum.com.br", DEFAULT_PASSWORD);
-	}
-
-	protected User karmaNigga() {
-		return userDao().findByMailAndPassword("karma.nigga@caelum.com.br",
-				DEFAULT_PASSWORD);
-	}
-
-	protected User user(String email) {
-		return userDao().findByMailAndPassword(email, DEFAULT_PASSWORD);
-	}
-
-	protected Question createQuestionWithDao(User author, String title,
-			String description, Tag... tags) {
-		Question question = new QuestionBuilder().withTitle(title)
-				.withDescription(description).withTags(Arrays.asList(tags))
-				.withAuthor(author).build();
-		questionDao().save(question);
-		commit();
-		return question;
-	}
-
-	protected Answer answerQuestionWithDao(User author, Question question,
-			String description, boolean watching) {
-		LoggedUser loggedUser = new LoggedUser(author, null);
-		AnswerInformation information = new AnswerInformation(description,
-				loggedUser, "new answer");
-		Answer answer = new Answer(information, question, author);
-		answerDao().save(answer);
-		commit();
-		return answer;
 	}
 
 }

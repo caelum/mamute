@@ -27,7 +27,7 @@ public class EditAnswerTest extends CustomVRaptorIntegration {
 
 		String newDescription = "my new description of the first answer";
 
-		UserFlow navigation = login(navigate(), "karma.nigga@caelum.com.br");
+		UserFlow navigation = login(navigate(), karmaNigga().getEmail());
 		navigation = editAnswerWithFlow(navigation, answer, newDescription,
 				"comment");
 

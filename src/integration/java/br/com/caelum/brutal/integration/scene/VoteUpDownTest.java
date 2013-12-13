@@ -2,7 +2,6 @@ package br.com.caelum.brutal.integration.scene;
 
 import static org.junit.Assert.assertEquals;
 
-import org.hibernate.Session;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,7 +10,6 @@ import br.com.caelum.brutal.integration.util.DaoManager;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.model.VoteType;
-import br.com.caelum.brutal.util.ScriptSessionCreator;
 
 public class VoteUpDownTest extends AuthenticatedAcceptanceTest {
     
