@@ -27,7 +27,7 @@ import br.com.caelum.vraptor.validator.I18nMessage;
 public class CustomVRaptorIntegration extends VRaptorIntegration {
 
 	protected final String DEFAULT_PASSWORD = "123456";
-	private static boolean runDataImport = true;
+	private static boolean runDataImport = false;
 
 	private AppMessages messages = new AppMessages();
 	private DaoManager daoManager;
@@ -61,8 +61,10 @@ public class CustomVRaptorIntegration extends VRaptorIntegration {
 	protected List<String> errorsList(VRaptorTestResult result) {
 		List<I18nMessage> errorMessages = result.getObject("errors");
 		List<String> messages = new ArrayList<>();
-		for (I18nMessage message : errorMessages) {
-			messages.add(message.getMessage());
+		if(errorMessages!= null) {
+			for (I18nMessage message : errorMessages) {
+				messages.add(message.getMessage());
+			}
 		}
 		return messages;
 	}
@@ -122,6 +124,11 @@ public class CustomVRaptorIntegration extends VRaptorIntegration {
 	protected UserFlow login(UserFlow navigation, String email) {
 		return navigation.post("/login",
 				initWith("email", email).add("password", DEFAULT_PASSWORD));
+	}
+	
+	protected UserFlow loginWithPassword(UserFlow navigation, String email, String password) {
+		return navigation.post("/login",
+				initWith("email", email).add("password", password));
 	}
 
 	protected UserFlow createQuestionWithFlow(UserFlow navigation,
