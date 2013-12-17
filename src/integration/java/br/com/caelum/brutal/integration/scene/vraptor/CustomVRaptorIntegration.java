@@ -27,7 +27,7 @@ import br.com.caelum.vraptor.validator.I18nMessage;
 public class CustomVRaptorIntegration extends VRaptorIntegration {
 
 	protected final String DEFAULT_PASSWORD = "123456";
-	private static boolean runDataImport = false;
+	private boolean runDataImport = true;
 
 	private AppMessages messages = new AppMessages();
 	private DaoManager daoManager;
