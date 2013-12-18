@@ -4,13 +4,11 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import org.hibernate.Session;
 import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.brutal.integration.util.DaoManager;
 import br.com.caelum.brutal.model.User;
-import br.com.caelum.brutal.util.ScriptSessionCreator;
 
 public class CommentQuestionTest extends AuthenticatedAcceptanceTest {
 
