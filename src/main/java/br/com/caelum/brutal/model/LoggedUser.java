@@ -4,8 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 
 public class LoggedUser {
 	
-	private User user;
-	private HttpServletRequest request;
+	private final User user;
+	private final HttpServletRequest request;
 	
 	public LoggedUser(User user, HttpServletRequest request) {
 		this.user = user;

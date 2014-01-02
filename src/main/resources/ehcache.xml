@@ -4,7 +4,8 @@
 	
 	<defaultCache eternal="false"
 		timeToIdleSeconds="240" timeToLiveSeconds="240" diskSpoolBufferSizeMB="30"
-		diskExpiryThreadIntervalSeconds="120" memoryStoreEvictionPolicy="LRU" statistics="false">
+		diskExpiryThreadIntervalSeconds="120" memoryStoreEvictionPolicy="LRU" statistics="false"
+		maxElementsInMemory="10000">
 	</defaultCache>
 	
 </ehcache>
