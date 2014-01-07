@@ -154,6 +154,8 @@ public class UserTest extends TestCase {
 				return new User("name", "name@brutal.com");
 			}
 		});
+		Thread.sleep(1);
+		
 		assertFalse(user.isVotingEnough());
 		
 		user.votedUp();
