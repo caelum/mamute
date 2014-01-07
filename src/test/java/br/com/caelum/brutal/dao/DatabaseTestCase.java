@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.dao;
 
+import static br.com.caelum.vraptor.environment.EnvironmentType.TEST;
+
 import java.io.IOException;
 
 import org.hibernate.Session;
@@ -22,7 +24,7 @@ public abstract class DatabaseTestCase extends TestCase {
 
 	static {
 		try {
-			Environment testing = new DefaultEnvironment("testing");
+			Environment testing = new DefaultEnvironment(TEST);
 			creator = new SessionFactoryCreator(testing);
 			creator.init();
 			factory = creator.getInstance();

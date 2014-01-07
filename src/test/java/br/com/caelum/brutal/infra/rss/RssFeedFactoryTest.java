@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.infra.rss;
 
+import static br.com.caelum.vraptor.environment.EnvironmentType.DEVELOPMENT;
 import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayOutputStream;
@@ -23,7 +24,7 @@ public class RssFeedFactoryTest extends TestCase {
 	
 	@Test
 	public void should_generate_feed() throws IOException {
-		DefaultEnvironment env = new DefaultEnvironment("development");
+		DefaultEnvironment env = new DefaultEnvironment(DEVELOPMENT);
 		QuestionRssEntryFactory factory = new QuestionRssEntryFactory(env);
 		RssFeedFactory rssFeedFactory = new RssFeedFactory(env, factory);
 		
