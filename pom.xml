@@ -101,9 +101,9 @@
 
 		<!-- hibernate deps -->
 		<dependency>
-			<groupId>br.com.caelum.vraptor</groupId>
-			<artifactId>vraptor-plugin-hibernate4</artifactId>
-			<version>1.0.3-SNAPSHOT</version>
+			<groupId>br.com.caelum</groupId>
+			<artifactId>vraptor-hibernate</artifactId>
+			<version>4.0.0-SNAPSHOT</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.hibernate</groupId>

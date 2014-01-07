@@ -8,9 +8,9 @@ import org.hibernate.Transaction;
 
 import br.com.caelum.brutal.infra.AfterSuccessfulTransaction;
 import br.com.caelum.vraptor.Intercepts;
+import br.com.caelum.vraptor.hibernate.HibernateTransactionInterceptor;
 import br.com.caelum.vraptor.http.MutableResponse;
 import br.com.caelum.vraptor.interceptor.SimpleInterceptorStack;
-import br.com.caelum.vraptor.plugin.hibernate4.HibernateTransactionInterceptor;
 import br.com.caelum.vraptor.validator.Validator;
 
 @Intercepts
