@@ -38,13 +38,14 @@ public class EditQuestionTest extends CustomVRaptorIntegration {
 
 	@Test
 	public void should_edit_and_automatically_approve_author_edit() throws Exception {
-		Question question = createQuestionWithDao(karmaNigga(),
+		User karmaNigga = karmaNigga();
+		Question question = createQuestionWithDao(karmaNigga,
 				"Title title title title title title title",
 				"Description description description description description", tag("java"));
 
 		String newTitle = "NEW title title title title title title title";
 		String newDescription = "NEW description description description description description";
-		UserFlow navigation = login(navigate(), karmaNigga().getEmail());
+		UserFlow navigation = login(navigate(), karmaNigga.getEmail());
 		navigation = editQuestionWithFlow(navigation, question,
 				newTitle, newDescription, "edited question woots!", "java");
 

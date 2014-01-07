@@ -109,7 +109,7 @@ public class User implements Identifiable {
 	@OneToMany(mappedBy="user")
 	private final List<LoginMethod> loginMethods = new ArrayList<>();
 
-	static final User GHOST;
+	public static final User GHOST;
 
 	@Length(min = EMAIL_MIN_LENGTH, max = EMAIL_MAX_LENGTH, message = EMAIL_LENGTH_MESSAGE)
 	@Email(message = EMAIL_NOT_VALID)

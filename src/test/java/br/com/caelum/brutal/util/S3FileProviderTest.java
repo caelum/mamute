@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.util;
 
+import static br.com.caelum.vraptor.environment.EnvironmentType.TEST;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
@@ -27,7 +28,7 @@ public class S3FileProviderTest {
     
     @Before
     public void setUp() throws IOException {
-        env = new DefaultEnvironment("testing");
+        env = new DefaultEnvironment(TEST);
         client = mock(AmazonS3Client.class);
         s3FileProvider = new S3FileProvider(client);
     }

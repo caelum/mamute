@@ -9,10 +9,9 @@ import br.com.caelum.vraptor.Intercepts;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.controller.ControllerMethod;
 import br.com.caelum.vraptor.core.InterceptorStack;
-import br.com.caelum.vraptor.interceptor.ExecuteMethodInterceptor;
 import br.com.caelum.vraptor.interceptor.Interceptor;
 
-@Intercepts(before = ExecuteMethodInterceptor.class)
+@Intercepts
 public class PimpMyControllerInterceptor implements Interceptor {
 
 	@Inject private Result result;

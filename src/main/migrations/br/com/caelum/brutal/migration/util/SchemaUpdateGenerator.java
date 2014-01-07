@@ -1,5 +1,7 @@
 package br.com.caelum.brutal.migration.util;
 
+import static br.com.caelum.vraptor.environment.EnvironmentType.DEVELOPMENT;
+
 import java.io.IOException;
 
 import org.hibernate.cfg.Configuration;
@@ -12,7 +14,7 @@ import br.com.caelum.vraptor.environment.DefaultEnvironment;
 public class SchemaUpdateGenerator {
 
 	public static void main(String[] args) throws IOException {
-		SessionFactoryCreator sessionFactoryCreator = new SessionFactoryCreator(new DefaultEnvironment("development"));
+		SessionFactoryCreator sessionFactoryCreator = new SessionFactoryCreator(new DefaultEnvironment(DEVELOPMENT));
 		sessionFactoryCreator.init();
 		Configuration cfg = sessionFactoryCreator.getCfg();
 		

@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.integration.scene.vraptor;
 
+import static br.com.caelum.vraptor.test.http.Parameters.initWith;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -10,7 +11,6 @@ import org.junit.Test;
 import br.com.caelum.brutal.dao.QuestionDAO;
 import br.com.caelum.brutal.model.Question;
 import br.com.caelum.vraptor.test.VRaptorTestResult;
-import br.com.caelum.vraptor.test.http.Parameters;
 import br.com.caelum.vraptor.test.requestflow.UserFlow;
 
 public class ListTest extends CustomVRaptorIntegration{
@@ -68,14 +68,14 @@ public class ListTest extends CustomVRaptorIntegration{
 	}
 
 	private UserFlow home() {
-		return navigate().get("/", Parameters.initWith("p", 0));
+		return navigate().get("/", initWith("p", 0));
 	}
 
 	private UserFlow tagList(String tag) {
-		return navigate().get(("/tag/" + tag), Parameters.initWith("tagName", tag).add("p", 0).add("semRespostas", false));
+		return navigate().get(("/tag/" + tag), initWith("tagName", tag).add("p", 0).add("semRespostas", false));
 	}
 
 	private UserFlow unsolvedQuestions() {
-		return navigate().get("/sem-respostas", Parameters.initWith("p", 0));
+		return navigate().get("/sem-respostas", initWith("p", 0));
 	}
 }

@@ -1,5 +1,6 @@
 package br.com.caelum.brutal.migration;
 
+import static br.com.caelum.vraptor.environment.EnvironmentType.PRODUCTION;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
@@ -37,7 +38,7 @@ public class MigrationRunnerTest {
 		when(extractor.from(m1)).thenReturn(1);
 		when(extractor.from(m2)).thenReturn(2);
 
-		runner = new MigrationRunner(asList(m1, m2), extractor, executor, new DefaultEnvironment("production"));
+		runner = new MigrationRunner(asList(m1, m2), extractor, executor, new DefaultEnvironment(PRODUCTION));
 	}
 
 	@Test

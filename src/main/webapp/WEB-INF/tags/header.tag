@@ -3,7 +3,6 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="env" uri="http://www.caelum.com.br/vraptor-environment/taglib"%>
 <%@attribute name="title" type="java.lang.String" required="true"%>
 <%@attribute name="description" type="java.lang.String" required="false"%>
 <%@attribute name="facebookMetas" type="java.lang.Boolean" required="false"%>
@@ -21,7 +20,7 @@
 	<meta property="og:site_name" content="guj.com.br">
 	<meta property="og:url" content='${currentUrl}'>
 	<meta property="og:type" content="website">
-	<meta property="og:image" content="<env:get key="host"/><c:url value="/imgs/logo-guj-fb.png"/>">
+	<meta property="og:image" content='${environment.get("host")}<c:url value="/imgs/logo-guj-fb.png"/>'>
 </c:if>
 
 

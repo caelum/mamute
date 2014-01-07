@@ -33,6 +33,7 @@ import br.com.caelum.brutal.integration.util.AppMessages;
 import br.com.caelum.brutal.integration.util.ServerInfo;
 import br.com.caelum.vraptor.environment.DefaultEnvironment;
 import br.com.caelum.vraptor.environment.Environment;
+import br.com.caelum.vraptor.environment.EnvironmentType;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 
@@ -139,7 +140,7 @@ public abstract class AcceptanceTestBase implements ServerInfo.AcceptanceTest {
 		if (homologEnv == null) {
 			homologEnv = "development";
 		}
-		env = new DefaultEnvironment(homologEnv);
+		env = new DefaultEnvironment(EnvironmentType.of(homologEnv));
 	}
 
 	private static void waitForFirstBodyPresence() {
