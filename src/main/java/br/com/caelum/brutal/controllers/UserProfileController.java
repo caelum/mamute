@@ -4,6 +4,8 @@ import static br.com.caelum.brutal.dao.WithUserPaginatedDAO.OrderType.ByDate;
 import static br.com.caelum.brutal.dao.WithUserPaginatedDAO.OrderType.ByVotes;
 import static java.util.Arrays.asList;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.joda.time.DateTime;
@@ -19,6 +21,7 @@ import br.com.caelum.brutal.dao.WithUserPaginatedDAO.OrderType;
 import br.com.caelum.brutal.dto.UserPersonalInfo;
 import br.com.caelum.brutal.factory.MessageFactory;
 import br.com.caelum.brutal.model.LoggedUser;
+import br.com.caelum.brutal.model.LoginMethod;
 import br.com.caelum.brutal.model.User;
 import br.com.caelum.brutal.validators.UserPersonalInfoValidator;
 import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
@@ -149,6 +152,8 @@ public class UserProfileController extends BaseController{
 			infoValidator.onErrorRedirectTo(this).editProfile(user);
 			return;
 		}
+		
+		users.updateLoginMethod(user, email);
 		
 		user.setPersonalInformation(info);
 		

@@ -174,4 +174,12 @@ public class UserDAO {
 		}
 		return result;
 	}
+
+	public void updateLoginMethod(User user, String email) {
+		session.createQuery("update LoginMethod set serviceEmail = :email where user_id = :id and type like :brutal")
+			.setParameter("email", email)
+			.setParameter("id", user.getId())
+			.setParameter("brutal", MethodType.BRUTAL)
+			.executeUpdate();
+	}
 }
