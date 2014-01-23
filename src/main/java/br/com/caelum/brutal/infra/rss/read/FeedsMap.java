@@ -3,6 +3,7 @@ package br.com.caelum.brutal.infra.rss.read;
 import static java.lang.Integer.valueOf;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -33,7 +34,6 @@ public class FeedsMap {
 	}
 
 	public Set<Entry<String, RSSFeed>> entrySet() {
-		return hashMap.entrySet();
+		return new HashSet<>(hashMap.entrySet());
 	}
-	
 }
