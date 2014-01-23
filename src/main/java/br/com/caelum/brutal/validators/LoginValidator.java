@@ -11,17 +11,15 @@ public class LoginValidator {
 	
 	private Validator validator;
 	private MessageFactory messageFactory;
-	private EmailValidator emailValidator;
 
 	@Deprecated
 	public LoginValidator() {
 	}
 
 	@Inject
-	public LoginValidator(Validator validator, MessageFactory messageFactory, EmailValidator emailValidator) {
+	public LoginValidator(Validator validator, MessageFactory messageFactory) {
 		this.validator = validator;
 		this.messageFactory = messageFactory;
-		this.emailValidator = emailValidator;
 	}
 	
 	public boolean validate(String email, String password){
