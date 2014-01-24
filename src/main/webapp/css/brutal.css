@@ -49,7 +49,6 @@ a:hover {
 	margin-right: auto;
 	max-width: 90%;
 	overflow: hidden;
-	position: relative;
 }
 
 .title, .flagged-item-title-moderator {
@@ -58,6 +57,10 @@ a:hover {
 
 .title,.title a {
 	font-family: Trebuchet MS, Liberation Sans, DejaVu Sans, sans-serif;
+}
+
+.header-container{
+	position: relative;
 }
 
 .subheader {

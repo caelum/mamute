@@ -6,7 +6,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <header class="header clear">
 	<section class="second-header">
-		<div class="container">
+		<div class="container header-container">
 			<a class="logo big-logo sprite"
 				href="${linkTo[ListController].home}"><fmt:message key="site.name" /></a>
 			<nav class="nav main-nav piped-nav">
