@@ -7,6 +7,8 @@
        <scan>
        	<exclude name="br.com.caelum.brutal.integration.**"/>
        	<exclude name="br.com.caelum.brutal.model.*"/>
+       	<exclude name="br.com.caelum.brutal.infra.rss.converter.OndeTrabalharRSSJob"/>
+       	<exclude name="br.com.caelum.brutal.infra.rss.converter.InfoQRSSJob"/>
        	<exclude name="com.google.common.util.concurrent.MoreExecutors$SameThreadExecutorService"/>
        </scan>
 
