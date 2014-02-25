@@ -39,8 +39,8 @@ public class VoteDAOTest extends DatabaseTestCase{
 	@Before
 	public void beforeTest() {
 		votes = new VoteDAO(session);
-		currentUser = user("Current User", "currentUser@caelum.com");
-		otherUser = user("Other User", "otherUser@caelum.com");
+		currentUser = user("Current User", "currentUser@email.com");
+		otherUser = user("Other User", "otherUser@email.com");
 		session.save(otherUser);
 		session.save(currentUser);
 		tags.add(tag("bla"));

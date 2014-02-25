@@ -37,7 +37,7 @@ public class UserPersonalInfoValidatorTest extends TestCase{
 	@Before
 	public void setup() {
 		this.bundle = mock(BundleFormatter.class);
-		this.validEmail = "artur.adam@caelum.com.br";
+		this.validEmail = "artur.adam@email.com.br";
 		this.users = mock(UserDAO.class);
 		this.validator = new MockValidator();
 		this.messageFactory = new MessageFactory(mock(ResourceBundle.class));

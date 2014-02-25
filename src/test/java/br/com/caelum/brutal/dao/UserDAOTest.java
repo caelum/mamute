@@ -28,26 +28,26 @@ public class UserDAOTest extends DatabaseTestCase {
 	
 	@Test
 	public void should_search_by_email_and_password() {
-		User guilherme = user("Guilherme Silveira", "guilherme@caelum.com.br");
-		LoginMethod brutalLogin = LoginMethod.brutalLogin(guilherme, "guilherme@caelum.com.br", "654321");
-		guilherme.add(brutalLogin);
+		User gui = user("Guilherme Sonar", "gui@email.com.br");
+		LoginMethod brutalLogin = LoginMethod.brutalLogin(gui, "gui@email.com.br", "654321");
+		gui.add(brutalLogin);
 		
-		users.save(guilherme);
+		users.save(gui);
 		session.save(brutalLogin);
 		
-		assertEquals(guilherme, users.findByMailAndPassword("guilherme@caelum.com.br", "654321"));
-		assertNull(users.findByMailAndPassword("guilherme@caelum.com.br", "1234567"));
-		assertNull(users.findByMailAndPassword("joao.silveira@caelum.com.br", "654321"));
+		assertEquals(gui, users.findByMailAndPassword("gui@email.com.br", "654321"));
+		assertNull(users.findByMailAndPassword("gui@email.com.br", "1234567"));
+		assertNull(users.findByMailAndPassword("joao.silveira@email.com.br", "654321"));
 	}
 	
 	@Test
 	public void should_find_by_session_key() {
-	    User guilherme = user("Guilherme Silveira", "guilherme@caelum.com.br");
-	    users.save(guilherme);
-	    UserSession userSession = guilherme.newSession();
+	    User gui = user("Guilherme Sonar", "gui@email.com.br");
+	    users.save(gui);
+	    UserSession userSession = gui.newSession();
 	    users.save(userSession);
 	    
-	    assertEquals(guilherme, users.findBySessionKey(userSession.getSessionKey()).getUser());
+	    assertEquals(gui, users.findBySessionKey(userSession.getSessionKey()).getUser());
 	    assertNull(users.findBySessionKey("12345"));
 	    assertNull(users.findBySessionKey(null));
 	}
@@ -55,23 +55,23 @@ public class UserDAOTest extends DatabaseTestCase {
 	@Test
 	public void should_search_by_email_and_legacy_password_and_update_password() {
 	    String password = "654321";
-        User guilherme = user("Guilherme Silveira", "guilherme@caelum.com.br");
-		LoginMethod brutalLogin = LoginMethod.brutalLogin(guilherme, "guilherme@caelum.com.br", password);
+        User gui = user("Guilherme Sonar", "gui@email.com.br");
+		LoginMethod brutalLogin = LoginMethod.brutalLogin(gui, "gui@email.com.br", password);
 	    new Mirror().on(brutalLogin).set().field("token").withValue(MD5.crypt(password));
 
-	    guilherme.add(brutalLogin);
-	    users.save(guilherme);
+	    gui.add(brutalLogin);
+	    users.save(gui);
 	    session.save(brutalLogin);
 	    
-	    assertNull(users.findByMailAndPassword("guilherme@caelum.com.br", password));
+	    assertNull(users.findByMailAndPassword("gui@email.com.br", password));
 	    
-	    User found = users.findByMailAndLegacyPasswordAndUpdatePassword("guilherme@caelum.com.br", password);
+	    User found = users.findByMailAndLegacyPasswordAndUpdatePassword("gui@email.com.br", password);
 	    
-        assertEquals(guilherme, found);
+        assertEquals(gui, found);
 	    assertEquals(Digester.encrypt(password), found.getBrutalLogin().getToken());
 	    
-	    assertNull(users.findByMailAndPassword("joao.silveira@caelum.com.br", password));
-	    assertNull(users.findByMailAndPassword("guilherme.silveira@caelum.com.br", "123456"));
+	    assertNull(users.findByMailAndPassword("joao.silveira@email.com.br", password));
+	    assertNull(users.findByMailAndPassword("gui@email.com.br", "123456"));
 	}
 	
 	@Test
@@ -92,7 +92,7 @@ public class UserDAOTest extends DatabaseTestCase {
 	}
 
 	private User saveUser(String email) {
-		User user = user("Chico Sokol", email);
+		User user = user("Chico Picadinho", email);
 		LoginMethod facebookLogin = LoginMethod.facebookLogin(user, user.getEmail(), "1234");
 		user.add(facebookLogin);
 		session.save(user);

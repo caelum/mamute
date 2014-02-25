@@ -18,7 +18,7 @@ import br.com.caelum.brutal.providers.SessionFactoryCreator;
 public class ForgotPasswordTest extends AcceptanceTestBase implements ServerInfo.AcceptanceTest  {
     
     private static Session SESSION;
-    private String validEmail = "francisco.sokol@caelum.com.br";
+    private String validEmail = "chico@email.com.br";
 
     @BeforeClass
     public static void setup() throws IOException {
