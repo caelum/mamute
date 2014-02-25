@@ -2,7 +2,7 @@
 <%@attribute name="tagClassLi" type="java.lang.String" required="false" %>
 <%@attribute name="useSprite" type="java.lang.Boolean" required="false" %>
 <%@attribute name="unansweredTagLinks" type="java.lang.Boolean" required="false"%>
-<%@attribute name="currentQuestion" type="br.com.caelum.brutal.model.Question" required="false"%>
+<%@attribute name="currentQuestion" type="org.mamute.model.Question" required="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <c:if test="${empty unansweredTagLinks}">

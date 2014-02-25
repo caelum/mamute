@@ -2,7 +2,7 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@attribute name="history" type="br.com.caelum.brutal.model.ModeratableAndPendingHistory" required="true" %>
+<%@attribute name="history" type="org.mamute.model.ModeratableAndPendingHistory" required="true" %>
 
 <c:if test="${empty history.entrySet}">
 	<h2 class="title section-title"><fmt:message key="moderation.edit.questions.empty" /></h2>

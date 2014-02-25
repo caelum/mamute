@@ -1,6 +1,6 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@attribute name="answer" type="br.com.caelum.brutal.model.Answer" required="true" %>
+<%@attribute name="answer" type="org.mamute.model.Answer" required="true" %>
 <div class="${answer.solution ? 'solution-container' : 'not-solution-container'}">
 	<c:if test="${currentUser.current.isAuthorOf(answer.question)}">
 		<a class="mark-as-solution requires-login" href="${linkTo[AnswerController].markAsSolution(answer.id)}">

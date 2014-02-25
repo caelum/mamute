@@ -2,7 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@attribute name="uri" required="true" type="java.lang.String" %>
 <%@attribute name="edit" required="false" type="java.lang.Boolean" %>
-<%@attribute name="news" required="false" type="br.com.caelum.brutal.model.News" %>
+<%@attribute name="news" required="false" type="org.mamute.model.News" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 
 <form class="validated-form question-form hinted-form" action='${uri}' method="post" >

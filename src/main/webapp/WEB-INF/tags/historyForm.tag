@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 <%@attribute name="tagList" fragment="true" required="false"%>
-<%@attribute name="information" type="br.com.caelum.brutal.model.Information" required="true" %>
+<%@attribute name="information" type="org.mamute.model.Information" required="true" %>
 <%@attribute name="index" type="java.lang.Integer" required="true" %>
 <%@attribute name="type" type="java.lang.String" required="true" %>
 <%@attribute name="isHistoryQuestion" type="java.lang.Boolean" required="false" %>

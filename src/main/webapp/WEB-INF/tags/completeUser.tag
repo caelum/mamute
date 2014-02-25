@@ -2,7 +2,7 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@attribute name="user" type="br.com.caelum.brutal.model.User" required="true" %>
+<%@attribute name="user" type="org.mamute.model.User" required="true" %>
 <%@attribute name="microdata" required="false" %>
 <%@attribute name="edited" required="false" %>
 <div class="complete-user">

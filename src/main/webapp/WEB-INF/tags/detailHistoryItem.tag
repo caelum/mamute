@@ -3,8 +3,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 
-<%@attribute name="vote" type="br.com.caelum.brutal.model.Vote" required="false" %>
-<%@attribute name="flag" type="br.com.caelum.brutal.model.Flag" required="false" %>
+<%@attribute name="vote" type="org.mamute.model.Vote" required="false" %>
+<%@attribute name="flag" type="org.mamute.model.Flag" required="false" %>
 
 <c:set var="isFlag"		value="${not empty flag}"/>
 <c:set var="detail"		value="${isFlag ? flag : vote}"/>

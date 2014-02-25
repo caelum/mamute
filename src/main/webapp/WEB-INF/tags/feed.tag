@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
-<%@attribute name="rssFeed" type="br.com.caelum.brutal.infra.rss.read.RSSFeed" required="true" %>
+<%@attribute name="rssFeed" type="org.mamute.infra.rss.read.RSSFeed" required="true" %>
 <%@attribute name="rssUrl" type="java.lang.String" required="true" %>
 <%@attribute name="rssType" type="java.lang.String" required="true" %>
 <c:if test="${not empty rssFeed.channel.items}">

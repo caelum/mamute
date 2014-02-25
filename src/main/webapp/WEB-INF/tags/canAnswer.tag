@@ -3,7 +3,7 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 
 <%@attribute name="uri" required="true" type="java.lang.String"%>
-<%@attribute name="question" required="true" type="br.com.caelum.brutal.model.Question"%>
+<%@attribute name="question" required="true" type="org.mamute.model.Question"%>
 
 <c:set var="user" value="${currentUser.current}"/>
 <c:set var="isAuthor" value="${question.author eq user}"/>

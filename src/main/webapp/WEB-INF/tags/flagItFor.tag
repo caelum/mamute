@@ -1,7 +1,7 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@attribute name="flaggable" type="br.com.caelum.brutal.model.interfaces.Flaggable" required="true" %>
+<%@attribute name="flaggable" type="org.mamute.model.interfaces.Flaggable" required="true" %>
 <%@attribute name="modalId" type="java.lang.String" required="true" %>
 <%@attribute name="type" type="java.lang.String" required="true" %>
 

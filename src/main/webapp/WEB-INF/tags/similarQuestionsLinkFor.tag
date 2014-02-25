@@ -1,8 +1,8 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@attribute name="question" type="br.com.caelum.brutal.model.Question" required="false" %>
-<%@attribute name="answer" type="br.com.caelum.brutal.model.Answer" required="false" %>
+<%@attribute name="question" type="org.mamute.model.Question" required="false" %>
+<%@attribute name="answer" type="org.mamute.model.Answer" required="false" %>
 
 <c:choose>
 	<c:when test="${not empty question}">

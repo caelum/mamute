@@ -6,7 +6,7 @@
 <%@attribute name="recentTags" type="java.util.List" required="true"%>
 <%@attribute name="questions" type="java.util.List" required="true"%>
 <%@attribute name="rssUrl" type="java.lang.String" required="false"%>
-<%@attribute name="tag" type="br.com.caelum.brutal.model.Tag" required="false"%>
+<%@attribute name="tag" type="org.mamute.model.Tag" required="false"%>
 <%@attribute name="unansweredTagLinks" type="java.lang.Boolean" required="false"%>
 <%@attribute name="tabs" type="java.util.List" required="false"%>
 

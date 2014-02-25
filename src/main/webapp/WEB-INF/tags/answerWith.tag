@@ -2,9 +2,9 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@attribute name="answer" type="br.com.caelum.brutal.model.Answer" required="true" %>
-<%@attribute name="vote" type="br.com.caelum.brutal.model.Vote" required="true" %>
-<%@attribute name="commentVotes" type="br.com.caelum.brutal.model.CommentsAndVotes" required="true" %>
+<%@attribute name="answer" type="org.mamute.model.Answer" required="true" %>
+<%@attribute name="vote" type="org.mamute.model.Vote" required="true" %>
+<%@attribute name="commentVotes" type="org.mamute.model.CommentsAndVotes" required="true" %>
 <section class="post-area ${answer.isVisibleForModeratorAndNotAuthor(currentUser.current) ? 'highlight-post' : '' }">
 	<div class="post-meta">
 		<tags:voteFor item="${answer}" type="resposta" vote="${vote}"/>

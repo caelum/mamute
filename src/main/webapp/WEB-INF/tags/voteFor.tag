@@ -1,8 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@attribute name="type" required="true" type="java.lang.String" %>
-<%@attribute name="item" type="br.com.caelum.brutal.model.interfaces.Votable" required="true" %>
-<%@attribute type="br.com.caelum.brutal.model.Vote" name="vote" required="true" %>
+<%@attribute name="item" type="org.mamute.model.interfaces.Votable" required="true" %>
+<%@attribute type="org.mamute.model.Vote" name="vote" required="true" %>
 <div class="vote-container post-vote">
 	<a rel="nofollow" class="container requires-login requires-karma author-cant
 		      up-vote up-arrow arrow vote-option 

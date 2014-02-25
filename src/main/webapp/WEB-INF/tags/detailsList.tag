@@ -3,9 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 
-<%@attribute name="votable" type="br.com.caelum.brutal.model.interfaces.Votable" required="true" %>
+<%@attribute name="votable" type="org.mamute.model.interfaces.Votable" required="true" %>
 
-<c:set var="isQuestion" value="${votable.class.name == 'br.com.caelum.brutal.model.Question'}" />
+<c:set var="isQuestion" value="${votable.class.name == 'org.mamute.model.Question'}" />
 
 <h2 class="title page-title ellipsis">
 	${isQuestion ? votable.title : votable.description}

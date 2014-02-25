@@ -2,7 +2,7 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@attribute name="news" type="br.com.caelum.brutal.model.News" required="true" %>
+<%@attribute name="news" type="org.mamute.model.News" required="true" %>
 <c:if test="${news.approved || currentUser.moderator}">
 	<li class="post-item news-big-items ${news.approved ? '' : 'post-under-review'} ${news.isVisibleForModeratorAndNotAuthor(currentUser.current) ? 'highlight-post' : '' }">
 		<div class="post-information news-information">

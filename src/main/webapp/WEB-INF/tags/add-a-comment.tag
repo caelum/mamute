@@ -1,10 +1,10 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
-<%@attribute name="item" type="br.com.caelum.brutal.model.interfaces.Commentable" required="true" %>
+<%@attribute name="item" type="org.mamute.model.interfaces.Commentable" required="true" %>
 <%@attribute name="type" type="java.lang.String" required="true" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@attribute name="votes" type="br.com.caelum.brutal.model.CommentsAndVotes" required="true" %>
+<%@attribute name="votes" type="org.mamute.model.CommentsAndVotes" required="true" %>
 <%@attribute name="groupComments" type="java.lang.Boolean" required="false" %>
 <%@attribute name="startFormHidden" type="java.lang.Boolean" required="false" %>
 

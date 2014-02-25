@@ -5,10 +5,10 @@
                                                        http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd"
                version="1.1" bean-discovery-mode="all">
        <scan>
-       	<exclude name="br.com.caelum.brutal.integration.**"/>
-       	<exclude name="br.com.caelum.brutal.model.*"/>
-       	<exclude name="br.com.caelum.brutal.infra.rss.converter.OndeTrabalharRSSJob"/>
-       	<exclude name="br.com.caelum.brutal.infra.rss.converter.InfoQRSSJob"/>
+       	<exclude name="org.mamute.integration.**"/>
+       	<exclude name="org.mamute.model.*"/>
+       	<exclude name="org.mamute.infra.rss.converter.OndeTrabalharRSSJob"/>
+       	<exclude name="org.mamute.infra.rss.converter.InfoQRSSJob"/>
        	<exclude name="com.google.common.util.concurrent.MoreExecutors$SameThreadExecutorService"/>
        </scan>
 

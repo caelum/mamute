@@ -2,8 +2,8 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@attribute name="news" type="br.com.caelum.brutal.model.News" required="true" %>
-<%@attribute name="commentVotes" type="br.com.caelum.brutal.model.CommentsAndVotes" required="true" %>
+<%@attribute name="news" type="org.mamute.model.News" required="true" %>
+<%@attribute name="commentVotes" type="org.mamute.model.CommentsAndVotes" required="true" %>
 
 <section itemscope itemtype="http://schema.org/Article" class="post-area ${news.approved ? '' : 'highlight-post' }" >
 	<c:if test="${! news.approved}">

@@ -72,7 +72,7 @@
         <appender-ref ref="errorFile"/>
     </category>
 
-    <category name="br.com.caelum.brutal">
+    <category name="org.mamute">
         <priority value="INFO"/>
         <appender-ref ref="main"/>
     </category>

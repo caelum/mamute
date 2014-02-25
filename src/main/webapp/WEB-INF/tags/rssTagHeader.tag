@@ -1,7 +1,7 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@attribute type="br.com.caelum.brutal.model.Tag" name="tag" required="false"%>
+<%@attribute type="org.mamute.model.Tag" name="tag" required="false"%>
 <%@attribute type="java.lang.String" name="rssUrl" required="false"%>
 <%@attribute type="java.lang.String" name="title" required="false"%>
 <%@attribute name="unansweredTagLinks" type="java.lang.Boolean" required="false"%>

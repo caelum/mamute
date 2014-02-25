@@ -69,12 +69,12 @@
         <appender-ref ref="errorFile"/>
     </category>
 
-    <category name="br.com.caelum.brutal">
+    <category name="org.mamute">
         <priority value="DEBUG"/>
         <appender-ref ref="main"/>
     </category>
     
-    <category name="br.com.caelum.brutal.infra.BrutalResourceNotFoundHandler">
+    <category name="org.mamute.infra.BrutalResourceNotFoundHandler">
         <priority value="INFO"/>
         <appender-ref ref="not_found"/>
     </category>

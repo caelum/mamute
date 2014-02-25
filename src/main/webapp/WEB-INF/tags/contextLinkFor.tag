@@ -1,7 +1,7 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@attribute name="context" type="br.com.caelum.brutal.model.ReputationEventContext" required="false" %>
+<%@attribute name="context" type="org.mamute.model.ReputationEventContext" required="false" %>
 
 <c:choose>
 	<c:when test="${context.typeName == 'News'}">

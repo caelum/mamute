@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>br.com.caelum</groupId>
-	<artifactId>brutal</artifactId>
+	<artifactId>mamute</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 
@@ -15,9 +15,9 @@
 	</properties>
 
 	<scm>
-		<url>http://github.com/caelum/brutal</url>
-		<connection>scm:git:git://github.com/caelum/brutal</connection>
-		<developerConnection>scm:git:git@github.com:caelum/brutal.git</developerConnection>
+		<url>http://github.com/caelum/mamute</url>
+		<connection>scm:git:git://github.com/caelum/mamute</connection>
+		<developerConnection>scm:git:git@github.com:caelum/mamute.git</developerConnection>
 	</scm>
 
 	<dependencies>
@@ -761,7 +761,7 @@
 									<properties>
 										<property>
 											<name>listener</name>
-											<value>br.com.caelum.brutal.integration.util.FailFastListener</value>
+											<value>org.mamute.integration.util.FailFastListener</value>
 										</property>
 									</properties>
 									<!-- <runOrder>alphabetical</runOrder> -->

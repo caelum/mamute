@@ -92,7 +92,7 @@
 	
 	
 	<listener>
-	   <listener-class>br.com.caelum.brutal.weld.WeldListener</listener-class>
+	   <listener-class>org.mamute.weld.WeldListener</listener-class>
 	</listener>
 <!-- 	<listener> -->
 <!-- 	   <listener-class>org.jboss.weld.environment.servlet.BeanManagerResourceBindingListener</listener-class> -->

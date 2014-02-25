@@ -1,7 +1,7 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
-<%@attribute name="touchable" type="br.com.caelum.brutal.model.interfaces.Touchable" required="true" %>
+<%@attribute name="touchable" type="org.mamute.model.interfaces.Touchable" required="true" %>
 <%@attribute name="showTime" type="java.lang.Boolean" required="false" %>
 <%@attribute name="prettyFormat" type="java.lang.Boolean" required="false" %>
 
