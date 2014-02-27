@@ -1,0 +1,225 @@
+body {
+	margin: 0;
+	padding: 0;
+}
+
+.logo {
+	background-image: url('../images/logo.png');
+	background-repeat: no-repeat;
+	background-size: contain;
+	text-indent: -9999px;
+	width: 100%;
+	height: 85px;
+}
+
+.links li {
+	margin: 2em;
+	display: inline-block;
+	padding: 3em 4em;
+	vertical-align: middle;
+	border: 1px dashed #b7b7b7;
+}
+
+.links li:hover {
+	background-color: #F89948;
+}
+
+.links a{
+	text-indent: -9999px;
+	display: inline-block;
+}
+
+.download{
+	width: 1.500em;
+	height: 0.500em;
+	border: 0.250em solid #2c2c2c;
+	border-top: none;
+	position: relative;
+	margin-top:1em;
+}
+
+.download:before{
+	content: '';
+	position: absolute;
+	width: 0.438em;
+	height: 0.625em;
+	background: #2c2c2c;
+	top: -0.875em;
+	left: 0.563em;
+}
+
+.download:after{
+	content: '';
+	width: 0em;
+	height: 0em;
+	position: absolute;
+	border-style: solid;
+	border-color: #2c2c2c transparent transparent transparent;
+	border-width: 0.500em;
+	left: 0.250em;
+	top: -0.250em;
+}
+
+.install {
+	display: block;
+	position: relative;
+	font-size: 20px;
+	width: 1em;
+	height: 1em;
+	border: 0.1em dashed #2c2c2c;
+	border-radius: 1em;
+	margin-top: 1em;
+	margin-left:-1.4em;
+	-webkit-box-shadow: inset 0 0 0 0.2em #2c2c2c;
+	box-shadow: inset 0 0 0 0.2em #2c2c2c;
+}
+
+.install:before {
+	content: '';
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0.5em;
+	font-size: 0.8em;
+	margin-top: -1.2em;
+	width: 1em;
+	height: 1em;
+	border: 0.1em dashed #2c2c2c;
+	border-radius: 1em;
+	-webkit-box-shadow: inset 0 0 0 0.2em #2c2c2c;
+	box-shadow: inset 0 0 0 0.2em #2c2c2c;
+}
+
+.install:after {
+	content: '';
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0.92em;
+	font-size: 1.2em;
+	margin-top: -0.32em;
+	width: 1em;
+	height: 1em;
+	border: 0.1em dashed #2c2c2c;
+	border-radius: 1em;
+	-webkit-box-shadow: inset 0 0 0 0.2em #2c2c2c;
+	box-shadow: inset 0 0 0 0.2em #2c2c2c;
+}
+
+.code { 
+	position: relative; 
+	font-size: 10px;
+	width: 3.3em; 
+	height: 3.3em; 
+	background: #383b3e; 
+	border-radius: 0.3em; 
+}
+.code:before { 
+	border-top: 0.3em solid #efefef;
+	content: ""; 
+	position: absolute; 
+	width: 1.9em; 
+	height: 1em; 
+	margin: auto; 
+	border-bottom: 0.3em solid #efefef; 
+	top: 1em; 
+	left: 0.7em;
+	border-radius:0.1em
+}
+.code:after { 
+	display: block; 
+	content: ""; 
+	position: absolute; 
+	top: 1.6em; 
+	width: 1.9em; 
+	height: 0.3em; 
+	background: #efefef; 
+	left: 0.7em; 
+	border-radius:0.1em
+}
+
+.demo {
+	font-size: 8px;
+	background: #2C2C2C;
+	position: relative;
+	height: 0.4em;
+	width: 0.2em;
+	margin-top: -1.2em;
+}
+
+.demo::before {
+	box-shadow: 2.4em 0em 0 -0.2em #EDEEE8,1.3em 0em 0 -0.2em #EDEEE8,1.4em 0em 0 -0.2em #EDEEE8,1.5em 0em 0 -0.2em #EDEEE8,1.6em 0em 0 -0.2em #EDEEE8,2.3em 0em 0 -0.2em #EDEEE8,2.5em 0em 0 -0.2em #EDEEE8,2.6em 0em 0 -0.2em #EDEEE8,0.5em 0em 0 0 #EDEEE8,-0.5em 0em 0 0 #EDEEE8,0em -0.5em 0 0 #EDEEE8,0em 0.5em 0 0 #EDEEE8,1.1em -0.05em 0 0.95em #2C2C2C,1.759em -0.05em 0 0.95em #2C2C2C,3.2em -0.8em 0 0.2em #2C2C2C,3.2em 0.77em 0 0.2em #2C2C2C;
+	top: 1.3em;
+	left: -2.1em;
+	z-index: 99999;
+	height: 0.5em;
+	width: 0.5em;
+	background: #EDEEE8;
+	content: '';
+	display: block;
+	position: absolute;
+}
+
+.demo::after {
+	z-index: 1;
+	content: "";
+	display: block;
+	left: 1.9em;
+	top: 2em;
+	position: absolute;
+	background: #EDEEE8;
+	width: 0.6em;
+	height: 0.6em;
+	border-radius: 100%;
+	box-shadow: -0.8em -0.8em 0 0 #EDEEE8,0.8em -0.8em 0 0 #EDEEE8,0em -1.6em 0 0 #EDEEE8,0em -0.8em 0 1em #2C2C2C,-4em -0.8em 0 1em #2C2C2C;
+}
+
+.question {
+	font-size: 20px;
+	width: 2em;
+	height: 1.5em;
+	background: #2C2C2C;
+	border-radius: 0.2em;
+	position: relative;
+}
+
+.question::before {
+	position:absolute;	
+	content: "";
+	bottom: -0.3em;
+	right: 0.4em;
+	width:0em;
+	height:0em;
+	border-bottom:0.4em solid transparent;
+	border-left:0.4em solid #2C2C2C;	
+}
+
+footer {
+	background-color: #b7b7b7;
+	width: 100%;
+}
+
+.apoio {
+	list-style: none;
+	display: inline-block;
+}
+
+.apoio li {
+	display: inline-block;
+	margin: 0 2em;
+	text-indent: -9999px;
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
+.caelum {
+	background-image: url('../images/caelum.png');
+	width: 120px;
+	height: 40px;	
+}
+
+.vraptor {
+	background-image: url('../images/vraptor.png');
+	width: 120px;
+	height: 40px;
+}
