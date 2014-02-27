@@ -3,6 +3,10 @@ body {
 	padding: 0;
 }
 
+.container {
+	
+}
+
 .logo {
 	background-image: url('../images/logo.png');
 	background-repeat: no-repeat;
@@ -106,38 +110,6 @@ body {
 	box-shadow: inset 0 0 0 0.2em #2c2c2c;
 }
 
-.code { 
-	position: relative; 
-	font-size: 10px;
-	width: 3.3em; 
-	height: 3.3em; 
-	background: #383b3e; 
-	border-radius: 0.3em; 
-}
-.code:before { 
-	border-top: 0.3em solid #efefef;
-	content: ""; 
-	position: absolute; 
-	width: 1.9em; 
-	height: 1em; 
-	margin: auto; 
-	border-bottom: 0.3em solid #efefef; 
-	top: 1em; 
-	left: 0.7em;
-	border-radius:0.1em
-}
-.code:after { 
-	display: block; 
-	content: ""; 
-	position: absolute; 
-	top: 1.6em; 
-	width: 1.9em; 
-	height: 0.3em; 
-	background: #efefef; 
-	left: 0.7em; 
-	border-radius:0.1em
-}
-
 .demo {
 	font-size: 8px;
 	background: #2C2C2C;
@@ -192,6 +164,11 @@ body {
 	height:0em;
 	border-bottom:0.4em solid transparent;
 	border-left:0.4em solid #2C2C2C;	
+}
+
+.screenshot {
+	border: 1px dashed #b7b7b7;
+	width: 100%;
 }
 
 footer {
