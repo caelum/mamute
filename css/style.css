@@ -1,15 +1,22 @@
 * {
 	box-sizing: border-box;
 }
+html {
+	height: 100%;
+}
 
 body {
+	font-family: Helvetica, sans-serif;
 	margin: 0;
 	padding: 0;
-	font-family:  Helvetica, sans-serif;
 }
 
 .container {
 	padding: 0 10%;
+}
+
+.container p {
+	text-align: center;
 }
 
 header {
@@ -21,8 +28,9 @@ header {
 	background-repeat: no-repeat;
 	background-size: contain;
 	text-indent: -9999px;
-	width: 100%;
+	width: 290px;
 	height: 85px;
+	margin: 1em auto;
 }
 
 .links li {
