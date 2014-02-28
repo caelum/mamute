@@ -1,8 +1,14 @@
 #!/bin/env bash
 
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+MAMUTE_DIR=$SCRIPT_DIR
+
 TIMESTAMP=BUILD_TIMESTAMP
 
-java -cp mamute/WEB-INF/classes/:mamute/WEB-INF/lib/* \
+WEB_INF=${SCRIPT_DIR}/WEB-INF
+
+java -cp ${WEB_INF}/classes/:${WEB_INF}/lib/* \
     -Ddeploy.timestamp=$TIMESTAMP \
-    -Dvraptor.webappdir=. \
+    -Dvraptor.webappdir=${MAMUTE_DIR} \
     br.com.caelum.vraptor.server.Main
