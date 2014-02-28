@@ -25,7 +25,7 @@
 	</target>
 
 	<target name="merge-css" depends="">
-		<echo message="Juntando css's..." />
+		<echo message="Merging css's..." />
 		<delete file="${css.dir}/all.css" />
 		<concat destfile="${css.dir}/all.css">
 			<fileset file="${css.dir}/reset.css" />
@@ -90,7 +90,7 @@
 	</target>
 	
 	<target name="merge-jquery-plugins" depends="">
-		<echo message="Juntando jquery plugins..." />
+		<echo message="Merging jquery plugins..." />
 		<mkdir dir="${js.dir}/jquery/"/>
 		<delete>
 			<fileset file="${js.dir}/jquery/jquery-plugins*.js" />
