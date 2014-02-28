@@ -8,13 +8,6 @@
 	
     <taskdef resource="yuicompressor.tasks" classpath="ant-lib/yuicompressor-taskdef-1.0.jar"/>
     
-    <target name="minify-js">
-        <yuicompressor linebreak="${linebreak}" verbose="true" disableOptimizations="true" todir="${webapp.dir}/js">
-            <fileset dir="${js.dir}" includes="all.js"/>
-            <mapper type="glob" from="all.js" to="*-min.js"/>
-        </yuicompressor>
-    </target>
-
 	<target name="merge-all">
 		<antcall target="merge-css" />
 		<delete file="${js.dir}/all.js" />
@@ -60,6 +53,10 @@
             <fileset dir="${js.dir}" includes="all-deps.js"/>
             <mapper type="glob" from="all-deps.js" to="all-deps-min.js"/>
         </yuicompressor>
+		<delete>
+			<fileset dir="${js.dir}" includes="all-deps.js" />
+		</delete>
+
 	</target>
 
 	<target name="process-mamute-js" depends="">
@@ -75,6 +72,9 @@
             <fileset dir="${js.dir}" includes="all-mamute.js"/>
             <mapper type="glob" from="all-mamute.js" to="all-mamute-min.js"/>
         </yuicompressor>
+		<delete>
+			<fileset dir="${js.dir}" includes="all-mamute.js" />
+		</delete>
 	</target>
 	
 	<target name="merge-all-js" depends="">
@@ -87,6 +87,11 @@
 			<fileset dir="${js.dir}" includes="all-mamute-min.js" />
 		</concat>
 		
+		<delete>
+			<fileset dir="${js.dir}" includes="all-deps-min.js" />
+			<fileset dir="${js.deps.dir}" includes="feather.js" />
+			<fileset dir="${js.dir}" includes="all-mamute-min.js" />
+		</delete>
 	</target>
 	
 	<target name="merge-jquery-plugins" depends="">
