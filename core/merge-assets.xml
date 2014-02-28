@@ -1,26 +1,34 @@
 <project name="mamute" default="merge-all" basedir="./">
 
-	<property name="webapp.dir" value="src/main/webapp" />
+	<property name="tmp.dir" value="tmp" />
+	<property name="webapp.target.dir" value="target/mamute-1.0.0-SNAPSHOT/" />
+	<property name="webapp.dir" value="src/main/webapp/" />
 	<property name="css.dir" value="${webapp.dir}/css" />
 	<property name="js.dir" value="${webapp.dir}/js" />
 	<property name="js.deps.dir" value="${js.dir}/deps/" />
+	
 	<property name="linebreak" value="1000000" />
 	
     <taskdef resource="yuicompressor.tasks" classpath="ant-lib/yuicompressor-taskdef-1.0.jar"/>
     
 	<target name="merge-all">
+		<antcall target="prepare" />
 		<antcall target="merge-css" />
-		<delete file="${js.dir}/all.js" />
 		<antcall target="process-js-deps" />
 		<antcall target="process-mamute-js" />
 		<antcall target="merge-all-js" />
 		<antcall target="merge-jquery-plugins" />
 	</target>
+	
+	<target name="prepare">
+		<mkdir dir="${tmp.dir}"/>
+		<mkdir dir="${webapp.target.dir}"/>
+	</target>
 
 	<target name="merge-css" depends="">
 		<echo message="Merging css's..." />
-		<delete file="${css.dir}/all.css" />
-		<concat destfile="${css.dir}/all.css">
+		
+		<concat destfile="${webapp.target.dir}/css/all.css">
 			<fileset file="${css.dir}/reset.css" />
 			<fileset file="${css.dir}/deps/*.css"/>
 			<fileset file="${css.dir}/deps/pickadate/*.css" />
@@ -28,16 +36,15 @@
 			<fileset file="${css.dir}/responsive-brutal.css" />
 
 		</concat>
-		<mkdir dir="${webapp.dir}/font" />
-		<copy todir="${webapp.dir}/font">
+		<mkdir dir="${webapp.target.dir}/css/font" />
+		<copy todir="${webapp.target.dir}/css/font">
 			<fileset dir="${webapp.dir}/css/font" includes="**" />
 		</copy>
 	</target>
 	
 	<target name="process-js-deps" depends="">
 		<echo message="Merging js deps's..." />
-		<delete file="${js.dir}/all-deps.js" />
-		<concat destfile="${js.dir}/all-deps.js">
+		<concat destfile="${tmp.dir}/all-deps.js">
 			<fileset file="${js.deps.dir}/prettify.js"/>
 
 			<fileset file="${js.deps.dir}/Markdown.Converter.js"/>
@@ -49,58 +56,43 @@
 			
 		</concat>
 		<echo message="Compressing js deps..." />
-        <yuicompressor linebreak="${linebreak}" disableOptimizations="true" todir="${webapp.dir}/js">
-            <fileset dir="${js.dir}" includes="all-deps.js"/>
+        <yuicompressor linebreak="${linebreak}" disableOptimizations="true" todir="${tmp.dir}">
+            <fileset dir="${tmp.dir}" includes="all-deps.js"/>
             <mapper type="glob" from="all-deps.js" to="all-deps-min.js"/>
         </yuicompressor>
-		<delete>
-			<fileset dir="${js.dir}" includes="all-deps.js" />
-		</delete>
 
 	</target>
 
 	<target name="process-mamute-js" depends="">
 		<echo message="Merging mamute js's..." />
-		<delete file="${js.dir}/all-mamute.js" />
 		
-		<concat destfile="${js.dir}/all-mamute.js">
-			<fileset dir="${js.dir}" includes="*.js" excludes="mediakit-plugin.js, mediakit.js, all-deps.js, all-deps-min.js, all.js" />
+		<concat destfile="${tmp.dir}/all-mamute.js">
+			<fileset dir="${js.dir}" includes="*.js" 
+				excludes="mediakit-plugin.js, mediakit.js, all-deps.js, all-deps-min.js, all.js" />
 		</concat>
 		
 		<echo message="Compressing mamute js's..." />
-        <yuicompressor linebreak="${linebreak}" disableOptimizations="true" todir="${webapp.dir}/js">
-            <fileset dir="${js.dir}" includes="all-mamute.js"/>
+        <yuicompressor linebreak="${linebreak}" disableOptimizations="true" todir="${tmp.dir}">
+            <fileset dir="${tmp.dir}" includes="all-mamute.js"/>
             <mapper type="glob" from="all-mamute.js" to="all-mamute-min.js"/>
         </yuicompressor>
-		<delete>
-			<fileset dir="${js.dir}" includes="all-mamute.js" />
-		</delete>
 	</target>
 	
 	<target name="merge-all-js" depends="">
 		<echo message="Merging mamute + deps js's..." />
-		<delete file="${js.dir}/all.js" />
 		
-		<concat destfile="${js.dir}/all.js">
-			<fileset dir="${js.dir}" includes="all-deps-min.js" />
+		<concat destfile="${webapp.target.dir}/js/all.js">
+			<fileset dir="${tmp.dir}" includes="all-deps-min.js" />
 			<fileset dir="${js.deps.dir}" includes="feather.js" />
-			<fileset dir="${js.dir}" includes="all-mamute-min.js" />
+			<fileset dir="${tmp.dir}" includes="all-mamute-min.js" />
 		</concat>
 		
-		<delete>
-			<fileset dir="${js.dir}" includes="all-deps-min.js" />
-			<fileset dir="${js.deps.dir}" includes="feather.js" />
-			<fileset dir="${js.dir}" includes="all-mamute-min.js" />
-		</delete>
 	</target>
 	
 	<target name="merge-jquery-plugins" depends="">
 		<echo message="Merging jquery plugins..." />
 		<mkdir dir="${js.dir}/jquery/"/>
-		<delete>
-			<fileset file="${js.dir}/jquery/jquery-plugins*.js" />
-		</delete>
-		<concat fixlastline="yes" destfile="${js.dir}/jquery/jquery-plugins${deploy.timestamp}.js">
+		<concat fixlastline="yes" destfile="${webapp.target.dir}/js/jquery/jquery-plugins${deploy.timestamp}.js">
 			<fileset file="${js.deps.dir}/picker.js"/>			
 			<fileset file="${js.deps.dir}/picker.date.js"/>		
 			<fileset file="${js.deps.dir}/translations/pt_BR.js"/>
