@@ -1,0 +1,63 @@
+<%@ page language="java" pageEncoding="UTF-8"
+	contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<footer class="footer black-top-border">
+	<div class="container">
+		<ul class="footer-list">
+			<li class="sponsor-box">
+				<a class="footer-logo first-logo" href="http://www.alura.com.br/"><fmt:message key="footer.guj" /></a>
+				<ul class="footer-sub-list">
+					<li><fmt:message key="footer.first_sponsor.content" /></li>
+				</ul>
+			</li>
+			<li class="sponsor-box">
+				<a class="footer-logo second-logo" href="http://www.caelum.com.br"><fmt:message key="footer.caelum"/></a>
+				<ul class="footer-sub-list">
+					<li><a class="footer-link" href="http://www.caelum.com.br/cursos/java/">Curso de Java</a></li>
+					<li><a class="footer-link" href="http://www.caelum.com.br/curso-android/">Curso de Android</a></li>
+					<li><a class="footer-link" href="http://www.caelum.com.br/curso-javascript-jquery/">Curso de JavaScript</a></li>
+				</ul>
+				<ul class="footer-sub-list">
+					<li><a class="footer-link" href="http://www.caelum.com.br/cursos/dotnet/">Curso de .NET</a></li>
+					<li><a class="footer-link" href="http://www.caelum.com.br/cursos/agile/">Curso de Agile</a></li>
+					<li><a class="footer-link" href="http://www.caelum.com.br/curso-html-css-javascript/">Curso de HTML e CSS</a></li>
+				</ul>
+			</li>
+			<li class="sponsor-box">
+				<a class="footer-logo third-logo" href="http://www.casadocodigo.com.br/"><fmt:message key="footer.casa_do_codigo"/></a>
+				<ul class="footer-sub-list">
+					<li><a href="http://www.casadocodigo.com.br"><fmt:message key="footer.casa_do_codigo.content"/></a></li>
+				</ul>
+			</li>
+		<!-- 	<li class="sponsor-box"><a class="footer-logo online-logo" href="#">Caelum Online</a></li> -->
+		</ul>
+	</div>
+	<div class="dark-footer">
+		<tags:brutal-include value="footerTags"/>
+		<ol class="main-tags main-tags-second">
+			<li><a class="tag-brutal" href="http://www.lumpa.com.br/tag/photoshop">photoshop</a></li>
+			<li><a class="tag-brutal" href="http://www.lumpa.com.br/tag/illustrator">illustrator</a></li>
+			<li><a class="tag-brutal" href="http://www.lumpa.com.br/tag/inDesign">inDesign</a></li>
+			<li><a class="tag-brutal" href="http://www.lumpa.com.br/tag/tipografia">tipografia</a></li>
+			<li><a class="tag-brutal" href="http://www.lumpa.com.br/tag/vetorização">vetorização</a></li>
+		</ol>
+		<div class="container">
+			<span class="footer-menu">
+				<span class="footer-menu-label"><fmt:message key="menu.title.answers" />: </span>
+				
+				<a href="<c:url value="/nao-resolvido" />" class="unsolved-link"><fmt:message key="menu.unsolved"/></a>
+				<a href="<c:url value="/sem-respostas" />"><fmt:message	key="menu.unanswered"/></a>
+			</span>
+			<span class="footer-menu">
+				<span class="footer-menu-label"><fmt:message key="menu.title.forum" />: </span>
+				<a href="<c:url value="/forums/list.java" />" ><fmt:message key="menu.forum.forum_index" /></a>
+				<a href="<c:url value="/recentTopics/list.java" />" ><fmt:message key="menu.forum.recent_topics" /></a>
+				
+			</span>
+			<span class="footer-muted-message"><fmt:message key="footer.powered_by"><fmt:param value="http://www.caelum.com.br"/></fmt:message></span>
+		</div>
+	</div>
+</footer>

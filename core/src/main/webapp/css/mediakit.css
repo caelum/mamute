@@ -1,0 +1,241 @@
+/****CSS DO PLUGIN****/
+body, html {
+  margin: 0;
+  overflow: hidden;
+  -webkit-transition: opacity 400ms;
+  -moz-transition: opacity 400ms;
+  transition: opacity 400ms;
+}
+
+body, .onepage-wrapper, html {
+  display: block;
+  position: static;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.onepage-wrapper {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: relative;
+  padding: 0;
+  -webkit-transform-style: preserve-3d;
+}
+
+.onepage-wrapper .section {
+  width: 100%;
+  height: 100%;
+}
+
+.onepage-pagination {
+  position: absolute;
+  right: 3.5%;
+  z-index: 3;
+  top: 4%;
+  list-style: none;
+  margin: 0.5em 0;
+  padding: 0;
+}
+
+.onepage-pagination li {
+  padding: 0;
+  text-align: center;
+}
+.onepage-pagination li a{
+  width: 1.7vw;
+  height: 1.7vw;
+  margin-bottom: 2vw;
+  display: inline-block;
+  background: #fff;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  text-decoration: none;
+}
+	
+.onepage-pagination li a.active{
+  width: 1.7vw;
+  height: 1.7vw;
+  background: #84ba41;
+}
+
+.onepage-pagination li:first-child {
+	display: none;
+}
+/***FIM CSS DO PLUGIN****/
+
+@font-face {
+	font-family: "Arial Rounded MT Bold";
+	src: url("font/Arial Rounded MT Bold.TTF");
+}
+
+html, body, section {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+   	font-family: "Arial Rounded MT Bold";
+    font-size: 1.8vw;
+    color: #fff;
+}
+
+.main-title {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    height: 100%;
+    float: left;
+    width: 74%;
+    background-color: #435466;
+    border-right: 15px solid #489ad4;
+}
+
+.guj,
+.mediakit {
+    position: absolute;
+    left: 12.5%; /* [100% - 75% (width)] / 2 */
+    width: 49%;
+    display: block;
+}
+
+.guj {
+    text-indent: -99999px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 32%;
+    background-image: url(../imgs//Mediakit/Logo-Negativo.svg);
+    top: 37.5%; /* [100% - 25% (height)] / 2 */
+}
+
+.mediakit {
+    height: 10%;
+    top: 26.5%; /* .guj->top - 10% (height) - 1% (margem) */
+    color: white;
+}
+
+h2{
+	margin: 0;
+	font-size: 6vw;
+}
+
+.container{
+	width: 95%;
+	height: 100%;
+	box-sizing: border-box;
+	border-right: .3em solid #fff;
+	float: left;
+	z-index: 1;
+	padding: 5%;
+}
+
+.color-light .current, .color-dark{
+	height: 100%;
+	background: #435466;
+}
+
+.color-dark li a {
+	background: #435466;
+}
+
+.color-dark .current, .color-light {
+	background: #489ad4;
+	height: 100%;
+}
+
+.simple-nav{
+    float: left;
+    width: 5%;
+    height: 100%;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+    margin: 2em 0;
+    text-align: center;
+}
+
+.ideia {
+	background-image: url("../imgs/Mediakit/ideia.svg");	
+	background-repeat: no-repeat;
+	background-position: bottom center;
+	background-size: 40%;
+}
+
+.linguagens {
+	background-image: url("../imgs/Mediakit/linguagens.svg");	
+	background-repeat: no-repeat;
+	background-position: center 90%;
+	background-size: 71%;
+}
+
+.estatistica > li{
+	list-style: none;
+	display: inline-block;
+	background-repeat: no-repeat;
+	background-position: top center;
+	background-size: contain;
+	width: 20%;
+	height: 60%;
+	margin: 5%;
+	padding-top: 18%;
+	text-align: center;
+}
+
+.pessoas{
+	background-image: url("../imgs/Mediakit/pessoas.svg");	
+}
+
+.lupa{
+	background-image: url("../imgs/Mediakit/lupa.svg");	
+}
+
+.janela{
+	background-image: url("../imgs/Mediakit/janela.svg");	
+}
+
+.fonte-destaque {
+    font-size: 3vw;
+    display: block;
+}
+
+.logos {
+	background-image: url("../imgs/Mediakit/logos-mediakit.svg");
+	background-repeat: no-repeat;
+	background-position: center 75%;
+	background-size: 71%;
+}
+
+.eventos {
+	background-image: url("../imgs/Mediakit/eventos.png");
+	background-repeat: no-repeat;
+	background-position: center 75%;
+	background-size: 67%;
+}
+
+.anunciantes {
+	background-image: url("../imgs/Mediakit/anunciantes.svg");
+	background-repeat: no-repeat;
+	background-position: center 75%;
+	background-size: 67%;
+}
+
+.formato {
+	background-image: url("../imgs/Mediakit/formato.png");
+	background-repeat: no-repeat;
+	background-position: center 85%;
+	background-size: 90%;
+}
+
+.email {
+    font-size: 4.5vw;
+}
+
+.text:before {
+	content: attr(data-message);
+	display: inline-block;
+	position: absolute;
+	margin-left: -8em;
+	font-size: 2vw;
+	color: #435466;
+}

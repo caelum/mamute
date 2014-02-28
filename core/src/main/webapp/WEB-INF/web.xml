@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+      version="3.0"> 
+  <display-name>gujstack</display-name>
+  <filter>
+    <filter-name>vraptor</filter-name>
+    <filter-class>br.com.caelum.vraptor.VRaptor</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>vraptor</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>REQUEST</dispatcher>
+  </filter-mapping>
+  
+  	<context-param>
+		<param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+		<param-value>messages</param-value>
+	</context-param>
+	<context-param>
+		<param-name>javax.servlet.jsp.jstl.fmt.locale</param-name>
+		<param-value>pt_BR</param-value>
+	</context-param>
+	<context-param>
+		<param-name>javax.servlet.jsp.jstl.fmt.fallbackLocale</param-name>
+		<param-value>pt_BR</param-value>
+	</context-param>
+	<context-param>
+		<param-name>br.com.caelum.vraptor.packages</param-name>
+		<param-value>br.com.caelum.vraptor.plugin.hibernate4.extra</param-value>
+	</context-param>
+	<context-param>
+		<param-name>br.com.caelum.vraptor.encoding</param-name>
+		<param-value>UTF-8</param-value>
+	</context-param>
+
+	<servlet>
+	<servlet-name>error</servlet-name>
+	<servlet-class>br.com.caelum.vraptor.errormail.ErrorLoggerServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	<servlet-name>error</servlet-name>
+	<url-pattern>/error500</url-pattern>
+	</servlet-mapping>
+
+  	<error-page>
+		<error-code>500</error-code>
+		<location>/error500</location>
+	</error-page>
+	
+	<error-page>
+		<error-code>404</error-code>
+		<location>/404.jsp</location>
+	</error-page>
+	
+	<error-page>
+		<error-code>403</error-code>
+		<location>/403.jsp</location>
+	</error-page>
+	
+	<error-page>
+		<error-code>409</error-code>
+		<location>/409.jsp</location>
+	</error-page>
+  
+	<jsp-config>
+		<jsp-property-group>
+			<display-name>views</display-name>
+			<url-pattern>*.jsp</url-pattern>
+			<include-prelude>/WEB-INF/jsp/prelude.jspf</include-prelude>
+			<include-coda>/WEB-INF/jsp/coda.jspf</include-coda>
+		</jsp-property-group>
+	</jsp-config>
+
+	<context-param>
+	    <param-name>org.eclipse.jetty.servlet.SessionIdPathParameterName</param-name>
+	    <param-value>none</param-value>
+	</context-param>
+	<context-param>
+		<param-name>org.eclipse.jetty.servlet.SessionCookie</param-name>
+		<param-value>JSESSIONBRUTAL</param-value>
+	</context-param>
+	
+	<session-config>
+		<cookie-config>
+		  <http-only>true</http-only>
+		</cookie-config>
+		<tracking-mode>COOKIE</tracking-mode>
+	</session-config>
+	
+	
+	<listener>
+	   <listener-class>org.mamute.weld.WeldListener</listener-class>
+	</listener>
+<!-- 	<listener> -->
+<!-- 	   <listener-class>org.jboss.weld.environment.servlet.BeanManagerResourceBindingListener</listener-class> -->
+<!-- 	</listener> -->
+<!-- 	<resource-env-ref> -->
+<!-- 	   <resource-env-ref-name>BeanManager</resource-env-ref-name> -->
+<!-- 	   <resource-env-ref-type> -->
+<!-- 	      javax.enterprise.inject.spi.BeanManager -->
+<!-- 	   </resource-env-ref-type> -->
+<!-- 	</resource-env-ref> -->
+	
+</web-app>
