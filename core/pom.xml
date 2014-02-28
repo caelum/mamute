@@ -427,35 +427,6 @@
 		<outputDirectory>src/main/webapp/WEB-INF/classes/</outputDirectory>
 		<plugins>
 			<plugin>
-				<groupId>net.alchim31.maven</groupId>
-				<artifactId>yuicompressor-maven-plugin</artifactId>
-				<configuration>
-					<gzip>true</gzip>
-					<nosuffix>true</nosuffix>
-					<linebreakpos>-1</linebreakpos>
-					<aggregations>
-						<aggregation>
-							<removeIncluded>true</removeIncluded>
-							<output>${project.build.directory}/${project.build.finalName}/js/all${deploy.timestamp}.js</output>
-							<includes>
-								<include>**/all.js</include>
-							</includes>
-							<!-- <excludes> -->
-							<!-- <exlcude>**/jquery-bundle*.js</exlcude> -->
-							<!-- </excludes> -->
-						</aggregation>
-						<aggregation>
-							<removeIncluded>true</removeIncluded>
-							<output>${project.build.directory}/${project.build.finalName}/css/all-brutal${deploy.timestamp}.css</output>
-							<includes>
-								<include>**/all.css</include>
-							</includes>
-						</aggregation>
-					</aggregations>
-				</configuration>
-			</plugin>
-
-			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
 				<version>1.1</version>
