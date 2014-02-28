@@ -31,16 +31,26 @@ header {
 	margin: 1em auto;
 }
 
+.links {
+	display: flex;
+	list-style: none;
+}
+
 .links li {
-	margin: 1%;
-	display: inline-block;
+	margin-left: 1em;
 	vertical-align: middle;
-	border: 1px dashed #b7b7b7;
+	background-color: #f2f2f2;
 	width: 20%;
 	height: 10em;
 	text-align: center;
 	padding-top: 4em;
+	flex:1 1 auto;
 }
+
+.links li:first-child {
+	margin-left: 0;
+}
+
 
 .links li:hover {
 	background-color: #F89948;
@@ -184,7 +194,6 @@ header {
 }
 
 .screenshot {
-	border: 1px dashed #b7b7b7;
 	width: 100%;
 	margin: 4em 0;
 }
@@ -197,7 +206,8 @@ footer {
 
 .apoio {
 	list-style: none;
-	display: inline-block;
+	display: -webkit-flex;
+	display: flex;
 }
 
 .apoio li {
@@ -206,6 +216,8 @@ footer {
 	text-indent: -9999px;
 	background-repeat: no-repeat;
 	background-size: contain;
+	-webkit-flex: 1;
+	flex:1;
 }
 
 .caelum {
