@@ -36,10 +36,6 @@
 			<fileset file="${css.dir}/responsive-brutal.css" />
 
 		</concat>
-		<mkdir dir="${webapp.target.dir}/css/font" />
-		<copy todir="${webapp.target.dir}/css/font">
-			<fileset dir="${webapp.dir}/css/font" includes="**" />
-		</copy>
 	</target>
 	
 	<target name="process-js-deps" depends="">
