@@ -427,13 +427,27 @@
 		<outputDirectory>src/main/webapp/WEB-INF/classes/</outputDirectory>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.1.1</version>
+				<executions>
+					<execution>
+						<id>prepare-war</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>exploded</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>1.2.1</version>
 				<executions>
 					<execution>
 						<id>compile-assets</id>
-						<phase>package</phase>
+						<phase>prepare-package</phase>
 						<goals>
 							<goal>exec</goal>
 						</goals>
@@ -444,6 +458,20 @@
 								<argument>ant-lib/</argument>
 								<argument>-buildfile</argument>
 								<argument>merge-assets.xml</argument>
+							</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>post-build</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>scripts/post-build.sh</executable>
+							<arguments>
+								<!-- get real timestamp -->
+								<argument>timestamp</argument>
 							</arguments>
 						</configuration>
 					</execution>

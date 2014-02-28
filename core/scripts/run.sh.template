@@ -1,0 +1,8 @@
+#!/bin/env bash
+
+TIMESTAMP=BUILD_TIMESTAMP
+
+java -cp mamute/WEB-INF/classes/:mamute/WEB-INF/lib/* \
+    -Ddeploy.timestamp=$TIMESTAMP \
+    -Dvraptor.webappdir=. \
+    br.com.caelum.vraptor.server.Main
