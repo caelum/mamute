@@ -462,22 +462,6 @@
 				<version>1.2.1</version>
 				<executions>
 					<execution>
-						<id>compile-assets</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-						<configuration>
-							<executable>ant</executable>
-							<arguments>
-								<argument>-lib</argument>
-								<argument>ant-lib/</argument>
-								<argument>-buildfile</argument>
-								<argument>merge-assets.xml</argument>
-							</arguments>
-						</configuration>
-					</execution>
-					<execution>
 						<id>post-build</id>
 						<phase>prepare-package</phase>
 						<goals>

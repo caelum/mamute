@@ -28,7 +28,7 @@
 	<target name="merge-css" depends="">
 		<echo message="Merging css's..." />
 		
-		<concat destfile="${webapp.target.dir}/css/all.css">
+		<concat destfile="${webapp.target.dir}/css/all-${timestamp}.css">
 			<fileset file="${css.dir}/reset.css" />
 			<fileset file="${css.dir}/deps/*.css"/>
 			<fileset file="${css.dir}/deps/pickadate/*.css" />
@@ -81,7 +81,7 @@
 	<target name="merge-all-js" depends="">
 		<echo message="Merging mamute + deps js's..." />
 		
-		<concat destfile="${webapp.target.dir}/js/all.js">
+		<concat destfile="${webapp.target.dir}/js/all-${timestamp}.js">
 			<fileset dir="${tmp.dir}" includes="all-deps-min.js" />
 			<fileset dir="${js.deps.dir}" includes="feather.js" />
 			<fileset dir="${tmp.dir}" includes="all-mamute-min.js" />
@@ -92,7 +92,7 @@
 	<target name="merge-jquery-plugins" depends="">
 		<echo message="Merging jquery plugins..." />
 		<mkdir dir="${js.dir}/jquery/"/>
-		<concat fixlastline="yes" destfile="${webapp.target.dir}/js/jquery/jquery-plugins${deploy.timestamp}.js">
+		<concat fixlastline="yes" destfile="${webapp.target.dir}/js/jquery/jquery-plugins-${timestamp}.js">
 			<fileset file="${js.deps.dir}/picker.js"/>			
 			<fileset file="${js.deps.dir}/picker.date.js"/>		
 			<fileset file="${js.deps.dir}/translations/pt_BR.js"/>
