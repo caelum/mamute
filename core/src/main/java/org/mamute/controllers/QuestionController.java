@@ -1,6 +1,5 @@
 package org.mamute.controllers;
 
-import static br.com.caelum.vraptor.view.Results.json;
 import static java.util.Arrays.asList;
 import static org.mamute.util.TagsSplitter.splitTags;
 
@@ -16,7 +15,6 @@ import org.mamute.brutauth.auth.rules.LoggedRule;
 import org.mamute.brutauth.auth.rules.ModeratorOnlyRule;
 import org.mamute.dao.QuestionDAO;
 import org.mamute.dao.ReputationEventDAO;
-import org.mamute.dao.TagDAO;
 import org.mamute.dao.VoteDAO;
 import org.mamute.dao.WatcherDAO;
 import org.mamute.factory.MessageFactory;
