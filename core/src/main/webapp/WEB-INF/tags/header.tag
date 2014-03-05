@@ -43,7 +43,7 @@
 	<link rel="stylesheet" href="<c:url value="/css/deps/pickadate/classic.date.css"/>">
 </c:if>
 <c:if test="${environment.name == 'production'}" >
-	<link rel="stylesheet" href="<c:url value="/css/all-brutal${deployTimestamp}.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/all-${deployTimestamp}.css"/>">
 </c:if>
 
 <!--[if lt IE 9]>
