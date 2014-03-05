@@ -32,7 +32,7 @@ $(function() {
 	
 	function resetForm(form){
 		var formParent = form.parent();
-		form.removeClass("inactive").find("textarea").val("");
+		form.removeClass("inactive");
 		form.find("input[type='submit']").attr("disabled", false);
 		formParent.addClass("hidden");
 	}
