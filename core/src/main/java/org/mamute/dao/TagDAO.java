@@ -87,12 +87,14 @@ public class TagDAO {
 		return session.createQuery("select t.name from Tag t").list();
 	}
 
-	public void save(Tag tag) {
-		session.save(tag);
-	}
-
 	public boolean hasAbout(Tag tag) {
 		List list = session.createQuery("select page from TagPage page where page.tag = :tag").setParameter("tag", tag).list();
 		return !list.isEmpty();
+	}
+
+	public void saveIfDoesntExists(Tag newTag) {
+		if(findByName(newTag.getName()) == null){
+			session.save(newTag);
+		}		
 	}
 }

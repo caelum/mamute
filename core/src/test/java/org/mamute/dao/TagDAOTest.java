@@ -3,21 +3,25 @@ package org.mamute.dao;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.util.Arrays;
 import java.util.List;
 
+import org.hibernate.Session;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.mamute.builder.QuestionBuilder;
-import org.mamute.dao.TagDAO;
 import org.mamute.model.Answer;
 import org.mamute.model.Question;
 import org.mamute.model.Tag;
 import org.mamute.model.TagUsage;
 import org.mamute.model.User;
+import org.mockito.Mockito;
 
 
 public class TagDAOTest extends DatabaseTestCase{
@@ -135,6 +139,16 @@ public class TagDAOTest extends DatabaseTestCase{
 		assertEquals(2, found.size());
 		assertEquals("java", found.get(0).getName());
 		assertEquals("ruby", found.get(1).getName());
+	}
+	
+	@Test
+	public void should_not_save_repeated_tags() throws Exception {
+		int originalSize = tags.all().size();
+		Tag csharp = new Tag("csharp", "", leo);
+		tags.saveIfDoesntExists(csharp);
+		tags.saveIfDoesntExists(csharp);
+
+		assertEquals(tags.all().size(), originalSize+1);
 	}
 
 	private Question questionWith(List<Tag> tags) {

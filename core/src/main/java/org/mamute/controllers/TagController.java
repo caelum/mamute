@@ -1,5 +1,6 @@
 package org.mamute.controllers;
 
+import static br.com.caelum.vraptor.view.Results.json;
 import static org.mamute.util.TagsSplitter.splitTags;
 
 import java.util.List;
@@ -35,11 +36,14 @@ public class TagController {
 	public void saveTags(String stringTags){
 		List<String> tagList = splitTags(stringTags);
 		for (String tag : tagList) {
-			if(tags.findByName(tag) == null){
-				tags.save(new Tag(tag, "", null));
-			}
+			tags.saveIfDoesntExists(new Tag(tag, "", null));
 		}
 		result.nothing();
+	}
+	
+	@Get("/pergunta/allTags")
+	public void jsonTags () {
+		result.use(json()).withoutRoot().from(tags.all()).serialize();
 	}
 	
 }

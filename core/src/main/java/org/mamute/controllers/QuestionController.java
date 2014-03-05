@@ -21,6 +21,7 @@ import org.mamute.dao.VoteDAO;
 import org.mamute.dao.WatcherDAO;
 import org.mamute.factory.MessageFactory;
 import org.mamute.interceptors.IncludeAllTags;
+import org.mamute.managers.TagsManager;
 import org.mamute.model.EventType;
 import org.mamute.model.LoggedUser;
 import org.mamute.model.Question;
@@ -48,7 +49,6 @@ public class QuestionController {
 
 	private Result result;
 	private QuestionDAO questions;
-	private TagDAO tags;
 	private VoteDAO votes;
 	private LoggedUser currentUser;
 	private TagsValidator tagsValidator;
@@ -60,6 +60,7 @@ public class QuestionController {
 	private WatcherDAO watchers;
 	private ReputationEventDAO reputationEvents;
 	private BrutalValidator brutalValidator;
+	private TagsManager tagsManager;
 
 
 	/**
@@ -69,15 +70,14 @@ public class QuestionController {
 	}
 	
 	@Inject
-	public QuestionController(Result result, QuestionDAO questionDAO, TagDAO tags, 
+	public QuestionController(Result result, QuestionDAO questionDAO, 
 			VoteDAO votes, LoggedUser currentUser, FacebookAuthService facebook,
 			TagsValidator tagsValidator, MessageFactory messageFactory,
 			Validator validator, PostViewCounter viewCounter,
-			Linker linker, WatcherDAO watchers, 
-			ReputationEventDAO reputationEvents, BrutalValidator brutalValidator) {
+			Linker linker, WatcherDAO watchers, ReputationEventDAO reputationEvents,
+			BrutalValidator brutalValidator, TagsManager tagsManager) {
 		this.result = result;
 		this.questions = questionDAO;
-		this.tags = tags;
 		this.votes = votes;
 		this.currentUser = currentUser;
 		this.facebook = facebook;
@@ -89,6 +89,7 @@ public class QuestionController {
 		this.watchers = watchers;
 		this.reputationEvents = reputationEvents;
 		this.brutalValidator = brutalValidator;
+		this.tagsManager = tagsManager;
 	}
 
 	@Get("/perguntar")
@@ -103,11 +104,6 @@ public class QuestionController {
 	public void questionEditForm(@Load Question question) {
 		result.include("question",  question);
 	}
-	
-	@Get("/pergunta/allTags")
-	public void jsonTags () {
-		result.use(json()).withoutRoot().from(tags.all()).serialize();
-	}
 
 	@Post("/pergunta/editar/{original.id}")
 	@CustomBrutauthRules(EditQuestionRule.class)
@@ -115,15 +111,17 @@ public class QuestionController {
 			String comment) {
 
 		List<String> splitedTags = splitTags(tagNames);
-		List<Tag> loadedTags = tags.findAllDistinct(splitedTags);
+		List<Tag> loadedTags = tagsManager.findOrCreate(splitedTags);
+		validate(loadedTags, splitedTags);
+		
 		QuestionInformation information = new QuestionInformation(title, description, this.currentUser, loadedTags, comment);
 		brutalValidator.validate(information);
 		UpdateStatus status = original.updateWith(information);
+
+		validator.onErrorUse(Results.page()).of(this.getClass()).questionEditForm(original);
 		
 		result.include("editComment", comment);
 		result.include("question", original);
-		validate(loadedTags, splitedTags);
-		validator.onErrorUse(Results.page()).of(this.getClass()).questionEditForm(original);
 		
 		questions.save(original);
 		result.include("messages",
@@ -170,13 +168,14 @@ public class QuestionController {
 	@CustomBrutauthRules({LoggedRule.class, InputRule.class})
 	public void newQuestion(String title, 	String description, String tagNames, boolean watching) {
 		List<String> splitedTags = splitTags(tagNames);
-		List<Tag> foundTags = tags.findAllDistinct(splitedTags);
+
+		List<Tag> foundTags = tagsManager.findOrCreate(splitedTags);
+		validate(foundTags, splitedTags);
+		
 		QuestionInformation information = new QuestionInformation(title, description, currentUser, foundTags, "new question");
 		brutalValidator.validate(information);
 		User author = currentUser.getCurrent();
 		Question question = new Question(information, author);
-		
-		validate(foundTags, splitedTags);
 		result.include("question", question);
 		validator.onErrorRedirectTo(this).questionForm();
 		

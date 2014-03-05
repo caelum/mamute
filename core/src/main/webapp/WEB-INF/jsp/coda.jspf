@@ -32,7 +32,9 @@
 	<script src="<c:url value="/js/deps/marked.js"/>"></script>
 	<script src="<c:url value="/js/deps/filepicker.js"/>"></script>
 	<script src="<c:url value="/js/deps/feather.js"/>"></script>
-	
+	<c:if test="${env.get('tags.add.anyone') != 'true'}">
+		<script src="<c:url value="/js/tags-manager.js"/>"></script>
+	</c:if>
 	<script src="<c:url value="/js/form-validation.js"/>"></script>
 	<script src="<c:url value="/js/form-hints.js"/>"></script>
 	<script src="<c:url value="/js/simple-ajax-form.js"/>"></script>
@@ -43,7 +45,6 @@
 	<script src="<c:url value="/js/modal.js"/>"></script>
 	<script src="<c:url value="/js/up-down-vote.js"/>"></script>
 	<script src="<c:url value="/js/links-behaviour.js"/>"></script>
-	<script src="<c:url value="/js/tag-autocomplete.js"/>"></script>
 	<script src="<c:url value="/js/history-select-version.js"/>"></script>
 	<script src="<c:url value="/js/submenu.js"/>"></script>
 	<script src="<c:url value="/js/popup.js"/>"></script>
