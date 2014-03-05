@@ -41,7 +41,6 @@
 	<target name="process-js-deps" depends="">
 		<echo message="Merging js deps's..." />
 		<concat destfile="${tmp.dir}/all-deps.js">
-			<fileset file="${js.deps.dir}/prettify.js"/>
 
 			<fileset file="${js.deps.dir}/Markdown.Converter.js"/>
 			<fileset file="${js.deps.dir}/Markdown.Sanitizer.js"/>
@@ -79,6 +78,7 @@
 		
 		<concat destfile="${webapp.target.dir}/js/all-${timestamp}.js">
 			<fileset dir="${tmp.dir}" includes="all-deps-min.js" />
+			<fileset file="${js.deps.dir}/prettify.js"/>
 			<fileset dir="${js.deps.dir}" includes="feather.js" />
 			<fileset dir="${tmp.dir}" includes="all-mamute-min.js" />
 		</concat>
