@@ -10,6 +10,7 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 
 import org.apache.log4j.Logger;
+import org.mamute.providers.DefaultViewObjects;
 
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.controller.ControllerNotFoundHandler;
@@ -19,13 +20,13 @@ import br.com.caelum.vraptor.core.RequestInfo;
 @Priority(Interceptor.Priority.APPLICATION)
 public class BrutalResourceNotFoundHandler implements ControllerNotFoundHandler {
 	
-	@Inject private MenuInfo menuInfo;
+	@Inject private DefaultViewObjects defaultViewObjects;
 
 	private static final Logger LOG = Logger.getLogger(BrutalResourceNotFoundHandler.class);
 	
 	@Override
 	public void couldntFind(RequestInfo request) {
-		menuInfo.include();
+		defaultViewObjects.include();
 		LOG.warn("Got 404 at url:" + request.getRequestedUri());
 		FilterChain chain = request.getChain();
 		try {
