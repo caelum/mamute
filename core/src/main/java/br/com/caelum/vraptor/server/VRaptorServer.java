@@ -82,14 +82,15 @@ public class VRaptorServer {
 	private static Server createServer() {
 		String webPort = getPort();
 		if (webPort == null || webPort.isEmpty()) {
-			webPort = "8080";
+			webPort = System.getProperty("server.port", "8080");
 		}
 		Server server = new Server(Integer.valueOf(webPort));
 		return server;
 	}
 
 	private static String getPort() {
-		return System.getenv("PORT");
+		String port = System.getenv("PORT");
+		return port;
 	}
 
 }
