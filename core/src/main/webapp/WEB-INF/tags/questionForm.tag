@@ -3,6 +3,8 @@
 <%@attribute name="uri" required="true" type="java.lang.String" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 
+<c:set var="tagsRequired" value="${env.get('tags.mandatory', 'false') == 'true' ? 'required' : ''}" />
+
 <form class="validated-form question-form hinted-form" action='${uri}' method="post" >
 	<label for="question-title"><fmt:message key="question.title.label" /></label>
 	<input id="question-title" type="text" class="required hintable text-input question-title-input" 
@@ -14,7 +16,12 @@
 
 	<label for="tags"><fmt:message key="question.tags.label"/></label>
 	<ul class="tags autocompleted-tags complete-tags hidden" id="newquestion-tags-autocomplete"></ul>
-	<input id="tags" type="text" autocomplete="off" name="tagNames" class="question-tags-input hintable autocomplete only-existent-tags text-input required" value="${question.tagsAsString }" data-hint-id="question-tags-hint" data-autocomplete-id="newquestion-tags-autocomplete"/>
+	
+	<input id="tags" type="text" autocomplete="off"
+		name="tagNames" 
+		class="question-tags-input hintable autocomplete only-existent-tags text-input ${tagsRequired}" 
+		value="${question.tagsAsString }" data-hint-id="question-tags-hint" 
+		data-autocomplete-id="newquestion-tags-autocomplete"/>
 	
 	<input class="post-submit big-submit" type="submit" value="<fmt:message key="question.new_form.submit"/>" />
 
