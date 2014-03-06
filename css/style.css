@@ -32,8 +32,10 @@ header {
 }
 
 .links {
-	display: flex;
+	display: inline-block;
 	list-style: none;
+	width: 100%;
+	text-align: center;
 }
 
 .links li {
@@ -42,7 +44,7 @@ header {
 	background-color: #f2f2f2;
 	background-repeat: no-repeat;
 	background-position: center center;
-	flex: 1 1 auto;
+	width: 23%;
 }
 
 .links li:first-child {
@@ -59,8 +61,6 @@ header {
 	display: inline-block;
 	padding: 5em; 
 	width: 100%;
-	max-width: 10em;
-	max-height: 10em;
 }
 
 .download {
