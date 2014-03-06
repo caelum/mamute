@@ -105,20 +105,25 @@ footer {
 
 .apoio li {
 	display: inline-block;
+	width: 50%;
+	text-align: center;
+}
+
+.apoio a {
+	display: inline-block;
 	text-indent: -9999px;
 	background-repeat: no-repeat;
 	background-size: contain;
 	background-position: center center;
-	width: 50%;
 }
 
-.caelum {
+.caelum a{
 	background-image: url('../images/caelum.png');
 	width: 199px;
 	height: 62px;	
 }
 
-.vraptor {
+.vraptor a{
 	background-image: url('../images/vraptor.png');
 	width: 199px;
 	height: 57px;
