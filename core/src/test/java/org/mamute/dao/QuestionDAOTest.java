@@ -84,12 +84,6 @@ public class QuestionDAOTest extends DatabaseTestCase {
 	}
 	
     
-	@Test(expected=ConstraintViolationException.class)
-	public void should_throw_constraint_exception_if_tags_is_empty() {
-		Question myQuestion = question.withTags(new ArrayList<Tag>()).withTitle(VALID_TITLE).withDescription(VALID_DESC).withAuthor(author).build();                                                                                                                    
-		questionsBeingAuthor.save(myQuestion );
-	}
-	
 	@Test
 	public void should_return_only_questions_with_the_provided_tag() {
 		Question javaQuestion = javaQuestion();
