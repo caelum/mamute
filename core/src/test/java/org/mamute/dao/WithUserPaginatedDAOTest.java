@@ -49,37 +49,37 @@ public class WithUserPaginatedDAOTest extends DatabaseTestCase{
 	
 	@Test
 	public void should_return_only_questions_with_the_provided_user_ordered_by_vote_count() {
-		Question beberFazMal = beberFazMal();
-		beberFazMal.substitute(null, upVote);
-		beberFazMal.substitute(null, upVote2);
+		Question javaEEQuestion = javaEEQuestion();
+		javaEEQuestion.substitute(null, upVote);
+		javaEEQuestion.substitute(null, upVote2);
 		
-		Question androidRuim = androidRuim();
-		androidRuim.substitute(null, upVote3);
+		Question androidQuestion = androidQuestion();
+		androidQuestion.substitute(null, upVote3);
 		
-		Question salDaAzar = salDaAzar();
+		Question javaQuestion = javaQuestion();
 		
 		List<Question> perguntasDoAuthor = questionsWithUser.by(author, ByVotes, 1);
 
-		assertTrue(perguntasDoAuthor.contains(salDaAzar));
-		assertTrue(perguntasDoAuthor.contains(beberFazMal));
-		assertTrue(perguntasDoAuthor.contains(androidRuim));
-		assertEquals(perguntasDoAuthor.get(0), beberFazMal);
-		assertEquals(perguntasDoAuthor.get(1), androidRuim);
-		assertEquals(perguntasDoAuthor.get(2), salDaAzar);
+		assertTrue(perguntasDoAuthor.contains(javaQuestion));
+		assertTrue(perguntasDoAuthor.contains(javaEEQuestion));
+		assertTrue(perguntasDoAuthor.contains(androidQuestion));
+		assertEquals(perguntasDoAuthor.get(0), javaEEQuestion);
+		assertEquals(perguntasDoAuthor.get(1), androidQuestion);
+		assertEquals(perguntasDoAuthor.get(2), javaQuestion);
 	}
 	
 	@Test
 	public void should_return_only_answers_with_the_provided_user_ordered_by_vote_count() {
-		Question androidRuim = androidRuim();
+		Question androidQuestion = androidQuestion();
 
-		Answer ehMuito = answer("Sim! É muito ruim! (tanto quanto iOS)", androidRuim, author);
+		Answer ehMuito = answer("Sim! É muito ruim! (tanto quanto iOS)", androidQuestion, author);
 		ehMuito.substitute(null, upVote);
 		ehMuito.substitute(null, upVote2);
 		
-		Answer nemEh = answer("Não, é a melhor plataforma mobile do mundo!", androidRuim, author);
+		Answer nemEh = answer("Não, é a melhor plataforma mobile do mundo!", androidQuestion, author);
 		nemEh.substitute(null, upVote3);
 		
-		Answer maisOuMenos =  answer("Cara, veja bem: depende do seu ponto de vista.", androidRuim, author);
+		Answer maisOuMenos =  answer("Cara, veja bem: depende do seu ponto de vista.", androidQuestion, author);
 		
 		session.save(upVote);
 		session.save(upVote2);
@@ -101,57 +101,56 @@ public class WithUserPaginatedDAOTest extends DatabaseTestCase{
 	@Test
 	public void should_return_only_questions_with_the_provided_user_ordered_by_date() {
 		DateTimeUtils.setCurrentMillisFixed(new DateTime().minusMonths(2).getMillis());
-		Question beberFazMal = beberFazMal();
+		Question javaEEQuestion = javaEEQuestion();
 		DateTimeUtils.setCurrentMillisSystem();
 		
 		DateTimeUtils.setCurrentMillisFixed(new DateTime().minusMonths(1).getMillis());
-		Question androidRuim = androidRuim();
+		Question androidQuestion = androidQuestion();
 		DateTimeUtils.setCurrentMillisSystem();
 
-		Question salDaAzar = salDaAzar();
+		Question javaQuestion = javaQuestion();
 		
 		List<Question> perguntasDoAuthor = questionsWithUser.by(author, ByDate, 1);
 		
-		assertTrue(perguntasDoAuthor.contains(salDaAzar));
-		assertTrue(perguntasDoAuthor.contains(beberFazMal));
-		assertTrue(perguntasDoAuthor.contains(androidRuim));
-		assertEquals(salDaAzar, perguntasDoAuthor.get(0));
-		assertEquals(androidRuim, perguntasDoAuthor.get(1));
-		assertEquals(beberFazMal, perguntasDoAuthor.get(2));
+		assertTrue(perguntasDoAuthor.contains(javaQuestion));
+		assertTrue(perguntasDoAuthor.contains(javaEEQuestion));
+		assertTrue(perguntasDoAuthor.contains(androidQuestion));
+		assertEquals(javaQuestion, perguntasDoAuthor.get(0));
+		assertEquals(androidQuestion, perguntasDoAuthor.get(1));
+		assertEquals(javaEEQuestion, perguntasDoAuthor.get(2));
 	}
 
-	public Question beberFazMal(){
-		Question beberFazMal = question
-			.withTitle("Por que dizem que beber demais faz mal?")
-			.withDescription("Alguem poderia me dizer o por que disso? Obrigado galera!")
+	private Question javaEEQuestion(){
+		Question q = question
+			.withTitle("Some question about java ee and other stuff?")
+			.withDescription("Please help solving my question about java ee! Thanks, guys!")
 			.withAuthor(author)
 			.withTag(defaultTag)
 			.build();
-		session.save(beberFazMal);
-		return beberFazMal;
+		session.save(q);
+		return q;
 	}
 	
-	public Question androidRuim(){
-		Question androidRuim = question
-				.withTitle("Por que a api de android é tão ruim?")
-				.withDescription("Alguem poderia me dizer o por que disso? Obrigado galera!")
+	private Question androidQuestion(){
+		Question q = question
+				.withTitle("Some question about android and other stuff?")
+				.withDescription("Please help solving my question about android! Thanks, guys!")
 				.withAuthor(author)
 				.withTag(defaultTag)
 				.build();
-		session.save(androidRuim);
-		return androidRuim;
+		session.save(q);
+		return q;
 		
 	}
 
-	public Question salDaAzar(){
-		Question salDaAzar =  question
-				.withTitle("Por que pegar o sal da mal dos outros da azar?")
-				.withDescription("Alguem poderia me dizer o por que disso? Obrigado galera!")
+	private Question javaQuestion(){
+		Question q =  question
+				.withTitle("Some question about java SE and other stuff")
+				.withDescription("Please help solving my question about java! Thanks, guys!")
 				.withAuthor(author)
 				.withTag(defaultTag)
 				.build();
-		session.save(salDaAzar);
-		return salDaAzar;
+		session.save(q);
+		return q;
 	}
-
 }
