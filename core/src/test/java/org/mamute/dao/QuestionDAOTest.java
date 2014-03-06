@@ -18,8 +18,6 @@ import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.mamute.builder.QuestionBuilder;
-import org.mamute.dao.InvisibleForUsersRule;
-import org.mamute.dao.QuestionDAO;
 import org.mamute.model.LoggedUser;
 import org.mamute.model.Question;
 import org.mamute.model.Tag;
@@ -38,7 +36,7 @@ public class QuestionDAOTest extends DatabaseTestCase {
 	private QuestionDAO questionsBeingAuthor;
 	private QuestionBuilder question = new QuestionBuilder();
 	private User author;
-	private Tag sal = tag("sal");
+	private Tag java = tag("java");
 	private Tag defaultTag = tag("defaultTag");
 	private QuestionDAO questionsBeingModerator;
 	private User moderator;
@@ -53,7 +51,7 @@ public class QuestionDAOTest extends DatabaseTestCase {
 		session.save(author);
 		session.save(moderator);
 		session.save(anyone);
-		session.save(sal);
+		session.save(java);
 		session.save(defaultTag);
 		this.questionsBeingAuthor = new QuestionDAO(session, new InvisibleForUsersRule(new LoggedUser(author, null)));
 		this.questionsBeingModerator = new QuestionDAO(session, new InvisibleForUsersRule(new LoggedUser(moderator, null)));
@@ -85,50 +83,51 @@ public class QuestionDAOTest extends DatabaseTestCase {
 		questionsBeingAuthor.save(myQuestion );
 	}
 	
+    
 	@Test(expected=ConstraintViolationException.class)
 	public void should_throw_constraint_exception_if_tags_is_empty() {
-		Question myQuestion = question.withTags(new ArrayList<Tag>()).withTitle(VALID_TITLE).withDescription(VALID_DESC).withAuthor(author).build();
+		Question myQuestion = question.withTags(new ArrayList<Tag>()).withTitle(VALID_TITLE).withDescription(VALID_DESC).withAuthor(author).build();                                                                                                                    
 		questionsBeingAuthor.save(myQuestion );
 	}
-		
+	
 	@Test
 	public void should_return_only_questions_with_the_provided_tag() {
-		Question salDaAzar = salDaAzar();
-		Question beberFazMal = beberFazMal();
-		Question androidRuim = androidRuim();
+		Question javaQuestion = javaQuestion();
+		Question javaEEQuestion = javaEEQuestion();
+		Question androidQuestion = androidQuestion();
 		
-		List<Question> perguntasComSal = questionsBeingAuthor.withTagVisible(sal, 1);
+		List<Question> questionsAboutJava = questionsBeingAuthor.withTagVisible(java, 1);
 
-		assertTrue(perguntasComSal.contains(salDaAzar));
-		assertFalse(perguntasComSal.contains(beberFazMal));
-		assertFalse(perguntasComSal.contains(androidRuim));
+		assertTrue(questionsAboutJava.contains(javaQuestion));
+		assertFalse(questionsAboutJava.contains(javaEEQuestion));
+		assertFalse(questionsAboutJava.contains(androidQuestion));
 	}
 
 	@Test
 	public void should_not_ignore_invisible_ones_if_user_is_author() {
-		Question salDaAzar = salDaAzar();
-		assertContains(salDaAzar, questionsBeingAuthor);
+		Question javaQuestion = javaQuestion();
+		assertContains(javaQuestion, questionsBeingAuthor);
 
-		salDaAzar.remove();
-		assertContains(salDaAzar, questionsBeingAuthor);
+		javaQuestion.remove();
+		assertContains(javaQuestion, questionsBeingAuthor);
 	}
 	
 	@Test
 	public void should_not_ignore_invisible_ones_if_user_is_moderator() {
-		Question salDaAzar = salDaAzar();
-		assertContains(salDaAzar, questionsBeingModerator);
+		Question javaQuestion = javaQuestion();
+		assertContains(javaQuestion, questionsBeingModerator);
 		
-		salDaAzar.remove();
-		assertContains(salDaAzar, questionsBeingModerator);
+		javaQuestion.remove();
+		assertContains(javaQuestion, questionsBeingModerator);
 	}
 	
 	@Test
 	public void should_ignore_invisible_ones_if_user_is_not_moderator() {
-		Question salDaAzar = salDaAzar();
-		assertContains(salDaAzar, questionsForAnyone);
+		Question javaQuestion = javaQuestion();
+		assertContains(javaQuestion, questionsForAnyone);
 		
-		salDaAzar.remove();
-		assertNotContains(salDaAzar, questionsForAnyone);
+		javaQuestion.remove();
+		assertNotContains(javaQuestion, questionsForAnyone);
 	}
 	
 	@Test
@@ -143,17 +142,17 @@ public class QuestionDAOTest extends DatabaseTestCase {
 	
 	@Test
 	public void should_calculate_number_of_pages_by_tags() {
-		saveQuestions(2*PAGE_SIZE, sal);
-		assertEquals(2l, questionsForAnyone.numberOfPages(sal));
-		saveQuestions(2*PAGE_SIZE, defaultTag, sal);
-		assertEquals(4l, questionsForAnyone.numberOfPages(sal));
+		saveQuestions(2*PAGE_SIZE, java);
+		assertEquals(2l, questionsForAnyone.numberOfPages(java));
+		saveQuestions(2*PAGE_SIZE, defaultTag, java);
+		assertEquals(4l, questionsForAnyone.numberOfPages(java));
 		assertEquals(2l, questionsForAnyone.numberOfPages(defaultTag));
 	}
 
 	@Test
 	public void should_find_questions_visible_and_order_by_creation_date() throws Exception {
-		Question question1 = question(author, sal);
-		Question question2 = question(author, sal);
+		Question question1 = question(author, java);
+		Question question2 = question(author, java);
 		question2.remove();
 		session.save(question1);
 		session.save(question2);
@@ -163,7 +162,7 @@ public class QuestionDAOTest extends DatabaseTestCase {
 	
 	@Test
 	public void should_find_questions_visible_and_order_by_creation_date_of_a_tag() throws Exception {
-		Question question1 = question(author, sal);
+		Question question1 = question(author, java);
 		Question question2 = question(author, defaultTag);
 		Question invisible = question(author, defaultTag);
 		invisible.remove();
@@ -180,15 +179,15 @@ public class QuestionDAOTest extends DatabaseTestCase {
 		Question oldQuestion = TimeMachine.goTo(pastWeek.minusDays(1)).andExecute(new Block<Question>() {
 			@Override
 			public Question run() {
-				Question question = question(author, sal);
+				Question question = question(author, java);
 				setVoteCount(question, 100);
 				return question;
 			}
 		});
-		Question withTenVotes = question(author, sal);
-		Question withFiveVotes = question(author, sal);
-		Question withNoVotes = question(author, sal);
-		Question invisible = question(author, sal);
+		Question withTenVotes = question(author, java);
+		Question withFiveVotes = question(author, java);
+		Question withNoVotes = question(author, java);
+		Question invisible = question(author, java);
 		setVoteCount(withTenVotes, 10);
 		setVoteCount(withFiveVotes, 5);
 		setVoteCount(invisible, 15);
@@ -215,50 +214,50 @@ public class QuestionDAOTest extends DatabaseTestCase {
 		}
 	}
 	
-	private void assertNotContains(Question salDaAzar, QuestionDAO dao) {
-		assertFalse(dao.allVisible(1).contains(salDaAzar));
-		assertFalse(dao.unsolvedVisible(1).contains(salDaAzar));
-		assertFalse(dao.withTagVisible(sal, 1).contains(salDaAzar));
+	private void assertNotContains(Question question, QuestionDAO dao) {
+		assertFalse(dao.allVisible(1).contains(question));
+		assertFalse(dao.unsolvedVisible(1).contains(question));
+		assertFalse(dao.withTagVisible(java, 1).contains(question));
 	}
 	
-	private void assertContains(Question salDaAzar, QuestionDAO dao) {
-		assertTrue(dao.allVisible(1).contains(salDaAzar));
-		assertTrue(dao.unsolvedVisible(1).contains(salDaAzar));
-		assertTrue(dao.withTagVisible(sal, 1).contains(salDaAzar));
+	private void assertContains(Question question, QuestionDAO dao) {
+		assertTrue(dao.allVisible(1).contains(question));
+		assertTrue(dao.unsolvedVisible(1).contains(question));
+		assertTrue(dao.withTagVisible(java, 1).contains(question));
 	}
 	
-	private Question beberFazMal(){
-		Question beberFazMal = question
-			.withTitle("Por que dizem que beber demais faz mal?")
-			.withDescription("Alguem poderia me dizer o por que disso? Obrigado galera!")
+	private Question javaEEQuestion(){
+		Question q = question
+			.withTitle("Some question about java ee and other stuff?")
+			.withDescription("Please help solving my question about java ee! Thanks, guys!")
 			.withAuthor(author)
 			.withTag(defaultTag)
 			.build();
-		session.save(beberFazMal);
-		return beberFazMal;
+		session.save(q);
+		return q;
 	}
 	
-	private Question androidRuim(){
-		Question androidRuim = question
-				.withTitle("Por que a api de android é tão ruim?")
-				.withDescription("Alguem poderia me dizer o por que disso? Obrigado galera!")
+	private Question androidQuestion(){
+		Question q = question
+				.withTitle("Some question about android and other stuff?")
+				.withDescription("Please help solving my question about android! Thanks, guys!")
 				.withAuthor(author)
 				.withTag(defaultTag)
 				.build();
-		session.save(androidRuim);
-		return androidRuim;
+		session.save(q);
+		return q;
 		
 	}
 
-	private Question salDaAzar(){
-		Question salDaAzar =  question
-				.withTitle("Por que pegar o sal da mal dos outros da azar?")
-				.withDescription("Alguem poderia me dizer o por que disso? Obrigado galera!")
+	private Question javaQuestion(){
+		Question q =  question
+				.withTitle("Some question about java SE and other stuff")
+				.withDescription("Please help solving my question about java! Thanks, guys!")
 				.withAuthor(author)
-				.withTag(sal)
+				.withTag(java)
 				.build();
-		session.save(salDaAzar);
-		return salDaAzar;
+		session.save(q);
+		return q;
 	}
 	
 }
