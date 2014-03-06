@@ -39,12 +39,12 @@ header {
 }
 
 .links li {
-	margin-left: 1em;
+	margin-left: 1%;
 	display: inline-block;
 	background-color: #f2f2f2;
 	background-repeat: no-repeat;
 	background-position: center center;
-	width: 23%;
+	width: 24%;
 }
 
 .links li:first-child {
