@@ -1,5 +1,13 @@
- <tags:header facebookMetas="${true}" 
-	title="${question.mostImportantTag.name} - ${question.title}" 
+<c:if test="${question.hasTags()}">
+	<c:set var="pageTitle" 
+		value="${question.mostImportantTag.name} - ${question.title}" />
+</c:if>
+<c:if test="${!question.hasTags()}">
+	<c:set var="pageTitle" 
+		value="${question.title}" />
+</c:if>
+<tags:header facebookMetas="${true}" 
+	title="${pageTitle}" 
 	description="${question.metaDescription}"/>
 <div class="breadcrumb" itemprop="breadcrumb" xmlns:v="http://rdf.data-vocabulary.org/#">
 	<span typeof="v:Breadcrumb">
@@ -9,9 +17,11 @@
 	</span>
 	<span>»</span>
 	<span typeof="v:Breadcrumb">
-		<a rel="v:url" property="v:title" href="${linkTo[ListController].withTag(question.mostImportantTag.name,1)}">
-			${question.mostImportantTag.name}
-		</a>
+		<c:if test="${question.hasTags()}">
+			<a rel="v:url" property="v:title" href="${linkTo[ListController].withTag(question.mostImportantTag.name,1)}">
+				${question.mostImportantTag.name}
+			</a>
+		</c:if>
 	</span>
 	<span>»</span>
 	<span typeof="v:Breadcrumb">
@@ -23,7 +33,9 @@
 
 
 <section class="first-content content">
-	<tags:mainTags tagClass="main-tags-header" tagClassLi="main-tags-text" useSprite = "true" currentQuestion="${question}"/>
+	<c:if test="${question.hasTags()}">
+		<tags:mainTags tagClass="main-tags-header" tagClassLi="main-tags-text" useSprite = "true" currentQuestion="${question}"/>
+	</c:if>
 	<c:if test="${markAsSolution}">
 		<p class = "banner-mark-as-solution"><fmt:message key="question.banner.remember" /></p>		
 	</c:if>

@@ -88,7 +88,7 @@ public class TagDAO {
 	}
 
 	public boolean hasAbout(Tag tag) {
-		List list = session.createQuery("select page from TagPage page where page.tag = :tag").setParameter("tag", tag).list();
+		List<?> list = session.createQuery("select page from TagPage page where page.tag = :tag").setParameter("tag", tag).list();
 		return !list.isEmpty();
 	}
 

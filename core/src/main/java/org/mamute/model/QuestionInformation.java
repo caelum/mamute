@@ -29,7 +29,8 @@ import org.joda.time.DateTime;
 import org.mamute.model.interfaces.Moderatable;
 import org.mamute.model.interfaces.Taggable;
 import org.mamute.providers.SessionFactoryCreator;
-
+import org.mamute.validators.OptionallyEmptyTags;
+	
 @Cacheable
 @Entity
 public class QuestionInformation implements Information, Taggable {
@@ -75,8 +76,8 @@ public class QuestionInformation implements Information, Taggable {
 	@BatchSize(size=25)
 	@OrderColumn(name = "tag_order")
 	@ManyToMany
-	@NotEmpty(message = "question.errors.tags.empty")
-	private List<Tag> tags;
+	@OptionallyEmptyTags(message = "question.errors.tags.empty")
+	private List<Tag> tags = new ArrayList<>();
 	
 	@Lob
 	private String markedDescription;

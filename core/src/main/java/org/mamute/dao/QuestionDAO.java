@@ -1,5 +1,6 @@
 package org.mamute.dao;
 
+import static java.util.Collections.EMPTY_LIST;
 import static org.hibernate.criterion.Order.desc;
 import static org.hibernate.criterion.Projections.rowCount;
 import static org.hibernate.criterion.Restrictions.and;
@@ -8,6 +9,7 @@ import static org.hibernate.criterion.Restrictions.gt;
 import static org.hibernate.criterion.Restrictions.isNull;
 
 import java.math.BigInteger;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -130,12 +132,15 @@ public class QuestionDAO implements PaginatableDAO {
 	
 
 	public List<Question> getRelatedTo(Question question) {
-		return session.createCriteria(Question.class, "q")
-				.createAlias("q.information.tags", "tags")
-				.add(Restrictions.eq("tags.id", question.getMostImportantTag().getId()))
-				.addOrder(Order.desc("q.createdAt"))
-				.setMaxResults(5)
-				.list();
+		if (question.hasTags()) {
+			return session.createCriteria(Question.class, "q")
+					.createAlias("q.information.tags", "tags")
+					.add(Restrictions.eq("tags.id", question.getMostImportantTag().getId()))
+					.addOrder(Order.desc("q.createdAt"))
+					.setMaxResults(5)
+					.list();
+		}
+		return EMPTY_LIST;
 	}
 
 	public List<Question> hot(DateTime since, int count) {

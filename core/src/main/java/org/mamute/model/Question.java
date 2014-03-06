@@ -468,4 +468,8 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 	public List<Flag> getFlags() {
 		return flags;
 	}
+
+	public boolean hasTags() {
+		return !this.getTags().isEmpty();
+	}
 }
