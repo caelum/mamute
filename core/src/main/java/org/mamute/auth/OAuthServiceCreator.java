@@ -13,7 +13,7 @@ public class OAuthServiceCreator {
 	
 	public static final String FACEBOOK_APP_SECRET = "facebook.app_secret";
 	public static final String FACEBOOK_REDIRECT_URI = "facebook.redirect_uri";
-	public static final String FACEBOOK_CLIENT_ID = "facebook.client_id";
+	public static final String FACEBOOK_CLIENT_ID = "facebook.app_id";
 	
 	private OAuthService service;
 	private String appSecret;
