@@ -144,6 +144,7 @@ footer {
 	.links a {
 		padding: 3em 0;
 	}
+
 }
 
 @media (max-width: 500px) {
@@ -158,4 +159,20 @@ footer {
 	.links li {
 		background-size: 25%;
 	}
+
+	.apoio li {
+		width: 100%;
+		padding: 1em;
+	}
+
+	.caelum a {
+		width: 160px;
+		height: 50px;
+	}
+
+	.vraptor a {
+		width: 160px;
+		height: 46px;
+	}
 }
+
