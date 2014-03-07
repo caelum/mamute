@@ -44,7 +44,7 @@
 				</exclusion>
 				<exclusion>
 					<groupId>com.google.guava</groupId>
-					<artifactId>guava-parent</artifactId>
+					<artifactId>guava</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
