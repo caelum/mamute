@@ -1,6 +1,7 @@
 package org.mamute.providers;
 
 import java.net.URL;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.annotation.PostConstruct;
@@ -11,6 +12,7 @@ import javax.enterprise.inject.Disposes;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.interceptor.Interceptor;
+import javax.validation.ValidatorFactory;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -50,15 +52,16 @@ public class SessionFactoryCreator {
 	private Configuration cfg;
 	private SessionFactory factory;
 	private Environment env;
+	private ValidatorFactory vf;
 
 	@Deprecated
 	public SessionFactoryCreator() {
 	}
 
 	@Inject
-	public SessionFactoryCreator(Environment env) {
+	public SessionFactoryCreator(Environment env, ValidatorFactory vf) {
 		this.env = env;
-
+		this.vf = vf;
 	}
 
 	@PostConstruct
@@ -67,6 +70,11 @@ public class SessionFactoryCreator {
 		LOGGER.info("Loading hibernate xml from " + xml);
 		this.cfg = new Configuration().configure(xml);
 		
+		if (this.vf != null) {
+			Map<Object, Object> properties = cfg.getProperties();
+			properties.put("javax.persistence.validation.factory", this.vf);
+			
+		}
 		String databaseUrl = System.getenv("DATABASE_URL");
 		LOGGER.info("env got " + databaseUrl);
 		if (databaseUrl != null) {
