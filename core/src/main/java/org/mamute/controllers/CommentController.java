@@ -3,6 +3,7 @@ package org.mamute.controllers;
 import javax.inject.Inject;
 
 import org.mamute.auth.rules.PermissionRulesConstants;
+import org.mamute.brutauth.auth.rules.InactiveQuestionRequiresMoreKarmaRule;
 import org.mamute.brutauth.auth.rules.InputRule;
 import org.mamute.brutauth.auth.rules.ModeratorOrKarmaRule;
 import org.mamute.dao.CommentDAO;
@@ -39,7 +40,7 @@ public class CommentController {
 
 	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
 	@AccessLevel(PermissionRulesConstants.CREATE_COMMENT)
-	@CustomBrutauthRules(InputRule.class)
+	@CustomBrutauthRules({InputRule.class, InactiveQuestionRequiresMoreKarmaRule.class})
 	@Post("/{onWhat}/{id}/comentar")
 	public void comment(Long id, String onWhat, String comment, boolean watching) {
 		User current = currentUser.getCurrent();
