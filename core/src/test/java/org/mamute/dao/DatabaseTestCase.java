@@ -1,8 +1,12 @@
 package org.mamute.dao;
 
 import static br.com.caelum.vraptor.environment.EnvironmentType.TEST;
+import static br.com.caelum.vraptor.environment.ServletBasedEnvironment.ENVIRONMENT_PROPERTY;
 
 import java.io.IOException;
+
+import javax.enterprise.inject.spi.CDI;
+import javax.validation.ValidatorFactory;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,6 +18,8 @@ import org.mamute.providers.SessionFactoryCreator;
 
 import br.com.caelum.vraptor.environment.DefaultEnvironment;
 import br.com.caelum.vraptor.environment.Environment;
+import br.com.caelum.vraptor.ioc.cdi.CDIBasedContainer;
+import br.com.caelum.vraptor.test.container.CdiContainer;
 
 @SuppressWarnings("unchecked")
 public abstract class DatabaseTestCase extends TestCase {
@@ -24,8 +30,13 @@ public abstract class DatabaseTestCase extends TestCase {
 
 	static {
 		try {
+			System.setProperty(ENVIRONMENT_PROPERTY, "test");
+			CdiContainer cdiContainer = new CdiContainer();
+			cdiContainer.start();
 			Environment testing = new DefaultEnvironment(TEST);
-			creator = new SessionFactoryCreator(testing, null);
+			CDIBasedContainer cdiBasedContainer = CDI.current().select(CDIBasedContainer.class).get();
+			ValidatorFactory vf = cdiBasedContainer.instanceFor(ValidatorFactory.class);
+			creator = new SessionFactoryCreator(testing, vf);
 			creator.init();
 			factory = creator.getInstance();
 		} catch (IOException e) {

@@ -21,7 +21,7 @@ public class ScriptSessionCreator {
 
     public ScriptSessionCreator() {
     	Environment env = buildEnv();
-    	sessionFactoryCreator = new SessionFactoryCreator(env);
+    	sessionFactoryCreator = new SessionFactoryCreator(env, null);
     	sessionFactoryCreator.init();
 	}
     
