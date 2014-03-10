@@ -25,7 +25,7 @@ public class TagsManager {
 	}
 	
 	public List<Tag> findOrCreate(List<String> splitedTags) {
-		if("true".equals(env.get("tags.add.anyone", "false")))
+		if ("true".equals(env.get("tags.add.anyone", "false")))
 			return createTags(splitedTags);
 		return findTags(splitedTags);
 	}
@@ -34,14 +34,14 @@ public class TagsManager {
 		return tags.findAllDistinct(splitedTags);
 	}
 
-	private List<Tag> createTags(List<String> splitedTags){
-		ArrayList<Tag> newTags = new ArrayList<>();
+	private List<Tag> createTags(List<String> splitedTags) {
+		ArrayList<Tag> savedTags = new ArrayList<>();
 		for (String newTag : splitedTags) {
 			Tag tag = new Tag(newTag, "", user.getCurrent() );
-			tags.saveIfDoesntExists(tag);
-			newTags.add(tag);
+			tag = tags.saveIfDoesntExists(tag);
+			savedTags.add(tag);
 		}
-		return newTags;
+		return savedTags;
 	}
 
 }

@@ -92,9 +92,12 @@ public class TagDAO {
 		return !list.isEmpty();
 	}
 
-	public void saveIfDoesntExists(Tag newTag) {
-		if(findByName(newTag.getName()) == null){
+	public Tag saveIfDoesntExists(Tag newTag) {
+		Tag existingTag = findByName(newTag.getName());
+		if (existingTag == null){
 			session.save(newTag);
-		}		
+			return newTag;
+		}
+		return existingTag;
 	}
 }
