@@ -193,7 +193,7 @@ var TagsValidator = function(){
 					if(tag != "" && notContains(allTagNames, tag) && notContains(tagsNotFound, tag)){
 						tagsNotFound.push(tag);
 					}
-				});
+			});
 				return tagsNotFound;
 			}
 			
@@ -207,4 +207,14 @@ var TagsValidator = function(){
 		
 }
 
-new TagsManager([new AutoCompleteDOM(), new TagsNavigation(), new TagsValidator()]);
+(function() {
+	console.log("oi");
+	var components = [new AutoCompleteDOM(), new TagsNavigation()];
+	if (ANYONE_CAN_CREATE_TAGS != "true") {
+		components.push(new TagsValidator());
+	}
+	new TagsManager(components);
+	
+}());
+
+
