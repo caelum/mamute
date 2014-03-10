@@ -208,7 +208,6 @@ var TagsValidator = function(){
 }
 
 (function() {
-	console.log("oi");
 	var components = [new AutoCompleteDOM(), new TagsNavigation()];
 	if (ANYONE_CAN_CREATE_TAGS != "true") {
 		components.push(new TagsValidator());
