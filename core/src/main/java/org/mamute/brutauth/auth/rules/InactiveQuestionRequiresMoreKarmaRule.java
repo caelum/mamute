@@ -19,9 +19,9 @@ public class InactiveQuestionRequiresMoreKarmaRule implements CustomBrutauthRule
 	@Inject public QuestionDAO questions;
 	
 	public boolean isAllowed(Question question, String onWhat, Long id){
-		Class<?> interactedType = urlMapping.getClassFor(onWhat);
-		if(question == null && interactedType.isAssignableFrom(Question.class)) {
-			question = questions.getById(id);
+		if(question == null) {
+			Class<?> interactedType = urlMapping.getClassFor(onWhat);
+			question  = interactedType.isAssignableFrom(Question.class) ? questions.getById(id) : null;
 		}
 		
 		if(question.isInactiveForOneMonth()) 
