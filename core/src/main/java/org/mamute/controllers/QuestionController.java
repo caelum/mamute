@@ -1,7 +1,6 @@
 package org.mamute.controllers;
 
 import static java.util.Arrays.asList;
-import static org.mamute.util.TagsSplitter.splitTags;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,6 +29,7 @@ import org.mamute.model.UpdateStatus;
 import org.mamute.model.User;
 import org.mamute.model.post.PostViewCounter;
 import org.mamute.model.watch.Watcher;
+import org.mamute.util.TagsSplitter;
 import org.mamute.validators.TagsValidator;
 import org.mamute.vraptor.Linker;
 
@@ -59,6 +59,7 @@ public class QuestionController {
 	private ReputationEventDAO reputationEvents;
 	private BrutalValidator brutalValidator;
 	private TagsManager tagsManager;
+	private TagsSplitter splitter;
 
 
 	/**
@@ -73,7 +74,7 @@ public class QuestionController {
 			TagsValidator tagsValidator, MessageFactory messageFactory,
 			Validator validator, PostViewCounter viewCounter,
 			Linker linker, WatcherDAO watchers, ReputationEventDAO reputationEvents,
-			BrutalValidator brutalValidator, TagsManager tagsManager) {
+			BrutalValidator brutalValidator, TagsManager tagsManager, TagsSplitter splitter) {
 		this.result = result;
 		this.questions = questionDAO;
 		this.votes = votes;
@@ -88,6 +89,7 @@ public class QuestionController {
 		this.reputationEvents = reputationEvents;
 		this.brutalValidator = brutalValidator;
 		this.tagsManager = tagsManager;
+		this.splitter = splitter;
 	}
 
 	@Get("/perguntar")
@@ -108,7 +110,7 @@ public class QuestionController {
 	public void edit(@Load Question original, String title, String description, String tagNames, 
 			String comment) {
 
-		List<String> splitedTags = splitTags(tagNames);
+		List<String> splitedTags = splitter.splitTags(tagNames);
 		List<Tag> loadedTags = tagsManager.findOrCreate(splitedTags);
 		validate(loadedTags, splitedTags);
 		
@@ -164,8 +166,8 @@ public class QuestionController {
 
 	@Post("/perguntar")
 	@CustomBrutauthRules({LoggedRule.class, InputRule.class})
-	public void newQuestion(String title, 	String description, String tagNames, boolean watching) {
-		List<String> splitedTags = splitTags(tagNames);
+	public void newQuestion(String title, String description, String tagNames, boolean watching) {
+		List<String> splitedTags = splitter.splitTags(tagNames);
 
 		List<Tag> foundTags = tagsManager.findOrCreate(splitedTags);
 		validate(foundTags, splitedTags);

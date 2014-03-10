@@ -17,6 +17,7 @@ var TagsManager = function(components){
 }
 
 var AutoCompleteDOM = function(){
+	var splitChar = TAGS_SPLITTER_CHAR;
 	
 	var showAutoCompleteArea = function(target){
 		target.removeClass("hidden");
@@ -24,7 +25,7 @@ var AutoCompleteDOM = function(){
 	}
 
 	var suggestAutoComplete = function(target, tagChunk, input, allTags){
-		if(tagChunk == undefined || tagChunk == " " || !tagChunk) return;
+		if(tagChunk == undefined || tagChunk == splitChar || !tagChunk) return;
 		suggestions = getSuggestions(tagChunk, allTags);
 		showSuggestions(suggestions, target);
 	}
@@ -67,10 +68,10 @@ var AutoCompleteDOM = function(){
 	var insertTagIntoTextArea = function(text) {
 		var input = $('input[name=tagNames]');
 	    var inputValue = input.val();
-	    var vetValue = inputValue.split(" ");
+	    var vetValue = inputValue.split(splitChar);
 	    vetValue = vetValue.slice(0, vetValue.length - 1); // remove the last tag(that is incomplete)
 	    vetValue.push(text);
-	    input.val(vetValue.join(' ')+" ");
+	    input.val(vetValue.join(splitChar)+splitChar);
 	    $(input).valid();
 	    input.focus();
 	    $(".autocompleted-tags").html("");
@@ -93,7 +94,7 @@ var AutoCompleteDOM = function(){
 			element.keyup(function(e){
 				var autoCompleteInput = $(this),
 				target = $("#"+autoCompleteInput.data("autocomplete-id")),
-				tagChunk = $(autoCompleteInput.val().split(" ")).last().get(0);
+				tagChunk = $(autoCompleteInput.val().split(splitChar)).last().get(0);
 				
 				if(!tagChunk){
 					target.addClass("hidden");
@@ -165,6 +166,7 @@ var TagsNavigation = function(){
 }
 
 var TagsValidator = function(){
+	var splitChar = TAGS_SPLITTER_CHAR;
 	return {
 		forElement : function(element, allTags){
 			var allTagNames = $.makeArray(
@@ -177,7 +179,7 @@ var TagsValidator = function(){
 			$.validator.addMethod(
 					"only-existent-tags",
 					function(value, element) {
-						var tags = $($(element).val().split(" "));
+						var tags = $($(element).val().split(splitChar));
 						tagsNotFound = verifyIfExists(tags, tagsNotFound);
 						var valid = tagsNotFound.length <= 0;
 						return valid;
