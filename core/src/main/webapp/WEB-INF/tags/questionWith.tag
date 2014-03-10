@@ -8,7 +8,7 @@
 	<h1 itemprop="name" class="title subheader main-thread-title question-title"><c:out value="${question.title}" escapeXml="${true}"/></h1>
 	
 	<c:if test="${shouldShowAds && !markAsSolution && !showUpvoteBanner}">
-		<div id="adQuestion" class="ad big-ads"></div>
+		<tags:brutal-include value="questionTopAd" />
 	</c:if>
 	<div class="post-meta">
 		<tags:voteFor item="${question}" type="pergunta" vote="${currentVote}"/>

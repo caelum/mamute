@@ -61,7 +61,7 @@
 					<tags:answerWith answer="${answer}" vote="${vote}" commentVotes="${commentsWithVotes}"/>
 				</li>
 				<c:if test="${status.index eq 0 && shouldShowAds && question.answersCount gt 1}">
-					<div id="adAnswer" class="ad big-ads"></div>
+					<tags:brutal-include value="questionBottomAd" />
 				</c:if>
 			</c:if>
 		</c:forEach>

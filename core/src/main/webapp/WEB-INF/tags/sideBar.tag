@@ -7,7 +7,7 @@
 
 <aside class="sidebar">
 	<tags:homeNewsList newses="${sidebarNews}" />
-	<div id="adSideBar" class="ad medium-ads"></div>
+	<tags:brutal-include value="sideBarAd" />
 	<tags:recentTagsUsage tagsUsage="${recentTags}"/>
 	<tags:feed rssUrl="${env.get('jobs.url')}" rssFeed="${jobs}" rssType="jobs"/>
 	<tags:feed rssUrl="${env.get('infoq.url')}" rssFeed="${infoq}" rssType="infoq"/>

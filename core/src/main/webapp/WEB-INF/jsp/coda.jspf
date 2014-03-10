@@ -130,19 +130,7 @@ $(function() {
 });
 </script>
 
-<script type="text/javascript">var p="http",d="static";if(document.location.protocol=="https:"){p+="s";d="engine";}var z=document.createElement("script");z.type="text/javascript";z.async=true;z.src=p+"://"+d+".adzerk.net/ados.js";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(z,s);</script>
-<script type="text/javascript">
-	var ados = ados || {};
-	ados.run = ados.run || [];
-	ados.run.push(function() {
-		ados_add_placement(7120, 49043, "adQuestion", 4).setZone(46470);
-		ados_add_placement(7120, 49043, "adAnswer", 4).setZone(46470);
-		ados_add_placement(7120, 49043, "adSideBar", 5);
-		
-		ados_load();
-	});
-</script>
-
+<tags:brutal-include value="adzerkConfiguration"/>
 <c:if test="${environment.name == 'production'}" >
 	<!-- UserVoice JavaScript SDK (only needed once on a page) -->
 	<script>(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/m3qDca7JFMjJaU9pVTfMkw.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})()</script>
