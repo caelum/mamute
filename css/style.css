@@ -1,5 +1,5 @@
 * {
-	font-family: Helvetica, sans-serif;
+	font-family: 'Lato', Helvetica, sans-serif;
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0
@@ -59,10 +59,19 @@ header {
 }
 
 .links a{
-	text-indent: -9999px;
 	display: inline-block;
 	padding: 5em 0; 
 	width: 100%;
+	text-decoration: none;
+}
+
+.links span {
+	position: relative;
+	bottom: -6.5em;
+	font-size: 1em;
+	left: 0;
+	color: #000;
+	text-transform: uppercase;
 }
 
 .download {
@@ -133,6 +142,10 @@ footer {
 	.links a {
 		padding: 4em 0;
 	}
+
+	.links span {
+		bottom: -5.5em;
+	}
 }
 
 @media (max-width: 700px) {
@@ -144,6 +157,10 @@ footer {
 		padding: 3em 0;
 	}
 
+	.links span {
+		font-size: .8em;
+	}
+
 }
 
 @media (max-width: 500px) {
@@ -153,6 +170,11 @@ footer {
 
 	.links a {
 		padding: 2em 0;
+	}
+
+	.links span {
+		font-size: .7em;
+		bottom: -4.5em
 	}
 
 	.links li {
