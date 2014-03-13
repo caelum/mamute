@@ -104,7 +104,7 @@ footer {
 .apoio {
 	list-style: none;
 	display: inline-block;
-	width: 100%;
+	width: 50%;
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -124,6 +124,13 @@ footer {
 	background-repeat: no-repeat;
 	background-size: contain;
 	background-position: center center;
+}
+
+footer p {
+	margin: 0;
+	padding-top: 2em;
+	font-size: 1.2em;
+	color: #3B3B3B;
 }
 
 .caelum a{
@@ -196,4 +203,3 @@ footer {
 		height: 46px;
 	}
 }
-
