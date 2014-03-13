@@ -1991,7 +1991,6 @@ em
 .footer-logo {
 	font-size: 0;
 	display: inline-block;
-	background-image: url("../imgs/footer-sprite.png");
 	background-repeat: no-repeat;
 	vertical-align: top;
 	margin-bottom: 5%;
@@ -2003,18 +2002,17 @@ em
 }
 
 .footer-list .first-logo {
-	background-position: 0px -54px;
-	width: 124px;
+	background-image: url("../imgs/logo-vraptor.png");
+	background-position: 10px 1px;
+	margin-bottom: 2%;
+	margin-top: 12px;
+	width: 200px;
 }
 
 .footer-list .second-logo {
-	background-position: 0px -107px;
-	width: 170px;
-}
-
-.footer-list .third-logo {
-	background-position: 0px 0px;
-	width: 183px;
+	background-image: url("../imgs/logo-mamute.png");
+	background-position: -3px 0;
+	width: 190px;
 }
 
 .footer-sub-list {

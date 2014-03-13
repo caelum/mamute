@@ -8,28 +8,15 @@
 	<div class="container">
 		<ul class="footer-list">
 			<li class="sponsor-box">
-				<a class="footer-logo first-logo" href="http://www.alura.com.br/"><fmt:message key="footer.guj" /></a>
+				<a class="footer-logo first-logo" href="http://vraptor.org/"><fmt:message key="footer.vraptor" /></a>
 				<ul class="footer-sub-list">
-					<li><fmt:message key="footer.first_sponsor.content" /></li>
+					<li><a href="http://www.vraptor.org/"><fmt:message key="footer.vraptor.content" /></a></li>
 				</ul>
 			</li>
 			<li class="sponsor-box">
-				<a class="footer-logo second-logo" href="http://www.caelum.com.br"><fmt:message key="footer.caelum"/></a>
+				<a class="footer-logo second-logo" href="http://www.mamute.org/"><fmt:message key="footer.mamute"/></a>
 				<ul class="footer-sub-list">
-					<li><a class="footer-link" href="http://www.caelum.com.br/cursos/java/">Curso de Java</a></li>
-					<li><a class="footer-link" href="http://www.caelum.com.br/curso-android/">Curso de Android</a></li>
-					<li><a class="footer-link" href="http://www.caelum.com.br/curso-javascript-jquery/">Curso de JavaScript</a></li>
-				</ul>
-				<ul class="footer-sub-list">
-					<li><a class="footer-link" href="http://www.caelum.com.br/cursos/dotnet/">Curso de .NET</a></li>
-					<li><a class="footer-link" href="http://www.caelum.com.br/cursos/agile/">Curso de Agile</a></li>
-					<li><a class="footer-link" href="http://www.caelum.com.br/curso-html-css-javascript/">Curso de HTML e CSS</a></li>
-				</ul>
-			</li>
-			<li class="sponsor-box">
-				<a class="footer-logo third-logo" href="http://www.casadocodigo.com.br/"><fmt:message key="footer.casa_do_codigo"/></a>
-				<ul class="footer-sub-list">
-					<li><a href="http://www.casadocodigo.com.br"><fmt:message key="footer.casa_do_codigo.content"/></a></li>
+					<li><a href="http://www.mamute.org/"><fmt:message key="footer.mamute.content"/></a></li>
 				</ul>
 			</li>
 		<!-- 	<li class="sponsor-box"><a class="footer-logo online-logo" href="#">Caelum Online</a></li> -->
