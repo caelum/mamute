@@ -4,47 +4,32 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<footer class="footer black-top-border">
+<footer class="footer dark-footer">
+	<tags:brutal-include value="footerTags"/>
+	<ol class="main-tags main-tags-second">
+		<li><a class="tag-brutal" href="http://www.lumpa.com.br/tag/photoshop">photoshop</a></li>
+		<li><a class="tag-brutal" href="http://www.lumpa.com.br/tag/illustrator">illustrator</a></li>
+		<li><a class="tag-brutal" href="http://www.lumpa.com.br/tag/inDesign">inDesign</a></li>
+		<li><a class="tag-brutal" href="http://www.lumpa.com.br/tag/tipografia">tipografia</a></li>
+		<li><a class="tag-brutal" href="http://www.lumpa.com.br/tag/vetorização">vetorização</a></li>
+	</ol>
 	<div class="container">
-		<ul class="footer-list">
-			<li class="sponsor-box">
-				<a class="footer-logo first-logo" href="http://vraptor.org/"><fmt:message key="footer.vraptor" /></a>
-				<ul class="footer-sub-list">
-					<li><a href="http://www.vraptor.org/"><fmt:message key="footer.vraptor.content" /></a></li>
-				</ul>
-			</li>
-			<li class="sponsor-box">
-				<a class="footer-logo second-logo" href="http://www.mamute.org/"><fmt:message key="footer.mamute"/></a>
-				<ul class="footer-sub-list">
-					<li><a href="http://www.mamute.org/"><fmt:message key="footer.mamute.content"/></a></li>
-				</ul>
-			</li>
-		<!-- 	<li class="sponsor-box"><a class="footer-logo online-logo" href="#">Caelum Online</a></li> -->
-		</ul>
-	</div>
-	<div class="dark-footer">
-		<tags:brutal-include value="footerTags"/>
-		<ol class="main-tags main-tags-second">
-			<li><a class="tag-brutal" href="http://www.lumpa.com.br/tag/photoshop">photoshop</a></li>
-			<li><a class="tag-brutal" href="http://www.lumpa.com.br/tag/illustrator">illustrator</a></li>
-			<li><a class="tag-brutal" href="http://www.lumpa.com.br/tag/inDesign">inDesign</a></li>
-			<li><a class="tag-brutal" href="http://www.lumpa.com.br/tag/tipografia">tipografia</a></li>
-			<li><a class="tag-brutal" href="http://www.lumpa.com.br/tag/vetorização">vetorização</a></li>
-		</ol>
-		<div class="container">
-			<span class="footer-menu">
-				<span class="footer-menu-label"><fmt:message key="menu.title.answers" />: </span>
-				
-				<a href="<c:url value="/nao-resolvido" />" class="unsolved-link"><fmt:message key="menu.unsolved"/></a>
-				<a href="<c:url value="/sem-respostas" />"><fmt:message	key="menu.unanswered"/></a>
-			</span>
-			<span class="footer-menu">
-				<span class="footer-menu-label"><fmt:message key="menu.title.forum" />: </span>
-				<a href="<c:url value="/forums/list.java" />" ><fmt:message key="menu.forum.forum_index" /></a>
-				<a href="<c:url value="/recentTopics/list.java" />" ><fmt:message key="menu.forum.recent_topics" /></a>
-				
-			</span>
-			<span class="footer-muted-message"><fmt:message key="footer.powered_by"><fmt:param value="http://www.caelum.com.br"/></fmt:message></span>
-		</div>
+		<span class="footer-menu">
+			<span class="footer-menu-label"><fmt:message key="menu.title.answers" />: </span>
+			
+			<a href="<c:url value="/nao-resolvido" />" class="unsolved-link"><fmt:message key="menu.unsolved"/></a>
+			<a href="<c:url value="/sem-respostas" />"><fmt:message	key="menu.unanswered"/></a>
+		</span>
+		<span class="footer-menu">
+			<span class="footer-menu-label"><fmt:message key="menu.title.forum" />: </span>
+			<a href="<c:url value="/forums/list.java" />" ><fmt:message key="menu.forum.forum_index" /></a>
+			<a href="<c:url value="/recentTopics/list.java" />" ><fmt:message key="menu.forum.recent_topics" /></a>
+			
+		</span>
+		<span class="footer-caelum-vraptor">
+			By: <a class="unsolved-link" href="<c:url value="http://www.caelum.com.br"/> "><fmt:message key="menu.title.caelum" /></a>
+			Powered by: <a href="<c:url value="http://www.vraptor.org/>" /> "><fmt:message key="menu.title.vraptor" /></a>
+		</span>
+		<span class="footer-muted-message"><fmt:message key="footer.powered_by"><fmt:param value="http://www.caelum.com.br"/></fmt:message></span>
 	</div>
 </footer>

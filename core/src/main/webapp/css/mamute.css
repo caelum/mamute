@@ -1921,7 +1921,7 @@ px
 
 /*Footer*/
 .footer {
-	border-top: 8px solid #000000;
+	/* border-top: 8px solid #000000; */
 	background-color: #244B6A;
 	height: auto;
 	margin-top: 50px;
@@ -1975,6 +1975,16 @@ em
 	display: block;
 	margin-top: 1em;
 	line-height: 1.3em
+}
+
+.footer-caelum-vraptor {
+	display: block;
+	line-height: 1.3em
+}
+
+.footer-caelum-vraptor a {
+	color: #fff;
+	font-weight: bold;
 }
 
 .footer-list {
@@ -2058,7 +2068,7 @@ solid
 	padding: 0 0 15px;
 }
 
-.footer .dark-footer {
+.footer.dark-footer {
 	background-color: #1f405b;
 	padding: 2em 0;
 }
