@@ -411,7 +411,7 @@
 	}
 	
 	.sponsor-box:first-child{
-		display: none;
+		/* display: none; */
 	}
 	
 	/*Ranking*/
