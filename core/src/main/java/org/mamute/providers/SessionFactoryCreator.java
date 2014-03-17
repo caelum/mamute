@@ -75,7 +75,7 @@ public class SessionFactoryCreator {
 			properties.put("javax.persistence.validation.factory", this.vf);
 			
 		}
-		String databaseUrl = System.getenv("DATABASE_URL");
+		String databaseUrl = "mysql://b7f140f934a295:c51b1d5a@localhost/heroku_10a072fdb8c40bf?reconnect=true";
 		LOGGER.info("env got " + databaseUrl);
 		if (databaseUrl != null) {
 			LOGGER.info("ready to use heroku database");

@@ -3,7 +3,6 @@ package org.mamute.infra;
 import java.util.Random;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
@@ -12,8 +11,6 @@ import org.hibernate.SessionFactory;
 import org.mamute.model.LoginMethod;
 import org.mamute.model.User;
 
-import br.com.caelum.vraptor.events.VRaptorInitialized;
-
 @ApplicationScoped
 public class DefaultAdminCreator {
 	
@@ -21,7 +18,7 @@ public class DefaultAdminCreator {
 	
 	private static Logger LOG = Logger.getLogger(DefaultAdminCreator.class);
 	
-	public void createDefaultAdmin(@Observes VRaptorInitialized initialized) {
+	public void createDefaultAdmin() {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		Long result = (Long) session.createQuery("select count(*) from User").uniqueResult();

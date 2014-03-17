@@ -6,6 +6,7 @@ import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
 import org.mamute.components.RecentTagsContainer;
+import org.mamute.infra.DefaultAdminCreator;
 import org.mamute.migration.MigrationRunner;
 
 import br.com.caelum.vraptor.events.VRaptorInitialized;
@@ -14,11 +15,13 @@ import br.com.caelum.vraptor.events.VRaptorInitialized;
 public class PreLoad {
 	@Inject private MigrationRunner migrations;
 	@Inject private RecentTagsContainer tagsContainer;
+	@Inject private DefaultAdminCreator adminCreator;
 	
 	
 	public void execute(@Observes VRaptorInitialized initialized) {
 		migrations.execute();
 		tagsContainer.execute();
+		adminCreator.createDefaultAdmin();
 	}
 	
 	@PreDestroy
