@@ -69,6 +69,10 @@ public class MigrationRunner {
 			executor.prepareTables();
 			executor.end();
 		} catch (Exception e) {
+			LOGGER.info("Couldnt prepare tables: "+ e);
+			LOGGER.info(">>>> "+ e.getMessage());
+			LOGGER.info(">>>> "+e.getCause());
+			LOGGER.info(">>>> "+e.getMessage());
 			executor.rollback();
 			throw new RuntimeException("Unable to execute migration process", e);
 		}
