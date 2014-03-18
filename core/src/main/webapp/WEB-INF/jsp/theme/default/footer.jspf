@@ -26,8 +26,7 @@
 			<a href="<c:url value="/recentTopics/list.java" />" ><fmt:message key="menu.forum.recent_topics" /></a>
 			
 		</span>
-		<span class="footer-caelum-vraptor">
-			By: <a class="unsolved-link" href="<c:url value="http://www.caelum.com.br"/> "><fmt:message key="menu.title.caelum" /></a>
+		<span class="footer-vraptor">
 			Powered by: <a href="<c:url value="http://www.vraptor.org/>" /> "><fmt:message key="menu.title.vraptor" /></a>
 		</span>
 		<span class="footer-muted-message"><fmt:message key="footer.powered_by"><fmt:param value="http://www.caelum.com.br"/></fmt:message></span>
