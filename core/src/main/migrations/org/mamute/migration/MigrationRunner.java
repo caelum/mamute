@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import br.com.caelum.vraptor.environment.Environment;
+import br.com.caelum.vraptor.errormail.util.StackToString;
 
 import com.google.common.collect.Lists;
 
@@ -69,6 +70,8 @@ public class MigrationRunner {
 			executor.prepareTables();
 			executor.end();
 		} catch (Exception e) {
+			LOGGER.info("Couldnt prepare tables: "+ e);
+			LOGGER.info(">>>> "+ StackToString.convertStackToString(e));
 			executor.rollback();
 			throw new RuntimeException("Unable to execute migration process", e);
 		}
