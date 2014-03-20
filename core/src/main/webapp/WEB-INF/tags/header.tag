@@ -12,18 +12,8 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title><c:out value="${title}" escapeXml="true" /></title>
-<c:if test="${not empty description}">
-	<meta name="description" content="<c:out value="${description}" escapeXml="true"/>">
-</c:if>
-<c:if test="${not empty facebookMetas || facebookMetas == true}">
-	<meta property="og:title" content="<c:out value="${title}" escapeXml="true" />">
-	<meta property="og:site_name" content="guj.com.br">
-	<meta property="og:url" content='${currentUrl}'>
-	<meta property="og:type" content="website">
-	<meta property="og:image" content='${environment.get("host")}<c:url value="/imgs/logo-guj-fb.png"/>'>
-</c:if>
 
-
+<tags:brutal-include value="metas" />
 
 <c:if test="${environment.name != 'production'}" >
 	<link rel="stylesheet" href="<c:url value="/css/reset.css"/>">

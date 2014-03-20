@@ -1,0 +1,15 @@
+<%@ page language="java" pageEncoding="UTF-8"
+	contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<c:if test="${not empty description}">
+	<meta name="description" content="<c:out value="${description}" escapeXml="true"/>">
+</c:if>
+
+<c:if test="${not empty facebookMetas || facebookMetas == true}">	
+	<meta property="og:title" content="<c:out value="${title}" escapeXml="true" />">
+	<meta property="og:site_name" content="mamute.org.br">
+	<meta property="og:url" content='${currentUrl}'>
+	<meta property="og:type" content="website">
+	<meta property="og:image" content='${environment.get("host")}<c:url value="/imgs/logo-fb.png"/>'>
+</c:if>
