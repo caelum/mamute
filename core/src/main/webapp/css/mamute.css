@@ -12,7 +12,7 @@ body {
 
 a {
 	text-decoration: none;
-	color: rgb(0, 119, 204);
+	color: #f68321;
 	font-size: 1em;
 }
 
@@ -907,7 +907,7 @@ textarea {
 }
 
 .first-header {
-	background-color: #4f95d1;
+	background-color: #6a6c6a;
 	padding: .3em .15em;
 }
 
@@ -916,7 +916,7 @@ textarea {
 }
 
 .second-header {
-	background-color: #f4f8f9;
+	background-color: #f4f4f4;
 }
 
 .user-area {
@@ -1005,7 +1005,11 @@ textarea {
 }
 
 .main-nav .nav-item,.main-nav .nav-item a {
-	color: #37485e;
+	color: #383938;
+}
+
+.main-nav .nav-item .current {
+	color: #fff;
 }
 
 .main-nav .nav-item a {
@@ -1021,7 +1025,7 @@ textarea {
 }
 
 .nav-item .current {
-	background-color: #7CB7E8;
+	background-color: #F89948;
 }
 
 .nav-item {
@@ -1038,14 +1042,14 @@ textarea {
 }
 
 a.button.ask-a-question {
-	background-color: #3fb061;
-	border-bottom: 1px solid #2b934a;
+	background-color: #f62621;
+	border-bottom: 1px solid #c80c08;
 	color: #fff;
 	padding: 1em 3.4em;
 }
 
 a.button.ask-a-question:hover {
-	background-color: #70D88F;
+	background-color: #f8605d;
 }
 
 .button:hover .menu-subtitle {
@@ -1124,7 +1128,7 @@ a.button.ask-a-question:hover {
 }
 
 .button:hover {
-	background-color: #B5D7F3;
+	background-color: #faba84;
 }
 
 /*HOME*/
@@ -1178,7 +1182,7 @@ a.button.ask-a-question:hover {
 }
 
 .answers {
-	color: #994325;
+	color: #B60000;
 }
 
 .answers.solved {
@@ -2032,7 +2036,7 @@ em
 }
 
 .footer.dark-footer {
-	background-color: #1f405b;
+	background-color: #383938;
 	padding: 2em 0;
 }
 
@@ -2566,11 +2570,11 @@ em
 	height: 250px;
 }
 .main-tags-header {
-	background: #c0d6e5;
+	background: #ccc;
 }
 
 .main-tags-current {
-	background-color: #afc2cc;	
+	background-color: #bcbcbc;	
 }
 
 .main-tags-sprite:before {
@@ -2584,7 +2588,7 @@ em
 }
 
 .main-tags-text {
-	color: #3e6d8e;
+	color: #383938;
 	font-size: 1.2em;
 	padding-right: .6em;
 	padding-left: .6em;
@@ -2593,7 +2597,7 @@ em
 }
 
 .main-tags-text:hover {
-	background-color: #a2b0b8;
+	background-color: #adadad;
 }
 
 .main-tags-java:before {
