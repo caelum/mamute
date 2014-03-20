@@ -16,7 +16,7 @@ use.routes.parser.hack=false
 facebook.redirect_uri= your_production_fb_redirect_uri
 facebook.app_id= your_production_fb_app_id
 facebook.app_secret= your_production_fb_app_secret
-mail_logo_url=http://www.mamute.org/imgs/logo-mamute-mail.png
+mail_logo_url=http://www.mamute.org/imgs/logo-mail.png
 
 newsletter.settings.active = true
 schedule_jobs_on_startup=true

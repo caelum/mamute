@@ -38,8 +38,9 @@ a:hover {
 }
 
 .big-logo {
-	background-image: url('../imgs/logo-guj.png');
+	background-image: url('../imgs/logo.png');
 	background-position: 0px 0px;
+	background-size: contain;
 	width: 250px;
 	height: 81px;
 }
@@ -1376,7 +1377,7 @@ a.button.ask-a-question:hover {
 	text-decoration: none;
 }
 
-.history-diff del {
+.history-diff del	 {
 	background-color: #fdd;
 	text-decoration: line-through;
 }
@@ -2011,20 +2012,6 @@ em
 	width: 100%;
 }
 
-.footer-list .first-logo {
-	background-image: url("../imgs/logo-vraptor.png");
-	background-position: 10px 1px;
-	margin-bottom: 2%;
-	margin-top: 12px;
-	width: 200px;
-}
-
-.footer-list .second-logo {
-	background-image: url("../imgs/logo-mamute.png");
-	background-position: -3px 0;
-	width: 190px;
-}
-
 .footer-sub-list {
 	padding-bottom: 0.6em;
 }
@@ -2035,35 +2022,11 @@ em
 	display: inline;
 }
 
-.footer-sub-list
- 
-li
-:not
- 
-(
-:last-child
- 
-){
-padding-right
-:
- 
-.4em
-;
-
-	
-border-right
-:
- 
-1
-px
- 
-solid
- 
-#cfcfcf
-;
-
-
+.footer-sub-list li:not(:last-child){
+	padding-right:.4em;
+	border-right:1px solid #cfcfcf;
 }
+
 .footer .main-tags {
 	padding: 0 0 15px;
 }

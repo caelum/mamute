@@ -20,6 +20,7 @@ import org.mamute.vraptor.Env;
 import org.owasp.html.HtmlPolicyBuilder;
 import org.owasp.html.PolicyFactory;
 
+import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.http.route.Router;
 import br.com.caelum.vraptor.simplemail.Mailer;
 import br.com.caelum.vraptor.simplemail.template.BundleFormatter;
@@ -37,6 +38,7 @@ public class NewsletterMailer {
 	@Inject private BrutalDateFormat brutalDateFormat;
 	@Inject private Env brutalEnv;
 	@Inject private BundleFormatter bundle;
+	@Inject private Environment env;
 
 	public void sendTo(ScrollableResults results, boolean isTestNewsletter) {
 		DateTime pastWeek = new DateTime().minusWeeks(1);
@@ -63,6 +65,7 @@ public class NewsletterMailer {
 						.with("sanitizer", POLICY)
 						.with("siteName", siteName)
 						.with("date", date)
+						.with("logoUrl", env.get("mail_logo_url"))
 						.to(user.getName(), user.getEmail());
 				email.setCharset("utf-8");
 				mailer.send(email);
