@@ -1,4 +1,0 @@
-<%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<tags:userProfilePagination posts="${posts}" currentPage="${currentPage}" totalPages="${totalPages}" type="${type}" order="${order}"/>

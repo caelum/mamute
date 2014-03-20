@@ -1,3 +1,0 @@
-<%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
-
-<tags:mainTags unansweredTagLinks="${true}" tagClass="main-tags-header" tagClassLi="main-tags-text" useSprite = "true"/>
