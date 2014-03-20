@@ -31,12 +31,6 @@
 							<fmt:message key="menu.news" />
 						</a>
 					</li>
-					<li class="nav-item">
-						<a class="button" href='<c:url value="/forums/list.java"/>'>
-							<span class="menu-title"><fmt:message key="menu.forum" /></span>
-							<span class="menu-subtitle"><fmt:message key="menu.forum.subtitle" /></span>
-						</a>
-					</li>
 					<li class="ask nav-item">
 						<a class="button ask-a-question" href='${linkTo[QuestionController].newQuestion}'>
 							<fmt:message key="menu.question.ask" />
