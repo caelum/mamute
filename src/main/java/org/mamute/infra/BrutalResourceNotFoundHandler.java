@@ -14,7 +14,8 @@ import org.mamute.providers.DefaultViewObjects;
 
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.controller.ControllerNotFoundHandler;
-import br.com.caelum.vraptor.core.RequestInfo;
+import br.com.caelum.vraptor.http.MutableRequest;
+import br.com.caelum.vraptor.http.MutableResponse;
 
 @Alternative
 @Priority(Interceptor.Priority.APPLICATION)
@@ -25,12 +26,11 @@ public class BrutalResourceNotFoundHandler implements ControllerNotFoundHandler 
 	private static final Logger LOG = Logger.getLogger(BrutalResourceNotFoundHandler.class);
 	
 	@Override
-	public void couldntFind(RequestInfo request) {
+	public void couldntFind(FilterChain chain, MutableRequest request, MutableResponse response) {
 		defaultViewObjects.include();
 		LOG.warn("Got 404 at url:" + request.getRequestedUri());
-		FilterChain chain = request.getChain();
 		try {
-			chain.doFilter(request.getRequest(), request.getResponse());
+			chain.doFilter(request, response);
 		} catch (IOException e) {
 			throw new InterceptionException(e);
 		} catch (ServletException e) {
