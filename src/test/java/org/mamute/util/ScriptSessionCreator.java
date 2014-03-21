@@ -41,7 +41,7 @@ public class ScriptSessionCreator {
             if (isNullOrEmpty(envName)) {
             	envName = System.getProperty(ENVIRONMENT_PROPERTY);
             }
-            env = new DefaultEnvironment(EnvironmentType.of(envName));
+            env = new DefaultEnvironment(new EnvironmentType(envName));
             LOG.info("using env '" + envName + "' for script session creator");
             return env;
         } catch (IOException e) {
