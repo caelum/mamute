@@ -1785,10 +1785,10 @@
     };
     
     commandProto.doImage = function (chunk, postProcessing){
-    	filepicker.setKey('A9UgH5nqtSwezTFGjRxj4z');
+    	filepicker.setKey(INK_API_KEY);
     	var fp;
 		var featherEditor = new Aviary.Feather({
-			apiKey: 'et9pkf3wlm9299uk',
+			apiKey: AVIARY_API_KEY,
 			apiVersion: 2,
 			tools: 'crop,resize,draw,text',
 			fileFormat: 'jpg',
