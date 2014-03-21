@@ -140,7 +140,7 @@ public abstract class AcceptanceTestBase implements ServerInfo.AcceptanceTest {
 		if (homologEnv == null) {
 			homologEnv = "development";
 		}
-		env = new DefaultEnvironment(EnvironmentType.of(homologEnv));
+		env = new DefaultEnvironment(new EnvironmentType(homologEnv));
 	}
 
 	private static void waitForFirstBodyPresence() {
