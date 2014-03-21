@@ -4,21 +4,17 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 
 import org.jboss.weld.context.bound.BoundRequestContext;
 import org.jboss.weld.context.bound.BoundSessionContext;
 
-import br.com.caelum.vraptor.core.RequestInfo;
 import br.com.caelum.vraptor.ioc.Container;
 
 public class CDIFakeRequestProvider {
 	
 	@Inject	private BoundRequestContext requestContext;
 	@Inject	private BoundSessionContext sessionContext;
-	@Inject private RequestInfo requestInfo;
-	@Inject	private BeanManager beanManager;
 	@Inject	private Container container;
 
 	public void insideRequest(Execution<Void> execution) {
@@ -30,7 +26,6 @@ public class CDIFakeRequestProvider {
 				.synchronizedMap(new HashMap<String, Object>());
 		sessionContext.associate(sessionDataStore);
 		sessionContext.activate();
-		beanManager.fireEvent(requestInfo);
 		
 		execution.insideRequest(container);
 		
