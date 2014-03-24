@@ -24,7 +24,7 @@ public class InactiveQuestionRequiresMoreKarmaRule implements CustomBrutauthRule
 			question  = interactedType.isAssignableFrom(Question.class) ? questions.getById(id) : null;
 		}
 		
-		if(question.isInactiveForOneMonth()) 
+		if(question != null && question.isInactiveForOneMonth()) 
 			return hasKarma(INACTIVE_QUESTION).isAllowed(user.getCurrent(), question);
 		return true;
 	}
