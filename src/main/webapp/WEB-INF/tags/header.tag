@@ -36,6 +36,7 @@
 </c:if>
 <c:if test="${environment.name == 'production'}" >
 	<link rel="stylesheet" href="<c:url value="/css/all-${deployTimestamp}.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/deps/custom.css"/>">
 </c:if>
 
 <!--[if lt IE 9]>
