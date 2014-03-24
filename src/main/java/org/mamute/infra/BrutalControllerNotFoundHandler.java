@@ -19,11 +19,11 @@ import br.com.caelum.vraptor.http.MutableResponse;
 
 @Alternative
 @Priority(Interceptor.Priority.APPLICATION)
-public class BrutalResourceNotFoundHandler implements ControllerNotFoundHandler {
+public class BrutalControllerNotFoundHandler implements ControllerNotFoundHandler {
 	
 	@Inject private DefaultViewObjects defaultViewObjects;
 
-	private static final Logger LOG = Logger.getLogger(BrutalResourceNotFoundHandler.class);
+	private static final Logger LOG = Logger.getLogger(BrutalControllerNotFoundHandler.class);
 	
 	@Override
 	public void couldntFind(FilterChain chain, MutableRequest request, MutableResponse response) {
