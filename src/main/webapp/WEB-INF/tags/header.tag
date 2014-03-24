@@ -13,6 +13,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title><c:out value="${title}" escapeXml="true" /></title>
 
+<c:set var="metaDescription" value="${description}" scope="request" />
+<c:set var="facebookMetas" value="${facebookMetas}" scope="request" />
 <tags:brutal-include value="metas" />
 
 <c:if test="${environment.name != 'production'}" >
