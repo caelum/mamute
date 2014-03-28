@@ -3,7 +3,7 @@
 <%@attribute name="uri" required="true" type="java.lang.String" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 
-<c:set var="tagsRequired" value="${env.get('tags.mandatory', 'false') == 'true' ? 'required' : ''}" />
+<c:set var="tagsRequired" value="${env.supports('feature.tags.mandatory') ? 'required' : ''}" />
 
 <form class="validated-form question-form hinted-form" action='${uri}' method="post" >
 	<label for="question-title"><fmt:message key="question.title.label" /></label>

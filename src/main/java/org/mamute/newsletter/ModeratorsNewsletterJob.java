@@ -23,7 +23,7 @@ public class ModeratorsNewsletterJob implements CronTask {
 	@Override
 	public void execute() {
 		LOG.info("executing " + getClass().getSimpleName());
-		if ("true".equals(env.get("newsletter.settings.active"))) {
+		if (env.supports("feature.newsletter")) {
 			LOG.info("sending newsletter emails");
 			ScrollableResults results = users.moderators();
 			newsMailer.sendTo(results, true);

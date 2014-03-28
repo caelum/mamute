@@ -18,11 +18,7 @@ public class OptionallyEmptyTagsValidator implements ConstraintValidator<Optiona
 
 	@Override
 	public boolean isValid(List<Tag> tags, ConstraintValidatorContext context) {
-		String mandatoryTags = env.get("tags.mandatory", "false");
-		if (mandatoryTags.equals("false")) {
-			return true;
-		}
-		return !tags.isEmpty();
+		return !env.supports("feature.tags.mandatory") || !tags.isEmpty();
 	}
 
 	@Override

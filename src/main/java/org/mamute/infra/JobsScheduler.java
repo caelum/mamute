@@ -22,7 +22,7 @@ public class JobsScheduler {
 	public void makeRequest(@Observes VRaptorInitialized initialized) {
 		String url = (env.get("host") + CONFIG_PATH);
 		LOG.info("Verifying if should schedule jobs on startup");
-		if ("true".equals(env.get("schedule_jobs_on_startup"))) {
+		if (env.supports("feature.schedule_jobs")) {
 			LOG.info("Starting thread to schedule jobs");
 			new Thread(new StartQuartz(url)).start();
 		}

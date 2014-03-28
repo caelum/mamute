@@ -21,7 +21,7 @@ public class InputRule implements CustomBrutauthRule{
 	@Inject public Environment env;
 	
 	public boolean isAllowed(){
-		if("acceptance".equals(env.getName()) || "true".equals(env.get("input.rule_inactive"))) return true;
+		if(!env.supports("feature.input.rule")) return true;
 		User current = user.getCurrent();
 		boolean isAllowed = input.can(current);
 		if(isAllowed) input.ping(current);

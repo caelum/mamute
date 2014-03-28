@@ -52,7 +52,7 @@ public class RegularUserNewsletterJob implements CronTask {
 	}
 
 	private boolean shouldSendNewsletter() {
-		return "true".equals(env.get("newsletter.settings.active")) && !newsletterSentLogs.wasSentThisWeek();
+		return env.supports("feature.newsletter") && !newsletterSentLogs.wasSentThisWeek();
 	}
 
 	@Override

@@ -25,7 +25,7 @@ public class TagsManager {
 	}
 	
 	public List<Tag> findOrCreate(List<String> splitedTags) {
-		if ("true".equals(env.get("tags.add.anyone", "false")))
+		if (env.supports("feature.tags.add.anyone"))
 			return createTags(splitedTags);
 		return findTags(splitedTags);
 	}

@@ -9,8 +9,10 @@
 
 <script type="text/javascript">
 	//UI flags (GLOBAL VARIABLES)
-	var ANYONE_CAN_CREATE_TAGS = "${env.get('tags.add.anyone')}";
-	var TAGS_SPLITTER_CHAR = "${env.get('tags.splitter.char')}";
+	var ANYONE_CAN_CREATE_TAGS = ${env.supports('feature.tags.add.anyone')};
+	if(ANYONE_CAN_CREATE_TAGS){
+		var TAGS_SPLITTER_CHAR = "${env.get('tags.splitter.char')}";
+	}
 	var LOGGED_IN = ${currentUser.loggedIn};
 	var MODERATOR = ${currentUser.moderator};
 	var KARMA = ${currentUser.current.karma};
@@ -68,7 +70,7 @@
 	<script src="<c:url value="/js/jquery/jquery-plugins-${deployTimestamp}.js"/>"></script>
 	<script src="<c:url value="/js/all-${deployTimestamp}.js"/>"></script>
 </c:if>
-<c:if test="${environment.get('track.analytics') == 'true'}" >
+<c:if test="${environment.supports('feature.analytics')}" >
 	<tags:brutal-include value="analytics"/>
 </c:if>
 
