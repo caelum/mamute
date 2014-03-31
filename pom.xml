@@ -109,7 +109,8 @@
 		<dependency>
 			<groupId>br.com.caelum.vraptor</groupId>
 			<artifactId>vraptor-jodatime</artifactId>
-			<version>4.0.0-RC2</version>
+			<version>4.0.0-RC3-SNAPSHOT</version> 
+			<!-- RC3 manual deployed to fix issue #2 -->
 		</dependency>
 
 		<!-- end of VRaptor plugins -->
