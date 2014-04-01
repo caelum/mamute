@@ -21,11 +21,11 @@
 	</context-param>
 	<context-param>
 		<param-name>javax.servlet.jsp.jstl.fmt.locale</param-name>
-		<param-value>pt_BR</param-value>
+		<param-value>en</param-value>
 	</context-param>
 	<context-param>
 		<param-name>javax.servlet.jsp.jstl.fmt.fallbackLocale</param-name>
-		<param-value>pt_BR</param-value>
+		<param-value>en</param-value>
 	</context-param>
 	<context-param>
 		<param-name>br.com.caelum.vraptor.packages</param-name>

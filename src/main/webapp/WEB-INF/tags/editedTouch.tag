@@ -24,7 +24,7 @@
 					<tags:prettyTime time="${touchable.information.createdAt}"/>
 				</c:if>
 				<c:if test="${not prettyFormat}">
-					<fmt:formatDate value="${touchable.information.createdAt.toGregorianCalendar().time}" pattern="dd/MM/yyyy"/>
+					<fmt:formatDate value="${touchable.information.createdAt.toGregorianCalendar().time}" pattern="MM/dd/yyyy"/>
 				</c:if>
 			</time>
 		<c:if test="${nameClass && editedLink}"></a></c:if>
