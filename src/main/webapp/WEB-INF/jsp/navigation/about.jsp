@@ -2,18 +2,6 @@
 <fmt:message key="metas.generic.title" var="genericTitle" />
 <tags:header title="${genericTitle} - ${title}"/>
 
-<div class="about-section sub-header">
-	<div class="about-section about-info">
-		<div class="big-text">
-			<fmt:message key="about.info">
-				<fmt:param value="http://www.caelum.com.br/cursos-java/"/>
-				<fmt:param value="http://www.guj.com.br/"/>
-				<fmt:param value="http://www.guj.com.br/perguntas"/>
-			</fmt:message>
-		</div>
-	</div>
-</div>
-
 <div class="about-section">
 	<h2 class="title big-text-title"><fmt:message key="about.tips"/></h2>
 	<div class="big-text">
