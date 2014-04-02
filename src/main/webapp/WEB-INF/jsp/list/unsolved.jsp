@@ -5,8 +5,7 @@
 
 <fmt:message key="menu.unsolved" var="title"/>
 <section class="first-content content">
-	<tags:questionList recentTags="${recentTags}" 
-		questions="${questions}" title="${title}" rssUrl="${rssUrl}"/>
+	<tags:questionList recentTags="${recentTags}" questions="${questions}" title="${title}"/>
 </section>
 <tags:sideBar recentTags="${recentTags}" />
 <tags:joyrideIntro />

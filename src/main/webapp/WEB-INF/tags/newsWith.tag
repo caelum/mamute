@@ -11,7 +11,7 @@
 	</c:if>
 	<h1 itemprop="name" class="title subheader main-thread-title"><fmt:message key="news.title" />: 
 		<c:out value="${news.title}" escapeXml="${true}"/>
-		<a href="<c:url value="/nova-noticia"/>" class="tiny send-news">
+		<a href="${linkTo[NewsController].newsForm}" class="tiny send-news">
 			<fmt:message key="menu.new_news" />
 		</a>
 	</h1>
@@ -42,7 +42,7 @@
 					<a class="post-action requires-login requires-karma"
 					    data-author="${currentUser.current.isAuthorOf(news)}"
 					    data-karma="${EDIT_NEWS}" 
-					    href="<c:url value="/noticia/editar/${news.id}" />">
+					    href="${linkTo[NewsController].newsEditForm(news.id)}" />">
 						<fmt:message key="edit" />
 					</a>
 				</li>

@@ -5,13 +5,12 @@
 <%@attribute name="title" type="java.lang.String" required="true"%>
 <%@attribute name="recentTags" type="java.util.List" required="true"%>
 <%@attribute name="questions" type="java.util.List" required="true"%>
-<%@attribute name="rssUrl" type="java.lang.String" required="false"%>
 <%@attribute name="tag" type="org.mamute.model.Tag" required="false"%>
 <%@attribute name="unansweredTagLinks" type="java.lang.Boolean" required="false"%>
 <%@attribute name="tabs" type="java.util.List" required="false"%>
 
-<tags:rssTagHeader unansweredTagLinks="${unansweredTagLinks}" tag="${tag}" rssUrl="${rssUrl}"
-title ="${title}" showTabs="${not empty tabs}"/>
+<tags:rssTagHeader unansweredTagLinks="${unansweredTagLinks}" tag="${tag}" 
+					title ="${title}" showTabs="${not empty tabs}"/>
 <c:if test="${not empty tag}">
 	<tags:tagTabs tag="${tag}" hasAbout="${hasAbout}"/>
 </c:if>

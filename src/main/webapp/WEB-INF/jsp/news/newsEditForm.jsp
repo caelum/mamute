@@ -5,5 +5,4 @@
 <fmt:message key="metas.generic.title" var="genericTitle" />
 <tags:header title="${genericTitle} - ${title}"/>
 
-<c:url value="/noticia/editar/${news.id}" var="uri" />
-<tags:newsForm uri="${uri}" news="${news}" edit="${true}" />
+<tags:newsForm uri="${linkTo[NewsController].saveEdit(news.id)}" news="${news}" edit="${true}" />

@@ -4,8 +4,6 @@ import static java.util.Arrays.asList;
 import static org.mamute.dao.WithUserPaginatedDAO.OrderType.ByDate;
 import static org.mamute.dao.WithUserPaginatedDAO.OrderType.ByVotes;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.joda.time.DateTime;
@@ -20,7 +18,6 @@ import org.mamute.dao.WithUserPaginatedDAO.OrderType;
 import org.mamute.dto.UserPersonalInfo;
 import org.mamute.factory.MessageFactory;
 import org.mamute.model.LoggedUser;
-import org.mamute.model.LoginMethod;
 import org.mamute.model.User;
 import org.mamute.validators.UserPersonalInfoValidator;
 

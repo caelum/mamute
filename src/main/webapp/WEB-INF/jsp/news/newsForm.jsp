@@ -5,5 +5,4 @@
 <fmt:message key="metas.generic.title" var="genericTitle" />
 <tags:header title="${genericTitle} - ${title}"/>
 
-<c:url value="/nova-noticia" var="uri" />
-<tags:newsForm uri="${uri}" />
+<tags:newsForm uri="${linkTo[NewsController].newNews}" />

@@ -14,7 +14,7 @@
 			<fmt:message key="about.link"/>
 		</a>
 	</c:if>
-	<a href="<c:url value='/ranking/${tag.uriName}'/>" title='<fmt:message key="users.ranking.tag.title"/> ${tag.name}' class="icon-award">
+	<a href="${linkTo[RankingController].tagRank(tag.uriName)}" title='<fmt:message key="users.ranking.tag.title"/> ${tag.name}' class="icon-award">
 		<fmt:message key="users.ranking.tag"/>
 	</a>
 </tags:tabs>

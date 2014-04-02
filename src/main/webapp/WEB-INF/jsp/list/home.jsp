@@ -4,7 +4,6 @@
 <tags:header facebookMetas="${true}" title="${genericTitle} - ${title}" description="${description}"/>
 
 <fmt:message key="menu.questions" var="title"/>
-<c:url value="/rss" var="rssUrl" />
 
 <c:if test="${!currentUser.loggedIn}">
 	<section class="about-banner">
@@ -28,8 +27,7 @@
 
 
 <section class="first-content content">
-	<tags:questionList recentTags="${recentTags}" 
-		questions="${questions}" title="${title}" rssUrl="${rssUrl}" tabs="${tabs}"/>
+	<tags:questionList recentTags="${recentTags}" questions="${questions}" title="${title}" tabs="${tabs}"/>
 </section>
 <tags:joyrideIntro />
 

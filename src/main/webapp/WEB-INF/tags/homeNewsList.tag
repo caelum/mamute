@@ -25,5 +25,5 @@
 		</li>
 	</c:forEach>
 </ol>
-<a class="more-items" href="<c:url value='/noticias'/>"><fmt:message key="news.link" /></a>
+<a class="more-items" href="${linkTo[ListController].news}"><fmt:message key="news.link" /></a>
 	

@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@attribute name="redirectUrl" type="java.lang.String" required="false" %>
 
-<form class="validated-form user-form" action="<c:url value="/login"/>" method="POST">
+<form class="validated-form user-form" action="${linkTo[AuthController].login}" method="POST">
 	<a href="${facebookUrl}" class="face-button-wraper">
 		<p><fmt:message key="auth.facebook_button.label" /></p>
 		<span class="face-button"><fmt:message key="auth.facebook_button.content" /></span>

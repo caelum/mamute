@@ -5,7 +5,7 @@
 <%@attribute name="name" type="java.lang.String" required="false" %>
 <%@attribute name="email" type="java.lang.String" required="false" %>
 
-<form action="<c:url value="/cadastrar"/>" method="POST" class="validated-form user-form">
+<form action="${linkTo[SignupController].signup}" method="POST" class="validated-form user-form">
 	<a href="${facebookUrl}" class="face-button-wraper">
 		<p><fmt:message key="signup.facebook_button.label" /></p>
 		<span class="face-button"><fmt:message key="signup.facebook_button.content" /></span>

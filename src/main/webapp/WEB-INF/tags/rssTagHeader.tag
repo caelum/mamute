@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@attribute type="org.mamute.model.Tag" name="tag" required="false"%>
-<%@attribute type="java.lang.String" name="rssUrl" required="false"%>
 <%@attribute type="java.lang.String" name="title" required="false"%>
 <%@attribute name="unansweredTagLinks" type="java.lang.Boolean" required="false"%>
 <%@attribute name="showTabs" type="java.lang.Boolean" required="false"%>
@@ -24,9 +23,6 @@
 			<h2 class="title page-title">${title}</h2>
 		</c:if>
 	</c:if>
-	<%-- <c:if test="${not empty rssUrl}">
-		<a href="${rssUrl}" class="rss-link"><i class="icon-rss"></i></a>
-	</c:if> --%>
 	<c:if test="${not empty tabs}">
 		<tags:tabs title="${title}" useSubheader="${false}">
 			<c:forEach var="tab" items="${tabs}">

@@ -17,8 +17,8 @@
 		<span class="footer-menu">
 			<span class="footer-menu-label"><fmt:message key="menu.title.answers" />: </span>
 			
-			<a href="<c:url value="/nao-resolvido" />" class="unsolved-link"><fmt:message key="menu.unsolved"/></a>
-			<a href="<c:url value="/sem-respostas" />"><fmt:message	key="menu.unanswered"/></a>
+			<a href="${linkTo[ListController].unsolved}" class="unsolved-link"><fmt:message key="menu.unsolved"/></a>
+			<a href="${linkTo[ListController].unanswered}"><fmt:message	key="menu.unanswered"/></a>
 		</span>
 		<span class="footer-menu">
 			<span class="footer-menu-label"><fmt:message key="menu.title.forum" />: </span>
