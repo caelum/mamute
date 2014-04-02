@@ -14,7 +14,6 @@ import org.mamute.model.LoggedUser;
 import org.mamute.model.News;
 import org.mamute.model.Question;
 import org.mamute.model.Tag;
-import org.mamute.providers.BrutalRoutesParser;
 
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
