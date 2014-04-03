@@ -8,7 +8,7 @@
 	<h2 class="title page-title">
 		<fmt:message key="menu.news" />
 	</h2>
-	<a href="/noticias/rss" class="rss-link"><i class="icon-rss"></i></a>
+	<a href="${linkTo[RssController].newsRss}" class="rss-link"><i class="icon-rss"></i></a>
 </div>
 <ol class="sidebar-list">
 	<c:forEach items="${newses}" var="news">
@@ -19,7 +19,7 @@
 					<fmt:formatDate value="${news.createdAt.toGregorianCalendar().time}" pattern="dd/MM/yyyy"/>
 				</time> -
 				<h3 class="title item-title sidebar-item-title">
-					<a href="/noticias/${news.id}-${news.sluggedTitle}">${news.title}</a>
+					<a href="${linkTo[NewsController].showNews(news, news.sluggedTitle)}">${news.title}</a>
 				</h3>
 			</div>
 		</li>

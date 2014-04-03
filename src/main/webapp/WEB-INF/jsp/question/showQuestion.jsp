@@ -25,7 +25,7 @@
 	</span>
 	<span>»</span>
 	<span typeof="v:Breadcrumb">
-		<a rel="v:url" property="v:title" href="${linkTo[QuestionController].showQuestion(question,question.title)}">
+		<a rel="v:url" property="v:title" href="${linkTo[QuestionController].showQuestion(question, question.title)}">
 			<c:out value="${question.title}" escapeXml="true"/>
 		</a>
 	</span>
@@ -66,7 +66,7 @@
 			</c:if>
 		</c:forEach>
 	</ul>
-	<tags:canAnswer uri="/responder/${question.id}" question="${question}"/>
+	<tags:canAnswer uri="${linkTo[AnswerController].newAnswer(question)}" question="${question}"/>
 	<tags:notice isLogged="${currentUser.loggedIn}" tags="${questionTags}"/>
 	<c:if test="${!currentUser.loggedIn}">
 		<div class="login-or-signup">

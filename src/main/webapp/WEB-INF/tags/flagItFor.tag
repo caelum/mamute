@@ -9,7 +9,7 @@
 	<ul class="nav">
 		<li class="modal-close-button">x</li>
 	</ul>
-	<form class="validated-form" action="<c:url value='/${type}/${flaggable.id}/marcar' />">
+	<form class="validated-form" action="${linkTo[FlagController].addFlag(type, flaggable.id, null, '')}">
 		<input type="radio" value="RUDE" name="flagType" id="flag-type-rude" />
 		<label for="flag-type-rude"><fmt:message key="comment.flag.rude" /></label>
 		

@@ -1,4 +1,3 @@
-<fmt:message key="metas.home.title" var="title"/>
 <fmt:message key="metas.default.description" var="description"/>
 <fmt:message key="metas.generic.title" var="genericTitle" />
 <tags:header facebookMetas="${true}" title="${genericTitle} - ${title}" description="${description}"/>
@@ -6,7 +5,7 @@
 <section class="news-content content">
 	<div class="subheader news-aside-list-header">
 		<h2 class="title page-title"><fmt:message key="menu.news"/>	</h2>	
-		<a href="/noticias/rss" class="rss-link"><i class="icon-rss "></i></a>
+		<a href="${linkTo[RssController].newsRss}" class="rss-link"><i class="icon-rss "></i></a>
 		<a href="${linkTo[NewsController].newsForm}" class="send-news">
 			<fmt:message key="menu.new_news" />
 		</a>				

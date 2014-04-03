@@ -16,7 +16,7 @@
 				<c:forEach var="historyItem" items="${reputationHistory}">
 					<tags:reputationHistoryItem historyItem="${historyItem}"/>
 				</c:forEach>
-				<a class="view-more" href="${linkTo[UserProfileController].reputationHistory(selectedUser.id, selectedUser.sluggedName)}"><fmt:message key="show_more" /></a>
+				<a class="view-more" href="${linkTo[UserProfileController].reputationHistory(selectedUser, selectedUser.sluggedName)}"><fmt:message key="show_more" /></a>
 			</tags:userProfileAdvancedData>
 		</div>
 		<div class="advanced-data-line-wrapper">

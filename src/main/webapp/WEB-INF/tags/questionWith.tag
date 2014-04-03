@@ -53,7 +53,7 @@
 					    requires-login requires-karma"
 					    data-author="${currentUser.current.isAuthorOf(question)}"
 					    data-karma="${EDIT_QUESTION}" 
-					    href="${linkTo[QuestionController].questionEditForm(question.id)}">
+					    href="${linkTo[QuestionController].questionEditForm(question)}">
 						<fmt:message key="edit" />
 					</a>
 				</li>

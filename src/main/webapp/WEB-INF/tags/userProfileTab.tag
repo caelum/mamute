@@ -71,12 +71,12 @@
 
 <ul class="user-profile-tabs">
 	<li class="tab ${active == 'summary' ? 'selected' : ''}">
-		<a href='${linkTo[UserProfileController].showProfile(selectedUser.id, selectedUser.sluggedName)}'>
+		<a href='${linkTo[UserProfileController].showProfile(selectedUser, selectedUser.sluggedName)}'>
 			<fmt:message key="user_profile.summary"/>
 		</a>
 	</li>
 	<li class="tab ${active == 'reputation' ? 'selected' : ''}">
-		<a href='${linkTo[UserProfileController].reputationHistory(selectedUser.id, selectedUser.sluggedName)}'>
+		<a href='${linkTo[UserProfileController].reputationHistory(selectedUser, selectedUser.sluggedName)}'>
 			<fmt:message key="user_profile.reputation"/>
 		</a>
 	</li>

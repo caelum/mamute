@@ -9,7 +9,7 @@
 <%@attribute name="isHistoryQuestion" type="java.lang.Boolean" required="false" %>
 
 <div class="history-forms-area ${index != 0 ? 'hidden' : ''}">
-	<form method="post" class="history-form moderate-form" action="<c:url value="/publicar/${type}" />">
+	<form method="post" class="history-form moderate-form" action="${linkTo[HistoryController].publish(0, type, 0, '')}">
 		<c:if test="${information.beforeCurrent && !isHistoryQuestion}">
 			<p class="alert"><fmt:message key="moderation.version_before_current"/></p>
 		</c:if>

@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.joda.time.DateTime;
 import org.mamute.brutauth.auth.rules.ModeratorOnlyRule;
 import org.mamute.dao.AnswerDAO;
+import org.mamute.dao.PaginatableDAO;
 import org.mamute.dao.QuestionDAO;
 import org.mamute.dao.ReputationEventDAO;
 import org.mamute.dao.TagDAO;
@@ -89,20 +90,13 @@ public class UserProfileController extends BaseController{
 		return false;
 	}
 
-	@Get("/usuario/{id}/{sluggedName}/perguntas")
-	public void questionsByVotesWith(Long id, String sluggedName, OrderType order, Integer p){
+	@Get("/usuario/{id}/{sluggedName}/{type}")
+	public void typeByVotesWith(Long id, String sluggedName, OrderType order, Integer p, String type){
 		User author = users.findById(id);
 		order = order == null ? ByVotes : order;
 		Integer page = p == null ? 1 : p;
-		result.forwardTo(BrutalTemplatesController.class).userProfilePagination(questions, author, order, page, "perguntas");		
-	}
-	
-	@Get("/usuario/{id}/{sluggedName}/respostas")
-	public void answersByVotesWith(Long id, String sluggedName, OrderType order, Integer p){
-		User author = users.findById(id);
-		OrderType orderType = order == null ? ByVotes : order;
-		Integer page = p == null ? 1 : p;
-		result.forwardTo(BrutalTemplatesController.class).userProfilePagination(answers, author, orderType, page, "respostas");
+		PaginatableDAO paginatableDAO = type.equals("perguntas") ? questions : answers;
+		result.forwardTo(BrutalTemplatesController.class).userProfilePagination(paginatableDAO, author, order, page, type);		
 	}
 	
 	@Get("/usuario/{id}/{sluggedName}/acompanhadas")
