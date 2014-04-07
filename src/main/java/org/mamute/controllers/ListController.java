@@ -147,11 +147,6 @@ public class ListController {
 		result.include("tags", tags.all());
 	}
 	
-	@Get("/mediakit")
-	public void mediakit(){
-		result.forwardTo("/WEB-INF/jsp/list/mediakit.jspf");
-	}
-
 	private Integer getPage(Integer p) {
 		Integer page = p == null ? 1 : p;
 		return page;
