@@ -159,11 +159,11 @@ public class QuestionInformation implements Information, Taggable {
 		return markedDescription;
 	}
 
-	public String getTagsAsString() {
+	public String getTagsAsString(String separator) {
 		StringBuilder sb = new StringBuilder();
 		for (Tag t : tags) {
 			sb.append(t.getName());
-			sb.append(" ");
+			sb.append(separator);
 		}
 		return sb.toString();
 	}

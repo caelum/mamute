@@ -9,7 +9,11 @@
 	<tags:markDown value="${question.description}" hintId="question-description-hint" htmlClass="required" minlength="30"/>
 	<label for="tags"><fmt:message key="question.tags.label"/></label>
 	<ul class="tags autocompleted-tags hidden" id="question-tags-autocomplete"></ul>
-	<input id="tags" type="text" name="tagNames" autocomplete="off" class="hintable autocomplete only-existent-tags text-input required" value="${question.tagsAsString }" data-hint-id="question-tags-hint" data-autocomplete-id="question-tags-autocomplete"/>
+	
+	<input id="tags" type="text" name="tagNames" autocomplete="off" 
+		class="hintable autocomplete only-existent-tags text-input required" 
+		value="${question.getTagsAsString(env.get('tags.splitter.char'))}" data-hint-id="question-tags-hint" 
+		data-autocomplete-id="question-tags-autocomplete"/>
 	
 	<label for="comment"><fmt:message key="edit_form.comment.label" /></label>
 	<input type="text" name="comment" 

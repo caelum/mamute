@@ -256,8 +256,8 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 		return sanitize(information.getDescription());
 	}
 
-	public String getTagsAsString() {
-		return information.getTagsAsString();
+	public String getTagsAsString(String separator) {
+		return information.getTagsAsString(separator);
 	}
 	
 	@Override
