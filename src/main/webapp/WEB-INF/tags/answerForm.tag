@@ -3,7 +3,7 @@
 <%@attribute name="uri" required="true" type="java.lang.String"%>
 <%@attribute name="edit" required="false" type="java.lang.String"%>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
-
+<fmt:message key="site.name" var="siteName"/>
 
 <h2 class="title page-title subheader new-answer-title"><fmt:message key="newanswer.answer.your_answer"/></h2>
 <c:set var="sameAuthor" value="${question.author eq currentUser.current}" />
@@ -26,10 +26,18 @@
 	<div id="newanswer-answer-hint" class="hint">
 		<c:choose> 
 			<c:when test='${sameAuthor}'>
-				<p><fmt:message key="newanswer.answer.sameauthor.hint" /></p>
+				<p>
+					<fmt:message key="newanswer.answer.sameauthor.hint" >
+						<fmt:param value="${siteName}" />
+					</fmt:message>
+				</p>
 			</c:when>
 			<c:otherwise>
-				<p><fmt:message key="newanswer.answer.hint" /></p>
+				<p>
+					<fmt:message key="newanswer.answer.hint" >
+						<fmt:param value="${siteName}" />
+					</fmt:message>
+				</p>
 			</c:otherwise>
 		</c:choose>
 	</div>

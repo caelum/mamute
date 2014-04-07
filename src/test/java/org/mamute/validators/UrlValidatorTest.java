@@ -24,7 +24,7 @@ public class UrlValidatorTest {
 	@Test
 	public void should_check_url_outside_domain() throws Exception {
 		UrlValidator urlValidator = new UrlValidator(env);
-		assertFalse(urlValidator.isValid("http://gujj.com/login"));
+		assertFalse(urlValidator.isValid("http://mamutee.org/login"));
 	}
 	
 	@Test

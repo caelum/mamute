@@ -2045,7 +2045,7 @@ em
 }
 
 .footer .main-tags-footer:before {
-	content: "GUJ";
+	content: "";
 }
 
 .footer .main-tags:before {

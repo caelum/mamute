@@ -33,8 +33,8 @@ public class RssController {
 	@Get("/rss")
 	public void rss() throws IOException {
 		List<RssContent> orderedByDate = questions.orderedByCreationDate(MAX_RESULTS);
-		String title = bundle.getMessage("questions.rss.title");
-		String description = bundle.getMessage("questions.rss.description");
+		String title = bundle.getMessage("questions.rss.title", bundle.getMessage("site.name"));
+		String description = bundle.getMessage("questions.rss.description", bundle.getMessage("site.name"));
 		buildRss(orderedByDate, title, description);
 	}
 	
@@ -47,16 +47,16 @@ public class RssController {
 		}
 		
 		List<RssContent> orderedByDate = questions.orderedByCreationDate(MAX_RESULTS, tag);
-		String title = bundle.getMessage("questions.rss.title");
-		String description = bundle.getMessage("questions.rss.description");
+		String title = bundle.getMessage("questions.rss.title", bundle.getMessage("site.name"));
+		String description = bundle.getMessage("questions.rss.description", bundle.getMessage("site.name"));
 		buildRss(orderedByDate, title, description);
 	}
 
 	@Get("/noticias/rss")
 	public void newsRss() throws IOException {
 		List<RssContent> orderedByDate = news.orderedByCreationDate(MAX_RESULTS);
-		String title = bundle.getMessage("news.rss.title");
-		String description = bundle.getMessage("news.rss.description");
+		String title = bundle.getMessage("news.rss.title", bundle.getMessage("site.name"));
+		String description = bundle.getMessage("news.rss.description", bundle.getMessage("site.name"));
 		buildRss(orderedByDate, title, description);
 	}
 	

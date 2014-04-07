@@ -1,6 +1,15 @@
+<fmt:message key="site.name" var="siteName"/>
+
 <fmt:message key="metas.home.title" var="title"/>
-<fmt:message key="metas.default.description" var="description"/>
-<fmt:message key="metas.generic.title" var="genericTitle" />
+
+<fmt:message key="metas.default.description" var="description">
+	<fmt:param value="${siteName}" />
+</fmt:message>
+
+<fmt:message key="metas.generic.title" var="genericTitle" >
+	<fmt:param value="${siteName}" />
+</fmt:message>
+
 <tags:header facebookMetas="${true}" title="${genericTitle} - ${title}" description="${description}"/>
 
 <fmt:message key="menu.questions" var="title"/>
@@ -9,11 +18,21 @@
 	<section class="about-banner">
 		<span class="minimize-banner icon-minus"></span>
 		<div class="about-content tell-me-more">
-			<h3 class="about-title title"><fmt:message key="about.home_banner.welcome"/></h3>
+			<h3 class="about-title title">
+				<fmt:message key="about.home_banner.welcome">
+					<fmt:param value="${siteName}" />
+				</fmt:message>
+			</h3>
 			<div class="about-text">
-				<fmt:message key="about.home_banner.text"/>
+				<fmt:message key="about.home_banner.text">
+					<fmt:param value="${siteName}" />
+				</fmt:message>
 			</div>
-			<a href="${linkTo[NavigationController].about}"><fmt:message key="about.home_banner.text.link"/></a>
+			<a href="${linkTo[NavigationController].about}">
+				<fmt:message key="about.home_banner.text.link">
+					<fmt:param value="${siteName}" />
+				</fmt:message>
+			</a>
 		</div>
 		<div class="about-content how-it-works">
 			<ul>

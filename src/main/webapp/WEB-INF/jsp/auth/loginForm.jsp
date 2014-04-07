@@ -1,5 +1,11 @@
+<fmt:message key="site.name" var="siteName" />
+
 <fmt:message key="metas.login.title" var="title"/>
-<fmt:message key="metas.generic.title" var="genericTitle" />
+
+<fmt:message key="metas.generic.title" var="genericTitle" >
+	<fmt:param value="${siteName}" />
+</fmt:message>
+
 <tags:header title="${genericTitle} - ${title}"/>
 
 <h2 class="title page-title subheader">Login</h2>

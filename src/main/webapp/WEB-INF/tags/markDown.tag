@@ -9,6 +9,8 @@
 <%@attribute name="minlength" required="false" type="java.lang.Long"%>
 <%@attribute name="maxlength" required="false" type="java.lang.Long"%>
 
+<fmt:message key="site.name" var="siteName"/>
+
 <c:if test="${empty name}">
 	<c:set var="name" value="description"/>
 </c:if>
@@ -26,7 +28,11 @@
 			<li class="button-hint nav-item" data-button-hint-id="html-button-hint"><fmt:message key="button_hint.html.text"/></li>
 		</ul>
 		<div class="hint-texts">
-			<div id="links-button-hint" class="button-hint-text"><fmt:message key="button_hint.links.hint"/></div>
+			<div id="links-button-hint" class="button-hint-text">
+				<fmt:message key="button_hint.links.hint">
+					<fmt:param value="siteName" />
+				</fmt:message>
+			</div>
 			<div id="images-button-hint" class="button-hint-text"><fmt:message key="button_hint.images.hint"/></div>
 			<div id="styles-header-button-hint" class="button-hint-text"><fmt:message key="button_hint.styles_headers.hint"/></div>
 			<div id="lists-button-hint" class="button-hint-text"><fmt:message key="button_hint.lists.hint"/></div>

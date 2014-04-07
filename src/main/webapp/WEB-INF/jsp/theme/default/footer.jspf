@@ -4,6 +4,7 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<fmt:message key="site.name" var="siteName"/>
 <footer class="footer dark-footer">
 	<tags:brutal-include value="footerTags"/>
 	<ol class="main-tags main-tags-second">
@@ -15,13 +16,21 @@
 	</ol>
 	<div class="container">
 		<span class="footer-menu">
-			<span class="footer-menu-label"><fmt:message key="menu.title.answers" />: </span>
+			<span class="footer-menu-label">
+				<fmt:message key="menu.title.answers" >
+					<fmt:param value="${siteName}" />
+				</fmt:message>:
+			 </span>
 			
 			<a href="${linkTo[ListController].unsolved}" class="unsolved-link"><fmt:message key="menu.unsolved"/></a>
 			<a href="${linkTo[ListController].unanswered}"><fmt:message	key="menu.unanswered"/></a>
 		</span>
 		<span class="footer-menu">
-			<span class="footer-menu-label"><fmt:message key="menu.title.forum" />: </span>
+			<span class="footer-menu-label">
+				<fmt:message key="menu.title.forum">
+					<fmt:param value="${siteName}" />
+				</fmt:message>:
+			</span>
 			<a href="<c:url value="/forums/list.java" />" ><fmt:message key="menu.forum.forum_index" /></a>
 			<a href="<c:url value="/recentTopics/list.java" />" ><fmt:message key="menu.forum.recent_topics" /></a>
 			

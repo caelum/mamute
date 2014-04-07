@@ -1,5 +1,8 @@
  <fmt:message key="metas.unauthorized.title" var="title"/>
-<fmt:message key="metas.generic.title" var="genericTitle" />
+<fmt:message key="metas.generic.title" var="genericTitle">
+	<fmt:param value="${site.name}" />
+</fmt:message>
+
 <tags:header title="${genericTitle} - ${title}"/>
 
 <div class="subheader">
