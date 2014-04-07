@@ -43,7 +43,7 @@ public class ListTest extends CustomVRaptorIntegration{
 		
 		boolean onlyTag = true;
 		for (Question q : questions) {
-			if(!q.getTagsAsString().contains(tag)) {
+			if(!q.getTagsAsString(" ").contains(tag)) {
 				onlyTag = false;
 				break;
 			}
