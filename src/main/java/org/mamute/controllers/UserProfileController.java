@@ -75,7 +75,7 @@ public class UserProfileController extends BaseController{
 	}
 	
 	@Get
-	@Path(priority=0, value="/usuario/{user.id:[0-9]+}/{sluggedName}/reputacao")
+	@Path(priority=Path.HIGH, value="/usuario/{user.id:[0-9]+}/{sluggedName}/reputacao")
 	public void reputationHistory(@Load User user, String sluggedName) {
 		if (redirectToRightSluggedName(user, sluggedName)) {
 			return;
@@ -96,7 +96,7 @@ public class UserProfileController extends BaseController{
 	}
 
 	@Get
-	@Path(priority=1, value="/usuario/{id}/{sluggedName}/{type}")
+	@Path(priority=Path.LOW, value="/usuario/{id}/{sluggedName}/{type}")
 	public void typeByVotesWith(Long id, String sluggedName, OrderType order, Integer p, String type){
 		User author = users.findById(id);
 		order = order == null ? ByVotes : order;
