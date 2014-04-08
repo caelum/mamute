@@ -1,5 +1,6 @@
 package org.mamute.controllers;
 
+import static com.google.common.base.Objects.firstNonNull;
 import static java.util.Arrays.asList;
 import static org.mamute.dao.WithUserPaginatedDAO.OrderType.ByDate;
 import static org.mamute.dao.WithUserPaginatedDAO.OrderType.ByVotes;
@@ -22,9 +23,12 @@ import org.mamute.model.LoggedUser;
 import org.mamute.model.User;
 import org.mamute.validators.UserPersonalInfoValidator;
 
+import com.google.common.base.Objects;
+
 import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
+import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.hibernate.extra.Load;
@@ -70,7 +74,8 @@ public class UserProfileController extends BaseController{
 		result.include("noDefaultActive", true);
 	}
 	
-	@Get("/usuario/{user.id:[0-9]+}/{sluggedName}/reputacao")
+	@Get
+	@Path(priority=0, value="/usuario/{user.id:[0-9]+}/{sluggedName}/reputacao")
 	public void reputationHistory(@Load User user, String sluggedName) {
 		if (redirectToRightSluggedName(user, sluggedName)) {
 			return;
@@ -90,7 +95,8 @@ public class UserProfileController extends BaseController{
 		return false;
 	}
 
-	@Get("/usuario/{id}/{sluggedName}/{type}")
+	@Get
+	@Path(priority=1, value="/usuario/{id}/{sluggedName}/{type}")
 	public void typeByVotesWith(Long id, String sluggedName, OrderType order, Integer p, String type){
 		User author = users.findById(id);
 		order = order == null ? ByVotes : order;
