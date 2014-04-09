@@ -38,11 +38,12 @@
 						<a class="close-popup"><fmt:message key="popup.close"/></a>
 					</div>
 				</li>
+				<c:set value="${news.id}" var="newsId" />
 				<li class="nav-item">
 					<a class="post-action requires-login requires-karma"
 					    data-author="${currentUser.current.isAuthorOf(news)}"
 					    data-karma="${EDIT_NEWS}" 
-					    href="${linkTo[NewsController].newsEditForm(news.id)}" />">
+					    href="${linkTo[NewsController].newsEditForm(news)}" />
 						<fmt:message key="edit" />
 					</a>
 				</li>
