@@ -17,7 +17,9 @@ import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.routes.annotation.Routed;
 
+@Routed
 @Controller
 public class SignupController {
 
@@ -29,13 +31,13 @@ public class SignupController {
 	@Inject private FacebookAuthService facebook;
 	@Inject private Linker linker;
 
-	@Get("/cadastrar")
+	@Get
 	public void signupForm() {
 		String facebookUrl = facebook.getOauthUrl(null);
 		result.include("facebookUrl", facebookUrl);
 	}
 
-	@Post("/cadastrar")
+	@Post
 	public void signup(String email, String password, String name, String passwordConfirmation) {
 		User newUser = new User(name, email);
 		LoginMethod brutalLogin = LoginMethod.brutalLogin(newUser, email, password);
@@ -53,11 +55,11 @@ public class SignupController {
 	    result.forwardTo(AuthController.class).login(email, password, linker.get());
 	}
 	
-	@Get("/termos-de-uso")
+	@Get
 	public void showUsageTerms(){
 	}
 	
-	@Get("/privacidade")
+	@Get
 	public void privacyPolicy(){
 	}
 }

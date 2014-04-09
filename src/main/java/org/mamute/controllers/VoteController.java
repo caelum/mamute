@@ -17,8 +17,10 @@ import br.com.caelum.brutauth.auth.annotations.SimpleBrutauthRules;
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.routes.annotation.Routed;
 import br.com.caelum.vraptor.view.Results;
 
+@Routed
 @Controller
 public class VoteController {
 
@@ -31,7 +33,7 @@ public class VoteController {
 	
 	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
 	@AccessLevel(PermissionRulesConstants.VOTE_UP)
-	@Post("/{type}/{id}/voto/positivo")
+	@Post
 	public void voteUp(Long id, String type) {
 		tryToVoteVotable(id, VoteType.UP, mapping.getClassFor(type));
 		loggedUser.getCurrent().votedUp();
@@ -39,7 +41,7 @@ public class VoteController {
 
 	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
 	@AccessLevel(PermissionRulesConstants.VOTE_DOWN)
-	@Post("/{type}/{id}/voto/negativo")
+	@Post
 	public void voteDown(Long id, String type) {
 		tryToVoteVotable(id, VoteType.DOWN, mapping.getClassFor(type));
 		
@@ -47,7 +49,7 @@ public class VoteController {
 	
 	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
 	@AccessLevel(PermissionRulesConstants.VOTE_UP)
-	@Post("/{type}/{id}/voto/remove/positivo")
+	@Post
 	public void voteUpRemoval(Long id, String type) {
 		tryToRemoveVoteVotable(id, VoteType.UP, mapping.getClassFor(type));
 		loggedUser.getCurrent().votedUp();
@@ -55,7 +57,7 @@ public class VoteController {
 
 	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
 	@AccessLevel(PermissionRulesConstants.VOTE_DOWN)
-	@Post("/{type}/{id}/voto/remove/negativo")
+	@Post
 	public void voteDownRemoval(Long id, String type) {
 		tryToRemoveVoteVotable(id, VoteType.DOWN, mapping.getClassFor(type));
 		

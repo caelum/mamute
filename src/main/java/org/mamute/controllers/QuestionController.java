@@ -39,9 +39,11 @@ import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.hibernate.extra.Load;
+import br.com.caelum.vraptor.routes.annotation.Routed;
 import br.com.caelum.vraptor.validator.Validator;
 import br.com.caelum.vraptor.view.Results;
 
+@Routed
 @Controller
 public class QuestionController {
 
@@ -92,20 +94,20 @@ public class QuestionController {
 		this.splitter = splitter;
 	}
 
-	@Get("/perguntar")
+	@Get
 	@IncludeAllTags
 	@CustomBrutauthRules(LoggedRule.class)
 	public void questionForm() {
 	}
 	
-	@Get("/pergunta/editar/{question.id}")
+	@Get
 	@IncludeAllTags
 	@CustomBrutauthRules(EditQuestionRule.class)
 	public void questionEditForm(@Load Question question) {
 		result.include("question",  question);
 	}
 
-	@Post("/pergunta/editar/{original.id}")
+	@Post
 	@CustomBrutauthRules(EditQuestionRule.class)
 	public void edit(@Load Question original, String title, String description, String tagNames, 
 			String comment) {
@@ -129,7 +131,7 @@ public class QuestionController {
 		result.redirectTo(this).showQuestion(original, original.getSluggedTitle());
 	}
 	
-	@Get("/{question.id:[0-9]+}-{sluggedTitle}")
+	@Get
 	public void showQuestion(@Load Question question, String sluggedTitle){
 		User current = currentUser.getCurrent();
 		if (question.isVisibleFor(current)){
@@ -155,16 +157,8 @@ public class QuestionController {
 			result.notFound();
 		}
 	}
-	
-	private void redirectToRightUrl(Question question, String sluggedTitle) {
-		if (!question.getSluggedTitle().equals(sluggedTitle)) {
-			result.redirectTo(this).showQuestion(question,
-					question.getSluggedTitle());
-			return;
-		}
-	}
 
-	@Post("/perguntar")
+	@Post
 	@CustomBrutauthRules({LoggedRule.class, InputRule.class})
 	public void newQuestion(String title, String description, String tagNames, boolean watching) {
 		List<String> splitedTags = splitter.splitTags(tagNames);
@@ -188,17 +182,24 @@ public class QuestionController {
 		}
 		result.include("messages", asList(messageFactory.build("alert", "question.quality_reminder")));
 		result.redirectTo(this).showQuestion(question, question.getSluggedTitle());
-
 	}
 
+	@CustomBrutauthRules(ModeratorOnlyRule.class)
+	@Get
+	public void showVoteInformation (@Load Question question, String sluggedTitle){
+		result.include("question", question);
+		redirectToRightUrl(question, sluggedTitle);
+	}
+	
 	private boolean validate(List<Tag> foundTags, List<String> splitedTags) {
 		return tagsValidator.validate(foundTags, splitedTags);
 	}
 	
-	@CustomBrutauthRules(ModeratorOnlyRule.class)
-	@Get("/{question.id:[0-9]+}-{sluggedTitle}/details")
-	public void showVoteInformation (@Load Question question, String sluggedTitle){
-		result.include("question", question);
-		redirectToRightUrl(question, sluggedTitle);
+	private void redirectToRightUrl(Question question, String sluggedTitle) {
+		if (!question.getSluggedTitle().equals(sluggedTitle)) {
+			result.redirectTo(this).showQuestion(question,
+					question.getSluggedTitle());
+			return;
+		}
 	}
 }

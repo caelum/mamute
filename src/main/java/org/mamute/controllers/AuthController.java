@@ -13,7 +13,9 @@ import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.routes.annotation.Routed;
 
+@Routed
 @Controller
 public class AuthController extends BaseController {
 	
@@ -23,7 +25,7 @@ public class AuthController extends BaseController {
 	@Inject private UrlValidator urlValidator;
 	@Inject private LoginValidator validator;
 	
-	@Get("/login")
+	@Get
 	public void loginForm(String redirectUrl) {
 		String facebookUrl = facebook.getOauthUrl(redirectUrl);
 		if (redirectUrl != null && !redirectUrl.isEmpty()) {
@@ -32,7 +34,7 @@ public class AuthController extends BaseController {
 		result.include("facebookUrl", facebookUrl);
 	}
 	
-	@Post("/login")
+	@Post
 	public void login(String email, String password, String redirectUrl) {
 		if (validator.validate(email, password) && auth.authenticate(email, password)) {
 			redirectToRightUrl(redirectUrl);
@@ -44,7 +46,7 @@ public class AuthController extends BaseController {
 	}
 	
 	@CustomBrutauthRules(LoggedRule.class)
-	@Get("/logout")
+	@Get
 	public void logout() {
 		auth.signout();
 		redirectTo(ListController.class).home(null);

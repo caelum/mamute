@@ -17,8 +17,10 @@ import org.mamute.model.interfaces.RssContent;
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.routes.annotation.Routed;
 import br.com.caelum.vraptor.simplemail.template.BundleFormatter;
 
+@Routed
 @Controller
 public class RssController {
 	private static final int MAX_RESULTS = 30;
@@ -30,7 +32,7 @@ public class RssController {
 	@Inject private NewsDAO news;
 	@Inject private BundleFormatter bundle;
 	
-	@Get("/rss")
+	@Get
 	public void rss() throws IOException {
 		List<RssContent> orderedByDate = questions.orderedByCreationDate(MAX_RESULTS);
 		String title = bundle.getMessage("questions.rss.title", bundle.getMessage("site.name"));
@@ -38,8 +40,8 @@ public class RssController {
 		buildRss(orderedByDate, title, description);
 	}
 	
-	@Get("/rss/{tagName}")
-	public void rss(String tagName) throws IOException {
+	@Get
+	public void rssByTag(String tagName) throws IOException {
 		Tag tag = tags.findByName(tagName);
 		if (tag == null) {
 			result.notFound();
@@ -52,7 +54,7 @@ public class RssController {
 		buildRss(orderedByDate, title, description);
 	}
 
-	@Get("/noticias/rss")
+	@Get
 	public void newsRss() throws IOException {
 		List<RssContent> orderedByDate = news.orderedByCreationDate(MAX_RESULTS);
 		String title = bundle.getMessage("news.rss.title", bundle.getMessage("site.name"));

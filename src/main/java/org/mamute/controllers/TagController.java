@@ -16,8 +16,10 @@ import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.routes.annotation.Routed;
 import br.com.caelum.vraptor.view.Results;
 
+@Routed
 @Controller
 public class TagController {
 
@@ -26,13 +28,13 @@ public class TagController {
 	@Inject private TagsSplitter splitter;
 
 	
-	@Get("/tags-similares/{tagChunk}")
+	@Get
 	public void getTagsLike(String tagChunk){
 		List<Tag> suggestions = tags.findTagsLike(tagChunk);
 		result.use(Results.json()).withoutRoot().from(suggestions).serialize();
 	}
 	
-	@Post("/tags/as6nj8f8n4aju1w2nj3u1rn5a/{stringTags}")
+	@Post
 	@CustomBrutauthRules(ModeratorOnlyRule.class)
 	public void saveTags(String stringTags){
 		List<String> tagList = splitter.splitTags(stringTags);
@@ -42,7 +44,7 @@ public class TagController {
 		result.nothing();
 	}
 	
-	@Get("/pergunta/allTags")
+	@Get
 	public void jsonTags () {
 		result.use(json()).withoutRoot().from(tags.all()).serialize();
 	}

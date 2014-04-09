@@ -32,10 +32,12 @@ import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.hibernate.extra.Load;
+import br.com.caelum.vraptor.routes.annotation.Routed;
 import br.com.caelum.vraptor.simplemail.template.BundleFormatter;
 import br.com.caelum.vraptor.validator.Validator;
 import br.com.caelum.vraptor.view.Results;
 
+@Routed
 @Controller
 public class AnswerController {
 	@Inject private Result result;
@@ -51,13 +53,13 @@ public class AnswerController {
 	@Inject private BundleFormatter bundle;
 	@Inject private BrutalValidator brutalValidator;
 	
-	@Get("/resposta/editar/{answer.id}")
+	@Get
 	@CustomBrutauthRules(EditAnswerRule.class)
 	public void answerEditForm(@Load Answer answer) {
 		result.include("answer",  answer);
 	}
 
-	@Post("/resposta/editar/{original.id}")
+	@Post
 	@CustomBrutauthRules(EditAnswerRule.class)
 	public void edit(@Load Answer original, String description, String comment) {
 		AnswerInformation information = new AnswerInformation(description, currentUser, comment);
@@ -73,7 +75,7 @@ public class AnswerController {
 		result.redirectTo(QuestionController.class).showQuestion(originalQuestion, originalQuestion.getSluggedTitle());
 	}
 	
-	@Post("/responder/{question.id}")
+	@Post
 	@CustomBrutauthRules({LoggedRule.class, InputRule.class, InactiveQuestionRequiresMoreKarmaRule.class})
 	public void newAnswer(@Load Question question, String description, boolean watching) {
 		User current = currentUser.getCurrent();
@@ -99,7 +101,7 @@ public class AnswerController {
 		
 	}
 	
-	@Post("/marcar-como-solucao/{solutionId}")
+	@Post
 	public void markAsSolution(Long solutionId) {
 		Answer solution = answers.getById(solutionId);
 		Question question = solution.getMainThread();

@@ -18,7 +18,9 @@ import org.mamute.model.Tag;
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.routes.annotation.Routed;
 
+@Routed
 @Controller
 public class ListController {
 
@@ -34,7 +36,7 @@ public class ListController {
 	 * be careful when modifying its signature
 	 * @see BrutalRoutesParser
 	 */
-	@Get("/")
+	@Get
 	public void home(Integer p) {
 		Integer page = getPage(p);
 		List<Question> visible = questions.allVisible(page);
@@ -51,12 +53,12 @@ public class ListController {
 		result.include("currentUser", loggedUser);
 	}
 
-	@Get("/top")
+	@Get
 	public void topRaw() {
 		result.redirectTo(this).top("voted");
 	}
 
-	@Get("/top/{section}")
+	@Get
 	public void top(String section) {
 		Integer count = 35;
 		
@@ -80,12 +82,12 @@ public class ListController {
 		result.include("currentUser", loggedUser);
 	}
 	
-	@Get("/perguntas")
+	@Get
 	public void hackedIndex() {
 		result.redirectTo(this).home(1);
 	}
 
-	@Get({"/noticias", "/noticias/"})
+	@Get
 	public void news(Integer p) {
 		Integer page = getPage(p);
 		List<News> visible = newses.allVisible(page, 25);
@@ -100,7 +102,7 @@ public class ListController {
 		result.include("noDefaultActive", true);
 	}
 	
-	@Get("/nao-resolvido")
+	@Get
 	public void unsolved(Integer p) {
 		Integer page = getPage(p);
 		result.include("questions", questions.unsolvedVisible(page));
@@ -109,7 +111,7 @@ public class ListController {
 		result.include("totalPages", questions.totalPagesUnsolvedVisible());
 	}
 	
-	@Get("/sem-respostas")
+	@Get
 	public void unanswered(Integer p) {
 		Integer page = getPage(p);
 		result.include("questions", questions.unanswered(page));
@@ -120,7 +122,7 @@ public class ListController {
 		result.include("noDefaultActive", true);
 	}
 	
-	@Get("/tag/{tagName}")
+	@Get
 	public void withTag(String tagName, Integer p, boolean semRespostas) {
 		Integer page = getPage(p);
 		Tag tag = tags.findByName(tagName);
@@ -142,7 +144,7 @@ public class ListController {
 		}
 	}
 	
-	@Get("/tags")
+	@Get
 	public void listTags(){
 		result.include("tags", tags.all());
 	}

@@ -21,8 +21,10 @@ import org.mamute.validators.UrlValidator;
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.routes.annotation.Routed;
 import br.com.caelum.vraptor.validator.I18nMessage;
 
+@Routed
 @Controller
 public class FacebookAuthController extends BaseController{
 	
@@ -35,7 +37,7 @@ public class FacebookAuthController extends BaseController{
 	@Inject private MessageFactory messageFactory;
 	@Inject private UrlValidator urlValidator;
 	
-	@Get("/cadastrar/facebook/")
+	@Get
 	public void signupViaFacebook(String code, String state) {
 		if (code == null) {
 			includeAsList("messages", i18n("error", "error.signup.facebook.unknown"));

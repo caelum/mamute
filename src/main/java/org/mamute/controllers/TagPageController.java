@@ -14,7 +14,9 @@ import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.routes.annotation.Routed;
 
+@Routed
 @Controller
 public class TagPageController {
 
@@ -23,7 +25,7 @@ public class TagPageController {
 	@Inject private TagPageDAO tagPages;
 	@Inject private TagPageValidator validator;
 
-	@Get("/tag/{tagName}/sobre/novo")
+	@Get
 	@CustomBrutauthRules(ModeratorOnlyRule.class)
 	public void tagPageForm(String tagName){
 		if(validator.validateCreationWithTag(tagName)){
@@ -31,14 +33,14 @@ public class TagPageController {
 		}
 	}
 
-	@Get("/tag/{tagName}/sobre/editar")
+	@Get
 	@CustomBrutauthRules(ModeratorOnlyRule.class)
 	public void editTagPageForm(String tagName){
 		TagPage tagPage = tagPages.findByTag(tagName);
 		result.include("tagPage", tagPage);
 	}
 	
-	@Post("/tag/{tagName}/sobre/editar")
+	@Post
 	@CustomBrutauthRules(ModeratorOnlyRule.class)
 	public void editTagPage(String tagName, String about){
 		TagPage tagPage = tagPages.findByTag(tagName);
@@ -50,7 +52,7 @@ public class TagPageController {
 		result.redirectTo(this).showTagPage(tagPage.getTagName());
 	}
 	
-	@Post("/tag/{tagName}/sobre/novo")
+	@Post
 	@CustomBrutauthRules(ModeratorOnlyRule.class)
 	public void newTagPage(String tagName, String about){
 		if(!validator.validateCreationWithTag(tagName)) return;
@@ -64,7 +66,7 @@ public class TagPageController {
 		result.redirectTo(this).showTagPage(tagPage.getTagName()); 
 	}
 	
-	@Get("/tag/{tagName}/sobre")
+	@Get
 	public void showTagPage(String tagName){
 		TagPage tagPage = tagPages.findByTag(tagName);
 		result.include(tagPage);

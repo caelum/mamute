@@ -15,18 +15,20 @@ import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.routes.annotation.Routed;
 
+@Routed
 @Controller
 public class AntiHackController {
 
 	@Inject private VoteDAO votes;
 	@Inject private Result result;
 	
-	@Get("/antihack")
+	@Get
 	@CustomBrutauthRules(ModeratorOnlyRule.class)
 	public void massiveVotesForm() {}
 	
-	@Post("/antihack")
+	@Post
 	@CustomBrutauthRules(ModeratorOnlyRule.class)
 	public void showSuspects(DateTime begin, DateTime end, VoteType voteType) {
 		List<SuspectMassiveVote> suspects = votes.suspectMassiveVote(voteType, begin, end);

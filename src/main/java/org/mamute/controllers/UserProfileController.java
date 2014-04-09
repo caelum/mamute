@@ -32,7 +32,9 @@ import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.hibernate.extra.Load;
+import br.com.caelum.vraptor.routes.annotation.Routed;
 
+@Routed
 @Controller
 public class UserProfileController extends BaseController{
 	
@@ -48,7 +50,7 @@ public class UserProfileController extends BaseController{
 	@Inject private ReputationEventDAO reputationEvents;
 	@Inject private MessageFactory messageFactory;
 
-	@Get("/usuario/{user.id:[0-9]+}/{sluggedName}")
+	@Get
 	public void showProfile(@Load User user, String sluggedName){
 		if (redirectToRightSluggedName(user, sluggedName)) {
 			return;
@@ -75,7 +77,7 @@ public class UserProfileController extends BaseController{
 	}
 	
 	@Get
-	@Path(priority=Path.HIGH, value="/usuario/{user.id:[0-9]+}/{sluggedName}/reputacao")
+	@Path(priority=Path.HIGH, value="")
 	public void reputationHistory(@Load User user, String sluggedName) {
 		if (redirectToRightSluggedName(user, sluggedName)) {
 			return;
@@ -85,18 +87,9 @@ public class UserProfileController extends BaseController{
 		result.include("usersActive", true);
 		result.include("noDefaultActive", true);
 	}
-	
-	private boolean redirectToRightSluggedName(User user, String sluggedName) {
-		String correctSluggedName = user.getSluggedName();
-		if (!correctSluggedName.equals(sluggedName)) {
-			result.redirectTo(this).showProfile(user, correctSluggedName);
-			return true;
-		}
-		return false;
-	}
 
 	@Get
-	@Path(priority=Path.LOW, value="/usuario/{id}/{sluggedName}/{type}")
+	@Path(priority=Path.LOW, value="")
 	public void typeByVotesWith(Long id, String sluggedName, OrderType order, Integer p, String type){
 		User author = users.findById(id);
 		order = order == null ? ByVotes : order;
@@ -105,14 +98,14 @@ public class UserProfileController extends BaseController{
 		result.forwardTo(BrutalTemplatesController.class).userProfilePagination(paginatableDAO, author, order, page, type);		
 	}
 	
-	@Get("/usuario/{id}/{sluggedName}/acompanhadas")
+	@Get
 	public void watchersByDateWith(Long id, String sluggedName, Integer p){
 		User user = users.findById(id);
 		Integer page = p == null ? 1 : p;
 		result.forwardTo(BrutalTemplatesController.class).userProfilePagination(watchers, user, ByDate, page, "acompanhadas");
 	}
 		
-	@Get("/usuario/editar/{user.id:[0-9]+}")
+	@Get
 	public void editProfile(@Load User user){
 		if (!user.getId().equals(currentUser.getCurrent().getId())){
 			result.redirectTo(ListController.class).home(null);
@@ -123,7 +116,7 @@ public class UserProfileController extends BaseController{
 		result.include("noDefaultActive", true);
 	}
 	
-	@Post("/usuario/editar/{user.id:[0-9]+}")
+	@Post
 	public void editProfile(@Load User user, String name, String realName, String email, 
 			String website, String location, DateTime birthDate, String description, boolean isSubscribed) {
 		if (!user.getId().equals(currentUser.getCurrent().getId())){
@@ -157,7 +150,7 @@ public class UserProfileController extends BaseController{
 		result.redirectTo(this).showProfile(user, user.getSluggedName());
 	}
 	
-	@Get("/usuario/unsubscribe/{user.id:[0-9]+}/{hash}")
+	@Get
 	public void unsubscribe(@Load User user, String hash){
 		String correctHash = user.getUnsubscribeHash();
 		
@@ -172,7 +165,7 @@ public class UserProfileController extends BaseController{
 	}
 	
 	@CustomBrutauthRules(ModeratorOnlyRule.class)
-	@Post("/usuario/ban/{user.id:[0-9]+}")
+	@Post
 	public void toogleBanned(@Load User user) {
 		if(user.isBanned()){
 			user.undoBan();
@@ -192,4 +185,12 @@ public class UserProfileController extends BaseController{
 		return website;
 	}
 	
+	private boolean redirectToRightSluggedName(User user, String sluggedName) {
+		String correctSluggedName = user.getSluggedName();
+		if (!correctSluggedName.equals(sluggedName)) {
+			result.redirectTo(this).showProfile(user, correctSluggedName);
+			return true;
+		}
+		return false;
+	}
 }

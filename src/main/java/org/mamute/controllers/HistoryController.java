@@ -30,8 +30,10 @@ import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.routes.annotation.Routed;
 import br.com.caelum.vraptor.view.Results;
 
+@Routed
 @Controller
 public class HistoryController {
 
@@ -45,7 +47,7 @@ public class HistoryController {
 
 	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
 	@AccessLevel(PermissionRulesConstants.MODERATE_EDITS)
-	@Get("/historico")
+	@Get
 	public void history() {
 		ModeratableAndPendingHistory pendingQuestions = informations.pendingByUpdatables(Question.class);			
 		result.include("questions", pendingQuestions);
@@ -56,14 +58,14 @@ public class HistoryController {
 
 	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
 	@AccessLevel(PermissionRulesConstants.MODERATE_EDITS)
-	@Get("/historico/{moderatableType}")
+	@Get
 	public void unmoderated(String moderatableType) {
 		result.redirectTo(this).history();
 	}
 	
 	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
 	@AccessLevel(PermissionRulesConstants.MODERATE_EDITS)
-	@Get("/historico/resposta/{moderatableId}/versoes")
+	@Get
 	public void similarAnswers(Long moderatableId) {
 		similar("resposta", moderatableId);
 	}
@@ -71,12 +73,12 @@ public class HistoryController {
 	
 	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
 	@AccessLevel(PermissionRulesConstants.MODERATE_EDITS)
-	@Get("/historico/pergunta/{moderatableId}/versoes")
+	@Get
 	public void similarQuestions(Long moderatableId) {
 		similar("pergunta", moderatableId);
 	}
 	
-	@Get("/{questionId}/historico")
+	@Get
 	public void questionHistory(Long questionId) {
 		result.include("histories", informations.historyForQuestion(questionId));
 		result.include("post", moderatables.getById(questionId, Question.class));
@@ -84,18 +86,9 @@ public class HistoryController {
 		result.include("isHistoryQuestion", true);
 	}
 
-	private void similar(String moderatableType, Long moderatableId) {
-		Class<?> clazz = urlMapping.getClassFor(moderatableType);
-		result.include("histories", informations.pendingFor(moderatableId, clazz));
-		result.include("post", moderatables.getById(moderatableId, clazz));
-		result.include("type", moderatableType);
-		result.include("userMediumPhoto", true);
-		result.include("isHistoryQuestion", false);
-	}
-
 	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
 	@AccessLevel(PermissionRulesConstants.MODERATE_EDITS)
-    @Post("/publicar/{moderatableType}")
+    @Post
     public void publish(Long moderatableId, String moderatableType, Long aprovedInformationId,  String aprovedInformationType) {
     	Class<?> moderatableClass = urlMapping.getClassFor(moderatableType);
     	Information approved = informations.getById(aprovedInformationId, aprovedInformationType);
@@ -119,7 +112,7 @@ public class HistoryController {
         result.redirectTo(this).history();
     }
 	
-	@Post("/rejeitar/{typeName}/{informationId}")
+	@Post
 	public void reject(Long informationId, String typeName) {
 		Information informationRefused = informations.getById(informationId, typeName);
 		informationRefused.moderate(currentUser.getCurrent(), UpdateStatus.REFUSED);
@@ -139,5 +132,12 @@ public class HistoryController {
         }
     }
     
-	
+    private void similar(String moderatableType, Long moderatableId) {
+    	Class<?> clazz = urlMapping.getClassFor(moderatableType);
+    	result.include("histories", informations.pendingFor(moderatableId, clazz));
+    	result.include("post", moderatables.getById(moderatableId, clazz));
+    	result.include("type", moderatableType);
+    	result.include("userMediumPhoto", true);
+    	result.include("isHistoryQuestion", false);
+    }
 }

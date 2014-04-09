@@ -23,7 +23,9 @@ import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.hibernate.extra.Load;
+import br.com.caelum.vraptor.routes.annotation.Routed;
 
+@Routed
 @Controller
 public class NewsController {
 
@@ -34,7 +36,7 @@ public class NewsController {
 	@Inject private PostViewCounter viewCounter;
 	@Inject private WatcherDAO watchers;
 
-	@Post("/nova-noticia")
+	@Post
 	@CustomBrutauthRules({LoggedRule.class, InputRule.class})
 	public void newNews(String title, String description) {
 		NewsInformation information = new NewsInformation(title, description, currentUser, "new news");
@@ -45,14 +47,14 @@ public class NewsController {
 		result.redirectTo(this).showNews(news, news.getSluggedTitle());
 	}
 	
-	@Get("/nova-noticia")
+	@Get
 	@CustomBrutauthRules({LoggedRule.class, InputRule.class})
 	public void newsForm() {
 		result.include("newsActive", true);
 		result.include("noDefaultActive", true);
 	}
 	
-	@Get("/noticia/editar/{news.id}")
+	@Get
 	@CustomBrutauthRules(EditNewsRule.class)
 	public void newsEditForm(@Load News news) {
 		result.include("news", news);
@@ -60,7 +62,7 @@ public class NewsController {
 		result.include("noDefaultActive", true);
 	}
 	
-	@Post("/noticia/editar/{news.id}")
+	@Post
 	@CustomBrutauthRules(EditNewsRule.class)
 	public void saveEdit(@Load News news, String title, String description, String comment) {
 		Information newInformation = new NewsInformation(title, description, currentUser, comment);
@@ -68,7 +70,7 @@ public class NewsController {
 		result.redirectTo(this).showNews(news, news.getSluggedTitle());
 	}
 	
-	@Get("/noticias/{news.id:[0-9]+}-{sluggedTitle}")
+	@Get
 	public void showNews(@Load News news, String sluggedTitle) {
 		User current = currentUser.getCurrent();
 		news.checkVisibilityFor(currentUser);
@@ -85,7 +87,7 @@ public class NewsController {
 		result.include("noDefaultActive", true);
 	}
 	
-	@Post("/noticias/aprovar/{news.id}")
+	@Post
 	@CustomBrutauthRules(ModeratorOnlyRule.class)
 	public void approve(@Load News news){
 		news.approved();

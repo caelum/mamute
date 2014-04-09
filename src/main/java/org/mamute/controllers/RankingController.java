@@ -11,7 +11,9 @@ import org.mamute.model.Tag;
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.routes.annotation.Routed;
 
+@Routed
 @Controller
 public class RankingController {
 	
@@ -21,7 +23,7 @@ public class RankingController {
 	@Inject private ReputationEventDAO reputationEvents;
 
 
-	@Get("/ranking")
+	@Get
 	public void rank(Integer p) {
 		int page = p == null ? 1 : p;
 		result.include("topUsers", users.getRank(page));
@@ -31,7 +33,7 @@ public class RankingController {
 		result.include("noDefaultActive", true);
 	}
 	
-	@Get("/ranking/{tagName}")
+	@Get
 	public void tagRank(String tagName){
 		Tag tag = tags.findByName(tagName);
 		if (tag == null){

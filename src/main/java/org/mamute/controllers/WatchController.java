@@ -14,7 +14,9 @@ import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.routes.annotation.Routed;
 
+@Routed
 @Controller
 public class WatchController {
 
@@ -23,7 +25,7 @@ public class WatchController {
 	@Inject private LoggedUser currentUser;
 	@Inject private Result result;
 
-	@Post("/{type}/acompanhar/{watchableId}")
+	@Post
 	@CustomBrutauthRules(LoggedRule.class)
 	public void watch(Long watchableId, String type) {
 		Watchable watchable = watchers.findWatchable(watchableId, mapping.getClassFor(type));

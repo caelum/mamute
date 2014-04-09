@@ -25,8 +25,10 @@ import br.com.caelum.brutauth.auth.annotations.SimpleBrutauthRules;
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.routes.annotation.Routed;
 import br.com.caelum.vraptor.view.Results;
 
+@Routed
 @Controller
 public class CommentController {
 
@@ -41,7 +43,7 @@ public class CommentController {
 	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
 	@AccessLevel(PermissionRulesConstants.CREATE_COMMENT)
 	@CustomBrutauthRules({InputRule.class, InactiveQuestionRequiresMoreKarmaRule.class})
-	@Post("/{onWhat}/{id}/comentar")
+	@Post
 	public void comment(Long id, String onWhat, String comment, boolean watching) {
 		User current = currentUser.getCurrent();
 		Comment newComment = new Comment(current, comment);
@@ -64,7 +66,7 @@ public class CommentController {
     	result.forwardTo(BrutalTemplatesController.class).comment(newComment);
 	}
 
-	@Post("/comentario/editar/{id}")
+	@Post
 	public void edit(Long id, String comment) {
 		Comment original = comments.getById(id);
 		if (!currentUser.getCurrent().isAuthorOf(original)) {

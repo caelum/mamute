@@ -15,11 +15,13 @@ import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.routes.annotation.Routed;
 import br.com.caelum.vraptor.simplemail.Mailer;
 import br.com.caelum.vraptor.simplemail.template.BundleFormatter;
 import br.com.caelum.vraptor.simplemail.template.TemplateMailer;
 import br.com.caelum.vraptor.validator.Validator;
 
+@Routed
 @Controller
 public class ForgotPasswordController {
 	
@@ -32,11 +34,11 @@ public class ForgotPasswordController {
 	@Inject private MessageFactory messageFactory;
 	@Inject private BundleFormatter bundle;
 
-	@Get("/esqueci-minha-senha")
+	@Get
 	public void forgotPasswordForm() {
 	}
 
-	@Post("/esqueci-minha-senha")
+	@Post
 	public void requestEmailWithToken(String email) {
 		User user = users.loadByEmail(email);
 
@@ -60,7 +62,7 @@ public class ForgotPasswordController {
 		}	
 	}
 
-	@Get("/mudar-senha/{id}/{token}")
+	@Get
 	public void changePasswordForm(Long id, String token) {
 		validateTokenAndGetUser(id, token);
 		
@@ -68,7 +70,7 @@ public class ForgotPasswordController {
 		result.include("token", token);
 	}
 	
-	@Post("/mudar-senha/{id}/{token}")
+	@Post
 	public void changePassword(Long id, String token, String password, String passwordConfirmation) {
 		User user = validateTokenAndGetUser(id, token);
 

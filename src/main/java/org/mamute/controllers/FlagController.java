@@ -32,7 +32,9 @@ import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.routes.annotation.Routed;
 
+@Routed
 @Controller
 public class FlagController {
 	
@@ -47,7 +49,7 @@ public class FlagController {
 
 	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
 	@AccessLevel(PermissionRulesConstants.CREATE_FLAG)
-	@Post("/{flaggableType}/{flaggableId}/marcar")
+	@Post
 	public void addFlag(String flaggableType, Long flaggableId, FlagType flagType, String reason) {
 		Class<?> clazz = urlMapping.getClassFor(flaggableType);
 		if (flagType == null) {
@@ -75,7 +77,7 @@ public class FlagController {
 	}
 	
 	@CustomBrutauthRules(ModeratorOnlyRule.class)
-	@Get("/marcadas")
+	@Get
 	public void topFlagged() {
 		List<FlaggableAndFlagCount> flaggedQuestions = flaggables.flaggedButVisible(Question.class);
 		List<FlaggableAndFlagCount> flaggedAnswers = flaggables.flaggedButVisible(Answer.class);
