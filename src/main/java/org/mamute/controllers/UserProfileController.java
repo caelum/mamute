@@ -6,6 +6,7 @@ import static org.mamute.dao.WithUserPaginatedDAO.OrderType.ByDate;
 import static org.mamute.dao.WithUserPaginatedDAO.OrderType.ByVotes;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 
 import org.joda.time.DateTime;
 import org.mamute.brutauth.auth.rules.ModeratorOnlyRule;
@@ -49,6 +50,7 @@ public class UserProfileController extends BaseController{
 	@Inject private WatcherDAO watchers;
 	@Inject private ReputationEventDAO reputationEvents;
 	@Inject private MessageFactory messageFactory;
+	@Inject private HttpServletResponse response;
 
 	@Get
 	public void showProfile(@Load User user, String sluggedName){
@@ -89,7 +91,6 @@ public class UserProfileController extends BaseController{
 	}
 
 	@Get
-	@Path(priority=Path.LOW, value="")
 	public void typeByVotesWith(Long id, String sluggedName, OrderType order, Integer p, String type){
 		User author = users.findById(id);
 		order = order == null ? ByVotes : order;

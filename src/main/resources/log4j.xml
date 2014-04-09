@@ -129,7 +129,7 @@
         <appender-ref ref="main"/>
     </category>
     <category name="org.jboss.weld">
-        <priority value="WARN"/>
+        <priority value="INFO"/>
         <appender-ref ref="main"/>
     </category>
 </log4j:configuration>
