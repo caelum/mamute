@@ -56,9 +56,8 @@
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>16.0.1</version>
+			<version>15.0</version>
 		</dependency>
-		            
 
 		<!-- VRaptor plugins -->
 		<dependency>
