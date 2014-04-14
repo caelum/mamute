@@ -27,10 +27,6 @@
 			<version>4.0.0-RC3-SNAPSHOT</version>
 			<exclusions>
 				<exclusion>
-					<groupId>com.google.guava</groupId>
-					<artifactId>guava</artifactId>
-				</exclusion>
-				<exclusion>
 					<groupId>org.hamcrest</groupId>
 					<artifactId>hamcrest-library</artifactId>
 				</exclusion>
