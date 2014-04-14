@@ -10,9 +10,7 @@
 <script type="text/javascript">
 	//UI flags (GLOBAL VARIABLES)
 	var ANYONE_CAN_CREATE_TAGS = ${env.supports('feature.tags.add.anyone')};
-	if(ANYONE_CAN_CREATE_TAGS){
-		var TAGS_SPLITTER_CHAR = "${env.get('tags.splitter.char')}";
-	}
+	var TAGS_SPLITTER_CHAR = "${env.get('tags.splitter.char')}";
 	var LOGGED_IN = ${currentUser.loggedIn};
 	var MODERATOR = ${currentUser.moderator};
 	var KARMA = ${currentUser.current.karma};
