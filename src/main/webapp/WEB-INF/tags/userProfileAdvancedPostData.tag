@@ -32,7 +32,12 @@
 		</c:if>
 	</ul>
 	<c:if test="${withPagination}">
-	    <tags:pagination url="/usuario/${user.id}/${user.sluggedName}/${type}" type="${type}" targetId="user-${type}" totalPages="${pages}" delta="2" currentPage="1"/>
+		<c:if test="${withPagination and type != 'acompanhadas'}">
+		    <tags:pagination url="${linkTo[UserProfileController].typeByVotesWith(user.id, user.sluggedName,null, 1, type)}" type="${type}" targetId="user-${type}" totalPages="${pages}" delta="2" currentPage="1"/>
+		</c:if>
+		<c:if test="${type == 'acompanhadas'}">
+	    	<tags:pagination url="${linkTo[UserProfileController].watchersByDateWith(user.id, user.sluggedName, 1)}" type="${type}" targetId="user-${type}" totalPages="${pages}" delta="2" currentPage="1"/>
+	    </c:if>
 	</c:if>
 </section>
 
