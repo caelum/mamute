@@ -11,4 +11,4 @@
 
 <tags:header title="${genericTitle} - ${title}"/>
 
-<tags:newsForm uri="${linkTo[NewsController].saveEdit(news.id)}" news="${news}" edit="${true}" />
+<tags:newsForm uri="${linkTo[NewsController].saveEdit(news)}" news="${news}" edit="${true}" />
