@@ -94,9 +94,9 @@ public class DataImport extends TestCase {
         newUser(userWithPassword("Marco", "marco@email.com.br").asModerator(), false);
         newUser(userWithPassword("Yuri", "yuri@email.com.br").asModerator(), false);
         newUser(userWithPassword("Acceptance Test user", "acceptance@email.com.br"), true);
-        User karmaNigga = userWithPassword("User with a lot of karma", "karma.nigga@email.com.br");
-        setKarma(karmaNigga, 1000l);
-        newUser(karmaNigga, true);
+        User karmaUser = userWithPassword("User with a lot of karma", "karma.user@email.com.br");
+        setKarma(karmaUser, 1000l);
+        newUser(karmaUser, true);
         
         newTag("ruby", "");
         newTag("java", "");
