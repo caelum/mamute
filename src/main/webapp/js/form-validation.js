@@ -1,10 +1,10 @@
 $(function(){
 	jQuery.extend(jQuery.validator.messages, {
-	    required: "Este campo é necessário.",
-	    email: "Este email não é válido",
-	    equalTo: jQuery.validator.format("Os valores inseridos são diferentes."),
-	    minlength: jQuery.validator.format("Por favor, insira ao menos {0} caracteres."),
-	    maxlength: jQuery.validator.format("Por favor, insira no máximo {0} caracteres."),
+	    required: MESSAGES['not_empty'],
+	    email: MESSAGES['invalid_email'],
+	    equalTo: jQuery.validator.format(MESSAGES['not_equal']),
+	    minlength: jQuery.validator.format(MESSAGES['minimum_characters']),
+	    maxlength: jQuery.validator.format(MESSAGES['maximum_characters']),
 	});
 	
 	$.validator.addMethod(
@@ -15,7 +15,7 @@ $(function(){
 	    	}
 	        return value.match(/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(19[1-9][0-9]|20[01][0-3])$/);
 	    },
-	    "Esta data não é válida. Utilize uma data no formato dd/mm/yyyy"
+	    MESSAGES['invalid_date']
 	);
 	
 
@@ -27,7 +27,7 @@ $(function(){
 				}
 				return value.match(/(www\.)?(.*\.)(.*)/);
 			},
-			"Insira uma url válida!"
+			MESSAGES['invalid_url']
 	);
 	
 	$(".validated-form").each(function(i,f){

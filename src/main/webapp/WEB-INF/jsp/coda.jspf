@@ -18,6 +18,17 @@
 	var AVIARY_API_KEY = "${env.get('filepicker.aviary.api_key')}";
 	var INK_API_KEY = "${env.get('filepicker.ink.api_key')}";
 	var ALL_TAGS_URL = "${linkTo[TagController].jsonTags}";
+	
+	var MESSAGES = [];
+	MESSAGES['not_empty'] = "<fmt:message key='org.hibernate.validator.constraints.NotEmpty.message' />";
+	MESSAGES['invalid_email'] = "<fmt:message key='org.hibernate.validator.constraints.Email.message' />";
+	MESSAGES['not_equal'] = "<fmt:message key='validator.not.equal' />";
+	MESSAGES['invalid_date'] = "<fmt:message key='validator.invalid.date' />";
+	MESSAGES['invalid_url'] = "<fmt:message key='validator.invalid.url' />";
+	MESSAGES['minimum_characters'] = "<fmt:message key='validator.minimum.characters' />";
+	MESSAGES['maximum_characters'] = "<fmt:message key='validator.maximum.characters' />";
+	
+	
 </script>
 	
 <c:if test="${environment.name != 'production'}" >
