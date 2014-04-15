@@ -19,12 +19,13 @@ import org.mamute.model.User;
 import org.mamute.model.interfaces.RssContent;
 
 import br.com.caelum.vraptor.environment.DefaultEnvironment;
+import br.com.caelum.vraptor.environment.EnvironmentType;
 
 public class RssFeedFactoryTest extends TestCase {
 	
 	@Test
 	public void should_generate_feed() throws IOException {
-		DefaultEnvironment env = new DefaultEnvironment(DEVELOPMENT);
+		DefaultEnvironment env = new DefaultEnvironment(new EnvironmentType("mamute"));
 		QuestionRssEntryFactory factory = new QuestionRssEntryFactory(env);
 		RssFeedFactory rssFeedFactory = new RssFeedFactory(env, factory);
 		

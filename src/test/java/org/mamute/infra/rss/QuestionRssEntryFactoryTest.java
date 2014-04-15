@@ -1,6 +1,5 @@
 package org.mamute.infra.rss;
 
-import static br.com.caelum.vraptor.environment.EnvironmentType.DEVELOPMENT;
 import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayOutputStream;
@@ -14,12 +13,13 @@ import org.mamute.infra.rss.write.QuestionRssEntryFactory;
 import org.mamute.model.Question;
 
 import br.com.caelum.vraptor.environment.DefaultEnvironment;
+import br.com.caelum.vraptor.environment.EnvironmentType;
 
 public class QuestionRssEntryFactoryTest extends TestCase {
 
 	@Test
 	public void should_create_entry_from_a_question() throws IOException {
-		DefaultEnvironment env = new DefaultEnvironment(DEVELOPMENT);
+		DefaultEnvironment env = new DefaultEnvironment(new EnvironmentType("mamute"));
 		QuestionRssEntryFactory factory = new QuestionRssEntryFactory(env);
 		QuestionBuilder builder = new QuestionBuilder();
 		DateTimeUtils.setCurrentMillisFixed(100);
