@@ -20,7 +20,7 @@
 	<input id="tags" type="text" autocomplete="off"
 		name="tagNames" 
 		class="question-tags-input hintable autocomplete only-existent-tags text-input ${tagsRequired}" 
-		value="${question.tagsAsString }" data-hint-id="question-tags-hint" 
+		value="${question.getTagsAsString(environment.get('tags.splitter.char'))}" data-hint-id="question-tags-hint" 
 		data-autocomplete-id="newquestion-tags-autocomplete"/>
 	
 	<input class="post-submit big-submit" type="submit" value="<fmt:message key="question.new_form.submit"/>" />
