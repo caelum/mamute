@@ -43,9 +43,6 @@ echo 'Updating mamute'
 
 cd $MAMUTE_DIR
 
-git checkout master
-git pull
-
 mvn clean package -DskipTests
 
 echo 'Copying new version of mamute'
