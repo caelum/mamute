@@ -92,7 +92,7 @@
 	
 	
 	<listener>
-	   <listener-class>org.mamute.weld.WeldListener</listener-class>
+		<listener-class>org.jboss.weld.environment.servlet.Listener</listener-class>
 	</listener>
 <!-- 	<listener> -->
 <!-- 	   <listener-class>org.jboss.weld.environment.servlet.BeanManagerResourceBindingListener</listener-class> -->
