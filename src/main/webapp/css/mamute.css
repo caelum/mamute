@@ -2040,10 +2040,6 @@ em
 	padding: 2em 0;
 }
 
-.footer .main-tags-footer:before {
-	content: "";
-}
-
 .footer .main-tags:before {
 	display: block;
 	margin-bottom: .5em;
