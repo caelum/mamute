@@ -2040,10 +2040,6 @@ em
 	padding: 2em 0;
 }
 
-.footer .main-tags-second:before {
-	content: "Check Lumpa too";
-}
-
 .footer .main-tags-footer:before {
 	content: "";
 }
