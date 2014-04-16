@@ -1,0 +1,65 @@
+INSTANCE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+APPLICATION_DIR=$INSTANCE_DIR/..
+
+cd $APPLICATION_DIR
+
+if [ ! -d overrides ]; then
+	mkdir overrides
+fi
+
+customFiles=("WEB-INF/classes/messages_pt_BR.properties"
+ "WEB-INF/classes/environment.properties"
+ "WEB-INF/classes/development.properties"
+ "WEB-INF/classes/acceptance.properties"
+ "WEB-INF/classes/production.properties"
+ "WEB-INF/classes/META-INF/beans.xml"
+ "css/deps/custom.css"
+ "css/all-*.css"
+ "js/all-*.js"
+ "js/jquery/jquery-plugins-*.js"
+ "WEB-INF/classes/production"
+ "WEB-INF/jsp/theme/custom"
+ "imgs/custom")
+
+cd mamute
+
+echo 'Copying files'
+for ((i=1; i<${#customFiles[@]} ; i++))
+do
+	echo "Copying ${customFiles[i]}"
+	cp -R --parents ${customFiles[i]} $APPLICATION_DIR/overrides
+done
+
+echo  'Removing old version of mamute' 
+
+cd $APPLICATION_DIR
+OLD_MAMUTE=mamute-old_`date +%s`
+mkdir $OLD_MAMUTE
+mv mamute/* $OLD_MAMUTE
+
+MAMUTE_DIR=${MAMUTE_DIR:-../mamute}
+
+echo 'Updating mamute'
+
+cd $MAMUTE_DIR
+
+git checkout master
+git pull
+
+mvn clean package -DskipTests
+
+echo 'Copying new version of mamute'
+
+cp -R target/mamute-1.0.0-SNAPSHOT/* $APPLICATION_DIR/mamute
+
+cd $APPLICATION_DIR
+
+echo 'Copying overrides to new version of mamute'
+cp -R overrides/* mamute/
+
+echo 'Removing custom files from overrides'
+for ((i=1; i<${#customFiles[@]} ; i++))
+do
+	echo "Removing ${customFiles[i]}"
+	rm -rf overrides/${customFiles[i]} 
+done
