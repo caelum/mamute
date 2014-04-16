@@ -6,38 +6,22 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <fmt:message key="site.name" var="siteName"/>
 <footer class="footer dark-footer">
-	<tags:brutal-include value="footerTags"/>
-	<ol class="main-tags main-tags-second">
-		<li><a class="tag-brutal" href="http://www.lumpa.com.br/tag/photoshop">photoshop</a></li>
-		<li><a class="tag-brutal" href="http://www.lumpa.com.br/tag/illustrator">illustrator</a></li>
-		<li><a class="tag-brutal" href="http://www.lumpa.com.br/tag/inDesign">inDesign</a></li>
-		<li><a class="tag-brutal" href="http://www.lumpa.com.br/tag/tipografia">tipografia</a></li>
-		<li><a class="tag-brutal" href="http://www.lumpa.com.br/tag/vetorização">vetorização</a></li>
-	</ol>
 	<div class="container">
+		<div class="footer-muted-message">
+			${siteName}
+		</div>
 		<span class="footer-menu">
-			<span class="footer-menu-label">
-				<fmt:message key="menu.title.answers" >
-					<fmt:param value="${siteName}" />
-				</fmt:message>:
-			 </span>
-			
 			<a href="${linkTo[ListController].unsolved}" class="unsolved-link"><fmt:message key="menu.unsolved"/></a>
 			<a href="${linkTo[ListController].unanswered}"><fmt:message	key="menu.unanswered"/></a>
 		</span>
-		<span class="footer-menu">
-			<span class="footer-menu-label">
-				<fmt:message key="menu.title.forum">
-					<fmt:param value="${siteName}" />
-				</fmt:message>:
-			</span>
-			<a href="<c:url value="/forums/list.java" />" ><fmt:message key="menu.forum.forum_index" /></a>
-			<a href="<c:url value="/recentTopics/list.java" />" ><fmt:message key="menu.forum.recent_topics" /></a>
-			
-		</span>
 		<span class="footer-vraptor">
-			Powered by: <a href="<c:url value="http://www.vraptor.org/>" /> "><fmt:message key="menu.title.vraptor" /></a>
+			Powered by: <a href="http://www.vraptor.org/"><fmt:message key="menu.title.vraptor" /></a>
+			—
+			<fmt:message key="footer.powered_by">
+				<fmt:param value="http://www.caelum.com.br"/>
+			</fmt:message>
 		</span>
-		<span class="footer-muted-message"><fmt:message key="footer.powered_by"><fmt:param value="http://www.caelum.com.br"/></fmt:message></span>
+		<span class="footer-muted-message">
+		</span>
 	</div>
 </footer>
