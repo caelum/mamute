@@ -27,10 +27,6 @@
 			<version>4.0.0-RC2</version>
 			<exclusions>
 				<exclusion>
-					<groupId>com.google.guava</groupId>
-					<artifactId>guava</artifactId>
-				</exclusion>
-				<exclusion>
 					<groupId>org.hamcrest</groupId>
 					<artifactId>hamcrest-library</artifactId>
 				</exclusion>
@@ -49,14 +45,9 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>org.jboss.weld.servlet</groupId>
-			<artifactId>weld-servlet</artifactId>
-			<version>2.1.2.Final</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>15.0</version>
+		    <groupId>org.jboss.weld.servlet</groupId>
+		    <artifactId>weld-servlet-core</artifactId>
+		    <version>2.2.0.CR2</version>
 		</dependency>
 
 		<!-- VRaptor plugins -->
@@ -383,6 +374,14 @@
 				<exclusion>
 					<groupId>com.google.guava</groupId>
 					<artifactId>guava</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.jboss.weld.servlet</groupId>
+					<artifactId>weld-servlet</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.tomcat</groupId>
+					<artifactId>tomcat-api</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
