@@ -4,7 +4,9 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <header class="header clear">
+<c:set var="mainTags" value="" scope="request"/>
 	<section class="second-header">
 		<div class="container header-container">
 			<a class="logo big-logo sprite"

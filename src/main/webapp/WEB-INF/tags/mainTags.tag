@@ -12,13 +12,15 @@
 
 <c:set value="${unansweredTagLinks ? '?semRespostas=true' : ''}" var="append" />
 
-<ol class="main-tags ${tagClass}">
-	<c:forTokens items="java, android, c#, .net, javascript, php, jquery, html, sql" delims=", " var="tagName">
-		<li>
-			<c:set value="${tag.name == tagName || currentQuestion.mostImportantTag.name == tagName  && useSprite ? 'main-tags-current' : ''}" var="currentTag"/>
-			<c:set value="${useSprite ? 'main-tags-sprite main-tags-'.concat(fn:replace(fn:replace(tagName, '.', ''), '#', '')) : '' }" var="className"/>
-			
-			<a class="${currentTag} ${tagClassLi} ${className}"  href="${linkTo[ListController].withTag(tagName, 1, false)}${append}"> ${tagName} </a>
-		</li>
-	</c:forTokens>
-</ol>
+<c:if test="${not empty mainTags}">
+	<ol class="main-tags ${tagClass}">
+		<c:forTokens items="${mainTags}" delims=", " var="tagName">
+			<li>
+				<c:set value="${tag.name == tagName || currentQuestion.mostImportantTag.name == tagName  && useSprite ? 'main-tags-current' : ''}" var="currentTag"/>
+				<c:set value="${useSprite ? 'main-tags-sprite main-tags-'.concat(fn:replace(fn:replace(tagName, '.', ''), '#', '')) : '' }" var="className"/>
+				
+				<a class="${currentTag} ${tagClassLi} ${className}"  href="${linkTo[ListController].withTag(tagName, 1, false)}${append}"> ${tagName} </a>
+			</li>
+		</c:forTokens>
+	</ol>
+</c:if>
