@@ -6,6 +6,15 @@ $(function(){
 	    minlength: jQuery.validator.format(MESSAGES['minimum_characters']),
 	    maxlength: jQuery.validator.format(MESSAGES['maximum_characters']),
 	});
+
+	$.validator.setDefaults({
+		onkeyup: function(input){
+			setTimeout(function(){
+				$(input).valid();
+			}, 2000)
+		}
+		
+	})
 	
 	$.validator.addMethod(
 	    "date",
@@ -18,7 +27,6 @@ $(function(){
 	    MESSAGES['invalid_date']
 	);
 	
-
 	$.validator.addMethod(
 			"brutal-url",
 			function(value, element) {
@@ -29,6 +37,11 @@ $(function(){
 			},
 			MESSAGES['invalid_url']
 	);
+
+	
+	$(".validated-form").each(function(){
+		$(this).find("input").addClass("ignore");
+	});
 	
 	$(".validated-form").each(function(i,f){
 		$(f).validate({
