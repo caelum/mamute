@@ -7,5 +7,4 @@
 </fmt:message>
 
 <tags:header title="${genericTitle} - ${title}"/>
-<c:url var="uri" value="/resposta/editar/${answer.id}"/>
-<tags:answerForm uri="${uri}" edit="true" />
+<tags:answerForm uri="${linkTo[AnswerController].edit(answer)}" edit="true" />
