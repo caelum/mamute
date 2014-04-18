@@ -2705,3 +2705,7 @@ em
 .moderator-title {
 	margin-bottom: 0;
 }
+
+.comment-remaining-characters {
+	padding: 0.5em 0;
+}

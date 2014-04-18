@@ -51,6 +51,7 @@
 	<script src="<c:url value="/js/tags-manager.js"/>"></script>
 	<script src="<c:url value="/js/form-validation.js"/>"></script>
 	<script src="<c:url value="/js/form-hints.js"/>"></script>
+	<script src="<c:url value="/js/form-helper.js"/>"></script>
 	<script src="<c:url value="/js/simple-ajax-form.js"/>"></script>
 	<script src="<c:url value="/js/mark-as-solution.js"/>"></script>
 	<script src="<c:url value="/js/watch.js"/>"></script>

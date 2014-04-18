@@ -17,6 +17,7 @@ $(function() {
 		var formArea = $(this).siblings(".ajax-form");
 		formArea.toggleClass("hidden");
 		formArea.find(".to-focus").focus();
+		commentLengthCounter();
 	}
 	
 	function hideForm(e){
