@@ -212,7 +212,7 @@
 }
 
 	var components = [new AutoCompleteDOM(), new TagsNavigation()];
-	if (ANYONE_CAN_CREATE_TAGS != "true") {
+	if (ANYONE_CAN_CREATE_TAGS == "true") {
 		components.push(new TagsValidator());
 	}
 	new TagsManager(components);
