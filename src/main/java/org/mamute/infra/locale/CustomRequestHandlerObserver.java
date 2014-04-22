@@ -40,6 +40,7 @@ public class CustomRequestHandlerObserver extends RequestHandlerObserver {
 		
 		HttpServletRequest request = requestStarted.getRequest();
 		request.setAttribute("javax.servlet.jsp.jstl.fmt.fallbackLocale.request", locale);
+		request.setAttribute("javax.servlet.jsp.jstl.fmt.locale.request", locale);
 		super.handle(requestStarted);
 	}
 }
