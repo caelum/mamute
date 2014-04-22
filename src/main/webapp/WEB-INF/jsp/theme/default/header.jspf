@@ -7,7 +7,7 @@
 
 <header class="header clear">
 <c:set var="mainTags" value="" scope="request"/>
-	<section class="second-header">
+	<section class="first-header">
 		<div class="container header-container">
 			<a class="logo big-logo sprite"
 				href="${linkTo[ListController].home}"><fmt:message key="site.name" /></a>
@@ -43,7 +43,7 @@
 		</div>
 	</section>
 
-	<section class="first-header">
+	<section class="second-header">
 		<div class="container">
 			<section class="user-area">
 				<nav class="nav">

@@ -894,7 +894,7 @@ textarea {
 	height: 9em;
 }
 
-.second-header .container:before {
+.first-header .container:before {
 	content: "";
 	display:inline-block;
 	width:0;
@@ -902,21 +902,21 @@ textarea {
 	vertical-align:middle;
 }
 
-.first-header,.search-form {
+.first-header {
+	background-color: #f4f4f4;
+}
+
+.second-header,.search-form {
 	line-height: 31px;
 }
 
-.first-header {
+.second-header {
 	background-color: #6a6c6a;
 	padding: .3em .15em;
 }
 
-.first-header,.first-header a {
+.second-header,.second-header a {
 	color: #FFF;
-}
-
-.second-header {
-	background-color: #f4f4f4;
 }
 
 .user-area {
