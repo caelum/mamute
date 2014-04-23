@@ -37,6 +37,7 @@ header {
 	list-style: none;
 	width: 100%;
 	text-align: center;
+	margin-bottom: 5em;
 }
 
 .links li {
@@ -91,8 +92,56 @@ header {
 }
 
 .screenshot {
+	text-align: center;
+	height: 676px;
+	max-height: 90vh;
+	position: relative;
+	/*border: 10px solid rgba(0, 0, 0, .2);*/
+}
+
+.screenshot img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+.screenshot figcaption {
+	position: absolute;
+	display: block;
 	width: 100%;
-	margin: 4em 0;
+	height: 100%;
+	top: 0;
+	left: 0;
+
+	background-color: rgba(0, 0, 0, .2);
+	transition: background-color .5s, box-shadow .5s;
+
+	color: white;
+}
+
+.screenshot:hover figcaption {
+	box-shadow: inset 0 0 100px 0 rgba(0, 0, 0, .2);
+	background-color: rgba(0, 0, 0, .0);
+}
+
+.screenshot figcaption span {
+	white-space: nowrap;
+	word-spacing: .2em;
+	font-size: 5em;
+	font-weight: 300;
+	text-transform: uppercase;
+	padding: .5em 1em;
+	background-color: rgba(0, 0, 0, .7);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	transition: opacity .5s;
+}
+
+.screenshot:hover figcaption span {
+	/*display: none;*/
+	opacity: 0;
 }
 
 footer {
@@ -143,6 +192,10 @@ footer p {
 	background-image: url('../images/vraptor.png');
 	width: 199px;
 	height: 57px;
+}
+
+figcaption {
+	position: absolute;	
 }
 
 @media (max-width: 900px) {

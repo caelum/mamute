@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf8"></meta>
 	<title>Mamute</title>
-	<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="css/style.css">
 	<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0">
 </head>
@@ -20,8 +20,14 @@
 			--><li class="demo"><a href="http://demo.mamute.org/"><span>Demo</span></a></li><!--
 			--><li class="question"><a href="http://meta.mamute.org/"><span>Questions</span></a></li>
 		</ul>
-
-		<img class="screenshot" src="images/screenshot.png"> 
+		<a href="http://demo.mamute.org/">
+			<figure class="screenshot">
+				<img onmouseover="fadeImage()" onmouseout="unfadeImage()" src="images/screenshot.png">
+				<figcaption>
+					<span>A sample screen</span>
+				</figcaption>
+			</figure>
+		</a>
 	</main>
 	<footer class="container">
 		<p>Powered by:</p>
@@ -32,4 +38,7 @@
 	</footer>
 	<script src="javascript/script.js"></script>
 </body>
+
+<script href="javascript/script.js"></script>
+
 </html>
