@@ -17,13 +17,13 @@ $(function() {
 		var formArea = $(this).siblings(".ajax-form");
 		formArea.toggleClass("hidden");
 		formArea.find(".to-focus").focus();
-		commentLengthCounter();
+		commentLengthCounter(formArea.find('form textarea'));
 	}
 	
 	function hideForm(e){
 		e.preventDefault();
-		var form= $(this).closest("form.ajax");
-		resetForm(form)
+		var form = $(this).closest("form.ajax");
+		resetForm(form);
 	}
 	
 	function submitForm(e) {
@@ -36,6 +36,7 @@ $(function() {
 		form.removeClass("inactive");
 		form.find("input[type='submit']").attr("disabled", false);
 		formParent.addClass("hidden");
+		form.find(".comment-textarea").val("");
 	}
 	
 	function executeAjax(form){
@@ -44,6 +45,7 @@ $(function() {
 
 		form.find(".submit").attr("disabled", true);
 		form.find(".cancel").attr("disabled", false);
+		
 		var error = function(jqXHR) {
 			resetForm(form);
 			if (jqXHR.status == 400) {

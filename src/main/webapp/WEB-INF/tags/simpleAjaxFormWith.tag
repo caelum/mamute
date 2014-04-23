@@ -26,6 +26,7 @@
 				data-hint-id="${callbackTarget}-hint"><c:out
 					value="${value}" escapeXml="true" /></textarea>
 			<input class="post-submit submit" type="submit" value="${submit}" />
+			
 			<div class="comment-remaining-characters"><fmt:message key="comment.remaining_characters"></fmt:message><span class="comment-length-counter"> 600</span></div>
 			<button class="post-submit  submit cancel ">
 				<fmt:message key="cancel_button" />
