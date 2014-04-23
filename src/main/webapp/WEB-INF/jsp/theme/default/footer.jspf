@@ -15,11 +15,8 @@
 			<a href="${linkTo[ListController].unanswered}"><fmt:message	key="menu.unanswered"/></a>
 		</span>
 		<span class="footer-vraptor">
-			Powered by: <a href="http://www.vraptor.org/"><fmt:message key="menu.title.vraptor" /></a>
-			—
-			<fmt:message key="footer.powered_by">
-				<fmt:param value="http://www.caelum.com.br"/>
-			</fmt:message>
+			Powered by: <a href="http://www.vraptor.org/"><fmt:message key="footer.vraptor" /></a>
+			and <a href="http://www.mamute.org/"><fmt:message key="footer.mamute" /></a>
 		</span>
 		<span class="footer-muted-message">
 		</span>
