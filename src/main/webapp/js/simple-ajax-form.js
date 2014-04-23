@@ -23,7 +23,7 @@ $(function() {
 	function hideForm(e){
 		e.preventDefault();
 		var form = $(this).closest("form.ajax");
-		resetForm(form);
+		resetForm(form, true);
 	}
 	
 	function submitForm(e) {
@@ -31,12 +31,13 @@ $(function() {
 		executeAjax($(this));
 	}
 	
-	function resetForm(form){
+	function resetForm(form, cancelPressed){
 		var formParent = form.parent();
 		form.removeClass("inactive");
 		form.find("input[type='submit']").attr("disabled", false);
 		formParent.addClass("hidden");
-		form.find(".comment-textarea").val("");
+		if(!cancelPressed)
+			form.find(".comment-textarea").val("");
 	}
 	
 	function executeAjax(form){
@@ -47,7 +48,7 @@ $(function() {
 		form.find(".cancel").attr("disabled", false);
 		
 		var error = function(jqXHR) {
-			resetForm(form);
+			resetForm(form, false);
 			if (jqXHR.status == 400) {
 				errorPopup("Ocorreu um erro de validação inesperado.", form.parent(), "center-popup");
 				return;
@@ -71,7 +72,7 @@ $(function() {
 				}
 				target.removeClass("hidden");
 			}
-			resetForm(form);
+			resetForm(form, false);
 			bindAll();
 		};
 		
