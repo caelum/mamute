@@ -2,6 +2,7 @@ package org.mamute.auth;
 
 import javax.inject.Inject;
 
+import org.mamute.qualifiers.Facebook;
 import org.scribe.model.Token;
 import org.scribe.model.Verifier;
 import org.scribe.oauth.OAuthService;
@@ -12,7 +13,7 @@ public class FacebookAuthService {
 	
 	private static final Token EMPTY_TOKEN = null;
 	
-	@Inject private OAuthService service;
+	@Inject @Facebook private OAuthService service;
 	private Token accessToken;
 
 	public String getOauthUrl(String state) {

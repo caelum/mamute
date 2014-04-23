@@ -5,6 +5,7 @@ import java.net.URL;
 
 import org.mamute.model.MethodType;
 
+import com.google.common.base.Objects;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -14,15 +15,15 @@ public class SignupInfo {
 	private final String email;
 	private final String name;
 	private final String location;
-	private String userId;
+	private String photoUrl;
 
 	public SignupInfo(MethodType method, String email, String name,
-			String location, String userId) {
+			String location, String photoUrl) {
 		this.method = method;
 		this.email = email;
 		this.name = name;
 		this.location = location;
-		this.userId = userId;
+		this.photoUrl = photoUrl;
 	}
 
 	public static SignupInfo fromFacebook(JsonObject jsonObj) {
@@ -34,12 +35,13 @@ public class SignupInfo {
 		String name = jsonObj.get("name").getAsString();
 		JsonElement userIdObj = jsonObj.get("id");
 		String userId = userIdObj != null ? userIdObj.getAsString() : null;
+		String photoUrl = userId != null ? "http://graph.facebook.com/"+userId+"/picture" : null;
 		JsonObject locationJson = jsonObj.getAsJsonObject("location");
 		String location = "";
 		if (locationJson != null) {
 			location = locationJson.get("name").getAsString();
 		}
-		return new SignupInfo(MethodType.FACEBOOK, email, name, location, userId);
+		return new SignupInfo(MethodType.FACEBOOK, email, name, location, photoUrl);
 	}
 
 	public MethodType getMethod() {
@@ -58,16 +60,16 @@ public class SignupInfo {
 		return location;
 	}
 	
-	public URL getFacebookPhotoUri() {
-		String photoUri = "http://graph.facebook.com/"+userId+"/picture";
-		return getUrl(photoUri);
+	public URL getPhotoUri() {
+		return getUrl(photoUrl);
 	}
 	
-	public boolean containsUserId() {
-		return userId != null;
+	public boolean containsPhotoUrl() {
+		return photoUrl != null;
 	}
 
 	private URL getUrl(String photoUri) {
+		if(photoUri == null) return null;
 		try {
 			return new URL(photoUri);
 		} catch (MalformedURLException e) {
