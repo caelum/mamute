@@ -2,7 +2,6 @@ package org.mamute.providers;
 
 import java.net.URL;
 import java.util.Map;
-import java.util.Properties;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Priority;
@@ -17,7 +16,6 @@ import javax.validation.ValidatorFactory;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
-import org.mamute.components.HerokuDatabaseInformation;
 import org.mamute.model.Answer;
 import org.mamute.model.AnswerInformation;
 import org.mamute.model.Comment;
@@ -73,17 +71,17 @@ public class SessionFactoryCreator {
 		if (this.vf != null) {
 			Map<Object, Object> properties = cfg.getProperties();
 			properties.put("javax.persistence.validation.factory", this.vf);
-			
 		}
-		String databaseUrl = System.getenv("DATABASE_URL");
-		LOGGER.info("env got " + databaseUrl);
-		if (databaseUrl != null) {
-			LOGGER.info("ready to use heroku database");
-			HerokuDatabaseInformation info = new HerokuDatabaseInformation(
-					databaseUrl);
-			Properties heroku = info.exportToProperties();
-			LOGGER.info(heroku.toString());
-			cfg.addProperties(heroku);
+		
+		String url = System.getenv("JDBC_URL");
+		if (url != null) {
+			String user = System.getenv("USER");
+			String password = System.getenv("PASSWORD");
+			
+			LOGGER.info("reading database config from environment: " + url);
+			cfg.setProperty("hibernate.connection.url", url);
+			cfg.setProperty("hibernate.connection.username", user);
+			cfg.setProperty("hibernate.connection.password", password);
 		}
 
 		cfg.addAnnotatedClass(User.class);

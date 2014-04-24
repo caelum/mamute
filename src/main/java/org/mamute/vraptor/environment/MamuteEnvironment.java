@@ -38,10 +38,13 @@ public class MamuteEnvironment extends ServletBasedEnvironment{
 	
 	@Override
 	public String get(String key) {
-		if(super.has(key)) 
+		if (super.has(key)) {
 			return super.get(key);
+		}
 		
-		if(has(key)) return (String) properties.get(key);
+		if (has(key)) {
+			return (String) properties.get(key);
+		}
 			
 		throw new NoSuchElementException("Key " + key + " not found in environment " + getName());
 			
