@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.apache.log4j.Logger;
 import org.mamute.auth.Access;
 import org.mamute.auth.FacebookAuthService;
+import org.mamute.auth.MergeLoginMethod;
 import org.mamute.auth.SignupInfo;
 import org.mamute.dao.LoginMethodDAO;
 import org.mamute.dao.UserDAO;
@@ -36,6 +37,7 @@ public class FacebookAuthController extends BaseController{
 	@Inject private Access access;
 	@Inject private MessageFactory messageFactory;
 	@Inject private UrlValidator urlValidator;
+	@Inject private MergeLoginMethod mergeLoginMethod;
 	
 	@Get
 	public void signupViaFacebook(String code, String state) {
@@ -54,13 +56,23 @@ public class FacebookAuthController extends BaseController{
 				redirectToRightUrl(state);
 				return;
 			}
-			User existantBrutalUser = users.findByEmailAndMethod(signupInfo.getEmail(), MethodType.BRUTAL);
-			if (existantBrutalUser != null) {
-				mergeLoginMethods(rawToken, existantBrutalUser);
+			
+			User existantGoogleUser = users.findByEmailAndMethod(signupInfo.getEmail(), MethodType.GOOGLE);
+			if (existantGoogleUser != null) {
+				mergeLoginMethod.mergeLoginMethods(rawToken, existantGoogleUser, MethodType.FACEBOOK);
+				logMessages(existantGoogleUser);
 				redirectToRightUrl(state);
 				return;
 			}
 			
+			User existantBrutalUser = users.findByEmailAndMethod(signupInfo.getEmail(), MethodType.BRUTAL);
+			if (existantBrutalUser != null) {
+				mergeLoginMethod.mergeLoginMethods(rawToken, existantBrutalUser, MethodType.FACEBOOK);
+				logMessages(existantBrutalUser);
+				redirectToRightUrl(state);
+				return;
+			}
+
 			createNewUser(rawToken, signupInfo);
 			redirectToRightUrl(state);
 		} catch (IllegalArgumentException e) {
@@ -69,6 +81,11 @@ public class FacebookAuthController extends BaseController{
 			redirectTo(SignupController.class).signupForm();
 			return;
 		}
+	}
+
+	private void logMessages(User existantUser) {
+		List<I18nMessage> messages = asList(messageFactory.build("confirmation", "signup.facebook.existant_brutal", existantUser.getEmail()));
+		result.include("messages", messages);
 	}
 
 	private void redirectToRightUrl(String state) {
@@ -94,14 +111,5 @@ public class FacebookAuthController extends BaseController{
 		users.save(user);
 		loginMethods.save(facebookLogin);
 		access.login(user);
-	}
-
-	private void mergeLoginMethods(String rawToken, User existantBrutalUser) {
-		LoginMethod facebookLogin = LoginMethod.facebookLogin(existantBrutalUser, existantBrutalUser.getEmail(), rawToken);
-		List<I18nMessage> messages = asList(messageFactory.build("confirmation", "signup.facebook.existant_brutal", existantBrutalUser.getEmail()));
-		result.include("messages", messages);
-		existantBrutalUser.add(facebookLogin);
-		loginMethods.save(facebookLogin);
-		access.login(existantBrutalUser);
 	}
 }
