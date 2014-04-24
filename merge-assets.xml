@@ -1,7 +1,8 @@
 <project name="mamute" default="merge-all" basedir="./">
-
+	
+	<property name="mamute.version" value="1.0.1-SNAPSHOT" />
 	<property name="tmp.dir" value="tmp" />
-	<property name="webapp.target.dir" value="target/mamute-1.0.0-SNAPSHOT/" />
+	<property name="webapp.target.dir" value="target/mamute-${mamute.version}/" />
 	<property name="webapp.dir" value="src/main/webapp/" />
 	<property name="css.dir" value="${webapp.dir}/css" />
 	<property name="js.dir" value="${webapp.dir}/js" />
