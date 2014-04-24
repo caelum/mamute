@@ -14,7 +14,7 @@ import br.com.caelum.vraptor.environment.ServletBasedEnvironment;
 
 @Specializes
 @ApplicationScoped
-public class MamuteEnvironment extends ServletBasedEnvironment{
+public class MamuteEnvironment extends ServletBasedEnvironment {
 
 	private final Properties properties = new Properties();
 	
@@ -39,15 +39,25 @@ public class MamuteEnvironment extends ServletBasedEnvironment{
 	@Override
 	public String get(String key) {
 		if (super.has(key)) {
-			return super.get(key);
+			return resolveEnv(super.get(key));
 		}
 		
 		if (has(key)) {
-			return (String) properties.get(key);
+			return resolveEnv(properties.get(key).toString());
 		}
 			
 		throw new NoSuchElementException("Key " + key + " not found in environment " + getName());
 			
 	}
 
+	private String resolveEnv(String value) {
+		if (value.matches("\\$\\{.+\\}")) {
+			String envVar = System.getenv(value);
+			if (envVar == null) {
+				throw new NoSuchElementException("Environment variable " + value + " not defined!");
+			}
+		}
+		return value;
+	}
+	
 }
