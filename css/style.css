@@ -61,7 +61,7 @@ header {
 
 .links a{
 	display: inline-block;
-	padding: 5em 0; 
+	padding: 5em 0;
 	width: 100%;
 	text-decoration: none;
 }
@@ -81,7 +81,7 @@ header {
 
 .code{
 	background-image: url('../images/github.svg');
-} 
+}
 
 .demo{
 	background-image: url('../images/gamepad.svg');
@@ -93,10 +93,8 @@ header {
 
 .screenshot {
 	text-align: center;
-	height: 676px;
 	max-height: 90vh;
 	position: relative;
-	/*border: 10px solid rgba(0, 0, 0, .2);*/
 }
 
 .screenshot img {
@@ -106,42 +104,51 @@ header {
 
 .screenshot figcaption {
 	position: absolute;
-	display: block;
 	width: 100%;
 	height: 100%;
 	top: 0;
 	left: 0;
 
-	background-color: rgba(0, 0, 0, .2);
-	transition: background-color .5s, box-shadow .5s;
+	box-shadow: inset 0 0 0 300px rgba(0, 0, 0, .1);
+	background-image: url('../images/new-screenshot-blur.png');
+	background-size: contain;
+	transition: background .1s, box-shadow .2s;
 
 	color: white;
 }
 
-.screenshot:hover figcaption {
-	box-shadow: inset 0 0 100px 0 rgba(0, 0, 0, .2);
-	background-color: rgba(0, 0, 0, .0);
+.screenshot:hover figcaption,
+.screenshot:active figcaption {
+	box-shadow: inset 0 0 0 300px rgba(0, 0, 0, 0),
+							inset 0 0 50px 5px rgba(0, 0, 0, .2);
+	background-image: none;
 }
 
-.screenshot figcaption span {
-	white-space: nowrap;
-	word-spacing: .2em;
-	font-size: 5em;
-	font-weight: 300;
-	text-transform: uppercase;
-	padding: .5em 1em;
-	background-color: rgba(0, 0, 0, .7);
+.screenshot figcaption :first-child {
 	position: absolute;
 	top: 50%;
 	left: 50%;
+
+	white-space: nowrap;
+	word-spacing: .2em;
+	font-size: 5.5vw;
+	font-weight: 300;
+	text-transform: uppercase;
+	padding: .5em 1em;
+
+	background-color: rgba(0, 0, 0, .5);
 	-webkit-transform: translate(-50%, -50%);
 	-moz-transform: translate(-50%, -50%);
-	transition: opacity .5s;
+	     transform: translate(-50%, -50%);
+	transition: opacity .5s, -webkit-transform .5s;
 }
 
-.screenshot:hover figcaption span {
-	/*display: none;*/
+.screenshot:hover figcaption :first-child,
+.screenshot:active figcaption :first-child {
 	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(1.05, 1.05);
+	-mox-transform: translate(-50%, -50%) scale(1.05, 1.05);
+			 transform: translate(-50%, -50%) scale(1.05, 1.05);
 }
 
 footer {
@@ -185,7 +192,7 @@ footer p {
 .caelum a{
 	background-image: url('../images/caelum.png');
 	width: 199px;
-	height: 62px;	
+	height: 62px;
 }
 
 .vraptor a{
@@ -195,7 +202,7 @@ footer p {
 }
 
 figcaption {
-	position: absolute;	
+	position: absolute;
 }
 
 @media (max-width: 900px) {
