@@ -29,7 +29,7 @@ import com.google.gson.JsonParser;
 
 @Routed
 @Controller
-public class GoogleAuthController {
+public class GoogleAuthController extends BaseController{
 	
 	private static final String AUTHORIZE_URL = "https://www.google.com/accounts/OAuthAuthorizeToken?oauth_token=";
 	
@@ -41,11 +41,12 @@ public class GoogleAuthController {
 	@Inject private Access access;
 	
 	@Get
-	public void signUpViaGoogle() {
+	public void signUpViaGoogle(String redirect) {
 		Token token = service.getRequestToken();
 		String url = AUTHORIZE_URL + token.getToken();
 		
 		session.setAttribute("requestToken", token);
+		session.setAttribute("redirect", redirect);
 		
 		result.redirectTo(url);
 	}
@@ -68,6 +69,14 @@ public class GoogleAuthController {
 	    SignupInfo signupInfo = new SignupInfo(MethodType.GOOGLE, email, name, "", photoUrl);
 	    
 	    createNewUser(accessToken.toString(), signupInfo);
+	    
+	    String redirect = (String) session.getAttribute("redirect");
+	    
+	    if (redirect != null) {
+	    	redirectTo(redirect);
+	    } else {
+	    	redirectTo(ListController.class).home(null);
+	    }
 	}
 	
 	private void createNewUser(String rawToken, SignupInfo signupInfo) {
