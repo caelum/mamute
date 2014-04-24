@@ -3,23 +3,25 @@ Mamute QA
 
 ##How to set up an instance of mamute
 
-###Using git + maven:
-
-1. Clone the repository from [github](https://github.com/caelum/mamute)
-3. Run `mvn clean package -DskipTests`
-2. Make a copy of `mamute/target/mamute-1.0.0-SNAPSHOT` to `yourproject/mamute`
-3. Customize that folder as you want to
-4. Run it by executing the bash script `mamute/run.sh`
+First of all, you need to setup an MySQL database. The default database name is 
+`mamute_development`, the username is `root` and the password must be blank.
 
 ###Using a compiled war file:
 
 1. Download the war of the latest version at http://www.mamute.org
 2. Unpack it to a folder called `yourproject/mamute`
-3. Customize that folder as you want to
-4. Run it by executing the bash script `mamute/run.sh`
+3. Run it by executing the bash script `mamute/run.sh`
+4. If everything went worked, you are free to customize `mamute` folder as you want to! 
 
+###Using git + maven:
 
-##Other topics
+1. Clone the repository from [github](https://github.com/caelum/mamute)
+3. Run `mvn clean package -DskipTests`
+4. Make a copy of `mamute/target/mamute-1.0.0-SNAPSHOT` to `yourproject/mamute`
+5. Run it by executing the bash script `mamute/run.sh`
+6. If everything went worked, you are free to customize `mamute` folder as you want to! 
+
+##FAQ
 
 -[How to setup an instance](http://meta.mamute.org/221-how-to-set-up-an-instance-of-mamute)
 
@@ -34,3 +36,8 @@ Mamute QA
 -[How can I update mamute in my project?](http://meta.mamute.org/271-how-can-i-update-mamute-in-my-project)
 
 -[What are the basic CSS classes to customize Mamute?](http://meta.mamute.org/281-what-are-the-basic-css-classes-to-customize-mamute)
+
+
+##Questions?
+
+Send your questions to [mamute meta](http://meta.mamute.org).
