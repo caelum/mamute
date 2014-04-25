@@ -4,12 +4,17 @@
 <%@attribute name="redirectUrl" type="java.lang.String" required="false" %>
 
 <form class="validated-form user-form" action="${linkTo[AuthController].login}" method="POST">
-	<a href="${facebookUrl}" class="face-button-wraper">
+	<a href="${facebookUrl}" class="social-button-wraper">
 		<p><fmt:message key="auth.facebook_button.label" /></p>
-		<span class="face-button"><fmt:message key="auth.facebook_button.content" /></span>
+		<span class="face-button"><fmt:message key="auth.button.content" /></span>
 	</a>
 	
-	<a href="/sign-up/google?redirect=${redirectUrl}">Google</a>
+	<p class="or">&#8212; <fmt:message key="auth.or" /> &#8212;</p>
+	
+	<a href="/sign-up/google?redirect=${redirectUrl}" class="social-button-wraper">
+		<p><fmt:message key="auth.google_button.label" /></p>
+		<span class="google-button"><fmt:message key="auth.button.content" /></span>
+	</a>
 	
 	<p class="or">&#8212; <fmt:message key="auth.or" /> &#8212;</p>
 	<label for="email"><fmt:message key="signup.form.email.label" /></label>

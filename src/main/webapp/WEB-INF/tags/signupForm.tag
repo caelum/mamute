@@ -6,12 +6,17 @@
 <%@attribute name="email" type="java.lang.String" required="false" %>
 
 <form action="${linkTo[SignupController].signup}" method="POST" class="validated-form user-form">
-	<a href="${facebookUrl}" class="face-button-wraper">
+	<a href="${facebookUrl}" class="social-button-wraper">
 		<p><fmt:message key="signup.facebook_button.label" /></p>
-		<span class="face-button"><fmt:message key="signup.facebook_button.content" /></span>
+		<span class="face-button"><fmt:message key="signup.button.content" /></span>
 	</a>
 	
-	<a href="/sign-up/google?redirect=${redirectUrl}">Google</a>
+	<p class="or">&#8212; <fmt:message key="auth.or" /> &#8212;</p>
+
+	<a href="/sign-up/google?redirect=${redirectUrl}" class="social-button-wraper">
+		<p><fmt:message key="signup.google_button.label" /></p>
+		<span class="google-button"><fmt:message key="signup.button.content" /></span>
+	</a>
 	
 	<p class="or">&#8212; <fmt:message key="auth.or" /> &#8212;</p>
 	<label for="name"><fmt:message key="signup.form.username.label" /></label>
