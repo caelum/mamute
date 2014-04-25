@@ -5,7 +5,6 @@ import static java.util.Arrays.asList;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import org.mamute.auth.Access;
@@ -39,8 +38,6 @@ import com.google.gson.JsonParser;
 @Controller
 public class GoogleAuthController extends BaseController{
 	
-	private static final String AUTHORIZE_URL = "https://www.google.com/accounts/OAuthAuthorizeToken?oauth_token=";
-	
 	@Inject @Google private OAuthService service;
 	@Inject private Result result;
 	@Inject private HttpSession session;
@@ -53,20 +50,17 @@ public class GoogleAuthController extends BaseController{
 	
 	@Get
 	public void signUpViaGoogle(String redirect) {
-		Token token = service.getRequestToken();
-		String url = AUTHORIZE_URL + token.getToken();
-		
-		session.setAttribute("requestToken", token);
+		String url = service.getAuthorizationUrl(null);
 		session.setAttribute("redirect", redirect);
 		
 		result.redirectTo(url);
 	}
 	
 	@Get
-	public void googleCallback(@Named("oauth_token") String token, @Named("oauth_verifier") String oAuthVerifier) {
-		Token requestToken = (Token) session.getAttribute("requestToken");
-		Verifier verifier = new Verifier(oAuthVerifier);
-		Token accessToken = service.getAccessToken(requestToken, verifier);
+	public void googleCallback(String code) {
+		Verifier verifier = new Verifier(code);
+		Token accessToken = service.getAccessToken(null, verifier);
+		
 		OAuthRequest request = new OAuthRequest(Verb.GET, "https://www.googleapis.com/plus/v1/people/me");
 		service.signRequest(accessToken, request);
 	    request.addHeader("GData-Version", "3.0");

@@ -8,7 +8,7 @@ import org.mamute.qualifiers.Facebook;
 import org.mamute.qualifiers.Google;
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.FacebookApi;
-import org.scribe.builder.api.GoogleApi;
+import org.scribe.builder.api.Google2Api;
 import org.scribe.oauth.OAuthService;
 
 import br.com.caelum.vraptor.environment.Environment;
@@ -54,7 +54,7 @@ public class OAuthServiceCreator {
 	@Google
 	public OAuthService getInstanceGoogle() {
 		this.service = new ServiceBuilder()
-		.provider(GoogleApi.class)
+		.provider(Google2Api.class)
 		.apiKey(env.get(GOOGLE_CLIENT_ID))
 		.apiSecret(env.get(GOOGLE_CLIENT_SECRET))
 		.callback(env.get(GOOGLE_REDIRECT_URI))
