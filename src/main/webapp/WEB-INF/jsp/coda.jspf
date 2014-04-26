@@ -27,8 +27,13 @@
 	MESSAGES['invalid_url'] = "<fmt:message key='validator.invalid.url' />";
 	MESSAGES['minimum_characters'] = "<fmt:message key='validator.minimum.characters' />";
 	MESSAGES['maximum_characters'] = "<fmt:message key='validator.maximum.characters' />";
-	
-	
+	MESSAGES['vote_own_question'] = "<fmt:message key='vote.ownquestion' />";
+	MESSAGES['error_occured'] = "<fmt:message key='error.occured' />";
+	MESSAGES['need_to_have'] = "<fmt:message key='need.to_have' />";
+	MESSAGES['reputation_score'] = "<fmt:message key='reputation_score' />";
+	MESSAGES['author_cant_realize_operation'] = "<fmt:message key='error.author.cant_realize_operation' />";
+	MESSAGES['auth_requires_login'] = "<fmt:message key='auth.requires_login' />";
+	MESSAGES['click.to_close'] = "<fmt:message key='button_hint.click_to_close' />";
 </script>
 	
 <c:if test="${environment.name != 'production'}" >
@@ -97,7 +102,7 @@ $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
 function errorPopup(text, target, clazz){
 	clazz = clazz || "";
 	if(!$(".validation-error.popup").is(":visible")) {
-		var errorPopup = $("<div class='"+ clazz +" validation-error popup close-popup'><div class='popup-error-message'>"+text+"</div><div class='subtitle'>(clique para fechar)</div></div>");
+		var errorPopup = $("<div class='"+ clazz +" validation-error popup close-popup'><div class='popup-error-message'>"+text+"</div><div class='subtitle'>("+ MESSAGES['click.to_close'] +")</div></div>");
 		errorPopup.insertAfter(target).show();
 	}
 	setTimeout(function(){

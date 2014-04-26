@@ -12,7 +12,7 @@ $(function() {
 			element.off('click');
 			element.click(function(e) {
 				e.preventDefault();
-				errorPopup("Você precisa ter "+ required +" pontos de reputação!", this);
+				errorPopup(MESSAGES['need_to_have'] + " " + required + " " + MESSAGES['reputation_score'] + "!", this);
 			});
 		}
 	});
@@ -23,7 +23,7 @@ $(function() {
 			element.off('click');
 			element.click(function(e) {
 				e.preventDefault();
-				errorPopup("O autor não pode realizar esta operação!", this);
+				errorPopup(MESSAGES['author_cant_realize_operation'], this);
 			});
 		}
 	});
@@ -31,7 +31,7 @@ $(function() {
 		$('.requires-login').off('click');
 		$('.requires-login').bind("click", function(e) {
 			e.preventDefault();
-			errorPopup("Você precisa estar logado!", this);
+			errorPopup(MESSAGES['auth_requires_login'], this);
 		});
 	}
 	$('.iframe-load').click(function() {
