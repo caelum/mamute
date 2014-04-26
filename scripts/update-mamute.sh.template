@@ -1,8 +1,6 @@
 INSTANCE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 APPLICATION_DIR=$INSTANCE_DIR/..
 
-VERSION=1.0.1-SNAPSHOT
-
 cd $APPLICATION_DIR
 
 if [ ! -d overrides ]; then
@@ -49,6 +47,7 @@ mvn clean package -DskipTests
 
 echo 'Copying new version of mamute'
 
+VERSION=`scripts/get-version.sh`
 cp -R target/mamute-$VERSION/* $APPLICATION_DIR/mamute
 
 cd $APPLICATION_DIR
