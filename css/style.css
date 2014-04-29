@@ -48,6 +48,7 @@ header {
 	background-position: center center;
 	width: 24%;
 	height: 100%;
+	position: relative;
 }
 
 .links li:first-child {
@@ -67,12 +68,14 @@ header {
 }
 
 .links span {
-	position: relative;
-	bottom: -6.5em;
+	position: absolute;
 	font-size: 1em;
-	left: 0;
 	color: #000;
 	text-transform: uppercase;
+	top: 100%;
+	left: 50%;
+	-webkit-transform: translate(-50%, 0);
+	-moz-transform: translate(-50%, 0);
 }
 
 .download {
@@ -155,23 +158,21 @@ footer {
 	background-color: #EBEBEB;
 	height: 15em;
 	position: relative;
+	text-align: center;
 }
 
 .apoio {
 	list-style: none;
 	display: inline-block;
-	width: 50%;
-	position: absolute;
 	top: 50%;
 	left: 50%;
-	-webkit-transform: translate(-50%, -50%);
-	transform: translate(-50%, -50%);
+	letter-spacing: 2em;
 }
 
 .apoio li {
 	display: inline-block;
-	width: 50%;
 	text-align: center;
+	margin-bottom: 1em;
 }
 
 .apoio a {
@@ -184,7 +185,7 @@ footer {
 
 footer p {
 	margin: 0;
-	padding-top: 2em;
+	padding-top: 2.50em;
 	font-size: 1.2em;
 	color: #3B3B3B;
 }
@@ -246,11 +247,6 @@ figcaption {
 
 	.links li {
 		background-size: 25%;
-	}
-
-	.apoio li {
-		width: 100%;
-		padding: 1em;
 	}
 
 	.caelum a {
