@@ -39,16 +39,16 @@ $(function() {
 		var title = input.val();
 		var messageClass = "title-messages";
 		messages.find("li."+messageClass).remove();
-		var illegalWords = ["ajuda", "ajudar", "help", "socorro", "urgente", "please"];
+		var illegalWords = [MESSAGES['help'], MESSAGES['help_me'], "help", MESSAGES['assist_me'], MESSAGES['urgent'], "please"];
 		
 		validateRule(title.toUpperCase() == title && title.length > 1, 
-				"Não utilize apenas letras maiúsculas no título", 
+				MESSAGES['avoid_only_uppercase_title'], 
 				messageClass);
 		validateRule(containsIllegalWords(title, illegalWords), 
-				"Evite usar termos como 'Socorro', 'Urgente', 'Please' no título da sua pergunta", 
+				MESSAGES['avoid_use_of'], 
 				messageClass);
 		validateRule(containsIllegalWords(title, ["resolvido"]), 
-				"Não coloque a palavra 'resolvido' no título, marque a resposta que resolveu sua pergunta como certa", 
+				MESSAGES['do_not_use'], 
 				messageClass);
 		
 		cleanMessages();
@@ -61,10 +61,10 @@ $(function() {
 		messages.find("li."+messageClass).remove();
 		var illegalWords = ["kkk", "vc", "!!", "??", "..."];
 		validateRule(description.toUpperCase() == description && description.length > 1, 
-				"Não utilize apenas letras maiúsculas na descrição da postagem", 
+				MESSAGES['avoid_only_uppercase_post'], 
 				messageClass);
 		validateRule(containsIllegalWords(description, illegalWords), 
-				"Deixe sua postagem clara e completa, evite informalidades (como 'vc', 'kkk') ou excesso de pontuação (como !!, ?? e ...)", 
+				MESSAGES['make_clear_post'], 
 				messageClass);
 		cleanMessages();
 	});

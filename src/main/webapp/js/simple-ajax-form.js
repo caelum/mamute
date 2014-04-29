@@ -50,17 +50,17 @@ $(function() {
 		var error = function(jqXHR) {
 			resetForm(form, false);
 			if (jqXHR.status == 400) {
-				errorPopup("Ocorreu um erro de validação inesperado.", form.parent(), "center-popup");
+				errorPopup(MESSAGES['error_occured'], form.parent(), "center-popup");
 				return;
 			}
-			errorPopup("Ocorreu um erro.", form.parent(), "center-popup");
+			errorPopup(MESSAGES['error_occured'], form.parent(), "center-popup");
 			console.log(jqXHR);
 		};
 	
 		var success = function(response, status, jqhr) {
 			var target = $("#" + form.data("ajax-result"));
 			if (jqhr.status == 201) {
-				target.append("<span class='suggestion-accepted'>Sugest&atilde;o enviada!</span>");
+				target.append("<span class='suggestion-accepted'>" + MESSAGES['suggestion_sent'] + "</span>");
 			} else {
 				var action = form.data("ajax-on-callback") || "replace-inner";
 				if (action == "replace-inner") {

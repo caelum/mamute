@@ -1,7 +1,7 @@
 $(function(){
-	var ANSWER = "respostas",
-		QUESTION = "perguntas"
-		WATCHED = "acompanhadas";
+	var ANSWER = MESSAGES['answers'],
+		QUESTION = MESSAGES['perguntas']
+		WATCHED = MESSAGES['watched'].
 	
 	$(".advanced-data-section").on("click", ".order-by" , function(event){
 		event.preventDefault();

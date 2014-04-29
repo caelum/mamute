@@ -13,7 +13,7 @@ $(function(){
 				toggleClassOf(icon);
 			},
 			error: function(jqXHR) {
-				errorPopup("Ocorreu um erro...", post, "center-popup");
+				errorPopup(MESSAGES['error_occured'], post, "center-popup");
 				console.log(jqXHR);
 			}
 		});
@@ -24,9 +24,9 @@ $(function(){
 			icon.toggleClass("icon-eye");
 			
 			if(icon.hasClass("icon-muted")) {
-				icon.attr("title", "Clique aqui para ser notificado de novidades nessa questão e suas respostas.");
+				icon.attr("title", MESSAGES['follow_post']);
 			} else {
-				icon.attr("title", "Clique aqui para cancelar a notificação de novidades nessa questão e suas respostas.");
+				icon.attr("title", MESSAGES['unfollow_post']);
 			}
 		}
 	}

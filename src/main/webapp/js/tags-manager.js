@@ -187,7 +187,7 @@
 						return valid;
 					},
 					function(){
-						return "Use apenas tags que existem! As seguintes tags não existem: <b>"+ tagsNotFound + "</b>";
+						return MESSAGES['use_only_existing_tags'] + "<b>" + tagsNotFound + "</b>";
 					}
 			);
 
