@@ -76,6 +76,7 @@ header {
 	left: 50%;
 	-webkit-transform: translate(-50%, 0);
 	-moz-transform: translate(-50%, 0);
+	transform: translate(-50%, 0);
 }
 
 .download {
