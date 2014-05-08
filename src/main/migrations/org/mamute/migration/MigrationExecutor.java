@@ -1,21 +1,26 @@
 package org.mamute.migration;
 
-import java.math.BigInteger;
-import java.util.List;
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.StatelessSession;
 
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import java.math.BigInteger;
+import java.util.List;
+
 @ApplicationScoped
 public class MigrationExecutor {
 
-	private SessionFactory sf;
+//	private SessionFactory sf;
 	private int currentMigration = -1;
+    @Inject
 	private Session session;
+
+    @Inject
+    private SessionFactory sf;
+
 	private StatelessSession statelessSession;
 	private DatabaseManager databaseManager;
 
@@ -23,14 +28,20 @@ public class MigrationExecutor {
 	public MigrationExecutor() {
 	}
 
-	@Inject
-	public MigrationExecutor(SessionFactory sf) {
-		this.sf = sf;
-	}
+    @PostConstruct
+    public void init(){
+        org/hibernate/boot/registry/StandardServiceRegistryBuilder
+        statelessSession = sf.openStatelessSession();
+    }
+
+//	@Inject
+//	public MigrationExecutor(SessionFactory sf) {
+//		this.sf = sf;
+//	}
 
 	public void begin() {
-		session = sf.openSession();
-		statelessSession = sf.openStatelessSession();
+//		session = sf.openSession();
+//		statelessSession = sf.openStatelessSession();
 		databaseManager = new DatabaseManager(session);
 		statelessSession.beginTransaction();
 		session.beginTransaction();

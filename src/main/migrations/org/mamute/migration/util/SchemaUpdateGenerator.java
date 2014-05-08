@@ -1,24 +1,30 @@
 package org.mamute.migration.util;
 
-import static br.com.caelum.vraptor.environment.EnvironmentType.DEVELOPMENT;
+import br.com.caelum.vraptor.hibernate.ConfigurationCreator;
+import br.com.caelum.vraptor.hibernate.ServiceRegistryCreator;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.tool.hbm2ddl.SchemaUpdate;
 
 import java.io.IOException;
-
-import org.hibernate.cfg.Configuration;
-import org.hibernate.tool.hbm2ddl.SchemaUpdate;
-import org.mamute.providers.SessionFactoryCreator;
-
-import br.com.caelum.vraptor.environment.DefaultEnvironment;
 
 
 public class SchemaUpdateGenerator {
 
+    public static Configuration getCfg() {
+        return new ConfigurationCreator().getInstance();
+    }
+
 	public static void main(String[] args) throws IOException {
-		SessionFactoryCreator sessionFactoryCreator = new SessionFactoryCreator(new DefaultEnvironment(DEVELOPMENT), null);
-		sessionFactoryCreator.init();
-		Configuration cfg = sessionFactoryCreator.getCfg();
-		
-		SchemaUpdate su = new SchemaUpdate(cfg);
-		su.execute(true, false);
-	}
+
+
+        Configuration configuration = getCfg();
+        ServiceRegistry serviceRegistry = new ServiceRegistryCreator(getCfg()).getInstance();
+
+        br.com.caelum.vraptor.hibernate.SessionFactoryCreator sessionFactoryCreator =
+                new br.com.caelum.vraptor.hibernate.SessionFactoryCreator(configuration, serviceRegistry);
+
+        SchemaUpdate su = new SchemaUpdate(serviceRegistry, configuration);
+        su.execute(true, false);
+    }
 }

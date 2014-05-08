@@ -1,40 +1,38 @@
 package org.mamute.util;
 
-import static br.com.caelum.vraptor.environment.ServletBasedEnvironment.ENVIRONMENT_PROPERTY;
-import static com.google.common.base.Objects.firstNonNull;
-import static com.google.common.base.Strings.isNullOrEmpty;
-
-import java.io.IOException;
-
+import br.com.caelum.vraptor.environment.DefaultEnvironment;
+import br.com.caelum.vraptor.environment.Environment;
+import br.com.caelum.vraptor.environment.EnvironmentType;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.mamute.providers.SessionFactoryCreator;
 
-import com.google.common.base.Objects;
+import javax.inject.Inject;
+import java.io.IOException;
 
-import br.com.caelum.vraptor.environment.DefaultEnvironment;
-import br.com.caelum.vraptor.environment.Environment;
-import br.com.caelum.vraptor.environment.EnvironmentType;
+import static br.com.caelum.vraptor.environment.ServletBasedEnvironment.ENVIRONMENT_PROPERTY;
+import static com.google.common.base.Objects.firstNonNull;
+import static com.google.common.base.Strings.isNullOrEmpty;
 
 public class ScriptSessionCreator {
 	
     private static final Logger LOG = Logger.getLogger(ScriptSessionCreator.class);
-	private SessionFactoryCreator sessionFactoryCreator; 
+	private SessionFactoryCreator sessionFactoryCreator;
+
+    @Inject
+    private SessionFactory sessionFactory;
 
     public ScriptSessionCreator() {
-    	Environment env = buildEnv();
-    	sessionFactoryCreator = new SessionFactoryCreator(env, null);
-    	sessionFactoryCreator.init();
+//    	Environment env = buildEnv();
 	}
     
-    public void dropAndCreate(){
-    	sessionFactoryCreator.dropAndCreate();
+    public void dropAndCreate() {
+//    	sessionFactoryCreator.dropAndCreate();
     }
     
     public Session getSession() {
-        SessionFactory sf = sessionFactoryCreator.getInstance();
-        return sf.openSession();
+        return sessionFactory.openSession();
     }
 
     private Environment buildEnv() {

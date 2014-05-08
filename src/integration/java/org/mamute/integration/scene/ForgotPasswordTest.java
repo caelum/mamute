@@ -14,17 +14,17 @@ import org.mamute.integration.pages.ResetPasswordPage;
 import org.mamute.integration.util.ServerInfo;
 import org.mamute.providers.SessionFactoryCreator;
 
+import javax.inject.Inject;
+
 public class ForgotPasswordTest extends AcceptanceTestBase implements ServerInfo.AcceptanceTest  {
-    
-    private static Session SESSION;
+
+    @Inject
+    private Session SESSION;
+
     private String validEmail = "chico@email.com.br";
 
     @BeforeClass
     public static void setup() throws IOException {
-        SessionFactoryCreator sessionFactoryCreator = new SessionFactoryCreator(env, null);
-        sessionFactoryCreator.init();
-        SessionFactory sf = sessionFactoryCreator.getInstance();
-        SESSION = sf.openSession();
     }
 
     @Test
