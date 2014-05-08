@@ -1,5 +1,6 @@
 package org.mamute.infra.rss.read;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.joda.time.LocalDateTime;
@@ -16,7 +17,7 @@ public class RSSChannel {
 	private RSSImage image;
 	private LocalDateTime pubDate;
 	private String link;
-	private List<RSSItem> items;
+	private List<RSSItem> items = new ArrayList<RSSItem>();
 	
 	public String getTitle() {
 		return title;
