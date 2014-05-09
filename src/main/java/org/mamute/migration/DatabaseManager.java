@@ -5,21 +5,26 @@ import java.io.InputStream;
 import java.util.Scanner;
 
 import javax.enterprise.inject.Vetoed;
+import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
+import org.hibernate.metamodel.relational.Database;
 
 @Vetoed
 public class DatabaseManager {
 
 	private static final Logger LOG = Logger.getLogger(DatabaseManager.class);
-	private Session session;
 
-	public DatabaseManager(Session session) {
-		this.session = session;
-	}
-	
-	public void run(String sql) {
+    @Deprecated
+    public DatabaseManager(){}
+
+	private Session session;
+    public DatabaseManager(Session session) {
+        this.session = session;
+    }
+
+    public void run(String sql) {
 		session.createSQLQuery(sql).executeUpdate();
 	}
 
