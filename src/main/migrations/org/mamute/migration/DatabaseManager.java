@@ -1,15 +1,12 @@
 package org.mamute.migration;
 
+import org.apache.log4j.Logger;
+import org.hibernate.Session;
+
+import javax.enterprise.inject.Vetoed;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Scanner;
-
-import javax.enterprise.inject.Vetoed;
-import javax.inject.Inject;
-
-import org.apache.log4j.Logger;
-import org.hibernate.Session;
-import org.hibernate.metamodel.relational.Database;
 
 @Vetoed
 public class DatabaseManager {

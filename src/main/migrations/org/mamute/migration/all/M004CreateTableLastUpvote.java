@@ -1,12 +1,12 @@
 package org.mamute.migration.all;
 
-import java.util.List;
-
-import javax.enterprise.context.ApplicationScoped;
 
 import org.mamute.migration.MigrationOperation;
 import org.mamute.migration.RawSQLOperation;
 import org.mamute.migration.SchemaMigration;
+
+import javax.enterprise.context.ApplicationScoped;
+import java.util.List;
 
 @ApplicationScoped
 public class M004CreateTableLastUpvote implements SchemaMigration {

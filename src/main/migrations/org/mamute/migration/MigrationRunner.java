@@ -77,7 +77,7 @@ public class MigrationRunner {
 			LOGGER.info("Couldnt prepare tables: "+ e);
 			LOGGER.info(">>>> "+ StackToString.convertStackToString(e));
 			executor.rollback();
-			throw new RuntimeException("Unable to execute org.mamute.migration process", e);
+			throw new RuntimeException("Unable to execute migrations.migration process", e);
 		}
 	}
 
@@ -86,14 +86,14 @@ public class MigrationRunner {
 		if (number > executor.currentMigration()) {
 			try {
 				executor.begin();
-				LOGGER.debug("Running org.mamute.migration " + number);
+				LOGGER.debug("Running migrations.migration " + number);
 				executor.run(m);
 				LOGGER.info("Migration " + number + " executed!");
 				executor.insertNewMigration(number);
 				executor.end();
 			} catch (Exception e) {
 				executor.rollback(m);
-				throw new RuntimeException("Unable to execute org.mamute.migration "
+				throw new RuntimeException("Unable to execute migrations.migration "
 						+ number, e);
 			}
 		}
