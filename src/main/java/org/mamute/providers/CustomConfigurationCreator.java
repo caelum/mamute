@@ -1,7 +1,6 @@
 package org.mamute.providers;
 
 import br.com.caelum.vraptor.environment.Environment;
-import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
 import org.mamute.model.*;
 import org.mamute.model.watch.Watcher;
@@ -17,15 +16,23 @@ import java.net.URL;
 import java.util.Map;
 
 @Specializes
-public class ConfigurationCreatorSpecializer extends br.com.caelum.vraptor.hibernate.ConfigurationCreator {
+public class CustomConfigurationCreator extends br.com.caelum.vraptor.hibernate.ConfigurationCreator {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ConfigurationCreatorSpecializer.class);
+    public static final String JODA_TIME_TYPE= "org.jadira.usertype.dateandtime.joda.PersistentDateTime";
+    private static final Logger LOGGER = LoggerFactory.getLogger(CustomConfigurationCreator.class);
 
     @Inject
     private Environment env;
 
     @Inject
     private ValidatorFactory vf;
+
+    @Deprecated
+    public CustomConfigurationCreator(){}
+
+    public CustomConfigurationCreator(Environment env) {
+        this.env = env;
+    }
 
     @Override
     protected URL getHibernateCfgLocation() {
