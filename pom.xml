@@ -70,22 +70,12 @@
 		<dependency>
 			<groupId>br.com.caelum.vraptor</groupId>
 			<artifactId>vraptor-quartzjob</artifactId>
-			<version>4.0.0-RC2</version>
-			<exclusions>
-				<exclusion>
-					<groupId>br.com.caelum.vraptor</groupId>
-					<artifactId>vraptor-mauth</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>c3p0</groupId>
-					<artifactId>c3p0</artifactId>
-				</exclusion>
-			</exclusions>
+			<version>4.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>br.com.caelum.vraptor</groupId>
 			<artifactId>vraptor-error-control</artifactId>
-			<version>4.0.0.Final</version>
+			<version>4.0.1</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.mockito</groupId>
