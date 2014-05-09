@@ -7,12 +7,10 @@ import java.io.IOException;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mamute.integration.pages.ResetPasswordPage;
 import org.mamute.integration.util.ServerInfo;
-import org.mamute.providers.SessionFactoryCreator;
 
 import javax.inject.Inject;
 

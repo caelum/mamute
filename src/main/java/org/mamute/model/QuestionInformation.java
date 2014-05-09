@@ -28,7 +28,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 import org.mamute.model.interfaces.Moderatable;
 import org.mamute.model.interfaces.Taggable;
-import org.mamute.providers.SessionFactoryCreator;
+import org.mamute.providers.CustomConfigurationCreator;
 import org.mamute.validators.OptionallyEmptyTags;
 	
 @Cacheable
@@ -67,7 +67,7 @@ public class QuestionInformation implements Information, Taggable {
 	@ManyToOne(optional = false, fetch = EAGER)
 	private final User author;
 
-	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
+	@Type(type = CustomConfigurationCreator.JODA_TIME_TYPE)
 	private final DateTime createdAt = new DateTime();
 
 	@Embedded

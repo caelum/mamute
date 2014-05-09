@@ -5,7 +5,7 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
-import org.mamute.providers.SessionFactoryCreator;
+import org.mamute.providers.CustomConfigurationCreator;
 
 @Embeddable
 public class Moderation {
@@ -20,7 +20,7 @@ public class Moderation {
 		this.moderatedBy = moderator;
 	}
 
-	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
+	@Type(type = CustomConfigurationCreator.JODA_TIME_TYPE)
 	private DateTime moderatedAt = new DateTime();
 
 	@ManyToOne(optional = true)

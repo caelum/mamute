@@ -28,21 +28,16 @@ public class MigrationExecutor {
 	public MigrationExecutor() {}
 
     /**
-     *  this.session not inject because in vraptor-hibernate plugin it is injected by RequestScoped
-     *  see OpenSessioninView
+     *  this.session not injected because in vraptor-hibernate plugin it is injected by RequestScoped
+     *  see OpenSessionInView
      *
      */
     @PostConstruct
     public void init(){
 
-        statelessSession = sf.openStatelessSession();
+        this.statelessSession = sf.openStatelessSession();
         this.session = sf.openSession();
     }
-
-//	@Inject
-//	public MigrationExecutor(SessionFactory sf) {
-//		this.sf = sf;
-//	}
 
 	public void begin() {
 		databaseManager = new DatabaseManager(session);

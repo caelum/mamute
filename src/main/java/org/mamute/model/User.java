@@ -50,7 +50,7 @@ import org.mamute.model.interfaces.Identifiable;
 import org.mamute.model.interfaces.Moderatable;
 import org.mamute.model.interfaces.Votable;
 import org.mamute.model.watch.Watcher;
-import org.mamute.providers.SessionFactoryCreator;
+import org.mamute.providers.CustomConfigurationCreator;
 
 @Cacheable
 @Cache(usage=CacheConcurrencyStrategy.READ_WRITE, region="cache")
@@ -59,7 +59,7 @@ import org.mamute.providers.SessionFactoryCreator;
 @Vetoed
 public class User implements Identifiable {
 	
-	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
+	@Type(type = CustomConfigurationCreator.JODA_TIME_TYPE)
 	private final DateTime createdAt = new DateTime();
 	
 	@Id
@@ -85,7 +85,7 @@ public class User implements Identifiable {
 	@Length(min = ABOUT_MIN_LENGTH, max = MARKED_ABOUT_MAX_LENGTH ,  message = ABOUT_LENGTH_MESSAGE)
 	private String markedAbout;
 	
-	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
+	@Type(type = CustomConfigurationCreator.JODA_TIME_TYPE)
 	private DateTime birthDate;
 	
 	private long karma = 0;
@@ -102,7 +102,7 @@ public class User implements Identifiable {
 	@NotEmpty
 	private String sluggedName;
 	
-	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
+	@Type(type = CustomConfigurationCreator.JODA_TIME_TYPE)
 	private DateTime nameLastTouchedAt;
 
 	@OneToMany(mappedBy="user")
@@ -121,7 +121,7 @@ public class User implements Identifiable {
 	@OneToMany(mappedBy = "watcher")
 	private final List<Watcher> watches = new ArrayList<>();
 	
-	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
+	@Type(type = CustomConfigurationCreator.JODA_TIME_TYPE)
 	private DateTime lastUpvote = new DateTime();
 	
 	

@@ -6,7 +6,6 @@ import br.com.caelum.vraptor.environment.EnvironmentType;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.mamute.providers.SessionFactoryCreator;
 
 import javax.inject.Inject;
 import java.io.IOException;

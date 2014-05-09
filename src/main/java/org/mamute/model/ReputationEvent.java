@@ -15,7 +15,7 @@ import org.hibernate.annotations.AnyMetaDef;
 import org.hibernate.annotations.MetaValue;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
-import org.mamute.providers.SessionFactoryCreator;
+import org.mamute.providers.CustomConfigurationCreator;
 
 @Entity
 public class ReputationEvent {
@@ -41,7 +41,7 @@ public class ReputationEvent {
 	@ManyToOne
 	private User user;
 	
-	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
+	@Type(type = CustomConfigurationCreator.JODA_TIME_TYPE)
 	private DateTime date = new DateTime();
 
 	@Deprecated

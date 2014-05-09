@@ -25,7 +25,7 @@ import org.mamute.model.interfaces.ViewCountable;
 import org.mamute.model.interfaces.Votable;
 import org.mamute.model.interfaces.Watchable;
 import org.mamute.model.watch.Watcher;
-import org.mamute.providers.SessionFactoryCreator;
+import org.mamute.providers.CustomConfigurationCreator;
 import org.owasp.html.HtmlPolicyBuilder;
 
 @Entity
@@ -43,10 +43,10 @@ public class News extends Moderatable implements Post, ViewCountable, Watchable,
 	@Cascade(SAVE_UPDATE)
 	private List<NewsInformation> history = new ArrayList<>();
 	
-	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
+	@Type(type = CustomConfigurationCreator.JODA_TIME_TYPE)
 	private final DateTime createdAt = new DateTime();
 
-	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
+	@Type(type = CustomConfigurationCreator.JODA_TIME_TYPE)
 	private DateTime lastUpdatedAt = new DateTime();
 
 	@ManyToOne

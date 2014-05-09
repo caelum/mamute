@@ -23,7 +23,7 @@ import org.joda.time.DateTime;
 import org.mamute.model.interfaces.Flaggable;
 import org.mamute.model.interfaces.Notifiable;
 import org.mamute.model.interfaces.Votable;
-import org.mamute.providers.SessionFactoryCreator;
+import org.mamute.providers.CustomConfigurationCreator;
 
 @Entity
 public class Comment implements Notifiable, Votable, Flaggable {
@@ -49,10 +49,10 @@ public class Comment implements Notifiable, Votable, Flaggable {
     @ManyToOne(optional = false)
     private final User author;
     
-    @Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
+    @Type(type = CustomConfigurationCreator.JODA_TIME_TYPE)
     private final DateTime createdAt = new DateTime();
     
-    @Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
+    @Type(type = CustomConfigurationCreator.JODA_TIME_TYPE)
     private DateTime lastUpdatedAt = new DateTime();
     
 	@JoinTable(name = "Comment_Votes")
