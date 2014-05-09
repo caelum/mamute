@@ -1,6 +1,7 @@
 package org.mamute.providers;
 
 import br.com.caelum.vraptor.environment.Environment;
+import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
 import org.mamute.model.*;
 import org.mamute.model.watch.Watcher;

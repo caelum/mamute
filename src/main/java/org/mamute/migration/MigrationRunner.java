@@ -8,6 +8,7 @@ import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,6 +26,9 @@ public class MigrationRunner {
 	private NumberExtractor extractNumber;
 	private MigrationExecutor executor;
 	private Environment env;
+
+    @Inject
+    private Session session;
 
 	@Deprecated
 	MigrationRunner() {
@@ -73,7 +77,7 @@ public class MigrationRunner {
 			LOGGER.info("Couldnt prepare tables: "+ e);
 			LOGGER.info(">>>> "+ StackToString.convertStackToString(e));
 			executor.rollback();
-			throw new RuntimeException("Unable to execute migration process", e);
+			throw new RuntimeException("Unable to execute org.mamute.migration process", e);
 		}
 	}
 
@@ -82,14 +86,14 @@ public class MigrationRunner {
 		if (number > executor.currentMigration()) {
 			try {
 				executor.begin();
-				LOGGER.debug("Running migration " + number);
+				LOGGER.debug("Running org.mamute.migration " + number);
 				executor.run(m);
 				LOGGER.info("Migration " + number + " executed!");
 				executor.insertNewMigration(number);
 				executor.end();
 			} catch (Exception e) {
 				executor.rollback(m);
-				throw new RuntimeException("Unable to execute migration "
+				throw new RuntimeException("Unable to execute org.mamute.migration "
 						+ number, e);
 			}
 		}

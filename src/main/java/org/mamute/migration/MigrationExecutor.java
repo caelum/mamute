@@ -10,28 +10,33 @@ import javax.inject.Inject;
 import java.math.BigInteger;
 import java.util.List;
 
+
 @ApplicationScoped
 public class MigrationExecutor {
 
-//	private SessionFactory sf;
 	private int currentMigration = -1;
-    @Inject
-	private Session session;
 
     @Inject
     private SessionFactory sf;
 
+    private Session session;
 	private StatelessSession statelessSession;
 	private DatabaseManager databaseManager;
 
-	@Deprecated
-	public MigrationExecutor() {
-	}
 
+	@Deprecated
+	public MigrationExecutor() {}
+
+    /**
+     *  this.session not inject because in vraptor-hibernate plugin it is injected by RequestScoped
+     *  see OpenSessioninView
+     *
+     */
     @PostConstruct
     public void init(){
-        org/hibernate/boot/registry/StandardServiceRegistryBuilder
+
         statelessSession = sf.openStatelessSession();
+        this.session = sf.openSession();
     }
 
 //	@Inject
@@ -40,8 +45,6 @@ public class MigrationExecutor {
 //	}
 
 	public void begin() {
-//		session = sf.openSession();
-//		statelessSession = sf.openStatelessSession();
 		databaseManager = new DatabaseManager(session);
 		statelessSession.beginTransaction();
 		session.beginTransaction();
