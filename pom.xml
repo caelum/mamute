@@ -126,12 +126,6 @@
 			<groupId>br.com.caelum.vraptor</groupId>
 			<artifactId>vraptor-hibernate</artifactId>
             <version>4.0.0-RC2</version>
-			<!--<exclusions>-->
-				<!--<exclusion>-->
-					<!--<groupId>org.hibernate</groupId>-->
-					<!--<artifactId>hibernate</artifactId>-->
-				<!--</exclusion>-->
-			<!--</exclusions>-->
 		</dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
