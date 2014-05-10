@@ -25,7 +25,6 @@ DROP TABLE IF EXISTS `Answer`;
 CREATE TABLE `Answer` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `createdAt` datetime DEFAULT NULL,
-  `ip` varchar(45) DEFAULT NULL,
   `lastUpdatedAt` datetime DEFAULT NULL,
   `invisible` tinyint(1) NOT NULL,
   `voteCount` bigint(20) NOT NULL,
