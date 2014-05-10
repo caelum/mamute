@@ -27,7 +27,9 @@ public class CustomConfigurationCreator extends br.com.caelum.vraptor.hibernate.
     @Inject
     private ValidatorFactory vf;
 
-    @Deprecated
+    /**
+     * @deprecated cdi eyes only
+     */
     public CustomConfigurationCreator(){}
 
     public CustomConfigurationCreator(Environment env) {
