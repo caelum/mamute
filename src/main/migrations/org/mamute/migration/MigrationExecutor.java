@@ -16,31 +16,31 @@ public class MigrationExecutor {
 
 	private int currentMigration = -1;
 
-    private SessionFactory sf;
-    private Session session;
+	private SessionFactory sf;
+	private Session session;
 	private StatelessSession statelessSession;
 	private DatabaseManager databaseManager;
 
 
 	@Deprecated
-	public MigrationExecutor() {}
+	public MigrationExecutor() {
+	}
 
-    @Inject
-    public MigrationExecutor(SessionFactory sf){
-        this.sf = sf;
-    }
+	@Inject
+	public MigrationExecutor(SessionFactory sf) {
+		this.sf = sf;
+	}
 
-    /**
-     *  this.session not injected because in vraptor-hibernate plugin it is injected by RequestScoped
-     *  see OpenSessionInView
-     *
-     */
-    @PostConstruct
-    public void init(){
+	/**
+	 * session is only injected by RequestScoped
+	 * @see br.com.caelum.vraptor.hibernate.SessionCreator
+	 */
+	@PostConstruct
+	public void init() {
 
-        this.statelessSession = sf.openStatelessSession();
-        this.session = sf.openSession();
-    }
+		this.statelessSession = sf.openStatelessSession();
+		this.session = sf.openSession();
+	}
 
 	public void begin() {
 		databaseManager = new DatabaseManager(session);
@@ -57,7 +57,7 @@ public class MigrationExecutor {
 	public void rollback() {
 		session.getTransaction().rollback();
 	}
-	
+
 	public void rollback(SchemaMigration m) {
 		rollback();
 	}

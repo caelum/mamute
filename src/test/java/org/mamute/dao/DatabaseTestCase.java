@@ -15,40 +15,40 @@ import static br.com.caelum.vraptor.environment.ServletBasedEnvironment.ENVIRONM
 @SuppressWarnings("unchecked")
 public abstract class DatabaseTestCase extends TestCase {
 
-    protected Session session;
+	private static final SessionFactory factory;
 
-    private static final SessionFactory factory;
+	static {
+		System.setProperty(ENVIRONMENT_PROPERTY, "test");
+		CdiContainer cdiContainer = new CdiContainer();
+		cdiContainer.start();
+		CDIBasedContainer cdiBasedContainer = CDI.current().select(CDIBasedContainer.class).get();
+		factory = cdiBasedContainer.instanceFor(SessionFactory.class);
+	}
 
-    static {
-        System.setProperty(ENVIRONMENT_PROPERTY, "test");
-        CdiContainer cdiContainer = new CdiContainer();
-        cdiContainer.start();
-        CDIBasedContainer cdiBasedContainer = CDI.current().select(CDIBasedContainer.class).get();
-        factory =  cdiBasedContainer.instanceFor(SessionFactory.class);
-    }
+	protected Session session;
 
-    protected <T> T save(T obj) {
-        session.save(obj);
-        return obj;
-    }
+	protected <T> T save(T obj) {
+		session.save(obj);
+		return obj;
+	}
 
-    @Before
-    public void beforeDatabase() {
-        session = factory.openSession();
-        session.beginTransaction();
-    }
+	@Before
+	public void beforeDatabase() {
+		session = factory.openSession();
+		session.beginTransaction();
+	}
 
-    @After
-    public void afterDatabase() {
-        boolean wasActive = session.getTransaction().isActive();
-        if (wasActive) {
-            session.getTransaction().rollback();
-        }
-        session.close();
-    }
+	@After
+	public void afterDatabase() {
+		boolean wasActive = session.getTransaction().isActive();
+		if (wasActive) {
+			session.getTransaction().rollback();
+		}
+		session.close();
+	}
 
-    public <T extends Identifiable> T reload(T obj) {
-        session.evict(obj);
-        return (T) session.load(obj.getClass(), obj.getId());
-    }
+	public <T extends Identifiable> T reload(T obj) {
+		session.evict(obj);
+		return (T) session.load(obj.getClass(), obj.getId());
+	}
 }

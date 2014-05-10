@@ -12,16 +12,19 @@ import java.util.Scanner;
 public class DatabaseManager {
 
 	private static final Logger LOG = Logger.getLogger(DatabaseManager.class);
-    private Session session;
+	private Session session;
 
-    @Deprecated
-    public DatabaseManager(){}
+	/**
+	 * @deprecated cdi eyes only
+	 */
+	public DatabaseManager() {
+	}
 
-    public DatabaseManager(Session session) {
-        this.session = session;
-    }
+	public DatabaseManager(Session session) {
+		this.session = session;
+	}
 
-    public void run(String sql) {
+	public void run(String sql) {
 		session.createSQLQuery(sql).executeUpdate();
 	}
 
@@ -29,7 +32,7 @@ public class DatabaseManager {
 		run("SET foreign_key_checks = 0;");
 
 		try (InputStream stream = DatabaseManager.class.getResourceAsStream(resourceName);
-				Scanner sc = new Scanner(stream)) {
+			 Scanner sc = new Scanner(stream)) {
 			StringBuilder fullQuery = new StringBuilder();
 			while (sc.hasNext()) {
 				String partial = sc.nextLine();

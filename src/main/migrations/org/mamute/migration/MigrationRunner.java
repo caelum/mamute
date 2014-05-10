@@ -23,11 +23,10 @@ public class MigrationRunner {
 	private MigrationExecutor executor;
 	private Environment env;
 
-    private String valor;
-
-	@Deprecated
-	MigrationRunner() {
-	}
+	/**
+	 * @deprecated cdi eyes only
+	 */
+	MigrationRunner() {}
 
 	@Inject
 	public MigrationRunner(@Any Instance<SchemaMigration> migrations, NumberExtractor number,
@@ -72,7 +71,7 @@ public class MigrationRunner {
 			LOGGER.info("Couldnt prepare tables: "+ e);
 			LOGGER.info(">>>> "+ StackToString.convertStackToString(e));
 			executor.rollback();
-			throw new RuntimeException("Unable to execute migrations.migration process", e);
+			throw new RuntimeException("Unable to execute migration process", e);
 		}
 	}
 
@@ -81,14 +80,14 @@ public class MigrationRunner {
 		if (number > executor.currentMigration()) {
 			try {
 				executor.begin();
-				LOGGER.debug("Running migrations.migration " + number);
+				LOGGER.debug("Running migration " + number);
 				executor.run(m);
 				LOGGER.info("Migration " + number + " executed!");
 				executor.insertNewMigration(number);
 				executor.end();
 			} catch (Exception e) {
 				executor.rollback(m);
-				throw new RuntimeException("Unable to execute migrations.migration "
+				throw new RuntimeException("Unable to execute migration "
 						+ number, e);
 			}
 		}

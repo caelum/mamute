@@ -88,12 +88,13 @@ public class QuestionInformation implements Information, Taggable {
 
 	public QuestionInformation(String title, String description, LoggedUser user,
 			List<Tag> tags, String comment) {
-        if (user == null) {
+
+		if (user == null) {
 			this.author = null;
 			this.ip = null;
 		} else {
-    		this.author = user.getCurrent();
-    		this.ip = user.getIp();
+			this.author = user.getCurrent();
+			this.ip = user.getIp();
 		}
 		setTitle(title);
 		setDescription(description);
@@ -178,11 +179,11 @@ public class QuestionInformation implements Information, Taggable {
     }
 	
 	public Long getId() {
-        return id;
+		return id;
     }
 	
 	public Moderatable getModeratable() {
-        return getQuestion();
+		return getQuestion();
     }
 	
 	public Question getQuestion() {
@@ -193,13 +194,13 @@ public class QuestionInformation implements Information, Taggable {
 		return status;
 	}
 
-    public boolean isPending() {
-        return status == UpdateStatus.PENDING;
-    }
+	public boolean isPending() {
+		return status == UpdateStatus.PENDING;
+	}
     
-    public String getComment() {
-        return comment;
-    }
+	public String getComment() {
+		return comment;
+	}
 
 	@Override
 	public String getTypeName() {
@@ -208,9 +209,7 @@ public class QuestionInformation implements Information, Taggable {
 
 	@Override
 	public boolean isBeforeCurrent() {
-        System.out.println("createdAt = " + createdAt);
-        System.out.println("question.getInformation().getCreatedAt() = " + question.getInformation().getCreatedAt());
-        return createdAt.isBefore(question.getInformation().getCreatedAt());
+		return createdAt.isBefore(question.getInformation().getCreatedAt());
 	}
 
 	public DateTime moderatedAt() {

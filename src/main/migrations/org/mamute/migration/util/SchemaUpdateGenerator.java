@@ -16,21 +16,21 @@ import static org.slf4j.LoggerFactory.getLogger;
 
 public class SchemaUpdateGenerator {
 
-    private static final Logger LOG = getLogger(DefaultEnvironment.class);
-    private static EnvironmentType environmentType = EnvironmentType.DEVELOPMENT;
+	private static final Logger LOG = getLogger(DefaultEnvironment.class);
+	private static EnvironmentType environmentType = EnvironmentType.DEVELOPMENT;
 
-    public static Configuration getCfg() throws IOException {
-        return new CustomConfigurationCreator(new DefaultEnvironment(environmentType)).getInstance();
-    }
+	public static Configuration getCfg() throws IOException {
+		return new CustomConfigurationCreator(new DefaultEnvironment(environmentType)).getInstance();
+	}
 
 	public static void main(String[] args) throws IOException {
 
-        Configuration configuration = getCfg();
-        LOG.info("Executing SchemaUpdate. environment=" + environmentType);
-        ServiceRegistry serviceRegistry = new ServiceRegistryCreator(getCfg()).getInstance();
+		Configuration configuration = getCfg();
+		LOG.info("Executing SchemaUpdate. environment=" + environmentType);
+		ServiceRegistry serviceRegistry = new ServiceRegistryCreator(getCfg()).getInstance();
 
-        SchemaUpdate su = new SchemaUpdate(serviceRegistry, configuration);
-        su.execute(true, false);
-        LOG.info("SchemaUpdate finished.");
-    }
+		SchemaUpdate su = new SchemaUpdate(serviceRegistry, configuration);
+		su.execute(true, false);
+		LOG.info("SchemaUpdate finished.");
+	}
 }
