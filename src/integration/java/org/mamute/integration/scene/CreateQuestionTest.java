@@ -1,12 +1,12 @@
 package org.mamute.integration.scene;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.openqa.selenium.By.className;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mamute.integration.pages.NewQuestionPage;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.openqa.selenium.By.className;
 
 public class CreateQuestionTest extends AuthenticatedAcceptanceTest {
 
@@ -53,18 +53,6 @@ public class CreateQuestionTest extends AuthenticatedAcceptanceTest {
 	    assertFalse(descriptionHintIsVisible);
 	    assertTrue(titleHintIsVisible);
     }
-	
-	@Test
-	public void should_disallow_user_to_create_tag() {
-		NewQuestionPage newQuestionPage = home()
-		        .toNewQuestionPage()
-		        .typeDescription("description description description description description")
-		        .typeTitle("title title title title")
-		        .typeTags("unexistant-tag-blabla");
-		newQuestionPage.submit();
-		String message = message("question.errors.tags.unexistant");
-		assertTrue(newQuestionPage.containsErrorMessageLike(message));
-	}
 	
 	@Test
 	public void should_return_question_data_from_server_side() {
