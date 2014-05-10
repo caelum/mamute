@@ -19,39 +19,39 @@ import static org.slf4j.LoggerFactory.getLogger;
 
 public class FacebookSignupTest extends AcceptanceTestBase {
 
-    private static final Logger LOG = getLogger(FacebookSignupTest.class);
+	private static final Logger LOG = getLogger(FacebookSignupTest.class);
 
-	
+
 	@Test
 	public void should_signup_and_login_through_facebook() throws Exception {
-        String appToken;
-        try {
-            appToken = getAppToken();
-        }catch (NoSuchElementException exc) {
-            LOG.warn("Did you remember to put your facebook APP_ID and Secret in mamute.properties?", exc.getMessage());
-            throw exc;
-        }
-        FacebookUser facebookUser = createFacebookTestUser(appToken);
-        FacebookLoginPage signupWithFacebook = home().toLoginPage().signupWithFacebook();
-        Home home = signupWithFacebook
-                .writeEmail(facebookUser.email)
-                .writePassword(facebookUser.password)
-                .submit().confirm();
+		String appToken;
+		try {
+			appToken = getAppToken();
+		} catch (NoSuchElementException exc) {
+			LOG.warn("Did you remember to put your facebook APP_ID and Secret in mamute.properties?", exc.getMessage());
+			throw exc;
+		}
+		FacebookUser facebookUser = createFacebookTestUser(appToken);
+		FacebookLoginPage signupWithFacebook = home().toLoginPage().signupWithFacebook();
+		Home home = signupWithFacebook
+				.writeEmail(facebookUser.email)
+				.writePassword(facebookUser.password)
+				.submit().confirm();
 
-        assertTrue(home.isLoggedIn());
-        assertEquals(facebookUser.email, home.toProfilePage().userEmail());
+		assertTrue(home.isLoggedIn());
+		assertEquals(facebookUser.email, home.toProfilePage().userEmail());
 
-        home().logOut();
+		home().logOut();
 
-        boolean loggedInThroughFacebook = home().toLoginPage().loginThroughFacebook().isLoggedIn();
-        assertTrue(loggedInThroughFacebook);
-    }
-	
+		boolean loggedInThroughFacebook = home().toLoginPage().loginThroughFacebook().isLoggedIn();
+		assertTrue(loggedInThroughFacebook);
+	}
+
 	@SuppressWarnings("deprecation")
 	private FacebookUser createFacebookTestUser(String appToken) throws URIException,
 			IOException, HttpException {
 		String clientId = env.get(OAuthServiceCreator.FACEBOOK_CLIENT_ID);
-		GetMethod method = new GetMethod("https://graph.facebook.com/"+clientId+"/accounts/test-users?" +
+		GetMethod method = new GetMethod("https://graph.facebook.com/" + clientId + "/accounts/test-users?" +
 				"installed=true" +
 				"&name=TESTUSER" +
 				"&method=post" +
@@ -66,7 +66,7 @@ public class FacebookSignupTest extends AcceptanceTestBase {
 	private String getAppToken() throws IOException, HttpException {
 		String appSecret = env.get(OAuthServiceCreator.FACEBOOK_APP_SECRET);
 		String clientId = env.get(OAuthServiceCreator.FACEBOOK_CLIENT_ID);
-		
+
 		GetMethod method = new GetMethod("https://graph.facebook.com/oauth/access_token" +
 				"?client_id=" + clientId +
 				"&client_secret=" + appSecret +
@@ -79,7 +79,7 @@ public class FacebookSignupTest extends AcceptanceTestBase {
 		return responseBody.split("=")[1];
 	}
 
-	
+
 	private static class FacebookUser {
 
 		private String email;
@@ -89,6 +89,6 @@ public class FacebookSignupTest extends AcceptanceTestBase {
 			this.email = new JsonParser().parse(json).getAsJsonObject().get("email").getAsString();
 			this.password = new JsonParser().parse(json).getAsJsonObject().get("password").getAsString();
 		}
-		
+
 	}
 }
