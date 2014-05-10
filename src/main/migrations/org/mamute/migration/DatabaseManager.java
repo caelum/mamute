@@ -12,11 +12,11 @@ import java.util.Scanner;
 public class DatabaseManager {
 
 	private static final Logger LOG = Logger.getLogger(DatabaseManager.class);
+    private Session session;
 
     @Deprecated
     public DatabaseManager(){}
 
-	private Session session;
     public DatabaseManager(Session session) {
         this.session = session;
     }

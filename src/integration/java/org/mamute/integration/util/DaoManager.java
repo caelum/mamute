@@ -19,7 +19,7 @@ import org.mamute.model.LoginMethod;
 import org.mamute.model.Question;
 import org.mamute.model.Tag;
 import org.mamute.model.User;
-import org.mamute.util.ScriptSessionCreator;
+//import org.mamute.util.ScriptSessionCreator;
 
 public class DaoManager {
 
@@ -33,11 +33,14 @@ public class DaoManager {
 
 	public DaoManager() {
 		super();
-		ScriptSessionCreator sessionFactoryCreator = new ScriptSessionCreator();
+
+        // TODO: OpenSession
+//		ScriptSessionCreator sessionFactoryCreator = new ScriptSessionCreator();
 		InvisibleForUsersRule invisible = new InvisibleForUsersRule(new LoggedUser(null, null));
 		this.randomizer = new Random();
 
-		this.session = sessionFactoryCreator.getSession();
+//		this.session = sessionFactoryCreator.getSession();
+		this.session = null;
 		this.questionDao = new QuestionDAO(session, invisible);
 		this.answerDao = new AnswerDAO(session, invisible);
 		this.userDao = new UserDAO(session);

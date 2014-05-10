@@ -1,17 +1,6 @@
 package org.mamute.util;
 
-import static java.util.Arrays.asList;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map.Entry;
-import java.util.Random;
-import java.util.Set;
-
 import net.vidageek.mirror.dsl.Mirror;
-
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
@@ -19,20 +8,14 @@ import org.hibernate.Session;
 import org.mamute.builder.QuestionBuilder;
 import org.mamute.dao.QuestionDAO;
 import org.mamute.dao.TestCase;
-import org.mamute.model.Answer;
-import org.mamute.model.AnswerInformation;
-import org.mamute.model.Comment;
-import org.mamute.model.Flag;
-import org.mamute.model.FlagType;
-import org.mamute.model.Information;
-import org.mamute.model.LoggedUser;
-import org.mamute.model.News;
-import org.mamute.model.NewsInformation;
-import org.mamute.model.Question;
-import org.mamute.model.QuestionInformation;
-import org.mamute.model.Tag;
-import org.mamute.model.User;
-import org.mamute.util.ScriptSessionCreator;
+import org.mamute.model.*;
+
+import java.io.IOException;
+import java.util.*;
+import java.util.Map.Entry;
+
+import static java.util.Arrays.asList;
+//import org.mamute.util.ScriptSessionCreator;
 
 public class DataImport extends TestCase {
     private Session session;
@@ -42,8 +25,8 @@ public class DataImport extends TestCase {
     private HashMap<String, Tag> tags;
     private static final Logger LOG = Logger.getLogger(DataImport.class); 
     private QuestionBuilder question = new QuestionBuilder();
-	private ScriptSessionCreator sessionProvider = new ScriptSessionCreator();
-	private List<User> usersNotUserInTests;
+    private ScriptSessionProvider scriptSessionProvider = new ScriptSessionProvider();
+    private List<User> usersNotUserInTests;
 	private ArrayList<Flag> flags;
 	private List<Information> edits;
 	private ArrayList<News> news;
@@ -58,8 +41,9 @@ public class DataImport extends TestCase {
         edits = new ArrayList<>();
         tags = new HashMap<String, Tag>();
         this.news = new ArrayList<>();
-        sessionProvider.dropAndCreate();
-        session = sessionProvider.getSession();
+        // TODO: OpenSession
+        scriptSessionProvider.dropAndCreate();
+//        session = scriptSessionProvider.getSession();
         random = new Random();
     }
 

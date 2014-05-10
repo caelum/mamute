@@ -1,28 +1,33 @@
 package org.mamute.integration.scene;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.io.IOException;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mamute.integration.pages.ResetPasswordPage;
 import org.mamute.integration.util.ServerInfo;
+import org.mamute.util.ScriptSessionProvider;
 
-import javax.inject.Inject;
+import java.io.IOException;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class ForgotPasswordTest extends AcceptanceTestBase implements ServerInfo.AcceptanceTest  {
 
-    @Inject
-    private Session SESSION;
+    private static Session SESSION;
 
     private String validEmail = "chico@email.com.br";
 
     @BeforeClass
     public static void setup() throws IOException {
+        SESSION = ScriptSessionProvider.getInstance();
+    }
+
+    @AfterClass
+    public static void destroy() {
+        SESSION.close();
     }
 
     @Test

@@ -16,9 +16,7 @@ public class MigrationExecutor {
 
 	private int currentMigration = -1;
 
-    @Inject
     private SessionFactory sf;
-
     private Session session;
 	private StatelessSession statelessSession;
 	private DatabaseManager databaseManager;
@@ -26,6 +24,11 @@ public class MigrationExecutor {
 
 	@Deprecated
 	public MigrationExecutor() {}
+
+    @Inject
+    public MigrationExecutor(SessionFactory sf){
+        this.sf = sf;
+    }
 
     /**
      *  this.session not injected because in vraptor-hibernate plugin it is injected by RequestScoped
