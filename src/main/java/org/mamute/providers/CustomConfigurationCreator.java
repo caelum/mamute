@@ -1,6 +1,7 @@
 package org.mamute.providers;
 
 import br.com.caelum.vraptor.environment.Environment;
+import br.com.caelum.vraptor.hibernate.ConfigurationCreator;
 import org.hibernate.cfg.Configuration;
 import org.mamute.model.*;
 import org.mamute.model.watch.Watcher;
@@ -16,7 +17,7 @@ import java.net.URL;
 import java.util.Map;
 
 @Specializes
-public class CustomConfigurationCreator extends br.com.caelum.vraptor.hibernate.ConfigurationCreator {
+public class CustomConfigurationCreator extends ConfigurationCreator {
 
     public static final String JODA_TIME_TYPE= "org.jadira.usertype.dateandtime.joda.PersistentDateTime";
     private static final Logger LOGGER = LoggerFactory.getLogger(CustomConfigurationCreator.class);
