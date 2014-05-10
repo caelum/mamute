@@ -18,6 +18,7 @@ import static java.util.Arrays.asList;
 //import org.mamute.util.ScriptSessionCreator;
 
 public class DataImport extends TestCase {
+
 	private Session session;
 	private List<Question> questions;
 	private List<Answer> answers;
