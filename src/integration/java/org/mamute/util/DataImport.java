@@ -15,7 +15,6 @@ import java.util.*;
 import java.util.Map.Entry;
 
 import static java.util.Arrays.asList;
-//import org.mamute.util.ScriptSessionCreator;
 
 public class DataImport extends TestCase {
 
@@ -26,7 +25,6 @@ public class DataImport extends TestCase {
 	private HashMap<String, Tag> tags;
 	private static final Logger LOG = Logger.getLogger(DataImport.class);
 	private QuestionBuilder question = new QuestionBuilder();
-	private ScriptSessionProvider scriptSessionProvider = new ScriptSessionProvider();
 	private List<User> usersNotUserInTests;
 	private ArrayList<Flag> flags;
 	private List<Information> edits;
@@ -42,15 +40,19 @@ public class DataImport extends TestCase {
 		edits = new ArrayList<>();
 		tags = new HashMap<String, Tag>();
 		this.news = new ArrayList<>();
-		// TODO: OpenSession
+
+		ScriptSessionProvider scriptSessionProvider = new ScriptSessionProvider();
 		scriptSessionProvider.dropAndCreate();
-//        session = scriptSessionProvider.getSession();
+		this.session = scriptSessionProvider.getInstance();
 		random = new Random();
 	}
 
 	public static void main(String[] args) throws IOException {
+		System.setProperty(ScriptSessionProvider.DATAIMPORT_ENV, "acceptance");
 		new DataImport().run();
 	}
+
+
 
 	public void run() throws IOException {
 		buildData();
@@ -63,6 +65,7 @@ public class DataImport extends TestCase {
 			session.getTransaction().rollback();
 			throw e;
 		}
+		session.close();
 		LOG.info("data import finished successfully");
 	}
 

@@ -150,7 +150,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-ehcache</artifactId>
-			<version>4.0.0.Final</version>
+			<version>4.3.0.Final</version>
 		</dependency>
 		<!-- joda time hibernate support -->
 		<dependency>

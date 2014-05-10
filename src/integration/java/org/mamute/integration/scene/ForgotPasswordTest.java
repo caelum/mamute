@@ -22,7 +22,7 @@ public class ForgotPasswordTest extends AcceptanceTestBase implements ServerInfo
 
     @BeforeClass
     public static void setup() throws IOException {
-        SESSION = ScriptSessionProvider.getInstance();
+        SESSION = new ScriptSessionProvider().getInstance();
     }
 
     @AfterClass
