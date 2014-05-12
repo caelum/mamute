@@ -29,6 +29,8 @@ First of all, you need to setup an MySQL database. The default database name is
 
 * [How can I configure ad banners in my site?](http://meta.mamute.org/241-how-can-i-configure-ad-banners-in-my-site)
 
+* [How can I configure the system to activate/deactivate some feature?](http://meta.mamute.org/292-how-can-i-configure-the-system-to-activatedeactivate-some-feature)
+
 * [How can I configure the system to allow/disallow the creation of tags by common users?](http://meta.mamute.org/251-how-can-i-configure-the-system-to-allowdisallow-the-creation-of-tags-by-common-users)
 
 * [Is it possible to delete inappropriate questions?](http://meta.mamute.org/261-is-it-possible-to-delete-inappropriate-questions)
