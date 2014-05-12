@@ -809,8 +809,6 @@ textarea {
 	/* 	line-height: 1.5em; */
 }
 
-/*fundo input #fbfbfb*/
-/*input #f4f4f4*/
 .social-button-wraper {
 	display: inline-block;
 	width: 19em;
@@ -822,7 +820,6 @@ textarea {
 }
 
 .face-button {
-	border-radius: 2px;
 	background: #2e4368;
 	background: -moz-linear-gradient(top, rgba(46, 67, 104, 1) 9%,
 		rgba(35, 70, 123, 1) 85%); /* FF3.6+ */
@@ -858,7 +855,6 @@ textarea {
 }
 
 .google-button {
-	border-radius: 2px;
 	background: #dd4b39; /* Old browsers */
 	background: -moz-linear-gradient(top,  #dd4b39 0%, #d1443a 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#dd4b39), color-stop(100%,#d1443a)); /* Chrome,Safari4+ */
