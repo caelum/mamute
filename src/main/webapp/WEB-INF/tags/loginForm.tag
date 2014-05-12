@@ -4,19 +4,23 @@
 <%@attribute name="redirectUrl" type="java.lang.String" required="false" %>
 
 <form class="validated-form user-form" action="${linkTo[AuthController].login}" method="POST">
-	<a href="${facebookUrl}" class="social-button-wraper">
-		<p><fmt:message key="auth.facebook_button.label" /></p>
-		<span class="face-button"><fmt:message key="auth.button.content" /></span>
-	</a>
+	<c:if test="${env.supports('feature.facebook.login')}">
+		<a href="${facebookUrl}" class="social-button-wraper">
+			<p><fmt:message key="auth.facebook_button.label" /></p>
+			<span class="face-button"><fmt:message key="auth.button.content" /></span>
+		</a>
+		<p class="or">&#8212; <fmt:message key="auth.or" /> &#8212;</p>
+	</c:if>
 	
-	<p class="or">&#8212; <fmt:message key="auth.or" /> &#8212;</p>
 	
-	<a href="/sign-up/google?redirect=${redirectUrl}" class="social-button-wraper">
-		<p><fmt:message key="auth.google_button.label" /></p>
-		<span class="google-button"><fmt:message key="auth.button.content" /></span>
-	</a>
+	<c:if test="${env.supports('feature.google.login')}">
+		<a href="/sign-up/google?redirect=${redirectUrl}" class="social-button-wraper">
+			<p><fmt:message key="auth.google_button.label" /></p>
+			<span class="google-button"><fmt:message key="auth.button.content" /></span>
+		</a>
+		<p class="or">&#8212; <fmt:message key="auth.or" /> &#8212;</p>
+	</c:if>
 	
-	<p class="or">&#8212; <fmt:message key="auth.or" /> &#8212;</p>
 	<label for="email"><fmt:message key="signup.form.email.label" /></label>
 	<input type="email" name="email" class="email required text-input" placeholder="nome@exemplo.com"/>
 	<label for="password"><fmt:message key="signup.form.password.label" /></label>
