@@ -12,10 +12,10 @@ public class MergeLoginMethod {
 	@Inject private Access access;
 	
 	public void mergeLoginMethods(String rawToken, User existantUser, MethodType type) {
-		LoginMethod Login = LoginMethod.newLogin(existantUser, existantUser.getEmail(), rawToken, type);
+		LoginMethod login = LoginMethod.newLogin(existantUser, existantUser.getEmail(), rawToken, type);
 		
-		existantUser.add(Login);
-		loginMethods.save(Login);
+		existantUser.add(login);
+		loginMethods.save(login);
 		access.login(existantUser);
 	}
 }

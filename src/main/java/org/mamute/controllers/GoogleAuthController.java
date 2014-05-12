@@ -56,19 +56,19 @@ public class GoogleAuthController extends BaseController{
 	public void googleCallback(String code) {
 		Token accessToken = google.getAccessToken(code);
 
-	    String redirect = (String) session.getAttribute("redirect");
+		String redirect = (String) session.getAttribute("redirect");
 	    
-	    SignupInfo signupInfo = google.getSignupInfo();
+		SignupInfo signupInfo = google.getSignupInfo();
 	    
-	    User existantGoogleUser = users.findByEmailAndMethod(signupInfo.getEmail(), MethodType.GOOGLE);
+		User existantGoogleUser = users.findByEmailAndMethod(signupInfo.getEmail(), MethodType.GOOGLE);
 	    
-	    if(existantGoogleUser != null) {
+		if(existantGoogleUser != null) {
 	    	access.login(existantGoogleUser);
 	    	redirectToRightUrl(redirect);
 	    	return;
-	    }
+		}
 	    
-	    User existantFacebookUser = users.findByEmailAndMethod(signupInfo.getEmail(), MethodType.FACEBOOK);
+		User existantFacebookUser = users.findByEmailAndMethod(signupInfo.getEmail(), MethodType.FACEBOOK);
 		if (existantFacebookUser != null) {
 			mergeAndRedirect(accessToken, redirect, existantFacebookUser);
 			return;
@@ -82,7 +82,7 @@ public class GoogleAuthController extends BaseController{
 	    
 	    createNewUser(accessToken.getToken(), signupInfo);
 	    
-	   redirectToRightUrl(redirect);
+	    redirectToRightUrl(redirect);
 	}
 
 	private void mergeAndRedirect(Token accessToken, String redirect, User existantUser) {
