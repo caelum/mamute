@@ -71,6 +71,12 @@
 			<groupId>br.com.caelum.vraptor</groupId>
 			<artifactId>vraptor-quartzjob</artifactId>
 			<version>4.0.1</version>
+			<exclusions>
+				<exclusion>
+					<groupId>c3p0</groupId>
+					<artifactId>c3p0</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>br.com.caelum.vraptor</groupId>
