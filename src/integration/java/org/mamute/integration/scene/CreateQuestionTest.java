@@ -6,8 +6,7 @@ import org.mamute.integration.pages.NewQuestionPage;
 
 import java.util.Random;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.openqa.selenium.By.className;
 
 public class CreateQuestionTest extends AuthenticatedAcceptanceTest {
@@ -58,18 +57,18 @@ public class CreateQuestionTest extends AuthenticatedAcceptanceTest {
 
 	@Test
 	public void should_allow_user_to_create_tag_when_feature_ON() {
+		String title = "title title title title";
 		NewQuestionPage newQuestionPage = home()
 				.toNewQuestionPage()
 				.typeDescription("description description description description description")
-				.typeTitle("title title title title")
+				.typeTitle(title)
 				.typeTags("unexistant-tag-blabla" + new Random().nextLong());
 		newQuestionPage.submit();
 
 
-		if(getEnvironment().supports("feature.tags.add.anyone")){
-			newQuestionPage.byClassName("question-title");
-			newQuestionPage.byClassName("question-title");
-		}else {
+		if (getEnvironment().supports("feature.tags.add.anyone")) {
+			assertEquals(title, newQuestionPage.byClassName("question-title").getText());
+		} else {
 			String message = message("tag.errors.doesnt_exist", "unexistant-tag-blabla");
 			assertTrue(newQuestionPage.containsErrorMessageLike(message));
 		}
