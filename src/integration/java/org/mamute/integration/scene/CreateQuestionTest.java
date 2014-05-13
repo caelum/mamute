@@ -58,7 +58,6 @@ public class CreateQuestionTest extends AuthenticatedAcceptanceTest {
 
 	@Test
 	public void should_allow_user_to_create_tag_when_feature_ON() {
-		getEnvironment().set("feature.tags.add.anyone", "true");
 		NewQuestionPage newQuestionPage = home()
 				.toNewQuestionPage()
 				.typeDescription("description description description description description")
