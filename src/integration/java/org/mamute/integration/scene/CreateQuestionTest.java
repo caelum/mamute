@@ -4,6 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mamute.integration.pages.NewQuestionPage;
 
+import java.util.Random;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.openqa.selenium.By.className;
@@ -53,7 +55,28 @@ public class CreateQuestionTest extends AuthenticatedAcceptanceTest {
 	    assertFalse(descriptionHintIsVisible);
 	    assertTrue(titleHintIsVisible);
     }
-	
+
+	@Test
+	public void should_allow_user_to_create_tag_when_feature_ON() {
+		getEnvironment().set("feature.tags.add.anyone", "true");
+		NewQuestionPage newQuestionPage = home()
+				.toNewQuestionPage()
+				.typeDescription("description description description description description")
+				.typeTitle("title title title title")
+				.typeTags("unexistant-tag-blabla" + new Random().nextLong());
+		newQuestionPage.submit();
+
+
+		if(getEnvironment().supports("feature.tags.add.anyone")){
+			newQuestionPage.byClassName("question-title");
+			newQuestionPage.byClassName("question-title");
+		}else {
+			String message = message("tag.errors.doesnt_exist", "unexistant-tag-blabla");
+			assertTrue(newQuestionPage.containsErrorMessageLike(message));
+		}
+
+	}
+
 	@Test
 	public void should_return_question_data_from_server_side() {
 		String title = "";

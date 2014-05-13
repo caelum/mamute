@@ -1,17 +1,13 @@
 package org.mamute.integration.pages;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.log4j.Logger;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class PageObject {
 
@@ -34,7 +30,7 @@ public abstract class PageObject {
 		return driver.findElements(By.className(name));
 	}
 	
-	protected WebElement byClassName(String name) {
+	public WebElement byClassName(String name) {
         return driver.findElement(By.className(name));
 	}
 	
