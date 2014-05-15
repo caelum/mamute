@@ -1,7 +1,7 @@
 $(function(){
 	var ANSWER = MESSAGES['answers'],
 		QUESTION = MESSAGES['perguntas']
-		WATCHED = MESSAGES['watched'].
+		WATCHED = MESSAGES['watched'];
 	
 	$(".advanced-data-section").on("click", ".order-by" , function(event){
 		event.preventDefault();
