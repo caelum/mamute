@@ -70,7 +70,7 @@ public class NotificationMailer {
 				.with("linkerHelper", new LinkToHelper(router, brutalEnv))
 				.with("logoUrl", env.get("mail_logo_url"))
 				.to(to.getName(), to.getEmail())
-				.setSubject(format(bundle.getMessage("answer_notification_mail"), action.getMainThread().getTitle()));
+				.setSubject(format(bundle.getMessage("answer_notification_mail"), bundle.getMessage("site.name"), action.getMainThread().getTitle()));
 		return email;
 	}
     
