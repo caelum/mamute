@@ -16,7 +16,7 @@ $(function(){
 			},
 			error: function(jqXHR) {
 				toggleAll();
-				errorPopup(MESSAGES['error_occured'], mark, "center-popup");
+				errorPopup(Messages.get('error.occured'), mark, "center-popup");
 				console.log(jqXHR);
 			}
 		});

@@ -1,10 +1,10 @@
 $(function(){
 	jQuery.extend(jQuery.validator.messages, {
-	    required: MESSAGES['not_empty'],
-	    email: MESSAGES['invalid_email'],
-	    equalTo: jQuery.validator.format(MESSAGES['not_equal']),
-	    minlength: jQuery.validator.format(MESSAGES['minimum_characters']),
-	    maxlength: jQuery.validator.format(MESSAGES['maximum_characters']),
+	    required: Messages.get('org.hibernate.validator.constraints.NotEmpty.message'),
+	    email: Messages.get('org.hibernate.validator.constraints.Email.message'),
+	    equalTo: jQuery.validator.format(Messages.get('validator.not.equal')),
+	    minlength: jQuery.validator.format(Messages.get('validator.minimum.characters')),
+	    maxlength: jQuery.validator.format(Messages.get('validator.maximum.characters')),
 	});
 
 	$.validator.setDefaults({
@@ -24,7 +24,7 @@ $(function(){
 	    	}
 	        return value.match(/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(19[1-9][0-9]|20[01][0-3])$/);
 	    },
-	    MESSAGES['invalid_date']
+	    Messages.get('validator.invalid.date')
 	);
 	
 	$.validator.addMethod(
@@ -35,7 +35,7 @@ $(function(){
 				}
 				return value.match(/(www\.)?(.*\.)(.*)/);
 			},
-			MESSAGES['invalid_url']
+			Messages.get('validator.invalid.url')
 	);
 
 	

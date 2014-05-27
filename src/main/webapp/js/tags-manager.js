@@ -187,7 +187,7 @@
 						return valid;
 					},
 					function(){
-						return MESSAGES['use_only_existing_tags'] + "<b>" + tagsNotFound + "</b>";
+						return Messages.get('validation.use_only_existing_tags') + "<b>" + tagsNotFound + "</b>";
 					}
 			);
 

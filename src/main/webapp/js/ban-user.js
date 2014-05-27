@@ -12,13 +12,13 @@ $(function(){
 				changeText(post.html());
 			},
 			error: function(jqXHR) {
-				errorPopup(MESSAGES['error_occured'], post, "center-popup");
+				errorPopup(Messages.get('error.occured'), post, "center-popup");
 				console.log(jqXHR);
 			}
 		});
 		
 		function changeText(text){
-			text == MESSAGES['block_user'] ? post.html(MESSAGES['unblock_user']) : post.html(MESSAGES['block_user']);
+			text == Messages.get('user.block_user') ? post.html(Messages.get('user.unblock_user')) : post.html(Messages.get('user.block_user'));
 		}
 	}
 	

@@ -18,49 +18,6 @@
 	var AVIARY_API_KEY = "${env.get('filepicker.aviary.api_key')}";
 	var INK_API_KEY = "${env.get('filepicker.ink.api_key')}";
 	var ALL_TAGS_URL = "${linkTo[TagController].jsonTags}";
-	
-	var MESSAGES = [];
-	MESSAGES['not_empty'] = "<fmt:message key='org.hibernate.validator.constraints.NotEmpty.message' />";
-	MESSAGES['invalid_email'] = "<fmt:message key='org.hibernate.validator.constraints.Email.message' />";
-	MESSAGES['not_equal'] = "<fmt:message key='validator.not.equal' />";
-	MESSAGES['invalid_date'] = "<fmt:message key='validator.invalid.date' />";
-	MESSAGES['invalid_url'] = "<fmt:message key='validator.invalid.url' />";
-	MESSAGES['minimum_characters'] = "<fmt:message key='validator.minimum.characters' />";
-	MESSAGES['maximum_characters'] = "<fmt:message key='validator.maximum.characters' />";
-	MESSAGES['vote_own_question'] = "<fmt:message key='vote.ownquestion' />";
-	MESSAGES['error_occured'] = "<fmt:message key='error.occured' />";
-	MESSAGES['need_to_have'] = "<fmt:message key='need.to_have' />";
-	MESSAGES['reputation_score'] = "<fmt:message key='reputation_score' />";
-	MESSAGES['author_cant_realize_operation'] = "<fmt:message key='error.author.cant_realize_operation' />";
-	MESSAGES['auth_requires_login'] = "<fmt:message key='auth.requires_login' />";
-	MESSAGES['click.to_close'] = "<fmt:message key='button_hint.click_to_close' />";
-	MESSAGES['block_user'] = "<fmt:message key='user.block_user' />";
-	MESSAGES['unblock_user'] = "<fmt:message key='user.unblock_user' />";
-	MESSAGES['cant_do'] = "<fmt:message key='error.cant_do' />";
-	MESSAGES['choose_an_option'] = "<fmt:message key='hint.choose_an_option' />";
-	MESSAGES['describe_reason'] = "<fmt:message key='hint.describe_reason' />";
-	MESSAGES['choose_a_reason'] = "<fmt:message key='hint.choose_a_reason' />";
-	MESSAGES['answers'] = "<fmt:message key='metas.answers_lowercase' />";
-	MESSAGES['questions'] = "<fmt:message key='metas.questions_lowercase' />";
-	MESSAGES['comments'] = "<fmt:message key='metas.comments_lowercase' />";
-	MESSAGES['watched'] = "<fmt:message key='metas.watched_lowercase' />";
-	MESSAGES['help'] = "<fmt:message key='metas.help' />";
-	MESSAGES['help_me'] = "<fmt:message key='metas.help_me' />";
-	MESSAGES['urgent'] = "<fmt:message key='metas.urgent' />";
-	MESSAGES['assist_me'] = "<fmt:message key='metas.assist_me' />";
-	MESSAGES['avoid_only_uppercase_title'] = "<fmt:message key='validation.avoid_only_uppercase_title' />";
-	MESSAGES['avoid_only_uppercase_post'] = "<fmt:message key='validation.avoid_only_uppercase_title' />";
-	MESSAGES['avoid_use_of'] = "<fmt:message key='validation.avoid_use_of' />";
-	MESSAGES['do_not_use'] = "<fmt:message key='validation.do_not_use' />";
-	MESSAGES['make_clear_post'] = "<fmt:message key='validation.make_clear_post' />";
-	MESSAGES['suggestion_sent'] = "<fmt:message key='validation.suggestion_sent' />";
-	MESSAGES['use_only_existing_tags'] = "<fmt:message key='validation.use_only_existing_tags' />";
-	MESSAGES['follow_post'] = "<fmt:message key='validation.follow_post' />";
-	MESSAGES['unfollow_post'] = "<fmt:message key='validation.cancel_follow_post' />";
-	MESSAGES['show_all'] = "<fmt:message key='show_all' />";
-	MESSAGES['the_comments'] = "<fmt:message key='the_comments' />";
-	
-	
 </script>
 	
 <c:if test="${environment.name != 'production'}" >
@@ -80,6 +37,7 @@
 	<script src="<c:url value="/js/deps/marked.js"/>"></script>
 	<script src="<c:url value="/js/deps/filepicker.js"/>"></script>
 	<script src="<c:url value="/js/deps/feather.js"/>"></script>
+	<script src="<c:url value="/js/messages.js"/>"></script>
 	<script src="<c:url value="/js/tags-manager.js"/>"></script>
 	<script src="<c:url value="/js/form-validation.js"/>"></script>
 	<script src="<c:url value="/js/form-hints.js"/>"></script>
@@ -129,7 +87,7 @@ $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
 function errorPopup(text, target, clazz){
 	clazz = clazz || "";
 	if(!$(".validation-error.popup").is(":visible")) {
-		var errorPopup = $("<div class='"+ clazz +" validation-error popup close-popup'><div class='popup-error-message'>"+text+"</div><div class='subtitle'>("+ MESSAGES['click.to_close'] +")</div></div>");
+		var errorPopup = $("<div class='"+ clazz +" validation-error popup close-popup'><div class='popup-error-message'>"+text+"</div><div class='subtitle'>("+ Messages.get('button_hint.click_to_close') +")</div></div>");
 		errorPopup.insertAfter(target).show();
 	}
 	setTimeout(function(){

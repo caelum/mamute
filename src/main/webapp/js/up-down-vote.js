@@ -26,11 +26,11 @@ function vote(link) {
 				var count = jqXHR.responseText;
 				voteSuccess(link, count);
 			} else if (jqXHR.status == "409") {
-				errorPopup(MESSAGES['vote_own_question'], link);
+				errorPopup(Messages.get('vote.ownquestion'), link);
 			} else if (jqXHR.status == "403") {
 				errorPopup(jqXHR.responseText, link);
 			} else {
-				errorPopup(MESSAGES['error_occured'], link);
+				errorPopup(Messages.get('error.occured'), link);
 				console.log(jqXHR);
 			}
 			$(".vote-option").removeClass("stop");
@@ -55,11 +55,11 @@ function removeVote(link) {
 				var count = jqXHR.responseText;
 				voteRemovalSuccess(link, count);
 			} else if (jqXHR.status == "409") {
-				errorPopup(MESSAGES['vote_own_question'], link);
+				errorPopup(Messages.get('vote.ownquestion'), link);
 			} else if (jqXHR.status == "403") {
 				errorPopup(jqXHR.responseText, link);
 			} else {
-				errorPopup(MESSAGES['error_occured'], link);
+				errorPopup(Messages.get('error.occured'), link);
 				console.log(jqXHR);
 			}
 			$(".vote-option").removeClass("stop");

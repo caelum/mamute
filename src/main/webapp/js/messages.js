@@ -8,23 +8,32 @@ var Messages = (function() {
 			if (Object.keys(obj.keys).length > 0) {
 				return obj.keys[key];
 			} else {
-				obj.keys = JSON.parse(localStorage.messages);
+				if (localStorage.messages !== undefined) {
+					obj.keys = JSON.parse(localStorage.messages);
+				}
 				if (Object.keys(obj.keys).length > 0) {
 					return obj.keys[key];
 				} else {
-					obj.load();
-					setTimeout(function() { obj.get(key); }, 2000);
+					obj.load(false);
+					return obj.keys[key];
 				}
 			}
 		}
 	}
 	
-	obj.load = function() {
+	obj.load = function(isAsync) {
+		if (isAsync === undefined) {
+			isAsync = true;
+		}
+		
 		if (localStorage.messages === undefined) {
 			if (Object.keys(obj.keys).length == 0) {
-				$.get('messages/loadAll', {}, function(result) {
-					obj.keys = result.hashMap;
-					localStorage.setItem('messages', JSON.stringify(result.hashMap));
+				$.ajax('messages/loadAll', {
+					async: isAsync,
+					success: function(result) {
+						obj.keys = result.hashMap;
+						localStorage.setItem('messages', JSON.stringify(result.hashMap));
+					}
 				});
 			}
 		} else {
