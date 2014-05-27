@@ -8,8 +8,8 @@ var Messages = (function() {
 			if (Object.keys(obj.keys).length > 0) {
 				return obj.keys[key];
 			} else {
-				if (localStorage.messages !== undefined) {
-					obj.keys = JSON.parse(localStorage.messages);
+				if (sessionStorage.messages !== undefined) {
+					obj.keys = JSON.parse(sessionStorage.messages);
 				}
 				if (Object.keys(obj.keys).length > 0) {
 					return obj.keys[key];
@@ -26,18 +26,18 @@ var Messages = (function() {
 			isAsync = true;
 		}
 		
-		if (localStorage.messages === undefined) {
+		if (sessionStorage.messages === undefined) {
 			if (Object.keys(obj.keys).length == 0) {
 				$.ajax('messages/loadAll', {
 					async: isAsync,
 					success: function(result) {
 						obj.keys = result.hashMap;
-						localStorage.setItem('messages', JSON.stringify(result.hashMap));
+						sessionStorage.setItem('messages', JSON.stringify(result.hashMap));
 					}
 				});
 			}
 		} else {
-			obj.keys = JSON.parse(localStorage.messages);
+			obj.keys = JSON.parse(sessionStorage.messages);
 		}
 	}
 	
