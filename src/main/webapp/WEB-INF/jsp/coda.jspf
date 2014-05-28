@@ -18,6 +18,7 @@
 	var AVIARY_API_KEY = "${env.get('filepicker.aviary.api_key')}";
 	var INK_API_KEY = "${env.get('filepicker.ink.api_key')}";
 	var ALL_TAGS_URL = "${linkTo[TagController].jsonTags}";
+	var MESSAGES_LOADER_URL = "${linkTo[MessagesController].loadMessages}";
 </script>
 	
 <c:if test="${environment.name != 'production'}" >

@@ -1,22 +1,13 @@
 var Messages = (function() {
 	var obj = {};
 	
-	obj.keys = {};
-	
 	obj.get = function(key) {
 		if (key.length > 0) {
-			if (Object.keys(obj.keys).length > 0) {
-				return obj.keys[key];
+			var value =  sessionStorage.getItem(key);
+			if (value != null) {
+				return value;
 			} else {
-				if (sessionStorage.messages !== undefined) {
-					obj.keys = JSON.parse(sessionStorage.messages);
-				}
-				if (Object.keys(obj.keys).length > 0) {
-					return obj.keys[key];
-				} else {
-					obj.load(false);
-					return obj.keys[key];
-				}
+				return "???"+key+"???";
 			}
 		}
 	}
@@ -26,19 +17,17 @@ var Messages = (function() {
 			isAsync = true;
 		}
 		
-		if (sessionStorage.messages === undefined) {
-			if (Object.keys(obj.keys).length == 0) {
-				$.ajax('messages/loadAll', {
-					async: isAsync,
-					success: function(result) {
-						obj.keys = result.hashMap;
-						sessionStorage.setItem('messages', JSON.stringify(result.hashMap));
-					}
-				});
+		$.ajax(MESSAGES_LOADER_URL, {
+			async: isAsync,
+			success: function(result) {
+				var keys = Object.keys(result.hashMap);
+				
+				for (var x = 0; x < keys.length; x++) {
+					var key = keys[x];
+					sessionStorage.setItem(key, result.hashMap[key]);
+				}
 			}
-		} else {
-			obj.keys = JSON.parse(sessionStorage.messages);
-		}
+		});
 	}
 	
 	return {
