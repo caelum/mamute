@@ -1,7 +1,4 @@
 $(function(){
-	var ANSWER = MESSAGES['answers'],
-		QUESTION = MESSAGES['perguntas']
-		WATCHED = MESSAGES['watched'];
 	
 	$(".advanced-data-section").on("click", ".order-by" , function(event){
 		event.preventDefault();
@@ -36,33 +33,6 @@ $(function(){
 	function selectPage(pageSelected) {
 		$(pageSelected).closest(".pager").find("li").removeClass("current");
 		$(pageSelected).addClass("current");
-	}
-	
-	function repopulateWith(target, list, type) {
-		var listElements = "";
-		$(list).each(function(index, item){
-			var question = getQuestion(type, item),
-				href = getHref(type, question, item);
-			listElements += "<li class='ellipsis advanced-data-line'><span class='counter'>"+item.voteCount+"</span> <a href='"+href+"'>"+question.information.title+"</a></li>";
-		});
-		$(target).html(listElements);
-	}
-	
-	function getHref(type, question, item){
-		var answerAnchor;
-		console.log(question);
-		if(type == ANSWER){
-			answerAnchor = "#answer-"+item.id;
-		}
-		return "/"+question.id+"-"+question.information.sluggedTitle+answerAnchor;
-	}
-	
-	function getQuestion(type, item){
-		if(type == QUESTION || type == WATCHED){
-			return item;
-		}else if(type == ANSWER){
-			return item.question;
-		}
 	}
 	
 	function changePagerUrl(self, url){

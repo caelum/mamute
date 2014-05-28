@@ -12,13 +12,13 @@ $(".flag-it").click(function(e) {
 
 	var callbacks = {};
 	callbacks["409"] = function() {
-		errorPopup(MESSAGES['cant_do'], modal.element, "center-popup");
+		errorPopup(Messages.get('error.cant_do'), modal.element, "center-popup");
 	};
 	callbacks["400"] = function() {
-		errorPopup(MESSAGES['choose_an_option'], modal.element, "center-popup");
+		errorPopup(Messages.get('hint.choose_an_option'), modal.element, "center-popup");
 	};
 	callbacks["403"] = function() {
-		errorPopup(MESSAGES['auth_requires_login'], modal.element, "center-popup");
+		errorPopup(Messages.get('auth.requires_login'), modal.element, "center-popup");
 	};
 	callbacks["200"] = function() {
 		modal.hide(200);
@@ -35,12 +35,12 @@ $(".flag-it").click(function(e) {
 		e.preventDefault();
 		var checked = form.find("input:radio:checked");
 		if (isEmpty(checked)) {
-			errors.text(MESSAGES['choose_a_reason']).show();
+			errors.text(Messages.get('hint.choose_a_reason')).show();
 			return;
 		}
 		reason = form.find("textarea");
 		if (checked.val() == "OTHER" && isEmpty(reason.val())) {
-			errors.text(MESSAGES['describe_reason']).show();
+			errors.text(Messages.get('hint.describe_reason')).show();
 			return;
 		}
 		$.ajax(uri, {
@@ -48,7 +48,7 @@ $(".flag-it").click(function(e) {
 				if (callbacks[xhr.status] != undefined) {
 					callbacks[xhr.status].call();
 				} else {
-					errorPopup(MESSAGES['error_occured'], modal, "center-popup");
+					errorPopup(Messages.get('error.occured'), modal, "center-popup");
 					console.log(xhr);
 				}
 			},

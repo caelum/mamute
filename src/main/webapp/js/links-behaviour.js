@@ -12,7 +12,7 @@ $(function() {
 			element.off('click');
 			element.click(function(e) {
 				e.preventDefault();
-				errorPopup(MESSAGES['need_to_have'] + " " + required + " " + MESSAGES['reputation_score'] + "!", this);
+				errorPopup(Messages.get('need.to_have') + " " + required + " " + Messages.get('reputation_score') + "!", this);
 			});
 		}
 	});
@@ -23,7 +23,7 @@ $(function() {
 			element.off('click');
 			element.click(function(e) {
 				e.preventDefault();
-				errorPopup(MESSAGES['author_cant_realize_operation'], this);
+				errorPopup(Messages.get('error.author.cant_realize_operation'), this);
 			});
 		}
 	});
@@ -31,7 +31,7 @@ $(function() {
 		$('.requires-login').off('click');
 		$('.requires-login').bind("click", function(e) {
 			e.preventDefault();
-			errorPopup(MESSAGES['auth_requires_login'], this);
+			errorPopup(Messages.get('auth.requires_login'), this);
 		});
 	}
 	$('.iframe-load').click(function() {
