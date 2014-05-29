@@ -5,7 +5,6 @@ import java.net.URL;
 
 import org.mamute.model.MethodType;
 
-import com.google.common.base.Objects;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 

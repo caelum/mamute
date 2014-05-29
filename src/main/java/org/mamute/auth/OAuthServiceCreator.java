@@ -45,7 +45,7 @@ public class OAuthServiceCreator {
 		.provider(FacebookApi.class)
 		.apiKey(env.get(FACEBOOK_CLIENT_ID))
 		.apiSecret(env.get(FACEBOOK_APP_SECRET))
-		.callback(env.get(FACEBOOK_REDIRECT_URI))
+				.callback(env.get(FACEBOOK_REDIRECT_URI))
 		.build();
 		return service;
 	}

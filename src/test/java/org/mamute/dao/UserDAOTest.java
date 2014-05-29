@@ -83,6 +83,7 @@ public class UserDAOTest extends DatabaseTestCase {
 		assertNotNull(found);
 		assertEquals(user, found);
 	}
+	
 	@Test
 	public void should_verify_if_email_exists() throws Exception {
 		saveUser("chico@brutal.com");

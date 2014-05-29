@@ -6,18 +6,16 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.apache.log4j.Logger;
-import org.mamute.auth.Access;
-import org.mamute.auth.FacebookAuthService;
-import org.mamute.auth.MergeLoginMethod;
-import org.mamute.auth.SignupInfo;
-import org.mamute.dao.LoginMethodDAO;
-import org.mamute.dao.UserDAO;
+import org.mamute.auth.FacebookAPI;
+import org.mamute.auth.SocialAPI;
 import org.mamute.factory.MessageFactory;
-import org.mamute.model.LoginMethod;
 import org.mamute.model.MethodType;
 import org.mamute.model.User;
+import org.mamute.qualifiers.Facebook;
 import org.mamute.validators.UrlValidator;
+import org.scribe.model.Token;
+import org.scribe.model.Verifier;
+import org.scribe.oauth.OAuthService;
 
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
@@ -29,15 +27,11 @@ import br.com.caelum.vraptor.validator.I18nMessage;
 @Controller
 public class FacebookAuthController extends BaseController{
 	
-	private final static Logger LOG = Logger.getLogger(FacebookAuthController.class);
-	@Inject private FacebookAuthService facebook;
-	@Inject private UserDAO users;
-	@Inject private LoginMethodDAO loginMethods;
 	@Inject private Result result;
-	@Inject private Access access;
 	@Inject private MessageFactory messageFactory;
 	@Inject private UrlValidator urlValidator;
-	@Inject private MergeLoginMethod mergeLoginMethod;
+	@Inject private LoginMethodManager loginManager;
+	@Inject @Facebook private OAuthService service;
 	
 	@Get
 	public void signupViaFacebook(String code, String state) {
@@ -47,40 +41,13 @@ public class FacebookAuthController extends BaseController{
 			return;
 		}
 		
-		try {
-			String rawToken = facebook.buildToken(code);
-			SignupInfo signupInfo = facebook.getSignupInfo();
-			User existantFacebookUser = users.findByEmailAndMethod(signupInfo.getEmail(), MethodType.FACEBOOK);
-			if (existantFacebookUser != null) {
-				access.login(existantFacebookUser);
-				redirectToRightUrl(state);
-				return;
-			}
-			
-			User existantGoogleUser = users.findByEmailAndMethod(signupInfo.getEmail(), MethodType.GOOGLE);
-			if (existantGoogleUser != null) {
-				mergeLoginMethod.mergeLoginMethods(rawToken, existantGoogleUser, MethodType.FACEBOOK);
-				logMessages(existantGoogleUser);
-				redirectToRightUrl(state);
-				return;
-			}
-			
-			User existantBrutalUser = users.findByEmailAndMethod(signupInfo.getEmail(), MethodType.BRUTAL);
-			if (existantBrutalUser != null) {
-				mergeLoginMethod.mergeLoginMethods(rawToken, existantBrutalUser, MethodType.FACEBOOK);
-				logMessages(existantBrutalUser);
-				redirectToRightUrl(state);
-				return;
-			}
+		Token token = service.getAccessToken(null, new Verifier(code));
+		
+		SocialAPI facebookAPI = new FacebookAPI(service, token);
+		
+		loginManager.merge(MethodType.FACEBOOK, facebookAPI);
 
-			createNewUser(rawToken, signupInfo);
-			redirectToRightUrl(state);
-		} catch (IllegalArgumentException e) {
-			LOG.error("unable to signup user with facebook", e);
-			includeAsList("messages", i18n("error", "error.signup.facebook.unknown"));
-			redirectTo(SignupController.class).signupForm();
-			return;
-		}
+	    redirectToRightUrl(state);
 	}
 
 	private void logMessages(User existantUser) {
@@ -98,18 +65,5 @@ public class FacebookAuthController extends BaseController{
         } else {
             redirectTo(ListController.class).home(null);
         }
-	}
-
-	private void createNewUser(String rawToken, SignupInfo signupInfo) {
-		User user = new User(signupInfo.getName(), signupInfo.getEmail());
-		LoginMethod facebookLogin = new LoginMethod(MethodType.FACEBOOK, signupInfo.getEmail(), rawToken, user);
-		if (signupInfo.containsPhotoUrl()) {
-			user.setPhotoUri(signupInfo.getPhotoUri());
-		}
-		user.add(facebookLogin);
-		
-		users.save(user);
-		loginMethods.save(facebookLogin);
-		access.login(user);
 	}
 }

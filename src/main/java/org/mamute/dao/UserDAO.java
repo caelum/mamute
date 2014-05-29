@@ -121,14 +121,22 @@ public class UserDAO {
 			session.delete(userSession);
 		}
     }
-
-	public User findByEmailAndMethod(String email, MethodType... methods) {
+	
+	public User findByEmailAndMethod(String email, MethodType method) {
 		Query query = session.createQuery("select distinct u from User u " +
-				"join u.loginMethods method " +
-				"where method.serviceEmail = :email " +
-				"and method.type in (:methods)");
+				"join u.loginMethods methods " +
+				"where methods.serviceEmail = :email " +
+				"and methods.type in (:methods)");
 		query.setParameter("email", email);
-		query.setParameterList("methods", methods);
+		query.setParameter("methods", method);
+		return (User) query.uniqueResult();
+	}
+	
+	public User findByEmail (String email) {
+		Query query = session.createQuery("select distinct u from User u " +
+				"join u.loginMethods methods " +
+				"where methods.serviceEmail = :email ");
+		query.setParameter("email", email);
 		return (User) query.uniqueResult();
 	}
 
