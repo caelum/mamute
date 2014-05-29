@@ -29,6 +29,19 @@ public enum MethodType {
 			loginMethod.setToken(token);
 			
 		}
+	},
+	
+	GOOGLE {
+		@Override
+		public void updateForgottenPassword(String password,
+				LoginMethod loginMethod) {
+			//do nothing
+		}
+
+		@Override
+		public void setPassword(LoginMethod loginMethod, String token) {
+			loginMethod.setToken(token);
+		}
 	};
 
 	public abstract void updateForgottenPassword(String password, LoginMethod loginMethod);

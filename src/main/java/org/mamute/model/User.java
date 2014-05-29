@@ -269,6 +269,7 @@ public class User implements Identifiable {
 				return gravatar;
 			}
 		} else {
+			if(photoUri.contains("googleusercontent")) return photoUri; 
 			return photoUri + "?width=" + width + "&height=" + height;
 		}
 	}

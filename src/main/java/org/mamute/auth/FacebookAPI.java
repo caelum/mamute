@@ -10,20 +10,21 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-public class FacebookAPI {
-
+public class FacebookAPI implements SocialAPI{
+	
 	private final Token accessToken;
 	private final OAuthService service;
-
+	
 	public FacebookAPI(OAuthService service, Token accessToken) {
 		this.service = service;
 		this.accessToken = accessToken;
 	}
 
-	public JsonObject getSignupInfo() {
+	public SignupInfo getSignupInfo() {
 		String url = "https://graph.facebook.com/me?fields=name,email,location,username,id";
 		Response response = makeRequest(url);
-		return new JsonParser().parse(response.getBody()).getAsJsonObject();
+		JsonObject jsonObject = new JsonParser().parse(response.getBody()).getAsJsonObject();
+		return SignupInfo.fromFacebook(jsonObject);
 	}
 
 	public String getUserId() {
@@ -46,5 +47,10 @@ public class FacebookAPI {
 		service.signRequest(accessToken, request);
 		Response response = request.send();
 		return response;
+	}
+
+	@Override
+	public Token getAccessToken() {
+		return accessToken;
 	}
 }

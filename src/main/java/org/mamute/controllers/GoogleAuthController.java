@@ -2,10 +2,10 @@ package org.mamute.controllers;
 
 import javax.inject.Inject;
 
-import org.mamute.auth.FacebookAPI;
+import org.mamute.auth.GoogleAPI;
 import org.mamute.auth.SocialAPI;
 import org.mamute.model.MethodType;
-import org.mamute.qualifiers.Facebook;
+import org.mamute.qualifiers.Google;
 import org.mamute.validators.UrlValidator;
 import org.scribe.model.Token;
 import org.scribe.model.Verifier;
@@ -17,29 +17,22 @@ import br.com.caelum.vraptor.routes.annotation.Routed;
 
 @Routed
 @Controller
-public class FacebookAuthController extends BaseController{
+public class GoogleAuthController extends BaseController{
 	
+	@Inject @Google private OAuthService service;
 	@Inject private UrlValidator urlValidator;
 	@Inject private LoginMethodManager loginManager;
-	@Inject @Facebook private OAuthService service;
 	
 	@Get
-	public void signupViaFacebook(String code, String state) {
-		if (code == null) {
-			includeAsList("messages", i18n("error", "error.signup.facebook.unknown"));
-			redirectTo(SignupController.class).signupForm();
-			return;
-		}
-		
+	public void signUpViaGoogle(String redirect, String code) {
 		Token token = service.getAccessToken(null, new Verifier(code));
+		SocialAPI googleAPI = new GoogleAPI(token, service);
+	    
+		loginManager.merge(MethodType.GOOGLE, googleAPI);
 		
-		SocialAPI facebookAPI = new FacebookAPI(service, token);
-		
-		loginManager.merge(MethodType.FACEBOOK, facebookAPI);
-
-	    redirectToRightUrl(state);
+	    redirectToRightUrl(redirect);
 	}
-
+	
 	private void redirectToRightUrl(String state) {
 		boolean valid = urlValidator.isValid(state);
 		if (!valid) {

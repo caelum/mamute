@@ -65,6 +65,10 @@ public class LoginMethod {
 	public static LoginMethod facebookLogin(User user, String email, String token) {
 		return new LoginMethod(MethodType.FACEBOOK, email, token, user);
 	}
+	
+	public static LoginMethod newLogin(User user, String email, String token, MethodType methodType) {
+		return new LoginMethod(methodType, email, token, user);
+	}
 
 	public boolean isBrutal() {
 		return type.equals(MethodType.BRUTAL);
