@@ -16,6 +16,8 @@ PagPag.pem
 .classpath
 .project
 .settings
+.idea/
+mamute.iml
 *.swp
 vraptor-console.sh
 .vraptor-console/

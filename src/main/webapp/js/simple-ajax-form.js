@@ -17,13 +17,13 @@ $(function() {
 		var formArea = $(this).siblings(".ajax-form");
 		formArea.toggleClass("hidden");
 		formArea.find(".to-focus").focus();
-		commentLengthCounter();
+		commentLengthCounter(formArea.find('form textarea'));
 	}
 	
 	function hideForm(e){
 		e.preventDefault();
-		var form= $(this).closest("form.ajax");
-		resetForm(form)
+		var form = $(this).closest("form.ajax");
+		resetForm(form, true);
 	}
 	
 	function submitForm(e) {
@@ -31,11 +31,13 @@ $(function() {
 		executeAjax($(this));
 	}
 	
-	function resetForm(form){
+	function resetForm(form, cancelPressed){
 		var formParent = form.parent();
 		form.removeClass("inactive");
 		form.find("input[type='submit']").attr("disabled", false);
 		formParent.addClass("hidden");
+		if(!cancelPressed)
+			form.find(".comment-textarea").val("");
 	}
 	
 	function executeAjax(form){
@@ -44,20 +46,21 @@ $(function() {
 
 		form.find(".submit").attr("disabled", true);
 		form.find(".cancel").attr("disabled", false);
+		
 		var error = function(jqXHR) {
-			resetForm(form);
+			resetForm(form, false);
 			if (jqXHR.status == 400) {
-				errorPopup("Ocorreu um erro de validação inesperado.", form.parent(), "center-popup");
+				errorPopup(Messages.get('error.occured'), form.parent(), "center-popup");
 				return;
 			}
-			errorPopup("Ocorreu um erro.", form.parent(), "center-popup");
+			errorPopup(Messages.get('error.occured'), form.parent(), "center-popup");
 			console.log(jqXHR);
 		};
 	
 		var success = function(response, status, jqhr) {
 			var target = $("#" + form.data("ajax-result"));
 			if (jqhr.status == 201) {
-				target.append("<span class='suggestion-accepted'>Sugest&atilde;o enviada!</span>");
+				target.append("<span class='suggestion-accepted'>" + Messages.get('validation.suggestion_sent') + "</span>");
 			} else {
 				var action = form.data("ajax-on-callback") || "replace-inner";
 				if (action == "replace-inner") {
@@ -69,7 +72,7 @@ $(function() {
 				}
 				target.removeClass("hidden");
 			}
-			resetForm(form);
+			resetForm(form, false);
 			bindAll();
 		};
 		

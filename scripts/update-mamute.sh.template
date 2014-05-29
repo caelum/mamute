@@ -47,7 +47,8 @@ mvn clean package -DskipTests
 
 echo 'Copying new version of mamute'
 
-cp -R target/mamute-1.0.0-SNAPSHOT/* $APPLICATION_DIR/mamute
+VERSION=`scripts/get-version.sh`
+cp -R target/mamute-$VERSION/* $APPLICATION_DIR/mamute
 
 cd $APPLICATION_DIR
 

@@ -175,6 +175,7 @@ public class DataImport extends TestCase {
     }
 
 	private void approvedNews(String title, String content) {
+		LOG.info("adding news: " + title);
 		newNews(title, content, true);
 	}
 	private void notApprovedNews(String title, String content) {

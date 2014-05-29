@@ -25,7 +25,7 @@
 	
 	<hr />
 	<span style="display:block; color: #aaa;">
-		${bundle.getMessage( "notification_mail.footer_message", ${bundle.getMessage("site.name")} )}
+		${bundle.getMessage("notification_mail.footer_message", [bundle.getMessage("site.name")])}
 	</span>
 </body>
 </html>

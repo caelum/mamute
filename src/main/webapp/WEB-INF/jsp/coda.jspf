@@ -18,17 +18,7 @@
 	var AVIARY_API_KEY = "${env.get('filepicker.aviary.api_key')}";
 	var INK_API_KEY = "${env.get('filepicker.ink.api_key')}";
 	var ALL_TAGS_URL = "${linkTo[TagController].jsonTags}";
-	
-	var MESSAGES = [];
-	MESSAGES['not_empty'] = "<fmt:message key='org.hibernate.validator.constraints.NotEmpty.message' />";
-	MESSAGES['invalid_email'] = "<fmt:message key='org.hibernate.validator.constraints.Email.message' />";
-	MESSAGES['not_equal'] = "<fmt:message key='validator.not.equal' />";
-	MESSAGES['invalid_date'] = "<fmt:message key='validator.invalid.date' />";
-	MESSAGES['invalid_url'] = "<fmt:message key='validator.invalid.url' />";
-	MESSAGES['minimum_characters'] = "<fmt:message key='validator.minimum.characters' />";
-	MESSAGES['maximum_characters'] = "<fmt:message key='validator.maximum.characters' />";
-	
-	
+	var MESSAGES_LOADER_URL = "${linkTo[MessagesController].loadMessages}";
 </script>
 	
 <c:if test="${environment.name != 'production'}" >
@@ -48,6 +38,7 @@
 	<script src="<c:url value="/js/deps/marked.js"/>"></script>
 	<script src="<c:url value="/js/deps/filepicker.js"/>"></script>
 	<script src="<c:url value="/js/deps/feather.js"/>"></script>
+	<script src="<c:url value="/js/messages.js"/>"></script>
 	<script src="<c:url value="/js/tags-manager.js"/>"></script>
 	<script src="<c:url value="/js/form-validation.js"/>"></script>
 	<script src="<c:url value="/js/form-hints.js"/>"></script>
@@ -97,7 +88,7 @@ $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
 function errorPopup(text, target, clazz){
 	clazz = clazz || "";
 	if(!$(".validation-error.popup").is(":visible")) {
-		var errorPopup = $("<div class='"+ clazz +" validation-error popup close-popup'><div class='popup-error-message'>"+text+"</div><div class='subtitle'>(clique para fechar)</div></div>");
+		var errorPopup = $("<div class='"+ clazz +" validation-error popup close-popup'><div class='popup-error-message'>"+text+"</div><div class='subtitle'>("+ Messages.get('button_hint.click_to_close') +")</div></div>");
 		errorPopup.insertAfter(target).show();
 	}
 	setTimeout(function(){

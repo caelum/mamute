@@ -16,7 +16,7 @@ $(function(){
 			},
 			error: function(jqXHR) {
 				toggleAll();
-				errorPopup("Ocorreu um erro...", mark, "center-popup");
+				errorPopup(Messages.get('error.occured'), mark, "center-popup");
 				console.log(jqXHR);
 			}
 		});

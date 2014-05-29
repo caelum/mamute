@@ -3,5 +3,6 @@ $('.more-comments').click(function(){
 	collapsed.toggleClass("hidden");
 	
 	if(!collapsed.hasClass("hidden")) $(this).html("Ocultar comentários");
-	else $(this).html("Mostrar todos os <strong>" + $(this).attr("size") + "</strong> comentários");
+	else $(this).html(Messages.get('show_all') + " <strong>" + $(this).attr("size") 
+			+ "</strong> " + Messages.get('the_comments'));
 });

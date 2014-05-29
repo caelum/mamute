@@ -1,6 +1,7 @@
 package org.mamute.util;
 
 import static br.com.caelum.vraptor.environment.ServletBasedEnvironment.ENVIRONMENT_PROPERTY;
+import static com.google.common.base.Objects.firstNonNull;
 import static com.google.common.base.Strings.isNullOrEmpty;
 
 import java.io.IOException;
@@ -9,6 +10,8 @@ import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.mamute.providers.SessionFactoryCreator;
+
+import com.google.common.base.Objects;
 
 import br.com.caelum.vraptor.environment.DefaultEnvironment;
 import br.com.caelum.vraptor.environment.Environment;
@@ -39,7 +42,7 @@ public class ScriptSessionCreator {
         try {
             String envName = System.getenv("DATAIMPORT_ENV");
             if (isNullOrEmpty(envName)) {
-            	envName = System.getProperty(ENVIRONMENT_PROPERTY);
+            	envName = firstNonNull(System.getProperty(ENVIRONMENT_PROPERTY), "development");
             }
             env = new DefaultEnvironment(new EnvironmentType(envName));
             LOG.info("using env '" + envName + "' for script session creator");

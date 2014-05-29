@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.mail.EmailException;
 import org.apache.log4j.Logger;
@@ -21,6 +20,7 @@ import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.errormail.mail.ErrorMail;
 import br.com.caelum.vraptor.errormail.mail.ErrorMailFactory;
 import br.com.caelum.vraptor.errormail.mail.ErrorMailer;
+import br.com.caelum.vraptor.errormail.mail.ExceptionData;
 import br.com.caelum.vraptor.ioc.Container;
 
 public class NotificationManager {
@@ -31,7 +31,6 @@ public class NotificationManager {
 	@Inject private ThreadPoolContainer threadPoolContainer;
 	@Inject private AfterSuccessfulTransaction afterTransaction;
 	@Inject private ErrorMailer errorMailer;
-	@Inject private HttpServletRequest req;
 	@Inject private Environment env;
 	
 	@Inject	private CDIFakeRequestProvider fakeProvider;
@@ -93,8 +92,8 @@ public class NotificationManager {
 
 				private void sendErrorMail(Exception exception) {
 					try {
-						req.setAttribute(ErrorMailFactory.EXCEPTION, exception);
-						ErrorMail errorMail = new ErrorMailFactory(req, env).build();
+						ExceptionData exceptionData = new ExceptionData(exception, "", null, "", "");
+						ErrorMail errorMail = new ErrorMailFactory(exceptionData, env).build();
 						errorMailer.register(errorMail);
 					} catch (EmailException e) {
 						LOG.error("Could not send message error: ", e);

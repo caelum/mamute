@@ -1,4 +1,4 @@
-package org.mamute.infra.rss.converter;
+package org.mamute.infra.rss.job;
 
 import javax.inject.Inject;
 
@@ -12,19 +12,19 @@ import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.quartzjob.CronTask;
 
 @Controller
-public class InfoQRSSJob implements CronTask{
-	private static final String INFOQ_BASE_KEY = "infoq";
-	private static final Logger LOG = Logger.getLogger(InfoQRSSJob.class);
+public class OndeTrabalharRSSJob implements CronTask{
+	private static final String JOBS_BASE_KEY = "jobs";
+	private static final Logger LOG = Logger.getLogger(OndeTrabalharRSSJob.class);
 	@Inject private Result result;
 	@Inject private FeedsMap feedsMap;
 
 
 	@Override
-	@Path("/jdnakfh3nfis39103f1")
+	@Path("/asjkfnaowo21jkhwe12341")
 	public void execute() {
 		LOG.debug("executing " + getClass().getSimpleName());
-		feedsMap.putOrUpdate(INFOQ_BASE_KEY, RSSType.INFO_Q);
-		LOG.debug(feedsMap.get(INFOQ_BASE_KEY));
+		feedsMap.putOrUpdate(JOBS_BASE_KEY, RSSType.ONDE_TRABALHAR);
+		LOG.debug(feedsMap.get(JOBS_BASE_KEY));
 		result.nothing();
 	}
 

@@ -72,7 +72,7 @@ public class UserProfileController extends BaseController{
 		result.include("answersPageTotal", answers.numberOfPagesTo(user));
 		result.include("watchedQuestionsPageTotal", watchers.numberOfPagesTo(user));
 		
-		result.include("mainTags", tags.findMainTagsOfUser(user));
+		result.include("userProfileMainTags", tags.findMainTagsOfUser(user));
 		result.include("selectedUser", user);
 		result.include("usersActive", true);
 		result.include("noDefaultActive", true);

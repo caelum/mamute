@@ -25,8 +25,8 @@
 			</tags:userProfileAdvancedData>
 		</div>
 		<div class="advanced-data-line-wrapper">
-			<tags:userProfileAdvancedData i18n="tags" list="${mainTags}" type="tags" orderOptions="false" withPagination="false">
-				<c:forEach var="tagUsage" items="${mainTags}">
+			<tags:userProfileAdvancedData i18n="tags" list="${userProfileMainTags}" type="tags" orderOptions="false" withPagination="false">
+				<c:forEach var="tagUsage" items="${userProfileMainTags}">
 					<li class="ellipsis advanced-data-line tag-line"><span class="counter tag-usage">${tagUsage.usage}</span> <tags:tag tag="${tagUsage.tag}"/></li>
 				</c:forEach>
 			</tags:userProfileAdvancedData>

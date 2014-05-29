@@ -187,7 +187,7 @@
 						return valid;
 					},
 					function(){
-						return "Use apenas tags que existem! As seguintes tags não existem: <b>"+ tagsNotFound + "</b>";
+						return Messages.get('validation.use_only_existing_tags') + "<b>" + tagsNotFound + "</b>";
 					}
 			);
 
@@ -212,7 +212,7 @@
 }
 
 	var components = [new AutoCompleteDOM(), new TagsNavigation()];
-	if (ANYONE_CAN_CREATE_TAGS != "true") {
+	if (ANYONE_CAN_CREATE_TAGS == "true") {
 		components.push(new TagsValidator());
 	}
 	new TagsManager(components);
