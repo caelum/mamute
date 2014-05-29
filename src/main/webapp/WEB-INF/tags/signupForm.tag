@@ -15,7 +15,7 @@
 		<p class="or">&#8212; <fmt:message key="auth.or" /> &#8212;</p>
 	</c:if>
 	<c:if test="${env.supports('feature.google.login')}">
-		<a href="/sign-up/google?redirect=${redirectUrl}" class="social-button-wraper">
+		<a href="${googleUrl}" class="social-button-wraper">
 			<p><fmt:message key="signup.google_button.label" /></p>
 			<span class="google-button"><fmt:message key="signup.button.content" /></span>
 		</a>

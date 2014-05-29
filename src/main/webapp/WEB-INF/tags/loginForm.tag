@@ -14,7 +14,7 @@
 	
 	
 	<c:if test="${env.supports('feature.google.login')}">
-		<a href="/sign-up/google?redirect=${redirectUrl}" class="social-button-wraper">
+		<a href="${googleUrl}" class="social-button-wraper">
 			<p><fmt:message key="auth.google_button.label" /></p>
 			<span class="google-button"><fmt:message key="auth.button.content" /></span>
 		</a>

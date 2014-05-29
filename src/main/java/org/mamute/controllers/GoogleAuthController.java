@@ -1,7 +1,6 @@
 package org.mamute.controllers;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpSession;
 
 import org.mamute.auth.GoogleAPI;
 import org.mamute.auth.SocialAPI;
@@ -14,7 +13,6 @@ import org.scribe.oauth.OAuthService;
 
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
-import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.routes.annotation.Routed;
 
 @Routed
@@ -22,24 +20,11 @@ import br.com.caelum.vraptor.routes.annotation.Routed;
 public class GoogleAuthController extends BaseController{
 	
 	@Inject @Google private OAuthService service;
-	@Inject private Result result;
-	@Inject private HttpSession session;
 	@Inject private UrlValidator urlValidator;
 	@Inject private LoginMethodManager loginManager;
 	
 	@Get
-	public void signUpViaGoogle(String redirect) {
-		String url = service.getAuthorizationUrl(null);
-		
-		session.setAttribute("redirect", redirect);
-		
-		result.redirectTo(url);
-	}
-	
-	@Get
-	public void googleCallback(String code) {
-		String redirect = (String) session.getAttribute("redirect");
-		
+	public void signUpViaGoogle(String redirect, String code) {
 		Token token = service.getAccessToken(null, new Verifier(code));
 		SocialAPI googleAPI = new GoogleAPI(token, service);
 	    
