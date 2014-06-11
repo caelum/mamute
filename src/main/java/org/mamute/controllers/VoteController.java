@@ -31,33 +31,33 @@ public class VoteController {
 	@Inject private ModelUrlMapping mapping;
 	@Inject private LoggedUser loggedUser;
 	
-	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
-	@AccessLevel(PermissionRulesConstants.VOTE_UP)
 	@Post
+	@AccessLevel(PermissionRulesConstants.VOTE_UP)
+	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
 	public void voteUp(Long id, String type) {
 		tryToVoteVotable(id, VoteType.UP, mapping.getClassFor(type));
 		loggedUser.getCurrent().votedUp();
 	}
 
-	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
-	@AccessLevel(PermissionRulesConstants.VOTE_DOWN)
 	@Post
+	@AccessLevel(PermissionRulesConstants.VOTE_DOWN)
+	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
 	public void voteDown(Long id, String type) {
 		tryToVoteVotable(id, VoteType.DOWN, mapping.getClassFor(type));
 		
 	}
 	
-	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
-	@AccessLevel(PermissionRulesConstants.VOTE_UP)
 	@Post
+	@AccessLevel(PermissionRulesConstants.VOTE_UP)
+	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
 	public void voteUpRemoval(Long id, String type) {
 		tryToRemoveVoteVotable(id, VoteType.UP, mapping.getClassFor(type));
 		loggedUser.getCurrent().votedUp();
 	}
 
-	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
-	@AccessLevel(PermissionRulesConstants.VOTE_DOWN)
 	@Post
+	@AccessLevel(PermissionRulesConstants.VOTE_DOWN)
+	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
 	public void voteDownRemoval(Long id, String type) {
 		tryToRemoveVoteVotable(id, VoteType.DOWN, mapping.getClassFor(type));
 		
