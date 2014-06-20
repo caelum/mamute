@@ -45,7 +45,7 @@ public class OAuthServiceCreator {
 		.provider(FacebookApi.class)
 		.apiKey(env.get(FACEBOOK_CLIENT_ID))
 		.apiSecret(env.get(FACEBOOK_APP_SECRET))
-				.callback(env.get(FACEBOOK_REDIRECT_URI))
+				.callback(env.get("host")+env.get(FACEBOOK_REDIRECT_URI))
 		.build();
 		return service;
 	}
@@ -57,7 +57,7 @@ public class OAuthServiceCreator {
 		.provider(Google2Api.class)
 		.apiKey(env.get(GOOGLE_CLIENT_ID))
 		.apiSecret(env.get(GOOGLE_CLIENT_SECRET))
-		.callback(env.get(GOOGLE_REDIRECT_URI))
+		.callback(env.get("host")+env.get(GOOGLE_REDIRECT_URI))
 		.scope("https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email")
 		.build();
 		return service;
