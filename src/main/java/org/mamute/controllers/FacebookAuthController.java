@@ -15,15 +15,14 @@ import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.routes.annotation.Routed;
 
-@Routed
 @Controller
-public class FacebookAuthController extends BaseController{
+public class FacebookAuthController extends BaseController {
 	
 	@Inject private UrlValidator urlValidator;
 	@Inject private LoginMethodManager loginManager;
 	@Inject @Facebook private OAuthService service;
 	
-	@Get
+	@Get("/sign-up/facebook/")
 	public void signupViaFacebook(String code, String state) {
 		if (code == null) {
 			includeAsList("messages", i18n("error", "error.signup.facebook.unknown"));
