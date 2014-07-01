@@ -13,17 +13,15 @@ import org.scribe.oauth.OAuthService;
 
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
-import br.com.caelum.vraptor.routes.annotation.Routed;
 
-@Routed
 @Controller
 public class GoogleAuthController extends BaseController{
 	
 	@Inject @Google private OAuthService service;
 	@Inject private UrlValidator urlValidator;
 	@Inject private LoginMethodManager loginManager;
-	
-	@Get
+
+	@Get("/sign-up/google/")
 	public void signUpViaGoogle(String redirect, String code) {
 		Token token = service.getAccessToken(null, new Verifier(code));
 		SocialAPI googleAPI = new GoogleAPI(token, service);

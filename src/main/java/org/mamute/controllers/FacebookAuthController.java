@@ -13,7 +13,6 @@ import org.scribe.oauth.OAuthService;
 
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
-import br.com.caelum.vraptor.routes.annotation.Routed;
 
 @Controller
 public class FacebookAuthController extends BaseController {
