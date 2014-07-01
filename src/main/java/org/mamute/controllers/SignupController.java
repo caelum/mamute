@@ -5,6 +5,7 @@ import static java.util.Arrays.asList;
 import javax.inject.Inject;
 
 import org.mamute.auth.FacebookAuthService;
+import org.mamute.auth.GoogleAuthService;
 import org.mamute.dao.LoginMethodDAO;
 import org.mamute.dao.UserDAO;
 import org.mamute.factory.MessageFactory;
@@ -29,12 +30,13 @@ public class SignupController {
 	@Inject private MessageFactory messageFactory;
 	@Inject private LoginMethodDAO loginMethods;
 	@Inject private FacebookAuthService facebook;
+	@Inject private GoogleAuthService google;
 	@Inject private Linker linker;
 
 	@Get
 	public void signupForm() {
-		String facebookUrl = facebook.getOauthUrl(null);
-		result.include("facebookUrl", facebookUrl);
+		result.include("facebookUrl", facebook.getOauthUrl(null));
+		result.include("googleUrl", google.getOauthUrl(null));
 	}
 
 	@Post
