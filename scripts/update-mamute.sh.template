@@ -1,5 +1,5 @@
 #!/bin/bash
-if [[ ( -z `$REPO_PATH` && -z `$WAR_PATH` ) || ( ! -z `$REPO_PATH` && ! -z `$WAR_PATH`) ]]; then
+if [[ ( -z "$REPO_PATH" && -z "$WAR_PATH" ) || ( ! -z "$REPO_PATH" && ! -z "$WAR_PATH") ]]; then
         echo "    Usage:"
         echo "    Using git: REPO_PATH=path/of/mamute/repository $0"
         echo "    Using war: WAR_PATH=path/of/mamute/war $0"
@@ -9,11 +9,11 @@ fi
 
 APPLICATION_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"/..
 
-echo "I will update the mamute of the instance: $APPLICATION_DIR. Press enter to continue..."
+echo "I will update the mamute of the instance: $APPLICATION_DIR . Press enter to continue..."
 read
 
-if [ ! -d `$APPLICATION_DIR/overrides` ]; then
-	mkdir `$APPLICATION_DIR/overrides`
+if [ ! -d "$APPLICATION_DIR"/overrides ]; then
+	mkdir "$APPLICATION_DIR/overrides"
 fi
 
 customFiles=("WEB-INF/classes/messages_pt_BR.properties"
@@ -36,18 +36,17 @@ echo 'Copying custom files'
 for ((i=1; i<${#customFiles[@]} ; i++))
 do
 	echo "Copying ${customFiles[i]}"
-	cp -R --parents ${customFiles[i]} `$APPLICATION_DIR/overrides`
+	cp -R --parents ${customFiles[i]} "$APPLICATION_DIR/overrides"
 done
 
 echo  'Removing old version of mamute' 
 
-
 echo 'Updating mamute'
 
-if [ -z `$REPO_PATH` ]; then
-	echo "using github repository  $REPO_PATH"
+if [ ! -z "$REPO_PATH" ]; then
+	echo "Using github repository  $REPO_PATH"
 	
-	cd `$REPO_PATH`
+	cd "$REPO_PATH"
 
 	git checkout master
 	git pull
@@ -60,8 +59,9 @@ if [ -z `$REPO_PATH` ]; then
 	cp -R target/mamute-$VERSION/* `$APPLICATION_DIR/mamute`
 fi
 
-if [ -z $WAR_PATH ]; then
-	echo "using war $WAR_PATH"
+if [ ! -z "$WAR_PATH" ]; then
+	echo "Using war $WAR_PATH"
+
 	unzip -d `$APPLICATION_DIR/mamute` `$WAR_PATH`
 
 fi
