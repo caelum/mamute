@@ -62,7 +62,7 @@ fi
 if [ ! -z "$WAR_PATH" ]; then
 	echo "Using war $WAR_PATH"
 
-	unzip -d `$APPLICATION_DIR/mamute` `$WAR_PATH`
+	unzip -d "$APPLICATION_DIR/mamute" "$WAR_PATH"
 
 fi
 
