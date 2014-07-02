@@ -8,7 +8,24 @@ if [ ! -z $1 ]; then
         exit 1
 fi
 
-APPLICATION_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"/..
+APPLICATION_DIR=`readlink -f $( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/..`
+
+if [ ! -z "$WAR_PATH" ]; then
+	if [ ! -f $WAR_PATH ]; then
+		echo "the war $WAR_PATH doesn't exists!"
+		exit 1
+	fi 
+else
+	REPO_PATH=${REPO_PATH:-"$MAMUTE_DIR"} #if no REPO_PATH specified, try to use MAMUTE_DIR
+	REPO_PATH=${REPO_PATH:-`readlink -f "$APPLICATION_DIR/../mamute"`} #if no MAMUTE_DIR specified, use default value
+
+	if [ ! -d $REPO_PATH ]; then
+		echo "the folder $REPO_PATH doesn't exists!"
+		exit 1
+	fi 
+fi
+
+
 
 echo "I will update the mamute of the instance: $APPLICATION_DIR . Press enter to continue..."
 read
@@ -42,6 +59,9 @@ done
 
 echo  'Removing old version of mamute' 
 
+mv "$APPLICATION_DIR/mamute" "${APPLICATION_DIR}/mamute-old_`date +%s`"
+mkdir "$APPLICATION_DIR/mamute"
+
 echo 'Updating mamute'
 
 if [ ! -z "$WAR_PATH" ]; then
@@ -50,8 +70,6 @@ if [ ! -z "$WAR_PATH" ]; then
 	unzip -d "$APPLICATION_DIR/mamute" "$WAR_PATH"
 
 else
-	REPO_PATH=${REPO_PATH:-"$MAMUTE_HOME"} #if no REPO_PATH specified, try to use MAMUTE_HOME
-	REPO_PATH=${REPO_PATH:-"$APPLICATION_DIR/../mamute"} #if no MAMUTE_HOME specified, use default value
 	echo "Using github repository  $REPO_PATH"
 	
 	cd "$REPO_PATH"
