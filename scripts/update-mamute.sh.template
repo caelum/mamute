@@ -48,7 +48,7 @@ customFiles=("WEB-INF/classes/messages_pt_BR.properties"
  "WEB-INF/jsp/theme/custom"
  "imgs/custom")
 
-cd mamute
+cd "$APPLICATION_DIR/mamute"
 
 echo 'Copying custom files'
 for ((i=1; i<${#customFiles[@]} ; i++))
