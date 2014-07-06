@@ -17,7 +17,7 @@ public class CustomTemplatesFinder {
 	@Inject
 	private ServletContext application;
 
-	public boolean fileFider(String fileName) {
+	public boolean fileFinder(String fileName) {
 		customTemplate = new File(application.getRealPath(CUSTOM_TEMPLATE_URI
 				+ fileName + EXTENSION));
 		if (customTemplate.exists()) {
