@@ -1,23 +1,26 @@
 package org.mamute.migration;
 
-import java.math.BigInteger;
-import java.util.List;
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.StatelessSession;
 
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import java.math.BigInteger;
+import java.util.List;
+
+
 @ApplicationScoped
 public class MigrationExecutor {
 
-	private SessionFactory sf;
 	private int currentMigration = -1;
+
+	private SessionFactory sf;
 	private Session session;
 	private StatelessSession statelessSession;
 	private DatabaseManager databaseManager;
+
 
 	@Deprecated
 	public MigrationExecutor() {
@@ -28,9 +31,18 @@ public class MigrationExecutor {
 		this.sf = sf;
 	}
 
+	/**
+	 * session is only injected by RequestScoped
+	 * @see br.com.caelum.vraptor.hibernate.SessionCreator
+	 */
+	@PostConstruct
+	public void init() {
+
+		this.statelessSession = sf.openStatelessSession();
+		this.session = sf.openSession();
+	}
+
 	public void begin() {
-		session = sf.openSession();
-		statelessSession = sf.openStatelessSession();
 		databaseManager = new DatabaseManager(session);
 		statelessSession.beginTransaction();
 		session.beginTransaction();
@@ -45,7 +57,7 @@ public class MigrationExecutor {
 	public void rollback() {
 		session.getTransaction().rollback();
 	}
-	
+
 	public void rollback(SchemaMigration m) {
 		rollback();
 	}

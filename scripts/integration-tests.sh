@@ -21,11 +21,11 @@ export DATAIMPORT_ENV=$ACCEPTANCE_ENV
 SERVER_PACKAGE="br.com.caelum.vraptor.server"
 
 if [ $LOCAL_TEST = "remote" ]; then
-	echo "vou executar os testes de integração remotamente..."
+	echo "Integration test Remote running..."
 elif [ $LOCAL_TEST = "true" ]; then
-    echo "vou executar os testes de integração localmente..."
+    echo "Integration test Local running..."
 else
-	echo "o que vc quer?"
+	echo "Check your LOCAL_TEST variable. LOCAL_TEST=remote|true"
 	exit 1
 fi
 sleep 2

@@ -1,15 +1,16 @@
 package org.mamute.migration.all;
 
-import java.util.List;
-
-import javax.enterprise.context.ApplicationScoped;
 
 import org.mamute.migration.MigrationOperation;
 import org.mamute.migration.RawSQLOperation;
 import org.mamute.migration.SchemaMigration;
 
+import javax.enterprise.context.ApplicationScoped;
+import java.util.List;
+
 @ApplicationScoped
 public class M006CreateTableQuestionInteraction implements SchemaMigration {
+
 	@Override
 	public List<MigrationOperation> up() {
 		String createTable =  "create table Question_Interactions (Question_id bigint not null, userInteractions_id bigint not null, PRIMARY KEY (`Question_id`,`userInteractions_id`)) ENGINE=InnoDB";

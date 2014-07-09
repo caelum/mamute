@@ -25,7 +25,7 @@ public abstract class AuthenticatedAcceptanceTest extends AcceptanceTestBase {
     
     protected void loginWithALotOfKarma() {
     	logout();
-    	home().toLoginPage().login("karma.nigga@email.com.br", "123456");
+    	home().toLoginPage().login("karma.user@email.com.br", "123456");
     }
     
     protected void loginAsModerator() {

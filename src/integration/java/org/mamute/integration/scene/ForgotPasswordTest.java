@@ -1,30 +1,35 @@
 package org.mamute.integration.scene;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.io.IOException;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mamute.integration.pages.ResetPasswordPage;
 import org.mamute.integration.util.ServerInfo;
-import org.mamute.providers.SessionFactoryCreator;
+import org.mamute.util.ScriptSessionProvider;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class ForgotPasswordTest extends AcceptanceTestBase implements ServerInfo.AcceptanceTest  {
-    
+
     private static Session SESSION;
+
     private String validEmail = "chico@email.com.br";
 
     @BeforeClass
     public static void setup() throws IOException {
-        SessionFactoryCreator sessionFactoryCreator = new SessionFactoryCreator(env, null);
-        sessionFactoryCreator.init();
-        SessionFactory sf = sessionFactoryCreator.getInstance();
-        SESSION = sf.openSession();
+        SESSION = new ScriptSessionProvider().getInstance();
+    }
+
+    @AfterClass
+    public static void destroy() {
+        SESSION.close();
     }
 
     @Test
@@ -41,7 +46,7 @@ public class ForgotPasswordTest extends AcceptanceTestBase implements ServerInfo
 
     @Test
     public void should_show_new_password_form_for_reseted_password_user() throws Exception {
-        tryToSendResetPasswordEmail(validEmail);
+        assertTrue(tryToSendResetPasswordEmail(validEmail));
         tryToSetNewPassword("newpass");
         home().logOut();
         
@@ -77,7 +82,22 @@ public class ForgotPasswordTest extends AcceptanceTestBase implements ServerInfo
     	SESSION.beginTransaction();
     	Query query = SESSION.createQuery("select u.id, u.forgotPasswordToken from User u where u.email=:email");
         Object[] result = (Object[]) query.setParameter("email", validEmail).uniqueResult();
-        String recoverUrl = SERVER.urlFor("/mudar-senha/"+result[0]+"/"+result[1]);
+
+        String path = "";
+        try {
+            FileInputStream input = new FileInputStream("routes.properties");
+            Properties prop = new Properties();
+            // load a properties file
+            prop.load(input);
+
+            path = prop.getProperty("ForgotPasswordController.changePasswordForm");
+        }catch (IOException ex) {
+
+            path = "/change-password";
+        }
+
+
+        String recoverUrl = SERVER.urlFor(path + "/" +result[0]+"/"+result[1]);
         SESSION.getTransaction().commit();
         return recoverUrl;
     }

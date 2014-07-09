@@ -1,8 +1,9 @@
 package org.mamute.migration.all;
 
-import javax.enterprise.context.ApplicationScoped;
 
 import org.mamute.migration.SimpleSchemaMigration;
+
+import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class M003AddIndexesToTagPage extends SimpleSchemaMigration {

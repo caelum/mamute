@@ -1,28 +1,18 @@
-package org.mamute.migration;
+package migrations.migration;
 
-import static br.com.caelum.vraptor.environment.EnvironmentType.PRODUCTION;
-import static java.util.Arrays.asList;
-import static org.junit.Assert.fail;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.inOrder;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+
+import br.com.caelum.vraptor.environment.DefaultEnvironment;
+import br.com.caelum.vraptor.environment.EnvironmentType;
+import org.junit.Before;
+import org.junit.Test;
+import org.mamute.migration.*;
+import org.mockito.InOrder;
 
 import java.io.IOException;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.mamute.migration.MigrationExecutor;
-import org.mamute.migration.MigrationRunner;
-import org.mamute.migration.NumberExtractor;
-import org.mamute.migration.SchemaMigration;
-import org.mamute.migration.SimpleSchemaMigration;
-import org.mockito.InOrder;
-
-import br.com.caelum.vraptor.environment.DefaultEnvironment;
+import static java.util.Arrays.asList;
+import static junit.framework.TestCase.fail;
+import static org.mockito.Mockito.*;
 
 public class MigrationRunnerTest {
 
@@ -43,7 +33,7 @@ public class MigrationRunnerTest {
 		when(extractor.from(m1)).thenReturn(1);
 		when(extractor.from(m2)).thenReturn(2);
 
-		runner = new MigrationRunner(asList(m1, m2), extractor, executor, new DefaultEnvironment(PRODUCTION));
+		runner = new MigrationRunner(asList(m1, m2), extractor, executor, new DefaultEnvironment(EnvironmentType.PRODUCTION));
 	}
 
 	@Test

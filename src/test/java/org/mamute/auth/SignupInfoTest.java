@@ -1,17 +1,15 @@
 package org.mamute.auth;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import org.junit.Test;
+import org.mamute.model.MethodType;
 
 import java.io.InputStream;
 import java.util.Scanner;
 
-import org.junit.Test;
-import org.mamute.auth.SignupInfo;
-import org.mamute.model.MethodType;
-
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class SignupInfoTest {
 

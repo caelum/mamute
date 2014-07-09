@@ -2,6 +2,7 @@ package org.mamute.integration.util;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.MessageFormat;
 import java.util.Properties;
 
 public class AppMessages {
@@ -21,5 +22,11 @@ public class AppMessages {
     public String getMessage(String key) {
         return properties.getProperty(key);
     }
+
+	public String getMessage(String key, Object... params) {
+		String message = properties.getProperty(key);
+		message = MessageFormat.format(message, params);
+		return message;
+	}
 
 }

@@ -1,13 +1,12 @@
 package org.mamute.migration;
 
+import org.apache.log4j.Logger;
+import org.hibernate.Session;
+
+import javax.enterprise.inject.Vetoed;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Scanner;
-
-import javax.enterprise.inject.Vetoed;
-
-import org.apache.log4j.Logger;
-import org.hibernate.Session;
 
 @Vetoed
 public class DatabaseManager {
@@ -15,10 +14,16 @@ public class DatabaseManager {
 	private static final Logger LOG = Logger.getLogger(DatabaseManager.class);
 	private Session session;
 
+	/**
+	 * @deprecated cdi eyes only
+	 */
+	public DatabaseManager() {
+	}
+
 	public DatabaseManager(Session session) {
 		this.session = session;
 	}
-	
+
 	public void run(String sql) {
 		session.createSQLQuery(sql).executeUpdate();
 	}
@@ -27,7 +32,7 @@ public class DatabaseManager {
 		run("SET foreign_key_checks = 0;");
 
 		try (InputStream stream = DatabaseManager.class.getResourceAsStream(resourceName);
-				Scanner sc = new Scanner(stream)) {
+			 Scanner sc = new Scanner(stream)) {
 			StringBuilder fullQuery = new StringBuilder();
 			while (sc.hasNext()) {
 				String partial = sc.nextLine();

@@ -1,8 +1,8 @@
-package org.mamute.migration;
+package migrations.migration;
 
 import org.mamute.migration.SimpleSchemaMigration;
 
-public class NotAValidMigration extends SimpleSchemaMigration {
+public class M001TestMigration extends SimpleSchemaMigration {
 
 	@Override
 	public String upQuery() {

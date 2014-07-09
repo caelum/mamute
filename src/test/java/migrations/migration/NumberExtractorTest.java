@@ -1,10 +1,10 @@
-package org.mamute.migration;
-
-import static org.junit.Assert.assertEquals;
+package migrations.migration;
 
 import org.junit.Test;
 import org.mamute.migration.BadFormedMigrationException;
 import org.mamute.migration.NumberExtractor;
+
+import static org.junit.Assert.assertEquals;
 
 public class NumberExtractorTest {
 

@@ -1,20 +1,17 @@
 package org.mamute.migration;
 
-import java.util.Collections;
-import java.util.List;
+import br.com.caelum.vraptor.environment.Environment;
+import br.com.caelum.vraptor.errormail.util.StackToString;
+import com.google.common.collect.Lists;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import br.com.caelum.vraptor.environment.Environment;
-import br.com.caelum.vraptor.errormail.util.StackToString;
-
-import com.google.common.collect.Lists;
+import java.util.Collections;
+import java.util.List;
 
 @ApplicationScoped
 public class MigrationRunner {
@@ -26,9 +23,10 @@ public class MigrationRunner {
 	private MigrationExecutor executor;
 	private Environment env;
 
-	@Deprecated
-	MigrationRunner() {
-	}
+	/**
+	 * @deprecated cdi eyes only
+	 */
+	MigrationRunner() {}
 
 	@Inject
 	public MigrationRunner(@Any Instance<SchemaMigration> migrations, NumberExtractor number,

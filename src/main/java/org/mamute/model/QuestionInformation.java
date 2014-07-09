@@ -1,26 +1,5 @@
 package org.mamute.model;
 
-import static javax.persistence.FetchType.EAGER;
-import static org.mamute.infra.NormalizerBrutal.toSlug;
-import static org.mamute.model.MarkDown.parse;
-import static org.mamute.sanitizer.HtmlSanitizer.sanitize;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.Cacheable;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OrderColumn;
-import javax.validation.constraints.NotNull;
-
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
@@ -28,8 +7,18 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 import org.mamute.model.interfaces.Moderatable;
 import org.mamute.model.interfaces.Taggable;
-import org.mamute.providers.SessionFactoryCreator;
+import org.mamute.providers.CustomConfigurationCreator;
 import org.mamute.validators.OptionallyEmptyTags;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
+
+import static javax.persistence.FetchType.EAGER;
+import static org.mamute.infra.NormalizerBrutal.toSlug;
+import static org.mamute.model.MarkDown.parse;
+import static org.mamute.sanitizer.HtmlSanitizer.sanitize;
 	
 @Cacheable
 @Entity
@@ -67,7 +56,7 @@ public class QuestionInformation implements Information, Taggable {
 	@ManyToOne(optional = false, fetch = EAGER)
 	private final User author;
 
-	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
+	@Type(type = CustomConfigurationCreator.JODA_TIME_TYPE)
 	private final DateTime createdAt = new DateTime();
 
 	@Embedded
@@ -99,12 +88,13 @@ public class QuestionInformation implements Information, Taggable {
 
 	public QuestionInformation(String title, String description, LoggedUser user,
 			List<Tag> tags, String comment) {
-        if (user == null) {
+
+		if (user == null) {
 			this.author = null;
 			this.ip = null;
 		} else {
-    		this.author = user.getCurrent();
-    		this.ip = user.getIp();
+			this.author = user.getCurrent();
+			this.ip = user.getIp();
 		}
 		setTitle(title);
 		setDescription(description);
@@ -189,11 +179,11 @@ public class QuestionInformation implements Information, Taggable {
     }
 	
 	public Long getId() {
-        return id;
+		return id;
     }
 	
 	public Moderatable getModeratable() {
-        return getQuestion();
+		return getQuestion();
     }
 	
 	public Question getQuestion() {
@@ -204,13 +194,13 @@ public class QuestionInformation implements Information, Taggable {
 		return status;
 	}
 
-    public boolean isPending() {
-        return status == UpdateStatus.PENDING;
-    }
+	public boolean isPending() {
+		return status == UpdateStatus.PENDING;
+	}
     
-    public String getComment() {
-        return comment;
-    }
+	public String getComment() {
+		return comment;
+	}
 
 	@Override
 	public String getTypeName() {

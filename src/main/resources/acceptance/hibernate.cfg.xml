@@ -18,8 +18,8 @@
 		<property name="hibernate.cache.use_second_level_cache">true</property>
 		<property name="hibernate.generate_statistics">false</property>
 
-		<!-- Nao adicione as classes aqui! Elas ficariam replicadas em 3 xmls! 
-			Deixe somente no SessionFactoryCreator! -->
+        <!-- Do not put classes here. They'll be replicated in 3 different XMLs.
+         Built it in CustomConfigurationCreator! -->
 
 	</session-factory>
 </hibernate-configuration>

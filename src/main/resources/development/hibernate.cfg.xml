@@ -23,10 +23,10 @@
 		<property name="c3p0.max_size">100</property>
 		<property name="c3p0.min_size">10</property>
 		<property name="c3p0.timeout">100</property>
-		
 
-		<!-- Nao adicione as classes aqui! Elas ficariam replicadas em 3 xmls! 
-			Deixe somente no SessionFactoryCreator! -->
+
+        <!-- Do not put classes here. They'll be replicated in 3 different XMLs.
+         Built it in CustomConfigurationCreator! -->
 
 	</session-factory>
 </hibernate-configuration>

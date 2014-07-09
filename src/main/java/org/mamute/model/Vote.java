@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
-import org.mamute.providers.SessionFactoryCreator;
+import org.mamute.providers.CustomConfigurationCreator;
 
 @Entity
 public class Vote {
@@ -25,10 +25,10 @@ public class Vote {
     @ManyToOne
     private final User author;
     
-    @Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
+    @Type(type = CustomConfigurationCreator.JODA_TIME_TYPE)
     private final DateTime createdAt = new DateTime();
     
-    @Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
+    @Type(type = CustomConfigurationCreator.JODA_TIME_TYPE)
     private DateTime lastUpdatedAt = new DateTime();
     
     public DateTime getLastUpdatedAt() {

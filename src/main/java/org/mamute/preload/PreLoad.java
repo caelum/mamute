@@ -1,18 +1,18 @@
 package org.mamute.preload;
 
+import br.com.caelum.vraptor.events.VRaptorInitialized;
+import org.mamute.components.RecentTagsContainer;
+import org.mamute.infra.DefaultAdminCreator;
+import org.mamute.migration.MigrationRunner;
+
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
-import org.mamute.components.RecentTagsContainer;
-import org.mamute.infra.DefaultAdminCreator;
-import org.mamute.migration.MigrationRunner;
-
-import br.com.caelum.vraptor.events.VRaptorInitialized;
-
 @ApplicationScoped
 public class PreLoad {
+
 	@Inject private MigrationRunner migrations;
 	@Inject private RecentTagsContainer tagsContainer;
 	@Inject private DefaultAdminCreator adminCreator;

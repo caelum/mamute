@@ -1,27 +1,19 @@
 package org.mamute.integration.util;
 
-import java.util.Arrays;
-import java.util.Random;
-
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.mamute.builder.QuestionBuilder;
-import org.mamute.dao.AnswerDAO;
-import org.mamute.dao.InvisibleForUsersRule;
-import org.mamute.dao.LoginMethodDAO;
-import org.mamute.dao.QuestionDAO;
-import org.mamute.dao.TagDAO;
-import org.mamute.dao.UserDAO;
-import org.mamute.model.Answer;
-import org.mamute.model.AnswerInformation;
-import org.mamute.model.LoggedUser;
-import org.mamute.model.LoginMethod;
-import org.mamute.model.Question;
-import org.mamute.model.Tag;
-import org.mamute.model.User;
-import org.mamute.util.ScriptSessionCreator;
+import org.mamute.dao.*;
+import org.mamute.model.*;
+import org.mamute.util.ScriptSessionProvider;
+
+import java.util.Arrays;
+import java.util.Random;
 
 public class DaoManager {
+
+	private static final Logger LOG = Logger.getLogger(DaoManager.class);
 
 	private Session session;
 	private QuestionDAO questionDao;
@@ -33,11 +25,10 @@ public class DaoManager {
 
 	public DaoManager() {
 		super();
-		ScriptSessionCreator sessionFactoryCreator = new ScriptSessionCreator();
+
 		InvisibleForUsersRule invisible = new InvisibleForUsersRule(new LoggedUser(null, null));
 		this.randomizer = new Random();
-
-		this.session = sessionFactoryCreator.getSession();
+		this.session = new ScriptSessionProvider().getInstance();
 		this.questionDao = new QuestionDAO(session, invisible);
 		this.answerDao = new AnswerDAO(session, invisible);
 		this.userDao = new UserDAO(session);
@@ -111,7 +102,7 @@ public class DaoManager {
 	}
 
 	public User karmaNigga() {
-		return userDao.findByMailAndPassword("karma.nigga@email.com.br",
+		return userDao.findByMailAndPassword("karma.user@email.com.br",
 				"123456");
 	}
 

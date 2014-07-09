@@ -18,8 +18,8 @@ public class QuestionInformationTest {
 
 	@Before
 	public void setup(){
-		builder = new QuestionInformationBuilder();
-		ruby = new QuestionBuilder().withTitle("how do i program using ruby?").build();
+		this.builder = new QuestionInformationBuilder();
+		this.ruby = new QuestionBuilder().withTitle("how do i program using ruby?").build();
 	}
 	
 	@Test
@@ -29,7 +29,6 @@ public class QuestionInformationTest {
 		ruby.enqueueChange(version, PENDING);
 		QuestionInformation infoByModerator = builder.build();
 		ruby.approve(infoByModerator);
-		System.out.println("this.createdAt should be before");
 		assertTrue(version.isBeforeCurrent());
 	}
 	
@@ -39,7 +38,6 @@ public class QuestionInformationTest {
 		ruby.enqueueChange(version, PENDING);
 		QuestionInformation infoByModerator = builder.build();
 		ruby.approve(infoByModerator);
-		System.out.println("this.createdAt should be before");
 		assertTrue(version.isBeforeCurrent());
 	}
 	
