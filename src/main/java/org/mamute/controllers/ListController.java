@@ -31,11 +31,6 @@ public class ListController {
 	@Inject private RecentTagsContainer recentTagsContainer;
 	@Inject private NewsDAO newses;
 	
-	/**
-	 * actually, this path will not be used, we use the path defined in the current environment
-	 * be careful when modifying its signature
-	 * @see BrutalRoutesParser
-	 */
 	@Get
 	public void home(Integer p) {
 		Integer page = getPage(p);
