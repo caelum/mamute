@@ -19,6 +19,7 @@ import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.routes.annotation.Routed;
+import org.mamute.stream.Streamed;
 
 @Routed
 @Controller
@@ -46,6 +47,26 @@ public class ListController {
 		result.include("totalPages", questions.numberOfPages());
 		result.include("currentPage", page);
 		result.include("currentUser", loggedUser);
+	}
+
+	@Streamed
+	public void streamedHome(Integer p) {
+		List<String> tabs = Arrays.asList("voted", "answered", "viewed");
+		result.include("tabs", tabs);
+		result.include("currentUser", loggedUser);
+	}
+
+	public void questionListPagelet(Integer p) {
+		Integer page = getPage(p);
+		List<Question> visible = questions.allVisible(page);
+		if (visible.isEmpty() && page != 1) {
+			result.notFound();
+			return;
+		}
+
+		result.include("questions", visible);
+		result.include("totalPages", questions.numberOfPages());
+		result.include("currentPage", page);
 	}
 
 	@Get
