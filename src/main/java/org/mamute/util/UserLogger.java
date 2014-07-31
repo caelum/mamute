@@ -21,16 +21,19 @@ public class UserLogger {
 	private static Logger LOG = Logger.getLogger(UserLogger.class);
 
 	public void logUser(@Observes MethodReady methodReady) {
+		String userName = "anonymous";
 		if (loggedUser.isLoggedIn()) {
-			String realIp = request.getHeader("X-Real-IP");
 			User user = loggedUser.getCurrent();
 			String name = user.getName();
 			String id = user.getId().toString();
-			String uri = request.getRequestURI();
-			String method = request.getMethod();
-			String log = format("%s -> %s from %s (id=%s) %s", method, uri, name, id,  realIp);
-			LOG.info(log);
+			userName = format("%s (id=%s)", name, id);
 		}
+
+		String realIp = request.getHeader("X-Real-IP");
+		String uri = request.getRequestURI();
+		String method = request.getMethod();
+		String log = format("%s -> %s from %s %s", method, uri, userName,  realIp);
+		LOG.info(log);
 
 	}
 }
