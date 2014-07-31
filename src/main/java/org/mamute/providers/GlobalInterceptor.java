@@ -23,21 +23,9 @@ public class GlobalInterceptor implements Interceptor{
 	public void intercept(InterceptorStack stack, ControllerMethod method,
 			Object resourceInstance) throws InterceptionException {
 		LOG.debug("request for: " + req.getRequestURI());
-		logHeaders();
 		viewObjects.include();
 		
 		stack.next(method, resourceInstance);
-	}
-
-	private void logHeaders() {
-		Enumeration<String> headerNames = req.getHeaderNames();
-		LOG.debug("headers received from request");
-		while (headerNames.hasMoreElements()) {
-			String key = headerNames.nextElement();
-			String value = req.getHeader(key);
-			LOG.debug(key);
-			LOG.debug(value);
-		}
 	}
 
 	@Override
