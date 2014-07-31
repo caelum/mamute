@@ -24,6 +24,9 @@ import org.mockito.InOrder;
 
 import br.com.caelum.vraptor.environment.DefaultEnvironment;
 
+import javax.enterprise.inject.Vetoed;
+
+@Vetoed
 public class MigrationRunnerTest {
 
 	private MigrationExecutor executor;

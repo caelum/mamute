@@ -6,6 +6,9 @@ import org.junit.Test;
 import org.mamute.migration.BadFormedMigrationException;
 import org.mamute.migration.NumberExtractor;
 
+import javax.enterprise.inject.Vetoed;
+
+@Vetoed
 public class NumberExtractorTest {
 
 	@Test

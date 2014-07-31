@@ -2,6 +2,9 @@ package org.mamute.migration;
 
 import org.mamute.migration.SimpleSchemaMigration;
 
+import javax.enterprise.inject.Vetoed;
+
+@Vetoed
 public class NotAValidMigration extends SimpleSchemaMigration {
 
 	@Override
