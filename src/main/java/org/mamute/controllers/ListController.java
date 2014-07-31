@@ -57,6 +57,9 @@ public class ListController {
 	}
 
 	public void questionListPagelet(Integer p) {
+		List<String> tabs = Arrays.asList("voted", "answered", "viewed");
+		result.include("tabs", tabs);
+		result.include("currentUser", loggedUser);
 		Integer page = getPage(p);
 		List<Question> visible = questions.allVisible(page);
 		if (visible.isEmpty() && page != 1) {
@@ -67,6 +70,7 @@ public class ListController {
 		result.include("questions", visible);
 		result.include("totalPages", questions.numberOfPages());
 		result.include("currentPage", page);
+		result.forwardTo("/WEB-INF/jsp/list/questionListPagelet.jspf");
 	}
 
 	@Get
