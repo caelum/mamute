@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 <%@attribute name="recentTags" type="java.util.List" required="true"%>
 <%@attribute name="relatedQuestions" type="java.util.List" required="false"%>
 

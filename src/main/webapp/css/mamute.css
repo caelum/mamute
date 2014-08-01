@@ -2742,3 +2742,21 @@ em
 .comment-remaining-characters {
 	padding: 0.5em 0;
 }
+
+#question-list-container {
+    float:left;
+    width: 70%;
+}
+
+#question-list-container .first-content.content {
+    width: 100%;
+}
+
+#side-bar-container {
+    float:right;
+    width: 30%;
+}
+
+#side-bar-container .sidebar {
+    width: 100%;
+}

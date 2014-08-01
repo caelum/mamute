@@ -47,10 +47,11 @@
 </c:if>
 
 
+<div id="question-list-container"></div>
+<div id="side-bar-container"></div>
 <streamer:stream>
     <streamer:page url="questionListPagelet"/>
+    <streamer:page url="sideBarPagelet"/>
 </streamer:stream>
 
 <tags:joyrideIntro />
-
-<tags:sideBar recentTags="${recentTags}" />

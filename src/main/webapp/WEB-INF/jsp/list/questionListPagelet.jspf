@@ -2,6 +2,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <fmt:message key="metas.home.title" var="title"/>
-<section class="first-content content">
-    <tags:questionList recentTags="${recentTags}" questions="${questions}" title="${title}" tabs="${tabs}"/>
-</section>
+
+<script type="vraptor/stream" id="question-list-pagelet">
+    <section class="first-content content">
+        <tags:questionList recentTags="${recentTags}" questions="${questions}" title="${title}" tabs="${tabs}"/>
+    </section>
+</script>
+
+<script>
+    document.getElementById("question-list-container").innerHTML = document.getElementById("question-list-pagelet").innerHTML
+</script>

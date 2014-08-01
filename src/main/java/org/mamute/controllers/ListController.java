@@ -31,6 +31,7 @@ public class ListController {
 	@Inject private TagDAO tags;
 	@Inject private RecentTagsContainer recentTagsContainer;
 	@Inject private NewsDAO newses;
+	@Inject private RecentTagsContainer tagsContainer;
 	
 	@Get
 	public void home(Integer p) {
@@ -56,6 +57,7 @@ public class ListController {
 		result.include("currentUser", loggedUser);
 	}
 
+	@Streamed
 	public void questionListPagelet(Integer p) {
 		List<String> tabs = Arrays.asList("voted", "answered", "viewed");
 		result.include("tabs", tabs);
@@ -71,6 +73,13 @@ public class ListController {
 		result.include("totalPages", questions.numberOfPages());
 		result.include("currentPage", page);
 		result.forwardTo("/WEB-INF/jsp/list/questionListPagelet.jspf");
+	}
+
+	@Streamed
+	public void sideBarPagelet() {
+		result.include("sidebarNews", newses.allVisibleAndApproved(5));
+		result.include("recentTags", tagsContainer.getRecentTagsUsage());
+		result.forwardTo("/WEB-INF/jsp/list/sideBarPagelet.jspf");
 	}
 
 	@Get
