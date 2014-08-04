@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.jstl.core.Config;
 
 import br.com.caelum.vraptor.controller.ControllerNotFoundHandler;
+import br.com.caelum.vraptor.controller.InvalidInputHandler;
 import br.com.caelum.vraptor.controller.MethodNotAllowedHandler;
 import br.com.caelum.vraptor.core.InterceptorStack;
 import br.com.caelum.vraptor.environment.Environment;
@@ -24,16 +25,13 @@ public class CustomRequestHandlerObserver extends RequestHandlerObserver {
 	private Environment environment;
 
 	@Inject
-	public CustomRequestHandlerObserver(UrlToControllerTranslator translator,
-			ControllerNotFoundHandler controllerNotFoundHandler,
-			MethodNotAllowedHandler methodNotAllowedHandler,
-			Event<ControllerFound> controllerFoundEvent,
-			Event<RequestSucceded> endRequestEvent,
-			InterceptorStack interceptorStack) {
-		super(translator, controllerNotFoundHandler, methodNotAllowedHandler,
-				controllerFoundEvent, endRequestEvent, interceptorStack);
+	public CustomRequestHandlerObserver(UrlToControllerTranslator translator, ControllerNotFoundHandler controllerNotFoundHandler,
+										MethodNotAllowedHandler methodNotAllowedHandler, Event<ControllerFound> controllerFoundEvent,
+										Event<RequestSucceded> endRequestEvent,	InterceptorStack interceptorStack, InvalidInputHandler invalidInputHandler) {
+		super(translator, controllerNotFoundHandler, methodNotAllowedHandler, controllerFoundEvent,
+				endRequestEvent, interceptorStack, invalidInputHandler);
 	}
-	
+
 	@Override
 	public void handle(@Observes VRaptorRequestStarted requestStarted) {
 		String locale = environment.get("locale", "en");
