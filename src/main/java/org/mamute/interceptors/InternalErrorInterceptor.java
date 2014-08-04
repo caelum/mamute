@@ -34,7 +34,7 @@ public class InternalErrorInterceptor implements Interceptor {
 	public void intercept(InterceptorStack stack, ControllerMethod method,
 			Object instance) throws InterceptionException {
 		try {
-		stack.next(method, instance);
+			stack.next(method, instance);
 		}catch (Exception e) {
 			
 			StringWriter sw = new StringWriter();
@@ -51,7 +51,7 @@ public class InternalErrorInterceptor implements Interceptor {
 				log.error(sw.toString());
 			}
 			
-			e.printStackTrace(pw);
+			cause.printStackTrace(pw);
 			
 			pw.close();
 			result.include("stacktrace", sw.toString());
