@@ -127,7 +127,7 @@
         <dependency>
             <groupId>br.com.caelum.vraptor</groupId>
             <artifactId>vraptor-action-cache</artifactId>
-            <version>4.0.0</version>
+            <version>4.0.1</version>
         </dependency>
 
 
