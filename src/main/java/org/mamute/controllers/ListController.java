@@ -4,7 +4,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 
+import br.com.caelum.vraptor.actioncache.Cached;
+import br.com.caelum.vraptor.view.Results;
 import org.joda.time.DateTime;
 import org.mamute.components.RecentTagsContainer;
 import org.mamute.dao.NewsDAO;
@@ -32,6 +35,7 @@ public class ListController {
 	@Inject private RecentTagsContainer recentTagsContainer;
 	@Inject private NewsDAO newses;
 	@Inject private RecentTagsContainer tagsContainer;
+	@Inject private HttpServletResponse response;
 	
 	@Get
 	public void home(Integer p) {
@@ -57,6 +61,7 @@ public class ListController {
 		result.include("currentUser", loggedUser);
 	}
 
+	@Cached(key="questionListPagelet", duration = 30, idleTime = 30)
 	@Streamed
 	public void questionListPagelet(Integer p) {
 		List<String> tabs = Arrays.asList("voted", "answered", "viewed");
@@ -73,13 +78,16 @@ public class ListController {
 		result.include("totalPages", questions.numberOfPages());
 		result.include("currentPage", page);
 		result.forwardTo("/WEB-INF/jsp/list/questionListPagelet.jspf");
+		System.out.println("executing questionListPagelet");
 	}
 
+	@Cached(key="sideBarPagelet", duration = 30, idleTime = 30)
 	@Streamed
 	public void sideBarPagelet() {
 		result.include("sidebarNews", newses.allVisibleAndApproved(5));
 		result.include("recentTags", tagsContainer.getRecentTagsUsage());
 		result.forwardTo("/WEB-INF/jsp/list/sideBarPagelet.jspf");
+
 	}
 
 	@Get
