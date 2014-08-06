@@ -117,11 +117,6 @@
         <dependency>
             <groupId>br.com.caelum.vraptor</groupId>
             <artifactId>vraptor-streamable-pages</artifactId>
-            <version>4.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>br.com.caelum.vraptor</groupId>
-            <artifactId>vraptor-streamable-pages</artifactId>
             <version>4.0.1</version>
         </dependency>
         <dependency>
