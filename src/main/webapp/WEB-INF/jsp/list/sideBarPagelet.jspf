@@ -1,9 +1,10 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags/" %>
 
-<script type="vraptor/stream" id="side-bar-pagelet">
+<noscript id="side-bar-pagelet">
     <tags:sideBar recentTags="${recentTags}" />
-</script>
+</noscript>
 
 <script>
-    document.getElementById("side-bar-container").innerHTML = document.getElementById("side-bar-pagelet").innerHTML
+    var pagelet = document.getElementById("side-bar-pagelet");
+    document.getElementById("side-bar-container").innerHTML = pagelet.textContent||pagelet.innerHTML;
 </script>

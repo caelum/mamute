@@ -3,12 +3,18 @@
 
 <fmt:message key="metas.home.title" var="title"/>
 
-<script type="vraptor/stream" id="question-list-pagelet">
+<noscript id="question-list-pagelet">
+    <section class="first-content content">
+        <tags:questionList recentTags="${recentTags}" questions="${questions}" title="${title}" tabs="${tabs}"/>
+    </section>
+</noscript>
+<script type="vraptor/stream" id="question-list-pagelet2">
     <section class="first-content content">
         <tags:questionList recentTags="${recentTags}" questions="${questions}" title="${title}" tabs="${tabs}"/>
     </section>
 </script>
 
 <script>
-    document.getElementById("question-list-container").innerHTML = document.getElementById("question-list-pagelet").innerHTML
+    var pagelet = document.getElementById("question-list-pagelet");
+    document.getElementById("question-list-container").innerHTML = pagelet.textContent||pagelet.innerHTML;
 </script>
