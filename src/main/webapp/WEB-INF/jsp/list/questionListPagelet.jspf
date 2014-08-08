@@ -8,11 +8,6 @@
         <tags:questionList recentTags="${recentTags}" questions="${questions}" title="${title}" tabs="${tabs}"/>
     </section>
 </noscript>
-<script type="vraptor/stream" id="question-list-pagelet2">
-    <section class="first-content content">
-        <tags:questionList recentTags="${recentTags}" questions="${questions}" title="${title}" tabs="${tabs}"/>
-    </section>
-</script>
 
 <script>
     var pagelet = document.getElementById("question-list-pagelet");
