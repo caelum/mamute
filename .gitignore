@@ -17,6 +17,9 @@ PagPag.pem
 .project
 .settings
 .idea/
+*.iws
+*.ipr
+*.ids
 mamute.iml
 *.swp
 vraptor-console.sh
