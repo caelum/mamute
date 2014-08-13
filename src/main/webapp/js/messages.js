@@ -12,7 +12,7 @@ var Messages = (function() {
 		}
 	}
 	
-	obj.load = function(isAsync) {
+	obj.load = function(isAsync, callback) {
 		if (isAsync === undefined) {
 			isAsync = true;
 		}
@@ -26,6 +26,7 @@ var Messages = (function() {
 					var key = keys[x];
 					sessionStorage.setItem(key, result.hashMap[key]);
 				}
+				callback();
 			}
 		});
 	}
@@ -39,5 +40,7 @@ var Messages = (function() {
 
 
 $(document).ready(function(){
-	Messages.load();
+	Messages.load(true,function(){
+		$(document).trigger("messages-loaded");
+	});
 });

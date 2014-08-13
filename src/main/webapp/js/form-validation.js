@@ -1,11 +1,15 @@
 $(function(){
-	jQuery.extend(jQuery.validator.messages, {
-	    required: Messages.get('org.hibernate.validator.constraints.NotEmpty.message'),
-	    email: Messages.get('org.hibernate.validator.constraints.Email.message'),
-	    equalTo: jQuery.validator.format(Messages.get('validator.not.equal')),
-	    minlength: jQuery.validator.format(Messages.get('validator.minimum.characters')),
-	    maxlength: jQuery.validator.format(Messages.get('validator.maximum.characters')),
-	});
+	$(document).on("messages-loaded",function(){
+
+		jQuery.extend(jQuery.validator.messages, {
+		    required: Messages.get('org.hibernate.validator.constraints.NotEmpty.message'),
+		    email: Messages.get('org.hibernate.validator.constraints.Email.message'),
+		    equalTo: jQuery.validator.format(Messages.get('validator.not.equal')),
+		    minlength: jQuery.validator.format(Messages.get('validator.minimum.characters')),
+		    maxlength: jQuery.validator.format(Messages.get('validator.maximum.characters')),
+		});
+		
+	})
 
 	$.validator.setDefaults({
 		onkeyup: function(input){
