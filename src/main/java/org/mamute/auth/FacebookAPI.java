@@ -1,5 +1,6 @@
 package org.mamute.auth;
 
+import org.apache.log4j.Logger;
 import org.scribe.model.OAuthRequest;
 import org.scribe.model.Response;
 import org.scribe.model.Token;
@@ -14,6 +15,7 @@ public class FacebookAPI implements SocialAPI{
 	
 	private final Token accessToken;
 	private final OAuthService service;
+	private final Logger log = Logger.getLogger(FacebookAPI.class);
 	
 	public FacebookAPI(OAuthService service, Token accessToken) {
 		this.service = service;
@@ -23,7 +25,9 @@ public class FacebookAPI implements SocialAPI{
 	public SignupInfo getSignupInfo() {
 		String url = "https://graph.facebook.com/me?fields=name,email,location,username,id";
 		Response response = makeRequest(url);
-		JsonObject jsonObject = new JsonParser().parse(response.getBody()).getAsJsonObject();
+		String body = response.getBody();
+		log.info("Response from Facebook: " + body);
+		JsonObject jsonObject = new JsonParser().parse(body).getAsJsonObject();
 		return SignupInfo.fromFacebook(jsonObject);
 	}
 
