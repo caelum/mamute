@@ -36,7 +36,6 @@ public class QuestionTest  extends TestCase{
 
 	@Test
 	public void can_be_marked_as_solved_by_the_an_answer_that_is_mine() {
-		Assert.fail();
 		Question shouldILiveForever = question.build();
 		Answer yes = answer("my answer", shouldILiveForever, null);
 		
