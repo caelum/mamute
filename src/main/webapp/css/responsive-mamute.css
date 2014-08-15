@@ -77,7 +77,6 @@
 	.big-ads {
 		display: none;
 	}
-		
 }
 
 @media only screen and (max-width: 1100px) {
@@ -115,9 +114,6 @@
 }
 
 @media only screen and (max-width: 1000px) {
-	.menu-unanswered{
-		display: none;
-	}	
 	.main-nav .nav-item a {
 		padding: 1em 1.7em;
 	}
@@ -151,7 +147,11 @@
 	}
 	
 	.main-nav .nav-item a {
-		padding: 1em 1em;
+		padding: 1em;
+	}
+	
+	.main-nav {
+		margin-left: 3%;
 	}
 }
 
@@ -266,11 +266,7 @@
 	}
 	
 	.main-nav .nav-item a {
-		padding: .95em .95em;
-	}
-	
-	.main-nav {
-		margin-left: 3%;
+		padding: .8em;
 	}
 }
 
@@ -307,10 +303,6 @@
 	
 	.info{
 		padding: .15em 0;
-	}
-	
-	.header {
-		margin-bottom: 1em;
 	}
 	
 	/*About*/
@@ -425,11 +417,6 @@
 	.ranking-item{
 		width: 30%;
 	}
-	
-	.menu-unanswered {
-		display: none;
-	}
-	
 }
 
 @media only screen and (max-width: 550px) {
@@ -520,38 +507,35 @@
 		width: 60%;
 	}
 	
-	.header {
-		margin-bottom: 3.2em;
-	}
-	
 	.main-nav .nav-item a {
 		padding: .7em .7em;
 	}
 	
-	.main-nav {
-		margin-left: 1%;
+	.menu-unanswered {
+		display: none;
 	}
 }
 
 @media only screen and (max-width: 450px) {
 	.button:hover .menu-subtitle{
-		display: none
+		display: none;
 	}
 	
 	.main-nav {
 		height: auto;
 		display: inline-block;
-		width: 62%;
+		width: 100%;
 		vertical-align: middle;
 		text-align: center;
 	}
 	
 	.main-nav .nav-item, .main-nav .nav-item a {
 		height: auto;
-		line-height: .9em;
+		line-height: 1.6em;
 		display: inline-block;
 		width: 100%;
 		border: none;
+		font-size: 1.2em;
 	}
 	
 	.piped-nav .nav-item.ask {
@@ -561,16 +545,12 @@
 	}
 	
 	.big-logo.logo {
-		display: inline-block;
+		display: block;
 		vertical-align: middle;
 		float: none;
-		width: 35%;
-		padding-right: 31%;
-	
-}
-	
-	.header {
-		margin-bottom: 16em;
+		width: 160px;
+		height: 46px;
+		margin: 1em auto;
 	}
 }
 
@@ -608,10 +588,6 @@
 @media only screen and (max-width: 370px) {
 	.main-tags-header{
 		display: none;	
-	}
-	
-	.main-nav{
-		width: 60%;	
 	}
 }
 
