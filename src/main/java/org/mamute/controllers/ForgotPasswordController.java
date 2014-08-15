@@ -51,7 +51,7 @@ public class ForgotPasswordController {
 		Email forgotPasswordEmail = emailWithTokenFor(user);
 		try {
 			mailer.send(forgotPasswordEmail);
-			result.include("messages", Arrays.asList(
+			result.include("mamuteMessages", Arrays.asList(
 						messageFactory.build("confirmation", "forgot_password.sent_mail", user.getEmail()),
 						messageFactory.build("confirmation", "forgot_password.sent_mail.warn")
 					));
@@ -82,7 +82,7 @@ public class ForgotPasswordController {
 		
 		user.touchForgotPasswordToken();
 		users.save(user);
-		result.include("messages", Arrays.asList(
+		result.include("mamuteMessages", Arrays.asList(
 					messageFactory.build("confirmation", "forgot_password.password_changed")
 				));
 		linker.linkTo(ListController.class).home(null);

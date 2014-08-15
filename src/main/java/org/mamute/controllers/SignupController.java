@@ -52,7 +52,7 @@ public class SignupController {
 		
 	    users.save(newUser);
 	    loginMethods.save(brutalLogin);
-	    result.include("messages", asList(messageFactory.build("confirmation", "signup.confirmation")));
+	    result.include("mamuteMessages", asList(messageFactory.build("confirmation", "signup.confirmation")));
 	    linker.linkTo(ListController.class).home(null);
 	    result.forwardTo(AuthController.class).login(email, password, linker.get());
 	}

@@ -156,11 +156,11 @@ public class UserProfileController extends BaseController{
 		String correctHash = user.getUnsubscribeHash();
 		
 		if (!correctHash.equals(hash)) {
-			result.include("messages", asList(messageFactory.build("errors", "newsletter.unsubscribe_page.invalid")));
+			result.include("mamuteMessages", asList(messageFactory.build("errors", "newsletter.unsubscribe_page.invalid")));
 			result.redirectTo(ListController.class).home(null);
 			return;
 		}
-		result.include("messages", asList(messageFactory.build("messages", "newsletter.unsubscribe_page.valid")));
+		result.include("mamuteMessages", asList(messageFactory.build("messages", "newsletter.unsubscribe_page.valid")));
 		user.setSubscribed(false);
 		result.redirectTo(ListController.class).home(null);
 	}

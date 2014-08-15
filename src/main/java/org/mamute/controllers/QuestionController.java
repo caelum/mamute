@@ -126,7 +126,7 @@ public class QuestionController {
 		result.include("question", original);
 		
 		questions.save(original);
-		result.include("messages",
+		result.include("mamuteMessages",
 				Arrays.asList(messageFactory.build("confirmation", status.getMessage())));
 		result.redirectTo(this).showQuestion(original, original.getSluggedTitle());
 	}
@@ -180,7 +180,7 @@ public class QuestionController {
 		if (watching) {
 			watchers.add(question, new Watcher(author));
 		}
-		result.include("messages", asList(messageFactory.build("alert", "question.quality_reminder")));
+		result.include("mamuteMessages", asList(messageFactory.build("alert", "question.quality_reminder")));
 		result.redirectTo(this).showQuestion(question, question.getSluggedTitle());
 	}
 
