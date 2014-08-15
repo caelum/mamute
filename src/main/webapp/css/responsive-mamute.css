@@ -268,6 +268,10 @@
 	.main-nav .nav-item a {
 		padding: .8em;
 	}
+	
+	.user-area .nav-item a {
+		font-size: 1.3em;
+	}
 }
 
 @media only screen and (max-width: 700px) {
@@ -424,7 +428,6 @@
 		width:33%;
 	}
 	
-	
 	.modal-flag {
 		width: 53%;
 	}
@@ -447,7 +450,7 @@
 	}
 	
 	.nav-item {
-		padding-right: 0.7em;
+		padding: .7em 1em;
 	}
 }
 
@@ -527,6 +530,7 @@
 		width: 100%;
 		vertical-align: middle;
 		text-align: center;
+		margin: 0;
 	}
 	
 	.main-nav .nav-item, .main-nav .nav-item a {
