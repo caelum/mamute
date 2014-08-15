@@ -13,18 +13,21 @@ import org.scribe.oauth.OAuthService;
 
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
+import br.com.caelum.vraptor.Result;
 
 @Controller
 public class FacebookAuthController extends BaseController {
 	
 	@Inject private UrlValidator urlValidator;
 	@Inject private LoginMethodManager loginManager;
+	@Inject private Result result;
 	@Inject @Facebook private OAuthService service;
+	
 	
 	@Get("/sign-up/facebook/")
 	public void signupViaFacebook(String code, String state) {
 		if (code == null) {
-			includeAsList("messages", i18n("error", "error.signup.facebook.unknown"));
+			includeAsList("mamuteMessages", i18n("error", "error.signup.facebook.unknown"));
 			redirectTo(SignupController.class).signupForm();
 			return;
 		}
@@ -33,15 +36,19 @@ public class FacebookAuthController extends BaseController {
 		
 		SocialAPI facebookAPI = new FacebookAPI(service, token);
 		
-		loginManager.merge(MethodType.FACEBOOK, facebookAPI);
-
-	    redirectToRightUrl(state);
+		boolean success = loginManager.merge(MethodType.FACEBOOK, facebookAPI);
+		if(!success) {
+			includeAsList("mamuteMessages", i18n("error", "signup.errors.facebook.invalid_email", state));
+			result.redirectTo(AuthController.class).loginForm(state);
+			return;
+		}
+		redirectToRightUrl(state);
 	}
 
 	private void redirectToRightUrl(String state) {
 		boolean valid = urlValidator.isValid(state);
 		if (!valid) {
-			includeAsList("messages", i18n("error", "error.invalid.url", state));
+			includeAsList("mamuteMessages", i18n("error", "error.invalid.url", state));
 		}
         if (state != null && !state.isEmpty() && valid) {
             redirectTo(state);

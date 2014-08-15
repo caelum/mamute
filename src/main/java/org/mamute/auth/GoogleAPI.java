@@ -7,6 +7,7 @@ import org.scribe.model.Token;
 import org.scribe.model.Verb;
 import org.scribe.oauth.OAuthService;
 
+import com.google.common.base.Optional;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -19,14 +20,14 @@ public class GoogleAPI implements SocialAPI{
 		this.service = service;
 	}
 	
-	public SignupInfo getSignupInfo() {
+	public Optional<SignupInfo> getSignupInfo() {
 		JsonObject jsonObject = new JsonParser().parse(makeRequest(getAccessToken()).getBody()).getAsJsonObject();
 	    String email = jsonObject.get("emails").getAsJsonArray().get(0).getAsJsonObject().get("value").getAsString();
 	    String name = jsonObject.get("displayName").getAsString();
 	    String photoUrl = jsonObject.get("image").getAsJsonObject().get("url").getAsString();
 	    
 	    SignupInfo signupInfo = new SignupInfo(MethodType.GOOGLE, email, name, "", photoUrl);
-	    return signupInfo;
+	    return Optional.of(signupInfo);
 	}
 	
 	private Response makeRequest(Token accessToken) {

@@ -6,8 +6,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.caelum.vraptor.actioncache.Cached;
-import br.com.caelum.vraptor.view.Results;
 import org.joda.time.DateTime;
 import org.mamute.components.RecentTagsContainer;
 import org.mamute.dao.NewsDAO;
@@ -17,12 +15,13 @@ import org.mamute.model.LoggedUser;
 import org.mamute.model.News;
 import org.mamute.model.Question;
 import org.mamute.model.Tag;
+import org.mamute.stream.Streamed;
 
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.actioncache.Cached;
 import br.com.caelum.vraptor.routes.annotation.Routed;
-import org.mamute.stream.Streamed;
 
 @Routed
 @Controller

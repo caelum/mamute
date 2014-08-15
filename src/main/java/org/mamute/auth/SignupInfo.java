@@ -5,6 +5,7 @@ import java.net.URL;
 
 import org.mamute.model.MethodType;
 
+import com.google.common.base.Optional;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -25,10 +26,10 @@ public class SignupInfo {
 		this.photoUrl = photoUrl;
 	}
 
-	public static SignupInfo fromFacebook(JsonObject jsonObj) {
+	public static Optional<SignupInfo> fromFacebook(JsonObject jsonObj) {
 		JsonElement emailElement = jsonObj.get("email");
 		if (emailElement == null) {
-			throw new IllegalArgumentException("could not find email in json facebook response");
+			return Optional.absent();
 		}
 		String email = emailElement.getAsString();
 		String name = jsonObj.get("name").getAsString();
@@ -40,7 +41,7 @@ public class SignupInfo {
 		if (locationJson != null) {
 			location = locationJson.get("name").getAsString();
 		}
-		return new SignupInfo(MethodType.FACEBOOK, email, name, location, photoUrl);
+		return Optional.of(new SignupInfo(MethodType.FACEBOOK, email, name, location, photoUrl));
 	}
 
 	public MethodType getMethod() {

@@ -21,7 +21,7 @@ public class SignupInfoTest {
 		String json = new Scanner(is).useDelimiter("$$").next();
 		JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
 		
-		SignupInfo info = SignupInfo.fromFacebook(jsonObject);
+		SignupInfo info = SignupInfo.fromFacebook(jsonObject).get();
 		assertEquals("chico@brutal.com", info.getEmail());
 		assertEquals("Francisco Sokol", info.getName());
 		assertEquals("São Paulo, Brazil", info.getLocation());

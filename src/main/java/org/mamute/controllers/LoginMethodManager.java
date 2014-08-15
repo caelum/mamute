@@ -17,6 +17,8 @@ import org.mamute.model.LoginMethod;
 import org.mamute.model.MethodType;
 import org.mamute.model.User;
 
+import com.google.common.base.Optional;
+
 import br.com.caelum.vraptor.validator.I18nMessage;
 
 public class LoginMethodManager {
@@ -26,25 +28,30 @@ public class LoginMethodManager {
 	@Inject private LoginMethodDAO loginMethods;
 	@Inject private Access access;
 	
-	public void merge(MethodType type, SocialAPI google) {
-		SignupInfo signupInfo = google.getSignupInfo();
+	public boolean merge(MethodType type, SocialAPI socialApi) {
+		Optional<SignupInfo> optional = socialApi.getSignupInfo();
+		
+		if(!optional.isPresent()) return false;
+		
+		SignupInfo signupInfo = optional.get();
 	    
 		User existantGoogleUser = users.findByEmailAndMethod(signupInfo.getEmail(), type);
 	    
 		if(existantGoogleUser != null) {
 	    	access.login(existantGoogleUser);
-	    	return;
+	    	return true;
 		}
 		
-		String token = google.getAccessToken().getToken();
+		String token = socialApi.getAccessToken().getToken();
 		
 		User existantUser = users.findByEmail(signupInfo.getEmail());
 		if (existantUser != null) {
 			mergeLoginMethod.mergeLoginMethods(token, existantUser, type);
-			return;
+			return true;
 		}
 		
 		createNewUser(token, signupInfo, type);
+		return true;
 	}
 	
 	private List<I18nMessage> getConfirmationMessages(User existantUser) {

@@ -34,7 +34,7 @@ public class GoogleAuthController extends BaseController{
 	private void redirectToRightUrl(String state) {
 		boolean valid = urlValidator.isValid(state);
 		if (!valid) {
-			includeAsList("messages", i18n("error", "error.invalid.url", state));
+			includeAsList("mamuteMessages", i18n("error", "error.invalid.url", state));
 		}
         if (state != null && !state.isEmpty() && valid) {
             redirectTo(state);

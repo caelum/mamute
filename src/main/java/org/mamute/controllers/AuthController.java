@@ -43,7 +43,7 @@ public class AuthController extends BaseController {
 		if (validator.validate(email, password) && auth.authenticate(email, password)) {
 			redirectToRightUrl(redirectUrl);
 		} else {
-			includeAsList("messages", i18n("error", "auth.invalid.login"));
+			includeAsList("mamuteMessages", i18n("error", "auth.invalid.login"));
 			redirectTo(this).loginForm(redirectUrl);
 			validator.onErrorRedirectTo(this).loginForm(redirectUrl);
 		}
@@ -59,7 +59,7 @@ public class AuthController extends BaseController {
 	private void redirectToRightUrl(String redirectUrl) {
 		boolean valid = urlValidator.isValid(redirectUrl);
 		if (!valid) {
-			includeAsList("messages", i18n("error", "error.invalid.url", redirectUrl));
+			includeAsList("mamuteMessages", i18n("error", "error.invalid.url", redirectUrl));
 		}
         if (redirectUrl != null && !redirectUrl.isEmpty() && valid) {
             redirectTo(redirectUrl);
