@@ -4,27 +4,23 @@ import com.google.common.io.Resources;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.junit.*;
 import org.mamute.builder.QuestionBuilder;
-import org.mamute.dao.InvisibleForUsersRule;
-import org.mamute.dao.QuestionDAO;
 import org.mamute.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 
 public class QuestionIndexTest extends SolrTestCase {
 	private static final Logger LOGGER = LoggerFactory.getLogger(QuestionIndexTest.class);
 	static QuestionIndex sut;
-	static QuestionDAO dao;
+
+	static Map<Long, Question> questions = new HashMap<>();
 
 	static User author;
 	static QuestionBuilder question = new QuestionBuilder();
-
 	static Tag eli5;
 	static Tag eli12;
 	static Tag science;
@@ -33,16 +29,16 @@ public class QuestionIndexTest extends SolrTestCase {
 
 	@Test
 	public void testFindQuestionsByTitle() {
-		List<Question> questions = sut.findQuestionsByTitle("sky blue", 3);
-		assertEquals(1, questions.size());
-		assertEquals("Why is the sky blue?", questions.get(0).getTitle());
+		List<Long> ids = sut.findQuestionsByTitle("sky blue", 3);
+		assertEquals(1, ids.size());
+		assertEquals("Why is the sky blue?", question(ids.get(0)).getTitle());
 	}
 
 	@Test
 	public void testFindQuestionsByTitleAndTag() {
-		List<Question> questions = sut.findQuestionsByTitleAndTag("Where", Arrays.asList(eli12), 3);
-		assertEquals(3, questions.size());
-		assertEquals("Where do babies come from?", questions.get(0).getTitle());
+		List<Long> ids = sut.findQuestionsByTitleAndTag("Where", Arrays.asList(eli12), 3);
+		assertEquals(3, ids.size());
+		assertEquals("Where do babies come from?", question(ids.get(0)).getTitle());
 	}
 
 	@BeforeClass
@@ -62,8 +58,7 @@ public class QuestionIndexTest extends SolrTestCase {
 		tolstoy = new Tag("tolstoy", "Long-winded russian author", author);
 		hibernateSession.save(tolstoy);
 
-		dao = new QuestionDAO(hibernateSession, new InvisibleForUsersRule(new LoggedUser(author, null)));
-		sut = new QuestionIndex(solrServer, dao);
+		sut = new QuestionIndex(solrServer);
 		data();
 	}
 
@@ -72,14 +67,17 @@ public class QuestionIndexTest extends SolrTestCase {
 		solrServer.deleteByQuery("*:*");
 	}
 
+	Question question(Long id) {
+		return questions.get(id);
+	}
+
 	static void data() throws IOException, SolrServerException {
 		solrServer.deleteByQuery("*:*");
 
 		Question q;
 		try (BufferedReader fis = new BufferedReader(new InputStreamReader(Resources.getResource("index/war-peace.txt").openStream()))) {
 			String line;
-			long count = 4;
-			List<Question> questions = new ArrayList<>();
+			long count = 1;
 
 			//load first 500 lines of war and peace
 			LOGGER.info("Warring for peace");
@@ -87,41 +85,43 @@ public class QuestionIndexTest extends SolrTestCase {
 				if (line.length() > QuestionInformation.TITLE_MIN_LENGTH &&
 						line.length() < QuestionInformation.TITLE_MAX_LENGTH) {
 					q = question
+							.withId(count++)
 							.withTitle(line)
 							.withTags(Arrays.asList(tolstoy))
 							.withAuthor(author)
 							.build();
-					dao.save(q);
-					questions.add(q);
+					questions.put(q.getId(), q);
 				}
 			}
+			sut.indexQuestionBatch(questions.values());
 			LOGGER.info("Peace achieved");
 
 			q = question
+					.withId(count++)
 					.withTitle("Why is the sky blue?")
 					.withTags(Arrays.asList(science, eli5))
 					.withAuthor(author)
 					.build();
-			dao.save(q);
+			questions.put(q.getId(), q);
 			sut.indexQuestion(q);
 
 			q = question
+					.withId(count++)
 					.withTitle("Where do babies come from?")
 					.withTags(Arrays.asList(science, eli12))
 					.withAuthor(author)
 					.build();
-			dao.save(q);
+			questions.put(q.getId(), q);
 			sut.indexQuestion(q);
 
 			q = question
+					.withId(count++)
 					.withTitle("How do they get the ship in the bottle?")
 					.withTags(Arrays.asList(hobby))
 					.withAuthor(author)
 					.build();
-			dao.save(q);
+			questions.put(q.getId(), q);
 			sut.indexQuestion(q);
-
-			sut.indexQuestionBatch(questions);
 		}
 	}
 }
