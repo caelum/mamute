@@ -13,6 +13,7 @@
 		<jetty.version>8.1.0.v20120127</jetty.version>
 		<jetty.jsp.version>8.1.4.v20120524</jetty.jsp.version>
 		<mamute.database>mysql</mamute.database>
+		<solr.version>4.9.0</solr.version>
 	</properties>
 
 	<scm>
@@ -180,17 +181,26 @@
 		</dependency>
 		<!-- end of hibernate deps -->
 
-		<!-- etc -->
-		<!--<dependency>-->
-			<!--<groupId>org.apache.solr</groupId>-->
-			<!--<artifactId>solr-core</artifactId>-->
-			<!--<version>4.9.0</version>-->
-		<!--</dependency>-->
+		<!-- Embedded Solr -->
+		<dependency>
+			<groupId>org.apache.solr</groupId>
+			<artifactId>solr-core</artifactId>
+			<version>${solr.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.solr</groupId>
+			<artifactId>solr-dataimporthandler</artifactId>
+			<version>${solr.version}</version>
+		</dependency>
+
+		<!-- Solr API -->
 		<dependency>
 			<groupId>org.apache.solr</groupId>
 			<artifactId>solr-solrj</artifactId>
-			<version>4.9.0</version>
+			<version>${solr.version}</version>
 		</dependency>
+
+		<!-- etc -->
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
 			<artifactId>xstream</artifactId>

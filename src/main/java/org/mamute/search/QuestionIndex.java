@@ -61,7 +61,6 @@ public class QuestionIndex {
 		return query(QUESTION_ROOT + "title:" + title, maxResults);
 	}
 
-	//Not yet fully implemented
 	public List<Question> findQuestionsByTitleAndTag(String title, List<Tag> tags, int maxResults) {
 		String tagQuery = Joiner.on(" OR ").join(Lists.transform(tags, new Function<Tag, Object>() {
 			public Object apply(Tag tag) {
