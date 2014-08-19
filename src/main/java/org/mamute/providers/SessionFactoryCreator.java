@@ -42,11 +42,12 @@ import br.com.caelum.vraptor.environment.Environment;
 @Alternative
 @Priority(Interceptor.Priority.APPLICATION)
 public class SessionFactoryCreator {
-	
-	public static final String JODA_TIME_TYPE= "org.jadira.usertype.dateandtime.joda.PersistentDateTime";
+
+	public static final String JODA_TIME_TYPE = "org.jadira.usertype.dateandtime.joda.PersistentDateTime";
+	public static final String DATABASE_PROPERTY = "mamute.database";
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(SessionFactoryCreator.class);
-	
+
 	private Configuration cfg;
 	private SessionFactory factory;
 	private Environment env;
@@ -64,20 +65,24 @@ public class SessionFactoryCreator {
 
 	@PostConstruct
 	public void init() {
-		URL xml = env.getResource("/hibernate.cfg.xml");
+		//TODO: should probably be in a config file of some sort rather than a system prop
+		String db = System.getProperty(DATABASE_PROPERTY, "mysql");
+		String hibernateCfg = "/hibernate-" + db + ".cfg.xml";
+
+		URL xml = env.getResource(hibernateCfg);
 		LOGGER.info("Loading hibernate xml from " + xml);
 		this.cfg = new Configuration().configure(xml);
-		
+
 		if (this.vf != null) {
 			Map<Object, Object> properties = cfg.getProperties();
 			properties.put("javax.persistence.validation.factory", this.vf);
 		}
-		
+
 		String url = System.getenv("JDBC_URL");
 		if (url != null) {
 			String user = System.getenv("USER");
 			String password = System.getenv("PASSWORD");
-			
+
 			LOGGER.info("reading database config from environment: " + url);
 			cfg.setProperty("hibernate.connection.url", url);
 			cfg.setProperty("hibernate.connection.username", user);
@@ -103,7 +108,7 @@ public class SessionFactoryCreator {
 		cfg.addAnnotatedClass(TagPage.class);
 
 		this.factory = cfg.buildSessionFactory();
-		
+
 	}
 
 	@Produces
@@ -125,15 +130,16 @@ public class SessionFactoryCreator {
 		new SchemaExport(cfg).create(true, true);
 		init();
 	}
+
 	public void drop() {
 		factory.close();
 		factory = null;
 		new SchemaExport(cfg).drop(true, true);
 		init();
 	}
-	
+
 	public Configuration getCfg() {
 		return cfg;
 	}
-	
+
 }

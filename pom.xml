@@ -12,6 +12,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<jetty.version>8.1.0.v20120127</jetty.version>
 		<jetty.jsp.version>8.1.4.v20120524</jetty.jsp.version>
+		<mamute.database>mysql</mamute.database>
 	</properties>
 
 	<scm>
@@ -106,7 +107,7 @@
 		<dependency>
 			<groupId>br.com.caelum.vraptor</groupId>
 			<artifactId>vraptor-jodatime</artifactId>
-			<version>4.0.0-RC3-SNAPSHOT</version> 
+			<version>4.0.0-RC3-SNAPSHOT</version>
 			<!-- RC3 manual deployed to fix issue #2 -->
 		</dependency>
 		<dependency>
@@ -453,6 +454,12 @@
 			<version>1.7.3</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+		  <groupId>com.h2database</groupId>
+		  <artifactId>h2</artifactId>
+		  <version>1.4.180</version>
+		  <scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -586,6 +593,9 @@
 					</execution>
 				</executions>
 				<configuration>
+					<systemPropertyVariables>
+						<mamute.database>${mamute.database}</mamute.database>
+					</systemPropertyVariables>
 					<excludes>
 						<exclude>**/scene/**</exclude>
 					</excludes>
@@ -665,7 +675,7 @@
 		</plugins>
 		<pluginManagement>
 			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings 
+				<!--This plugin's configuration is used to store Eclipse m2e settings
 					only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
