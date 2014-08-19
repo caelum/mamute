@@ -19,6 +19,7 @@ import javax.interceptor.Interceptor;
 
 import java.io.File;
 
+import static org.apache.commons.lang.StringUtils.isEmpty;
 import static org.apache.commons.lang.StringUtils.isNotEmpty;
 
 @Alternative
@@ -39,15 +40,21 @@ public class SolrServerProvider {
 	public void create() {
 		//embedded options
 		Boolean embedded = Boolean.parseBoolean(env.get("solr.embedded", "false"));
+		String solrCore = env.get("solr.core", "mamute");
 		String solrHome = env.get("solr.home", "");
-		String solrCore = env.get("solr.core", "");
+
 
 		//remote options
 		String remoteUrl = env.get("solr.url", "");
 
-		if (embedded && isNotEmpty(solrHome)) {
+		if (embedded) {
 			LOGGER.info("Starting embedded Solr");
-			CoreContainer coreContainer = new CoreContainer(new File(solrHome).getAbsolutePath());
+			String home = solrHome;
+			if (isEmpty(home)) {
+				home = env.getResource("/solr").getPath();
+			}
+
+			CoreContainer coreContainer = new CoreContainer(home);
 			coreContainer.load();
 			server = new EmbeddedSolrServer(coreContainer, solrCore);
 		} else if (isNotEmpty(remoteUrl)) {

@@ -29,6 +29,7 @@ import org.mamute.model.UpdateStatus;
 import org.mamute.model.User;
 import org.mamute.model.post.PostViewCounter;
 import org.mamute.model.watch.Watcher;
+import org.mamute.search.QuestionIndex;
 import org.mamute.util.TagsSplitter;
 import org.mamute.validators.TagsValidator;
 import org.mamute.vraptor.Linker;
@@ -49,6 +50,7 @@ public class QuestionController {
 
 	private Result result;
 	private QuestionDAO questions;
+	private QuestionIndex index;
 	private VoteDAO votes;
 	private LoggedUser currentUser;
 	private TagsValidator tagsValidator;
@@ -65,13 +67,13 @@ public class QuestionController {
 
 
 	/**
-	 * @deprecated CDI eyes only 
+	 * @deprecated CDI eyes only
 	 */
 	public QuestionController() {
 	}
-	
+
 	@Inject
-	public QuestionController(Result result, QuestionDAO questionDAO, 
+	public QuestionController(Result result, QuestionDAO questionDAO, QuestionIndex index,
 			VoteDAO votes, LoggedUser currentUser, FacebookAuthService facebook,
 			TagsValidator tagsValidator, MessageFactory messageFactory,
 			Validator validator, PostViewCounter viewCounter,
@@ -79,6 +81,7 @@ public class QuestionController {
 			BrutalValidator brutalValidator, TagsManager tagsManager, TagsSplitter splitter) {
 		this.result = result;
 		this.questions = questionDAO;
+		this.index = index;
 		this.votes = votes;
 		this.currentUser = currentUser;
 		this.facebook = facebook;
@@ -99,7 +102,7 @@ public class QuestionController {
 	@CustomBrutauthRules(LoggedRule.class)
 	public void questionForm() {
 	}
-	
+
 	@Get
 	@IncludeAllTags
 	@CustomBrutauthRules(EditQuestionRule.class)
@@ -109,28 +112,28 @@ public class QuestionController {
 
 	@Post
 	@CustomBrutauthRules(EditQuestionRule.class)
-	public void edit(@Load Question original, String title, String description, String tagNames, 
+	public void edit(@Load Question original, String title, String description, String tagNames,
 			String comment) {
 
 		List<String> splitedTags = splitter.splitTags(tagNames);
 		List<Tag> loadedTags = tagsManager.findOrCreate(splitedTags);
 		validate(loadedTags, splitedTags);
-		
+
 		QuestionInformation information = new QuestionInformation(title, description, this.currentUser, loadedTags, comment);
 		brutalValidator.validate(information);
 		UpdateStatus status = original.updateWith(information);
 
 		validator.onErrorUse(Results.page()).of(this.getClass()).questionEditForm(original);
-		
+
 		result.include("editComment", comment);
 		result.include("question", original);
-		
+
 		questions.save(original);
 		result.include("mamuteMessages",
 				Arrays.asList(messageFactory.build("confirmation", status.getMessage())));
 		result.redirectTo(this).showQuestion(original, original.getSluggedTitle());
 	}
-	
+
 	@Get
 	public void showQuestion(@Load Question question, String sluggedTitle){
 		User current = currentUser.getCurrent();
@@ -138,7 +141,7 @@ public class QuestionController {
 			result.include("markAsSolution", question.canMarkAsSolution(current));
 			result.include("showUpvoteBanner", !current.isVotingEnough());
 			result.include("editedLink", true);
-			
+
 			redirectToRightUrl(question, sluggedTitle);
 			viewCounter.ping(question);
 			boolean isWatching = watchers.ping(question, current);
@@ -165,15 +168,17 @@ public class QuestionController {
 
 		List<Tag> foundTags = tagsManager.findOrCreate(splitedTags);
 		validate(foundTags, splitedTags);
-		
+
 		QuestionInformation information = new QuestionInformation(title, description, currentUser, foundTags, "new question");
 		brutalValidator.validate(information);
 		User author = currentUser.getCurrent();
 		Question question = new Question(information, author);
 		result.include("question", question);
 		validator.onErrorRedirectTo(this).questionForm();
-		
+
 		questions.save(question);
+		index.indexQuestion(question);
+
 		ReputationEvent reputationEvent = new ReputationEvent(EventType.CREATED_QUESTION, question, author);
 		author.increaseKarma(reputationEvent.getKarmaReward());
 		reputationEvents.save(reputationEvent);
@@ -190,11 +195,11 @@ public class QuestionController {
 		result.include("question", question);
 		redirectToRightUrl(question, sluggedTitle);
 	}
-	
+
 	private boolean validate(List<Tag> foundTags, List<String> splitedTags) {
 		return tagsValidator.validate(foundTags, splitedTags);
 	}
-	
+
 	private void redirectToRightUrl(Question question, String sluggedTitle) {
 		if (!question.getSluggedTitle().equals(sluggedTitle)) {
 			result.redirectTo(this).showQuestion(question,
