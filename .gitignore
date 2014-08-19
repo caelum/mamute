@@ -32,3 +32,4 @@ versions.txt
 /target
 jsp-compilation
 tmp/
+node_modules/
