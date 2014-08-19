@@ -23,8 +23,9 @@ import br.com.caelum.vraptor.test.container.CdiContainer;
 
 @SuppressWarnings("unchecked")
 public abstract class DatabaseTestCase extends TestCase {
-	private static final SessionFactory factory;
+	protected static final SessionFactory factory;
 	private static final SessionFactoryCreator creator;
+	protected static CDIBasedContainer cdiBasedContainer;
 	protected Session session;
 	protected User loggedUser;
 
@@ -34,7 +35,7 @@ public abstract class DatabaseTestCase extends TestCase {
 			CdiContainer cdiContainer = new CdiContainer();
 			cdiContainer.start();
 			Environment testing = new DefaultEnvironment(TEST);
-			CDIBasedContainer cdiBasedContainer = CDI.current().select(CDIBasedContainer.class).get();
+			cdiBasedContainer = CDI.current().select(CDIBasedContainer.class).get();
 			ValidatorFactory vf = cdiBasedContainer.instanceFor(ValidatorFactory.class);
 			creator = new SessionFactoryCreator(testing, vf);
 			creator.init();

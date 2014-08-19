@@ -12,6 +12,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<jetty.version>8.1.0.v20120127</jetty.version>
 		<jetty.jsp.version>8.1.4.v20120524</jetty.jsp.version>
+		<solr.version>4.9.0</solr.version>
 	</properties>
 
 	<scm>
@@ -106,7 +107,7 @@
 		<dependency>
 			<groupId>br.com.caelum.vraptor</groupId>
 			<artifactId>vraptor-jodatime</artifactId>
-			<version>4.0.0-RC3-SNAPSHOT</version> 
+			<version>4.0.0-RC3-SNAPSHOT</version>
 			<!-- RC3 manual deployed to fix issue #2 -->
 		</dependency>
 		<dependency>
@@ -178,6 +179,63 @@
 			<version>2.0.1</version>
 		</dependency>
 		<!-- end of hibernate deps -->
+
+		<!-- Embedded Solr -->
+		<dependency>
+			<groupId>org.apache.solr</groupId>
+			<artifactId>solr-core</artifactId>
+			<version>${solr.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.eclipse.jetty</groupId>
+					<artifactId>jetty-continuation</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.eclipse.jetty</groupId>
+					<artifactId>jetty-deploy</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.eclipse.jetty</groupId>
+					<artifactId>jetty-help</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.eclipse.jetty</groupId>
+					<artifactId>jetty-io</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.eclipse.jetty</groupId>
+					<artifactId>jetty-jmx</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.eclipse.jetty</groupId>
+					<artifactId>jetty-security</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.eclipse.jetty</groupId>
+					<artifactId>jetty-util</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.eclipse.jetty</groupId>
+					<artifactId>jetty-xml</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.eclipse.jetty</groupId>
+					<artifactId>jetty-http</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.solr</groupId>
+			<artifactId>solr-dataimporthandler</artifactId>
+			<version>${solr.version}</version>
+		</dependency>
+
+		<!-- Solr API -->
+		<dependency>
+			<groupId>org.apache.solr</groupId>
+			<artifactId>solr-solrj</artifactId>
+			<version>${solr.version}</version>
+		</dependency>
 
 		<!-- etc -->
 		<dependency>
@@ -333,6 +391,11 @@
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-servlets</artifactId>
+			<version>${jetty.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-http</artifactId>
 			<version>${jetty.version}</version>
 		</dependency>
 
