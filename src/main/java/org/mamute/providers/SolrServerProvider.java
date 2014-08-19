@@ -27,8 +27,8 @@ public class SolrServerProvider {
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(SolrServerProvider.class);
 
-	SolrServer server;
-	Environment env;
+	private SolrServer server;
+	private final Environment env;
 
 	@Inject
 	public SolrServerProvider(Environment env) {
