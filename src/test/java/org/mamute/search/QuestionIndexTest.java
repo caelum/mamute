@@ -15,37 +15,55 @@ import static org.junit.Assert.assertEquals;
 
 public class QuestionIndexTest extends SolrTestCase {
 	private static final Logger LOGGER = LoggerFactory.getLogger(QuestionIndexTest.class);
-	static QuestionIndex sut;
 
-	static Map<Long, Question> questions = new HashMap<>();
+	static QuestionIndex sut;
+	static Map<Long, Question> questions;
 
 	static User author;
-	static QuestionBuilder question = new QuestionBuilder();
+	static QuestionBuilder question;
 	static Tag eli5;
 	static Tag eli12;
 	static Tag science;
 	static Tag hobby;
 	static Tag tolstoy;
 
+	@BeforeClass
+	public static void setup() throws IOException, SolrServerException {
+		author = new User("Leonardo", "leo@leo");
+		author.confirmEmail();
+		hibernateSession.save(author);
+
+		sut = new QuestionIndex(solrServer);
+		data();
+	}
+
+	@AfterClass
+	public static void cleanup() throws IOException, SolrServerException {
+		solrServer.deleteByQuery("*:*");
+	}
+
 	@Test
-	public void testFindQuestionsByTitle() {
+	public void should_find_questions_by_title() {
 		List<Long> ids = sut.findQuestionsByTitle("sky blue", 3);
 		assertEquals(1, ids.size());
 		assertEquals("Why is the sky blue?", question(ids.get(0)).getTitle());
 	}
 
 	@Test
-	public void testFindQuestionsByTitleAndTag() {
+	public void should_find_questions_by_title_and_tag() {
 		List<Long> ids = sut.findQuestionsByTitleAndTag("Where", Arrays.asList(eli12), 3);
 		assertEquals(3, ids.size());
 		assertEquals("Where do babies come from?", question(ids.get(0)).getTitle());
 	}
 
-	@BeforeClass
-	public static void setup() throws IOException, SolrServerException {
-		author = new User("Leonardo", "leo@leo");
-		author.confirmEmail();
-		hibernateSession.save(author);
+	private Question question(Long id) {
+		return questions.get(id);
+	}
+
+	private static void data() throws IOException, SolrServerException {
+		questions = new HashMap<>();
+		question = new QuestionBuilder();
+		solrServer.deleteByQuery("*:*");
 
 		eli5 = new Tag("eli5", "Explain Like I'm 5", author);
 		hibernateSession.save(eli5);
@@ -57,22 +75,6 @@ public class QuestionIndexTest extends SolrTestCase {
 		hibernateSession.save(hobby);
 		tolstoy = new Tag("tolstoy", "Long-winded russian author", author);
 		hibernateSession.save(tolstoy);
-
-		sut = new QuestionIndex(solrServer);
-		data();
-	}
-
-	@AfterClass
-	public static void cleanup() throws IOException, SolrServerException {
-		solrServer.deleteByQuery("*:*");
-	}
-
-	Question question(Long id) {
-		return questions.get(id);
-	}
-
-	static void data() throws IOException, SolrServerException {
-		solrServer.deleteByQuery("*:*");
 
 		Question q;
 		try (BufferedReader fis = new BufferedReader(new InputStreamReader(Resources.getResource("index/war-peace.txt").openStream()))) {
