@@ -12,4 +12,5 @@ java -cp ${WEB_INF}/classes/:${WEB_INF}/lib/* \
     -Ddeploy.timestamp=$TIMESTAMP \
     -Dvraptor.webappdir=${MAMUTE_DIR} \
     ${MAMUTE_OPTS} \
-    br.com.caelum.vraptor.server.Main
+    br.com.caelum.vraptor.server.Main \
+	not-grunt

@@ -7,9 +7,17 @@ import java.nio.file.StandardWatchEventKinds;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
+import java.util.Arrays;
+import java.util.List;
 
 public class Main {
 	public static void main(String[] args) throws Exception {
+		List<String> options = Arrays.asList(args);
+		if (args.length == 0 || !options.contains("not-grunt")) {
+			System.out.println("Executing grunt...");
+			Runtime.getRuntime().exec("mvn grunt:grunt").waitFor();			
+		}
+		
 		String webappDirLocation = getWebAppDir();
 		//WatchService service = FileSystems.getDefault().newWatchService();
 		

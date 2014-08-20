@@ -466,6 +466,35 @@
 		<outputDirectory>src/main/webapp/WEB-INF/classes/</outputDirectory>
 		<plugins>
 			<plugin>
+			    <groupId>pl.allegro</groupId>
+			    <artifactId>grunt-maven-plugin</artifactId>
+			    <version>1.4.1</version>
+			    <configuration>
+			        <!-- relative to src/main/webapp/, default: static -->
+			        <jsSourceDirectory>src/main/webapp/css/</jsSourceDirectory>
+			
+			        <!-- example options usage to get verbose output in logs -->
+			        <gruntOptions>
+			            <gruntOption>--verbose</gruntOption>
+			        </gruntOptions>
+			
+			        <!-- example npm install env variable -->
+			        <npmEnvironmentVar>
+			            <PHANTOMJS_CDNURL>http://cnpmjs.org/downloads</PHANTOMJS_CDNURL>
+			        </npmEnvironmentVar>
+			    </configuration>
+			    <executions>
+			        <execution>
+			            <goals>
+			                <goal>create-resources</goal>
+			                <goal>npm</goal>
+			                <goal>grunt</goal>
+			            </goals>
+			        </execution>
+			    </executions>
+			</plugin>
+			
+			<plugin>
 				<groupId>com.keyboardsamurais.maven</groupId>
 				<artifactId>maven-timestamp-plugin</artifactId>
 				<version>1.0</version>

@@ -2,7 +2,7 @@ module.exports = function(grunt) {
 
 	var config = {
 		src: 'src/main/assets/less/',
-		dest: 'src/main/webapp/css/'
+		dest: 'src/main/webapp/css/mamute/'
 	};
 
 	grunt.initConfig({
