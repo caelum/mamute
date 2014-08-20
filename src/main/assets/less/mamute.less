@@ -778,7 +778,6 @@ textarea {
 }
 
 .tag-ranking-section>.ranking-user {
-	display: block;
 	display: inline-block;
 	width: 49%;
 	vertical-align: middle;
@@ -834,8 +833,6 @@ textarea {
 		rgba(35, 70, 123, 1) 85%); /* IE10+ */
 	background: linear-gradient(to bottom, rgba(46, 67, 104, 1) 9%,
 		rgba(35, 70, 123, 1) 85%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient(   startColorstr='#2e4368',
-		endColorstr='#23467b', GradientType=0); /* IE6-9 */
 	border: 1px solid #3f5b98;
 	border-radius: 6px;
 	box-shadow: 1px 1px 2px 0 #abbbdf;
@@ -862,7 +859,6 @@ textarea {
 	background: -o-linear-gradient(top,  #dd4b39 0%,#d1443a 100%); /* Opera 11.10+ */
 	background: -ms-linear-gradient(top,  #dd4b39 0%,#d1443a 100%); /* IE10+ */
 	background: linear-gradient(to bottom,  #dd4b39 0%,#d1443a 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dd4b39', endColorstr='#d1443a',GradientType=0 ); /* IE6-9 */
 	border: 1px solid #BB3F30;
 	border-radius: 6px;
 	box-shadow: 1px 1px 2px 0 #abbbdf;
@@ -1403,7 +1399,7 @@ a.button.ask-a-question:hover {
 	margin-bottom: 2%;
 }
 
-.toggle-version:not ( .hidden ) {
+.toggle-version:not( .hidden ) {
 	display: block;
 	margin: 4% 0;
 }
@@ -1672,36 +1668,10 @@ a.button.ask-a-question:hover {
 	width: 100%;
 }
 
-.login-or-signup
-
- 
-
-label
-
-
-:not
-
- 
-
-(
-.error
-
- 
-
-){
-margin-bottom
-
-
-:
-
- 
-
-2
-px
-
-
-;
+.login-or-signup label:not(.error){
+	margin-bottom: 2px;
 }
+
 .login-or-signup .hide-next {
 	display: none;
 }
@@ -1990,23 +1960,10 @@ px
 
 .footer-menu
  
-a
-:not
- 
-(
-:last-child
- 
-)
-{
-padding-right
-:
- 
-1
-em
-;
-
-
+a:not(:last-child) {
+	padding-right: 1em;
 }
+
 .footer-muted-message {
 	color: #999;
 	display: block;
@@ -2408,7 +2365,7 @@ em
 }
 
 .page-item a {
-	border: 1px solid #ADC2D0;;
+	border: 1px solid #ADC2D0;
 	color: #3E6D8E;
 	padding: 0.5em;
 	display: block;
@@ -2498,7 +2455,6 @@ em
 
 .question-warnings {
 	padding: 0.8em;
-	color: black;
 	background-color: #FFEFC6;
 	border-radius: 5px;
 	color: #735005;
