@@ -2,13 +2,13 @@ package org.mamute.controllers;
 
 import javax.inject.Inject;
 
+import br.com.caelum.vraptor.Controller;
+import br.com.caelum.vraptor.Get;
+import br.com.caelum.vraptor.Result;
 import org.mamute.dao.QuestionDAO;
 import org.mamute.model.Question;
 import org.mamute.sanitizer.HtmlSanitizer;
 
-import br.com.caelum.vraptor.Controller;
-import br.com.caelum.vraptor.Get;
-import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.routes.annotation.Routed;
 import org.mamute.search.QuestionIndex;
@@ -47,18 +47,5 @@ public class SearchController {
 
 		result.include("results", questions);
 		result.include("query", sanitized);
-	}
-
-	@Get
-	public void indexSync() {
-		long pages = dao.numberOfPages();
-		long total = 0;
-		for (int i = 0; i < pages; i++) {
-			List<Question> q = dao.allVisible(i);
-			index.indexQuestionBatch(q);
-			total += q.size();
-		}
-
-		result.include("total", total);
 	}
 }
