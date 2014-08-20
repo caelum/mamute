@@ -33,3 +33,5 @@ versions.txt
 jsp-compilation
 tmp/
 node_modules/
+src/main/webapp/css/mamute
+target-grunt/
