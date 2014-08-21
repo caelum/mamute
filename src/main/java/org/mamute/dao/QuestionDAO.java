@@ -13,8 +13,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -255,11 +258,23 @@ public class QuestionDAO implements PaginatableDAO {
 		return null;
 	}
 
+	/**
+	 * Query for the set of question IDs. Order is preserved in the returned list.
+	 * @param ids
+	 * @return
+	 */
 	public List<Question> getByIds(List<Long> ids){
-		//TODO: find a way to do this in one query while preserving the order of the ID list
 		List<Question> questions = new ArrayList<>();
-		for (Long id : ids) {
-			questions.add(getById(id));
+		if(ids != null && ids.size() >0) {
+			List<Question> result = session.createQuery("from Question where id in (:ids)").setParameterList("ids", ids).list();
+			for (final Long id : ids) {
+				Question q = Iterables.find(result, new Predicate<Question>() {
+					public boolean apply(Question input) {
+						return input.getId().equals(id);
+					}
+				});
+				questions.add(q);
+			}
 		}
 		return questions;
 	}
