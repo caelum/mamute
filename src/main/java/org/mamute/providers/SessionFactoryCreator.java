@@ -66,9 +66,16 @@ public class SessionFactoryCreator {
 	@PostConstruct
 	public void init() {
 		//TODO: should probably be in a config file of some sort rather than a system prop
-		String db = System.getProperty(DATABASE_PROPERTY, "mysql");
-		String hibernateCfg = "/hibernate-" + db + ".cfg.xml";
+		String db = System.getProperty(DATABASE_PROPERTY);
+		String hibernateCfg;
 
+		if(db != null) {
+			hibernateCfg = "/hibernate-"+db+".cfg.xml";
+		}else {
+			hibernateCfg = "/hibernate.cfg.xml";
+		}
+		
+		
 		URL xml = env.getResource(hibernateCfg);
 		LOGGER.info("Loading hibernate xml from " + xml);
 		this.cfg = new Configuration().configure(xml);
