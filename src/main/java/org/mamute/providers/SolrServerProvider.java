@@ -1,12 +1,7 @@
 package org.mamute.providers;
 
-import br.com.caelum.vraptor.environment.Environment;
-import org.apache.solr.client.solrj.SolrServer;
-import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer;
-import org.apache.solr.client.solrj.impl.HttpSolrServer;
-import org.apache.solr.core.CoreContainer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static org.apache.commons.lang.StringUtils.isEmpty;
+import static org.apache.commons.lang.StringUtils.isNotEmpty;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Priority;
@@ -17,10 +12,14 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.interceptor.Interceptor;
 
-import java.io.File;
+import org.apache.solr.client.solrj.SolrServer;
+import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer;
+import org.apache.solr.client.solrj.impl.HttpSolrServer;
+import org.apache.solr.core.CoreContainer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import static org.apache.commons.lang.StringUtils.isEmpty;
-import static org.apache.commons.lang.StringUtils.isNotEmpty;
+import br.com.caelum.vraptor.environment.Environment;
 
 @Alternative
 @Priority(Interceptor.Priority.APPLICATION)
