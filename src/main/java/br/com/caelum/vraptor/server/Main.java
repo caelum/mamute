@@ -15,7 +15,7 @@ public class Main {
 		List<String> options = Arrays.asList(args);
 		if (args.length == 0 || !options.contains("not-grunt")) {
 			System.out.println("Executing grunt...");
-			Runtime.getRuntime().exec("mvn grunt:grunt").waitFor();			
+			Process exec = Runtime.getRuntime().exec("mvn grunt:grunt");
 		}
 		
 		String webappDirLocation = getWebAppDir();

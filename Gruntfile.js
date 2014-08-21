@@ -8,6 +8,8 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		config: config,
 
+		clean: ["<%= config.dest %>"],
+		
 		less: {
 			main: {
 				options: {
@@ -22,11 +24,26 @@ module.exports = function(grunt) {
 					ext: '.css'
 				}]
 			}
+		},
+		
+		watch: {
+			less: {
+				files: ['<%= config.src %>/**/*.less'],
+				tasks: ['less'],
+				options: {
+					spawn: false
+				}
+			}
 		}
     });
+	
+	['contrib-clean',
+	 'contrib-less',
+	 'contrib-watch'
+	].forEach(function(plugin) {
+		grunt.loadNpmTasks('grunt-' + plugin);
+	});
 
-    grunt.loadNpmTasks('grunt-contrib-less');
-
-	grunt.registerTask('default', ['less']);
+	grunt.registerTask('default', ['clean', 'less', 'watch']);
 
 };
