@@ -32,8 +32,8 @@
 			<fileset file="${css.dir}/reset.css" />
 			<fileset file="${css.dir}/deps/*.css"/>
 			<fileset file="${css.dir}/deps/pickadate/*.css" />
-			<fileset file="${css.dir}/mamute.css" />
-			<fileset file="${css.dir}/responsive-mamute.css" />
+			<fileset file="${css.dir}/mamute/mamute.css" />
+			<fileset file="${css.dir}/mamute/responsive-mamute.css" />
 
 		</concat>
 	</target>
