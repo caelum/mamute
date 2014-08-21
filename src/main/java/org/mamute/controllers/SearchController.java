@@ -32,13 +32,6 @@ public class SearchController {
 	@Get
 	public void search(String query) {
 		String sanitized = HtmlSanitizer.sanitize(query);
-		result.include("customGoogleSearchKey", env.get("custom_google_search_key"));
-		result.include("query", sanitized);
-	}
-
-	@Get
-	public void indexSearch(String query) {
-		String sanitized = HtmlSanitizer.sanitize(query);
 		List<Long> ids = index.findQuestionsByTitle(sanitized, 10);
 		List<Question> questions = new ArrayList<>();
 		for (Long id : ids) {

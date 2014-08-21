@@ -24,7 +24,6 @@ import java.util.List;
 
 public class QuestionIndex {
 	private static final Logger LOGGER = LoggerFactory.getLogger(QuestionIndex.class);
-	public static final String QUESTION_ROOT = "type:" + Question.class.getCanonicalName() + " && ";
 
 	private SolrServer server;
 
@@ -57,7 +56,7 @@ public class QuestionIndex {
 	}
 
 	public List<Long> findQuestionsByTitle(String title, int maxResults) {
-		return query(QUESTION_ROOT + "title:" + title, maxResults);
+		return query("title:" + title, maxResults);
 	}
 
 	public List<Long> findQuestionsByTitleAndTag(String title, List<Tag> tags, int maxResults) {
@@ -67,7 +66,7 @@ public class QuestionIndex {
 			}
 		}));
 
-		return query(QUESTION_ROOT + "title:" + title + " " + tagQuery, maxResults);
+		return query("title:" + title + " " + tagQuery, maxResults);
 	}
 
 	private SolrInputDocument toDoc(Question q) {
@@ -81,7 +80,6 @@ public class QuestionIndex {
 				return tag.getName();
 			}
 		}));
-		doc.addField("type", Question.class.getCanonicalName());
 		return doc;
 	}
 
