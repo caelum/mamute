@@ -13,6 +13,7 @@
 		<jetty.version>8.1.0.v20120127</jetty.version>
 		<jetty.jsp.version>8.1.4.v20120524</jetty.jsp.version>
 		<mamute.database>mysql</mamute.database>
+		<mamute.grunt.task></mamute.grunt.task>
 	</properties>
 
 	<scm>
@@ -470,23 +471,18 @@
 			    <artifactId>grunt-maven-plugin</artifactId>
 			    <version>1.4.1</version>
 			    <configuration>
-			        <!-- relative to src/main/webapp/, default: static -->
 			        <jsSourceDirectory>src/main/webapp/css/</jsSourceDirectory>
-			
-			        <!-- example options usage to get verbose output in logs -->
 			        <gruntOptions>
 			            <gruntOption>--verbose</gruntOption>
 			        </gruntOptions>
-			
-			        <!-- example npm install env variable -->
 			        <npmEnvironmentVar>
 			            <PHANTOMJS_CDNURL>http://cnpmjs.org/downloads</PHANTOMJS_CDNURL>
 			        </npmEnvironmentVar>
+			        <target>${mamute.grunt.task}</target>
 			    </configuration>
 			    <executions>
 			        <execution>
 			            <goals>
-			                <goal>create-resources</goal>
 			                <goal>npm</goal>
 			                <goal>grunt</goal>
 			            </goals>

@@ -44,6 +44,7 @@ module.exports = function(grunt) {
 		grunt.loadNpmTasks('grunt-' + plugin);
 	});
 
-	grunt.registerTask('default', ['clean', 'less', 'watch']);
+	grunt.registerTask('default', ['clean', 'less']);
+	grunt.registerTask('run', ['default', 'watch']);
 
 };

@@ -1,7 +1,9 @@
 	package br.com.caelum.vraptor.server;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Path;
 import java.nio.file.StandardWatchEventKinds;
 import java.nio.file.WatchEvent;
@@ -15,7 +17,16 @@ public class Main {
 		List<String> options = Arrays.asList(args);
 		if (args.length == 0 || !options.contains("not-grunt")) {
 			System.out.println("Executing grunt...");
-			Process exec = Runtime.getRuntime().exec("mvn grunt:grunt");
+			Process exec = Runtime.getRuntime().exec("mvn grunt:grunt -Dmamute.grunt.task=run");
+			
+//			Log from grunt
+//			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(exec.getInputStream()));
+//			String line;
+//			while ((line = bufferedReader.readLine()) != null) {
+//				System.out.println(line);
+//			}
+//			bufferedReader.close();
+			
 		}
 		
 		String webappDirLocation = getWebAppDir();
