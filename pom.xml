@@ -478,6 +478,7 @@
 			    </configuration>
 			    <executions>
 			        <execution>
+			        	<phase>prepare-package</phase>
 			            <goals>
 			                <goal>npm</goal>
 			                <goal>grunt</goal>
