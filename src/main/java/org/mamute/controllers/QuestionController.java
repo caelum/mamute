@@ -129,6 +129,8 @@ public class QuestionController {
 		result.include("question", original);
 
 		questions.save(original);
+		index.indexQuestion(original);
+
 		result.include("mamuteMessages",
 				Arrays.asList(messageFactory.build("confirmation", status.getMessage())));
 		result.redirectTo(this).showQuestion(original, original.getSluggedTitle());

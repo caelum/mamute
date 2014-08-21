@@ -4,7 +4,6 @@
 	<field name="_root_" type="string" indexed="true" stored="false"/>
 	<field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false"/>
 	<field name="title" type="text_general" indexed="true" stored="true"/>
-	<field name="type" type="text_general" indexed="true" stored="true" required="true" multiValued="false"/>
 	<field name="tags" type="text_general" indexed="true" stored="true" required="false" multiValued="true"/>
 	<field name="text" type="text_general" indexed="true" stored="false" multiValued="true"/>
 

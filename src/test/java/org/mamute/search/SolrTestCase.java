@@ -22,7 +22,7 @@ public abstract class SolrTestCase extends DatabaseTestCase {
 	static {
 		//copy Solr home to target
 		try {
-			FileUtils.copyDirectory(new File(Resources.getResource("solr").getPath()), new File("target/solr"));
+			FileUtils.copyDirectory(new File(Resources.getResource("development/solr").getPath()), new File("target/solr"));
 			solrServer = cdiBasedContainer.instanceFor(SolrServer.class);
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage(), e);
