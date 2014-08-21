@@ -18,7 +18,7 @@
 <tags:brutal-include value="metas" />
 
 <c:if test="${environment.name != 'production'}" >
-	<link rel="stylesheet" href="<c:url value="/css/reset.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/mamute/reset.css"/>">
 	
 	<link rel="stylesheet" href="<c:url value="/css/deps/fontello.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/deps/fontello-codes.css"/>">
@@ -28,8 +28,8 @@
 	<link rel="stylesheet" href="<c:url value="/css/deps/pagedown.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/deps/prettify.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/deps/joyride-2.0.3.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/mamute.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/responsive-mamute.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/mamute/mamute.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/mamute/responsive-mamute.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/deps/pickadate/classic.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/deps/pickadate/classic.date.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/deps/custom.css"/>">

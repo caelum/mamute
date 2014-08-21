@@ -13,6 +13,7 @@
 		<jetty.version>8.1.0.v20120127</jetty.version>
 		<jetty.jsp.version>8.1.4.v20120524</jetty.jsp.version>
 		<mamute.database>mysql</mamute.database>
+		<mamute.grunt.task></mamute.grunt.task>
 	</properties>
 
 	<scm>
@@ -465,6 +466,27 @@
 	<build>
 		<outputDirectory>src/main/webapp/WEB-INF/classes/</outputDirectory>
 		<plugins>
+			<plugin>
+			    <groupId>pl.allegro</groupId>
+			    <artifactId>grunt-maven-plugin</artifactId>
+			    <version>1.4.1</version>
+			    <configuration>
+			        <gruntOptions>
+			            <gruntOption>--verbose</gruntOption>
+			        </gruntOptions>
+			        <target>${mamute.grunt.task}</target>
+			    </configuration>
+			    <executions>
+			        <execution>
+			        	<phase>prepare-package</phase>
+			            <goals>
+			                <goal>npm</goal>
+			                <goal>grunt</goal>
+			            </goals>
+			        </execution>
+			    </executions>
+			</plugin>
+			
 			<plugin>
 				<groupId>com.keyboardsamurais.maven</groupId>
 				<artifactId>maven-timestamp-plugin</artifactId>
