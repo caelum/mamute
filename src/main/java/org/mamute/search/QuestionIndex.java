@@ -38,10 +38,11 @@ public class QuestionIndex {
 			server.add(doc);
 			server.commit();
 		} catch (IOException | SolrServerException e) {
-			throw new IndexException("Could not index Question", e);
+			throw new IndexException("Could not index Question [" + q.getId() + "]", e);
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public void indexQuestionBatch(Collection<Question> questions) {
 		try {
 			List<SolrInputDocument> docs = new ArrayList<>();
@@ -51,7 +52,12 @@ public class QuestionIndex {
 			server.add(docs);
 			server.commit();
 		} catch (IOException | SolrServerException e) {
-			throw new IndexException("Could not index Question", e);
+			List<Long> ids = Lists.transform(new ArrayList(questions), new Function<Question, Long>() {
+				public Long apply(Question input) {
+					return input.getId();
+				}
+			});
+			throw new IndexException("Could not index a Question in the following list: " + ids, e);
 		}
 	}
 
@@ -90,7 +96,7 @@ public class QuestionIndex {
 		try {
 			rsp = server.query(query);
 		} catch (SolrServerException e) {
-			throw new IndexException("Could not read Question from index", e);
+			throw new IndexException("Could not query from index", e);
 		}
 		SolrDocumentList docs = rsp.getResults();
 

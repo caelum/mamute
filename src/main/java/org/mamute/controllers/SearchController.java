@@ -13,7 +13,6 @@ import org.mamute.sanitizer.HtmlSanitizer;
 import br.com.caelum.vraptor.environment.Environment;
 import org.mamute.search.QuestionIndex;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -26,7 +25,7 @@ public class SearchController {
 	@Inject
 	private QuestionIndex index;
 	@Inject
-	private QuestionDAO dao;
+	private QuestionDAO questions;
 
 	@Get("/search")
 	public void search(String query) {
@@ -42,23 +41,19 @@ public class SearchController {
 						"information",
 						"information.tags"
 				).exclude(
-						"information.comment",
-						"information.description",
-						"information.markedDescription",
-						"information.status",
-						"information.ip",
-						"information.tags.author",
-						"information.tags.usageCount"
-				).serialize();
+				"information.comment",
+				"information.description",
+				"information.markedDescription",
+				"information.status",
+				"information.ip",
+				"information.tags.author",
+				"information.tags.usageCount"
+		).serialize();
 	}
 
 	private List<Question> doSearch(String query) {
 		String sanitized = HtmlSanitizer.sanitize(query);
 		List<Long> ids = index.findQuestionsByTitle(sanitized, 10);
-		List<Question> questions = new ArrayList<>();
-		for (Long id : ids) {
-			questions.add(dao.getById(id));
-		}
-		return questions;
+		return questions.getByIds(ids);
 	}
 }

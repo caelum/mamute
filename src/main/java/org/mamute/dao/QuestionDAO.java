@@ -9,6 +9,7 @@ import static org.hibernate.criterion.Restrictions.gt;
 import static org.hibernate.criterion.Restrictions.isNull;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -252,6 +253,15 @@ public class QuestionDAO implements PaginatableDAO {
 			return getById(questionId);
 		}
 		return null;
+	}
+
+	public List<Question> getByIds(List<Long> ids){
+		//TODO: find a way to do this in one query while preserving the order of the ID list
+		List<Question> questions = new ArrayList<>();
+		for (Long id : ids) {
+			questions.add(getById(id));
+		}
+		return questions;
 	}
 
 }
