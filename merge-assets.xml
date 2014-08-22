@@ -29,7 +29,7 @@
 		<echo message="Merging css's..." />
 		
 		<concat destfile="${webapp.target.dir}/css/all-${timestamp}.css">
-			<fileset file="${css.dir}/reset.css" />
+			<fileset file="${css.dir}/mamute/reset.css" />
 			<fileset file="${css.dir}/deps/*.css"/>
 			<fileset file="${css.dir}/deps/pickadate/*.css" />
 			<fileset file="${css.dir}/mamute/mamute.css" />
