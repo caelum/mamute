@@ -2,6 +2,7 @@ package org.mamute.auth;
 
 import br.com.caelum.vraptor.environment.Environment;
 import org.apache.directory.api.ldap.model.entry.Entry;
+import org.apache.directory.api.ldap.model.exception.LdapAuthenticationException;
 import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.ldap.client.api.LdapNetworkConnection;
@@ -88,9 +89,12 @@ public class LDAPApi {
 			createUserIfNeeded(ldap, cn);
 
 			return true;
-		} catch (LdapException | IOException e) {
-			logger.debug("LDAP login error", e);
+		} catch (LdapAuthenticationException e) {
+			logger.debug("LDAP auth attempt failed");
 			return false;
+		} catch (LdapException | IOException e) {
+			logger.debug("LDAP connection error", e);
+			throw new AuthAPIException(LDAP_AUTH, "LDAP connection error", e);
 		}
 	}
 

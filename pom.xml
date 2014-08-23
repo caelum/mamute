@@ -187,6 +187,12 @@
 			<groupId>org.apache.directory.api</groupId>
 			<artifactId>api-all</artifactId>
 			<version>1.0.0-M24</version>
+			<exclusions>
+				<exclusion>
+					<groupId>xml-apis</groupId>
+					<artifactId>xml-apis</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- Embedded Solr -->

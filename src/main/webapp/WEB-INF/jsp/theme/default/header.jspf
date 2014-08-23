@@ -54,11 +54,13 @@
 									<fmt:message key="auth.login_form_link" />
 								</a>
 							</li>
-							<li class="nav-item">
-								<a class="signup" href="${linkTo[SignupController].signupForm}">
-									<fmt:message key="signup.link" />
-								</a>
-							</li>
+							<c:if test="${!disableSignup}">
+								<li class="nav-item">
+									<a class="signup" href="${linkTo[SignupController].signupForm}">
+										<fmt:message key="signup.link" />
+									</a>
+								</li>
+							</c:if>
 						</c:if>
 						<c:if test="${currentUser.loggedIn}">
 							<li class="nav-item user-item">
