@@ -33,15 +33,11 @@ public class LDAPApi {
 	public static final String LDAP_NAME = "ldap.nameAttr";
 	public static final String LDAP_SURNAME = "ldap.surnameAttr";
 	public static final String LDAP_USER_DN = "ldap.userDn";
+	public static final String PLACHOLDER_PASSWORD = "ldap-password-ignore-me";
 
-	public static final String CREATED_PASSWORD = "ldap-password-ignore-me";
-
-	@Inject
-	private Environment env;
-	@Inject
-	private UserDAO users;
-	@Inject
-	private LoginMethodDAO loginMethods;
+	@Inject private Environment env;
+	@Inject private UserDAO users;
+	@Inject private LoginMethodDAO loginMethods;
 
 	private String host;
 	private Integer port;
@@ -109,7 +105,7 @@ public class LDAPApi {
 
 			User user = new User(fullName.trim(), email);
 
-			LoginMethod brutalLogin = LoginMethod.brutalLogin(user, email, CREATED_PASSWORD);
+			LoginMethod brutalLogin = LoginMethod.brutalLogin(user, email, PLACHOLDER_PASSWORD);
 			user.add(brutalLogin);
 
 			users.save(user);
