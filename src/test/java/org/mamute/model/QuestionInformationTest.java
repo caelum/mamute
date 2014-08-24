@@ -4,6 +4,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mamute.model.UpdateStatus.PENDING;
 
+import br.com.caelum.timemachine.Block;
+import br.com.caelum.timemachine.TimeMachine;
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.mamute.builder.QuestionBuilder;
@@ -24,8 +27,13 @@ public class QuestionInformationTest {
 	
 	@Test
 	public void should_verify_if_is_before_current_information() throws InterruptedException {
-		QuestionInformation version = builder.build();
-		Thread.sleep(100);
+		QuestionInformation version = TimeMachine.goTo(new DateTime().minusSeconds(10)).andExecute(new Block<QuestionInformation>() {
+			@Override
+			public QuestionInformation run() {
+				return builder.build();
+			}
+		});
+
 		ruby.enqueueChange(version, PENDING);
 		QuestionInformation infoByModerator = builder.build();
 		ruby.approve(infoByModerator);
@@ -35,14 +43,20 @@ public class QuestionInformationTest {
 	
 	@Test
 	public void should_verify_if_is_before_current_information_without_edits() throws InterruptedException {
-		QuestionInformation version = builder.build();
+		QuestionInformation version = TimeMachine.goTo(new DateTime().minusSeconds(10)).andExecute(new Block<QuestionInformation>() {
+			@Override
+			public QuestionInformation run() {
+				return builder.build();
+			}
+		});
+
 		ruby.enqueueChange(version, PENDING);
 		QuestionInformation infoByModerator = builder.build();
 		ruby.approve(infoByModerator);
 		System.out.println("this.createdAt should be before");
 		assertTrue(version.isBeforeCurrent());
 	}
-	
+
 	@Test
 	public void should_verify_if_is_not_before_current_information() throws InterruptedException {
 		QuestionInformation infoByModerator = builder.build();
@@ -50,7 +64,7 @@ public class QuestionInformationTest {
 		Thread.sleep(100);
 		QuestionInformation version = builder.build();
 		ruby.enqueueChange(version, PENDING);
-		
+
 		assertFalse(version.isBeforeCurrent());
 	}
 
