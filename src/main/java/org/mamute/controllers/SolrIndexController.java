@@ -15,8 +15,8 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Controller
-public class IndexController {
-	private static final Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
+public class SolrIndexController {
+	private static final Logger LOGGER = LoggerFactory.getLogger(SolrIndexController.class);
 
 	@Inject
 	private Result result;
