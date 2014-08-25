@@ -1,8 +1,7 @@
 package br.com.caelum.vraptor.server;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.util.Scanner;
 
 public class GruntRunner implements Runnable{
 
@@ -11,16 +10,33 @@ public class GruntRunner implements Runnable{
 		System.out.println("Executing grunt...");
 		try {
 			Process exec = Runtime.getRuntime().exec("mvn grunt:grunt -Dmamute.grunt.task=run");
-			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(exec.getInputStream()));
-			String line;
-			while ((line = bufferedReader.readLine()) != null) {
-				System.out.println(line);
-			}
-			bufferedReader.close();
+			new Thread(new ProcessOutputWriter(exec.getInputStream(), System.out)).run();
+			new Thread(new ProcessOutputWriter(exec.getErrorStream(), System.err)).run();
 		} catch (IOException e) {
 			throw new RuntimeException("Couldn't run grunt", e);
 		}
-		
+
+	}
+
+	private static class ProcessOutputWriter implements Runnable {
+		private final InputStream stream;
+		private final PrintStream out;
+
+		public ProcessOutputWriter(InputStream stream, PrintStream out) {
+			this.stream = stream;
+			this.out = out;
+		}
+
+		@Override
+		public void run() {
+			try (Scanner s = new Scanner(stream)) {
+				while (s.hasNextLine()) {
+					out.println(s.nextLine());
+				}
+			}
+
+
+		}
 	}
 
 }
