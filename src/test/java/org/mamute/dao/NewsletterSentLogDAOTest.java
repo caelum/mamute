@@ -36,7 +36,7 @@ public class NewsletterSentLogDAOTest extends DatabaseTestCase{
 	
 	@Test
 	public void should_return_false_if_wasnt_sent_this_week() {
-		TimeMachine.goTo(new DateTime().minusWeeks(1)).andExecute(new Block<NewsletterSentLog>() {
+		TimeMachine.goTo(new DateTime().minusDays(10)).andExecute(new Block<NewsletterSentLog>() {
 			@Override
 			public NewsletterSentLog run() {
 				newsletterSentLogs.saveLog();
