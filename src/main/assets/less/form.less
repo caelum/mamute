@@ -1,0 +1,86 @@
+form {
+	margin: 0;
+}
+
+input,label,textarea {
+	width: 100%;
+}
+
+input {
+	height: 22px;
+}
+
+input[type="submit"] {
+	margin: 5px 0;
+	cursor: pointer;
+}
+
+.text-input {
+	padding: 0.25em;
+	border: 1px solid #eaeaea;
+	background-color: #f6f6f6;
+	height: 2.5em;
+}
+
+label {
+	display: block;
+	margin: 10px 0;
+	color: #333;
+}
+
+.big,.big a {
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+.small,.small a,a.small {
+	font-size: 0.9em;
+}
+
+.tiny,.tiny a,a.tiny {
+	font-size: 1em;
+}
+
+textarea {
+	resize: vertical;
+}
+
+.hinted-form {
+	float: left;
+	width: 64%;
+	
+	&.answer-form>.hint {
+		width: 53%;
+	}
+}
+
+.answer-form {
+	position: relative;
+}
+
+.answer-form>.hint {
+	position: absolute;
+	left: 102%;
+	width: 31%;
+	top: 45px;
+	box-shadow: 0 0 5px 1px;
+}
+
+.submit[disabled=disabled] {
+	opacity: 0.5;
+	cursor: default;
+}
+
+.inline-box,.inline-label {
+	float: left;
+	margin-bottom: 10%;
+}
+
+.inline-box {
+	width: 3%;
+}
+
+.inline-label {
+	width: 97%;
+	margin-top: 0;
+}

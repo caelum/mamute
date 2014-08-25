@@ -28,8 +28,14 @@
 	<link rel="stylesheet" href="<c:url value="/css/deps/pagedown.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/deps/prettify.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/deps/joyride-2.0.3.css"/>">
+
 	<link rel="stylesheet" href="<c:url value="/css/mamute/mamute.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/mamute/markdown.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/mamute/header.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/mamute/form.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/mamute/button.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/mamute/responsive-mamute.css"/>">
+
 	<link rel="stylesheet" href="<c:url value="/css/deps/pickadate/classic.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/deps/pickadate/classic.date.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/deps/custom.css"/>">
