@@ -39,7 +39,7 @@ public class SearchController {
 		boolean supportsGoogleSearch = env.supports("feature.google_search");
 		
 		if(supportsSolr && supportsGoogleSearch)
-			throw new IllegalArgumentException("both feature.solr and feature.google_search are setted to true on the curren environment, you need to set one of them to false");
+			throw new IllegalArgumentException("both feature.solr and feature.google_search are setted to true on the current environment, you need to set one of them to false");
 
 		if(!supportsSolr && !supportsGoogleSearch) {
 			LOG.debug("The action /search is only available when feature.solr=true or feature.google_search=true on current environment");
