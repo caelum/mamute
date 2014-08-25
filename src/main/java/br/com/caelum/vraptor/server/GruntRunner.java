@@ -5,6 +5,12 @@ import java.util.Scanner;
 
 public class GruntRunner implements Runnable{
 
+	private final VRaptorServer server;
+
+	public GruntRunner(VRaptorServer server) {
+		this.server = server;
+	}
+
 	@Override
 	public void run() {
 		System.out.println("Executing grunt...");
@@ -12,7 +18,13 @@ public class GruntRunner implements Runnable{
 			Process exec = Runtime.getRuntime().exec("mvn grunt:grunt -Dmamute.grunt.task=run");
 			new Thread(new ProcessOutputWriter(exec.getInputStream(), System.out)).run();
 			new Thread(new ProcessOutputWriter(exec.getErrorStream(), System.err)).run();
-		} catch (IOException e) {
+			exec.waitFor();
+			int value = exec.exitValue();
+			if (value != 0) {
+				System.err.println("Grunt call failed with exit value: " + value);
+			}
+			server.stop();
+		} catch (IOException | InterruptedException  e) {
 			throw new RuntimeException("Couldn't run grunt", e);
 		}
 

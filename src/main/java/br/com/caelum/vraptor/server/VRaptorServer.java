@@ -93,4 +93,11 @@ public class VRaptorServer {
 		return port;
 	}
 
+	public void stop() {
+		try {
+			this.server.stop();
+		} catch (Exception e) {
+			throw new RuntimeException("Could not stop server", e);
+		}
+	}
 }
