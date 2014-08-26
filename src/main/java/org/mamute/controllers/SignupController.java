@@ -4,6 +4,8 @@ import static java.util.Arrays.asList;
 
 import javax.inject.Inject;
 
+import br.com.caelum.vraptor.environment.Environment;
+import br.com.caelum.vraptor.view.Results;
 import org.mamute.auth.FacebookAuthService;
 import org.mamute.auth.GoogleAuthService;
 import org.mamute.dao.LoginMethodDAO;
@@ -32,15 +34,24 @@ public class SignupController {
 	@Inject private FacebookAuthService facebook;
 	@Inject private GoogleAuthService google;
 	@Inject private Linker linker;
+	@Inject private Environment env;
 
 	@Get
 	public void signupForm() {
+		if(isSignupDisabled()){
+			return;
+		}
+
 		result.include("facebookUrl", facebook.getOauthUrl(null));
 		result.include("googleUrl", google.getOauthUrl(null));
 	}
 
 	@Post
 	public void signup(String email, String password, String name, String passwordConfirmation) {
+		if(isSignupDisabled()){
+			return;
+		}
+
 		User newUser = new User(name, email);
 		LoginMethod brutalLogin = LoginMethod.brutalLogin(newUser, email, password);
 		newUser.add(brutalLogin);
@@ -63,5 +74,21 @@ public class SignupController {
 	
 	@Get
 	public void privacyPolicy(){
+	}
+
+	/**
+	 * Checks to see if signup is disabled. If so, it sets the Result to be an
+	 * HTTP 400 with an appropriate error message.
+	 *
+	 * @return
+	 */
+	private boolean isSignupDisabled(){
+		if(Boolean.parseBoolean(env.get("auth.disableSignup", "false"))){
+			result.use(Results.http())
+					.body(messageFactory.build("alert","auth.signup.disabled").getMessage())
+					.setStatusCode(400);
+			return true;
+		}
+		return false;
 	}
 }
