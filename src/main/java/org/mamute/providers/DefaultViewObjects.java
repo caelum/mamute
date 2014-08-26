@@ -49,7 +49,7 @@ public class DefaultViewObjects {
 		result.include("contextPath", req.getContextPath());
 		result.include("deployTimestamp", deployTimestamp());
 		result.include("shouldShowAds", ads.shouldShowAds());
-		result.include("disableSignup", Boolean.parseBoolean(env.get("auth.disableSignup", "false")));
+		result.include("disableSignup", env.supports("auth.disableSignup"));
 		result.on(NotFoundException.class).notFound();
 		result.on(BannedUserException.class)
 				.include("errors", asList(messageFactory.build("error", "user.errors.banned")))

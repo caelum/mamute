@@ -21,8 +21,6 @@ import br.com.caelum.vraptor.routes.annotation.Routed;
 @Routed
 @Controller
 public class AuthController extends BaseController {
-	public static final String DISABLE_SIGNUP = "auth.disableSignup";
-
 	@Inject	private DefaultAuthenticator auth;
 	@Inject	private FacebookAuthService facebook;
 	@Inject	private GoogleAuthService google;
@@ -38,7 +36,6 @@ public class AuthController extends BaseController {
 		if (redirectUrl != null && !redirectUrl.isEmpty()) {
 			include("redirectUrl", redirectUrl);
 		}
-		result.include("disableSignup", Boolean.parseBoolean(env.get(DISABLE_SIGNUP, "false")));
 		result.include("facebookUrl", facebookUrl);
 		result.include("googleUrl", googleUrl);
 	}
