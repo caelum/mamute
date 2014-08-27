@@ -11,11 +11,7 @@
 		   value="${question.title }" data-hint-id="question-title-hint" minlength="15" maxlength="150"
 		   name="title" placeholder="<fmt:message key="question.title.placeholder"/>"/>
 
-	<div id="question-suggestions">
-		<h2 class="title section-title">Similar questions</h2>
-
-		<div id="question-suggestion-items"></div>
-	</div>
+	<tags:questionSuggest titleId="question-title"/>
 
 	<fmt:message var="descriptionPlaceholder" key="question.description.placeholder"/>
 	<tags:markDown placeholder="${descriptionPlaceholder}" value="${question.description}"
@@ -50,39 +46,3 @@
 	<tags:joyrideTip className="question-tags-input" options="tipLocation:bottom" key="intro.new_question.tags"/>
 	<tags:joyrideTip className="about" options="tipLocation:bottom" key="intro.about"/>
 </ol>
-
-<script src="<c:url value="/js/deps/jquery.js"/>"></script>
-<script type="text/javascript">
-	function getQuestionSuggestions(data) {
-		if (data.list == undefined || data.list.length == 0) {
-			$("#question-suggestions").hide();
-			return;
-		}
-
-		$("#question-suggestions").show();
-		$("#question-suggestion-items").children().remove();
-		$.each(data.list, function () {
-			$("#question-suggestion-items").append(
-							'<div class="question-suggestion-item">' +
-							'<div class="info votes">' + this.voteCount + '<div class="subtitle">votes</div></div>' +
-							'<div class="info answers">' + this.answerCount + '<div class="subtitle">answers</div></div>' +
-							'<h3 class="title item-title main-thread-title question-title">' +
-							'<a href="/' + this.id + '-' + this.information.sluggedTitle + '">' + this.information.title + '</a>' +
-							'</h3>' +
-							'</div>'
-			);
-		});
-	}
-
-	$("#question-title").keyup(function () {
-		if ($("#question-title").val().length >= 5) {
-			//keep from spamming the search endpoint on keypresses
-			window.clearTimeout($(this).data("question-suggest-timeout"));
-			$(this).data("question-suggest-timeout", setTimeout(function () {
-				$.get("/searchAjax", {query: $("#question-title").val()}, getQuestionSuggestions);
-			}, 1000));
-		} else {
-			$("#question-suggestions").hide();
-		}
-	});
-</script>

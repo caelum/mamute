@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import br.com.caelum.vraptor.Path;
 import org.mamute.dao.QuestionDAO;
 import org.mamute.environment.EnvironmentDependent;
 import org.mamute.model.Question;
@@ -36,20 +37,7 @@ public class SolrSearchController {
 
 	@Get("/searchAjax")
 	public void searchAjax(String query) {
-		result.use(Results.json())
-				.from(doSearch(query))
-				.include(
-						"information",
-						"information.tags"
-				).exclude(
-				"information.comment",
-				"information.description",
-				"information.markedDescription",
-				"information.status",
-				"information.ip",
-				"information.tags.author",
-				"information.tags.usageCount"
-		).serialize();
+		result.include("results", doSearch(query));
 	}
 
 	private List<Question> doSearch(String query) {
