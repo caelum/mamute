@@ -8,10 +8,12 @@
 <form class="validated-form question-form hinted-form" action='${uri}' method="post" autocomplete="off">
 	<label for="question-title"><fmt:message key="question.title.label"/></label>
 	<input id="question-title" type="text" class="required hintable text-input question-title-input"
-		   value="${question.title }" data-hint-id="question-title-hint" minlength="15" maxlength="150"
+		   value="${question.title}" data-hint-id="question-title-hint" minlength="15" maxlength="150"
 		   name="title" placeholder="<fmt:message key="question.title.placeholder"/>"/>
 
-	<tags:questionSuggest titleId="question-title"/>
+	<c:if test="${env.supports('feature.solr')}">
+		<tags:questionSuggest titleId="question-title"/>
+	</c:if>
 
 	<fmt:message var="descriptionPlaceholder" key="question.description.placeholder"/>
 	<tags:markDown placeholder="${descriptionPlaceholder}" value="${question.description}"
