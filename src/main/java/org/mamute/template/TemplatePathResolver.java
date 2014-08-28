@@ -18,12 +18,12 @@ public class TemplatePathResolver extends DefaultPathResolver{
 	@Deprecated
 	public TemplatePathResolver() {
 	}
-	
+
 	@Inject
 	public TemplatePathResolver(FormatResolver resolver) {
 		super(resolver);
 	}
-	
+
 	@Override
 	public String pathFor(ControllerMethod method) {
 		String pathFor = super.pathFor(method);
@@ -32,6 +32,6 @@ public class TemplatePathResolver extends DefaultPathResolver{
 		}
 		return pathFor;
 	}
-	
-	
+
+
 }

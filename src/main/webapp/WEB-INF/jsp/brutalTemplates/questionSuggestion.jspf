@@ -1,0 +1,16 @@
+<%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<c:forEach var="question" items="${results}">
+	<div class="question-suggestion-item">
+		<div class="info votes">${question.voteCount}
+			<div class="subtitle">votes</div>
+		</div>
+		<div class="info answers">${question.answersCount}
+			<div class="subtitle">answers</div>
+		</div>
+		<h3 class="title item-title main-thread-title question-title">
+			<a href="/${question.id}-${question.information.sluggedTitle}">${question.information.title}</a>
+		</h3>
+	</div>
+</c:forEach>

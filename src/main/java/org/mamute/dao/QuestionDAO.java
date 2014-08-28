@@ -267,7 +267,7 @@ public class QuestionDAO implements PaginatableDAO {
 		List<Question> questions = new ArrayList<>();
 		if(ids != null && ids.size() >0) {
 			session.createQuery("from Question where id in (:ids)").setParameterList("ids", ids).list();
-			for (final Long id : ids) {
+			for (Long id : ids) {
 				questions.add(getById(id));
 			}
 		}
