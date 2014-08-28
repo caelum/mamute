@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import br.com.caelum.vraptor.Path;
 import org.mamute.dao.QuestionDAO;
 import org.mamute.environment.EnvironmentDependent;
 import org.mamute.model.Question;
@@ -16,10 +15,9 @@ import org.mamute.search.QuestionIndex;
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.view.Results;
 
 @Controller
-@EnvironmentDependent(supports="feature.solr")
+@EnvironmentDependent(supports = "feature.solr")
 public class SolrSearchController {
 
 	@Inject
@@ -28,16 +26,16 @@ public class SolrSearchController {
 	private QuestionIndex index;
 	@Inject
 	private QuestionDAO questions;
-	
+
 	@Get("/search")
 	public void search(String query) {
 		result.include("query", sanitize(query));
 		result.include("results", doSearch(query));
 	}
 
-	@Get("/searchAjax")
-	public void searchAjax(String query) {
-		result.include("results", doSearch(query));
+	@Get("/questionSuggestion")
+	public void questionSuggestion(String query) {
+		result.forwardTo(BrutalTemplatesController.class).questionSuggestion(doSearch(query));
 	}
 
 	private List<Question> doSearch(String query) {

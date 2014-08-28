@@ -30,7 +30,7 @@
 			//keep from spamming the search endpoint on keypresses
 			window.clearTimeout($(this).data("question-suggest-timeout"));
 			$(this).data("question-suggest-timeout", setTimeout(function () {
-				$.get("/searchAjax", {query: $("#${titleId}").val()}, getQuestionSuggestions);
+				$.get("/questionSuggestion", {query: $("#${titleId}").val()}, getQuestionSuggestions);
 			}, 1000));
 		} else {
 			$("#${containerId}").hide();

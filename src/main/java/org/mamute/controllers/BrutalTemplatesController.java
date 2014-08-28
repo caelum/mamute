@@ -5,10 +5,13 @@ import javax.inject.Inject;
 import org.mamute.dao.PaginatableDAO;
 import org.mamute.dao.WithUserPaginatedDAO.OrderType;
 import org.mamute.model.Comment;
+import org.mamute.model.Question;
 import org.mamute.model.User;
 
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Result;
+
+import java.util.List;
 
 @Controller
 public class BrutalTemplatesController {
@@ -26,5 +29,9 @@ public class BrutalTemplatesController {
 		result.include("currentPage", page);
 		result.include("order", order.toString());
 		result.include("type", type);
+	}
+
+	public void questionSuggestion(List<Question> questions){
+		result.include("results", questions);
 	}
 }
