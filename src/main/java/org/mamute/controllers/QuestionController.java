@@ -50,7 +50,6 @@ public class QuestionController {
 
 	private Result result;
 	private QuestionDAO questions;
-	private QuestionIndex index;
 	private VoteDAO votes;
 	private LoggedUser currentUser;
 	private TagsValidator tagsValidator;
@@ -64,6 +63,7 @@ public class QuestionController {
 	private BrutalValidator brutalValidator;
 	private TagsManager tagsManager;
 	private TagsSplitter splitter;
+	private QuestionIndex index;
 
 
 	/**

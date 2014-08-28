@@ -13,8 +13,8 @@ import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 
-public class QuestionIndexTest extends SolrTestCase {
-	private static final Logger LOGGER = LoggerFactory.getLogger(QuestionIndexTest.class);
+public class SolrQuestionIndexTest extends SolrTestCase {
+	private static final Logger LOGGER = LoggerFactory.getLogger(SolrQuestionIndexTest.class);
 
 	static QuestionIndex sut;
 	static Map<Long, Question> questions;
@@ -33,7 +33,7 @@ public class QuestionIndexTest extends SolrTestCase {
 		author.confirmEmail();
 		hibernateSession.save(author);
 
-		sut = new QuestionIndex(solrServer);
+		sut = new SolrQuestionIndex(solrServer);
 		data();
 	}
 
