@@ -31,7 +31,8 @@ public class BrutalTemplatesController {
 		result.include("type", type);
 	}
 
-	public void questionSuggestion(List<Question> questions){
-		result.include("results", questions);
+	public void questionSuggestion(String query, List<Question> questions){
+		result.include("questions", questions);
+		result.include("query", query);
 	}
 }

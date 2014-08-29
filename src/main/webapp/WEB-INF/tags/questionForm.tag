@@ -12,7 +12,10 @@
 		   name="title" placeholder="<fmt:message key="question.title.placeholder"/>"/>
 
 	<c:if test="${env.supports('feature.solr')}">
-		<tags:questionSuggest titleId="question-title"/>
+		<div id="question-suggestions">
+			<h2 class="title section-title">Similar questions</h2>
+			<ul class="suggested-questions-list"></ul>
+		</div>
 	</c:if>
 
 	<fmt:message var="descriptionPlaceholder" key="question.description.placeholder"/>

@@ -30,17 +30,17 @@ public class SolrSearchController {
 	@Get("/search")
 	public void search(String query) {
 		result.include("query", sanitize(query));
-		result.include("results", doSearch(query));
+		result.include("results", doSearch(query, 10));
 	}
 
 	@Get("/questionSuggestion")
-	public void questionSuggestion(String query) {
-		result.forwardTo(BrutalTemplatesController.class).questionSuggestion(doSearch(query));
+	public void questionSuggestion(String query, int limit) {
+		result.forwardTo(BrutalTemplatesController.class).questionSuggestion(query, doSearch(query, limit));
 	}
 
-	private List<Question> doSearch(String query) {
+	private List<Question> doSearch(String query, int limit) {
 		String sanitized = HtmlSanitizer.sanitize(query);
-		List<Long> ids = index.findQuestionsByTitle(sanitized, 10);
+		List<Long> ids = index.findQuestionsByTitle(sanitized, limit);
 		return questions.getByIds(ids);
 	}
 }
