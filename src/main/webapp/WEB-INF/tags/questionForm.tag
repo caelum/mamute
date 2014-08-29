@@ -13,7 +13,7 @@
 
 	<c:if test="${env.supports('feature.solr')}">
 		<div id="question-suggestions">
-			<h2 class="title section-title">Similar questions</h2>
+			<h2 class="title section-title"><fmt:message key="question.similars"/></h2>
 			<ul class="suggested-questions-list"></ul>
 		</div>
 	</c:if>
