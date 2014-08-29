@@ -68,6 +68,7 @@ public class UserDAO {
 	    return (User) session
 	    		.createQuery("from User where name = :name")
 	    		.setParameter("name", name)
+	    		.setMaxResults(1)
 	    		.uniqueResult();
 	}
 	
