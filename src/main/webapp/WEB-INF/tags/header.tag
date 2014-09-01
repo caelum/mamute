@@ -51,12 +51,14 @@
 	</script>
 <![endif]-->
 
+<tags:brutal-include value="headJavascripts" />
+
 <link rel="canonical" href="${currentUrl}"/>
 </head>
 <body>
 
 	<tags:brutal-include value="header" />
-	
+
 	<div class="container">
 		<tags:messages messagesList="${mamuteMessages}" />
 		<tags:messages messagesList="${errors}" />
