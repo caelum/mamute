@@ -51,11 +51,23 @@
 		    <groupId>org.jboss.weld.servlet</groupId>
 		    <artifactId>weld-servlet-core</artifactId>
 		    <version>2.2.0.CR2</version>
+		    <exclusions>
+		    	<exclusion>
+		          <groupId>org.jboss.spec.javax.el</groupId>
+		          <artifactId>jboss-el-api_3.0_spec</artifactId>
+		        </exclusion>
+		    </exclusions>
 		</dependency>
 		<dependency>
 		    <groupId>org.jboss.weld</groupId>
 		    <artifactId>weld-core-impl</artifactId>
 		    <version>2.2.0.CR2</version>
+		    <exclusions>
+		    	<exclusion>
+		          <groupId>org.jboss.spec.javax.el</groupId>
+		          <artifactId>jboss-el-api_3.0_spec</artifactId>
+		        </exclusion>
+		    </exclusions>
 		</dependency>
 
 		<!-- VRaptor plugins -->
@@ -514,6 +526,17 @@
 			<version>2.2.3</version>
 		</dependency>
 
+		<!-- EL -->
+		<dependency>
+			<groupId>de.odysseus.juel</groupId>
+			<artifactId>juel-api</artifactId>
+			<version>2.2.7</version>
+		</dependency>
+		<dependency>
+			<groupId>de.odysseus.juel</groupId>
+			<artifactId>juel-impl</artifactId>
+			<version>2.2.7</version>
+		</dependency>
 
 		<!-- JSTL -->
 		<dependency>
