@@ -17,9 +17,7 @@
 	</c:when>
 	<c:when test="${empty answer and empty question}">
 		<span class="reverted">
-			<fmt:message key="massive.vote.reverted">
-				<fmt:param value="${linkTo[NavigationController].about}#perdi-meus-pontos"/>
-			</fmt:message>
+			${t['massive.vote.reverted'].args(linkTo[NavigationController].about+'#perdi-meus-pontos')}
 		</span>
 	</c:when>
 </c:choose>

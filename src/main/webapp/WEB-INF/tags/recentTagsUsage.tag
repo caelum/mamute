@@ -4,7 +4,7 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@attribute name="tagsUsage" type="java.util.List" required="true" %>
 <div class="subheader">
-	<h3 class="title page-title"><fmt:message key="tags.recent"/></h3>
+	<h3 class="title page-title">${t['tags.recent']}</h3>
 </div>
 <ol class="tags-usage">
 	<c:forEach items="${tagsUsage}" var="tagUsage">

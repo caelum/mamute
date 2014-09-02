@@ -11,23 +11,23 @@
 	</ul>
 	<form class="validated-form" action="${linkTo[FlagController].addFlag(type, flaggable.id, null, '')}">
 		<input type="radio" value="RUDE" name="flagType" id="flag-type-rude" />
-		<label for="flag-type-rude"><fmt:message key="comment.flag.rude" /></label>
+		<label for="flag-type-rude">${t['comment.flag.rude']}</label>
 		
 		<input type="radio" value="NOT_CONSTRUCTIVE" name="flagType" id="flag-type-notconstructive" />
-		<label for="flag-type-notconstructive"><fmt:message key="comment.flag.not_constructive" /></label>
+		<label for="flag-type-notconstructive">${t['comment.flag.not_constructive']}</label>
 			
 		<input type="radio" value="OBSOLETE" name="flagType" id="flag-type-obsolete" />
-		<label for="flag-type-obsolete"><fmt:message key="comment.flag.obsolete" /></label>
+		<label for="flag-type-obsolete">${t['comment.flag.obsolete']}</label>
 		
 		<input class="other-option" type="radio" value="OTHER" name="flagType" id="flag-type-other" data-reason-id="other-reason" />
-		<label for="flag-type-other"><fmt:message key="comment.flag.other" /></label>
+		<label for="flag-type-other">${t['comment.flag.other']}</label>
 
 		<div id="other-reason" class="hidden">
-			<label for="reason-text"><fmt:message key="comment.flag.other.reason" /></label>
+			<label for="reason-text">${t['comment.flag.other.reason']}</label>
 			<textarea id="reason-text" name="reason"></textarea>
 		</div>
 		<label class="error"></label>
 	
-		<input type="submit" value="<fmt:message key="flag.submit" />"/>
+		<input type="submit" value="${t['flag.submit']}"/>
 	</form>
 </div>

@@ -23,7 +23,7 @@
 	</ol>
 </c:if>
 <c:if test="${empty questions}">
-	<h2 class="title section-title"><fmt:message key="questions.empty_list" /></h2>
+	<h2 class="title section-title">${t['questions.empty_list']}</h2>
 </c:if>
 <tags:pagination url="${currentUrl}" currentPage="${currentPage}" totalPages="${totalPages}" delta="2"/>
 

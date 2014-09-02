@@ -8,13 +8,13 @@
 <li class="comment ${collapsed ? 'collapsed hidden' : ''} ${comment.isVisibleForModeratorAndNotAuthor(currentUser.current) ? 'highlight-post' : '' }" id="comment-${comment.id}">
 	<div class="post-meta comment-meta vote-container">
 		<span class="vote-count comment-vote-count ${comment.voteCount == 0 ? 'comment-meta-hidden' : '' }">${comment.voteCount}</span>
-		<a title="<fmt:message key="comment.list.upvote"/>"  class="comment-meta-hidden container comment-option author-cant requires-login vote-option icon-up-open 
+		<a title="${t['comment.list.upvote']}"  class="comment-meta-hidden container comment-option author-cant requires-login vote-option icon-up-open 
 			${(not empty currentUserVote) ? 'voted' : '' }" 
 			data-value="positivo" data-author="${currentUser.current.isAuthorOf(comment)}" 
 			data-type="comentario" data-id="${comment.id}">
 		</a>
 		<c:if test="${currentUser.loggedIn && !comment.alreadyFlaggedBy(currentUser.current) && !currentUser.current.isAuthorOf(comment)}">
-			<a title="<fmt:message key="flag"/>" href="#" data-author="${currentUser.current.isAuthorOf(comment)}"
+			<a title="${t['flag']}" href="#" data-author="${currentUser.current.isAuthorOf(comment)}"
 			data-modal-id="comment-flag-modal${comment.id}"
 			class="comment-meta-hidden container author-cant requires-login comment-option flag-it icon-flag"></a>
 		</c:if>
@@ -33,7 +33,7 @@
 				field="comment" onCallback="replace" callbackTarget="comment-${comment.id}" 
 				submit="${submit}" value="${comment.comment}">
 				<a class="requires-login requires-karma" data-author="${currentUser.current.isAuthorOf(comment)}" href="#">
-					<fmt:message key="edit.link" />
+					${t['edit.link']}
 				</a>
 			</tags:simpleAjaxFormWith>
 		</c:if>

@@ -11,7 +11,7 @@
 		      data-type="${type}"
 		      data-karma="${VOTE_UP}"
 		      data-id="${item.id}"
-		      title="<fmt:message key='${type}.upvote'/>">
+		      title="${t['${type}.upvote']}">
     	up
    	</a>
 	<span class="vote-count post-vote-count">${item.voteCount}</span>
@@ -23,10 +23,7 @@
 	 		  data-type="${type}" 
 		      data-karma="${VOTE_DOWN}" 
 	 		  data-id="${item.id}"
-	 		  title="<fmt:message key='${type}.downvote'>
-	 		  			<fmt:param value="${MY_ANSWER_VOTED_DOWN}"/>
-	 		  			<fmt:param value="${DOWNVOTED_QUESTION_OR_ANSWER}"/>
-	 		  		</fmt:message>">
+	 		  title="${t[type+'.downvote'].(MY_ANSWER_VOTED_DOWN, DOWNVOTED_QUESTION_OR_ANSWER)}">
 		down 
 	</a>
 </div>

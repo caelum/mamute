@@ -9,13 +9,13 @@
 
 <h2 class="title big-text-title">${title}</h2>
 <div class="tag-ranking-section">
-<h2 class="title page-title"><fmt:message key="users.ranking.tag.month"/></h2>
+<h2 class="title page-title">${t['users.ranking.tag.month']}</h2>
 	<c:forEach items="${tagRankLastMonth}" var="summary">
 		<span class="tag-ranking-karma karma">${summary.karmaReward}</span><span class="tag-ranking-count">${summary.count}<tags:pluralize key="${isAskers ? 'user_profile.questions' : 'user_profile.answers'}" count="${summary.count}" /></span><tags:RankingUser user="${summary.user}" isTagRanking="true"/>
 	</c:forEach>
 </div>
 <div class="tag-ranking-section">
-<h2 class="title page-title"><fmt:message key="users.ranking.tag.all_time"/></h2>
+<h2 class="title page-title">${t['users.ranking.tag.all_time']}</h2>
 	<c:forEach items="${tagRankAllTime}" var="summary">
 		<span class="tag-ranking-karma karma">${summary.karmaReward}</span><span class="tag-ranking-count">${summary.count}<tags:pluralize key="${isAskers ? 'user_profile.questions' : 'user_profile.answers'}" count="${summary.count}" /></span><tags:RankingUser user="${summary.user}" isTagRanking="true"/>
 	</c:forEach>

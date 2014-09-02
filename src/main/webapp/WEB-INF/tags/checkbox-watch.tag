@@ -3,5 +3,5 @@
 
 <label class="form-watch">
 	<input type="checkbox" name="watching" value="true" checked="checked"/> 
-		<fmt:message key="post.watch" />
+		${t['post.watch']}
 </label>

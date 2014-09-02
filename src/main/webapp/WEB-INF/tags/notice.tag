@@ -13,9 +13,6 @@
 
 <section class="notice">
 	<h3 class="title">
-		<fmt:message key='${isLogged ? "notice.logged" : "notice.not_logged"}'>
-			<fmt:param value="${inlineTags}" />
-			<fmt:param value="${linkTo[QuestionController].newQuestion}" />
-		</fmt:message>
+		${t[isLogged ? "notice.logged" : "notice.not_logged"].(inlineTags, linkTo[QuestionController].newQuestion)}
 	</h3>
 </section>

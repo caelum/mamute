@@ -8,7 +8,7 @@
 <c:if test="${not empty rssFeed.channel.items}">
 	<div class="subheader">
 		<h2 class="title page-title">
-			<fmt:message key="${rssType}.rss.title"/>
+			${t['${rssType}.rss.title']}
 		</h2>
 		<a href="${rssUrl}" class="rss-link"><i class="icon-rss"></i></a>
 	</div>
@@ -26,6 +26,6 @@
 			</li>
 		</c:forEach>
 	</ol>
-	<a class="more-items" href="<fmt:message key="${rssType}.rss.url" />"><fmt:message key="${rssType}.rss.more" /></a>
+	<a class="more-items" href="${t['${rssType}.rss.url']}">${t['${rssType}.rss.more']}</a>
 	
 </c:if>

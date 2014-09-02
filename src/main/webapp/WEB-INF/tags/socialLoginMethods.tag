@@ -5,17 +5,17 @@
 
 <c:if test="${env.supports('feature.facebook.login')}">
 	<a href="${facebookUrl}" class="social-button-wraper">
-		<p><fmt:message key="${buttonContent}.facebook_button.label" /></p>
-		<span class="face-button"><fmt:message key="${buttonContent}.button.content" /></span>
+		<p>${t['${buttonContent}.facebook_button.label']}</p>
+		<span class="face-button">${t['${buttonContent}.button.content']}</span>
 	</a>
-	<p class="or">&#8212; <fmt:message key="auth.or" /> &#8212;</p>
+	<p class="or">&#8212; ${t['auth.or']} &#8212;</p>
 </c:if>
 
 
 <c:if test="${env.supports('feature.google.login')}">
 	<a href="${googleUrl}" class="social-button-wraper">
-		<p><fmt:message key="${buttonContent}.google_button.label" /></p>
-		<span class="google-button"><fmt:message key="${buttonContent}.button.content" /></span>
+		<p>${t['${buttonContent}.google_button.label']}</p>
+		<span class="google-button">${t['${buttonContent}.button.content']}</span>
 	</a>
-	<p class="or">&#8212; <fmt:message key="auth.or" /> &#8212;</p>
+	<p class="or">&#8212; ${t['auth.or']} &#8212;</p>
 </c:if>

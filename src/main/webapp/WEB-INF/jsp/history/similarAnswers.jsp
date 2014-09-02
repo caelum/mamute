@@ -1,14 +1,12 @@
-<fmt:message key="metas.moderate_answer.title" var="title"/>
-<fmt:message key="site.name" var="siteName" />
+<c:set var="title" value="${t['metas.moderate_answer.title']}"/>
+<c:set var="siteName" value="${t['site.name']}"/>
 
-<fmt:message key="metas.generic.title" var="genericTitle" >
-	<fmt:param value="${siteName}" />
-</fmt:message>
+<c:set var="genericTitle" value="${t['metas.generic.title'].args(siteName)}"/>
 
 <tags:header title="${genericTitle} - ${title}"/>
 
 <div class="history-original">
-	<a href="#" class="dropdown-trigger" data-target-id="question-original"><fmt:message key="moderation.show_question" /></a>
+	<a href="#" class="dropdown-trigger" data-target-id="question-original">${t['moderation.show_question']}</a>
 	<div id="question-original" class="dropdown-target">
 		<h2 class="title main-thread-title"><tags:questionLinkFor answer="${post.information.answer}"/></h2>
 		<div class="post-text">
@@ -27,7 +25,7 @@
 	
 	<div class="history-edited">
 		<c:if test="${empty histories}">
-			<h2 class="alert"><fmt:message key="moderation.no_versions" /></h2>
+			<h2 class="alert">${t['moderation.no_versions']}</h2>
 		</c:if>
 		<c:if test="${!empty histories}">
 			<tags:historiesSelect histories="${histories}" />

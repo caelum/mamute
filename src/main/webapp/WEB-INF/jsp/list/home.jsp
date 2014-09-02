@@ -1,37 +1,24 @@
-<fmt:message key="site.name" var="siteName"/>
-
-<fmt:message key="metas.home.title" var="title"/>
-
-<fmt:message key="metas.default.description" var="description">
-	<fmt:param value="${siteName}" />
-</fmt:message>
-
-<fmt:message key="metas.generic.title" var="genericTitle" >
-	<fmt:param value="${siteName}" />
-</fmt:message>
+<c:set var="siteName" value="${t['site.name']}"/>
+<c:set var="title" value="${t['metas.home.title']}"/>
+<c:set var="description" value="${t['metas.default.description'].args(siteName)}"/>
+<c:set var="genericTitle" value="${t['metas.generic.title'].args(siteName)}"/>
 
 <tags:header facebookMetas="${true}" title="${genericTitle} - ${title}" description="${description}"/>
 
-<fmt:message key="menu.questions" var="title"/>
+<c:set var="title" value="${t['menu.questions']}"/>
 
 <c:if test="${!currentUser.loggedIn}">
 	<section class="about-banner">
 		<span class="minimize-banner icon-minus"></span>
 		<div class="about-content tell-me-more">
 			<h3 class="about-title title">
-				<fmt:message key="about.home_banner.welcome">
-					<fmt:param value="${siteName}" />
-				</fmt:message>
+				${t['about.home_banner.welcome'].args(siteName)}
 			</h3>
 			<div class="about-text">
-				<fmt:message key="about.home_banner.text">
-					<fmt:param value="${siteName}" />
-				</fmt:message>
+				${t['about.home_banner.text'].args(siteName)}
 			</div>
 			<a href="${linkTo[NavigationController].about}">
-				<fmt:message key="about.home_banner.text.link">
-					<fmt:param value="${siteName}" />
-				</fmt:message>
+				${t['about.home_banner.text.link'].args(siteName)}
 			</a>
 		</div>
 		<div class="about-content how-it-works">

@@ -1,155 +1,117 @@
-<fmt:message key="metas.about.title" var="title"/>
-<fmt:message key="site.name" var="siteName" />
+<c:set var="title" value="${t['metas.about.title']}"/>
+<c:set var="siteName" value="${t['site.name']}"/>
 
-<fmt:message key="metas.generic.title" var="genericTitle" >
-	<fmt:param value="${siteName}" />
-</fmt:message>
+<c:set var="genericTitle" value="${t['metas.generic.title'].args(siteName)}"/>
 
 <tags:header title="${genericTitle} - ${title}"/>
 
 <div class="about-section">
-	<h2 class="title big-text-title"><fmt:message key="about.tips"/></h2>
+	<h2 class="title big-text-title">${t['about.tips']}</h2>
 	<div class="big-text">
-		<p><fmt:message key="about.tips.solved"/></p>
-		<p><fmt:message key="about.tips.avoid.thanks"/></p>
-		<p><fmt:message key="about.tips.kkk"/></p>
-		<p><fmt:message key="about.tips.greetings"/></p>
+		<p>${t['about.tips.solved']}</p>
+		<p>${t['about.tips.avoid.thanks']}</p>
+		<p>${t['about.tips.kkk']}</p>
+		<p>${t['about.tips.greetings']}</p>
 	</div>
 </div>
 
 <div class="about-section">
-	<h2 class="title big-text-title"><fmt:message key="about.reputation.permission" /></h2>
+	<h2 class="title big-text-title">${t['about.reputation.permission']}</h2>
 	<div class="big-text">
 		<ul class="rules-list">
 			<li>
-				<fmt:message key="about.reputation.upvote" >
-					<fmt:param value="${VOTE_UP}"/>
-				</fmt:message>
+				${t['about.reputation.upvote'].args(VOTE_UP)}
 			</li>
 			<li>
-				<fmt:message key="about.reputation.flag">
-					<fmt:param value="${CREATE_FLAG}"/>
-				</fmt:message>
+				${t['about.reputation.flag'].args(CREATE_FLAG)}
 			</li>
 			<li>
-				<fmt:message key="about.reputation.edit.question">
-					<fmt:param value="${EDIT_QUESTION}"/>
-				</fmt:message>
+				${t['about.reputation.edit.question'].args(EDIT_QUESTION)}
 			</li>
 			<li>
-				<fmt:message key="about.reputation.edit.answer">
-					<fmt:param value="${EDIT_ANSWER}"/>
-				</fmt:message>
+				${t['about.reputation.edit.answer'].args(EDIT_ANSWER)}
 			</li>
 			<li>
-				<fmt:message key="about.reputation.answer_own_question">
-					<fmt:param value="${ANSWER_OWN_QUESTION}"/>
-				</fmt:message>
+				${t['about.reputation.answer_own_question'].args(ANSWER_OWN_QUESTION)}
 			</li>
 			<li>
-				<fmt:message key="about.reputation.downvote">
-					<fmt:param value="${VOTE_DOWN}"/>		
-				</fmt:message>
+				${t['about.reputation.downvote'].args(VOTE_DOWN)}
 			</li>
 			<li>
-				<fmt:message key="about.reputation.moderate">
-					<fmt:param value="${MODERATE_EDITS}"/>
-				</fmt:message>
+				${t['about.reputation.moderate'].args(MODERATE_EDITS)}
 			</li>
 			<li>
-				<fmt:message key="about.reputation.interact_inactive_question">
-					<fmt:param value="${INACTIVE_QUESTION}"/>
-				</fmt:message>
+				${t['about.reputation.interact_inactive_question'].args(INACTIVE_QUESTION)}
 			</li>
 		</ul>
 	</div><!-- big-text -->
 </div><!-- about-section -->
 
 <div class="about-section">
-	<h2 class="title big-text-title"><fmt:message key="about.reputation.gain" /></h2>
+	<h2 class="title big-text-title">${t['about.reputation.gain']}</h2>
 	<div class="big-text">
 		<ul class="rules-list">
 			<li>
-				<fmt:message key="about.reputation.gain.answer.solution">
-					<fmt:param value="${SOLUTION_AUTHOR}"/>
-				</fmt:message>
+				${t['about.reputation.gain.answer.solution'].args(SOLUTION_AUTHOR)}
 			</li>
 			<li>
-				<fmt:message key="about.reputation.gain.answer.voted_up">
-					<fmt:param value="${MY_ANSWER_VOTED_UP}"/>
-				</fmt:message>
+				${t['about.reputation.gain.answer.voted_up'].args(MY_ANSWER_VOTED_UP)}
 			</li>
 			<li>
-				<fmt:message key="about.reputation.gain.question.voted_up">
-					<fmt:param value="${MY_QUESTION_VOTED_UP}"/>
-				</fmt:message>
+				${t['about.reputation.gain.question.voted_up'].args(MY_QUESTION_VOTED_UP)}
 			</li>
 			<li>
-				<fmt:message key="about.reputation.gain.question.solution" >
-					<fmt:param value="${SOLVED_QUESTION_AUTHOR}"/>
-				</fmt:message>
+				${t['about.reputation.gain.question.solution'].args(SOLVED_QUESTION_AUTHOR)}
 			</li>
 			<li>
-				<fmt:message key="about.reputation.gain.question.answered">
-					<fmt:param value="${ANSWERED_QUESTION}"/>
-				</fmt:message>
+				${t['about.reputation.gain.question.answered'].args(ANSWERED_QUESTION)}
 			</li>
 			<li>
-				<fmt:message key="about.reputation.gain.question.asked">
-					<fmt:param value="${ASKED_QUESTION}"/>
-				</fmt:message>
+				${t['about.reputation.gain.question.asked'].args(ASKED_QUESTION)}
 			</li>
 			<li>
-				<fmt:message key="about.reputation.gain.approved_edit">
-					<fmt:param value="${APPROVED_INFORMATION}"/>		
-				</fmt:message>
+				${t['about.reputation.gain.approved_edit'].args(APPROVED_INFORMATION)}
 			</li>
 			<li>
-				<fmt:message key="about.reputation.gain.comment.voted_up">
-					<fmt:param value="${COMMENT_VOTED_UP}"/>
-				</fmt:message>
+				${t['about.reputation.gain.comment.voted_up'].args(COMMENT_VOTED_UP)}
 			</li>
 			<li>
-				<fmt:message key="about.reputation.gain.question_and_answer.voted_down">
-					<fmt:param value="${MY_ANSWER_VOTED_DOWN}"/>
-				</fmt:message>
+				${t['about.reputation.gain.question_and_answer.voted_down'].args(MY_ANSWER_VOTED_DOWN)}
 			</li>
 			<li>
-				<fmt:message key="about.reputation.gain.question_and_answer.voted_down.me">
-					<fmt:param value="${DOWNVOTED_QUESTION_OR_ANSWER}"/>
-				</fmt:message>
+				${t['about.reputation.gain.question_and_answer.voted_down.me'].args(DOWNVOTED_QUESTION_OR_ANSWER)}
 			</li>			
 		</ul>
 	</div><!-- big-text -->
 </div><!-- about-section -->
 
 <div class="about-section">
-	<h2 class="title big-text-title" id="faq"><fmt:message key="about.reputation.faq" /></h2>
+	<h2 class="title big-text-title" id="faq">${t['about.reputation.faq']}</h2>
 	<div class="big-text">
 		<ul class="about-faq">
 			<li>
-				<p class="about-question"><fmt:message key="about.faq.what_to_ask.question"/></p>
-				<p class="about-answer"><fmt:message key="about.faq.what_to_ask.answer"/></p>
+				<p class="about-question">${t['about.faq.what_to_ask.question']}</p>
+				<p class="about-answer">${t['about.faq.what_to_ask.answer']}</p>
 			</li>
 			<li>
-				<p class="about-question"><fmt:message key="about.faq.what_not_to_ask.question"/></p>
-				<p class="about-answer"><fmt:message key="about.faq.what_not_to_ask.answer"/></p>
+				<p class="about-question">${t['about.faq.what_not_to_ask.question']}</p>
+				<p class="about-answer">${t['about.faq.what_not_to_ask.answer']}</p>
 			</li>
 			<li>
-				<p class="about-question"><fmt:message key="about.faq.first_page_questions.question"/></p>
-				<p class="about-answer"><fmt:message key="about.faq.first_page_questions.answer"/></p>
+				<p class="about-question">${t['about.faq.first_page_questions.question']}</p>
+				<p class="about-answer">${t['about.faq.first_page_questions.answer']}</p>
 			</li>
 			<li>
-				<p class="about-question"><fmt:message key="about.faq.edition.question"/></p>
-				<p class="about-answer"><fmt:message key="about.faq.edition.answer"/></p>
+				<p class="about-question">${t['about.faq.edition.question']}</p>
+				<p class="about-answer">${t['about.faq.edition.answer']}</p>
 			</li>
 			<li>
-				<p class="about-question"><fmt:message key="about.faq.bad_question.question"/></p>
-				<p class="about-answer"><fmt:message key="about.faq.bad_question.answer"/></p>
+				<p class="about-question">${t['about.faq.bad_question.question']}</p>
+				<p class="about-answer">${t['about.faq.bad_question.answer']}</p>
 			</li>
 			<li>
-				<p id="perdi-meus-pontos" class="about-question"><fmt:message key="about.faq.where_is_my_karma"/></p>
-				<p class="about-answer"><fmt:message key="about.faq.where_is_my_karma.answer"/></p>
+				<p id="perdi-meus-pontos" class="about-question">${t['about.faq.where_is_my_karma']}</p>
+				<p class="about-answer">${t['about.faq.where_is_my_karma.answer']}</p>
 			</li>
 		</ul>
 	</div>

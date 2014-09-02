@@ -6,4 +6,4 @@
 <c:forEach var="question" items="${questions}">
 	<tags:questionListItem simple="true" question="${question}"/>
 </c:forEach>
-<a href="/search?query=${query}"><fmt:message key="show_more"/></a>
+<a href="/search?query=${query}">${t['show_more']}</a>

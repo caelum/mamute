@@ -1,19 +1,15 @@
-<fmt:message key="site.name" var="siteName" />
+<c:set var="siteName" value="${t['site.name']}"/>
 
-<fmt:message key="metas.home.title" var="title"/>
+<c:set var="title" value="${t['metas.home.title']}"/>
 
-<fmt:message key="metas.default.description" var="description">
-	<fmt:param value="${siteName}" />
-</fmt:message>
+<c:set var="description" value="${t['metas.default.description'].args(siteName)}"/>
 
-<fmt:message key="metas.generic.title" var="genericTitle" >
-	<fmt:param value="${siteName}" />
-</fmt:message>
+<c:set var="genericTitle" value="${t['metas.generic.title'].args(siteName)}"/>
 
 <tags:header facebookMetas="${true}" title="${genericTitle} - ${title}" description="${description}"/>
 
 <h2 class="title page-title subheader">
-	<fmt:message key="suspects.show"><fmt:param value="${voteType}"/></fmt:message>
+	${t['suspects.show'].args(voteType)}
 	<tags:jodaTime pattern="dd/MM/YYYY" time="${startDate}"/>
 	e
 	<tags:jodaTime pattern="dd/MM/YYYY" time="${endDate}"/>
@@ -21,9 +17,9 @@
 
 <ul class="suspects">
 	<li class="title page-title">
-		<span class="answer-author"><fmt:message key="suspects.suspect"/></span>
-		<span class="count"><fmt:message key="suspects.vote_received"><fmt:param value="${voteType}"/></fmt:message></span>
-		<span class="vote-author"><fmt:message key="suspects.vote_author"><fmt:param value="${voteType}"/></fmt:message></span>
+		<span class="answer-author">${t['suspects.suspect']}</span>
+		<span class="count">${t['suspects.vote_received'].args(voteType)}</span>
+		<span class="vote-author">${t['suspects.vote_author'].args(voteType)}</span>
 	</li>
 <c:forEach items="${suspects}" var="suspect">
 	<li>

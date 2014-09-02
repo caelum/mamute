@@ -26,7 +26,7 @@
 	<c:if test="${not empty tabs}">
 		<tags:tabs title="${title}" useSubheader="${false}">
 			<c:forEach var="tab" items="${tabs}">
-				<a href="${linkTo[ListController].top(tab)}"><fmt:message key="menu.top.${tab}"/></a>
+				<a href="${linkTo[ListController].top(tab)}">${t['menu.top.${tab}']}</a>
 			</c:forEach>
 		</tags:tabs>
 	</c:if>

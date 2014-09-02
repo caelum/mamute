@@ -14,7 +14,7 @@
 	<ul class="karma-history">
 		<c:if test="${votable.votes.size() == 0 && votable.flags.size()  == 0}">
 			<li class="ellipsis advanced-data-line">
-				<span class="detail-info"><fmt:message key="user.moderation.details.noDetails"/>.</span>
+				<span class="detail-info">${t['user.moderation.details.noDetails']}.</span>
 			</li>
 		</c:if>
 		<c:forEach var="vote" items="${votable.votes}">

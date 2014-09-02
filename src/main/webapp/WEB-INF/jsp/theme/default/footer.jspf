@@ -4,19 +4,19 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<fmt:message key="site.name" var="siteName"/>
+<c:set var="siteName" value="${t['site.name']}"/>
 <footer class="footer dark-footer">
 	<div class="container">
 		<div class="footer-muted-message">
 			${siteName}
 		</div>
 		<span class="footer-menu">
-			<a href="${linkTo[ListController].unsolved}" class="unsolved-link"><fmt:message key="menu.unsolved"/></a>
-			<a href="${linkTo[ListController].unanswered}"><fmt:message	key="menu.unanswered"/></a>
+			<a href="${linkTo[ListController].unsolved}" class="unsolved-link">${t['menu.unsolved']}</a>
+			<a href="${linkTo[ListController].unanswered}">${t['menu.unanswered']}</a>
 		</span>
 		<span class="footer-vraptor">
-			Powered by: <a href="http://www.vraptor.org/"><fmt:message key="footer.vraptor" /></a>
-			and <a href="http://www.mamute.org/"><fmt:message key="footer.mamute" /></a>
+			Powered by: <a href="http://www.vraptor.org/">${t['footer.vraptor']}</a>
+			and <a href="http://www.mamute.org/">${t['footer.mamute']}</a>
 		</span>
 		<span class="footer-muted-message">
 		</span>

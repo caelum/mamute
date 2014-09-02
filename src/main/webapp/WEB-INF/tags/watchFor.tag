@@ -8,12 +8,12 @@
 		<c:choose>
 			<c:when test="${isWatching}">
 				<span class="icon-eye icon-2x container" 
-				      title="<fmt:message key='watch.enabled.tooltip'/>">
+				      title="${t['watch.enabled.tooltip']}">
 				</span>
 			</c:when>
 			<c:otherwise>
 				<span class="icon-eye-off icon-muted icon-2x container" 
-				      title="<fmt:message key='watch.disabled.tooltip'/>">
+				      title="${t['watch.disabled.tooltip']}">
 				</span>
 			</c:otherwise>
 		</c:choose>

@@ -3,18 +3,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 <%@attribute name="isHistoryQuestion" type="java.lang.Boolean" required="false" %>
-<fmt:message key="metas.moderate_question.title" var="title"/>
-<fmt:message key="site.name" var="siteName" />
+<c:set var="title" value="${t['metas.moderate_question.title']}"/>
+<c:set var="siteName" value="${t['site.name']}"/>
 
-<fmt:message key="metas.generic.title" var="genericTitle" >
-	<fmt:param value="${siteName}" />
-</fmt:message>
+<c:set var="genericTitle" value="${t['metas.generic.title'].args(siteName)}"/>
 
 <tags:header title="${genericTitle} - ${title}"/>
 
 <div class="history-comparison">
 	<div class="history-current">
-		<h2 class="history-title page-title title"><fmt:message key="moderation.current_version"/>:</h2>
+		<h2 class="history-title page-title title">${t['moderation.current_version']}:</h2>
 		<h2 class="title main-thread-title"><tags:questionLinkFor question="${post.information.question}"/></h2>
 		<div class="post-text">
 			${post.information.markedDescription}
@@ -23,7 +21,7 @@
 	</div>
 	<div class="history-edited">
 		<c:if test="${empty histories}">
-			<h2 class="alert"><fmt:message key="moderation.no_versions" /></h2>
+			<h2 class="alert">${t['moderation.no_versions']}</h2>
 		</c:if>
 		<c:if test="${!empty histories}">
 			<tags:historiesSelect histories="${histories}" />

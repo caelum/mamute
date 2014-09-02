@@ -15,15 +15,12 @@
 		</c:if>
 		<c:if test="${!user.hasKarmaToAnswerOwn(question) && question.alreadyAnsweredBy(user)}">
 			<div class="message alert already-answered">
-				<fmt:message key="answer.errors.already_answered" />
+				${t['answer.errors.already_answered']}
 			</div>
 		</c:if>
 		<c:if test="${!user.hasKarmaToAnswerOwn(question) && !question.alreadyAnsweredBy(user)}">
 			<div class="message alert not-enough-karma">
-				<fmt:message key="answer.errors.not_enough_karma">
-					<fmt:param value="${linkTo[NavigationController].about}"/>
-					<fmt:param value="${linkTo[QuestionController].newQuestion}"/>
-				</fmt:message>
+				${t['answer.errors.not_enough_karma'].args(linkTo[NavigationController].about, linkTo[QuestionController].newQuestion)}
 			</div>
 		</c:if>
 	</c:when>
@@ -34,7 +31,7 @@
 		</c:if>
 		<c:if test="${question.alreadyAnsweredBy(user)}">
 			<div class="message alert already-answered">
-				<fmt:message key="answer.errors.already_answered" />
+				${t['answer.errors.already_answered']}
 			</div>
 		</c:if>
 	</c:when>

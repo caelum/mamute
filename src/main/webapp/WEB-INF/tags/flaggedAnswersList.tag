@@ -5,12 +5,12 @@
 <%@attribute name="list" type="java.util.List" required="true" %>
 
 <c:if test="${empty list}">
-	<h2 class="title section-title"><fmt:message key="moderation.flagged.answers.empty" /></h2>
+	<h2 class="title section-title">${t['moderation.flagged.answers.empty']}</h2>
 </c:if>
 
 <c:if test="${not empty list}">
 	<h1 class="flagged-item-title-moderator">
-		<fmt:message key="menu.answers"/>
+		${t['menu.answers']}
 	</h1>
 </c:if>
 
@@ -27,9 +27,7 @@
 			
 			<div class="summary question-summary">
 				<div class="item-title-wrapper">
-					<fmt:message key="moderation.flags">
-						<fmt:param value="${answer.flags.size()}"/>
-					</fmt:message>
+					${t['moderation.flags'].(answer.flags.size())}
 					<h3 class=" moderator-title item-title main-thread-title question-title">
 						<tags:questionLinkFor answer="${answer}" />
 					</h3>
@@ -46,12 +44,12 @@
 
 			<div
 				class="${question.hasInteraction(currentUser.current) ? 'interaction' : ''}"
-				title="<fmt:message key='user.interactions'/>">
+				title="${t['user.interactions']}">
 			</div>
 			
 			<div
 				class="${answer.flags.size() >= 5 ? 'heavy-flagged' : ''}"
-				title="<fmt:message key='moderation.flagged.lots'/>">
+				title="${t['moderation.flagged.lots']}">
 			</div>
 		</li>
 	</c:forEach>

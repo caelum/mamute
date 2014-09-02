@@ -31,6 +31,6 @@
 		</c:if>
 	</div>
 	<c:if test="${!simple}">
-		<div class="${question.hasInteraction(currentUser.current) ? 'interaction' : ''}" title="<fmt:message key='user.interactions'/>"> </div>
+		<div class="${question.hasInteraction(currentUser.current) ? 'interaction' : ''}" title="${t['user.interactions']}"> </div>
 	</c:if>
 </li>

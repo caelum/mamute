@@ -1,22 +1,18 @@
-<fmt:message key="site.name" var="siteName" />
+<c:set var="siteName" value="${t['site.name']}"/>
 
-<fmt:message key="metas.home.title" var="title"/>
+<c:set var="title" value="${t['metas.home.title']}"/>
 
-<fmt:message key="metas.default.description" var="description">
-	<fmt:param value="${siteName}" />
-</fmt:message>
+<c:set var="description" value="${t['metas.default.description'].args(siteName)}"/>
 
-<fmt:message key="metas.generic.title" var="genericTitle" >
-	<fmt:param value="${siteName}" />
-</fmt:message>
+<c:set var="genericTitle" value="${t['metas.generic.title'].args(siteName)}"/>
 
 <tags:header facebookMetas="${true}" title="${genericTitle} - ${title}" description="${description}"/>
 
 <%-- <tags:tabs titleKey="menu.top">
-	<a href="${linkTo[ListController].top('voted')}"><fmt:message key="menu.top.voted"/></a>
-	<a href="${linkTo[ListController].top('answered')}"><fmt:message key="menu.top.answered"/></a>
+	<a href="${linkTo[ListController].top('voted')}">${t['menu.top.voted']}</a>
+	<a href="${linkTo[ListController].top('answered')}">${t['menu.top.answered']}</a>
 </tags:tabs> --%>
-<fmt:message key="menu.questions" var="title"/>
+<c:set var="title" value="${t['menu.questions']}"/>
 
 <section class="first-content content">
 	<tags:questionList recentTags="${recentTags}" 
