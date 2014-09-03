@@ -30,10 +30,23 @@
 	<link rel="stylesheet" href="<c:url value="/css/deps/joyride-2.0.3.css"/>">
 
 	<link rel="stylesheet" href="<c:url value="/css/mamute/mamute.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/mamute/markdown.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/mamute/header.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/mamute/form.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/mamute/answer.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/mamute/button.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/mamute/footer.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/mamute/form.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/mamute/list-question.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/mamute/main-header.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/mamute/main-menu.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/mamute/main-tags.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/mamute/markdown.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/mamute/moderator.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/mamute/news.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/mamute/ranking.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/mamute/second-header.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/mamute/show-question.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/mamute/subheader.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/mamute/user.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/mamute/tags.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/mamute/responsive-mamute.css"/>">
 
 	<link rel="stylesheet" href="<c:url value="/css/deps/pickadate/classic.css"/>">

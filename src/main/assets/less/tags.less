@@ -1,0 +1,69 @@
+.tags {
+	overflow: hidden;
+	width: 100%;
+}
+
+.tags,.tags .tags-item {
+	float: left;
+}
+
+.tags-item {
+	margin-right: .3em;
+}
+
+.tag-brutal {
+	background-color: #f8f8f8;
+	border: 1px solid #adc2d0;
+	color: #3e6d8e;
+	display: inline-block;
+	font-size: .9em;
+	padding: 0 0.4em;
+	line-height: 1.45em;
+	border-radius: 5px;
+	
+	&:hover {
+		background-color: #e0eaf1;
+	}
+}
+
+.tag-description {
+	font-size: .9em;
+}
+
+.autocompleted-tags {
+	border: 1px solid #000;
+	z-index: 999;
+	position: absolute;
+	margin-top: 2.4em;
+	background-color: #FFF;
+	padding: .6em;
+	width: 45.5%;
+	
+	.complete-tag {
+		width: 33%;
+		color: #000;
+		cursor: pointer;
+	}
+}
+
+.complete-tag {
+	border-bottom: 1px dotted #E0E0E0;
+	padding: .8em;
+	float: left;
+	height: 45px;
+	width: 20%;
+	
+	.tag-brutal {
+		margin-bottom: 5%;
+	}
+}
+
+.autocompleted-tags .complete-tag:hover,.tag-selected {
+	background-color: #ffe6bf;
+}
+
+.flagged-item-title-moderator {
+	font-size: 1.3em;
+	margin-top: 1.4em;
+	padding-bottom: 1em;
+}

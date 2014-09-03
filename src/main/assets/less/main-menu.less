@@ -1,0 +1,89 @@
+.main-nav {
+	vertical-align: middle;
+	display:inline-block;
+	background-color: #fff;
+	border-bottom: 1px solid #ecf3f8;
+	margin-left: 7%;
+
+	.nav-item, .nav-item a {
+		color: #383938;
+	}
+	
+	.nav-items {
+		width: 100%;
+		height: 100%;
+		
+		.current {
+			color: #fff;
+		}
+		
+		a {
+			padding: 1em 1.7em;
+			
+			&:hover {
+				text-decoration: none;
+			}
+		}
+	}
+}
+
+.piped-nav {
+	.nav-item {
+		padding: 0;
+		
+		&:first-child {
+			border: none;
+		}
+	}
+		
+	.nav-item.ask {
+		float: right;
+		border: none;
+		height: 4.7em;
+		position: absolute;
+		right: 0;
+	}
+}
+
+.nav,.nav-items {
+	overflow: hidden;
+}
+
+.nav-item {
+	float: left;
+	padding-right: 0.8em;
+	
+	.current {
+		background-color: #F89948;
+	}
+	
+	.new-users {
+		color: #ccfed0;
+		font-weight: bold;
+	}
+}
+
+a.button.ask-a-question {
+	background-color: #f62621;
+	border-bottom: 1px solid #c80c08;
+	color: #fff;
+	padding: 1em 3.4em;
+	
+	&:hover {
+		background-color: #f8605d;
+	}
+}
+
+.button:hover .menu-subtitle {
+    display: block;
+    position: absolute;
+}
+
+.menu-subtitle {
+	font-size: .63em;
+	display: none;
+}
+
+.nav-buttons {
+	float: right;
+}

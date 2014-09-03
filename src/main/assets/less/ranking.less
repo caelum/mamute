@@ -1,0 +1,59 @@
+.ranking {
+	display: inline-block;
+}
+
+.ranking-item {
+	float: left;
+	width: 15%;
+	margin: .75em;
+}
+
+.ranking-user {
+	width: 100%;
+	
+	>* {
+		display: inline-block;
+	}
+	
+	.user-image {
+		width: 48px;
+		height: 48px;
+	}
+	
+	.user-info {
+		width: 70%;
+	}
+}
+
+.tag-ranking-section {
+	display: inline-block;
+	width: 49%;
+	margin-bottom: 5em;
+	vertical-align: top;
+	
+	> * {
+		margin-bottom: 1em;
+		text-align: center;
+	}
+	
+	> .ranking-user {
+		display: inline-block;
+		width: 49%;
+		vertical-align: middle;
+	}
+	
+	> .ranking-user .user-image {
+		width: 32px;
+		height: 32px;
+	}
+}
+
+.tag-ranking-count,.tag-ranking-karma {
+	display: inline-block;
+	width: 24.5%;
+	vertical-align: middle;
+}
+
+.tag-ranking-karma {
+	color: #595959
+}
