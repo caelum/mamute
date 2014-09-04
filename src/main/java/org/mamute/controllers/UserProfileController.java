@@ -1,12 +1,10 @@
 package org.mamute.controllers;
 
-import static com.google.common.base.Objects.firstNonNull;
 import static java.util.Arrays.asList;
 import static org.mamute.dao.WithUserPaginatedDAO.OrderType.ByDate;
 import static org.mamute.dao.WithUserPaginatedDAO.OrderType.ByVotes;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletResponse;
 
 import org.joda.time.DateTime;
 import org.mamute.brutauth.auth.rules.ModeratorOnlyRule;
@@ -23,8 +21,6 @@ import org.mamute.factory.MessageFactory;
 import org.mamute.model.LoggedUser;
 import org.mamute.model.User;
 import org.mamute.validators.UserPersonalInfoValidator;
-
-import com.google.common.base.Objects;
 
 import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
 import br.com.caelum.vraptor.Controller;
@@ -50,7 +46,6 @@ public class UserProfileController extends BaseController{
 	@Inject private WatcherDAO watchers;
 	@Inject private ReputationEventDAO reputationEvents;
 	@Inject private MessageFactory messageFactory;
-	@Inject private HttpServletResponse response;
 
 	@Get
 	public void showProfile(@Load User user, String sluggedName){
@@ -118,7 +113,7 @@ public class UserProfileController extends BaseController{
 	}
 	
 	@Post
-	public void editProfile(@Load User user, String name, String realName, String email, 
+	public void editProfile(@Load User user, String name, String email, 
 			String website, String location, DateTime birthDate, String description, boolean isSubscribed) {
 		if (!user.getId().equals(currentUser.getCurrent().getId())){
 			result.redirectTo(ListController.class).home(null);
@@ -131,7 +126,6 @@ public class UserProfileController extends BaseController{
 
 		UserPersonalInfo info = new UserPersonalInfo(user)
 			.withName(name)
-			.withRealName(realName)
 			.withEmail(email)
 			.withWebsite(website)
 			.withLocation(location)

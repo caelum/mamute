@@ -64,7 +64,7 @@
 						</c:if>
 						<c:if test="${currentUser.loggedIn}">
 							<li class="nav-item user-item">
-								<tags:userProfileLink user="${currentUser.current}" htmlClass="user-name" isPrivate="true">
+								<tags:userProfileLink user="${currentUser.current}" htmlClass="user-name">
 									<jsp:attribute name="before">
 										<img class="user-image menu-user-image" src="${currentUser.current.smallPhoto}"/>
 									</jsp:attribute>

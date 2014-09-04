@@ -46,7 +46,7 @@
 					
 				</div>
 				<div>
-					<tags:userProfileLink user="${comment.author}" htmlClass="user-name ellipsis" isPrivate="false"/>
+					<tags:userProfileLink user="${comment.author}" htmlClass="user-name ellipsis"/>
 				</div>
 			</div>
 			

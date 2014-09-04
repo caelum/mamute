@@ -30,7 +30,7 @@
 				<c:set var="information" value="${entry.value[fn:length(entry.value)-1]}"/>
 				<span class="last-updated-at"><tags:prettyTime time="${information.createdAt}" /></span>
 				<span>- último usuário a editar :</span>
-				<tags:userProfileLink user="${information.author}" isPrivate="false"></tags:userProfileLink>
+				<tags:userProfileLink user="${information.author}"/>
 			</div>
 		</li>
 	</c:forEach>

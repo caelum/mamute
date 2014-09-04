@@ -27,9 +27,9 @@
 	</li>
 <c:forEach items="${suspects}" var="suspect">
 	<li>
-		<span class="answer-author"><tags:userProfileLink user="${suspect.answerAuthor}" isPrivate="false"/></span>
+		<span class="answer-author"><tags:userProfileLink user="${suspect.answerAuthor}"/></span>
 		<span class="count">${suspect.massiveVoteCount }</span>
-		<span class="vote-author"><tags:userProfileLink user="${suspect.voteAuthor}" isPrivate="false"/></span>
+		<span class="vote-author"><tags:userProfileLink user="${suspect.voteAuthor}"/></span>
 	</li>
 </c:forEach>
 </ul>

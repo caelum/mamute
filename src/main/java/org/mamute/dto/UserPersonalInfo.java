@@ -16,7 +16,6 @@ import static org.mamute.validators.UserPersonalInfoValidator.NAME_LENGTH_MESSAG
 import static org.mamute.validators.UserPersonalInfoValidator.NAME_MAX_LENGTH;
 import static org.mamute.validators.UserPersonalInfoValidator.NAME_MIN_LENGTH;
 import static org.mamute.validators.UserPersonalInfoValidator.NAME_REQUIRED;
-import static org.mamute.validators.UserPersonalInfoValidator.REALNAME_LENGTH_MESSAGE;
 import static org.mamute.validators.UserPersonalInfoValidator.WEBSITE_LENGTH_MESSAGE;
 import static org.mamute.validators.UserPersonalInfoValidator.WEBSITE_MAX_LENGHT;
 import static org.mamute.validators.UserPersonalInfoValidator.WEBSITE_MIN_LENGTH;
@@ -48,9 +47,6 @@ public class UserPersonalInfo {
 	
 	@Length(min = ABOUT_MIN_LENGTH, max = ABOUT_MAX_LENGTH ,  message = ABOUT_LENGTH_MESSAGE)
 	private String about;
-
-	@Length(min = NAME_MIN_LENGTH, max = NAME_MAX_LENGTH, message = REALNAME_LENGTH_MESSAGE)
-	private String realName;
 
 	@Length(min = ABOUT_MIN_LENGTH, max = MARKED_ABOUT_MAX_LENGTH ,  message = ABOUT_LENGTH_MESSAGE)
 	private String markedAbout;
@@ -87,11 +83,6 @@ public class UserPersonalInfo {
 		return this;
 	}
 
-	public UserPersonalInfo withRealName(String realName) {
-		this.realName = sanitize(realName);
-		return this;
-	}
-	
 	public UserPersonalInfo withName(String name){
 		this.name = sanitize(name);
 		return this;
@@ -105,10 +96,6 @@ public class UserPersonalInfo {
 		return this.name;
 	}
 	
-	public String getRealName() {
-		return this.realName;
-	}
-
 	public String getEmail() {
 		return this.email;
 	}

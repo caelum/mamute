@@ -8,7 +8,7 @@
 <tags:header title="${genericTitle} - ${title}"/>
 
 <div class="subheader">
-	<tags:userProfileLink user="${user}" htmlClass="title page-title" isPrivate="true"/>
+	<tags:userProfileLink user="${user}" htmlClass="title page-title"/>
 	<ul class="subheader-menu">
 		<a href="${linkTo[UserProfileController].editProfile(user)}"><fmt:message key="user_profile.edit" /></a>
 	</ul>
@@ -24,9 +24,6 @@
 	
 	<label for="email" class="form-label"><fmt:message key="user_profile.edit.form.email.label" /></label>
 	<input type="email" name="email" class="required text-input email" minlength="6" maxlength="100" value="<c:out value="${user.email}" escapeXml="true"/>"/>
-	
-	<label for="realName" class="form-label"><fmt:message key="user_profile.edit.form.real_name.label" /></label>
-	<input type="text" name="realName" class="text-input" maxlength="100" minlength="4" value="<c:out value="${user.realName}" escapeXml="true"/>"/>
 	
 	<label for="website" class="form-label"><fmt:message key="user_profile.edit.form.website.label" /></label>
 	<input type="text" name="website" class="text-input brutal-url" maxlength="200" value="<c:out value="${user.website}" escapeXml="true"/>"/>
@@ -44,5 +41,5 @@
 	<label for="isSubscribed" class="form-label inline-label"><fmt:message key="user_profile.edit.form.subscribe.label" /></label>
 	
 	<input type="submit" class="post-submit big-submit submit" value="<fmt:message key="user_profile.edit.form.submit" />"/>
-	<tags:userProfileLink user="${user}" value="user_profile.edit.cancel" isPrivate="true"/>
+	<tags:userProfileLink user="${user}" value="user_profile.edit.cancel"/>
 </form>

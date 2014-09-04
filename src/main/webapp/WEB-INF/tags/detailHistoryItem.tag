@@ -18,5 +18,5 @@
 		<span class="counter karma-value ${quality} centered-karma" title="${altText}">${markText}</span>
 	</span>
 	<jsp:doBody/> 
-	<tags:userProfileLink user="${detail.author}" isPrivate="false"/>
+	<tags:userProfileLink user="${detail.author}"/>
 </li>
