@@ -7,5 +7,5 @@
 <form class="validated-form question-form hinted-form" action='${uri}' method="post" >
 	<label for="tagPage-about">${t['tag_page.form.about.label']}</label>
 	<tags:markDown name="about" htmlClass="required" value="${tagPage.about}" minlength="100"/>
-	<input class="post-submit big-submit" type="submit" value="${t['${submitTextKey}']}" />
+	<input class="post-submit big-submit" type="submit" value="${t[submitTextKey]}" />
 </form>

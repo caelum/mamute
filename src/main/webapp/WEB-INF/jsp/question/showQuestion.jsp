@@ -47,7 +47,7 @@
 	<tags:questionWith question="${question}" commentVotes="${commentsWithVotes}"/>
 	<div class="subheader">
 		<h2 class="title page-title">
-			${question.answersCount} ${t['question.list.answer.${question.answersCount > 1 ? 'plural' : 'singular' }']}
+			${question.answersCount} <tags:pluralize key="question.list.answer" count="${question.answersCount}"/>
 		</h2>
 	</div>
 	<ul>

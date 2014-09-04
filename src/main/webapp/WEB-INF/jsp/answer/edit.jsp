@@ -6,4 +6,4 @@
 
 <tags:header title="${genericTitle} - ${title}"/>
 
-${t['${status}']}
+${t[status]}

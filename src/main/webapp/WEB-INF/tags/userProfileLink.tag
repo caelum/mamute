@@ -12,7 +12,7 @@
 	${before}
 	<c:choose>
 		<c:when test="${not empty value}">
-			${t['${value}']}
+			${t[value]}
 		</c:when>
 		<c:otherwise>
 			${user.name}

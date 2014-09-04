@@ -181,6 +181,12 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<version>5.0.0.Final</version>
+			<exclusions>
+				<exclusion>
+		          <groupId>org.glassfish.web</groupId>
+		          <artifactId>javax.el</artifactId>
+		        </exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -526,16 +532,15 @@
 			<version>2.2.3</version>
 		</dependency>
 
-		<!-- EL -->
 		<dependency>
-			<groupId>de.odysseus.juel</groupId>
-			<artifactId>juel-api</artifactId>
-			<version>2.2.7</version>
+		        <groupId>de.odysseus.juel</groupId>
+		        <artifactId>juel-api</artifactId>
+		        <version>2.2.7</version>
 		</dependency>
 		<dependency>
-			<groupId>de.odysseus.juel</groupId>
-			<artifactId>juel-impl</artifactId>
-			<version>2.2.7</version>
+		        <groupId>de.odysseus.juel</groupId>
+		        <artifactId>juel-impl</artifactId>
+		        <version>2.2.7</version>
 		</dependency>
 
 		<!-- JSTL -->
@@ -580,6 +585,14 @@
 					<groupId>org.apache.tomcat</groupId>
 					<artifactId>tomcat-api</artifactId>
 				</exclusion>
+				<exclusion>
+		          <groupId>org.glassfish.web</groupId>
+		          <artifactId>javax.el</artifactId>
+		        </exclusion>
+				<exclusion>
+		          <groupId>org.apache.tomcat</groupId>
+		          <artifactId>tomcat-jasper</artifactId>
+		        </exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>

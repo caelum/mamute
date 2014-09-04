@@ -4,6 +4,7 @@
 <%@attribute name="item" type="org.mamute.model.interfaces.Votable" required="true" %>
 <%@attribute type="org.mamute.model.Vote" name="vote" required="true" %>
 <div class="vote-container post-vote">
+	<c:set var="titleUp" value="${type}.upvote"/>
 	<a rel="nofollow" class="container requires-login requires-karma author-cant
 		      up-vote up-arrow arrow vote-option 
 		       ${(not empty vote and vote.countValue == 1) ? 'voted' : '' }"
@@ -11,10 +12,11 @@
 		      data-type="${type}"
 		      data-karma="${VOTE_UP}"
 		      data-id="${item.id}"
-		      title="${t['${type}.upvote']}">
+		      title="${t[titleUp]}">
     	up
    	</a>
 	<span class="vote-count post-vote-count">${item.voteCount}</span>
+	<c:set var="titleDown" value="${type}.downvote"/>
 	<a rel="nofollow" class="container requires-login author-cant down-vote down-arrow
 	 		  arrow vote-option requires-karma
 	 		  ${(not empty vote and vote.countValue == -1) ? 'voted' : '' }" 
@@ -23,7 +25,7 @@
 	 		  data-type="${type}" 
 		      data-karma="${VOTE_DOWN}" 
 	 		  data-id="${item.id}"
-	 		  title="${t[type+'.downvote'].(MY_ANSWER_VOTED_DOWN, DOWNVOTED_QUESTION_OR_ANSWER)}">
+	 		  title="${t[titleDown].(MY_ANSWER_VOTED_DOWN, DOWNVOTED_QUESTION_OR_ANSWER)}">
 		down 
 	</a>
 </div>

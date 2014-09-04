@@ -5,10 +5,15 @@
 <%@attribute name="rssFeed" type="org.mamute.infra.rss.read.RSSFeed" required="true" %>
 <%@attribute name="rssUrl" type="java.lang.String" required="true" %>
 <%@attribute name="rssType" type="java.lang.String" required="true" %>
+
+<c:set var="feedTitle" value="${rssType}.rss.title"/>
+<c:set var="feedMoreUrl" value="${rssType}.rss.url"/>
+<c:set var="feedMore" value="${rssType}.rss.more"/>
+
 <c:if test="${not empty rssFeed.channel.items}">
 	<div class="subheader">
 		<h2 class="title page-title">
-			${t['${rssType}.rss.title']}
+			${t[feedTitle]}
 		</h2>
 		<a href="${rssUrl}" class="rss-link"><i class="icon-rss"></i></a>
 	</div>
@@ -26,6 +31,6 @@
 			</li>
 		</c:forEach>
 	</ol>
-	<a class="more-items" href="${t['${rssType}.rss.url']}">${t['${rssType}.rss.more']}</a>
+	<a class="more-items" href="${t[feedMoreUrl]}">${t[feedMore]}</a>
 	
 </c:if>

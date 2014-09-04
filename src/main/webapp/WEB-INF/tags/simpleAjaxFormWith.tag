@@ -34,7 +34,8 @@
 			<tags:checkbox-watch />
 		</form>
 		<div class="hint" id="${callbackTarget}-hint">
-			${t['${field}.hint']}
+			<c:set var="hintText" value="${field}.hint"/>
+			${t[hintText]}
 		</div>
 	</div>
 </div>

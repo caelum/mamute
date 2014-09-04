@@ -6,9 +6,11 @@
 
 <c:choose>
 	<c:when test="${count <= 1 && count >= -1}">
-		${t['${key}.singular']}
+		<c:set var="key" value="${key}.singular"/>
 	</c:when>
 	<c:otherwise>
-		${t['${key}.plural']}
+		<c:set var="key" value="${key}.plural"/>
 	</c:otherwise>
 </c:choose>
+
+${t[key]}
