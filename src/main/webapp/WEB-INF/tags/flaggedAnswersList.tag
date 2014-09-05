@@ -27,7 +27,7 @@
 			
 			<div class="summary question-summary">
 				<div class="item-title-wrapper">
-					${t['moderation.flags'].(answer.flags.size())}
+					${t['moderation.flags'].args(answer.flags.size())}
 					<h3 class=" moderator-title item-title main-thread-title question-title">
 						<tags:questionLinkFor answer="${answer}" />
 					</h3>

@@ -38,7 +38,8 @@
 </form>
 <div class="form-hints">
 	<div id="question-title-hint" class="hint">
-		${t['question.title.hint'].(linkTo[NavigationController].about+'#faq')
+		<c:set var="linkToFaq" value="${linkTo[NavigationController].about}'#faq'"/>
+		${t['question.title.hint'].args(linkToFaq)}
 	</div>
 	<div id="question-description-hint" class="hint">${t['question.description.hint']}</div>
 	<div id="question-tags-hint" class="hint">${t['question.tags.hint']}</div>

@@ -13,6 +13,6 @@
 
 <section class="notice">
 	<h3 class="title">
-		${t[isLogged ? "notice.logged" : "notice.not_logged"].(inlineTags, linkTo[QuestionController].newQuestion)}
+		${t[isLogged ? "notice.logged" : "notice.not_logged"].args(inlineTags, linkTo[QuestionController].newQuestion)}
 	</h3>
 </section>

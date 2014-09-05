@@ -30,7 +30,7 @@
 				
 				<div class="summary question-summary">
 					<div class="item-title-wrapper">
-						${t['moderation.edits'].(entry.value.size())}
+						${t['moderation.edits'].args(entry.value.size())}
 						<h3 class="moderator-title item-title main-thread-title question-title">
 							<tags:similarQuestionsLinkFor question="${entry.key}"/>
 						</h3>

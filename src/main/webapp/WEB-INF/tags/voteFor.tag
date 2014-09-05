@@ -25,7 +25,7 @@
 	 		  data-type="${type}" 
 		      data-karma="${VOTE_DOWN}" 
 	 		  data-id="${item.id}"
-	 		  title="${t[titleDown].(MY_ANSWER_VOTED_DOWN, DOWNVOTED_QUESTION_OR_ANSWER)}">
+	 		  title="${t[titleDown].args(MY_ANSWER_VOTED_DOWN, DOWNVOTED_QUESTION_OR_ANSWER)}">
 		down 
 	</a>
 </div>
