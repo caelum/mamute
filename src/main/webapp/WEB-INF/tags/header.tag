@@ -29,7 +29,6 @@
 	<link rel="stylesheet" href="<c:url value="/css/deps/prettify.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/deps/joyride-2.0.3.css"/>">
 
-	<link rel="stylesheet" href="<c:url value="/css/mamute/mamute.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/mamute/404.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/mamute/about.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/mamute/ads.css"/>">
@@ -38,6 +37,7 @@
 	<link rel="stylesheet" href="<c:url value="/css/mamute/comments.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/mamute/footer.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/mamute/form.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/mamute/generics.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/mamute/icons.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/mamute/list-question.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/mamute/main-header.css"/>">
@@ -53,7 +53,6 @@
 	<link rel="stylesheet" href="<c:url value="/css/mamute/second-header.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/mamute/show-question.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/mamute/sidebar.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/mamute/single-properties.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/mamute/subheader.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/mamute/tags.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/mamute/text.css"/>">

@@ -13,7 +13,7 @@
 <section class="news-content content">
 	<div class="subheader news-aside-list-header">
 		<h2 class="title page-title"><fmt:message key="menu.news"/>	</h2>	
-		<a href="${linkTo[RssController].newsRss}" class="rss-link"><i class="icon-rss "></i></a>
+		<a href="${linkTo[RssController].newsRss}" class="icon-rss"><i></i></a>
 		<a href="${linkTo[NewsController].newsForm}" class="send-news">
 			<fmt:message key="menu.new_news" />
 		</a>				
