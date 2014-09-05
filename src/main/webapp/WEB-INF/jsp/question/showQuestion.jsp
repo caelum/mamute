@@ -9,7 +9,7 @@
 <tags:header facebookMetas="${true}" 
 	title="${pageTitle}" 
 	description="${question.metaDescription}"/>
-<div class="breadcrumb" itemprop="breadcrumb" xmlns:v="http://rdf.data-vocabulary.org/#">
+<div class="hidden" itemprop="breadcrumb" xmlns:v="http://rdf.data-vocabulary.org/#">
 	<span typeof="v:Breadcrumb">
 		<a rel="v:url" property="v:title" href="${linkTo[ListController].home(1)}">
 			<fmt:message key="menu.questions"/>

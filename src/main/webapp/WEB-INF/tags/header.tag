@@ -43,10 +43,12 @@
 	<link rel="stylesheet" href="<c:url value="/css/mamute/main-header.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/mamute/main-menu.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/mamute/main-tags.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/mamute/mamute-joyride.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/mamute/markdown.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/mamute/messages.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/mamute/moderator.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/mamute/news.css"/>">
+	<link rel="stylesheet" href="<c:url value="/css/mamute/pagination.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/mamute/ranking.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/mamute/second-header.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/mamute/show-question.css"/>">

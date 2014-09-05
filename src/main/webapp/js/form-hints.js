@@ -3,7 +3,7 @@ $(function(){
 		var currentHintable = $(hintable),
 			anchor = currentHintable.data("hint-id"),
 			label = $("label[for="+currentHintable.attr("id")+"]"),
-			hintAnchor = $("<a class='hint-anchor' href='#"+anchor+"'> ?</a>");
+			hintAnchor = $("<a class='hidden' href='#"+anchor+"'> ?</a>");
 		hintAnchor.appendTo(label);
 	});
 	
