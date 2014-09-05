@@ -59,19 +59,17 @@ $(function() {
 	
 		var success = function(response, status, jqhr) {
 			var target = $("#" + form.data("ajax-result"));
-			if (jqhr.status == 201) {
-				target.append("<span class='suggestion-accepted'>" + Messages.get('validation.suggestion_sent') + "</span>");
-			} else {
-				var action = form.data("ajax-on-callback") || "replace-inner";
-				if (action == "replace-inner") {
-					target.html(response);
-				} else if(action == "append") {
-					target.append(response);
-				} else if(action == "replace"){
-					target.replaceWith(response);
-				}
-				target.removeClass("hidden");
+			
+			var action = form.data("ajax-on-callback") || "replace-inner";
+			if (action == "replace-inner") {
+				target.html(response);
+			} else if(action == "append") {
+				target.append(response);
+			} else if(action == "replace"){
+				target.replaceWith(response);
 			}
+			target.removeClass("hidden");
+			
 			resetForm(form, false);
 			bindAll();
 		};
