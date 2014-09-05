@@ -94,3 +94,36 @@
 .flagged-moderator-item {
 	padding: 1.4% 0;
 }
+
+.pending-questions .pending {
+	border-bottom: 1px solid #eaeaea;
+	overflow: hidden;
+}
+
+.pending {
+	padding: 0.8em 0;
+}
+
+.suspects li {
+	.vote-author, .count, .answer-author {
+		display: inline-block;
+		width: 33%;
+	}
+}
+
+.interaction:after, .heavy-flagged:after {
+	content: "";
+	width: 10px;
+	height: 10px;
+	display: inline-block;
+	background-color: #70D88F;
+	vertical-align: middle;
+	position: absolute;
+	box-shadow: 1px 1px 1px #96ECB0;
+	margin-left: -1.2em;
+}
+
+.heavy-flagged:after {
+	background-color: #F33;
+	margin-top: 2em;
+}
