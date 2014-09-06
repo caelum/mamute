@@ -11,6 +11,7 @@
        	<exclude name="org.mamute.infra.rss.job.InfoQRSSJob"/>
        	<exclude name="com.google.common.util.concurrent.MoreExecutors$SameThreadExecutorService"/>
        	<exclude name="br.com.caelum.vraptor.i18n.routes.I18nRoutesParser"/>
+       	<exclude name="br.com.caelum.vraptor.i18n.I18nLocalization"/>
        </scan>
 
 </beans>
