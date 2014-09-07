@@ -6,17 +6,26 @@
 
 <form class="validated-form user-form" action="${linkTo[AuthController].login}" method="POST">
 	<tags:socialLoginMethods buttonContent="auth"/>
-	
+
 	<label for="email">${t['signup.form.email.label']}</label>
-	<input type="email" name="email" class="email required text-input" placeholder="nome@exemplo.com"/>
-	
+	<c:if test="${env.supports('feature.auth.db')}">
+		<input type="email" name="email" class="email required text-input" placeholder="${t['signup.form.email.placeholder']}"/>
+	</c:if>
+	<c:if test="${env.supports('feature.auth.ldap')}">
+		<input type="text" name="email" class="required text-input" placeholder="${t['signup.form.email.placeholder']}"/>
+	</c:if>
+
+
 	<label for="password">${t['signup.form.password.label']}</label>
-	<input name="password" type="password" class="required text-input" placeholder="Senha"/>
-	
-	<a href="${linkTo[ForgotPasswordController].forgotPasswordForm}" class="forgot-password">
-		${t['forgot_password.link.text']}
-	</a>
-	<input name="redirectUrl" value="${redirectUrl}" type="hidden" />
+	<input name="password" type="password" class="required text-input" placeholder="${t['signup.form.password.placeholder']}"/>
+
+	<c:if test="${env.supports('feature.auth.db')}">
+		<a href="${linkTo[ForgotPasswordController].forgotPasswordForm}" class="forgot-password">
+				${t['forgot_password.link.text']}
+		</a>
+	</c:if>
+
+	<input name="redirectUrl" value="${redirectUrl}" type="hidden"/>
 	<input class="post-submit big-submit submit" type="submit" value="Login"/>
-	
+
 </form>
