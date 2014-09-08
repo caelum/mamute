@@ -86,8 +86,6 @@ else
 	cp -R target/mamute-$VERSION/* "$APPLICATION_DIR/mamute"
 fi
 
-cd "$APPLICATION_DIR"
-
 echo 'Copying overrides to new version of mamute'
 cp -R "$APPLICATION_DIR/overrides/*" "$APPLICATION_DIR/mamute"
 
