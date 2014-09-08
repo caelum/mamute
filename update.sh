@@ -52,7 +52,7 @@ customFiles=("WEB-INF/classes/messages_pt_BR.properties"
 cd "$APPLICATION_DIR/mamute"
 
 echo 'Copying custom files'
-for ((i=1; i<${#customFiles[@]} ; i++))
+for ((i=0; i<${#customFiles[@]} ; i++))
 do
 	echo "Copying ${customFiles[i]}"
 	cp -R --parents ${customFiles[i]} "$APPLICATION_DIR/overrides"
@@ -87,10 +87,10 @@ else
 fi
 
 echo 'Copying overrides to new version of mamute'
-cp -R "$APPLICATION_DIR/overrides/*" "$APPLICATION_DIR/mamute"
+cp -R $APPLICATION_DIR/overrides/* "$APPLICATION_DIR/mamute"
 
 echo 'Removing custom files from overrides'
-for ((i=1; i<${#customFiles[@]} ; i++))
+for ((i=0; i<${#customFiles[@]} ; i++))
 do
 	echo "Removing ${customFiles[i]}"
 	rm -rf "$APPLICATION_DIR/overrides/${customFiles[i]}"
