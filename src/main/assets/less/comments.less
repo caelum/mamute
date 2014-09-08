@@ -35,6 +35,11 @@
 .comment-meta {
 	width: 5%;
 	min-height: 33px;
+
+	@media only screen and (max-width: 550px) {
+		height: 40px;
+		text-align:center;
+	}
 }
 
 .comment-option {
@@ -71,6 +76,26 @@
 	width: 22%;
 	z-index: 999;
 	padding: 10px;
+
+	@media only screen and (max-width: 1220px) {
+		width: 32%;
+	}
+
+	@media only screen and (max-width: 840px) {
+		width: 36%;
+	}
+
+	@media only screen and (max-width: 700px) {
+		width: 40%;
+	}
+
+	@media only screen and (max-width: 550px) {
+		width: 53%;
+	}
+
+	@media only screen and (max-width: 400px) {
+		width: 60%;
+	}
 	
 	input[type="radio"] {
 		display: inline-block;
@@ -86,6 +111,22 @@
 	textarea {
 		border: 1px solid #aaa;
 		width: 85%;
+
+		@media only screen and (max-width: 1220px) {
+			width: 88%;
+		}
+
+		@media only screen and (max-width: 840px) {
+			width: 83%;
+		}	
+
+		@media only screen and (max-width: 700px) {
+			width: 82%;
+		}
+
+		@media only screen and (max-width: 550px) {
+			width: 83%;
+		}
 	}
 	
 	input[type="submit"] {

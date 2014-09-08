@@ -36,14 +36,6 @@
 	cursor: pointer;
 }
 
-.up-arrow.voted {
-	border-bottom-color: #3A77A6;
-}
-
-.down-arrow.voted {
-	border-top-color: #3A77A6;
-}
-
 .arrow {
 	width: 0;
 	height: 0;
@@ -51,6 +43,10 @@
 	display: block;
 	text-indent: -9999px;
 	border: 13px solid transparent;
+
+	@media only screen and (max-width: 700px) {
+		border-width: 9px;
+	}
 }
 
 .arrow-popup-fix {
@@ -66,8 +62,16 @@
 
 .down-arrow {
 	border-top-color: #818185;
+
+	&.voted {
+		border-top-color: #3A77A6;
+	}
 }
 
 .up-arrow {
 	border-bottom-color: #818185;
+	
+	&.voted {
+		border-bottom-color: #3A77A6;
+	}
 }

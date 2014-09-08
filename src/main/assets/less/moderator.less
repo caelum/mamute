@@ -2,17 +2,25 @@
 	float: right;
 	margin-top: 15px;
 	margin-right: 2em;
-	
+
 	a {
 		color: #777;
 		font-size: 0.9em;
 		padding: 5px 10px 13px 10px;
+
+		@media only screen and (max-width: 700px) {
+			padding: 5px 11px 10px 11px;
+		}
 		
 		&:hover {
 			border: 1px solid #eaeaea;
 			padding: 5px 9px 8px 9px;
 			border-bottom-color: #fff;
 			text-decoration: none;
+
+			@media only screen and (max-width: 700px) {
+				padding: 5px 10px 10px 10px;
+			}
 		}
 		
 		&.selected {
@@ -21,6 +29,10 @@
 			border: 1px solid #eaeaea;
 			padding: 12px 9px 8px 9px;
 			border-bottom-color: #fff;
+
+			@media only screen and (max-width: 700px) {
+				padding: 12px 9px 10px 9px;
+			}
 		}
 	} 
 }
@@ -28,11 +40,6 @@
 .tabs-tag {
 	float: left;
 	margin-left: .7em;
-}
-
-.history-comparison>* {
-	width: 50%;
-	float: left;
 }
 
 .history-title {
@@ -45,13 +52,30 @@
 	padding-right: 2em;
 }
 
-.history-comparison .touch,.history-comparison .post-touchs {
-	width: 100%;
+.history-comparison {
+	> * {
+		width: 50%;
+		float: left;
+
+		@media only screen and (max-width: 700px) {
+			padding:0;
+		}
+	}
+
+	.touch {
+		width: 100%;
+	}
+
+	.tags {
+		margin-bottom: 2%;
+	}
+
+	.post-touchs {
+		margin-bottom: 2%;	
+		width: 100%;
+	}
 }
 
-.history-comparison .tags,.history-comparison .post-touchs {
-	margin-bottom: 2%;
-}
 
 .toggle-version:not( .hidden ) {
 	display: block;

@@ -48,22 +48,57 @@ textarea {
 .hinted-form {
 	float: left;
 	width: 64%;
-	
-	&.answer-form>.hint {
-		width: 53%;
+
+	@media only screen and (max-width: 700px) {
+		width: 100%;
 	}
+	
+	&.answer-form {
+		@media only screen and (max-width: 840px) {
+			width: 100%;
+		}
+
+		> .hint {
+			width: 53%;
+
+			@media only screen and (max-width: 840px) {
+				position: static;
+				width: 100%;
+				float: left;
+				box-shadow: none;
+				margin-bottom: 1em;
+			}
+		}
+	}
+
 }
 
 .answer-form {
 	position: relative;
 }
 
-.answer-form>.hint {
+.answer-form > .hint {
 	position: absolute;
 	left: 102%;
 	width: 31%;
 	top: 45px;
 	box-shadow: 0 0 5px 1px;
+
+	@media only screen and (max-width: 1220px) {
+		width: 40%;
+	}
+
+	@media only screen and (max-width: 1100px) {
+		width: 51%;
+	}
+
+	@media only screen and (max-width: 840px) {
+		position: static;
+		width: 100%;
+		float: left;
+		box-shadow: none;
+		margin-bottom: 1em;
+	}
 }
 
 .submit[disabled=disabled] {
@@ -87,6 +122,11 @@ textarea {
 
 .user-form {
 	width: 35%;
+
+	@media only screen and (max-width: 700px) {
+		width:100%;
+		margin-left: 0;
+	}
 	
 	.text-input {
 		margin: 0 0 16px 0;
@@ -103,6 +143,11 @@ textarea {
 	margin-left: 1%;
 	margin-top: 32px;
 	float: left;
+
+	@media only screen and (max-width: 700px) {
+		width:100%;
+		margin-left: 0;
+	}
 }
 
 .hint,.guideline {
@@ -151,4 +196,8 @@ textarea {
 
 .hint-anchor {
 	display: none;
+
+	@media only screen and (max-width: 700px) {
+		display:inline;
+	}
 }

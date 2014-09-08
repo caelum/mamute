@@ -12,14 +12,22 @@
 .user-area {
 	overflow: hidden;
 	width: 100%;
-	
+
 	.nav {
 		width: 75%;
 		float: left;
+
+		@media only screen and (max-width: 700px) {
+			width:100%;
+		}
 	}
 	
 	.nav-item a {
 		font-size: 1.1em;
+
+		@media only screen and (max-width: 800px) {
+			font-size: 1.3em;
+		}
 	}
 }
 
@@ -28,6 +36,10 @@
 	margin-top: .3%;
 	float: right;
 	line-height: 31px;
+
+	@media only screen and (max-width: 700px) {
+		display: none;
+	}
 	
 	input {
 		float: left;
@@ -51,6 +63,10 @@
 
 .search-dropdown {
 	display: none;
+
+	@media only screen and (max-width: 700px) {
+		display:block;
+	}
 }
 
 .menu-user-image {

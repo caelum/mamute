@@ -23,6 +23,22 @@
 .post-touchs {
 	float: right;
 	width: 52%;
+
+	@media only screen and (max-width: 700px) {
+		width:100%;
+		margin-top:4%;
+	}
+
+	.user-image {
+		margin-right: 3%;
+		width: 48px;
+	}
+
+	.user-info {
+		@media only screen and (max-width: 900px) {
+			width: 40%;
+		}
+	}
 }
 
 .last-touch {
@@ -52,6 +68,10 @@
 .post-action-nav {
 	float: left;
 	margin-top: 10px;
+
+	@media only screen and (max-width: 700px) {
+		width:100%;
+	}
 }
 
 .post-action,.more-comments {
@@ -69,18 +89,22 @@
 	cursor: pointer;
 }
 
-.post-action-nav .nav-item,.post-action-nav .nav-item a {
-	height: 1.3em;
-	line-height: 1.3em;
-}
+.post-action-nav {
+	.nav-item {
+		height: 1.3em;
+		line-height: 1.3em;
+		border-color: #ccc;
+		padding: 0 .25em;
+		
+		&:first-child {
+			padding-left: 0;
+		}
 
-.post-action-nav .nav-item {
-	border-color: #ccc;
-	padding: 0 .25em;
-}
-
-.post-action-nav .nav-item:first-child {
-	padding-left: 0;
+		a {
+			height: 1.3em;
+			line-height: 1.3em;	
+		}		
+	}
 }
 
 .post-container {
@@ -116,6 +140,10 @@
 }
 
 .login-or-signup {
+	@media only screen and (max-width: 700px) {
+		width:100%;
+	}
+
 	.user-form {
 		width: 100%;
 	}
@@ -126,6 +154,36 @@
 	
 	.hide-next {
 		display: none;
+
+		@media only screen and (max-width: 500px){
+			display: block;
+			text-align: center;
+			font-size: 1.6em;
+			line-height: 2em;
+			color: white;
+			background-color: rgb(116, 114, 114);
+			border: 2px solid #858080;
+			margin-bottom: 5%;
+			clear: left;
+		}
+
+		&:hover {
+			@media only screen and (max-width: 500px){
+				text-decoration: none;
+			}
+		}
+
+		i:before {
+			@media only screen and (max-width: 500px){
+				width: 1em;
+			}
+		}
+
+		+ div {
+			@media only screen and (max-width: 500px){
+				display:none;
+			}
+		}
 	}
 	
 	.text-input {
@@ -135,12 +193,19 @@
 	.signup {
 		border-left: 1px solid #999;
 	}
-}
 
-.login-or-signup .login,.login-or-signup .signup {
-	padding: 0 1.2em;
-	float: left;
-	width: 50%;
+	.login, .signup {
+		padding: 0 1.2em;
+		float: left;
+		width: 50%;
+
+		@media only screen and (max-width: 500px){
+			float: none;
+			margin: 0 auto 10%;
+			width: 100%;
+			border: none;
+		}
+	}
 }
 
 .question-warnings {

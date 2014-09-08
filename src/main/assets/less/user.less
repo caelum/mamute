@@ -8,12 +8,21 @@
 	.user-info {
 		height: 32px;
 		width: 60%;
+
+		@media only screen and (max-width: 1100px) {
+			width: 50%;
+		}
+		
+		* {
+			height: 50%;
+			display: block;
+
+			@media only screen and (max-width: 1100px) {
+				height: auto;
+			}
+		}
 	}
 	
-	.user-info * {
-		height: 50%;
-		display: block;
-	}
 	
 	.user-image {
 		margin-right: 3%;
@@ -26,11 +35,6 @@
 	}
 }
 
-.post-touchs .user-image {
-	margin-right: 3%;
-	width: 48px;
-}
-
 .user-image {
 	background-color: #e3e8ec;
 }
@@ -41,6 +45,11 @@
 	color: #000;
 	text-align: center;
 	margin-right: 2%;
+
+	@media only screen and (max-width: 840px) {
+		width: auto;
+		margin-bottom: 3%;
+	}
 	
 	* {
 		display: block;
@@ -52,6 +61,10 @@
 	height: auto;
 	max-width: 128px;
 	margin-bottom: 7%;
+
+	@media only screen and (max-width: 550px) {
+		width: 98%;
+	}
 }
 
 .karma {
@@ -69,6 +82,24 @@
 	float: left;
 	width: 40%;
 	line-height: 1.5em;
+
+	@media only screen and (max-width: 840px) {
+		width: 75%;	
+	}
+
+	@media only screen and (max-width: 800px) {
+		width: 70%;	
+	}
+
+	@media only screen and (max-width: 500px){
+		width: 63%;
+	}
+
+	.data-section {
+		float: left;
+		color: #000;
+		width: 100%;
+	}
 }
 
 .data-section-title {
@@ -76,23 +107,15 @@
 	margin-right: .3em;
 }
 
-.data-list .data-section {
-	float: left;
-	color: #000;
-	width: 100%;
-}
-
-
-
 .data-line {
 	display: inline-block;
 	margin-bottom: 3%;
 	width: 100%;
-}
 
-.data-line * {
-	font-size: 13px;
-	display: inline-block;
+	* {
+		font-size: 13px;
+		display: inline-block;
+	}
 }
 
 .data-section {
@@ -104,6 +127,14 @@
 	
 	.data-description {
 		width: 65%;
+		
+		@media only screen and (max-width: 840px) {
+			width: 80%;
+		}
+
+		@media only screen and (max-width: 500px){
+			width: 60%;
+		}
 	}
 	
 	.data-title, .data-description {
@@ -200,7 +231,14 @@
 	height: auto;
 	min-height: 247px;
 	padding: 0.7em;
-	background-color: #f8f8f8
+	background-color: #f8f8f8;
+
+	@media only screen and (max-width: 840px) {
+		clear: both;
+		height: auto;
+		min-height: initial;
+		width: 100%;
+	}
 }
 
 .profile-edit-form {
@@ -287,6 +325,11 @@
 	
 	.reverted {
 		font-weight: bold;
+
+		.faq-link {
+			color: #07C;
+			width: auto;
+		}
 	}
 }
 
@@ -297,11 +340,11 @@
 
 .reverted {
 	color: maroon;
-}
 
-.karma-history .reverted .faq-link,.reverted .faq-link {
-	color: #07C;
-	width: auto;
+	.faq-link {
+		color: #07C;
+		width: auto;
+	}
 }
 
 .view-more {

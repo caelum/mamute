@@ -3,9 +3,17 @@
 	display: block;
 	color: #37485e;
 	font-size: 1.23em;
+
+	@media only screen and (max-width: 800px) {
+		padding: 0 .7em;
+	}
 	
 	&:hover {
 		background-color: #faba84;
+
+		@media only screen and (max-width: 450px) {
+			display: none;
+		}
 	}
 }
 
@@ -17,8 +25,11 @@
 	border: 2px solid #cdcdcd;
 	color: #999;
 	box-shadow: 1px 1px 2px 0 #abbbdf;
-	
 
+	@media only screen and (max-width: 500px){
+		width: 100%;
+	}
+	
 	.face-button, .google-button {
 		border-radius: 6px;
 		box-shadow: 1px 1px 2px 0 #abbbdf;
@@ -83,6 +94,10 @@
 	background: linear-gradient(to bottom, rgba(46, 67, 104, 1) 9%,
 		rgba(35, 70, 123, 1) 85%); /* W3C */
 	border: 1px solid #3f5b98;
+
+	@media only screen and (max-width: 500px){
+		font-size: 1.3em;
+	}
 	
 	&:before {
 		content: "\e809";
@@ -109,4 +124,8 @@
 .or {
 	margin: 2em 0;
 	display: inline-block;
+
+	@media only screen and (max-width: 500px){
+		text-align: center;
+	}
 }

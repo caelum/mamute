@@ -1,10 +1,11 @@
 .tags {
 	overflow: hidden;
 	width: 100%;
-}
-
-.tags,.tags .tags-item {
 	float: left;
+
+	.tags-item {
+		float: left;		
+	}
 }
 
 .tags-item {
@@ -38,6 +39,10 @@
 	background-color: #FFF;
 	padding: .6em;
 	width: 45.5%;
+
+	@media only screen and (max-width: 700px) {
+		width:94%;
+	}
 	
 	.complete-tag {
 		width: 33%;
@@ -52,6 +57,22 @@
 	float: left;
 	height: 45px;
 	width: 20%;
+
+	@media only screen and (max-width: 840px) {
+		width:25%;
+	}
+
+	@media only screen and (max-width: 700px) {
+		font-size:1.2em;
+	}
+
+	@media only screen and (max-width: 550px) {
+		width:33%;
+	}
+
+	@media only screen and (max-width: 400px) {
+		width:50%;
+	}
 	
 	.tag-brutal {
 		margin-bottom: 5%;

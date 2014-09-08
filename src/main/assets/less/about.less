@@ -3,6 +3,10 @@
 	margin-bottom: 1.4em;
 	background-color: #F2F2F2;
 	overflow: hidden;
+
+	@media only screen and (max-width: 700px) {
+		display: none;
+	}
 	
 	a {
 		color: #000080;
@@ -17,6 +21,13 @@
 
 .about-text {
 	margin-bottom: 1em;
+
+	.karma {
+		@media only screen and (max-width: 700px) {
+			font-size: 1.5em;
+			font-weight: bold;
+		}
+	}
 	
 	p {
 		margin: 0;

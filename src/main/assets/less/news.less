@@ -10,6 +10,10 @@
 .news-information {
 	width: 10%;
 	margin-top: 1%;
+
+	@media only screen and (max-width: 800px) {
+		display:none;
+	}	
 }
 
 .news-simple-information {
@@ -18,6 +22,10 @@
 
 .news-summary {
 	width: 90%;
+
+	@media only screen and (max-width: 800px) {
+		width: 100%;
+	}
 	
 	.item-title-wrapper {
 		width: 80%;
@@ -61,6 +69,16 @@
 	float: left;
 	width: 100%;
 	padding: 1.5em 2%;
+
+	@media only screen and (max-width: 950px) {
+		width: 100%;
+	}
+
+	&:nth-child(2n+2) {
+		@media only screen and (max-width: 950px) {
+			border-left: 0;	
+		}
+	}
 }
 
 .new-answer-title {

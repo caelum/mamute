@@ -67,6 +67,15 @@
 		width: 32%;
 		vertical-align: top;
 		text-align: center;
+
+		@media only screen and (max-width: 700px) {
+			width: 49%;
+		}
+
+		@media only screen and (max-width: 400px) {
+			width: 100%;
+			margin-bottom: 3em;
+		}	
 	}
 
 	.big-logo {
@@ -81,6 +90,10 @@
 	vertical-align: top;
 	margin-bottom: 5%;
 	height: 53px;
+
+	@media only screen and (max-width: 400px) {
+		margin-bottom: 4%;
+	}
 }
 
 .footer-sub-list {

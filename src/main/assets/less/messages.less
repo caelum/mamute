@@ -16,25 +16,15 @@
 	font-weight: bold;
 }
 
-.validated-form .error {
-	color: #8e0000;
-	margin: -13px 0 0 0;
-}
+.validated-form {
+	.error {
+		color: #8e0000;
+		margin: -13px 0 0 0;
+	}
 
-.validated-form .text-input,.validated-form .wmd-input {
-	margin: 0 0 16px 0;
-}
-
-.popup.validation-error {
-	background-color: #ad0000;
-	font-weight: bold;
-	color: #fff;
-	border: 1px solid #8e0000;
-	border-radius: 3px;
-	cursor: pointer;
-	padding: 1.3em;
-	text-align: center;
-	z-index: 1;
+	.text-input, .wmd-input {
+		margin: 0 0 16px 0;
+	}
 }
 
 .popup-error-message {
@@ -46,32 +36,60 @@
 	position: absolute;
 	padding: 0 1.3em;
 	margin-top: 5px;
+
+	&.validation-error {
+		background-color: #ad0000;
+		font-weight: bold;
+		color: #fff;
+		border: 1px solid #8e0000;
+		border-radius: 3px;
+		cursor: pointer;
+		padding: 1.3em;
+		text-align: center;
+		z-index: 1;
+	}
+
+	&.share {
+		background-color: #EAEAEA;
+		-webkit-box-shadow: 2px 2px 4px #999;
+		box-shadow: 2px 2px 4px #999;
+		width: 320px;
+		padding: .4em .8em;
+
+		@media only screen and (max-width: 700px) {
+			width:180px
+		}
+		
+		label {
+			margin: 0;
+		}
+
+		.share-button {
+			height: 2.5em;
+		}
+	}
 }
 
 .center-popup {
 	z-index: 9999;
 	margin: 4em 5em;
+
+	@media only screen and (max-width: 840px) {
+		margin: 4em 4.8em;
+	}
+
+	@media only screen and (max-width: 700px) {
+		margin: 4em 6em;
+	}
+
+	@media only screen and (max-width: 550px) {
+		margin: 4em 8em;
+	}
 }
 
 .close-popup {
 	cursor: pointer;
 	padding-top: 1em;
-}
-
-.popup.share {
-	background-color: #EAEAEA;
-	-webkit-box-shadow: 2px 2px 4px #999;
-	box-shadow: 2px 2px 4px #999;
-	width: 320px;
-	padding: .4em .8em;
-	
-	label {
-		margin: 0;
-	}
-}
-
-.popup.share .share-button {
-	height: 2.5em;
 }
 
 .share-button {
