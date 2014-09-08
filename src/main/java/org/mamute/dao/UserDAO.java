@@ -66,7 +66,7 @@ public class UserDAO {
 	    }
 	    
 	    return (User) session
-	    		.createQuery("from User where name = :name")
+	    		.createQuery("from User where UPPER(name) = UPPER(:name)")
 	    		.setParameter("name", name)
 	    		.setMaxResults(1)
 	    		.uniqueResult();

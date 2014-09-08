@@ -1,6 +1,7 @@
 package org.mamute.dto;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -10,7 +11,7 @@ public class KarmaByContextHistory {
 
 	private List<KarmaAndContext> history = new ArrayList<>();
 
-	public KarmaByContextHistory(List<Object[]> results) {
+	public KarmaByContextHistory(Collection<Object[]> results) {
 		for (Object[] entry : results) {
 			ReputationEventContext context = (ReputationEventContext) entry[0];
 			Long karma = (Long) entry[1];

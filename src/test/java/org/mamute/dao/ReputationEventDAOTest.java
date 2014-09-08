@@ -1,12 +1,15 @@
 package org.mamute.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mamute.model.EventType.ANSWER_UPVOTE;
 import static org.mamute.model.EventType.SOLVED_QUESTION;
 
 import java.util.List;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,11 +23,14 @@ import org.mamute.model.EventType;
 import org.mamute.model.LoggedUser;
 import org.mamute.model.Question;
 import org.mamute.model.ReputationEvent;
+import org.mamute.model.ReputationEventContext;
 import org.mamute.model.Tag;
 import org.mamute.model.User;
 
 import br.com.caelum.timemachine.Block;
 import br.com.caelum.timemachine.TimeMachine;
+
+import javax.annotation.Nullable;
 
 public class ReputationEventDAOTest extends DatabaseTestCase {
 
@@ -89,11 +95,24 @@ public class ReputationEventDAOTest extends DatabaseTestCase {
 		KarmaByContextHistory karmaByQuestion = reputationEvents.karmaWonByQuestion(author, new DateTime().minusHours(1));
 		List<KarmaAndContext> history = karmaByQuestion.getHistory();
 		assertEquals(2, history.size());
-		
-		assertEquals(questionInvolved1, history.get(1).getContext());
-		assertEquals(questionInvolved2, history.get(0).getContext());
-		assertEquals(question1Karma.longValue(), history.get(1).getKarma().longValue());
-		assertEquals(question2Karma.longValue(), history.get(0).getKarma().longValue());
+
+		KarmaAndContext ck1 = Iterables.find(history, new Predicate<KarmaAndContext>() {
+			@Override
+			public boolean apply(@Nullable KarmaAndContext input) {
+				return input.getContext().equals(questionInvolved1);
+			}
+		}, null);
+		assertNotNull(ck1);
+		KarmaAndContext ck2 = Iterables.find(history, new Predicate<KarmaAndContext>() {
+			@Override
+			public boolean apply(@Nullable KarmaAndContext input) {
+				return input.getContext().equals(questionInvolved2);
+			}
+		}, null);
+		assertNotNull(ck2);
+
+		assertEquals(question1Karma.longValue(), ck1.getKarma().longValue());
+		assertEquals(question2Karma.longValue(), ck2.getKarma().longValue());
 	}
 
 	private ReputationEvent event30MinAgo(final EventType type) {
