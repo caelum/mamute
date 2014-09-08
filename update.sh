@@ -35,7 +35,7 @@ if [ ! -d "$APPLICATION_DIR"/overrides ]; then
 	mkdir "$APPLICATION_DIR/overrides"
 fi
 
-customFiles=("WEB-INF/classes/messages_pt_BR.properties"
+customFiles=("WEB-INF/classes/messages*.properties"
  "WEB-INF/classes/environment.properties"
  "WEB-INF/classes/development.properties"
  "WEB-INF/classes/acceptance.properties"
