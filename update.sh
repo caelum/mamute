@@ -89,11 +89,11 @@ fi
 cd "$APPLICATION_DIR"
 
 echo 'Copying overrides to new version of mamute'
-cp -R overrides/* mamute/
+cp -R "$APPLICATION_DIR/overrides/*" "$APPLICATION_DIR/mamute"
 
 echo 'Removing custom files from overrides'
 for ((i=1; i<${#customFiles[@]} ; i++))
 do
 	echo "Removing ${customFiles[i]}"
-	rm -rf overrides/${customFiles[i]} 
+	rm -rf "$APPLICATION_DIR/overrides/${customFiles[i]}"
 done
