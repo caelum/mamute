@@ -83,7 +83,7 @@ else
 	echo 'Copying new version of mamute'
 
 	VERSION=`scripts/get-version.sh`
-	cp -R $APPLICATION_DIR/target/mamute-$VERSION/* "$APPLICATION_DIR/mamute"
+	cp -R $REPO_PATH/target/mamute-$VERSION/* "$APPLICATION_DIR/mamute"
 fi
 
 echo 'Copying overrides to new version of mamute'
