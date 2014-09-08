@@ -9,8 +9,6 @@ if [ ! -z $1 ]; then
         exit 1
 fi
 
-APPLICATION_DIR=`readlink -f $( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/..`
-
 if [ ! -z "$WAR_PATH" ]; then
 	if [ ! -f $WAR_PATH ]; then
 		echo "the war $WAR_PATH doesn't exists!"
