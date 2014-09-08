@@ -7,6 +7,7 @@ import java.util.Vector;
 import javax.enterprise.inject.Vetoed;
 import javax.inject.Inject;
 
+
 @Vetoed
 public class MamuteResourceBundle extends ResourceBundle {
 
@@ -15,7 +16,7 @@ public class MamuteResourceBundle extends ResourceBundle {
 
 	/**
 	 * @deprecated CDI eyes only
-	 */
+-	 */
 	protected MamuteResourceBundle() {
 		this(null, null);
 	}

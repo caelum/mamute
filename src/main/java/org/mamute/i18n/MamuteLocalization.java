@@ -36,7 +36,6 @@ public class MamuteLocalization extends JstlLocalization{
 		Config.set(request, Config.FMT_LOCALIZATION_CONTEXT, "mamute-messages");
 		ResourceBundle mamuteBundle = super.getBundle();
 		
-		
 		return new MamuteResourceBundle(customBundle, mamuteBundle);
 	}
 	
