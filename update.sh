@@ -83,7 +83,7 @@ else
 	echo 'Copying new version of mamute'
 
 	VERSION=`scripts/get-version.sh`
-	cp -R target/mamute-$VERSION/* "$APPLICATION_DIR/mamute"
+	cp -R $APPLICATION_DIR/target/mamute-$VERSION/* "$APPLICATION_DIR/mamute"
 fi
 
 echo 'Copying overrides to new version of mamute'
@@ -93,5 +93,5 @@ echo 'Removing custom files from overrides'
 for ((i=0; i<${#customFiles[@]} ; i++))
 do
 	echo "Removing ${customFiles[i]}"
-	rm -rf "$APPLICATION_DIR/overrides/${customFiles[i]}"
+	rm -r $APPLICATION_DIR/overrides/${customFiles[i]}
 done
