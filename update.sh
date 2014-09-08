@@ -9,6 +9,8 @@ if [ ! -z $1 ]; then
         exit 1
 fi
 
+echo "Your APPLICATION_DIR is $APPLICATION_DIR"
+
 if [ ! -z "$WAR_PATH" ]; then
 	if [ ! -f $WAR_PATH ]; then
 		echo "the war $WAR_PATH doesn't exists!"
