@@ -96,23 +96,22 @@ public class ReputationEventDAOTest extends DatabaseTestCase {
 		List<KarmaAndContext> history = karmaByQuestion.getHistory();
 		assertEquals(2, history.size());
 
-		KarmaAndContext ck1 = Iterables.find(history, new Predicate<KarmaAndContext>() {
-			@Override
-			public boolean apply(@Nullable KarmaAndContext input) {
-				return input.getContext().equals(questionInvolved1);
-			}
-		}, null);
+		KarmaAndContext ck1 = Iterables.find(history, contextOf(questionInvolved1), null);
 		assertNotNull(ck1);
-		KarmaAndContext ck2 = Iterables.find(history, new Predicate<KarmaAndContext>() {
-			@Override
-			public boolean apply(@Nullable KarmaAndContext input) {
-				return input.getContext().equals(questionInvolved2);
-			}
-		}, null);
+		KarmaAndContext ck2 = Iterables.find(history, contextOf(questionInvolved2), null);
 		assertNotNull(ck2);
 
 		assertEquals(question1Karma.longValue(), ck1.getKarma().longValue());
 		assertEquals(question2Karma.longValue(), ck2.getKarma().longValue());
+	}
+
+	private Predicate<KarmaAndContext> contextOf(final Question question) {
+		return new Predicate<KarmaAndContext>() {
+			@Override
+			public boolean apply(@Nullable KarmaAndContext input) {
+				return input.getContext().equals(question);
+			}
+		};
 	}
 
 	private ReputationEvent event30MinAgo(final EventType type) {
