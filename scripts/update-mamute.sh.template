@@ -1,1 +1,1 @@
-curl http://mamute.org/update.sh | sh
+curl -L http://mamute.org/update.sh | bash
