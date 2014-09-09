@@ -1,8 +1,6 @@
 package org.mamute.model;
 
 import static javax.persistence.FetchType.EAGER;
-import static org.mamute.model.MarkDown.parse;
-import static org.mamute.sanitizer.HtmlSanitizer.sanitize;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Embedded;
@@ -65,10 +63,10 @@ public class AnswerInformation implements Information {
 	 * @deprecated hibernate only
 	 */
 	AnswerInformation() {
-		this("", null, "");
+		this(null, null, "");
 	}
 
-	public AnswerInformation(String description, LoggedUser  currentUser, String comment) {
+	public AnswerInformation(MarkedText description, LoggedUser  currentUser, String comment) {
         if (currentUser == null) {
 			this.author = null;
 			this.ip = null;
@@ -80,7 +78,7 @@ public class AnswerInformation implements Information {
 		setDescription(description);
 	}
 	
-	public AnswerInformation(String description, LoggedUser currentUser, Answer existentAnswer, String comment) {
+	public AnswerInformation(MarkedText description, LoggedUser currentUser, Answer existentAnswer, String comment) {
 	    this(description, currentUser, comment);
 	    setAnswer(existentAnswer);
 	}
@@ -93,9 +91,9 @@ public class AnswerInformation implements Information {
 		this.moderation = new Moderation(moderator);
 	}
 
-	private void setDescription(String description) {
-		this.description = description;
-		this.markedDescription = sanitize(parse(description));
+	private void setDescription(MarkedText description) {
+		this.description = description.getPure();
+		this.markedDescription = description.getMarked();
 	}
 
 	public String getDescription() {

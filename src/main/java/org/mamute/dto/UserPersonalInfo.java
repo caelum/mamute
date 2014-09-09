@@ -1,7 +1,6 @@
 package org.mamute.dto;
 
 import static org.mamute.model.MarkDown.parse;
-import static org.mamute.sanitizer.HtmlSanitizer.sanitize;
 import static org.mamute.validators.UserPersonalInfoValidator.ABOUT_LENGTH_MESSAGE;
 import static org.mamute.validators.UserPersonalInfoValidator.ABOUT_MAX_LENGTH;
 import static org.mamute.validators.UserPersonalInfoValidator.ABOUT_MIN_LENGTH;
@@ -25,9 +24,11 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 import org.mamute.model.User;
+import org.mamute.sanitizer.HtmlSanitizer;
 
 public class UserPersonalInfo {
-	private User user;
+	private final User user;
+	private final HtmlSanitizer sanitizer;
 	
 	@Length(min = NAME_MIN_LENGTH, max = NAME_MAX_LENGTH, message = NAME_LENGTH_MESSAGE)
 	@NotEmpty(message = NAME_REQUIRED)
@@ -52,9 +53,11 @@ public class UserPersonalInfo {
 	private String markedAbout;
 
 	private boolean isSubscribed;
+
 	
-	public UserPersonalInfo(User user) {
+	public UserPersonalInfo(User user, HtmlSanitizer sanitizer) {
 		this.user = user;
+		this.sanitizer = sanitizer;
 	}
 
 	public UserPersonalInfo withBirthDate(DateTime birthDate) {
@@ -63,12 +66,12 @@ public class UserPersonalInfo {
 	}
 
 	public UserPersonalInfo withLocation(String location) {
-		this.location = sanitize(location);
+		this.location = sanitizer.sanitize(location);
 		return this;
 	}
 
 	public UserPersonalInfo withWebsite(String website) {
-		this.website = sanitize(website);
+		this.website = sanitizer.sanitize(website);
 		return this;
 	}
 
@@ -79,12 +82,12 @@ public class UserPersonalInfo {
 
 	public UserPersonalInfo withAbout(String about) {
 		this.about = about;
-		this.markedAbout = sanitize(parse(about));
+		this.markedAbout = sanitizer.sanitize(parse(about));
 		return this;
 	}
 
 	public UserPersonalInfo withName(String name){
-		this.name = sanitize(name);
+		this.name = sanitizer.sanitize(name);
 		return this;
 	}
 	

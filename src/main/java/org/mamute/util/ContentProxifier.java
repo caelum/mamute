@@ -14,14 +14,16 @@ import br.com.caelum.vraptor.proxy.SuperMethod;
 public class ContentProxifier {
 	
 	private Proxifier proxifier;
+	private HtmlSanitizer sanitizer;
 
 	@Deprecated
 	public ContentProxifier() {
 	}
 	
 	@Inject
-	public ContentProxifier(Proxifier proxifier) {
+	public ContentProxifier(Proxifier proxifier, HtmlSanitizer sanitizer) {
 		this.proxifier = proxifier;
+		this.sanitizer = sanitizer;
 	}
 
 	public <T> T safeProxyFor(final T object, Class<T> clazz) {
@@ -31,7 +33,7 @@ public class ContentProxifier {
 				if (method.getReturnType().equals(String.class)) {
 					try {
 						String result = (String) method.invoke(object, args);
-						return HtmlSanitizer.sanitize(result);
+						return sanitizer.sanitize(result);
 					} catch (IllegalAccessException | IllegalArgumentException
 							| InvocationTargetException e) {
 						throw new RuntimeException(e);

@@ -1,8 +1,5 @@
 package org.mamute.model;
 
-import static org.mamute.model.MarkDown.parse;
-import static org.mamute.sanitizer.HtmlSanitizer.sanitize;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -36,17 +33,17 @@ public class TagPage {
 	 * @deprecated hibernate eyes only
 	 */
 	TagPage() {
-		this(null, "");
+		this(null, null);
 	}
 	
-	public TagPage(Tag tag, String about) {
+	public TagPage(Tag tag, MarkedText about) {
 		this.tag = tag;
 		setAbout(about);
 	}
 	
-	public void setAbout(String about){
-		this.about = about;
-		this.markedAbout = sanitize(parse(about));
+	public void setAbout(MarkedText about){
+		this.about = about.getPure();
+		this.markedAbout = about.getMarked();
 	}
 
 	public String getTagName() {

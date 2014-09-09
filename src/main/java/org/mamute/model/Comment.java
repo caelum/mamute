@@ -1,8 +1,5 @@
 package org.mamute.model;
 
-import static org.mamute.model.MarkDown.parse;
-import static org.mamute.sanitizer.HtmlSanitizer.sanitize;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -75,14 +72,14 @@ public class Comment implements Notifiable, Votable, Flaggable {
     	this(null, null);
     }
     
-    public Comment(User author, String comment) {
+    public Comment(User author, MarkedText comment) {
 		this.author = author;
 		setComment(comment);
     }
 
-	public void setComment(String comment) {
-		this.comment = comment;
-        this.htmlComment = sanitize(parse(comment));
+	public void setComment(MarkedText comment) {
+		this.comment = comment.getPure();
+        this.htmlComment = comment.getMarked();
 	}
     
     public User getAuthor() {

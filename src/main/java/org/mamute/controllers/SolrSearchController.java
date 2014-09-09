@@ -1,7 +1,5 @@
 package org.mamute.controllers;
 
-import static org.mamute.sanitizer.HtmlSanitizer.sanitize;
-
 import java.util.List;
 
 import javax.inject.Inject;
@@ -20,16 +18,14 @@ import br.com.caelum.vraptor.Result;
 @EnvironmentDependent(supports = "feature.solr")
 public class SolrSearchController {
 
-	@Inject
-	private Result result;
-	@Inject
-	private QuestionIndex index;
-	@Inject
-	private QuestionDAO questions;
+	@Inject	private Result result;
+	@Inject private QuestionIndex index;
+	@Inject private QuestionDAO questions;
+	@Inject private HtmlSanitizer sanitizer;
 
 	@Get("/search")
 	public void search(String query) {
-		result.include("query", sanitize(query));
+		result.include("query", sanitizer.sanitize(query));
 		result.include("results", doSearch(query, 10));
 	}
 
@@ -39,7 +35,7 @@ public class SolrSearchController {
 	}
 
 	private List<Question> doSearch(String query, int limit) {
-		String sanitized = HtmlSanitizer.sanitize(query);
+		String sanitized = sanitizer.sanitize(query);
 		List<Long> ids = index.findQuestionsByTitle(sanitized, limit);
 		return questions.getByIds(ids);
 	}

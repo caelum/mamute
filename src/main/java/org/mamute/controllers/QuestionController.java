@@ -21,6 +21,7 @@ import org.mamute.interceptors.IncludeAllTags;
 import org.mamute.managers.TagsManager;
 import org.mamute.model.EventType;
 import org.mamute.model.LoggedUser;
+import org.mamute.model.MarkedText;
 import org.mamute.model.Question;
 import org.mamute.model.QuestionInformation;
 import org.mamute.model.ReputationEvent;
@@ -112,7 +113,7 @@ public class QuestionController {
 
 	@Post
 	@CustomBrutauthRules(EditQuestionRule.class)
-	public void edit(@Load Question original, String title, String description, String tagNames,
+	public void edit(@Load Question original, String title, MarkedText description, String tagNames,
 			String comment) {
 
 		List<String> splitedTags = splitter.splitTags(tagNames);
@@ -165,7 +166,7 @@ public class QuestionController {
 
 	@Post
 	@CustomBrutauthRules({LoggedRule.class, InputRule.class})
-	public void newQuestion(String title, String description, String tagNames, boolean watching) {
+	public void newQuestion(String title, MarkedText description, String tagNames, boolean watching) {
 		List<String> splitedTags = splitter.splitTags(tagNames);
 
 		List<Tag> foundTags = tagsManager.findOrCreate(splitedTags);

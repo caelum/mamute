@@ -20,6 +20,7 @@ import org.mamute.dto.UserPersonalInfo;
 import org.mamute.factory.MessageFactory;
 import org.mamute.model.LoggedUser;
 import org.mamute.model.User;
+import org.mamute.sanitizer.HtmlSanitizer;
 import org.mamute.validators.UserPersonalInfoValidator;
 
 import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
@@ -46,6 +47,7 @@ public class UserProfileController extends BaseController{
 	@Inject private WatcherDAO watchers;
 	@Inject private ReputationEventDAO reputationEvents;
 	@Inject private MessageFactory messageFactory;
+	@Inject private HtmlSanitizer sanitizer;
 
 	@Get
 	public void showProfile(@Load User user, String sluggedName){
@@ -124,7 +126,7 @@ public class UserProfileController extends BaseController{
 			website = correctWebsite(website);
 		}
 
-		UserPersonalInfo info = new UserPersonalInfo(user)
+		UserPersonalInfo info = new UserPersonalInfo(user, sanitizer)
 			.withName(name)
 			.withEmail(email)
 			.withWebsite(website)

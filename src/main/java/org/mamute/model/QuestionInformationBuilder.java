@@ -50,7 +50,7 @@ public class QuestionInformationBuilder {
 	}
 	
 	public QuestionInformation build() {
-		QuestionInformation questionInformation = new QuestionInformation(title, description, new LoggedUser(author, null), tags, comment);
+		QuestionInformation questionInformation = new QuestionInformation(title, MarkedText.with(description), new LoggedUser(author, null), tags, comment);
 		if (status != null)
 			questionInformation.setInitStatus(status);
 		clear();

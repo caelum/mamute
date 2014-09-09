@@ -11,6 +11,7 @@ import org.mamute.dao.VoteDAO;
 import org.mamute.dao.WatcherDAO;
 import org.mamute.model.Information;
 import org.mamute.model.LoggedUser;
+import org.mamute.model.MarkedText;
 import org.mamute.model.News;
 import org.mamute.model.NewsInformation;
 import org.mamute.model.UpdateStatus;
@@ -38,7 +39,7 @@ public class NewsController {
 
 	@Post
 	@CustomBrutauthRules({LoggedRule.class, InputRule.class})
-	public void newNews(String title, String description) {
+	public void newNews(String title, MarkedText description) {
 		NewsInformation information = new NewsInformation(title, description, currentUser, "new news");
 		User author = currentUser.getCurrent();
 		News news = new News(information, author);
@@ -64,7 +65,7 @@ public class NewsController {
 	
 	@Post
 	@CustomBrutauthRules(EditNewsRule.class)
-	public void saveEdit(@Load News news, String title, String description, String comment) {
+	public void saveEdit(@Load News news, String title, MarkedText description, String comment) {
 		Information newInformation = new NewsInformation(title, description, currentUser, comment);
 		news.enqueueChange(newInformation, UpdateStatus.NO_NEED_TO_APPROVE);
 		result.redirectTo(this).showNews(news, news.getSluggedTitle());

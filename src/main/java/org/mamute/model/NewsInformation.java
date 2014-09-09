@@ -2,8 +2,6 @@ package org.mamute.model;
 
 import static javax.persistence.FetchType.EAGER;
 import static org.mamute.infra.NormalizerBrutal.toSlug;
-import static org.mamute.model.MarkDown.parse;
-import static org.mamute.sanitizer.HtmlSanitizer.sanitize;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Embedded;
@@ -79,10 +77,10 @@ public class NewsInformation implements Information{
 	 * @deprecated hibernate only
 	 */
 	NewsInformation() {
-		this("", "", null, "");
+		this("", null, null, "");
 	}
 
-	public NewsInformation(String title, String description, LoggedUser user, String comment) {
+	public NewsInformation(String title, MarkedText description, LoggedUser user, String comment) {
         if (user == null) {
 			this.author = null;
 			this.ip = null;
@@ -117,9 +115,9 @@ public class NewsInformation implements Information{
 		this.sluggedTitle = toSlug(title);
 	}
  
-	private void setDescription(String description) {
-		this.description = description;
-		this.markedDescription = sanitize(parse(description));
+	private void setDescription(MarkedText description) {
+		this.description = description.getPure();
+		this.markedDescription = description.getMarked();
 	}
 
 	public String getTitle() {
