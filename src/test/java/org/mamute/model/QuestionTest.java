@@ -189,7 +189,7 @@ public class QuestionTest  extends TestCase{
 	}
 	
 	@Test
-	public void shouldNotTrimShortMeta() throws Exception {
+	public void should_not_trim_short_meta() throws Exception {
 		String title = "0123456789";
 		String description = "description";
 		Question q = question
