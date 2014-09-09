@@ -8,6 +8,7 @@ import java.util.List;
 
 import net.vidageek.mirror.dsl.Mirror;
 
+import org.joda.time.DateTime;
 import org.joda.time.DateTimeUtils;
 import org.junit.Before;
 import org.mamute.builder.QuestionBuilder;
@@ -26,6 +27,9 @@ import org.mamute.model.Tag;
 import org.mamute.model.User;
 import org.mamute.model.Vote;
 import org.mamute.model.VoteType;
+
+import br.com.caelum.timemachine.Block;
+import br.com.caelum.timemachine.TimeMachine;
 
 /**
  * Constructor from this class should not be used anywhere beside tests.
@@ -94,7 +98,16 @@ public abstract class TestCase {
     }
     
     protected Comment comment(User author, String comment) {
-    	return new Comment(author, pure(comment));
+    	return comment(author, comment, DateTime.now());
+    }
+    
+    protected Comment comment(final User author, final String comment, DateTime when) {
+    	return TimeMachine.goTo(when).andExecute(new Block<Comment>() {
+			@Override
+			public Comment run() {
+				return new Comment(author, pure(comment));
+			}
+		});
     }
     
     protected void setId(Object o, Long id) {
