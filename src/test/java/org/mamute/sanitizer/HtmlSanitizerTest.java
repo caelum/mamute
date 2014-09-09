@@ -5,12 +5,12 @@ import static org.junit.Assert.assertTrue;
 import static org.mamute.sanitizer.HtmlSanitizer.ALLOWED_ATTRIBUTES_KEY_PREFIX;
 import static org.mamute.sanitizer.HtmlSanitizer.ALLOWED_ATTRIBUTES_WHITELIST_KEY_SUFIX;
 import static org.mamute.sanitizer.HtmlSanitizer.ALLOWED_ELEMENTS_KEY;
+import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import br.com.caelum.vraptor.environment.Environment;
@@ -23,17 +23,17 @@ public class HtmlSanitizerTest {
 	
 	@Before
 	public void setUp(){
-		Mockito.when(env.get(ALLOWED_ELEMENTS_KEY)).thenReturn("a, blockquote, code, em, h1, h2, hr, img, kbd, li, ol, p, pre, strong, ul");
-		Mockito.when(env.get(ALLOWED_ATTRIBUTES_KEY_PREFIX+"a")).thenReturn("href");
-		Mockito.when(env.get(ALLOWED_ATTRIBUTES_KEY_PREFIX+"pre")).thenReturn("class");
-		Mockito.when(env.get(ALLOWED_ATTRIBUTES_KEY_PREFIX+"img")).thenReturn("src, alt, width, height");
-		Mockito.when(env.get(ALLOWED_ATTRIBUTES_KEY_PREFIX+"iframe")).thenReturn("href");
-		Mockito.when(env.get(ALLOWED_ATTRIBUTES_KEY_PREFIX+"iframe"+ALLOWED_ATTRIBUTES_WHITELIST_KEY_SUFIX+"href")).thenReturn(".*soundcloud.com\\/tracks\\/.*|.*youtube.com\\/embed\\/.*|.*//player.vimeo.com\\/video\\/.*");
+		envReturns(ALLOWED_ELEMENTS_KEY, "a, blockquote, code, em, h1, h2, hr, img, kbd, li, ol, p, pre, strong, ul, iframe");
+		envReturns(ALLOWED_ATTRIBUTES_KEY_PREFIX+"a", "href");
+		envReturns(ALLOWED_ATTRIBUTES_KEY_PREFIX+"pre", "class");
+		envReturns(ALLOWED_ATTRIBUTES_KEY_PREFIX+"img", "src, alt, width, height");
+		envReturns(ALLOWED_ATTRIBUTES_KEY_PREFIX+"iframe", "src, width, height, scrolling, frameborder");
+		envReturns(ALLOWED_ATTRIBUTES_KEY_PREFIX+"iframe"+ALLOWED_ATTRIBUTES_WHITELIST_KEY_SUFIX+"href", ".*soundcloud.com\\/tracks\\/.*|.*youtube.com\\/embed\\/.*|.*//player.vimeo.com\\/video\\/.*");
+
 		htmlSanitizer = new HtmlSanitizer(env);
 		htmlSanitizer.setUp();
 	}
-	
-	
+
 	@Test 
 	public void should_escape_LTGT_wehen_possible() {
 		String html = "< bla >";
@@ -184,6 +184,43 @@ public class HtmlSanitizerTest {
 		String sanitized = htmlSanitizer.sanitize(html);
 		assertEquals(html, sanitized);
 	}
-
+	
+	@Test
+	public void should_not_remove_tag_iframe_from_sound_cloud() {
+		String html = "<ol><li><iframe width=\"100%\" height=\"166\" scrolling=\"no\" frameborder=\"no\" src=\"https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/119929315\"></iframe></li><li>ctrl</li></ol>";
+		String htmlSanitized = "<ol><li><iframe width=\"100%\" height=\"166\" scrolling=\"no\" frameborder=\"no\" src=\"https://w.soundcloud.com/player/?url&#61;https%3A//api.soundcloud.com/tracks/119929315\"></iframe></li><li>ctrl</li></ol>";
+		String sanitized = htmlSanitizer.sanitize(html);
+		assertEquals(htmlSanitized, sanitized);
+	}
+	
+	@Test
+	public void should_not_remove_tag_iframe_from_youtube() {
+		String html = "<ol><li><iframe width=\"560\" height=\"315\" src=\"//www.youtube.com/embed/d9geBjThzwI\" frameborder=\"0\" allowfullscreen></iframe></iframe></li><li>ctrl</li></ol>";
+		String htmlSanitized = "<ol><li><iframe width=\"560\" height=\"315\" src=\"//www.youtube.com/embed/d9geBjThzwI\" frameborder=\"0\"></iframe></li><li>ctrl</li></ol>";
+		String sanitized = htmlSanitizer.sanitize(html);
+		assertEquals(htmlSanitized, sanitized);
+	}
+	
+	@Test
+	public void should_not_remove_tag_iframe_from_vimeo() {
+		String html = "<ol><li><iframe width=\"560\" height=\"315\" src=\"//player.vimeo.com/video/87484369\" frameborder=\"0\" allowfullscreen></iframe></iframe></li><li>ctrl</li></ol>";
+		String htmlSanitized = "<ol><li><iframe width=\"560\" height=\"315\" src=\"//player.vimeo.com/video/87484369\" frameborder=\"0\"></iframe></li><li>ctrl</li></ol>";
+		String sanitized = htmlSanitizer.sanitize(html);
+		assertEquals(htmlSanitized, sanitized);
+	}
+	
+	@Test
+	public void should_remove_tag_iframe_not_from_sound_cloud() {
+		String html = "<ol><li><iframe width=\"100%\" height=\"166\" scrolling=\"no\" frameborder=\"no\" <script>alert('bla');</script> src=\"https://w.youtube.com/player/?url=https%3A//api.youtube.com/tracks/119929315\"></iframe></li><li>ctrl</li></ol>";
+		String htmlSanitized = "<ol><li><iframe width=\"100%\" height=\"166\" scrolling=\"no\" frameborder=\"no\"></iframe></li><li>ctrl</li></ol>";
+		String sanitized = htmlSanitizer.sanitize(html);
+		assertEquals(htmlSanitized, sanitized);
+	}
+	
+	private void envReturns(String key, String answer) {
+		when(env.has(key)).thenReturn(true);
+		when(env.get(key)).thenReturn(answer);
+		
+	}
 
 }

@@ -48,14 +48,16 @@ public class HtmlSanitizer {
 			Map<String, String> attributesAndWhitelist = htmlElement.getAttributesAndWhitelist();
 			Set<String> allowedAttributes = attributesAndWhitelist.keySet();
 			
+			AttributeBuilder attributesBuilder = builder.allowAttributes(allowedAttributes.toArray(new String[]{}));
+
 			for (String attribute : allowedAttributes) {
 				String regex = attributesAndWhitelist.get(attribute);
-				AttributeBuilder attributesBuilder = builder.allowAttributes(attribute);
 				if(regex != null){
 					attributesBuilder.matching(compile(regex));
+					continue;
 				}
-				attributesBuilder.onElements(elementName);
 			}
+			attributesBuilder.onElements(elementName);
 			
 		}
 		policy = builder

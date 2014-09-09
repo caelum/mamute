@@ -17,11 +17,6 @@ public class HtmlElement {
 	private String element;
 	private Map<String, String> attributesAndWhitelist;
 
-	private HtmlElement(String element, Map<String, String> attributesAndWhitelist) {
-		this.element = element;
-		this.attributesAndWhitelist = attributesAndWhitelist;
-	}
-
 	public static List<HtmlElement> using(Environment environment) {
 		String[] allowed = environment.get(ALLOWED_ELEMENTS_KEY).split(COMMA);
 		List<HtmlElement> elements = new ArrayList<>();
@@ -30,6 +25,12 @@ public class HtmlElement {
 		}
 		return elements;
 	}
+
+	private HtmlElement(String element, Map<String, String> attributesAndWhitelist) {
+		this.element = element;
+		this.attributesAndWhitelist = attributesAndWhitelist;
+	}
+
 	
 	public String getElement() {
 		return element;
