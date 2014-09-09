@@ -1,5 +1,7 @@
 package org.mamute.dao;
 
+import static org.mamute.model.MarkedText.pure;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -19,6 +21,7 @@ import org.mamute.model.LoginMethod;
 import org.mamute.model.News;
 import org.mamute.model.NewsInformation;
 import org.mamute.model.Question;
+import org.mamute.model.SanitizedText;
 import org.mamute.model.Tag;
 import org.mamute.model.User;
 import org.mamute.model.Vote;
@@ -37,7 +40,7 @@ public abstract class TestCase {
 	private QuestionBuilder questionBuilder = new QuestionBuilder();
 	
 	protected Answer answer(String description, Question question, User author) {
-		Answer q = new Answer(new AnswerInformation(description, new LoggedUser(author, null), "default commentdefault commentdefault commentdefault comment")
+		Answer q = new Answer(new AnswerInformation(pure(description), new LoggedUser(author, null), "default commentdefault commentdefault commentdefault comment")
 							, question, author);
 		return q;
 	}
@@ -54,7 +57,7 @@ public abstract class TestCase {
 	}
 	
 	protected User user(String name, String email) {
-	    User user = new User(name, email);
+	    User user = new User(SanitizedText.pure(name), email);
 	    user.confirmEmail();
 	    return user;
 	}
@@ -86,12 +89,12 @@ public abstract class TestCase {
 		return new Flag(flagType, author);
 	}
 	
-    protected AnswerInformation answerInformation(String string, User otherUser, Answer answer) {
-        return new AnswerInformation(string, new LoggedUser(otherUser, null), answer, "comment");
+    protected AnswerInformation answerInformation(String description, User otherUser, Answer answer) {
+        return new AnswerInformation(pure(description), new LoggedUser(otherUser, null), answer, "comment");
     }
     
     protected Comment comment(User author, String comment) {
-    	return new Comment(author, comment);
+    	return new Comment(author, pure(comment));
     }
     
     protected void setId(Object o, Long id) {
@@ -107,7 +110,7 @@ public abstract class TestCase {
     }
     
     protected News news(String title, String description, User author) {
-    	NewsInformation newsInformation = new NewsInformation(title, description, new LoggedUser(author, null), "comment comment comment");
+    	NewsInformation newsInformation = new NewsInformation(title, pure(description), new LoggedUser(author, null), "comment comment comment");
     	return new News(newsInformation, author);
 	}
     

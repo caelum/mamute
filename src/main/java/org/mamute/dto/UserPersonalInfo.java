@@ -1,6 +1,5 @@
 package org.mamute.dto;
 
-import static org.mamute.model.MarkDown.parse;
 import static org.mamute.validators.UserPersonalInfoValidator.ABOUT_LENGTH_MESSAGE;
 import static org.mamute.validators.UserPersonalInfoValidator.ABOUT_MAX_LENGTH;
 import static org.mamute.validators.UserPersonalInfoValidator.ABOUT_MIN_LENGTH;
@@ -23,12 +22,12 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
+import org.mamute.model.MarkedText;
+import org.mamute.model.SanitizedText;
 import org.mamute.model.User;
-import org.mamute.sanitizer.HtmlSanitizer;
 
 public class UserPersonalInfo {
 	private final User user;
-	private final HtmlSanitizer sanitizer;
 	
 	@Length(min = NAME_MIN_LENGTH, max = NAME_MAX_LENGTH, message = NAME_LENGTH_MESSAGE)
 	@NotEmpty(message = NAME_REQUIRED)
@@ -55,9 +54,8 @@ public class UserPersonalInfo {
 	private boolean isSubscribed;
 
 	
-	public UserPersonalInfo(User user, HtmlSanitizer sanitizer) {
+	public UserPersonalInfo(User user) {
 		this.user = user;
-		this.sanitizer = sanitizer;
 	}
 
 	public UserPersonalInfo withBirthDate(DateTime birthDate) {
@@ -65,13 +63,13 @@ public class UserPersonalInfo {
 		return this;
 	}
 
-	public UserPersonalInfo withLocation(String location) {
-		this.location = sanitizer.sanitize(location);
+	public UserPersonalInfo withLocation(SanitizedText location) {
+		this.location = location.getText();
 		return this;
 	}
 
-	public UserPersonalInfo withWebsite(String website) {
-		this.website = sanitizer.sanitize(website);
+	public UserPersonalInfo withWebsite(SanitizedText website) {
+		this.website = website.getText();
 		return this;
 	}
 
@@ -80,14 +78,14 @@ public class UserPersonalInfo {
 		return this;
 	}
 
-	public UserPersonalInfo withAbout(String about) {
-		this.about = about;
-		this.markedAbout = sanitizer.sanitize(parse(about));
+	public UserPersonalInfo withAbout(MarkedText about) {
+		this.about = about.getPure();
+		this.markedAbout = about.getMarked();
 		return this;
 	}
 
-	public UserPersonalInfo withName(String name){
-		this.name = sanitizer.sanitize(name);
+	public UserPersonalInfo withName(SanitizedText name){
+		this.name = name.getText();
 		return this;
 	}
 	

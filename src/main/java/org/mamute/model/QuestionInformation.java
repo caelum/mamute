@@ -2,6 +2,7 @@ package org.mamute.model;
 
 import static javax.persistence.FetchType.EAGER;
 import static org.mamute.infra.NormalizerBrutal.toSlug;
+import static org.mamute.model.SanitizedText.pure;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,7 +93,7 @@ public class QuestionInformation implements Information, Taggable {
 	 * @deprecated hibernate only
 	 */
 	QuestionInformation() {
-		this("", null, null, new ArrayList<Tag>(), "");
+		this("", MarkedText.pure(""), null, new ArrayList<Tag>(), "");
 	}
 
 	public QuestionInformation(String title, MarkedText description, LoggedUser user,

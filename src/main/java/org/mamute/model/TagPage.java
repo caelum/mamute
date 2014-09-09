@@ -1,5 +1,7 @@
 package org.mamute.model;
 
+import static org.mamute.model.SanitizedText.pure;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -33,7 +35,7 @@ public class TagPage {
 	 * @deprecated hibernate eyes only
 	 */
 	TagPage() {
-		this(null, null);
+		this(null, MarkedText.pure(""));
 	}
 	
 	public TagPage(Tag tag, MarkedText about) {

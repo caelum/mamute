@@ -1,6 +1,16 @@
 package org.mamute.auth;
 
-import br.com.caelum.vraptor.environment.Environment;
+import static org.apache.commons.lang.StringUtils.isEmpty;
+import static org.apache.commons.lang.StringUtils.isNotEmpty;
+import static org.mamute.auth.DefaultAuthenticator.AUTH_CONFIG;
+import static org.mamute.auth.DefaultAuthenticator.LDAP_AUTH;
+import static org.mamute.model.SanitizedText.pure;
+
+import java.io.IOException;
+
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+
 import org.apache.directory.api.ldap.model.entry.Entry;
 import org.apache.directory.api.ldap.model.exception.LdapAuthenticationException;
 import org.apache.directory.api.ldap.model.exception.LdapException;
@@ -9,18 +19,12 @@ import org.apache.directory.ldap.client.api.LdapNetworkConnection;
 import org.mamute.dao.LoginMethodDAO;
 import org.mamute.dao.UserDAO;
 import org.mamute.model.LoginMethod;
+import org.mamute.model.SanitizedText;
 import org.mamute.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-
-import java.io.IOException;
-
-import static org.apache.commons.lang.StringUtils.isEmpty;
-import static org.apache.commons.lang.StringUtils.isNotEmpty;
-import static org.mamute.auth.DefaultAuthenticator.*;
+import br.com.caelum.vraptor.environment.Environment;
 
 public class LDAPApi {
 	private Logger logger = LoggerFactory.getLogger(LDAPApi.class);
@@ -103,7 +107,7 @@ public class LDAPApi {
 				fullName += " " + ldap.getAttribute(entry, surnameAttr);
 			}
 
-			User user = new User(fullName.trim(), email);
+			User user = new User(pure(fullName.trim()), email);
 
 			LoginMethod brutalLogin = LoginMethod.brutalLogin(user, email, PLACHOLDER_PASSWORD);
 			user.add(brutalLogin);

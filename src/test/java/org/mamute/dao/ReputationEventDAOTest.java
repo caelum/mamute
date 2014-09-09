@@ -8,13 +8,11 @@ import static org.mamute.model.EventType.SOLVED_QUESTION;
 
 import java.util.List;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Iterables;
+import javax.annotation.Nullable;
+
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
-import org.mamute.dao.InvisibleForUsersRule;
-import org.mamute.dao.ReputationEventDAO;
 import org.mamute.dto.KarmaAndContext;
 import org.mamute.dto.KarmaByContextHistory;
 import org.mamute.dto.UserSummaryForTag;
@@ -23,14 +21,14 @@ import org.mamute.model.EventType;
 import org.mamute.model.LoggedUser;
 import org.mamute.model.Question;
 import org.mamute.model.ReputationEvent;
-import org.mamute.model.ReputationEventContext;
 import org.mamute.model.Tag;
 import org.mamute.model.User;
 
 import br.com.caelum.timemachine.Block;
 import br.com.caelum.timemachine.TimeMachine;
 
-import javax.annotation.Nullable;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
 
 public class ReputationEventDAOTest extends DatabaseTestCase {
 

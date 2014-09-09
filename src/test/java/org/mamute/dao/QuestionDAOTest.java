@@ -1,15 +1,18 @@
 package org.mamute.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.mamute.dao.QuestionDAO.PAGE_SIZE;
+import static org.mamute.model.MarkedText.pure;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import javax.validation.ConstraintViolationException;
 
-import com.google.common.collect.ImmutableList;
 import net.vidageek.mirror.dsl.Mirror;
 
 import org.hamcrest.Matchers;
@@ -18,6 +21,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mamute.builder.QuestionBuilder;
 import org.mamute.model.LoggedUser;
+import org.mamute.model.MarkedText;
 import org.mamute.model.Question;
 import org.mamute.model.Tag;
 import org.mamute.model.User;
@@ -26,11 +30,13 @@ import org.mamute.model.interfaces.RssContent;
 import br.com.caelum.timemachine.Block;
 import br.com.caelum.timemachine.TimeMachine;
 
+import com.google.common.collect.ImmutableList;
+
 public class QuestionDAOTest extends DatabaseTestCase {
 
 	private static final String INVALID_TITLE = "Tiny title";
-	private static final String INVALID_DESC = "Tiny desc";
-	private static final String VALID_DESC = "Description with more than 30 characters";
+	private static final MarkedText INVALID_DESC = pure("Tiny desc");
+	private static final MarkedText VALID_DESC = pure("Description with more than 30 characters");
 	private static final String VALID_TITLE = "Title with more than 15 characters";
 	private QuestionDAO questionsBeingAuthor;
 	private QuestionBuilder question = new QuestionBuilder();
@@ -60,7 +66,7 @@ public class QuestionDAOTest extends DatabaseTestCase {
 	
 	@Test(expected=ConstraintViolationException.class)
 	public void should_throw_constraint_exception_if_description_is_null() {
-		Question myQuestion = question.withTitle(VALID_TITLE).withDescription(null).withAuthor(author).build();
+		Question myQuestion = question.withTitle(VALID_TITLE).withDescription((String) null).withAuthor(author).build();
 		questionsBeingAuthor.save(myQuestion );
 	}
 	
@@ -247,7 +253,7 @@ public class QuestionDAOTest extends DatabaseTestCase {
 	private Question javaEEQuestion(){
 		Question q = question
 			.withTitle("Some question about java ee and other stuff?")
-			.withDescription("Please help solving my question about java ee! Thanks, guys!")
+			.withDescription(pure("Please help solving my question about java ee! Thanks, guys!"))
 			.withAuthor(author)
 			.withTag(defaultTag)
 			.build();
@@ -258,7 +264,7 @@ public class QuestionDAOTest extends DatabaseTestCase {
 	private Question androidQuestion(){
 		Question q = question
 				.withTitle("Some question about android and other stuff?")
-				.withDescription("Please help solving my question about android! Thanks, guys!")
+				.withDescription(pure("Please help solving my question about android! Thanks, guys!"))
 				.withAuthor(author)
 				.withTag(defaultTag)
 				.build();
@@ -270,7 +276,7 @@ public class QuestionDAOTest extends DatabaseTestCase {
 	private Question javaQuestion(){
 		Question q =  question
 				.withTitle("Some question about java SE and other stuff")
-				.withDescription("Please help solving my question about java! Thanks, guys!")
+				.withDescription(pure("Please help solving my question about java! Thanks, guys!"))
 				.withAuthor(author)
 				.withTag(java)
 				.build();

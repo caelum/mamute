@@ -3,6 +3,7 @@ package org.mamute.controllers;
 import static java.util.Arrays.asList;
 import static org.mamute.dao.WithUserPaginatedDAO.OrderType.ByDate;
 import static org.mamute.dao.WithUserPaginatedDAO.OrderType.ByVotes;
+import static org.mamute.model.SanitizedText.pure;
 
 import javax.inject.Inject;
 
@@ -19,8 +20,9 @@ import org.mamute.dao.WithUserPaginatedDAO.OrderType;
 import org.mamute.dto.UserPersonalInfo;
 import org.mamute.factory.MessageFactory;
 import org.mamute.model.LoggedUser;
+import org.mamute.model.MarkedText;
+import org.mamute.model.SanitizedText;
 import org.mamute.model.User;
-import org.mamute.sanitizer.HtmlSanitizer;
 import org.mamute.validators.UserPersonalInfoValidator;
 
 import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
@@ -47,7 +49,6 @@ public class UserProfileController extends BaseController{
 	@Inject private WatcherDAO watchers;
 	@Inject private ReputationEventDAO reputationEvents;
 	@Inject private MessageFactory messageFactory;
-	@Inject private HtmlSanitizer sanitizer;
 
 	@Get
 	public void showProfile(@Load User user, String sluggedName){
@@ -115,8 +116,8 @@ public class UserProfileController extends BaseController{
 	}
 	
 	@Post
-	public void editProfile(@Load User user, String name, String email, 
-			String website, String location, DateTime birthDate, String description, boolean isSubscribed) {
+	public void editProfile(@Load User user, SanitizedText name, String email, 
+			SanitizedText website, SanitizedText location, DateTime birthDate, MarkedText description, boolean isSubscribed) {
 		if (!user.getId().equals(currentUser.getCurrent().getId())){
 			result.redirectTo(ListController.class).home(null);
 			return;
@@ -126,7 +127,7 @@ public class UserProfileController extends BaseController{
 			website = correctWebsite(website);
 		}
 
-		UserPersonalInfo info = new UserPersonalInfo(user, sanitizer)
+		UserPersonalInfo info = new UserPersonalInfo(user)
 			.withName(name)
 			.withEmail(email)
 			.withWebsite(website)
@@ -173,13 +174,11 @@ public class UserProfileController extends BaseController{
 		result.nothing();
 	}
 
-	private String correctWebsite(String website) {
-		String protocol = "";
-		if(!website.startsWith(HTTP)){
-			protocol = HTTP;
-		}
-		website = protocol+website;
-		return website;
+	private SanitizedText correctWebsite(SanitizedText website) {
+		String text = website.getText();
+		if(text.startsWith(HTTP))
+			return website;
+		return pure(HTTP+text); 
 	}
 	
 	private boolean redirectToRightSluggedName(User user, String sluggedName) {

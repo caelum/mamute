@@ -1,5 +1,7 @@
 package org.mamute.infra;
 
+import static org.mamute.model.SanitizedText.pure;
+
 import java.util.Random;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -26,7 +28,7 @@ public class DefaultAdminCreator {
 		if (result == 0) {
 			Random random = new Random(System.currentTimeMillis());
 			String email = "moderator@mamuteqa.org";
-			User newUser = new User("moderator", email).asModerator();
+			User newUser = new User(pure("moderator"), email).asModerator();
 			
 			String number = Long.toString(random.nextLong());
 			String password = Digester.md5(number);

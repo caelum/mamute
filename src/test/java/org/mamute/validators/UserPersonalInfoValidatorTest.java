@@ -2,6 +2,7 @@ package org.mamute.validators;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mamute.model.SanitizedText.pure;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -18,9 +19,8 @@ import org.mamute.dao.TestCase;
 import org.mamute.dao.UserDAO;
 import org.mamute.dto.UserPersonalInfo;
 import org.mamute.factory.MessageFactory;
+import org.mamute.model.SanitizedText;
 import org.mamute.model.User;
-import org.mamute.validators.EmailValidator;
-import org.mamute.validators.UserPersonalInfoValidator;
 
 import br.com.caelum.vraptor.simplemail.template.BundleFormatter;
 import br.com.caelum.vraptor.util.test.MockValidator;
@@ -53,7 +53,7 @@ public class UserPersonalInfoValidatorTest extends TestCase{
 	public void should_pass_validation_with_not_required_elements_null() {
 		User artur = user("artur com seis caracteres", validEmail);
 		UserPersonalInfo info = new UserPersonalInfo(artur)
-				.withName(artur.getName())
+				.withName(pure(artur.getName()))
 				.withEmail(artur.getEmail());
 		
 		assertTrue(infoValidator.validate(info));
@@ -64,7 +64,7 @@ public class UserPersonalInfoValidatorTest extends TestCase{
 		User artur = user("artur com seis caracteres", validEmail);
 		DateTime hoje = DateTime.now();
 		UserPersonalInfo info = new UserPersonalInfo(artur)
-				.withName(artur.getName())
+				.withName(pure(artur.getName()))
 				.withEmail(artur.getEmail())
 				.withBirthDate(hoje);
 		
@@ -76,7 +76,7 @@ public class UserPersonalInfoValidatorTest extends TestCase{
 		User artur = user("artur com seis caracteres", validEmail);
 		
 		UserPersonalInfo info = new UserPersonalInfo(artur)
-				.withName("newName")
+				.withName(pure("newName"))
 				.withEmail(artur.getEmail());
 		
 		when(bundle.getMessage("date.joda.simple.pattern")).thenReturn("dd/MM/YYYY");
@@ -89,7 +89,7 @@ public class UserPersonalInfoValidatorTest extends TestCase{
 		
 		DateTimeUtils.setCurrentMillisFixed(new DateTime().plusDays(31).getMillis());
 		UserPersonalInfo info = new UserPersonalInfo(artur)
-				.withName("newName")
+				.withName(pure("newName"))
 				.withEmail(artur.getEmail());
 		
 		when(bundle.getMessage("date.joda.simple.pattern")).thenReturn("dd/MM/YYYY");

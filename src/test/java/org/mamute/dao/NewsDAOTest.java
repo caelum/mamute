@@ -2,15 +2,13 @@ package org.mamute.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mamute.model.MarkedText.pure;
 
 import java.util.List;
 
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
-import org.mamute.dao.ModeratorOrVisibleNewsFilter;
-import org.mamute.dao.NewsDAO;
-import org.mamute.dao.VisibleNewsFilter;
 import org.mamute.model.LoggedUser;
 import org.mamute.model.News;
 import org.mamute.model.NewsInformation;
@@ -138,7 +136,7 @@ public class NewsDAOTest extends DatabaseTestCase {
 
 	private NewsInformation newsInformation(User author) {
 		return new NewsInformation("breaking news breaking news",
-				"breaking news breaking news breaking news breaking news", new LoggedUser(author, null),
+				pure("breaking news breaking news breaking news breaking news"), new LoggedUser(author, null),
 				"comment comment comment comment");
 	}
 

@@ -4,14 +4,13 @@ import static java.util.Arrays.asList;
 
 import javax.inject.Inject;
 
-import br.com.caelum.vraptor.environment.Environment;
-import br.com.caelum.vraptor.view.Results;
 import org.mamute.auth.FacebookAuthService;
 import org.mamute.auth.GoogleAuthService;
 import org.mamute.dao.LoginMethodDAO;
 import org.mamute.dao.UserDAO;
 import org.mamute.factory.MessageFactory;
 import org.mamute.model.LoginMethod;
+import org.mamute.model.SanitizedText;
 import org.mamute.model.User;
 import org.mamute.validators.SignupValidator;
 import org.mamute.vraptor.Linker;
@@ -20,7 +19,9 @@ import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.routes.annotation.Routed;
+import br.com.caelum.vraptor.view.Results;
 
 @Routed
 @Controller
@@ -47,7 +48,7 @@ public class SignupController {
 	}
 
 	@Post
-	public void signup(String email, String password, String name, String passwordConfirmation) {
+	public void signup(String email, String password, SanitizedText name, String passwordConfirmation) {
 		if(isSignupDisabled()){
 			return;
 		}

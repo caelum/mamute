@@ -3,14 +3,10 @@ package org.mamute.dao;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 import java.util.Arrays;
 import java.util.List;
 
-import org.hibernate.Session;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeUtils;
 import org.junit.Before;
@@ -21,7 +17,6 @@ import org.mamute.model.Question;
 import org.mamute.model.Tag;
 import org.mamute.model.TagUsage;
 import org.mamute.model.User;
-import org.mockito.Mockito;
 
 
 public class TagDAOTest extends DatabaseTestCase{
