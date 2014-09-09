@@ -28,8 +28,9 @@ import static org.apache.commons.lang.StringUtils.isNotEmpty;
  * LDAP authentication API
  */
 public class LDAPApi {
-	private Logger logger = LoggerFactory.getLogger(LDAPApi.class);
+	private static final Logger logger = LoggerFactory.getLogger(LDAPApi.class);
 
+	public static final String LDAP_AUTH = "ldap";
 	public static final String LDAP_HOST = "ldap.host";
 	public static final String LDAP_PORT = "ldap.port";
 	public static final String LDAP_USER = "ldap.user";
@@ -63,7 +64,7 @@ public class LDAPApi {
 	 */
 	@PostConstruct
 	public void init() {
-		if (env.get(Authenticator.AUTH_CONFIG, "").equals(LDAPAuthenticator.LDAP_AUTH)) {
+		if (env.supports("feature.auth.ldap")) {
 			//required
 			host = assertValuePresent(LDAP_HOST);
 			port = Integer.parseInt(assertValuePresent(LDAP_PORT));
@@ -101,7 +102,7 @@ public class LDAPApi {
 			return false;
 		} catch (LdapException | IOException e) {
 			logger.debug("LDAP connection error", e);
-			throw new AuthenticationException(LDAPAuthenticator.LDAP_AUTH, "LDAP connection error", e);
+			throw new AuthenticationException(LDAP_AUTH, "LDAP connection error", e);
 		}
 	}
 
@@ -117,7 +118,7 @@ public class LDAPApi {
 			return ldap.getAttribute(ldapUser, emailAttr);
 		} catch (LdapException | IOException e) {
 			logger.debug("LDAP connection error", e);
-			throw new AuthenticationException(LDAPAuthenticator.LDAP_AUTH, "LDAP connection error", e);
+			throw new AuthenticationException(LDAP_AUTH, "LDAP connection error", e);
 		}
 	}
 

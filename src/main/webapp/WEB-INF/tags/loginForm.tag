@@ -7,13 +7,10 @@
 <form class="validated-form user-form" action="${linkTo[AuthController].login}" method="POST">
 	<tags:socialLoginMethods buttonContent="auth"/>
 
+	<c:set var="extraClass" value="${env.supports('feature.auth.db')? 'email' : ''}" />
+	<c:set var="type" value="${env.supports('feature.auth.db')? 'email' : 'text'}" />
 	<label for="email">${t['signup.form.email.label']}</label>
-	<c:if test="${env.supports('feature.auth.db')}">
-		<input type="email" name="email" class="email required text-input" placeholder="${t['signup.form.email.placeholder']}"/>
-	</c:if>
-	<c:if test="${env.supports('feature.auth.ldap')}">
-		<input type="text" name="email" class="required text-input" placeholder="${t['signup.form.email.placeholder']}"/>
-	</c:if>
+	<input type="${type}" name="email" class="required text-input ${extraClass}" placeholder="${t['signup.form.email.placeholder']}"/>
 
 
 	<label for="password">${t['signup.form.password.label']}</label>

@@ -4,8 +4,6 @@ package org.mamute.auth;
  * Authentication provider for Mamute
  */
 public interface Authenticator {
-	public static final String AUTH_CONFIG = "auth.type";
-
 	/**
 	 * Perform a simple authentication with the provided credentials, returning
 	 * a simple boolean to indicate whether it was successful or not. If there

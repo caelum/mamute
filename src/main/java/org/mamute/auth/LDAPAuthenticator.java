@@ -6,8 +6,6 @@ import org.mamute.model.User;
 import javax.inject.Inject;
 
 public class LDAPAuthenticator implements Authenticator{
-	public static final String LDAP_AUTH = "ldap";
-
 	@Inject private UserDAO users;
 	@Inject private Access system;
 	@Inject private LDAPApi ldap;

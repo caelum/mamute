@@ -54,7 +54,7 @@
 									${t['auth.login_form_link']}
 								</a>
 							</li>
-							<c:if test="${!disableSignup}">
+							<c:if test="${env.supports('feature.signup')}">
 								<li class="nav-item">
 									<a class="signup" href="${linkTo[SignupController].signupForm}">
 										${t['signup.link']}
