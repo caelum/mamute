@@ -5,6 +5,10 @@ public class MarkedText {
 	private String pure;
 	private String marked;
 
+	public static MarkedText pureAndMarked(String pure, String marked) {
+		return new MarkedText(pure, marked);
+	}
+
 	public static MarkedText pure(String pure) {
 		return new MarkedText(pure, pure);
 	}
@@ -51,6 +55,7 @@ public class MarkedText {
 	public String toString() {
 		return "MarkedText [pure=" + pure + ", marked=" + marked + "]";
 	}
+
 
 	
 }
