@@ -41,6 +41,15 @@ module.exports = function(grunt) {
 				assetsDirs: ['<%= config.dest %>']
 			}
 		},
+
+		uglify: { 
+	      main: {
+	        expand: true,
+	        cwd: 'src/main/webapp/js/',
+	        src: ['**/*.js', '!**/*.min.js'],
+	        dest: 'src/main/webapp/js/'
+	      }
+	    },
 		
 		watch: {
 			less: {
@@ -58,13 +67,14 @@ module.exports = function(grunt) {
 	 'contrib-watch',
 	 'contrib-concat',
 	 'contrib-cssmin',
+	 'contrib-uglify',
 	 'usemin'
 	].forEach(function(plugin) {
 		grunt.loadNpmTasks('grunt-' + plugin);
 	});
 
 	grunt.registerTask('default', ['clean', 'less']);
-	grunt.registerTask('build', ['default', 'useminPrepare', 'concat:generated', 'cssmin:generated', 'usemin']);
+	grunt.registerTask('build', ['default', 'useminPrepare', 'concat:generated', 'cssmin:generated', 'uglify', 'usemin']);
 	grunt.registerTask('run', ['default', 'watch']);
 
 };
