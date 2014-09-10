@@ -13,6 +13,7 @@ import org.mamute.infra.NotFoundException;
 import org.mamute.mail.action.EmailAction;
 import org.mamute.model.Comment;
 import org.mamute.model.LoggedUser;
+import org.mamute.model.MarkedText;
 import org.mamute.model.User;
 import org.mamute.model.interfaces.Watchable;
 import org.mamute.model.watch.Watcher;
@@ -44,7 +45,7 @@ public class CommentController {
 	@AccessLevel(PermissionRulesConstants.CREATE_COMMENT)
 	@CustomBrutauthRules({InputRule.class, InactiveQuestionRequiresMoreKarmaRule.class})
 	@Post
-	public void comment(Long id, String onWhat, String comment, boolean watching) {
+	public void comment(Long id, String onWhat, MarkedText comment, boolean watching) {
 		User current = currentUser.getCurrent();
 		Comment newComment = new Comment(current, comment);
 		Class<?> type = getType(onWhat);
@@ -67,13 +68,13 @@ public class CommentController {
 	}
 
 	@Post
-	public void edit(Long id, String comment) {
+	public void edit(Long id, MarkedText comment) {
 		Comment original = comments.getById(id);
 		if (!currentUser.getCurrent().isAuthorOf(original)) {
 			result.use(Results.status()).badRequest("comment.edit.not_author");
 			return;
 		}
-		if (validator.validate(comment)) {
+		if (validator.validate(comment.getPure())) {
 			original.setComment(comment);
 			comments.save(original);
 			result.forwardTo(BrutalTemplatesController.class).comment(original);

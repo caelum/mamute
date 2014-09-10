@@ -60,17 +60,17 @@ public class VoteDAOTest extends DatabaseTestCase{
 		
 		Answer answer = answer("blablablablablablablablablablbalblabla", question, currentUser);
 		
-		Comment answerComment1 = comment(otherUser, "comentariocomentariocomentariocomentariocomentario");
-		Comment answerComment2 = comment(currentUser, "comentariocomentariocomentariocomentariocomentario");
-		Comment answerComment3 = comment(otherUser, "comentariocomentariocomentariocomentariocomentario");
+		Comment answerComment1 = comment(otherUser, "comentariocomentariocomentariocomentariocomentario", DateTime.now().minusHours(1));
+		Comment answerComment2 = comment(currentUser, "comentariocomentariocomentariocomentariocomentario", DateTime.now().minusHours(2));
+		Comment answerComment3 = comment(otherUser, "comentariocomentariocomentariocomentariocomentario", DateTime.now().minusHours(3));
 		
 		answer.add(answerComment1);
 		answer.add(answerComment2);
 		answer.add(answerComment3);
 		
-		Comment questionComment1 = comment(otherUser, "comentariocomentariocomentariocomentariocomentario");
-		Comment questionComment2 = comment(currentUser, "comentariocomentariocomentariocomentariocomentario");
-		Comment questionComment3 = comment(otherUser, "comentariocomentariocomentariocomentariocomentario");
+		Comment questionComment1 = comment(otherUser, "comentariocomentariocomentariocomentariocomentario", DateTime.now().minusHours(4));
+		Comment questionComment2 = comment(currentUser, "comentariocomentariocomentariocomentariocomentario", DateTime.now().minusHours(5));
+		Comment questionComment3 = comment(otherUser, "comentariocomentariocomentariocomentariocomentario", DateTime.now().minusHours(6));
 		
 		question.add(questionComment1);
 		question.add(questionComment2);

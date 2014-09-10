@@ -1,6 +1,16 @@
 package org.mamute.auth;
 
-import br.com.caelum.vraptor.environment.Environment;
+import static org.apache.commons.lang.StringUtils.isEmpty;
+import static org.apache.commons.lang.StringUtils.isNotEmpty;
+import static org.mamute.model.SanitizedText.fromTrustedText;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+
 import org.apache.directory.api.ldap.model.entry.Entry;
 import org.apache.directory.api.ldap.model.entry.Value;
 import org.apache.directory.api.ldap.model.exception.LdapAuthenticationException;
@@ -14,15 +24,7 @@ import org.mamute.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.apache.commons.lang.StringUtils.isEmpty;
-import static org.apache.commons.lang.StringUtils.isNotEmpty;
+import br.com.caelum.vraptor.environment.Environment;
 
 /**
  * LDAP authentication API
@@ -137,7 +139,7 @@ public class LDAPApi {
 				fullName += " " + ldap.getAttribute(ldapUser, surnameAttr);
 			}
 
-			User user = new User(fullName.trim(), email);
+			User user = new User(fromTrustedText(fullName.trim()), email);
 			if (isNotEmpty(moderatorGroup) && ldap.getGroups(ldapUser).contains(moderatorGroup)) {
 				user = user.asModerator();
 			}

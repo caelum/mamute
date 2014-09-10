@@ -1,6 +1,7 @@
 package org.mamute.util;
 
 import static java.util.Arrays.asList;
+import static org.mamute.model.MarkedText.notMarked;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,13 +27,14 @@ import org.mamute.model.Flag;
 import org.mamute.model.FlagType;
 import org.mamute.model.Information;
 import org.mamute.model.LoggedUser;
+import org.mamute.model.MarkedText;
 import org.mamute.model.News;
 import org.mamute.model.NewsInformation;
 import org.mamute.model.Question;
 import org.mamute.model.QuestionInformation;
+import org.mamute.model.SanitizedText;
 import org.mamute.model.Tag;
 import org.mamute.model.User;
-import org.mamute.util.ScriptSessionCreator;
 
 public class DataImport extends TestCase {
     private Session session;
@@ -185,7 +187,7 @@ public class DataImport extends TestCase {
 	private void newNews(String title, String description, boolean approved) {
 		for (int i = 0; i < 450; i++) {
 		User author = anyUserNotUsedInTests();
-		NewsInformation newsInformation = new NewsInformation(title, description, 
+		NewsInformation newsInformation = new NewsInformation(title, notMarked(description), 
 				new LoggedUser(author, null), i + "bla bla bla bla bla");
 		
 		News n = new News(newsInformation, author);
@@ -201,7 +203,7 @@ public class DataImport extends TestCase {
 		setId(question.getAuthor(), 2l);
 		List<Tag> tagsEdited = asList(getTag("java"));
 		QuestionInformation information = new QuestionInformation("question question question question question", 
-        		"edit edit edit edit edit edit edit edit edit edit edit", new LoggedUser(editor, null), tagsEdited, "blablablab");
+				notMarked("edit edit edit edit edit edit edit edit edit edit edit"), new LoggedUser(editor, null), tagsEdited, "blablablab");
 		edits.add(information);
 		question.updateWith(information);
 		setId(question.getAuthor(), null);
@@ -212,7 +214,7 @@ public class DataImport extends TestCase {
 		User editor = newUser(userWithPassword("some editor", "editor@email.com.br"), false);
 		setId(editor, 1l);
 		setId(answer.getAuthor(), 2l);
-		AnswerInformation information = new AnswerInformation("edited edited edited edited edited edited", new LoggedUser(editor, null),
+		AnswerInformation information = new AnswerInformation(notMarked("edited edited edited edited edited edited"), new LoggedUser(editor, null),
 				answer, "bla bla bla blabla");
 		edits.add(information);
 		answer.updateWith(information);
@@ -330,12 +332,12 @@ public class DataImport extends TestCase {
     }
 
     private void addAnswerComment(String desc) {
-        Comment comment = new Comment(anyUserNotUsedInTests(), desc);
+        Comment comment = new Comment(anyUserNotUsedInTests(), notMarked(desc));
         answers.get(answers.size() - 1).add(comment);
     }
     
     private void addFlaggedAnswerComment(String desc) {
-        Comment comment = new Comment(anyUserNotUsedInTests(), desc);
+        Comment comment = new Comment(anyUserNotUsedInTests(), notMarked(desc));
         Flag flag1 = new Flag(FlagType.OBSOLETE, users.get(users.size() - 1));
         Flag flag2 = new Flag(FlagType.OBSOLETE, users.get(users.size() - 2));
         Flag flag3 = new Flag(FlagType.OBSOLETE, users.get(users.size() - 3));
@@ -358,12 +360,12 @@ public class DataImport extends TestCase {
     }
 
     private void addQuestionComment(User author, String desc) {
-        Comment comment = new Comment(author, desc);
+        Comment comment = new Comment(author, notMarked(desc));
         questions.get(questions.size() - 1).add(comment);
     }
     
     private void addFlaggedQuestionComment(User author, String desc) {
-        Comment comment = new Comment(author, desc);
+        Comment comment = new Comment(author, notMarked(desc));
         Flag flag1 = new Flag(FlagType.OBSOLETE, users.get(users.size() - 1));
         Flag flag2 = new Flag(FlagType.OBSOLETE, users.get(users.size() - 2));
         Flag flag3 = new Flag(FlagType.OBSOLETE, users.get(users.size() - 3));

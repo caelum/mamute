@@ -1,9 +1,12 @@
 package org.mamute.auth;
 
+import static org.mamute.model.SanitizedText.fromTrustedText;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.mamute.model.MethodType;
+import org.mamute.model.SanitizedText;
 
 import com.google.common.base.Optional;
 import com.google.gson.JsonElement;
@@ -13,11 +16,11 @@ public class SignupInfo {
 
 	private final MethodType method;
 	private final String email;
-	private final String name;
+	private final SanitizedText name;
 	private final String location;
 	private String photoUrl;
 
-	public SignupInfo(MethodType method, String email, String name,
+	public SignupInfo(MethodType method, String email, SanitizedText name,
 			String location, String photoUrl) {
 		this.method = method;
 		this.email = email;
@@ -41,7 +44,7 @@ public class SignupInfo {
 		if (locationJson != null) {
 			location = locationJson.get("name").getAsString();
 		}
-		return Optional.of(new SignupInfo(MethodType.FACEBOOK, email, name, location, photoUrl));
+		return Optional.of(new SignupInfo(MethodType.FACEBOOK, email, fromTrustedText(name), location, photoUrl));
 	}
 
 	public MethodType getMethod() {
@@ -53,7 +56,7 @@ public class SignupInfo {
 	}
 
 	public String getName() {
-		return name;
+		return name.getText();
 	}
 
 	public String getLocation() {

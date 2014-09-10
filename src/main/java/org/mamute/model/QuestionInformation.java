@@ -2,8 +2,6 @@ package org.mamute.model;
 
 import static javax.persistence.FetchType.EAGER;
 import static org.mamute.infra.NormalizerBrutal.toSlug;
-import static org.mamute.model.MarkDown.parse;
-import static org.mamute.sanitizer.HtmlSanitizer.sanitize;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,10 +92,10 @@ public class QuestionInformation implements Information, Taggable {
 	 * @deprecated hibernate only
 	 */
 	QuestionInformation() {
-		this("", "", null, new ArrayList<Tag>(), "");
+		this("", MarkedText.notMarked(""), null, new ArrayList<Tag>(), "");
 	}
 
-	public QuestionInformation(String title, String description, LoggedUser user,
+	public QuestionInformation(String title, MarkedText description, LoggedUser user,
 			List<Tag> tags, String comment) {
         if (user == null) {
 			this.author = null;
@@ -112,7 +110,7 @@ public class QuestionInformation implements Information, Taggable {
 		this.tags = tags;
 	}
 
-	public QuestionInformation(String title, String description, LoggedUser author) {
+	public QuestionInformation(String title, MarkedText description, LoggedUser author) {
 		this(title, description, author, new ArrayList<Tag>(), "");
 	}
 
@@ -138,9 +136,9 @@ public class QuestionInformation implements Information, Taggable {
 		this.sluggedTitle = toSlug(title);
 	}
 
-	private void setDescription(String description) {
-		this.description = description;
-		this.markedDescription = sanitize(parse(description));
+	private void setDescription(MarkedText description) {
+		this.description = description.getPure();
+		this.markedDescription = description.getMarked();
 	}
 
 	public String getTitle() {

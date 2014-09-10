@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import org.mamute.brutauth.auth.rules.ModeratorOnlyRule;
 import org.mamute.dao.TagDAO;
 import org.mamute.dao.TagPageDAO;
+import org.mamute.model.MarkedText;
 import org.mamute.model.Tag;
 import org.mamute.model.TagPage;
 import org.mamute.validators.TagPageValidator;
@@ -42,7 +43,7 @@ public class TagPageController {
 	
 	@Post
 	@CustomBrutauthRules(ModeratorOnlyRule.class)
-	public void editTagPage(String tagName, String about){
+	public void editTagPage(String tagName, MarkedText about){
 		TagPage tagPage = tagPages.findByTag(tagName);
 		tagPage.setAbout(about);
 		if(!validator.validate(tagPage)){
@@ -54,7 +55,7 @@ public class TagPageController {
 	
 	@Post
 	@CustomBrutauthRules(ModeratorOnlyRule.class)
-	public void newTagPage(String tagName, String about){
+	public void newTagPage(String tagName, MarkedText about){
 		if(!validator.validateCreationWithTag(tagName)) return;
 		Tag tag = tags.findByName(tagName);
 		TagPage tagPage = new TagPage(tag, about);

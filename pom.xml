@@ -827,6 +827,7 @@
 					</systemPropertyVariables>
 					<excludes>
 						<exclude>**/scene/**</exclude>
+						<exclude>**/*$*.class</exclude>
 					</excludes>
 				</configuration>
 			</plugin>

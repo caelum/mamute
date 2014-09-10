@@ -17,6 +17,7 @@ import org.mamute.model.Answer;
 import org.mamute.model.AnswerInformation;
 import org.mamute.model.EventType;
 import org.mamute.model.LoggedUser;
+import org.mamute.model.MarkedText;
 import org.mamute.model.Question;
 import org.mamute.model.ReputationEvent;
 import org.mamute.model.UpdateStatus;
@@ -61,7 +62,7 @@ public class AnswerController {
 
 	@Post
 	@CustomBrutauthRules(EditAnswerRule.class)
-	public void edit(@Load Answer original, String description, String comment) {
+	public void edit(@Load Answer original, MarkedText description, String comment) {
 		AnswerInformation information = new AnswerInformation(description, currentUser, comment);
 		brutalValidator.validate(information);
 		
@@ -77,7 +78,7 @@ public class AnswerController {
 	
 	@Post
 	@CustomBrutauthRules({LoggedRule.class, InputRule.class, InactiveQuestionRequiresMoreKarmaRule.class})
-	public void newAnswer(@Load Question question, String description, boolean watching) {
+	public void newAnswer(@Load Question question, MarkedText description, boolean watching) {
 		User current = currentUser.getCurrent();
 		boolean canAnswer = answeredByValidator.validate(question);
 		boolean isUserWithKarma = current.hasKarma();

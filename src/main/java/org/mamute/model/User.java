@@ -2,7 +2,7 @@ package org.mamute.model;
 
 import static org.mamute.infra.Digester.hashFor;
 import static org.mamute.infra.NormalizerBrutal.toSlug;
-import static org.mamute.sanitizer.HtmlSanitizer.sanitize;
+import static org.mamute.model.SanitizedText.fromTrustedText;
 import static org.mamute.validators.UserPersonalInfoValidator.ABOUT_LENGTH_MESSAGE;
 import static org.mamute.validators.UserPersonalInfoValidator.ABOUT_MAX_LENGTH;
 import static org.mamute.validators.UserPersonalInfoValidator.ABOUT_MIN_LENGTH;
@@ -122,7 +122,7 @@ public class User implements Identifiable {
 	
 	
 	static {
-		GHOST = new User("", "");
+		GHOST = new User(fromTrustedText("GHOST"), "");
 		GHOST.setId(1000l);
 	}
 	
@@ -130,11 +130,10 @@ public class User implements Identifiable {
 	 * @deprecated hibernate eyes only
 	 */
 	protected User() {
-		this("", "");
+		this(fromTrustedText(""), "");
 	}
 
-	public User(String name, String email) {
-		super();
+	public User(SanitizedText name, String email) {
 		setName(name);
 		this.email = email;
 	}
@@ -150,9 +149,9 @@ public class User implements Identifiable {
 	    return userSession;
     }
 
-    public void setName(String name) {
-		this.name = sanitize(name);
-		this.sluggedName = sanitize(toSlug(name));
+    public void setName(SanitizedText name) {
+		this.name = name.getText();
+		this.sluggedName = toSlug(this.name);
 		this.nameLastTouchedAt = new DateTime();
 	}
 
@@ -166,7 +165,7 @@ public class User implements Identifiable {
 	
 	public void setPersonalInformation(UserPersonalInfo info) {
 		this.birthDate = info.getBirthDate();
-		setName(info.getName());
+		this.name = info.getName();
 		this.email = info.getEmail();
 		this.website = info.getWebsite();
 		this.location = info.getLocation();

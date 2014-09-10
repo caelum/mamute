@@ -1,11 +1,14 @@
 package org.mamute.dao;
 
+import static org.mamute.model.MarkedText.notMarked;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import net.vidageek.mirror.dsl.Mirror;
 
+import org.joda.time.DateTime;
 import org.joda.time.DateTimeUtils;
 import org.junit.Before;
 import org.mamute.builder.QuestionBuilder;
@@ -19,10 +22,14 @@ import org.mamute.model.LoginMethod;
 import org.mamute.model.News;
 import org.mamute.model.NewsInformation;
 import org.mamute.model.Question;
+import org.mamute.model.SanitizedText;
 import org.mamute.model.Tag;
 import org.mamute.model.User;
 import org.mamute.model.Vote;
 import org.mamute.model.VoteType;
+
+import br.com.caelum.timemachine.Block;
+import br.com.caelum.timemachine.TimeMachine;
 
 /**
  * Constructor from this class should not be used anywhere beside tests.
@@ -37,7 +44,7 @@ public abstract class TestCase {
 	private QuestionBuilder questionBuilder = new QuestionBuilder();
 	
 	protected Answer answer(String description, Question question, User author) {
-		Answer q = new Answer(new AnswerInformation(description, new LoggedUser(author, null), "default commentdefault commentdefault commentdefault comment")
+		Answer q = new Answer(new AnswerInformation(notMarked(description), new LoggedUser(author, null), "default commentdefault commentdefault commentdefault comment")
 							, question, author);
 		return q;
 	}
@@ -54,7 +61,7 @@ public abstract class TestCase {
 	}
 	
 	protected User user(String name, String email) {
-	    User user = new User(name, email);
+	    User user = new User(SanitizedText.fromTrustedText(name), email);
 	    user.confirmEmail();
 	    return user;
 	}
@@ -86,12 +93,21 @@ public abstract class TestCase {
 		return new Flag(flagType, author);
 	}
 	
-    protected AnswerInformation answerInformation(String string, User otherUser, Answer answer) {
-        return new AnswerInformation(string, new LoggedUser(otherUser, null), answer, "comment");
+    protected AnswerInformation answerInformation(String description, User otherUser, Answer answer) {
+        return new AnswerInformation(notMarked(description), new LoggedUser(otherUser, null), answer, "comment");
     }
     
     protected Comment comment(User author, String comment) {
-    	return new Comment(author, comment);
+    	return comment(author, comment, DateTime.now());
+    }
+    
+    protected Comment comment(final User author, final String comment, DateTime when) {
+    	return TimeMachine.goTo(when).andExecute(new Block<Comment>() {
+			@Override
+			public Comment run() {
+				return new Comment(author, notMarked(comment));
+			}
+		});
     }
     
     protected void setId(Object o, Long id) {
@@ -107,7 +123,7 @@ public abstract class TestCase {
     }
     
     protected News news(String title, String description, User author) {
-    	NewsInformation newsInformation = new NewsInformation(title, description, new LoggedUser(author, null), "comment comment comment");
+    	NewsInformation newsInformation = new NewsInformation(title, notMarked(description), new LoggedUser(author, null), "comment comment comment");
     	return new News(newsInformation, author);
 	}
     

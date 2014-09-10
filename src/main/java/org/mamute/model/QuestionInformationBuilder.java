@@ -1,18 +1,23 @@
 package org.mamute.model;
 
 import static java.util.Arrays.asList;
+import static org.mamute.model.MarkedText.notMarked;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class QuestionInformationBuilder {
 
-	private User author = null;
-	private String title = "default title default title";
-	private String description = "default description default description default description";
-	private String comment = "new question";
-	private List<Tag> tags = new ArrayList<>();
+	private User author;
+	private String title;
+	private MarkedText description;
+	private String comment;
+	private List<Tag> tags;
     private UpdateStatus status;
+    
+    public QuestionInformationBuilder() {
+		clear();
+    }
 
 	public QuestionInformationBuilder with(User author) {
 		this.author = author;
@@ -39,7 +44,7 @@ public class QuestionInformationBuilder {
 		return this;
 	}
 
-	public QuestionInformationBuilder withDescription(String description) {
+	public QuestionInformationBuilder withDescription(MarkedText description) {
 		this.description = description;
 		return this;
 	}
@@ -59,9 +64,9 @@ public class QuestionInformationBuilder {
 
 	private void clear() {
 		author = null;
-		title = null;
-		description = null;
-		comment = null;
+		title = "default title default title";
+		description = notMarked("default description default description default description");
+		comment = "new question";
 		tags = new ArrayList<>();
 	    status = null;
 	}

@@ -1,15 +1,18 @@
 package org.mamute.builder;
 
+
 import org.mamute.model.LoggedUser;
+import org.mamute.model.MarkedText;
 import org.mamute.model.News;
 import org.mamute.model.NewsInformation;
+import org.mamute.model.SanitizedText;
 import org.mamute.model.User;
 
 public class NewsBuilder extends ModelBuilder {
 	private String title = "default news";
-	private String description = "default news default news default news";
+	private MarkedText description = MarkedText.notMarked("default news default news default news");
 	private String comment = "blablaba";
-	private User author = new User("author", "newsauthor@gmail.com");
+	private User author = new User(SanitizedText.fromTrustedText("author"), "newsauthor@gmail.com");
 	private LoggedUser loggedUser = null;
 	private Long id = null;
 	

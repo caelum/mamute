@@ -1,6 +1,9 @@
 package org.mamute.auth;
 
+import static org.mamute.model.SanitizedText.fromTrustedText;
+
 import org.mamute.model.MethodType;
+import org.mamute.model.SanitizedText;
 import org.scribe.model.OAuthRequest;
 import org.scribe.model.Response;
 import org.scribe.model.Token;
@@ -26,7 +29,7 @@ public class GoogleAPI implements SocialAPI{
 	    String name = jsonObject.get("displayName").getAsString();
 	    String photoUrl = jsonObject.get("image").getAsJsonObject().get("url").getAsString();
 	    
-	    SignupInfo signupInfo = new SignupInfo(MethodType.GOOGLE, email, name, "", photoUrl);
+	    SignupInfo signupInfo = new SignupInfo(MethodType.GOOGLE, email, fromTrustedText(name), "", photoUrl);
 	    return Optional.of(signupInfo);
 	}
 	

@@ -3,6 +3,7 @@ package org.mamute.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mamute.model.MarkedText.notMarked;
 import static org.mamute.model.UpdateStatus.PENDING;
 
 import org.junit.Test;
@@ -50,7 +51,7 @@ public class AnswerTest extends TestCase {
 		Question myQuestion = question.withTitle("question title").withDescription("description").withAuthor(author).build();
 		Answer answer = answer("blablablab", myQuestion, author);
 		
-		Information approved = new AnswerInformation("blablabalblab", new LoggedUser(editUser, null), answer, "");
+		Information approved = new AnswerInformation(notMarked("blablabalblab"), new LoggedUser(editUser, null), answer, "");
 		answer.approve(approved);
 		
 		assertEquals(approved, answer.getInformation());
@@ -63,7 +64,7 @@ public class AnswerTest extends TestCase {
 		Answer answer = answer("blablablab", myQuestion, author);
 		assertFalse(answer.hasPendingEdits());
 		
-		AnswerInformation approved = new AnswerInformation("blablabalblab", new LoggedUser(editUser, null), answer, "");
+		AnswerInformation approved = new AnswerInformation(notMarked("blablabalblab"), new LoggedUser(editUser, null), answer, "");
 		answer.enqueueChange(approved, PENDING);
 		assertTrue(answer.hasPendingEdits());
 		
