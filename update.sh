@@ -78,7 +78,7 @@ else
 	git checkout master
 	git pull
 
-	mvn clean package -DskipTests
+	$REPO_PATH/scripts/mvn-package.sh
 
 	echo 'Copying new version of mamute'
 
