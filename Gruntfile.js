@@ -25,6 +25,22 @@ module.exports = function(grunt) {
 				}]
 			}
 		},
+
+		useminPrepare: {
+			html: 'src/main/webapp/WEB-INF/{jsp,tags}/**/*.{jsp,jspf,tag}',
+			options: {
+				dest: 'src/main/webapp/',
+				root: 'src/main/webapp/'
+			}
+		},
+
+		usemin: {
+			html: ['src/main/webapp/WEB-INF/{jsp,tags}/**/*.{jsp,jspf,tag}'],
+			options: {
+
+				assetsDirs: ['<%= config.dest %>']
+			}
+		},
 		
 		watch: {
 			less: {
@@ -39,12 +55,15 @@ module.exports = function(grunt) {
 	
 	['contrib-clean',
 	 'contrib-less',
-	 'contrib-watch'
+	 'contrib-watch',
+	 'contrib-concat',
+	 'contrib-cssmin',
+	 'usemin'
 	].forEach(function(plugin) {
 		grunt.loadNpmTasks('grunt-' + plugin);
 	});
 
-	grunt.registerTask('default', ['clean', 'less']);
+	grunt.registerTask('default', ['clean', 'less', 'useminPrepare', 'concat:generated', 'cssmin:generated', 'usemin']);
 	grunt.registerTask('run', ['default', 'watch']);
 
 };

@@ -29,37 +29,39 @@
 	<link rel="stylesheet" href="<c:url value="/css/deps/prettify.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/deps/joyride-2.0.3.css"/>">
 
-	<link rel="stylesheet" href="<c:url value="/css/mamute/404.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/mamute/about.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/mamute/ads.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/mamute/answer.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/mamute/button.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/mamute/comments.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/mamute/footer.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/mamute/form.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/mamute/generics.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/mamute/icons.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/mamute/list-question.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/mamute/main-header.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/mamute/main-menu.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/mamute/main-tags.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/mamute/mamute-joyride.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/mamute/markdown.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/mamute/messages.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/mamute/moderator.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/mamute/news.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/mamute/pagination.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/mamute/ranking.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/mamute/second-header.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/mamute/show-question.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/mamute/sidebar.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/mamute/subheader.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/mamute/tags.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/mamute/text.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/mamute/user.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/mamute/vote.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/mamute/default.css"/>">
-	<link rel="stylesheet" href="<c:url value="/css/mamute/responsive-mamute.css"/>">
+	<!-- build:css /css/mamute/mamute.css -->
+	<link rel="stylesheet" href="/css/mamute/404.css">
+	<link rel="stylesheet" href="/css/mamute/about.css">
+	<link rel="stylesheet" href="/css/mamute/ads.css">
+	<link rel="stylesheet" href="/css/mamute/answer.css">
+	<link rel="stylesheet" href="/css/mamute/button.css">
+	<link rel="stylesheet" href="/css/mamute/comments.css">
+	<link rel="stylesheet" href="/css/mamute/footer.css">
+	<link rel="stylesheet" href="/css/mamute/form.css">
+	<link rel="stylesheet" href="/css/mamute/generics.css">
+	<link rel="stylesheet" href="/css/mamute/icons.css">
+	<link rel="stylesheet" href="/css/mamute/list-question.css">
+	<link rel="stylesheet" href="/css/mamute/main-header.css">
+	<link rel="stylesheet" href="/css/mamute/main-menu.css">
+	<link rel="stylesheet" href="/css/mamute/main-tags.css">
+	<link rel="stylesheet" href="/css/mamute/mamute-joyride.css">
+	<link rel="stylesheet" href="/css/mamute/markdown.css">
+	<link rel="stylesheet" href="/css/mamute/messages.css">
+	<link rel="stylesheet" href="/css/mamute/moderator.css">
+	<link rel="stylesheet" href="/css/mamute/news.css">
+	<link rel="stylesheet" href="/css/mamute/pagination.css">
+	<link rel="stylesheet" href="/css/mamute/ranking.css">
+	<link rel="stylesheet" href="/css/mamute/second-header.css">
+	<link rel="stylesheet" href="/css/mamute/show-question.css">
+	<link rel="stylesheet" href="/css/mamute/sidebar.css">
+	<link rel="stylesheet" href="/css/mamute/subheader.css">
+	<link rel="stylesheet" href="/css/mamute/tags.css">
+	<link rel="stylesheet" href="/css/mamute/text.css">
+	<link rel="stylesheet" href="/css/mamute/user.css">
+	<link rel="stylesheet" href="/css/mamute/vote.css">
+	<link rel="stylesheet" href="/css/mamute/default.css">
+	<link rel="stylesheet" href="/css/mamute/responsive-mamute.css">
+	<!-- endbuild -->
 
 	<link rel="stylesheet" href="<c:url value="/css/deps/pickadate/classic.css"/>">
 	<link rel="stylesheet" href="<c:url value="/css/deps/pickadate/classic.date.css"/>">
