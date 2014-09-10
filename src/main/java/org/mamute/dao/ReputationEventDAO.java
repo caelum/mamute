@@ -4,14 +4,10 @@ import static org.mamute.model.EventType.ANSWERER_RELATED_EVENTS;
 import static org.mamute.model.EventType.ASKER_RELATED_EVENTS;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.ListMultimap;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -73,7 +69,7 @@ public class ReputationEventDAO {
 				    "from ReputationEvent e "+
 			        "where e.user = :user and e.date > :after " +
 			        "group by e.context.class, e.context.id, concat(concat(year(e.date), '/', month(e.date)), '/', day(e.date)) " +
-			        "order by concat(concat(year(e.date), '/', month(e.date)), '/', day(e.date)) desc";
+			        "order by year(e.date), month(e.date), day(e.date) desc";
 
 		//get aggregate list
 	    Query query = session.createQuery(hql).setParameter("user", user).setParameter("after", after);
@@ -86,31 +82,20 @@ public class ReputationEventDAO {
 	@SuppressWarnings("unchecked")
 	private List<Object[]> fetchContextData(List<Object[]> rows){
 		//separate id lists by class
-		ListMultimap<String, Long> ids = ArrayListMultimap.create();
+		List<Object[]> organizedData = new ArrayList<>();
 		for(Object[] row : rows){
-			ids.put((String) row[0], (Long) row[1]);
-		}
-
-		//query for objects from their respective tables
-		Map<String, ReputationEventContext> contexts = new HashMap<>();
-		for(String key : ids.keySet()){
-			List<ReputationEventContext> ctx = session.createQuery("from "+key+" where id in (:ids)").setParameterList("ids", ids.get(key)).list();
-			for(ReputationEventContext c : ctx){
-				contexts.put(key+":"+c.getId(), c);
-			}
-		}
-
-		//create formatted row data
-		List<Object[]> data = new ArrayList<>();
-		for(Object[] row : rows){
-			data.add(new Object[]{
-					contexts.get(row[0] + ":" + row[1]),
+			String contextClass = (String) row[0];
+			Long contextId = (Long) row[1];
+			
+			ReputationEventContext context = (ReputationEventContext) session.createQuery("from "+contextClass+" where id = :id").setParameter("id", contextId).uniqueResult();
+			organizedData.add(new Object[]{
+					context,
 					row[2],
 					DATE_FMT.parseDateTime((String) row[3])
 			});
 		}
 
-		return data;
+		return organizedData;
 	}
 
 
