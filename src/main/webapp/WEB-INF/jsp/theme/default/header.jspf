@@ -107,7 +107,6 @@
 							<a href="#"	class="search-dropdown dropdown-trigger"
 							data-target-id="dropdown-search-form">Procurar</a>
 						</li>
-
 					</ul>
 				</nav>
 				<tags:searchForm/>

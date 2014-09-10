@@ -20,59 +20,57 @@
 	var ALL_TAGS_URL = "${linkTo[TagController].jsonTags}";
 	var MESSAGES_LOADER_URL = "${linkTo[MessagesController].loadMessages}";
 </script>
+
+<!-- build:js /js/mamute/jquery-plugins.js -->	
+	<script src="/js/deps/diff_match_patch.js"></script>
+	<script src="/js/deps/pretty-text-diff.js"></script>
+	<script src="/js/deps/jquery.validate.min.js"></script>
+	<script src="/js/deps/jquery.joyride-2.0.3.js"></script>
 	
-<c:if test="${environment.name != 'production'}" >
-	<script src="<c:url value="/js/deps/diff_match_patch.js"/>"></script>
-	<script src="<c:url value="/js/deps/pretty-text-diff.js"/>"></script>
-	<script src="<c:url value="/js/deps/jquery.validate.min.js"/>"></script>
-	<script src="<c:url value="/js/deps/jquery.joyride-2.0.3.js"/>"></script>
-	
-	<script src="<c:url value="/js/deps/picker.js"/>"></script>
-	<script src="<c:url value="/js/deps/picker.date.js"/>"></script>
-	<script src="<c:url value="/js/deps/translations/pt_BR.js"/>"></script>
-	
-	<script src="<c:url value="/js/deps/prettify.js"/>"></script>
-	<script src="<c:url value="/js/deps/Markdown.Converter.js"/>"></script>
-	<script src="<c:url value="/js/deps/Markdown.Sanitizer.js"/>"></script>
-	<script src="<c:url value="/js/deps/Markdown.Editor.js"/>"></script>
-	<script src="<c:url value="/js/deps/marked.js"/>"></script>
-	<script src="<c:url value="/js/deps/filepicker.js"/>"></script>
-	<script src="<c:url value="/js/deps/feather.js"/>"></script>
-	<script src="<c:url value="/js/messages.js"/>"></script>
-	<script src="<c:url value="/js/tags-manager.js"/>"></script>
-	<script src="<c:url value="/js/form-validation.js"/>"></script>
-	<script src="<c:url value="/js/form-hints.js"/>"></script>
-	<script src="<c:url value="/js/form-helper.js"/>"></script>
-	<script src="<c:url value="/js/simple-ajax-form.js"/>"></script>
-	<script src="<c:url value="/js/mark-as-solution.js"/>"></script>
-	<script src="<c:url value="/js/watch.js"/>"></script>
-	<script src="<c:url value="/js/form-markdown.js"/>"></script>
-	<script src="<c:url value="/js/hide-next.js"/>"></script>
-	<script src="<c:url value="/js/modal.js"/>"></script>
-	<script src="<c:url value="/js/up-down-vote.js"/>"></script>
-	<script src="<c:url value="/js/links-behaviour.js"/>"></script>
-	<script src="<c:url value="/js/history-select-version.js"/>"></script>
-	<script src="<c:url value="/js/submenu.js"/>"></script>
-	<script src="<c:url value="/js/popup.js"/>"></script>
-	<script src="<c:url value="/js/dropdown.js"/>"></script>
-	<script src="<c:url value="/js/order-by.js"/>"></script>
-	<script src="<c:url value="/js/share.js"/>"></script>
-	<script src="<c:url value="/js/diff.js"/>"></script>
-	<script src="<c:url value="/js/flag-it.js"/>"></script>
-	<script src="<c:url value="/js/more-comments.js"/>"></script>
-	<script src="<c:url value="/js/button-hints.js"/>"></script>
-	<script src="<c:url value="/js/answer-form.js"/>"></script>
-	<script src="<c:url value="/js/form-fix.js"/>"></script>
-	<script src="<c:url value="/js/about-banner.js"/>"></script>
-	<script src="<c:url value="/js/question-warnings.js"/>"></script>
-	<script src="<c:url value="/js/approve-news.js"/>"></script>
-	<script src="<c:url value="/js/ban-user.js"/>"></script>
-	<script src="<c:url value="/js/question-suggestions.js"/>"></script>
-</c:if>
-<c:if test="${environment.name == 'production'}" >
-	<script src="<c:url value="/js/jquery/jquery-plugins-${deployTimestamp}.js"/>"></script>
-	<script src="<c:url value="/js/all-${deployTimestamp}.js"/>"></script>
-</c:if>
+	<script src="/js/deps/picker.js"></script>
+	<script src="/js/deps/picker.date.js"></script>
+	<script src="/js/deps/translations/pt_BR.js"></script>
+<!-- endbuild -->
+
+<!-- build:js /js/mamute/mamute.js -->
+	<script src="/js/deps/prettify.js"></script>
+	<script src="/js/deps/Markdown.Converter.js"></script>
+	<script src="/js/deps/Markdown.Sanitizer.js"></script>
+	<script src="/js/deps/Markdown.Editor.js"></script>
+	<script src="/js/deps/marked.js"></script>
+	<script src="/js/deps/filepicker.js"></script>
+	<script src="/js/deps/feather.js"></script>
+	<script src="/js/messages.js"></script>
+	<script src="/js/tags-manager.js"></script>
+	<script src="/js/form-validation.js"></script>
+	<script src="/js/form-hints.js"></script>
+	<script src="/js/form-helper.js"></script>
+	<script src="/js/simple-ajax-form.js"></script>
+	<script src="/js/mark-as-solution.js"></script>
+	<script src="/js/watch.js"></script>
+	<script src="/js/form-markdown.js"></script>
+	<script src="/js/hide-next.js"></script>
+	<script src="/js/modal.js"></script>
+	<script src="/js/up-down-vote.js"></script>
+	<script src="/js/links-behaviour.js"></script>
+	<script src="/js/history-select-version.js"></script>
+	<script src="/js/submenu.js"></script>
+	<script src="/js/popup.js"></script>
+	<script src="/js/dropdown.js"></script>
+	<script src="/js/order-by.js"></script>
+	<script src="/js/share.js"></script>
+	<script src="/js/diff.js"></script>
+	<script src="/js/flag-it.js"></script>
+	<script src="/js/more-comments.js"></script>
+	<script src="/js/button-hints.js"></script>
+	<script src="/js/answer-form.js"></script>
+	<script src="/js/form-fix.js"></script>
+	<script src="/js/about-banner.js"></script>
+	<script src="/js/question-warnings.js"></script>
+	<script src="/js/approve-news.js"></script>
+	<script src="/js/ban-user.js"></script>
+<!-- endbuild -->
+
 <c:if test="${environment.supports('feature.analytics')}" >
 	<tags:brutal-include value="analytics"/>
 </c:if>

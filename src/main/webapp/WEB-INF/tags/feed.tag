@@ -15,7 +15,7 @@
 		<h2 class="title page-title">
 			${t[feedTitle]}
 		</h2>
-		<a href="${rssUrl}" class="rss-link"><i class="icon-rss"></i></a>
+		<a href="${rssUrl}" class="icon-rss"><i></i></a>
 	</div>
 	<ol class="sidebar-list">
 		<c:forEach items="${rssFeed.channel.items}" var="item">

@@ -1,0 +1,75 @@
+.second-header {
+	background-color: #6a6c6a;
+	padding: .3em .15em;
+	line-height: 31px;
+	color: #FFF;
+
+	a {
+		color: #FFF;
+	}
+}
+
+.user-area {
+	overflow: hidden;
+	width: 100%;
+
+	.nav {
+		width: 75%;
+		float: left;
+
+		@media only screen and (max-width: 700px) {
+			width:100%;
+		}
+	}
+	
+	.nav-item a {
+		font-size: 1.1em;
+
+		@media only screen and (max-width: 800px) {
+			font-size: 1.3em;
+		}
+	}
+}
+
+.search-form {
+	width: 25%;
+	margin-top: .3%;
+	float: right;
+	line-height: 31px;
+
+	@media only screen and (max-width: 700px) {
+		display: none;
+	}
+	
+	input {
+		float: left;
+		margin: 0;
+	}
+	
+	.text-input {
+		border: none;
+		border-top: 1px solid #ccc;
+		border-left: 1px solid #ccc;
+		width: 100%;
+		background-color: #fff;
+		height: 22px;
+	}
+	
+	input[type="submit"] {
+		display: none;
+		width: 15%;
+	}
+}
+
+.search-dropdown {
+	display: none;
+
+	@media only screen and (max-width: 700px) {
+		display:block;
+	}
+}
+
+.menu-user-image {
+	vertical-align: middle;
+	width: 25px;
+}
