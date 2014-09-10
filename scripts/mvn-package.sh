@@ -1,4 +1,4 @@
-APPLICATION_DIR=`readlink -f $( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )`
+APPLICATION_DIR=`readlink -f $( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/..`
 TEMP_FOLDER_NAME=".mamute-build"
 TEMP_FOLDER="${APPLICATION_DIR}/${TEMP_FOLDER_NAME}"
 cd ${APPLICATION_DIR}
