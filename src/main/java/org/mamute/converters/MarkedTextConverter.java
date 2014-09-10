@@ -32,7 +32,7 @@ public class MarkedTextConverter implements Converter<MarkedText> {
 	
 	@Override
 	public MarkedText convert(String value, Class<? extends MarkedText> type) {
-		return pureAndMarked(value, sanitizer.sanitize(parse(value)));
+		return pureAndMarked(value, sanitizer.sanitize(parse(value)).getText());
 	}
 
 }

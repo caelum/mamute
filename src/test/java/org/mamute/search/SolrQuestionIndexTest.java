@@ -13,7 +13,7 @@ import java.io.*;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
-import static org.mamute.model.SanitizedText.notSanitized;
+import static org.mamute.model.SanitizedText.fromTrustedText;
 
 public class SolrQuestionIndexTest extends SolrTestCase {
 	private static final Logger LOGGER = LoggerFactory.getLogger(SolrQuestionIndexTest.class);
@@ -31,7 +31,7 @@ public class SolrQuestionIndexTest extends SolrTestCase {
 
 	@BeforeClass
 	public static void setup() throws IOException, SolrServerException {
-		author = new User(notSanitized("Leonardo"), "leo@leo");
+		author = new User(fromTrustedText("Leonardo"), "leo@leo");
 		author.confirmEmail();
 		hibernateSession.save(author);
 

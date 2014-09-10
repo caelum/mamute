@@ -19,7 +19,7 @@ public class HtmlAttribute {
 			String[] allowedAttributes = allowedString.split(HtmlElement.COMMA);
 			for (String attribute : allowedAttributes) {
 				String whitelistKey = allowedAttributesKey+ALLOWED_ATTRIBUTES_WHITELIST_KEY_SUFIX+attribute;
-				String whitelist = environment.has(whitelistKey) ? environment.get(whitelistKey) : null;
+				String whitelist = environment.get(whitelistKey, null);
 				attributesAndWhitelist.put(attribute, whitelist);
 			}
 		}

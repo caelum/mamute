@@ -61,7 +61,7 @@ public abstract class TestCase {
 	}
 	
 	protected User user(String name, String email) {
-	    User user = new User(SanitizedText.notSanitized(name), email);
+	    User user = new User(SanitizedText.fromTrustedText(name), email);
 	    user.confirmEmail();
 	    return user;
 	}

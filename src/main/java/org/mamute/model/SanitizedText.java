@@ -12,7 +12,7 @@ public class SanitizedText {
 		return text;
 	}
 
-	public static SanitizedText notSanitized(String text) {
+	public static SanitizedText fromTrustedText(String text) {
 		return new SanitizedText(text);
 	}
 

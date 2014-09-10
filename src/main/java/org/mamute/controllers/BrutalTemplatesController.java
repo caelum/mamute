@@ -6,6 +6,7 @@ import org.mamute.dao.PaginatableDAO;
 import org.mamute.dao.WithUserPaginatedDAO.OrderType;
 import org.mamute.model.Comment;
 import org.mamute.model.Question;
+import org.mamute.model.SanitizedText;
 import org.mamute.model.User;
 
 import br.com.caelum.vraptor.Controller;
@@ -31,8 +32,8 @@ public class BrutalTemplatesController {
 		result.include("type", type);
 	}
 
-	public void questionSuggestion(String query, List<Question> questions){
+	public void questionSuggestion(SanitizedText query, List<Question> questions){
 		result.include("questions", questions);
-		result.include("query", query);
+		result.include("query", query.getText());
 	}
 }

@@ -2,7 +2,7 @@ package org.mamute.auth;
 
 import static org.apache.commons.lang.StringUtils.isEmpty;
 import static org.apache.commons.lang.StringUtils.isNotEmpty;
-import static org.mamute.model.SanitizedText.notSanitized;
+import static org.mamute.model.SanitizedText.fromTrustedText;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -139,7 +139,7 @@ public class LDAPApi {
 				fullName += " " + ldap.getAttribute(ldapUser, surnameAttr);
 			}
 
-			User user = new User(notSanitized(fullName.trim()), email);
+			User user = new User(fromTrustedText(fullName.trim()), email);
 			if (isNotEmpty(moderatorGroup) && ldap.getGroups(ldapUser).contains(moderatorGroup)) {
 				user = user.asModerator();
 			}

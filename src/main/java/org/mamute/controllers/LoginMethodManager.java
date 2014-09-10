@@ -1,7 +1,7 @@
 package org.mamute.controllers;
 
 import static java.util.Arrays.asList;
-import static org.mamute.model.SanitizedText.notSanitized;
+import static org.mamute.model.SanitizedText.fromTrustedText;
 
 import java.util.List;
 
@@ -62,7 +62,7 @@ public class LoginMethodManager {
 	}
 	
 	private void createNewUser(String rawToken, SignupInfo signupInfo, MethodType type) {
-		User user = new User(notSanitized(signupInfo.getName()), signupInfo.getEmail());
+		User user = new User(fromTrustedText(signupInfo.getName()), signupInfo.getEmail());
 		LoginMethod googleLogin = new LoginMethod(type, signupInfo.getEmail(), rawToken, user);
 		if (signupInfo.containsPhotoUrl()) {
 			user.setPhotoUri(signupInfo.getPhotoUri());

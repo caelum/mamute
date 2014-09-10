@@ -93,7 +93,7 @@ public class DaoManager {
 		this.session.beginTransaction();
 
 		String email = String.format("acceptance%d@brutal.com", randomizer.nextLong());
-		User user = new User(SanitizedText.notSanitized("Acceptance Test User"), email);
+		User user = new User(SanitizedText.fromTrustedText("Acceptance Test User"), email);
 		LoginMethod brutalLogin = LoginMethod.brutalLogin(user, email, "123456");
 		user.add(brutalLogin);
 

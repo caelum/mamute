@@ -2,7 +2,7 @@ package org.mamute.model;
 
 import static org.mamute.infra.Digester.hashFor;
 import static org.mamute.infra.NormalizerBrutal.toSlug;
-import static org.mamute.model.SanitizedText.notSanitized;
+import static org.mamute.model.SanitizedText.fromTrustedText;
 import static org.mamute.validators.UserPersonalInfoValidator.ABOUT_LENGTH_MESSAGE;
 import static org.mamute.validators.UserPersonalInfoValidator.ABOUT_MAX_LENGTH;
 import static org.mamute.validators.UserPersonalInfoValidator.ABOUT_MIN_LENGTH;
@@ -122,7 +122,7 @@ public class User implements Identifiable {
 	
 	
 	static {
-		GHOST = new User(notSanitized("GHOST"), "");
+		GHOST = new User(fromTrustedText("GHOST"), "");
 		GHOST.setId(1000l);
 	}
 	
@@ -130,7 +130,7 @@ public class User implements Identifiable {
 	 * @deprecated hibernate eyes only
 	 */
 	protected User() {
-		this(notSanitized(""), "");
+		this(fromTrustedText(""), "");
 	}
 
 	public User(SanitizedText name, String email) {

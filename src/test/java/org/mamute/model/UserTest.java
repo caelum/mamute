@@ -160,7 +160,7 @@ public class UserTest extends TestCase {
 		User user = TimeMachine.goTo(new DateTime().minusWeeks(1)).andExecute(new Block<User>() {
 			@Override
 			public User run() {
-				return new User(SanitizedText.notSanitized("name"), "name@brutal.com");
+				return new User(SanitizedText.fromTrustedText("name"), "name@brutal.com");
 			}
 		});
 		Thread.sleep(1);

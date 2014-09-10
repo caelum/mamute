@@ -1,6 +1,7 @@
 package org.mamute.sanitizer;
 
 import static java.util.regex.Pattern.compile;
+import static org.mamute.model.SanitizedText.fromTrustedText;
 
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+import org.mamute.model.SanitizedText;
 import org.owasp.html.HtmlPolicyBuilder;
 import org.owasp.html.HtmlPolicyBuilder.AttributeBuilder;
 import org.owasp.html.PolicyFactory;
@@ -66,7 +68,7 @@ public class HtmlSanitizer {
 		    .toFactory();
 	}
 
-	public String sanitize(String html){
-		return html == null ? null:policy.sanitize(html);
+	public SanitizedText sanitize(String html){
+		return html == null ? null: fromTrustedText(policy.sanitize(html));
 	}
 }

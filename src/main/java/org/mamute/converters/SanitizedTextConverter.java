@@ -1,7 +1,5 @@
 package org.mamute.converters;
 
-import static org.mamute.model.SanitizedText.notSanitized;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
@@ -31,7 +29,7 @@ public class SanitizedTextConverter implements Converter<SanitizedText> {
 	
 	@Override
 	public SanitizedText convert(String value, Class<? extends SanitizedText> type) {
-		return notSanitized(sanitizer.sanitize(value));
+		return sanitizer.sanitize(value);
 	}
 
 }
