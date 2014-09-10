@@ -7,7 +7,7 @@
 <div class="${useSubheader?'subheader':''} subheader-with-tab ${titleKey eq 'moderation' ? 'subheader' : ''}">
 	<c:if test="${not empty titleKey}">
 		<h2 class="title page-title">
-			<fmt:message key="${titleKey}"/>
+			${t[titleKey]}
 		</h2>
 	</c:if>
 	<c:if test="${not empty title}">

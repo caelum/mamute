@@ -11,11 +11,11 @@
 <div class="history-forms-area ${index != 0 ? 'hidden' : ''}">
 	<form method="post" class="history-form moderate-form" action="${linkTo[HistoryController].publish(0, type, 0, '')}">
 		<c:if test="${information.beforeCurrent && !isHistoryQuestion}">
-			<p class="alert"><fmt:message key="moderation.version_before_current"/></p>
+			<p class="alert">${t['moderation.version_before_current']}</p>
 		</c:if>
 	
-		<a href="#" class="toggle-version"><fmt:message key="moderation.formatted"/></a>
-		<a href="#" class="toggle-version hidden"><fmt:message key="moderation.diff"/></a>
+		<a href="#" class="toggle-version">${t['moderation.formatted']}</a>
+		<a href="#" class="toggle-version hidden">${t['moderation.diff']}</a>
 		<jsp:doBody/>
 		<div class="history-diff post-text"></div>
 		<div class="history-version"><jsp:invoke fragment="tagList"/></div>
@@ -24,30 +24,30 @@
 			<li class="touch author-touch">
 				<tags:completeUser user="${information.author}">
 					<div class="when" itemprop="dateCreated">
-						<fmt:message key='touch.created'/>
+						${t['touch.created']}
 						<tags:prettyTime time="${information.createdAt}"/>
 					</div>
 				</tags:completeUser>
 			</li>
 		</ul>
 	
-		<h2 class="history-title page-title"><fmt:message key="moderation.comment"/></h2>
+		<h2 class="history-title page-title">${t['moderation.comment']}</h2>
 		<p class="post-text">
 			${information.comment}
 		</p>
 		
 		<c:if test="${!isHistoryQuestion}">
 				<c:if test="${information.beforeCurrent}">
-					<p class="alert"><fmt:message key="moderation.version_before_current"/></p>
+					<p class="alert">${t['moderation.version_before_current']}</p>
 				</c:if>
 		
 				<input type="hidden" name="aprovedInformationType" value="${information.typeName}"/>
 				<input type="hidden" name="moderatableId" value="${information.moderatable.id}"/>
 				<input type="hidden" name="aprovedInformationId" value="${information.id}"/>
-				<input type="submit" class="post-submit big-submit submit" value='<fmt:message key="moderation.accept" />' />
+				<input type="submit" class="post-submit big-submit submit" value='${t['moderation.accept']}' />
 			</form>
 			<form method="post" action="${linkTo[HistoryController].reject(information.id,information.typeName)}">
-				<input type="submit" class="post-submit big-submit submit" value='<fmt:message key="moderation.reject" />' />
+				<input type="submit" class="post-submit big-submit submit" value='${t['moderation.reject']}' />
 		</c:if>
 	</form>
 </div>

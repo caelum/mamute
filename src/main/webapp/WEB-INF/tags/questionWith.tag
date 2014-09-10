@@ -16,7 +16,7 @@
 	</div>
 	<div class="post-container">
 	<c:if test="${currentUser.moderator}">
-		<a class="message moderator-link" href="${linkTo[QuestionController].showVoteInformation(question, question.sluggedTitle)}"><fmt:message key="user.moderation.details"/></a><br/>
+		<a class="message moderator-link" href="${linkTo[QuestionController].showVoteInformation(question, question.sluggedTitle)}">${t['user.moderation.details']}</a><br/>
 	</c:if>
 		<div itemprop="articleBody" class="post-text question-description" id="question-description-${question.id }">
 			${question.markedDescription}
@@ -26,11 +26,11 @@
 			<ul class="post-action-nav piped-nav nav">
 				<li class="nav-item">
 					<a class="post-action show-popup" href="#">
-						<fmt:message key="share"/>
+						${t['share']}
 					</a>
 					<div class="popup share small">
 						<form class="validated-form">
-							<label for="share-url"><fmt:message key="share.text"/></label>
+							<label for="share-url">${t['share.text']}</label>
 							<input type="text" class="text-input required" id="share-url" value="${currentUrl}"/>
 						</form>
 						<a target="_blank" class="share-button" 
@@ -45,7 +45,7 @@
 							data-shareurl="https://plus.google.com/share?&url=${currentUrl}">
 							<i class="icon-gplus-squared icon-almost-3x"></i>
 						</a>
-						<a class="close-popup"><fmt:message key="popup.close"/></a>
+						<a class="close-popup">${t['popup.close']}</a>
 					</div>
 				</li>
 				<li class="nav-item">
@@ -54,7 +54,7 @@
 					    data-author="${currentUser.current.isAuthorOf(question)}"
 					    data-karma="${EDIT_QUESTION}" 
 					    href="${linkTo[QuestionController].questionEditForm(question)}">
-						<fmt:message key="edit" />
+						${t['edit']}
 					</a>
 				</li>
 				<li class="nav-item">
@@ -62,7 +62,7 @@
 						<a href="#" data-author="${currentUser.current.isAuthorOf(question)}" data-karma="${CREATE_FLAG}"
 							data-modal-id="question-flag-modal${question.id}" 
 							class="post-action author-cant requires-login flag-it requires-karma">
-							<fmt:message key="flag" />
+							${t['flag']}
 						</a>
 					</c:if>
 					<tags:flagItFor type="pergunta" modalId="question-flag-modal${question.id}" flaggable="${question}"/>
@@ -72,7 +72,7 @@
 		</div>
 		<tags:add-a-comment type="pergunta" item="${question}" votes="${commentVotes}"/>
 		<c:if test="${currentUser.moderator && question.hasPendingEdits()}">
-			<a class="message moderator-alert" href="${linkTo[HistoryController].similarQuestions(question.id)}"><fmt:message key="question.warns.has_edits"/></a>
+			<a class="message moderator-alert" href="${linkTo[HistoryController].similarQuestions(question.id)}">${t['question.warns.has_edits']}</a>
 		</c:if>
 	</div>
 </section>

@@ -28,7 +28,7 @@
 			
 		</div>		
 		<c:if test="${not news.approved && currentUser.moderator}">
-			<a class="approve-news" href="${linkTo[NewsController].approve(news)}"><fmt:message key="news.approve"/></a>
+			<a class="approve-news" href="${linkTo[NewsController].approve(news)}">${t['news.approve']}</a>
 		</c:if>
 	</li>
 </c:if>

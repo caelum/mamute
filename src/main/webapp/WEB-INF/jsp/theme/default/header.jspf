@@ -10,32 +10,32 @@
 	<section class="first-header">
 		<div class="container header-container">
 			<a class="logo big-logo sprite"
-				href="${linkTo[ListController].home}"><fmt:message key="site.name" /></a>
+				href="${linkTo[ListController].home}">${t['site.name']}</a>
 			<nav class="nav main-nav piped-nav">
 				<ul class="nav-items">
 					<li class="nav-item">
 						<a class="button ${empty noDefaultActive ? 'current' : ''}" href="${linkTo[ListController].home}">
-							<fmt:message key="menu.questions"/>
+							${t['menu.questions']}
 						</a>
 					</li>
 					<li class="nav-item menu-unanswered">
 						<a class="button unanswered ${not empty unansweredActive ? 'current' : ''}" href="${linkTo[ListController].unanswered}">
-							<fmt:message key="menu.unanswered" />
+							${t['menu.unanswered']}
 						</a>
 					</li>
 					<li class="nav-item menu-rank">
 						<a class="button ${not empty usersActive ? 'current' : ''}" href="${linkTo[RankingController].rank}">
-							<fmt:message key="menu.users" />
+							${t['menu.users']}
 						</a>
 					</li>
 					<li class="nav-item">
 						<a class="button ${not empty newsActive ? 'current' : ''}" href="${linkTo[ListController].news}">
-							<fmt:message key="menu.news" />
+							${t['menu.news']}
 						</a>
 					</li>
 					<li class="ask nav-item">
 						<a class="button ask-a-question" href='${linkTo[QuestionController].newQuestion}'>
-							<fmt:message key="menu.question.ask" />
+							${t['menu.question.ask']}
 						</a>
 					</li>
 				</ul>
@@ -51,13 +51,13 @@
 						<c:if test="${!currentUser.loggedIn}">
 							<li class="nav-item user-item">
 								<a class="login" href="${linkTo[AuthController].loginForm(currentUrl)}">
-									<fmt:message key="auth.login_form_link" />
+									${t['auth.login_form_link']}
 								</a>
 							</li>
-							<c:if test="${!disableSignup}">
+							<c:if test="${env.supports('feature.signup')}">
 								<li class="nav-item">
 									<a class="signup" href="${linkTo[SignupController].signupForm}">
-										<fmt:message key="signup.link" />
+										${t['signup.link']}
 									</a>
 								</li>
 							</c:if>
@@ -76,31 +76,31 @@
 							<c:if test="${currentUser.canModerate()}">
 								<li class="nav-item">
 									<a href="${linkTo[HistoryController].history}">
-										<fmt:message key="moderation.link" /> (${pendingForModeratorCount})
+										${t['moderation.link']} (${pendingForModeratorCount})
 									</a>
 								</li>
 							</c:if>
 							<c:if test="${currentUser.isModerator()}">
 								<li class="nav-item">
 									<a href="${linkTo[ModeratorsNewsletterJob].execute}">
-										<fmt:message key="moderation.newsletterJob" />
+										${t['moderation.newsletterJob']}
 									</a>
 								</li>
 							</c:if>
 							<li class="nav-item">
 								<a class="logout" href="${linkTo[AuthController].logout}">
-									<fmt:message key="auth.logout_link" />
+									${t['auth.logout_link']}
 								</a>
 							</li>
 						</c:if>
 						<li class="nav-item">
 							<a class="about" href="${linkTo[NavigationController].about}">
-								<fmt:message key="about.link" />
+								${t['about.link']}
 							</a>
 						</li>
 						<c:if test="${currentUser.loggedIn}">
 							<li class="nav-item">
-								<a class="intro ${currentUser.current.karma <= 12 ? 'new-users' : ''}" href="#"><fmt:message key="metas.intro.title" /></a>
+								<a class="intro ${currentUser.current.karma <= 12 ? 'new-users' : ''}" href="#">${t['metas.intro.title']}</a>
 							</li>
 						</c:if>
 						<li class="nav-item">

@@ -1,9 +1,7 @@
-<fmt:message key="metas.profile.title" var="title"/>
-<fmt:message key="site.name" var="siteName" />
+<c:set var="title" value="${t['metas.profile.title']}"/>
+<c:set var="siteName" value="${t['site.name']}"/>
 
-<fmt:message key="metas.generic.title" var="genericTitle" >
-	<fmt:param value="${siteName}" />
-</fmt:message>
+<c:set var="genericTitle" value="${t['metas.generic.title'].args(siteName)}"/>
 
 <tags:header title="${genericTitle} - ${title}"/>
 
@@ -21,7 +19,7 @@
 				<c:forEach var="historyItem" items="${reputationHistory}">
 					<tags:reputationHistoryItem historyItem="${historyItem}"/>
 				</c:forEach>
-				<a class="view-more" href="${linkTo[UserProfileController].reputationHistory(selectedUser, selectedUser.sluggedName)}"><fmt:message key="show_more" /></a>
+				<a class="view-more" href="${linkTo[UserProfileController].reputationHistory(selectedUser, selectedUser.sluggedName)}">${t['show_more']}</a>
 			</tags:userProfileAdvancedData>
 		</div>
 		<div class="advanced-data-line-wrapper">

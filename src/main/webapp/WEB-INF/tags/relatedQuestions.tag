@@ -4,7 +4,7 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@attribute name="questions" type="java.util.List" required="true" %>
 <div class="subheader">
-	<h3 class="title page-title"><fmt:message key="questions.related"/></h3>
+	<h3 class="title page-title">${t['questions.related']}</h3>
 </div>
 <ol class="related-questions">
 	<c:forEach items="${questions}" var="question">

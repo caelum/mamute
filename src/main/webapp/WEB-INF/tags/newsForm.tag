@@ -7,24 +7,24 @@
 
 <form class="validated-form question-form hinted-form" action='${uri}' method="post" >
 	<div class="news-guideline guideline">
-		<h2 class="title section-title hint-title"><fmt:message key="news.guideline.title" /></h2>
-		<fmt:message key="news.guideline.body" />
+		<h2 class="title section-title hint-title">${t['news.guideline.title']}</h2>
+		${t['news.guideline.body']}
 	</div>
-	<label for="news-title"><fmt:message key="news.title.label" /></label>
+	<label for="news-title">${t['news.title.label']}</label>
 	<input id="news-title" type="text" class="required hintable text-input" 
 		value="${news.title}" minlength="15" maxlength="150"
-		name="title" placeholder="<fmt:message key="news.title.placeholder"/>" />
+		name="title" placeholder="${t['news.title.placeholder']}" />
 	
-	<fmt:message var="descriptionPlaceholder" key="news.description.placeholder"/>
+	<c:set var="descriptionPlaceholder" value="${t['news.description.placeholder']}"/>
 	<tags:markDown value="${news.description}" hintId="news-description-hint"
 		htmlClass="required description-input" minlength="30"/>
 		
 	<c:if test="${edit}">
-		<label><fmt:message key="news.comment.label" />
+		<label>${t['news.comment.label']}
 			<input type="text" class="text-input required" minlength="5" 
-				maxlength="150" name="comment" placeholder="<fmt:message key="news.comment.placeholder"/>" />
+				maxlength="150" name="comment" placeholder="${t['news.comment.placeholder']}" />
 		</label>
 	</c:if>
 
-	<input class="post-submit big-submit" type="submit" value="<fmt:message key="news.new_form.submit"/>" />
+	<input class="post-submit big-submit" type="submit" value="${t['news.new_form.submit']}" />
 </form>

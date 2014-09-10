@@ -17,7 +17,7 @@
 
 <tags:completeUser user="${touchable.author}" edited="false" microdata="${microdata}">
 	<c:if test="${showTime}">
-		<time class="when" ${microdata ? 'itemprop="dateCreated"' : ''} datetime="${touchable.createdAt}"><fmt:message key='touch.created'/>
+		<time class="when" ${microdata ? 'itemprop="dateCreated"' : ''} datetime="${touchable.createdAt}">${t['touch.created']}
  			<c:if test="${prettyFormat}">
 				<tags:prettyTime time="${touchable.createdAt}"/>
 			</c:if>

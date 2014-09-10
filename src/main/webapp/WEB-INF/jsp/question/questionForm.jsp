@@ -1,10 +1,8 @@
-<fmt:message key="site.name" var="siteName" />
+<c:set var="siteName" value="${t['site.name']}"/>
 
-<fmt:message key="metas.question.title" var="title"/>
+<c:set var="title" value="${t['metas.question.title']}"/>
 
-<fmt:message key="metas.generic.title" var="genericTitle" >
-	<fmt:param value="${siteName}" />
-</fmt:message>
+<c:set var="genericTitle" value="${t['metas.generic.title'].args(siteName)}"/>
 
 <tags:header title="${genericTitle} - ${title}"/>
 

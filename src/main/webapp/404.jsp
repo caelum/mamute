@@ -1,21 +1,19 @@
-<fmt:message key="not_found.title" var="title"/>
-<fmt:message key="metas.generic.title" var="genericTitle" >
-	<fmt:param value="${siteName}" />
-</fmt:message>
+<c:set var="title" value="${t['not_found.title']}"/>
+<c:set var="genericTitle" value="${t['metas.generic.title'].args(siteName)}"/>
 
 <tags:header title="${genericTitle} - ${title}"/>
 
 <div class="subheader">
-	<h2 class="title page-title"><fmt:message key="not_found.title"/></h2>
+	<h2 class="title page-title">${t['not_found.title']}</h2>
 </div>
 
 <div class="not-found">
-	<p><fmt:message key="not_found.message"/>:</p> 
+	<p>${t['not_found.message']}:</p> 
 	
 	<ul>
-		<li><fmt:message key="not_found.recent_questions"><fmt:param value="${linkTo[ListController].home}"/></fmt:message></li>
-		<li><fmt:message key="not_found.search"><fmt:param value="${linkTo[SearchController].search}"/></fmt:message></li>
-		<li><fmt:message key="not_found.new_question"><fmt:param value="${linkTo[QuestionController].questionForm}"/></fmt:message></li>
+		<li>${t['not_found.recent_questions'].args(linkTo[ListController].home)}</li>
+		<li>${t['not_found.search'].args(linkTo[SearchController].search)}</li>
+		<li>${t['not_found.new_question'].args(linkTo[QuestionController].questionForm)}</li>
 	</ul>
 </div>
 <div class="error-code">

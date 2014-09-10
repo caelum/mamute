@@ -1,13 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<fmt:message key="site.name" var="siteName" />
+<c:set var="siteName" value="${t['site.name']}"/>
 
-<fmt:message key="metas.default.description" var="description">
-	<fmt:param value="${siteName}" />
-</fmt:message>
+<c:set var="description" value="${t['metas.default.description'].args(siteName)}"/>
 
-<fmt:message key="metas.generic.title" var="genericTitle" >
-	<fmt:param value="${siteName}" />
-</fmt:message>
+<c:set var="genericTitle" value="${t['metas.generic.title'].args(siteName)}"/>
 
 <tags:header facebookMetas="${true}" title="${genericTitle} - ${tagPage.tagName}" description="${description}"/>
 
@@ -27,7 +23,7 @@
 				<li class="nav-item">
 					<a class="post-action requires-login"
 					    href="${linkTo[TagPageController].editTagPageForm(tagPage.tagUriName)}">
-						<fmt:message key="edit" />
+						${t['edit']}
 					</a>
 				</li>
 			</ul>

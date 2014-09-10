@@ -5,12 +5,12 @@
 <%@attribute name="history" type="org.mamute.model.ModeratableAndPendingHistory" required="true" %>
 
 <c:if test="${empty history.entrySet}">
-	<h2 class="title section-title"><fmt:message key="moderation.edit.questions.empty" /></h2>
+	<h2 class="title section-title">${t['moderation.edit.questions.empty']}</h2>
 </c:if>
 
 <c:if test="${not empty history.entrySet}">
 	<h1 class="flagged-item-title-moderator">
-		<fmt:message key="menu.questions"/>
+		${t['menu.questions']}
 	</h1>
 
 	<ul>
@@ -30,9 +30,7 @@
 				
 				<div class="summary question-summary">
 					<div class="item-title-wrapper">
-						<fmt:message key="moderation.edits">
-							<fmt:param value="${entry.value.size()}"/>
-						</fmt:message>
+						${t['moderation.edits'].args(entry.value.size())}
 						<h3 class="moderator-title item-title main-thread-title question-title">
 							<tags:similarQuestionsLinkFor question="${entry.key}"/>
 						</h3>
@@ -47,7 +45,7 @@
 				
 				<div
 					class="${question.hasInteraction(currentUser.current) ? 'interaction' : ''}"
-					title="<fmt:message key='user.interactions'/>">
+					title="${t['user.interactions']}">
 				</div>
 			</li>
 		</c:forEach>

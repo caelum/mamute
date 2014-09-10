@@ -1,15 +1,11 @@
-<fmt:message key="site.name" var="siteName" />
-
-<fmt:message key="metas.errors.title" var="title"/>
-
-<fmt:message key="metas.generic.title" var="genericTitle" >
-	<fmt:param value="${siteName}" />
-</fmt:message>
+<c:set var="siteName" value="${t['site.name']}"/>
+<c:set var="title" value="${t['metas.errors.title']}"/>
+<c:set var="genericTitle" value="${t['metas.generic.title'].args(siteName)}"/>
 
 <tags:header title="${genericTitle} - ${title}"/>
 
 <div class="subheader">
-	<h2 class="title page-title"><fmt:message key="internal_error.title"/></h2>
+	<h2 class="title page-title">${t['internal_error.title']}</h2>
 </div>
 
 <c:if test="${env.name != 'production'}">	

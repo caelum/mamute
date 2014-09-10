@@ -1,13 +1,11 @@
-<fmt:message key="metas.tags.title" var="title"/>
-<fmt:message key="site.name" var="siteName" />
+<c:set var="title" value="${t['metas.tags.title']}"/>
+<c:set var="siteName" value="${t['site.name']}"/>
 
-<fmt:message key="metas.generic.title" var="genericTitle" >
-	<fmt:param value="${siteName}" />
-</fmt:message>
+<c:set var="genericTitle" value="${t['metas.generic.title'].args(siteName)}"/>
 
 <tags:header title="${genericTitle} - ${title}"/>
 
-<h2 class="title page-title subheader"><fmt:message key="menu.tags"/></h2>
+<h2 class="title page-title subheader">${t['menu.tags']}</h2>
 <ol class="tags-list complete-tags">
 	<c:forEach var="tag" items="${tags}">
 		<li class="complete-tag">

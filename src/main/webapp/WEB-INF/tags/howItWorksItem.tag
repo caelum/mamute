@@ -6,6 +6,6 @@
 <li class="how-it-works-item">
 	<a class="how-it-works-info" href="${linkTo[QuestionController].questionForm}"><span class="${icon} how-it-works-icon icon-3x"></span></a>
 	<div class="how-it-works-subtitle-container">
-		<a class="how-it-works-info how-it-works-subtitle" href="${linkTo[QuestionController].questionForm}"><fmt:message key="${key}"/></a>
+		<a class="how-it-works-info how-it-works-subtitle" href="${linkTo[QuestionController].questionForm}">${t[key]}</a>
 	</div>
 </li>

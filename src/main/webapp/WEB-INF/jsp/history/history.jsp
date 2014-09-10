@@ -1,9 +1,7 @@
-<fmt:message key="metas.unmoderated.title" var="title"/>
-<fmt:message key="site.name" var="siteName" />
+<c:set var="title" value="${t['metas.unmoderated.title']}"/>
+<c:set var="siteName" value="${t['site.name']}"/>
 
-<fmt:message key="metas.generic.title" var="genericTitle" >
-	<fmt:param value="${siteName}" />
-</fmt:message>
+<c:set var="genericTitle" value="${t['metas.generic.title'].args(siteName)}"/>
 
 <tags:header title="${genericTitle} - ${title}"/>
 

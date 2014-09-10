@@ -1,20 +1,16 @@
- <fmt:message key="metas.unauthorized.title" var="title"/>
-<fmt:message key="metas.generic.title" var="genericTitle">
-	<fmt:param value="${siteName}" />
-</fmt:message>
+ <c:set var="title" value="${t['metas.unauthorized.title']}"/>
+<c:set var="genericTitle" value="${t['metas.generic.title'].args(siteName)}"/>
 
 <tags:header title="${genericTitle} - ${title}"/>
 
 <div class="subheader">
-	<h2 class="title page-title"><fmt:message key="unauthorized.title"/></h2>
+	<h2 class="title page-title">${t['unauthorized.title']}</h2>
 </div>
 
 <div class="not-found">
 	<p>
 		<c:if test="${empty unauthorizedMessage}">
-			<fmt:message key="unauthorized.message">
-				<fmt:param value="${linkTo[NavigationController].about}"/>
-			</fmt:message>
+			${t['unauthorized.message'].args(linkTo[NavigationController].about)}
 		</c:if>
 		<c:if test="${not empty unauthorizedMessage}">
 			${unauthorizedMessage}

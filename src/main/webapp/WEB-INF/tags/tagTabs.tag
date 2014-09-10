@@ -5,16 +5,16 @@
 <%@attribute type="java.lang.Boolean" name="hasAbout" required="true"%>
 <%@attribute name="unansweredTagLinks" type="java.lang.Boolean" required="false"%>
 <tags:tabs titleKey="" useSubheader="${true}">
-	<fmt:message key="tag_list.title" />
+	${t['tag_list.title']}
 	<a href="${linkTo[ListController].withTag(tag.name)}">
 		${tag.name}
 	</a>
 	<c:if test="${hasAbout}">
 		<a href="${linkTo[TagPageController].showTagPage(tag.name)}">
-			<fmt:message key="about.link"/>
+			${t['about.link']}
 		</a>
 	</c:if>
-	<a href="${linkTo[RankingController].tagRank(tag.uriName)}" title='<fmt:message key="users.ranking.tag.title"/> ${tag.name}' class="icon-award">
-		<fmt:message key="users.ranking.tag"/>
+	<a href="${linkTo[RankingController].tagRank(tag.uriName)}" title='${t['users.ranking.tag.title']} ${tag.name}' class="icon-award">
+		${t['users.ranking.tag']}
 	</a>
 </tags:tabs>

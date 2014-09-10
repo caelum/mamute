@@ -22,7 +22,6 @@
 		<connection>scm:git:git://github.com/caelum/mamute</connection>
 		<developerConnection>scm:git:git@github.com:caelum/mamute.git</developerConnection>
 	</scm>
-
 	<dependencies>
 		<dependency>
 			<groupId>br.com.caelum</groupId>
@@ -47,15 +46,29 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
+
 		<dependency>
 		    <groupId>org.jboss.weld.servlet</groupId>
 		    <artifactId>weld-servlet-core</artifactId>
 		    <version>2.2.0.CR2</version>
+		    <exclusions>
+		    	<exclusion>
+		          <groupId>org.jboss.spec.javax.el</groupId>
+		          <artifactId>jboss-el-api_3.0_spec</artifactId>
+		        </exclusion>
+		    </exclusions>
 		</dependency>
 		<dependency>
 		    <groupId>org.jboss.weld</groupId>
 		    <artifactId>weld-core-impl</artifactId>
 		    <version>2.2.0.CR2</version>
+		    <exclusions>
+		    	<exclusion>
+		          <groupId>org.jboss.spec.javax.el</groupId>
+		          <artifactId>jboss-el-api_3.0_spec</artifactId>
+		        </exclusion>
+		    </exclusions>
 		</dependency>
 
 		<!-- VRaptor plugins -->
@@ -72,27 +85,23 @@
 		</dependency>
 		<dependency>
 			<groupId>br.com.caelum.vraptor</groupId>
+			<artifactId>vraptor-i18n</artifactId>
+			<version>4.1.0-RC2</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.jboss.weld.servlet</groupId>
+					<artifactId>weld-servlet</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>br.com.caelum.vraptor</groupId>
 			<artifactId>vraptor-quartzjob</artifactId>
 			<version>4.0.1</version>
 			<exclusions>
 				<exclusion>
 					<groupId>c3p0</groupId>
 					<artifactId>c3p0</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>br.com.caelum.vraptor</groupId>
-			<artifactId>vraptor-error-control</artifactId>
-			<version>4.0.2</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.mockito</groupId>
-					<artifactId>mockito-all</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>br.com.caelum</groupId>
-					<artifactId>vraptor</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
@@ -133,7 +142,25 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
+		<dependency>
+			<groupId>br.com.caelum.vraptor</groupId>
+			<artifactId>vraptor-error-control</artifactId>
+			<version>4.0.2</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.mockito</groupId>
+					<artifactId>mockito-all</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>br.com.caelum</groupId>
+					<artifactId>vraptor</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax.el</groupId>
+					<artifactId>el-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 
 		<!-- end of VRaptor plugins -->
 
@@ -151,6 +178,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator-cdi</artifactId>
+			<version>5.0.0.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>4.2.3.Final</version>
 		</dependency>
@@ -158,11 +190,12 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<version>5.0.0.Final</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator-cdi</artifactId>
-			<version>5.0.0.Final</version>
+			<exclusions>
+				<exclusion>
+		          <groupId>org.glassfish.web</groupId>
+		          <artifactId>javax.el</artifactId>
+		        </exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -496,6 +529,8 @@
 			<version>${jetty.version}</version>
 		</dependency>
 
+
+
 		<!-- JSP -->
 		<dependency>
 			<groupId>org.glassfish.web</groupId>
@@ -503,6 +538,16 @@
 			<version>2.2.3</version>
 		</dependency>
 
+		<dependency>
+		        <groupId>de.odysseus.juel</groupId>
+		        <artifactId>juel-api</artifactId>
+		        <version>2.2.7</version>
+		</dependency>
+		<dependency>
+		        <groupId>de.odysseus.juel</groupId>
+		        <artifactId>juel-impl</artifactId>
+		        <version>2.2.7</version>
+		</dependency>
 
 		<!-- JSTL -->
 		<dependency>
@@ -546,6 +591,14 @@
 					<groupId>org.apache.tomcat</groupId>
 					<artifactId>tomcat-api</artifactId>
 				</exclusion>
+				<exclusion>
+		          <groupId>org.glassfish.web</groupId>
+		          <artifactId>javax.el</artifactId>
+		        </exclusion>
+				<exclusion>
+		          <groupId>org.apache.tomcat</groupId>
+		          <artifactId>tomcat-jasper</artifactId>
+		        </exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>

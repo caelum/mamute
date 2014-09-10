@@ -12,7 +12,7 @@
 <div class="hidden" itemprop="breadcrumb" xmlns:v="http://rdf.data-vocabulary.org/#">
 	<span typeof="v:Breadcrumb">
 		<a rel="v:url" property="v:title" href="${linkTo[ListController].home(1)}">
-			<fmt:message key="menu.questions"/>
+			${t['menu.questions']}
 		</a>
 	</span>
 	<span>»</span>
@@ -37,17 +37,17 @@
 		<tags:mainTags tagClass="main-tags-header" tagClassLi="main-tags-text" useSprite = "true" currentQuestion="${question}"/>
 	</c:if>
 	<c:if test="${markAsSolution}">
-		<p class = "banner-mark-as-solution"><fmt:message key="question.banner.remember" /></p>		
+		<p class = "banner-mark-as-solution">${t['question.banner.remember']}</p>		
 	</c:if>
 	
 	<c:if test="${showUpvoteBanner && !markAsSolution}">
-		<p class = "banner-mark-as-solution"><fmt:message key="question.banner.upvote" /></p>		
+		<p class = "banner-mark-as-solution">${t['question.banner.upvote']}</p>		
 	</c:if>
 	
 	<tags:questionWith question="${question}" commentVotes="${commentsWithVotes}"/>
 	<div class="subheader">
 		<h2 class="title page-title">
-			${question.answersCount} <fmt:message key="question.list.answer.${question.answersCount > 1 ? 'plural' : 'singular' }"/>
+			${question.answersCount} <tags:pluralize key="question.list.answer" count="${question.answersCount}"/>
 		</h2>
 	</div>
 	<ul>
@@ -70,11 +70,11 @@
 	<tags:notice isLogged="${currentUser.loggedIn}" tags="${questionTags}"/>
 	<c:if test="${!currentUser.loggedIn}">
 		<div class="login-or-signup">
-			<a class="hide-next login-form-hide"><fmt:message key="auth.login_form_link"/><i class="icon-angle-right"></i></a>
+			<a class="hide-next login-form-hide">${t['auth.login_form_link']}<i class="icon-angle-right"></i></a>
 			<div class="login">
 				<tags:loginForm redirectUrl="${currentUrl}" />
 			</div>
-			<a class="hide-next signup-form-hide"><fmt:message key="signup.form.submit.label"/><i class="icon-angle-right"></i></a>
+			<a class="hide-next signup-form-hide">${t['signup.form.submit.label']}<i class="icon-angle-right"></i></a>
 			<div class="signup">
 				<tags:signupForm />
 			</div>

@@ -6,9 +6,11 @@
 
 <c:choose>
 	<c:when test="${count <= 1 && count >= -1}">
-		<fmt:message key="${key}.singular"/>
+		<c:set var="key" value="${key}.singular"/>
 	</c:when>
 	<c:otherwise>
-		<fmt:message key="${key}.plural"/>
+		<c:set var="key" value="${key}.plural"/>
 	</c:otherwise>
 </c:choose>
+
+${t[key]}

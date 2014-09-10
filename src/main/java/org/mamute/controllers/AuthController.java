@@ -3,8 +3,8 @@ package org.mamute.controllers;
 import javax.inject.Inject;
 
 import br.com.caelum.vraptor.environment.Environment;
-import org.mamute.auth.AuthAPIException;
-import org.mamute.auth.DefaultAuthenticator;
+import org.mamute.auth.AuthenticationException;
+import org.mamute.auth.Authenticator;
 import org.mamute.auth.FacebookAuthService;
 import org.mamute.auth.GoogleAuthService;
 import org.mamute.brutauth.auth.rules.LoggedRule;
@@ -21,7 +21,7 @@ import br.com.caelum.vraptor.routes.annotation.Routed;
 @Routed
 @Controller
 public class AuthController extends BaseController {
-	@Inject	private DefaultAuthenticator auth;
+	@Inject	private Authenticator auth;
 	@Inject	private FacebookAuthService facebook;
 	@Inject	private GoogleAuthService google;
 	@Inject	private Result result;
@@ -47,13 +47,13 @@ public class AuthController extends BaseController {
 				redirectToRightUrl(redirectUrl);
 			} else {
 				includeAsList("mamuteMessages", i18n("error", "auth.invalid.login"));
-				redirectTo(this).loginForm(redirectUrl);
 				validator.onErrorRedirectTo(this).loginForm(redirectUrl);
+				redirectTo(this).loginForm(redirectUrl);
 			}
-		} catch (AuthAPIException e) {
+		} catch (AuthenticationException e) {
 			includeAsList("mamuteMessages", i18n("error", "auth.configuration.error", e.getAuthType()));
-			redirectTo(this).loginForm(redirectUrl);
 			validator.onErrorRedirectTo(this).loginForm(redirectUrl);
+			redirectTo(this).loginForm(redirectUrl);
 		}
 	}
 

@@ -12,7 +12,7 @@
 	${before}
 	<c:choose>
 		<c:when test="${not empty value}">
-			<fmt:message key="${value}"/>
+			${t[value]}
 		</c:when>
 		<c:otherwise>
 			${user.name}
