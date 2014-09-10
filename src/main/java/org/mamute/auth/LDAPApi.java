@@ -2,6 +2,7 @@ package org.mamute.auth;
 
 import br.com.caelum.vraptor.environment.Environment;
 import org.apache.directory.api.ldap.model.entry.Entry;
+import org.apache.directory.api.ldap.model.entry.Value;
 import org.apache.directory.api.ldap.model.exception.LdapAuthenticationException;
 import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.ldap.client.api.LdapConnection;
@@ -17,22 +18,29 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.apache.commons.lang.StringUtils.isEmpty;
 import static org.apache.commons.lang.StringUtils.isNotEmpty;
-import static org.mamute.auth.DefaultAuthenticator.*;
 
+/**
+ * LDAP authentication API
+ */
 public class LDAPApi {
-	private Logger logger = LoggerFactory.getLogger(LDAPApi.class);
+	private static final Logger logger = LoggerFactory.getLogger(LDAPApi.class);
 
+	public static final String LDAP_AUTH = "ldap";
 	public static final String LDAP_HOST = "ldap.host";
 	public static final String LDAP_PORT = "ldap.port";
 	public static final String LDAP_USER = "ldap.user";
 	public static final String LDAP_PASS = "ldap.pass";
+	public static final String LDAP_USER_DN = "ldap.userDn";
 	public static final String LDAP_EMAIL = "ldap.emailAttr";
 	public static final String LDAP_NAME = "ldap.nameAttr";
 	public static final String LDAP_SURNAME = "ldap.surnameAttr";
-	public static final String LDAP_USER_DN = "ldap.userDn";
+	public static final String LDAP_GROUP = "ldap.groupAttr";
+	public static final String LDAP_MODERATOR_GROUP = "ldap.moderatorGroup";
 	public static final String PLACHOLDER_PASSWORD = "ldap-password-ignore-me";
 
 	@Inject private Environment env;
@@ -47,6 +55,8 @@ public class LDAPApi {
 	private String emailAttr;
 	private String nameAttr;
 	private String surnameAttr;
+	private String groupAttr;
+	private String moderatorGroup;
 
 	/**
 	 * Ensure that required variables are set if LDAP auth
@@ -54,16 +64,20 @@ public class LDAPApi {
 	 */
 	@PostConstruct
 	public void init() {
-		if (env.get(AUTH_CONFIG, "").equals(LDAP_AUTH)) {
+		if (env.supports("feature.auth.ldap")) {
+			//required
 			host = assertValuePresent(LDAP_HOST);
 			port = Integer.parseInt(assertValuePresent(LDAP_PORT));
 			user = assertValuePresent(LDAP_USER);
 			pass = assertValuePresent(LDAP_PASS);
 			userDn = assertValuePresent(LDAP_USER_DN);
-
 			emailAttr = assertValuePresent(LDAP_EMAIL);
 			nameAttr = assertValuePresent(LDAP_NAME);
+
+			//optional
 			surnameAttr = env.get(LDAP_SURNAME, "");
+			groupAttr = env.get(LDAP_GROUP, "");
+			moderatorGroup = env.get(LDAP_MODERATOR_GROUP, "");
 		}
 	}
 
@@ -78,9 +92,7 @@ public class LDAPApi {
 	 */
 	public boolean authenticate(String username, String password) {
 		try (LDAPResource ldap = new LDAPResource()) {
-			String formattedUser = username.replaceAll("@.+", "");
-			String cn = "cn=" + formattedUser + "," + userDn;
-
+			String cn = userCn(username);
 			ldap.verifyCredentials(cn, password);
 			createUserIfNeeded(ldap, cn);
 
@@ -90,20 +102,45 @@ public class LDAPApi {
 			return false;
 		} catch (LdapException | IOException e) {
 			logger.debug("LDAP connection error", e);
-			throw new AuthAPIException(LDAP_AUTH, "LDAP connection error", e);
+			throw new AuthenticationException(LDAP_AUTH, "LDAP connection error", e);
 		}
 	}
 
+	/**
+	 * Find the email address for a given username
+	 *
+	 * @param username
+	 * @return
+	 */
+	public String getEmail(String username) {
+		try (LDAPResource ldap = new LDAPResource()) {
+			Entry ldapUser = ldap.getUser(userCn(username));
+			return ldap.getAttribute(ldapUser, emailAttr);
+		} catch (LdapException | IOException e) {
+			logger.debug("LDAP connection error", e);
+			throw new AuthenticationException(LDAP_AUTH, "LDAP connection error", e);
+		}
+	}
+
+	private String userCn(String username) {
+		String sanitizedUser = username.replaceAll("[,=]", "");
+		String cn = "cn=" + sanitizedUser + "," + userDn;
+		return cn;
+	}
+
 	private void createUserIfNeeded(LDAPResource ldap, String cn) throws LdapException {
-		Entry entry = ldap.getUser(cn);
-		String email = ldap.getAttribute(entry, emailAttr);
+		Entry ldapUser = ldap.getUser(cn);
+		String email = ldap.getAttribute(ldapUser, emailAttr);
 		if (users.findByEmail(email) == null) {
-			String fullName = ldap.getAttribute(entry, nameAttr);
+			String fullName = ldap.getAttribute(ldapUser, nameAttr);
 			if (isNotEmpty(surnameAttr)) {
-				fullName += " " + ldap.getAttribute(entry, surnameAttr);
+				fullName += " " + ldap.getAttribute(ldapUser, surnameAttr);
 			}
 
 			User user = new User(fullName.trim(), email);
+			if (isNotEmpty(moderatorGroup) && ldap.getGroups(ldapUser).contains(moderatorGroup)) {
+				user = user.asModerator();
+			}
 
 			LoginMethod brutalLogin = LoginMethod.brutalLogin(user, email, PLACHOLDER_PASSWORD);
 			user.add(brutalLogin);
@@ -122,7 +159,7 @@ public class LDAPApi {
 	}
 
 	/**
-	 * Acts as a session-level LDAP connection
+	 * Acts as a session-level LDAP connection.
 	 */
 	private class LDAPResource implements AutoCloseable {
 		LdapConnection connection;
@@ -141,6 +178,16 @@ public class LDAPApi {
 			LdapNetworkConnection conn = new LdapNetworkConnection(host, port);
 			conn.bind(username, password);
 			return conn;
+		}
+
+		private List<String> getGroups(Entry user) {
+			List<String> groupCns = new ArrayList<>();
+			if (isNotEmpty(groupAttr)) {
+				for (Value grp : user.get(groupAttr)) {
+					groupCns.add(grp.getString());
+				}
+			}
+			return groupCns;
 		}
 
 		private Entry getUser(String cn) throws LdapException {
