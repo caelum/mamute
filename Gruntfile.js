@@ -63,7 +63,8 @@ module.exports = function(grunt) {
 		grunt.loadNpmTasks('grunt-' + plugin);
 	});
 
-	grunt.registerTask('default', ['clean', 'less', 'useminPrepare', 'concat:generated', 'cssmin:generated', 'usemin']);
+	grunt.registerTask('default', ['clean', 'less']);
+	grunt.registerTask('build', ['default', 'useminPrepare', 'concat:generated', 'cssmin:generated', 'usemin']);
 	grunt.registerTask('run', ['default', 'watch']);
 
 };
