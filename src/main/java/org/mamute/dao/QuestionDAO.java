@@ -9,11 +9,15 @@ import static org.hibernate.criterion.Restrictions.gt;
 import static org.hibernate.criterion.Restrictions.isNull;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -252,6 +256,22 @@ public class QuestionDAO implements PaginatableDAO {
 			return getById(questionId);
 		}
 		return null;
+	}
+
+	/**
+	 * Query for the set of question IDs. Order is preserved in the returned list.
+	 * @param ids
+	 * @return
+	 */
+	public List<Question> getByIds(List<Long> ids){
+		List<Question> questions = new ArrayList<>();
+		if(ids != null && ids.size() >0) {
+			session.createQuery("from Question where id in (:ids)").setParameterList("ids", ids).list();
+			for (Long id : ids) {
+				questions.add(getById(id));
+			}
+		}
+		return questions;
 	}
 
 }

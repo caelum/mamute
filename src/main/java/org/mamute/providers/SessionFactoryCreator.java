@@ -69,10 +69,10 @@ public class SessionFactoryCreator {
 		String db = System.getProperty(DATABASE_PROPERTY);
 		String hibernateCfg;
 
-		if(db != null) {
-			hibernateCfg = "/hibernate-"+db+".cfg.xml";
-		}else {
+		if(db == null || db.equals("mysql")) {
 			hibernateCfg = "/hibernate.cfg.xml";
+		}else {
+			hibernateCfg = "/hibernate-"+db+".cfg.xml";
 		}
 		
 		

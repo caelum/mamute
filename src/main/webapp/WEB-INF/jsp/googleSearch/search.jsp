@@ -8,7 +8,6 @@
 <tags:header title="${genericTitle} - ${title}"/>
 
 <div id="search-results"></div>
-
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
 	google.load("search", "1");

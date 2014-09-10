@@ -8,7 +8,7 @@
 <div class="ranking-user">
 	<img class="user-image" src="${isTagRanking ? user.smallPhoto : user.mediumPhoto}"/>
 	<div class="user-info">
-		<tags:userProfileLink user="${user}" htmlClass="user-name ellipsis" isPrivate="false"/>
+		<tags:userProfileLink user="${user}" htmlClass="user-name ellipsis"/>
 		<div class="user-karma">${user.karma}<tags:pluralize key="touch.karma" count="${user.karma}" /></div>
 	</div>
 </div>

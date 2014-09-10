@@ -3,6 +3,7 @@ package org.mamute.validators;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
+import org.mamute.dao.UserDAO;
 import org.mamute.factory.MessageFactory;
 import org.mamute.model.User;
 
@@ -16,21 +17,27 @@ public class SignupValidator {
 	private UserValidator userValidator;
 	private Validator validator;
 	private MessageFactory messageFactory;
+	private UserDAO users;
 	
 	@Deprecated
 	public SignupValidator() {
 	}
 
 	@Inject
-	public SignupValidator(Validator validator, UserValidator userValidator, MessageFactory messageFactory) {
+	public SignupValidator(Validator validator, UserValidator userValidator, MessageFactory messageFactory, UserDAO users) {
 		this.validator = validator;
 		this.userValidator = userValidator;
 		this.messageFactory = messageFactory;
+		this.users = users;
 	}
 	
 	public boolean validate(User user, String password, String passwordConfirmation){
 		if (user == null) return false;
 		userValidator.validate(user);
+
+		if(users.existsWithName(user.getName())){
+			validator.add(messageFactory.build("error", "user.errors.name.used"));
+		}
 		
 		if (password == null || password.length() < PASSWORD_MIN_LENGTH || password.length() > PASSWORD_MAX_LENGTH){
 			validator.add(messageFactory.build("error", "signup.errors.password.length"));

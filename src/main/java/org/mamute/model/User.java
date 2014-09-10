@@ -17,7 +17,6 @@ import static org.mamute.validators.UserPersonalInfoValidator.NAME_LENGTH_MESSAG
 import static org.mamute.validators.UserPersonalInfoValidator.NAME_MAX_LENGTH;
 import static org.mamute.validators.UserPersonalInfoValidator.NAME_MIN_LENGTH;
 import static org.mamute.validators.UserPersonalInfoValidator.NAME_REQUIRED;
-import static org.mamute.validators.UserPersonalInfoValidator.REALNAME_LENGTH_MESSAGE;
 import static org.mamute.validators.UserPersonalInfoValidator.WEBSITE_LENGTH_MESSAGE;
 import static org.mamute.validators.UserPersonalInfoValidator.WEBSITE_MAX_LENGHT;
 import static org.mamute.validators.UserPersonalInfoValidator.WEBSITE_MIN_LENGTH;
@@ -69,9 +68,6 @@ public class User implements Identifiable {
 	@NotEmpty(message = NAME_REQUIRED)
 	@Length(min = NAME_MIN_LENGTH, max = NAME_MAX_LENGTH, message = NAME_LENGTH_MESSAGE)
 	private String name;
-	
-	@Length(min = NAME_MIN_LENGTH, max = NAME_MAX_LENGTH, message = REALNAME_LENGTH_MESSAGE)
-	private String realName;
 	
 	@Length(min = WEBSITE_MIN_LENGTH, max = WEBSITE_MAX_LENGHT, message = WEBSITE_LENGTH_MESSAGE)
 	private String website;
@@ -170,7 +166,6 @@ public class User implements Identifiable {
 	
 	public void setPersonalInformation(UserPersonalInfo info) {
 		this.birthDate = info.getBirthDate();
-		this.realName = info.getRealName();
 		setName(info.getName());
 		this.email = info.getEmail();
 		this.website = info.getWebsite();
@@ -206,10 +201,6 @@ public class User implements Identifiable {
 
 	public String getName() {
 		return name;
-	}
-	
-	public String getRealName() {
-		return realName;
 	}
 
 	public long getKarma() {

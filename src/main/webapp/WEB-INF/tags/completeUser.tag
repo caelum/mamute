@@ -13,7 +13,7 @@
 			itemscope itemtype="http://schema.org/Person" itemprop="${edited ? 'editor' : 'author'}"
 		</c:if>
 	>
-		<tags:userProfileLink user="${user}" htmlClass="user-name ellipsis" isPrivate="false" microdata="${microdata}"/>
+		<tags:userProfileLink user="${user}" htmlClass="user-name ellipsis" microdata="${microdata}"/>
 		<div title="<fmt:message key="touch.karma.title"/>" class="user-karma ellipsis">${user.karma}<tags:pluralize key="touch.karma" count="${user.karma}" /></div>
 	</div>
 </div>

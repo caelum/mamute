@@ -91,9 +91,23 @@ public class UserDAOTest extends DatabaseTestCase {
 		assertFalse(users.existsWithEmail("whatever@dev.null"));
 		assertFalse(users.existsWithEmail(null));
 	}
+	
+	@Test
+	public void should_verify_if_user_name_exists() throws Exception {
+		String name = "Existent user";
+		saveUser(name, "chico@brutal.com");
+		assertTrue(users.existsWithName(name));
+		assertTrue(users.existsWithName(name.toLowerCase()));
+		assertFalse(users.existsWithEmail("unexistent name"));
+		assertFalse(users.existsWithEmail(null));
+	}
 
 	private User saveUser(String email) {
-		User user = user("Chico Picadinho", email);
+		return saveUser("Chico Picadinho", email);
+	}
+	
+	private User saveUser(String name, String email) {
+		User user = user(name, email);
 		LoginMethod facebookLogin = LoginMethod.facebookLogin(user, user.getEmail(), "1234");
 		user.add(facebookLogin);
 		session.save(user);

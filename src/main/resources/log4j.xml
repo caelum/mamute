@@ -132,4 +132,9 @@
         <priority value="INFO"/>
         <appender-ref ref="main"/>
     </category>
+
+	<category name="org.apache.solr">
+		<priority value="WARN"/>
+		<appender-ref ref="main"/>
+	</category>
 </log4j:configuration>

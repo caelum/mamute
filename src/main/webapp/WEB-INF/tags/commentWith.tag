@@ -24,7 +24,7 @@
 			${comment.htmlComment}
 		</span> &#8212;
 		
-		<tags:userProfileLink user="${comment.author}" htmlClass="${comment.author.id eq item.author.id ? 'same-author' : ''}" isPrivate="false" /> 
+		<tags:userProfileLink user="${comment.author}" htmlClass="${comment.author.id eq item.author.id ? 'same-author' : ''}" /> 
 		&nbsp;<tags:prettyTime time="${comment.lastUpdatedAt}"/>
 	
 		<fmt:message  key="edit_form.submit" var="submit"/>

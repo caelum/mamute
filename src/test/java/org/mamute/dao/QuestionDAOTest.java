@@ -1,16 +1,15 @@
 package org.mamute.dao;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mamute.dao.QuestionDAO.PAGE_SIZE;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.validation.ConstraintViolationException;
 
+import com.google.common.collect.ImmutableList;
 import net.vidageek.mirror.dsl.Mirror;
 
 import org.hamcrest.Matchers;
@@ -196,6 +195,31 @@ public class QuestionDAOTest extends DatabaseTestCase {
 		
 		List<Question> questions = questionsForAnyone.hot(pastWeek, 3);
 		assertThat(questions, Matchers.containsInAnyOrder(withFiveVotes, withTenVotes, withNoVotes));
+	}
+
+	@Test
+	public void should_get_question_list(){
+		Question q1 = question(author, java);
+		Question q2 = question(author, java);
+		Question q3 = question(author, java);
+		session.save(q1);
+		session.save(q2);
+		session.save(q3);
+
+		List<Question> questions = questionsForAnyone.getByIds(ImmutableList.of(q2.getId(), q3.getId(), q1.getId()));
+
+		assertNotNull(questions);
+		assertEquals(3, questions.size());
+		assertEquals(q2.getId(), questions.get(0).getId());
+		assertEquals(q3.getId(), questions.get(1).getId());
+		assertEquals(q1.getId(), questions.get(2).getId());
+	}
+
+	@Test
+	public void should_get_empty_list(){
+		List<Question> questions = questionsForAnyone.getByIds(Collections.<Long>emptyList());
+		assertNotNull(questions);
+		assertEquals(0, questions.size());
 	}
 
 	private void setVoteCount(Question withTenVotes, long count) {

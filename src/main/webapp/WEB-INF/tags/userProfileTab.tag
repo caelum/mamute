@@ -7,7 +7,7 @@
 
 <section class="basic-user-data user-data">
 	<div class="subheader">
-		<tags:userProfileLink user="${selectedUser}" htmlClass="title page-title" isPrivate="true"/>
+		<tags:userProfileLink user="${selectedUser}" htmlClass="title page-title"/>
 			<ul class="subheader-menu">
 		<c:if test="${isCurrentUser}">
 				<li><a href="${linkTo[UserProfileController].editProfile(selectedUser)}"><fmt:message key="user_profile.edit" /></a></li>
