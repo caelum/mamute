@@ -1,43 +1,47 @@
 package org.mamute.sanitizer;
 
-import static org.mamute.sanitizer.HtmlSanitizer.ALLOWED_ELEMENTS_KEY;
+import static java.util.regex.Pattern.compile;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.enterprise.inject.Vetoed;
 
-import br.com.caelum.vraptor.environment.Environment;
+import org.owasp.html.HtmlPolicyBuilder;
+import org.owasp.html.HtmlPolicyBuilder.AttributeBuilder;
 
 @Vetoed
 public class HtmlElement {
 
-	static final String COMMA = "(\\s)?+,(\\s)?+";
 	private String element;
 	private Map<String, String> attributesAndWhitelist;
 
-	public static List<HtmlElement> using(Environment environment) {
-		String[] allowed = environment.get(ALLOWED_ELEMENTS_KEY).split(COMMA);
-		List<HtmlElement> elements = new ArrayList<>();
-		for (String element: allowed) {
-			elements.add(new HtmlElement(element, HtmlAttribute.using(element, environment)));
-		}
-		return elements;
-	}
-
-	private HtmlElement(String element, Map<String, String> attributesAndWhitelist) {
+	HtmlElement(String element, Map<String, String> attributesAndWhitelist) {
 		this.element = element;
 		this.attributesAndWhitelist = attributesAndWhitelist;
 	}
 
-	
 	public String getElement() {
 		return element;
 	}
 
-	public Map<String, String> getAttributesAndWhitelist() {
-		return attributesAndWhitelist;
+	public void configure(HtmlPolicyBuilder policyBuilder) {
+		String elementName = getElement();
+		policyBuilder.allowElements(elementName);
+		
+		Set<String> allowedAttributes = attributesAndWhitelist.keySet();
+		AttributeBuilder attributesBuilder = policyBuilder.allowAttributes(allowedAttributes.toArray(new String[]{}));
+
+		for (String attribute : allowedAttributes) {
+			String regex = attributesAndWhitelist.get(attribute);
+			if(regex != null){
+				attributesBuilder.matching(compile(regex));
+				continue;
+			}
+		}
+		attributesBuilder.onElements(elementName);
+
+		
 	}
 
 }

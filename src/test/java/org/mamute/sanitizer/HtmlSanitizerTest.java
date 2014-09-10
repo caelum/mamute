@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.owasp.html.PolicyFactory;
 
 import br.com.caelum.vraptor.environment.Environment;
 
@@ -30,8 +31,11 @@ public class HtmlSanitizerTest {
 		envReturns(ALLOWED_ATTRIBUTES_KEY_PREFIX+"iframe", "src, width, height, scrolling, frameborder");
 		envReturns(ALLOWED_ATTRIBUTES_KEY_PREFIX+"iframe"+ALLOWED_ATTRIBUTES_WHITELIST_KEY_SUFIX+"href", ".*soundcloud.com\\/tracks\\/.*|.*youtube.com\\/embed\\/.*|.*//player.vimeo.com\\/video\\/.*");
 
-		htmlSanitizer = new HtmlSanitizer(env);
-		htmlSanitizer.setUp();
+		MamutePolicyProducer mamutePolicyProducer = new MamutePolicyProducer(new HtmlElementsBuilder(env, new HtmlAttributesBuilder(env)));
+		mamutePolicyProducer.setUp();
+		PolicyFactory policy = mamutePolicyProducer.getInstance();
+
+		htmlSanitizer = new HtmlSanitizer(policy);
 	}
 
 	@Test 
