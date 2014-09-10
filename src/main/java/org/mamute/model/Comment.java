@@ -69,7 +69,7 @@ public class Comment implements Notifiable, Votable, Flaggable {
      * @deprecated hibernate eyes
      */
     Comment() {
-    	this(null, MarkedText.pure(""));
+    	this(null, MarkedText.notMarked(""));
     }
     
     public Comment(User author, MarkedText comment) {

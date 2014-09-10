@@ -1,7 +1,7 @@
 package org.mamute.dao;
 
 import static org.junit.Assert.assertEquals;
-import static org.mamute.model.MarkedText.pure;
+import static org.mamute.model.MarkedText.notMarked;
 import static org.mamute.model.UpdateStatus.APPROVED;
 import static org.mamute.model.UpdateStatus.NO_NEED_TO_APPROVE;
 import static org.mamute.model.UpdateStatus.PENDING;
@@ -131,7 +131,7 @@ public class InformationDAOTest extends DatabaseTestCase {
 	
 	private void newPendingChangesAnswer(Answer answer, int times) {
 		for (int i = 0; i < times; i++) {
-	        AnswerInformation pendingInfo = new AnswerInformation(pure("info2 info2 info2 info2 info2 info2 info2 "), currentAuthor, answer, "new answer");
+	        AnswerInformation pendingInfo = new AnswerInformation(notMarked("info2 info2 info2 info2 info2 info2 info2 "), currentAuthor, answer, "new answer");
 	        answer.enqueueChange(pendingInfo, PENDING);
 		}
 	}

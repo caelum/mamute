@@ -1,7 +1,7 @@
 package org.mamute.model;
 
 import static java.util.Arrays.asList;
-import static org.mamute.model.MarkedText.pure;
+import static org.mamute.model.MarkedText.notMarked;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +65,7 @@ public class QuestionInformationBuilder {
 	private void clear() {
 		author = null;
 		title = "default title default title";
-		description = pure("default description default description default description");
+		description = notMarked("default description default description default description");
 		comment = "new question";
 		tags = new ArrayList<>();
 	    status = null;

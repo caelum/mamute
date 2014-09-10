@@ -10,9 +10,9 @@ import org.mamute.model.User;
 
 public class NewsBuilder extends ModelBuilder {
 	private String title = "default news";
-	private MarkedText description = MarkedText.pure("default news default news default news");
+	private MarkedText description = MarkedText.notMarked("default news default news default news");
 	private String comment = "blablaba";
-	private User author = new User(SanitizedText.pure("author"), "newsauthor@gmail.com");
+	private User author = new User(SanitizedText.notSanitized("author"), "newsauthor@gmail.com");
 	private LoggedUser loggedUser = null;
 	private Long id = null;
 	

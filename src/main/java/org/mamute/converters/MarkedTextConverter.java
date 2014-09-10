@@ -1,6 +1,7 @@
 package org.mamute.converters;
 
 import static org.mamute.model.MarkDown.parse;
+import static org.mamute.model.MarkedText.pureAndMarked;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -31,7 +32,7 @@ public class MarkedTextConverter implements Converter<MarkedText> {
 	
 	@Override
 	public MarkedText convert(String value, Class<? extends MarkedText> type) {
-		return MarkedText.pureAndMarked(value, sanitizer.sanitize(parse(value)));
+		return pureAndMarked(value, sanitizer.sanitize(parse(value)));
 	}
 
 }

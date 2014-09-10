@@ -2,7 +2,7 @@ package org.mamute.dao;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mamute.model.MarkedText.pure;
+import static org.mamute.model.MarkedText.notMarked;
 
 import org.junit.Test;
 import org.mamute.model.Comment;
@@ -30,7 +30,7 @@ public class FlagDaoTest extends DatabaseTestCase {
 	
 
 	private Comment createCommentWithFlag(User author) {
-		Comment comment = new Comment(author, pure("my comment my comment my comment"));
+		Comment comment = new Comment(author, notMarked("my comment my comment my comment"));
 		Flag flag = new Flag(FlagType.RUDE, author);
 		comment.add(flag);
 		session.save(flag);

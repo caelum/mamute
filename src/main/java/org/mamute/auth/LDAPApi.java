@@ -4,7 +4,7 @@ import static org.apache.commons.lang.StringUtils.isEmpty;
 import static org.apache.commons.lang.StringUtils.isNotEmpty;
 import static org.mamute.auth.DefaultAuthenticator.AUTH_CONFIG;
 import static org.mamute.auth.DefaultAuthenticator.LDAP_AUTH;
-import static org.mamute.model.SanitizedText.pure;
+import static org.mamute.model.SanitizedText.notSanitized;
 
 import java.io.IOException;
 
@@ -107,7 +107,7 @@ public class LDAPApi {
 				fullName += " " + ldap.getAttribute(entry, surnameAttr);
 			}
 
-			User user = new User(pure(fullName.trim()), email);
+			User user = new User(notSanitized(fullName.trim()), email);
 
 			LoginMethod brutalLogin = LoginMethod.brutalLogin(user, email, PLACHOLDER_PASSWORD);
 			user.add(brutalLogin);

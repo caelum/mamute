@@ -1,6 +1,6 @@
 package org.mamute.integration.util;
 
-import static org.mamute.model.MarkedText.pure;
+import static org.mamute.model.MarkedText.notMarked;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -79,7 +79,7 @@ public class DaoManager {
 		this.session.beginTransaction();
 
 		LoggedUser loggedUser = new LoggedUser(author, null);
-		AnswerInformation information = new AnswerInformation(pure(description),
+		AnswerInformation information = new AnswerInformation(notMarked(description),
 				loggedUser, "new answer");
 		Answer answer = new Answer(information, question, author);
 
@@ -93,7 +93,7 @@ public class DaoManager {
 		this.session.beginTransaction();
 
 		String email = String.format("acceptance%d@brutal.com", randomizer.nextLong());
-		User user = new User(SanitizedText.pure("Acceptance Test User"), email);
+		User user = new User(SanitizedText.notSanitized("Acceptance Test User"), email);
 		LoginMethod brutalLogin = LoginMethod.brutalLogin(user, email, "123456");
 		user.add(brutalLogin);
 

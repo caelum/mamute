@@ -2,7 +2,7 @@ package org.mamute.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mamute.model.MarkedText.pure;
+import static org.mamute.model.MarkedText.notMarked;
 
 import java.util.List;
 
@@ -136,7 +136,7 @@ public class NewsDAOTest extends DatabaseTestCase {
 
 	private NewsInformation newsInformation(User author) {
 		return new NewsInformation("breaking news breaking news",
-				pure("breaking news breaking news breaking news breaking news"), new LoggedUser(author, null),
+				notMarked("breaking news breaking news breaking news breaking news"), new LoggedUser(author, null),
 				"comment comment comment comment");
 	}
 

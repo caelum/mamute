@@ -63,7 +63,7 @@ public class AnswerInformation implements Information {
 	 * @deprecated hibernate only
 	 */
 	AnswerInformation() {
-		this(MarkedText.pure(""), null, "");
+		this(MarkedText.notMarked(""), null, "");
 	}
 
 	public AnswerInformation(MarkedText description, LoggedUser  currentUser, String comment) {

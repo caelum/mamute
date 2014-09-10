@@ -1,7 +1,7 @@
 package org.mamute.dao;
 
 import static org.junit.Assert.assertEquals;
-import static org.mamute.model.MarkedText.pure;
+import static org.mamute.model.MarkedText.notMarked;
 
 import org.junit.Test;
 import org.mamute.dao.TagPageDAO;
@@ -16,7 +16,7 @@ public class TagPageDAOTest extends DatabaseTestCase{
 		TagPageDAO tagPages = new TagPageDAO(session);
 		Tag java = tag("java");
 		session.save(java);
-		tagPages.save(new TagPage(java, pure("aboutaboutaboutaboutaboutaboutaboutaboutaboutaboutaboutaboutaboutaboutaboutaboutaboutaboutaboutabout")));
+		tagPages.save(new TagPage(java, notMarked("aboutaboutaboutaboutaboutaboutaboutaboutaboutaboutaboutaboutaboutaboutaboutaboutaboutaboutaboutabout")));
 		
 		TagPage javaPage = tagPages.findByTag(java.getName());
 		assertEquals(java.getName(), javaPage.getTagName());

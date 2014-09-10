@@ -3,7 +3,7 @@ package org.mamute.controllers;
 import static java.util.Arrays.asList;
 import static org.mamute.dao.WithUserPaginatedDAO.OrderType.ByDate;
 import static org.mamute.dao.WithUserPaginatedDAO.OrderType.ByVotes;
-import static org.mamute.model.SanitizedText.pure;
+import static org.mamute.model.SanitizedText.notSanitized;
 
 import javax.inject.Inject;
 
@@ -178,7 +178,7 @@ public class UserProfileController extends BaseController{
 		String text = website.getText();
 		if(text.startsWith(HTTP))
 			return website;
-		return pure(HTTP+text); 
+		return notSanitized(HTTP+text); 
 	}
 	
 	private boolean redirectToRightSluggedName(User user, String sluggedName) {

@@ -6,7 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mamute.dao.QuestionDAO.PAGE_SIZE;
-import static org.mamute.model.MarkedText.pure;
+import static org.mamute.model.MarkedText.notMarked;
 
 import java.util.Collections;
 import java.util.List;
@@ -35,8 +35,8 @@ import com.google.common.collect.ImmutableList;
 public class QuestionDAOTest extends DatabaseTestCase {
 
 	private static final String INVALID_TITLE = "Tiny title";
-	private static final MarkedText INVALID_DESC = pure("Tiny desc");
-	private static final MarkedText VALID_DESC = pure("Description with more than 30 characters");
+	private static final MarkedText INVALID_DESC = notMarked("Tiny desc");
+	private static final MarkedText VALID_DESC = notMarked("Description with more than 30 characters");
 	private static final String VALID_TITLE = "Title with more than 15 characters";
 	private QuestionDAO questionsBeingAuthor;
 	private QuestionBuilder question = new QuestionBuilder();
@@ -253,7 +253,7 @@ public class QuestionDAOTest extends DatabaseTestCase {
 	private Question javaEEQuestion(){
 		Question q = question
 			.withTitle("Some question about java ee and other stuff?")
-			.withDescription(pure("Please help solving my question about java ee! Thanks, guys!"))
+			.withDescription(notMarked("Please help solving my question about java ee! Thanks, guys!"))
 			.withAuthor(author)
 			.withTag(defaultTag)
 			.build();
@@ -264,7 +264,7 @@ public class QuestionDAOTest extends DatabaseTestCase {
 	private Question androidQuestion(){
 		Question q = question
 				.withTitle("Some question about android and other stuff?")
-				.withDescription(pure("Please help solving my question about android! Thanks, guys!"))
+				.withDescription(notMarked("Please help solving my question about android! Thanks, guys!"))
 				.withAuthor(author)
 				.withTag(defaultTag)
 				.build();
@@ -276,7 +276,7 @@ public class QuestionDAOTest extends DatabaseTestCase {
 	private Question javaQuestion(){
 		Question q =  question
 				.withTitle("Some question about java SE and other stuff")
-				.withDescription(pure("Please help solving my question about java! Thanks, guys!"))
+				.withDescription(notMarked("Please help solving my question about java! Thanks, guys!"))
 				.withAuthor(author)
 				.withTag(java)
 				.build();

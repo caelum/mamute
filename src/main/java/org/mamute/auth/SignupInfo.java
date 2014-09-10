@@ -1,6 +1,6 @@
 package org.mamute.auth;
 
-import static org.mamute.model.SanitizedText.pure;
+import static org.mamute.model.SanitizedText.notSanitized;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -44,7 +44,7 @@ public class SignupInfo {
 		if (locationJson != null) {
 			location = locationJson.get("name").getAsString();
 		}
-		return Optional.of(new SignupInfo(MethodType.FACEBOOK, email, pure(name), location, photoUrl));
+		return Optional.of(new SignupInfo(MethodType.FACEBOOK, email, notSanitized(name), location, photoUrl));
 	}
 
 	public MethodType getMethod() {

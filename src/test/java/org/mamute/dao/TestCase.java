@@ -1,6 +1,6 @@
 package org.mamute.dao;
 
-import static org.mamute.model.MarkedText.pure;
+import static org.mamute.model.MarkedText.notMarked;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,7 +44,7 @@ public abstract class TestCase {
 	private QuestionBuilder questionBuilder = new QuestionBuilder();
 	
 	protected Answer answer(String description, Question question, User author) {
-		Answer q = new Answer(new AnswerInformation(pure(description), new LoggedUser(author, null), "default commentdefault commentdefault commentdefault comment")
+		Answer q = new Answer(new AnswerInformation(notMarked(description), new LoggedUser(author, null), "default commentdefault commentdefault commentdefault comment")
 							, question, author);
 		return q;
 	}
@@ -61,7 +61,7 @@ public abstract class TestCase {
 	}
 	
 	protected User user(String name, String email) {
-	    User user = new User(SanitizedText.pure(name), email);
+	    User user = new User(SanitizedText.notSanitized(name), email);
 	    user.confirmEmail();
 	    return user;
 	}
@@ -94,7 +94,7 @@ public abstract class TestCase {
 	}
 	
     protected AnswerInformation answerInformation(String description, User otherUser, Answer answer) {
-        return new AnswerInformation(pure(description), new LoggedUser(otherUser, null), answer, "comment");
+        return new AnswerInformation(notMarked(description), new LoggedUser(otherUser, null), answer, "comment");
     }
     
     protected Comment comment(User author, String comment) {
@@ -105,7 +105,7 @@ public abstract class TestCase {
     	return TimeMachine.goTo(when).andExecute(new Block<Comment>() {
 			@Override
 			public Comment run() {
-				return new Comment(author, pure(comment));
+				return new Comment(author, notMarked(comment));
 			}
 		});
     }
@@ -123,7 +123,7 @@ public abstract class TestCase {
     }
     
     protected News news(String title, String description, User author) {
-    	NewsInformation newsInformation = new NewsInformation(title, pure(description), new LoggedUser(author, null), "comment comment comment");
+    	NewsInformation newsInformation = new NewsInformation(title, notMarked(description), new LoggedUser(author, null), "comment comment comment");
     	return new News(newsInformation, author);
 	}
     

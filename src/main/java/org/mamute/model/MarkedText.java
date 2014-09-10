@@ -9,7 +9,7 @@ public class MarkedText {
 		return new MarkedText(pure, marked);
 	}
 
-	public static MarkedText pure(String pure) {
+	public static MarkedText notMarked(String pure) {
 		return new MarkedText(pure, pure);
 	}
 

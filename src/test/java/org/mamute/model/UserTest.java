@@ -3,7 +3,7 @@ package org.mamute.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mamute.model.MarkedText.pure;
+import static org.mamute.model.MarkedText.notMarked;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -61,7 +61,7 @@ public class UserTest extends TestCase {
 	public void moderator_should_approve_question_information()
 			throws Exception {
 		Information approvedInfo = new QuestionInformation("edited title",
-				pure("edited desc"), new LoggedUser(otherUser, null),
+				notMarked("edited desc"), new LoggedUser(otherUser, null),
 				new ArrayList<Tag>(), "comment");
 
 		moderator.approve(myQuestion, approvedInfo);
@@ -74,7 +74,7 @@ public class UserTest extends TestCase {
 	public void user_with_enough_karma_should_approve_question_information()
 			throws Exception {
 		Information approvedInfo = new QuestionInformation("edited title",
-				pure("edited desc"), new LoggedUser(otherUser, null),
+				notMarked("edited desc"), new LoggedUser(otherUser, null),
 				new ArrayList<Tag>(), "comment");
 		
 		moderatorWannabe.approve(myQuestion, approvedInfo);
@@ -160,7 +160,7 @@ public class UserTest extends TestCase {
 		User user = TimeMachine.goTo(new DateTime().minusWeeks(1)).andExecute(new Block<User>() {
 			@Override
 			public User run() {
-				return new User(SanitizedText.pure("name"), "name@brutal.com");
+				return new User(SanitizedText.notSanitized("name"), "name@brutal.com");
 			}
 		});
 		Thread.sleep(1);

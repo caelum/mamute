@@ -2,7 +2,7 @@ package org.mamute.validators;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mamute.model.SanitizedText.pure;
+import static org.mamute.model.SanitizedText.notSanitized;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -53,7 +53,7 @@ public class UserPersonalInfoValidatorTest extends TestCase{
 	public void should_pass_validation_with_not_required_elements_null() {
 		User artur = user("artur com seis caracteres", validEmail);
 		UserPersonalInfo info = new UserPersonalInfo(artur)
-				.withName(pure(artur.getName()))
+				.withName(notSanitized(artur.getName()))
 				.withEmail(artur.getEmail());
 		
 		assertTrue(infoValidator.validate(info));
@@ -64,7 +64,7 @@ public class UserPersonalInfoValidatorTest extends TestCase{
 		User artur = user("artur com seis caracteres", validEmail);
 		DateTime hoje = DateTime.now();
 		UserPersonalInfo info = new UserPersonalInfo(artur)
-				.withName(pure(artur.getName()))
+				.withName(notSanitized(artur.getName()))
 				.withEmail(artur.getEmail())
 				.withBirthDate(hoje);
 		
@@ -76,7 +76,7 @@ public class UserPersonalInfoValidatorTest extends TestCase{
 		User artur = user("artur com seis caracteres", validEmail);
 		
 		UserPersonalInfo info = new UserPersonalInfo(artur)
-				.withName(pure("newName"))
+				.withName(notSanitized("newName"))
 				.withEmail(artur.getEmail());
 		
 		when(bundle.getMessage("date.joda.simple.pattern")).thenReturn("dd/MM/YYYY");
@@ -89,7 +89,7 @@ public class UserPersonalInfoValidatorTest extends TestCase{
 		
 		DateTimeUtils.setCurrentMillisFixed(new DateTime().plusDays(31).getMillis());
 		UserPersonalInfo info = new UserPersonalInfo(artur)
-				.withName(pure("newName"))
+				.withName(notSanitized("newName"))
 				.withEmail(artur.getEmail());
 		
 		when(bundle.getMessage("date.joda.simple.pattern")).thenReturn("dd/MM/YYYY");

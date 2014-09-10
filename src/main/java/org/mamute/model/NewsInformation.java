@@ -77,7 +77,7 @@ public class NewsInformation implements Information{
 	 * @deprecated hibernate only
 	 */
 	NewsInformation() {
-		this("", MarkedText.pure(""), null, "");
+		this("", MarkedText.notMarked(""), null, "");
 	}
 
 	public NewsInformation(String title, MarkedText description, LoggedUser user, String comment) {

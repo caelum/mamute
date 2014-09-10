@@ -2,7 +2,7 @@ package org.mamute.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mamute.model.MarkedText.pure;
+import static org.mamute.model.MarkedText.notMarked;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -32,7 +32,7 @@ public class UpdaterTest extends TestCase{
     @Test
     public void should_be_pending_if_is_not_author() {
         User user = user("chico", "chico@gmail.com", nextId());
-        QuestionInformation newInformation = new QuestionInformation("title", pure("description"), new LoggedUser(user, null));
+        QuestionInformation newInformation = new QuestionInformation("title", notMarked("description"), new LoggedUser(user, null));
         
 		UpdateStatus update = updater.update(myQuestion, newInformation);
         
@@ -43,7 +43,7 @@ public class UpdaterTest extends TestCase{
     @Test
     public void should_update_if_is_moderator() {
         User moderator = user("moderator", "moderator@brutal", nextId()).asModerator();
-        QuestionInformation newInformation = new QuestionInformation("title", pure("description"), new LoggedUser(moderator, null));
+        QuestionInformation newInformation = new QuestionInformation("title", notMarked("description"), new LoggedUser(moderator, null));
         UpdateStatus update = updater.update(myQuestion, newInformation);
         
         assertEquals(UpdateStatus.NO_NEED_TO_APPROVE, update);
@@ -52,7 +52,7 @@ public class UpdaterTest extends TestCase{
     
     @Test
     public void should_update_if_is_the_author() {
-        QuestionInformation newInformation = new QuestionInformation("title", pure("description"), new LoggedUser(author, null));
+        QuestionInformation newInformation = new QuestionInformation("title", notMarked("description"), new LoggedUser(author, null));
 		UpdateStatus update = updater.update(myQuestion, newInformation);
         
         assertEquals(UpdateStatus.NO_NEED_TO_APPROVE, update);
