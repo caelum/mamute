@@ -84,7 +84,7 @@ public class SignupController {
 	 * @return
 	 */
 	private boolean isSignupDisabled(){
-		if(Boolean.parseBoolean(env.get("auth.disableSignup", "false"))){
+		if(env.supports("feature.signup")){
 			result.use(Results.http())
 					.body(messageFactory.build("alert","auth.signup.disabled").getMessage())
 					.setStatusCode(400);

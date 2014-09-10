@@ -1,10 +1,10 @@
 package org.mamute.auth;
 
 
-public class AuthAPIException extends RuntimeException {
+public class AuthenticationException extends RuntimeException {
 	private String authType;
 
-	public AuthAPIException(String authType, String msg, Throwable t) {
+	public AuthenticationException(String authType, String msg, Throwable t) {
 		super(msg, t);
 		this.authType = authType;
 	}
