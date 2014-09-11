@@ -2,13 +2,13 @@ module.exports = function(grunt) {
 
 	var config = {
 		src: 'src/main/assets/less/',
-		dest: 'src/main/webapp/css/mamute/'
+		root: 'src/main/webapp/'
 	};
 
 	grunt.initConfig({
 		config: config,
 
-		clean: ["<%= config.dest %>"],
+		clean: ["<%= config.root %>/css/mamute", "<%= config.root %>/js/mamute"],
 		
 		less: {
 			main: {
@@ -20,34 +20,34 @@ module.exports = function(grunt) {
 					expand: true,
 					cwd: '<%= config.src %>',
 					src: ['**/*.less'],
-					dest: '<%= config.dest %>',
+					dest: '<%= config.root %>/css/mamute/',
 					ext: '.css'
 				}]
 			}
 		},
 
 		useminPrepare: {
-			html: 'src/main/webapp/WEB-INF/{jsp,tags}/**/*.{jsp,jspf,tag}',
+			html: '<%= config.root %>/WEB-INF/{jsp,tags}/**/*.{jsp,jspf,tag}',
 			options: {
-				dest: 'src/main/webapp/',
-				root: 'src/main/webapp/'
+				dest: '<%= config.root %>',
+				root: '<%= config.root %>'
 			}
 		},
 
 		usemin: {
-			html: ['src/main/webapp/WEB-INF/{jsp,tags}/**/*.{jsp,jspf,tag}'],
+			html: ['<%= config.root %>/WEB-INF/{jsp,tags}/**/*.{jsp,jspf,tag}'],
 			options: {
 
-				assetsDirs: ['<%= config.dest %>']
+				assetsDirs: ['<%= config.root %>/css/mamute']
 			}
 		},
 
 		uglify: { 
 	      main: {
 	        expand: true,
-	        cwd: 'src/main/webapp/js/',
+	        cwd: '<%= config.root %>/js/',
 	        src: ['**/*.js', '!**/*.min.js'],
-	        dest: 'src/main/webapp/js/'
+	        dest: '<%= config.root %>/js/'
 	      }
 	    },
 		
