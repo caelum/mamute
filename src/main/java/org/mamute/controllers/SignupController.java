@@ -39,9 +39,7 @@ public class SignupController {
 
 	@Get
 	public void signupForm() {
-		if(isSignupDisabled()){
-			return;
-		}
+		checkSignup();
 
 		result.include("facebookUrl", facebook.getOauthUrl(null));
 		result.include("googleUrl", google.getOauthUrl(null));
@@ -49,9 +47,7 @@ public class SignupController {
 
 	@Post
 	public void signup(String email, String password, SanitizedText name, String passwordConfirmation) {
-		if(isSignupDisabled()){
-			return;
-		}
+		checkSignup();
 
 		User newUser = new User(name, email);
 		LoginMethod brutalLogin = LoginMethod.brutalLogin(newUser, email, password);
@@ -78,18 +74,14 @@ public class SignupController {
 	}
 
 	/**
-	 * Checks to see if signup is disabled. If so, it sets the Result to be an
-	 * HTTP 400 with an appropriate error message.
+	 * Checks to see if signup is disabled. If so, throw an exception
 	 *
 	 * @return
 	 */
-	private boolean isSignupDisabled(){
-		if(env.supports("feature.signup")){
-			result.use(Results.http())
-					.body(messageFactory.build("alert","auth.signup.disabled").getMessage())
-					.setStatusCode(400);
-			return true;
+	private void checkSignup(){
+		if (Boolean.parseBoolean(env.get("auth.disableSignup", "false"))){
+			throw new IllegalStateException("Signup is disabled in your configuration, use 'auth.disableSignup' " +
+					"property to configure new accounts signup.");
 		}
-		return false;
 	}
 }
