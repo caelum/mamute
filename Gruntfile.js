@@ -37,8 +37,8 @@ module.exports = function(grunt) {
 		usemin: {
 			html: ['<%= config.root %>/WEB-INF/{jsp,tags}/**/*.{jsp,jspf,tag}'],
 			options: {
-
-				assetsDirs: ['<%= config.root %>/css/mamute']
+				dirs: ['<%= config.root %>'],
+				assetsDirs: ['<%= config.root %>']
 			}
 		},
 
@@ -49,6 +49,19 @@ module.exports = function(grunt) {
 	        src: ['**/*.js', '!**/*.min.js'],
 	        dest: '<%= config.root %>/js/'
 	      }
+	    },
+
+	    filerev: {
+	    	options: {
+		        encoding: 'utf8',
+		        algorithm: 'md5',
+		        length: 8
+		    },
+		    source: {
+		    	files: [{
+		    		src: ['<%= config.root %>/{js,css}/mamute/*.{js,css}']
+		    	}]
+		    }
 	    },
 		
 		watch: {
@@ -68,13 +81,15 @@ module.exports = function(grunt) {
 	 'contrib-concat',
 	 'contrib-cssmin',
 	 'contrib-uglify',
+	 'filerev',
 	 'usemin'
 	].forEach(function(plugin) {
 		grunt.loadNpmTasks('grunt-' + plugin);
 	});
 
 	grunt.registerTask('default', ['clean', 'less']);
-	grunt.registerTask('build', ['default', 'useminPrepare', 'concat:generated', 'cssmin:generated', 'uglify', 'usemin']);
+	grunt.registerTask('build', ['default', 'useminPrepare', 'concat:generated', 'cssmin:generated', 
+									'uglify', 'filerev', 'usemin']);
 	grunt.registerTask('run', ['default', 'watch']);
 
 };
