@@ -21,7 +21,6 @@ import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.routes.annotation.Routed;
-import br.com.caelum.vraptor.view.Results;
 
 @Routed
 @Controller
@@ -79,8 +78,8 @@ public class SignupController {
 	 * @return
 	 */
 	private void checkSignup(){
-		if (Boolean.parseBoolean(env.get("auth.disableSignup", "false"))){
-			throw new IllegalStateException("Signup is disabled in your configuration, use 'auth.disableSignup' " +
+		if (!env.supports("feature.signup")){
+			throw new IllegalStateException("Signup is disabled in your configuration, use 'feature.signup' " +
 					"property to configure new accounts signup.");
 		}
 	}
