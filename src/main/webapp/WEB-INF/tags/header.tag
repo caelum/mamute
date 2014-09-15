@@ -17,7 +17,7 @@
 <c:set var="facebookMetas" value="${facebookMetas}" scope="request" />
 <tags:brutal-include value="metas" />
 
-<!-- build:css /css/mamute/mamute.css -->
+<!-- build:css /css/mamute.css -->
 <link rel="stylesheet" href="/css/mamute/reset.css">
 
 <link rel="stylesheet" href="/css/deps/fontello.css">
@@ -67,7 +67,7 @@
 <link rel="stylesheet" href="/css/deps/custom.css">
 
 <!--[if lt IE 9]>
-	<script src="<c:url value="/js/deps/html5shiv.js"/>"></script>
+	<script src="<c:url value="/js/html5shiv.js"/>"></script>
 <![endif]-->
 
 <!--[if lte IE 8]>

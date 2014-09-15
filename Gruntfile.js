@@ -1,53 +1,52 @@
 module.exports = function(grunt) {
 
 	var config = {
-		src: 'src/main/assets/less/',
-		root: 'src/main/webapp/'
+		assets: 'src/main/webapp/assets/',
+		webapp: 'src/main/webapp/'
 	};
 
 	grunt.initConfig({
 		config: config,
 
-		clean: ["<%= config.root %>/css/mamute", "<%= config.root %>/js/mamute"],
+		clean: {
+			before: ["<%= config.webapp %>/{css, js, imgs}/"],
+			after: ["<%= config.assets %>", "<%= config.webapp %>/css/mamute/"]
+		},
 		
 		less: {
 			main: {
-				options: {
-					sourceMap: true,
-					outputSourceFiles: true
-				},
 				files:[{
 					expand: true,
-					cwd: '<%= config.src %>',
+					cwd: '<%= config.assets %>/less',
 					src: ['**/*.less'],
-					dest: '<%= config.root %>/css/mamute/',
+					dest: '<%= config.webapp %>/css/mamute/',
 					ext: '.css'
 				}]
 			}
 		},
 
 		useminPrepare: {
-			html: '<%= config.root %>/WEB-INF/{jsp,tags}/**/*.{jsp,jspf,tag}',
+			html: '<%= config.webapp %>/WEB-INF/{jsp,tags}/**/*.{jsp,jspf,tag}',
 			options: {
-				dest: '<%= config.root %>',
-				root: '<%= config.root %>'
+				dest: '<%= config.webapp %>',
+				root: '<%= config.webapp %>'
 			}
 		},
 
 		usemin: {
-			html: ['<%= config.root %>/WEB-INF/{jsp,tags}/**/*.{jsp,jspf,tag}'],
+			html: ['<%= config.webapp %>/WEB-INF/{jsp,tags}/**/*.{jsp,jspf,tag}'],
 			options: {
-				dirs: ['<%= config.root %>'],
-				assetsDirs: ['<%= config.root %>']
+				dirs: ['<%= config.webapp %>'],
+				assetsDirs: ['<%= config.webapp %>']
 			}
 		},
 
 		uglify: { 
 	      main: {
 	        expand: true,
-	        cwd: '<%= config.root %>/js/',
+	        cwd: '<%= config.webapp %>/js/',
 	        src: ['**/*.js', '!**/*.min.js'],
-	        dest: '<%= config.root %>/js/'
+	        dest: '<%= config.webapp %>/js/'
 	      }
 	    },
 
@@ -59,14 +58,35 @@ module.exports = function(grunt) {
 		    },
 		    source: {
 		    	files: [{
-		    		src: ['<%= config.root %>/{js,css}/mamute/*.{js,css}']
+		    		src: ['<%= config.webapp %>/{js,css}/*.{js,css}']
 		    	}]
 		    }
 	    },
+
+	    copy: {
+		  js: {
+		  	expand: true,
+		  	cwd: '<%= config.assets %>/js/copy/',
+		    src: '**',
+		    dest: '<%= config.webapp %>/js/'
+		  },
+		  css: {
+		  	expand: true,
+		  	cwd: '<%= config.assets %>/css/',
+		    src: '**',
+		    dest: '<%= config.webapp %>/css/'
+		  },
+		  img: {
+		  	expand: true,
+		  	cwd: '<%= config.assets %>/imgs/',
+		    src: '**',
+		    dest: '<%= config.webapp %>/imgs/',
+		  }
+		},
 		
 		watch: {
 			less: {
-				files: ['<%= config.src %>/**/*.less'],
+				files: ['<%= config.assets %>/less/**/*.less'],
 				tasks: ['less'],
 				options: {
 					spawn: false
@@ -81,15 +101,16 @@ module.exports = function(grunt) {
 	 'contrib-concat',
 	 'contrib-cssmin',
 	 'contrib-uglify',
+	 'contrib-copy',
 	 'filerev',
 	 'usemin'
 	].forEach(function(plugin) {
 		grunt.loadNpmTasks('grunt-' + plugin);
 	});
 
-	grunt.registerTask('default', ['clean', 'less']);
+	grunt.registerTask('default', ['clean:before', 'less', 'copy']);
 	grunt.registerTask('build', ['default', 'useminPrepare', 'concat:generated', 'cssmin:generated', 
-									'uglify', 'filerev', 'usemin']);
+									'uglify', 'filerev', 'usemin', 'clean:after']);
 	grunt.registerTask('run', ['default', 'watch']);
 
 };
