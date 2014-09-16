@@ -25,14 +25,13 @@
 <c:set var="commentsSize" value="${fn:length(item.getVisibleCommentsFor(currentUser.current))}"/>
 <c:if test="${commentsSize > 5  && groupComments}">
 	<span class="more-comments" size="${commentsSize}">
-		<fmt:message key="comment.show_all">
-			<fmt:param value="<strong>${commentsSize}</strong>"/>
-		</fmt:message>
+		<c:set var="commentSizeBold" value="<strong>${commentsSize}</strong>"/>
+		${t["comment.show_all"].args("commentSizeBold")}>
 	</span>
 </c:if>
 
 
-<fmt:message  key="comment.submit" var="submit"/>
+<c:set value="${t['comment.submit']}" var="submit"/>
 <tags:simpleAjaxFormWith startHidden="${startFormHidden}" action="${linkTo[CommentController].comment(item.id, type, '', false)}" field="comment" 
 onCallback="append" callbackTarget="${ajaxResultName}" submit="${submit}">
 	<a href="#" class="requires-login post-action add-comment requires-karma" data-karma="${CREATE_COMMENT}">
