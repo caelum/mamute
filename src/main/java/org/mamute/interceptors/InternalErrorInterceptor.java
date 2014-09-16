@@ -41,17 +41,20 @@ public class InternalErrorInterceptor implements Interceptor {
 			PrintWriter pw = new PrintWriter(sw);
 			
 			Throwable cause = e.getCause();
-			if (cause instanceof ConstraintViolationException) {
-				Set<ConstraintViolation<?>> constraintViolations = ((ConstraintViolationException) cause).getConstraintViolations();
-				pw.printf("\nConstraint Violations: \n");
-				for (ConstraintViolation<?> constraintViolation : constraintViolations) {
-					pw.printf("\t" +constraintViolation.getConstraintDescriptor().getAnnotation()+"\n");
+			if(cause != null){
+				if (cause instanceof ConstraintViolationException) {
+					Set<ConstraintViolation<?>> constraintViolations = ((ConstraintViolationException) cause).getConstraintViolations();
+					pw.printf("\nConstraint Violations: \n");
+					for (ConstraintViolation<?> constraintViolation : constraintViolations) {
+						pw.printf("\t" +constraintViolation.getConstraintDescriptor().getAnnotation()+"\n");
+					}
+					pw.printf("\n");
+					log.error(sw.toString());
 				}
-				pw.printf("\n");
-				log.error(sw.toString());
+				cause.printStackTrace(pw);
+			}else{
+				e.printStackTrace(pw);
 			}
-			
-			cause.printStackTrace(pw);
 			
 			pw.close();
 			result.include("stacktrace", sw.toString());
