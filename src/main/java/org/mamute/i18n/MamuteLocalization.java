@@ -3,15 +3,18 @@ package org.mamute.i18n;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import javax.annotation.Priority;
+import javax.enterprise.inject.Alternative;
 import javax.enterprise.inject.Produces;
-import javax.enterprise.inject.Specializes;
 import javax.inject.Inject;
+import javax.interceptor.Interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.jstl.core.Config;
 
 import br.com.caelum.vraptor.core.JstlLocalization;
 
-@Specializes
+@Alternative
+@Priority(Interceptor.Priority.APPLICATION)
 public class MamuteLocalization extends JstlLocalization{
 
 	private final HttpServletRequest request;
