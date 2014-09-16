@@ -97,7 +97,7 @@
 		<dependency>
 			<groupId>br.com.caelum.vraptor</groupId>
 			<artifactId>vraptor-quartzjob</artifactId>
-			<version>4.0.2-SNAPSHOT</version>
+			<version>4.0.2</version>
 			<exclusions>
 				<exclusion>
 					<groupId>c3p0</groupId>
