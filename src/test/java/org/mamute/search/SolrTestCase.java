@@ -14,7 +14,6 @@ public abstract class SolrTestCase extends CDITestCase {
 	static SolrServer solrServer;
 
 	static {
-		//copy Solr home to target
 		try {
 			solrServer = cdiBasedContainer.instanceFor(SolrServer.class);
 		} catch (Exception e) {
