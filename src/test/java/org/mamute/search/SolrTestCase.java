@@ -1,28 +1,21 @@
 package org.mamute.search;
 
-import com.google.common.io.Resources;
-import org.apache.commons.io.FileUtils;
+import java.io.IOException;
+
 import org.apache.solr.client.solrj.SolrServer;
-import org.hibernate.Session;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.mamute.dao.DatabaseTestCase;
+import org.apache.solr.client.solrj.SolrServerException;
+import org.junit.After;
+import org.mamute.testcase.CDITestCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.IOException;
-
-public abstract class SolrTestCase extends DatabaseTestCase {
+public abstract class SolrTestCase extends CDITestCase {
 	private static final Logger LOGGER = LoggerFactory.getLogger(SolrTestCase.class);
-
 	static SolrServer solrServer;
-	static Session hibernateSession;
 
 	static {
 		//copy Solr home to target
 		try {
-			FileUtils.copyDirectory(new File(Resources.getResource("development/solr").getPath()), new File("target/solr"));
 			solrServer = cdiBasedContainer.instanceFor(SolrServer.class);
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage(), e);
@@ -30,10 +23,9 @@ public abstract class SolrTestCase extends DatabaseTestCase {
 		}
 	}
 
-	@BeforeClass
-	public static void openSession() {
-		hibernateSession = factory.openSession();
-		hibernateSession.beginTransaction();
+	@After
+	public void afterSolr() throws IOException, SolrServerException {
+		solrServer.deleteByQuery("*:*");
 	}
 
 }

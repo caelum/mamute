@@ -1,8 +1,13 @@
 package org.mamute.search;
 
-import com.google.common.base.Function;
-import com.google.common.base.Joiner;
-import com.google.common.collect.Lists;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import javax.annotation.Nullable;
+import javax.enterprise.inject.Vetoed;
+
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -15,13 +20,8 @@ import org.mamute.model.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.Nullable;
-import javax.enterprise.inject.Vetoed;
-import javax.inject.Inject;
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import com.google.common.base.Function;
+import com.google.common.collect.Lists;
 
 @Vetoed
 public class SolrQuestionIndex implements QuestionIndex {
@@ -45,7 +45,6 @@ public class SolrQuestionIndex implements QuestionIndex {
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public void indexQuestionBatch(Collection<Question> questions) {
 		try {
 			List<SolrInputDocument> docs = new ArrayList<>();
@@ -55,7 +54,7 @@ public class SolrQuestionIndex implements QuestionIndex {
 			server.add(docs);
 			server.commit();
 		} catch (IOException | SolrServerException e) {
-			List<Long> ids = Lists.transform(new ArrayList(questions), new Function<Question, Long>() {
+			List<Long> ids = Lists.transform(new ArrayList<Question>(questions), new Function<Question, Long>() {
 				public Long apply(Question input) {
 					return input.getId();
 				}
@@ -65,32 +64,24 @@ public class SolrQuestionIndex implements QuestionIndex {
 	}
 
 	@Override
-	public List<Long> findQuestionsByTitle(String title, int maxResults) {
-		return query("title:" + title, maxResults);
-	}
-
-	@Override
-	public List<Long> findQuestionsByTitleAndTag(String title, List<Tag> tags, int maxResults) {
-		String tagQuery = Joiner.on(" OR ").join(Lists.transform(tags, new Function<Tag, Object>() {
-			public Object apply(Tag tag) {
-				return String.format("tags: %s^2", tag.getName());
-			}
-		}));
-
-		return query("title:" + title + " " + tagQuery, maxResults);
+	public List<Long> find(String query, int maxResults) {
+		return query("description:" + query + " OR title:" + query + " OR tags:" + query, maxResults);
 	}
 
 	private SolrInputDocument toDoc(Question q) {
-		SolrInputDocument doc = new SolrInputDocument();
-		doc.addField("id", q.getId());
-		doc.addField("title", q.getTitle());
-		doc.addField("tags", Lists.transform(q.getTags(), new Function<Tag, String>() {
+		List<String> tagNames = Lists.transform(q.getTags(), new Function<Tag, String>() {
 			@Nullable
 			@Override
 			public String apply(@Nullable Tag tag) {
 				return tag.getName();
 			}
-		}));
+		});
+
+		SolrInputDocument doc = new SolrInputDocument();
+		doc.addField("id", q.getId());
+		doc.addField("title", q.getTitle());
+		doc.addField("description", q.getMarkedDescription());
+		doc.addField("tags", tagNames.toString().replace("[", "").replace("]", ""));
 		return doc;
 	}
 

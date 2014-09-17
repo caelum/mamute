@@ -34,7 +34,7 @@ public class SolrSearchController {
 	}
 
 	private List<Question> doSearch(SanitizedText query, int limit) {
-		List<Long> ids = index.findQuestionsByTitle(query.getText(), limit);
+		List<Long> ids = index.find(query.getText(), limit);
 		return questions.getByIds(ids);
 	}
 }
