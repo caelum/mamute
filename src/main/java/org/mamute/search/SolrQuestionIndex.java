@@ -65,7 +65,7 @@ public class SolrQuestionIndex implements QuestionIndex {
 
 	@Override
 	public List<Long> find(String query, int maxResults) {
-		return query("description:" + query + " OR title:" + query + " OR tags:" + query, maxResults);
+		return query("description:" + query + " OR (title:" + query + ")^1.5 OR tags:" + query, maxResults);
 	}
 
 	private SolrInputDocument toDoc(Question q) {
