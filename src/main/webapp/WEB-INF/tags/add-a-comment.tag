@@ -26,7 +26,7 @@
 <c:if test="${commentsSize > 5  && groupComments}">
 	<span class="more-comments" size="${commentsSize}">
 		<c:set var="commentSizeBold" value="<strong>${commentsSize}</strong>"/>
-		${t["comment.show_all"].args("commentSizeBold")}>
+		${t["comment.show_all"].args(commentSizeBold)}>
 	</span>
 </c:if>
 
