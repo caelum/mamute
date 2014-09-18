@@ -1,5 +1,6 @@
 package org.mamute.search;
 
+import static java.lang.Thread.sleep;
 import static org.junit.Assert.assertEquals;
 import static org.mamute.model.SanitizedText.fromTrustedText;
 
@@ -30,7 +31,7 @@ public class SolrQuestionIndexTest extends SolrTestCase {
 	private Question howShipInBottle;
 
 	@Before
-	public void setup() throws IOException, SolrServerException {
+	public void setup() throws IOException, SolrServerException, InterruptedException {
 		author = new User(fromTrustedText("Leonardo"), "leo@leo");
 
 		eli5 = new Tag("eli5", "Explain Like I'm 5", author);
@@ -41,7 +42,8 @@ public class SolrQuestionIndexTest extends SolrTestCase {
 		whyIsSkyBlue = createQuestion(1L, "Why is the sky blue?", "I wanna know why is sky blue", science, eli5);
 		whereDoBabiesComeFrom = createQuestion(2L, "Where do babies come from?", "My mom said I came from a bird", science, eli12);
 		howShipInBottle = createQuestion(3L, "How do they get the ship in the bottle?", "I wanna know this for my school work", hobby);
-
+		
+		sleep(300);
 	}
 
 	@Test
@@ -63,6 +65,11 @@ public class SolrQuestionIndexTest extends SolrTestCase {
 		List<Long> ids = sut.find("school work", 1);
 		assertEquals(1, ids.size());
 		assertEquals(howShipInBottle.getId(), ids.get(0)) ;
+	}
+	
+	@Test
+	public void should_escape_solr_special_characters() {
+		sut.find("[JAVA] Erro multipart/form-data usando primefaces JSF FileUpload", 1);
 	}
 
 	private Question createQuestion(Long id, String title, String description, Tag...tags) {

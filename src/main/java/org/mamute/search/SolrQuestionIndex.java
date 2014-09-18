@@ -1,6 +1,8 @@
 package org.mamute.search;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -70,7 +72,12 @@ public class SolrQuestionIndex implements QuestionIndex {
 
 	@Override
 	public List<Long> find(String query, int maxResults) {
-		return query("description:" + query + " OR (title:" + query + ")^1.5 OR tags:" + query, maxResults);
+		try {
+			query = URLEncoder.encode(query, "utf-8");
+			return query("description:" + query + " OR (title:" + query + ")^1.5 OR tags:" + query, maxResults);
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException("Could not encode query "+ query, e);
+		}
 	}
 
 	private SolrInputDocument toDoc(Question q) {
