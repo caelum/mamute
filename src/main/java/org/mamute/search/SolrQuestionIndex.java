@@ -34,13 +34,14 @@ public class SolrQuestionIndex implements QuestionIndex {
 	}
 
 	@Override
-	public void indexQuestion(Question q) {
+	public void indexQuestion(Question question) {
 		try {
-			SolrInputDocument doc = toDoc(q);
+			SolrInputDocument doc = toDoc(question);
 			server.add(doc);
 			server.commit();
+			LOGGER.info("Question synced or updated: " + question);
 		} catch (IOException | SolrServerException e) {
-			throw new IndexException("Could not index Question [" + q.getId() + "]", e);
+			throw new IndexException("Could not index Question [" + question.getId() + "]", e);
 		}
 	}
 
@@ -48,11 +49,15 @@ public class SolrQuestionIndex implements QuestionIndex {
 	public void indexQuestionBatch(Collection<Question> questions) {
 		try {
 			List<SolrInputDocument> docs = new ArrayList<>();
-			for (Question q : questions) {
-				docs.add(toDoc(q));
+			for (Question question : questions) {
+				docs.add(toDoc(question));
+				LOGGER.info("Question synced or updated(trying to): " + question);
+				
 			}
 			server.add(docs);
 			server.commit();
+			LOGGER.info("Questions synced or updated with success");
+			
 		} catch (IOException | SolrServerException e) {
 			List<Long> ids = Lists.transform(new ArrayList<Question>(questions), new Function<Question, Long>() {
 				public Long apply(Question input) {
