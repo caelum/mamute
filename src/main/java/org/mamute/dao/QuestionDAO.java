@@ -6,6 +6,7 @@ import static org.hibernate.criterion.Projections.rowCount;
 import static org.hibernate.criterion.Restrictions.and;
 import static org.hibernate.criterion.Restrictions.eq;
 import static org.hibernate.criterion.Restrictions.gt;
+import static org.hibernate.criterion.Restrictions.in;
 import static org.hibernate.criterion.Restrictions.isNull;
 
 import java.math.BigInteger;
@@ -18,6 +19,7 @@ import javax.inject.Inject;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
+
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -260,15 +262,15 @@ public class QuestionDAO implements PaginatableDAO {
 
 	/**
 	 * Query for the set of question IDs. Order is preserved in the returned list.
-	 * @param ids
-	 * @return
 	 */
-	public List<Question> getByIds(List<Long> ids){
+	public List<Question> allVisibleByIds(List<Long> ids) {
 		List<Question> questions = new ArrayList<>();
 		if(ids != null && ids.size() >0) {
-			session.createQuery("from Question where id in (:ids)").setParameterList("ids", ids).list();
+			addInvisibleFilter(session.createCriteria(Question.class, "q").add(in("id", ids))).list();
 			for (Long id : ids) {
-				questions.add(getById(id));
+				Criteria criteria = session.createCriteria(Question.class, "q").add(Restrictions.eq("id", id));
+				Question question = (Question) addInvisibleFilter(criteria).uniqueResult();
+				if(question != null) questions.add(question);
 			}
 		}
 		return questions;
