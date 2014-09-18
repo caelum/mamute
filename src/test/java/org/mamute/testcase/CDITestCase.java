@@ -9,7 +9,7 @@ import org.mamute.dao.TestCase;
 import br.com.caelum.vraptor.ioc.cdi.CDIBasedContainer;
 import br.com.caelum.vraptor.test.container.CdiContainer;
 
-public class CDITestCase extends TestCase{
+public abstract class CDITestCase extends TestCase{
 
 	protected static CDIBasedContainer cdiBasedContainer;
 
