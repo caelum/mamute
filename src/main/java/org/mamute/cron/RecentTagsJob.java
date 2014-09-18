@@ -16,7 +16,7 @@ public class RecentTagsJob implements CronTask {
 	@Inject private RecentTagsContainer recentTagsContainer;
     @Inject private Session session;
 	@Inject private Result result;
-	@Inject private static Logger LOG = Logger.getLogger(Logger.class);
+	private static Logger LOG = Logger.getLogger(Logger.class);
 
 	@Override
 	public void execute() {
