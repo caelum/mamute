@@ -12,7 +12,7 @@
 		   name="title" placeholder="${t['question.title.placeholder']}"/>
 
 	<c:if test="${env.supports('feature.solr')}">
-		<div id="question-suggestions">
+		<div id="question-suggestions" class="hidden">
 			<h2 class="title section-title">${t['question.similars']}</h2>
 			<ul class="suggested-questions-list"></ul>
 		</div>
