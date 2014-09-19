@@ -1,0 +1,115 @@
+.md-preview {
+  border: 2px dotted #CCC;
+  padding: 3px;
+  color: #000;
+  line-height: 1.2em;
+  margin-bottom: 1em;
+}
+.md-preview ul,
+.md-preview ol,
+.post-text ul,
+.post-text ol,
+.about-me ul,
+.about-me ol {
+  padding: 1em 0;
+}
+.md-preview ul,
+.post-text ul,
+.about-me ul {
+  list-style: disc inside;
+}
+.md-preview ol,
+.post-text ol,
+.about-me ol {
+  list-style: decimal inside;
+}
+.md-preview h1,
+.post-text h1,
+.about-me h1 {
+  font-size: 1.45em;
+  margin: 1em 0;
+}
+.md-preview h2,
+.post-text h2,
+.about-me h2 {
+  font-size: 1.3em;
+  margin: 1em 0;
+}
+.md-preview blockquote,
+.post-text blockquote,
+.about-me blockquote {
+  margin-bottom: 0.8em;
+  padding: 1em 1em 0.1em;
+  background-color: #eee;
+}
+pre.prettyprint {
+  font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono,
+		DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace,
+		serif;
+  margin-bottom: 10px;
+  background-color: #eeeeee;
+  overflow: auto;
+  max-height: 600px;
+  padding: .3em;
+}
+code {
+  font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono,
+		DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace,
+		serif;
+  background-color: #eeeeee;
+}
+p {
+  margin-bottom: 1em;
+  word-wrap: break-word;
+}
+strong,
+b {
+  font-weight: bold;
+}
+em {
+  font-style: italic;
+}
+.hint-texts {
+  background-color: #FEFAE1;
+  line-height: 1.3em;
+}
+.button-hint-nav,
+.hint-texts pre {
+  background-color: #F4EED6;
+  padding: .3em;
+}
+.hint-texts pre {
+  margin-bottom: 2%;
+  overflow: auto;
+}
+.hint-texts ol {
+  list-style: decimal;
+  list-style-position: inside;
+  margin-bottom: 2%;
+}
+.button-hint-nav,
+.hint-texts {
+  color: #000;
+}
+.button-hint-nav {
+  background-color: #F4EED6;
+  padding-bottom: 0;
+}
+.button-hint-text {
+  padding: 1em;
+  display: none;
+  overflow: hidden;
+}
+.button-hint {
+  cursor: pointer;
+  padding-left: .8em;
+  padding-right: .8em;
+}
+.button-hint.active {
+  background-color: #FEFAE1;
+}
+.button-hint-col {
+  float: left;
+  width: 50%;
+  padding: 0 1em;
+}

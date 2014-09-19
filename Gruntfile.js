@@ -9,8 +9,8 @@ module.exports = function(grunt) {
 		config: config,
 
 		clean: {
-			before: ["<%= config.webapp %>/{css, js, imgs}/"],
-			after: ["<%= config.assets %>", "<%= config.webapp %>/css/mamute/"]
+			before: ["<%= config.webapp %>/{css, js, imgs, font}/"],
+			after: ["<%= config.assets %>", "<%= config.webapp %>/css/generated-css/"]
 		},
 		
 		less: {
@@ -19,7 +19,7 @@ module.exports = function(grunt) {
 					expand: true,
 					cwd: '<%= config.assets %>/less',
 					src: ['**/*.less'],
-					dest: '<%= config.webapp %>/css/mamute/',
+					dest: '<%= config.webapp %>/css/generated-css/',
 					ext: '.css'
 				}]
 			}
@@ -66,19 +66,25 @@ module.exports = function(grunt) {
 	    copy: {
 		  js: {
 		  	expand: true,
-		  	cwd: '<%= config.assets %>/js/copy/',
+		  	cwd: '<%= config.assets %>/grunt-ignore/js/',
 		    src: '**',
-		    dest: '<%= config.webapp %>/js/'
+		    dest: '<%= config.webapp %>/js/grunt-ignore'
 		  },
 		  css: {
 		  	expand: true,
-		  	cwd: '<%= config.assets %>/css/',
+		  	cwd: '<%= config.assets %>/grunt-ignore/css/',
 		    src: '**',
 		    dest: '<%= config.webapp %>/css/'
 		  },
+		  font: {
+		  	expand: true,
+		  	cwd: '<%= config.assets %>/grunt-ignore/font/',
+		    src: '**',
+		    dest: '<%= config.webapp %>/font/'
+		  },
 		  img: {
 		  	expand: true,
-		  	cwd: '<%= config.assets %>/imgs/',
+		  	cwd: '<%= config.assets %>/grunt-ignore/imgs/',
 		    src: '**',
 		    dest: '<%= config.webapp %>/imgs/',
 		  }

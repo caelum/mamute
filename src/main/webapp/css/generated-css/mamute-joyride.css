@@ -1,0 +1,26 @@
+#intro {
+  display: none;
+}
+.intro {
+  visibility: hidden;
+}
+.joyride-tip-guide .joyride-next-tip {
+  display: block;
+  margin-top: 1em;
+  width: 5em;
+  padding-left: 9px;
+  padding-right: 9px;
+}
+.joyride-tip-guide p {
+  display: block;
+  margin-right: 1em;
+}
+.joyride-tip-guide .joyride-close-tip {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  font-size: .7em;
+}
+.joyride-content-wrapper {
+  padding-right: 15px;
+}

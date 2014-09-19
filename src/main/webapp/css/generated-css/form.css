@@ -1,0 +1,186 @@
+form {
+  margin: 0;
+}
+input,
+label,
+textarea {
+  width: 100%;
+}
+input {
+  height: 22px;
+}
+input[type="submit"] {
+  margin: 5px 0;
+  cursor: pointer;
+}
+.text-input {
+  padding: 0.25em;
+  border: 1px solid #eaeaea;
+  background-color: #f6f6f6;
+  height: 2.5em;
+}
+label {
+  display: block;
+  margin: 10px 0;
+  color: #333;
+}
+.big,
+.big a {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+.small,
+.small a,
+a.small {
+  font-size: 0.9em;
+}
+.tiny,
+.tiny a,
+a.tiny {
+  font-size: 1em;
+}
+textarea {
+  resize: vertical;
+}
+.hinted-form {
+  float: left;
+  width: 64%;
+}
+@media only screen and (max-width: 700px) {
+  .hinted-form {
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 840px) {
+  .hinted-form.answer-form {
+    width: 100%;
+  }
+}
+.hinted-form.answer-form > .hint {
+  width: 53%;
+}
+@media only screen and (max-width: 840px) {
+  .hinted-form.answer-form > .hint {
+    position: static;
+    width: 100%;
+    float: left;
+    box-shadow: none;
+    margin-bottom: 1em;
+  }
+}
+.answer-form {
+  position: relative;
+}
+.answer-form > .hint {
+  position: absolute;
+  left: 102%;
+  width: 31%;
+  top: 45px;
+  box-shadow: 0 0 5px 1px;
+}
+@media only screen and (max-width: 1220px) {
+  .answer-form > .hint {
+    width: 40%;
+  }
+}
+@media only screen and (max-width: 1100px) {
+  .answer-form > .hint {
+    width: 51%;
+  }
+}
+@media only screen and (max-width: 840px) {
+  .answer-form > .hint {
+    position: static;
+    width: 100%;
+    float: left;
+    box-shadow: none;
+    margin-bottom: 1em;
+  }
+}
+.submit[disabled=disabled] {
+  opacity: 0.5;
+  cursor: default;
+}
+.inline-box,
+.inline-label {
+  float: left;
+  margin-bottom: 10%;
+}
+.inline-box {
+  width: 3%;
+}
+.inline-label {
+  width: 97%;
+  margin-top: 0;
+}
+.user-form {
+  width: 35%;
+}
+@media only screen and (max-width: 700px) {
+  .user-form {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+.user-form .text-input {
+  margin: 0 0 16px 0;
+}
+.user-form input[type="submit"] {
+  display: block;
+  width: 100%;
+}
+.form-hints {
+  width: 35%;
+  margin-left: 1%;
+  margin-top: 32px;
+  float: left;
+}
+@media only screen and (max-width: 700px) {
+  .form-hints {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+.hint,
+.guideline {
+  background-color: #FFEFC6;
+  border-radius: 5px;
+  padding: .6em;
+  color: #735005;
+}
+.hint-tips .hint-tip,
+.question-warnings .hint-tip {
+  margin-bottom: 1em;
+}
+.link-tip {
+  margin-left: 2em;
+}
+.link-tip .hint-tip:not(:last-child) {
+  margin-bottom: 0.7em;
+}
+.watch .icon-eye {
+  color: #84BC41;
+}
+.watch .icon-muted {
+  color: #ccc;
+}
+.form-watch {
+  display: inline;
+  margin-left: 2em;
+}
+.form-watch input[type="checkbox"] {
+  height: 1em;
+  width: 1em;
+  vertical-align: middle;
+}
+.hint {
+  display: none;
+}
+.hint-anchor {
+  display: none;
+}
+@media only screen and (max-width: 700px) {
+  .hint-anchor {
+    display: inline;
+  }
+}

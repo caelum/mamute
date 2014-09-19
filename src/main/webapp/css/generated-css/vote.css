@@ -1,0 +1,65 @@
+.post-meta,
+.post-container {
+  float: left;
+}
+.post-meta {
+  text-align: center;
+  width: 10%;
+}
+.already-voted {
+  display: none;
+}
+.vote .vote-option {
+  cursor: pointer;
+}
+.post-vote {
+  width: 100%;
+  height: 80px;
+}
+.vote-count {
+  display: block;
+  text-align: center;
+}
+.post-vote-count {
+  font-size: 1.85em;
+  color: #504355;
+  height: 40px;
+  line-height: 40px;
+}
+.vote-option {
+  cursor: pointer;
+}
+.arrow {
+  width: 0;
+  height: 0;
+  line-height: 20px;
+  display: block;
+  text-indent: -9999px;
+  border: 13px solid transparent;
+}
+@media only screen and (max-width: 700px) {
+  .arrow {
+    border-width: 9px;
+  }
+}
+.arrow-popup-fix {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 90%;
+  overflow: hidden;
+}
+.vote-time {
+  width: 10em;
+}
+.down-arrow {
+  border-top-color: #818185;
+}
+.down-arrow.voted {
+  border-top-color: #3A77A6;
+}
+.up-arrow {
+  border-bottom-color: #818185;
+}
+.up-arrow.voted {
+  border-bottom-color: #3A77A6;
+}
