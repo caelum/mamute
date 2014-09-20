@@ -13,7 +13,7 @@ First of all, you need to setup an MySQL database. The default database name is
 1. Download the war of the latest version at http://www.mamute.org
 2. Unpack it to a folder named `yourproject/mamute`
 3. Run it by executing the bash script `mamute/run.sh`
-4. If everything went worked, you are free to customize `mamute` folder as you want to! 
+4. If everything worked, you are free to customize `mamute` folder as you want to! 
 
 ###Using git + maven:
 
@@ -23,7 +23,7 @@ First of all, you need to setup an MySQL database. The default database name is
 4. Run `mvn clean package -DskipTests`
 5. Make a copy of `mamute/target/mamute-1.0.0-SNAPSHOT` to `yourproject/mamute`
 6. Run it by executing the bash script `mamute/run.sh`
-7. If everything went worked, you are free to customize `mamute` folder as you want to! 
+7. If everything worked, you are free to customize `mamute` folder as you want to! 
 
 ##To contribute with mamute:
 
