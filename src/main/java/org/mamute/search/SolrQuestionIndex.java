@@ -1,6 +1,7 @@
 package org.mamute.search;
 
-import static org.apache.commons.lang3.StringUtils.isEmpty;
+
+import static org.apache.commons.lang.StringUtils.isEmpty;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -12,6 +13,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 import javax.enterprise.inject.Vetoed;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
