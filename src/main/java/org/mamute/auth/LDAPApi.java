@@ -133,16 +133,15 @@ public class LDAPApi {
 	private void createUserIfNeeded(LDAPResource ldap, String cn) throws LdapException {
 		Entry ldapUser = ldap.getUser(cn);
 		String email = ldap.getAttribute(ldapUser, emailAttr);
-		if (users.findByEmail(email) == null) {
+		User user = users.findByEmail(email);
+		if (user == null) {
 			String fullName = ldap.getAttribute(ldapUser, nameAttr);
 			if (isNotEmpty(surnameAttr)) {
 				fullName += " " + ldap.getAttribute(ldapUser, surnameAttr);
 			}
 
-			User user = new User(fromTrustedText(fullName.trim()), email);
-			if (isNotEmpty(moderatorGroup) && ldap.getGroups(ldapUser).contains(moderatorGroup)) {
-				user = user.asModerator();
-			}
+			user = new User(fromTrustedText(fullName.trim()), email);
+
 
 			LoginMethod brutalLogin = LoginMethod.brutalLogin(user, email, PLACHOLDER_PASSWORD);
 			user.add(brutalLogin);
@@ -150,6 +149,15 @@ public class LDAPApi {
 			users.save(user);
 			loginMethods.save(brutalLogin);
 		}
+
+		//update moderator status
+		if (isNotEmpty(moderatorGroup) && ldap.getGroups(ldapUser).contains(moderatorGroup)) {
+			user = user.asModerator();
+		} else {
+			user.removeModerator();
+		}
+
+		users.save(user);
 	}
 
 	private String assertValuePresent(String field) {

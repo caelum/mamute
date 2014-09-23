@@ -285,6 +285,11 @@ public class User implements Identifiable {
 		this.moderator = true;
 		return this;
 	}
+
+	public User removeModerator() {
+		this.moderator = false;
+		return this;
+	}
 	
 	public boolean canModerate() {
 		return isModerator() || this.karma >= PermissionRulesConstants.MODERATE_EDITS;
