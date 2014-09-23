@@ -19,7 +19,7 @@ First of all, you need to setup an MySQL database. The default database name is
 
 1. Clone the repository from [github](https://github.com/caelum/mamute)
 2. Install node and npm
-3. Run npm install
+3. Run `npm install`
 4. Run `mvn clean package -DskipTests`
 5. Make a copy of `mamute/target/mamute-1.0.0-SNAPSHOT` to `yourproject/mamute`
 6. Run it by executing the bash script `mamute/run.sh`
@@ -30,7 +30,7 @@ First of all, you need to setup an MySQL database. The default database name is
 1. Fork the repository from [github](https://github.com/caelum/mamute)
 2. Clone the fork
 3. Install node and npm
-4. Run npm install
+4. Run `npm install`
 5. Run `Main.java` to start mamute
 6. Develop and do your pull request
 
