@@ -7,18 +7,18 @@ public class SanitizedText {
 	private SanitizedText(String text) {
 		this.text = text;
 	}
-	
-	public String getText() {
-		return text;
-	}
 
 	public static SanitizedText fromTrustedText(String text) {
 		return new SanitizedText(text);
 	}
 
+	public String getText() {
+		return text;
+	}
+
 	@Override
 	public String toString() {
-		return "SanitizedText [text=" + text + "]";
+		return getText();
 	}
 	
 }
