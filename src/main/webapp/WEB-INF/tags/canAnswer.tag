@@ -7,26 +7,12 @@
 
 <c:set var="user" value="${currentUser.current}"/>
 <c:set var="isAuthor" value="${question.author eq user}"/>
+<c:set var="canAnswerIfOwnQuestion" value="${!isAuthor || user.hasKarmaToAnswerOwnQuestion()}"/>
+<c:set var="canAnswerIfQuestionIsInactive" value="${!question.isInactiveForOneMonth() || user.hasKarmaToAnswerInactiveQuestion()}"/>
+<c:set var="hasKarmaToAnswer" value="${canAnswerIfOwnQuestion && canAnswerIfQuestionIsInactive}"/>
 
-<c:choose>
-	<c:when test="${currentUser.loggedIn && isAuthor}">
-		<c:if test="${user.hasKarmaToAnswerOwn(question) && !question.alreadyAnsweredBy(user)}">
-			<tags:answerForm uri="${uri}" />		
-		</c:if>
-		<c:if test="${!user.hasKarmaToAnswerOwn(question) && question.alreadyAnsweredBy(user)}">
-			<div class="message alert already-answered">
-				${t['answer.errors.already_answered']}
-			</div>
-		</c:if>
-		<c:if test="${!user.hasKarmaToAnswerOwn(question) && !question.alreadyAnsweredBy(user)}">
-			<div class="message alert not-enough-karma">
-				${t['answer.errors.not_enough_karma'].args(linkTo[NavigationController].about, linkTo[QuestionController].newQuestion)}
-			</div>
-		</c:if>
-	</c:when>
-	
-	<c:when test="${currentUser.loggedIn && !isAuthor}">
-		<c:if test="${!question.alreadyAnsweredBy(user)}">
+<c:if test="${currentUser.loggedIn}">
+		<c:if test="${!question.alreadyAnsweredBy(user) && hasKarmaToAnswer}">
 			<tags:answerForm uri="${uri}" />
 		</c:if>
 		<c:if test="${question.alreadyAnsweredBy(user)}">
@@ -34,5 +20,11 @@
 				${t['answer.errors.already_answered']}
 			</div>
 		</c:if>
-	</c:when>
-</c:choose>
+		<c:if test="${!hasKarmaToAnswer}">
+			<div class="message alert not-enough-karma">
+				${t['answer.errors.not_enough_karma'].args(linkTo[NavigationController].about, linkTo[QuestionController].newQuestion)}
+			</div>
+		</c:if>
+</c:if>
+
+

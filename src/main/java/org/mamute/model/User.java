@@ -343,8 +343,12 @@ public class User implements Identifiable {
 		return id == votable.getAuthor().getId();
 	}
 	
-	public boolean hasKarmaToAnswerOwn(Question question) {
+	public boolean hasKarmaToAnswerOwnQuestion() {
 		return (this.karma >= PermissionRulesConstants.ANSWER_OWN_QUESTION) || isModerator(); 
+	}
+	
+	public boolean hasKarmaToAnswerInactiveQuestion() {
+		return (this.karma >= PermissionRulesConstants.INACTIVE_QUESTION) || isModerator(); 
 	}
 	
 	public List<LoginMethod> getLoginMethods() {

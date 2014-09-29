@@ -26,7 +26,7 @@ public class AnsweredByValidator {
 	
 	public boolean validate(Question question){
 		if(question.getAuthor().equals(user.getCurrent())) {
-			if(!user.getCurrent().hasKarmaToAnswerOwn(question)) {
+			if(!user.getCurrent().hasKarmaToAnswerOwnQuestion()) {
 				validator.add(factory.build("error", "answer.validation.errors.not_enough_karma"));	
 			}
 		} 
