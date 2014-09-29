@@ -1,14 +1,14 @@
 package org.mamute.search;
 
-import br.com.caelum.vraptor.Controller;
-import br.com.caelum.vraptor.Post;
-import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.environment.Environment;
-import br.com.caelum.vraptor.events.InterceptorsReady;
 import br.com.caelum.vraptor.events.VRaptorInitialized;
-import br.com.caelum.vraptor.quartzjob.CronTask;
+import org.hibernate.Session;
+import org.mamute.dao.InvisibleForUsersRule;
 import org.mamute.dao.QuestionDAO;
+import org.mamute.model.LoggedUser;
 import org.mamute.model.Question;
+import org.mamute.model.User;
+import org.mamute.providers.SessionFactoryCreator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,60 +17,64 @@ import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import java.util.List;
 
-@Controller
-public class IndexSyncJob implements CronTask {
+import static org.mamute.model.SanitizedText.fromTrustedText;
+
+
+@ApplicationScoped
+public class IndexSyncJob {
 	public static final Logger LOGGER = LoggerFactory.getLogger(IndexSyncJob.class);
 	public static final String DEFAULT_SYNC = "0 0 0/1 1/1 * ? *";
 
 	private static String frequency;
 
-	@Inject private Result result;
-	@Inject private QuestionDAO questions;
-	@Inject private QuestionIndex index;
-	@Inject private Environment environment;
+	private SessionFactoryCreator factory;
+	private QuestionIndex index;
+	private Environment environment;
 
 	@Deprecated
 	protected IndexSyncJob() {
-		LOGGER.info("Instance");
 	}
 
-	@Override
-	@Post("/sdfajsdfjaoiji")
+	@Inject
+	public IndexSyncJob(SessionFactoryCreator factory, QuestionIndex index, Environment environment) {
+		this.factory = factory;
+		this.index = index;
+		this.environment = environment;
+	}
+
+	private InvisibleForUsersRule generateUser() {
+		User user = new User(fromTrustedText("System"), "system");
+		LoggedUser loggedUser = new LoggedUser(user, null);
+		return new InvisibleForUsersRule(loggedUser);
+	}
+
 	public void execute() {
-		long pages = questions.numberOfPages();
-		long total = 0;
-		LOGGER.info("Syncing questions!");
-		for (int i = 0; i < pages; i++) {
-			List<Question> q = questions.allVisible(i);
-			index.indexQuestionBatch(q);
-			total += q.size();
+		Session session = factory.getInstance().openSession();
+		try {
+			QuestionDAO questions = new QuestionDAO(session, generateUser());
+
+			long pages = questions.numberOfPages();
+			long total = 0;
+			LOGGER.info("Syncing questions!");
+			for (int i = 0; i < pages; i++) {
+				List<Question> q = questions.allVisible(i);
+				index.indexQuestionBatch(q);
+				total += q.size();
+			}
+			LOGGER.info("Synced " + total + " questions");
+		} finally {
+			session.close();
 		}
-		LOGGER.info("Synced " + total + " questions");
-		result.nothing();
 	}
 
-	@Override
-	public String frequency() {
+	public static String getFrequency() {
 		return frequency;
 	}
 
-	public void onStartup(@Observes InterceptorsReady init) {
+	public void onStartup(@Observes VRaptorInitialized init) {
+		frequency = environment.get("solr.syncJob", DEFAULT_SYNC);
 		if (Boolean.parseBoolean(environment.get("solr.syncOnStartup"))) {
 			execute();
 		}
 	}
-
-	/**
-	 * Grabs the frequency of the job (bit of a hack to get things in the
-	 * correct scope)
-	 */
-	@ApplicationScoped
-	static class FrequencyInit {
-		@Inject private Environment environment;
-
-		public void onStartup(@Observes VRaptorInitialized init) {
-			frequency = environment.get("solr.syncJob", DEFAULT_SYNC);
-		}
-	}
-
 }
