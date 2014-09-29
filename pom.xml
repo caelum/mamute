@@ -26,7 +26,7 @@
 		<dependency>
 			<groupId>br.com.caelum</groupId>
 			<artifactId>vraptor</artifactId>
-			<version>4.1.0-RC3</version>
+			<version>4.1.0-RC2</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.hamcrest</groupId>
@@ -75,7 +75,7 @@
 		<dependency>
 			<groupId>br.com.caelum.vraptor</groupId>
 			<artifactId>vraptor-freemarker</artifactId>
-			<version>4.1.0-RC2</version>
+			<version>4.0.0-RC2</version>
 			<exclusions>
 				<exclusion>
 		          <groupId>javax.enterprise</groupId>
@@ -108,17 +108,18 @@
 		<dependency>
 			<groupId>br.com.caelum.vraptor</groupId>
 			<artifactId>vraptor-simplemail</artifactId>
-			<version>4.1.0-RC2</version>
+			<version>4.0.0-RC2</version>
 		</dependency>
 		<dependency>
 			<groupId>br.com.caelum.vraptor</groupId>
 			<artifactId>vraptor-brutauth</artifactId>
-			<version>4.0.1</version>
+			<version>4.0.0.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>br.com.caelum.vraptor</groupId>
 			<artifactId>vraptor-jodatime</artifactId>
-			<version>4.1.0-RC2</version>
+			<version>4.0.0-RC3-SNAPSHOT</version>
+			<!-- RC3 manual deployed to fix issue #2 -->
 		</dependency>
 		<dependency>
 			<groupId>br.com.caelum.vraptor</groupId>
@@ -133,7 +134,7 @@
         <dependency>
             <groupId>br.com.caelum.vraptor</groupId>
             <artifactId>vraptor-action-cache</artifactId>
-            <version>4.0.2-SNAPSHOT</version>
+            <version>4.0.1</version>
             <exclusions>
                 <exclusion>
                     <groupId>net.sf.ehcache</groupId>
@@ -160,10 +161,14 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
+		<!-- end of VRaptor plugins -->
+
+		<!-- hibernate deps -->
 		<dependency>
 			<groupId>br.com.caelum.vraptor</groupId>
 			<artifactId>vraptor-hibernate</artifactId>
-			<version>4.0.2</version>
+			<version>4.0.0-RC2</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.hibernate</groupId>
@@ -171,10 +176,6 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<!-- end of VRaptor plugins -->
-
-
-		<!-- hibernate deps -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator-cdi</artifactId>
