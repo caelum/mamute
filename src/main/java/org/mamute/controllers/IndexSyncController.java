@@ -9,21 +9,15 @@ import org.mamute.search.IndexSyncJob;
 import javax.inject.Inject;
 
 @Controller
-public class IndexSyncController implements CronTask {
+public class IndexSyncController {
 	public static final String DEFAULT_SYNC = "0 0 0/1 1/1 * ? *";
 
 	@Inject IndexSyncJob job;
 	@Inject Result result;
 
 	@Post("/sdfajsdfjaoiji")
-	@Override
 	public void execute() {
 		job.execute();
 		result.nothing();
-	}
-
-	@Override
-	public String frequency() {
-		return DEFAULT_SYNC;
 	}
 }
