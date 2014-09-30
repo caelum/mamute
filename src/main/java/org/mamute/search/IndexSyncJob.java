@@ -23,9 +23,6 @@ import static org.mamute.model.SanitizedText.fromTrustedText;
 @ApplicationScoped
 public class IndexSyncJob {
 	public static final Logger LOGGER = LoggerFactory.getLogger(IndexSyncJob.class);
-	public static final String DEFAULT_SYNC = "0 0 0/1 1/1 * ? *";
-
-	private static String frequency;
 
 	private SessionFactoryCreator factory;
 	private QuestionIndex index;
@@ -67,12 +64,7 @@ public class IndexSyncJob {
 		}
 	}
 
-	public static String getFrequency() {
-		return frequency;
-	}
-
 	public void onStartup(@Observes VRaptorInitialized init) {
-		frequency = environment.get("solr.syncJob", DEFAULT_SYNC);
 		if (Boolean.parseBoolean(environment.get("solr.syncOnStartup"))) {
 			execute();
 		}

@@ -10,6 +10,7 @@ import javax.inject.Inject;
 
 @Controller
 public class IndexSyncController implements CronTask {
+	public static final String DEFAULT_SYNC = "0 0 0/1 1/1 * ? *";
 
 	@Inject IndexSyncJob job;
 	@Inject Result result;
@@ -23,6 +24,6 @@ public class IndexSyncController implements CronTask {
 
 	@Override
 	public String frequency() {
-		return IndexSyncJob.getFrequency();
+		return DEFAULT_SYNC;
 	}
 }
