@@ -1,19 +1,19 @@
 package org.mamute.controllers;
 
+import javax.inject.Inject;
+
+import org.mamute.search.IndexSyncJob;
+
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.quartzjob.CronTask;
-import org.mamute.search.IndexSyncJob;
-
-import javax.inject.Inject;
 
 @Controller
 public class IndexSyncController {
 	public static final String DEFAULT_SYNC = "0 0 0/1 1/1 * ? *";
 
-	@Inject IndexSyncJob job;
-	@Inject Result result;
+	@Inject private IndexSyncJob job;
+	@Inject private Result result;
 
 	@Post("/sdfajsdfjaoiji")
 	public void execute() {
