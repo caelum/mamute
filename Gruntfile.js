@@ -47,12 +47,6 @@ module.exports = function(grunt) {
 				  },
 				  {
 				  	expand: true,
-				  	cwd: '<%= config.generatedCss %>',
-				    src: ['**'],
-				    dest: '<%= config.webapp %>/css/'
-				  },
-				  {
-				  	expand: true,
 				  	cwd: '<%= config.ignored %>/css/',
 				    src: ['**'],
 				    dest: '<%= config.webapp %>/css/'
