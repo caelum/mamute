@@ -1,0 +1,90 @@
+.main-tags {
+  padding: 0 0 0 0em;
+  font-size: 0.9em;
+}
+.main-tags li {
+  display: inline-block;
+}
+.main-tags .tag-brutal {
+  margin-top: .3em;
+}
+.main-tags-header {
+  background: #ccc;
+}
+@media only screen and (max-width: 370px) {
+  .main-tags-header {
+    display: none;
+  }
+}
+.main-tags-current {
+  background-color: #bcbcbc;
+}
+@media only screen and (max-width: 840px) {
+  .main-tags-sprite {
+    padding-left: .7em;
+  }
+}
+.main-tags-sprite:before {
+  content: "";
+  background-image: url('/imgs/sprite-tag.png');
+  background-repeat: no-repeat;
+  display: inline-block;
+  vertical-align: middle;
+  width: 37px;
+  height: 40px;
+}
+.main-tags-text {
+  color: #383938;
+  font-size: 1.2em;
+  padding-right: .6em;
+  padding-left: .6em;
+  display: block;
+  line-height: 40px;
+}
+.main-tags-text:hover {
+  background-color: #adadad;
+}
+@media only screen and (min-width: 1360px) {
+  .main-tags-text {
+    padding-right: .7em;
+    padding-left: .7em;
+  }
+}
+@media only screen and (max-width: 1310px) {
+  .main-tags-text {
+    padding-right: .5em;
+    padding-left: .5em;
+  }
+}
+.main-tags-java:before {
+  background-position: -48px -7px;
+}
+.main-tags-android:before {
+  background-position: -281px -7px;
+}
+.main-tags-c:before {
+  background-position: -561px -7px;
+}
+.main-tags-net:before {
+  background-position: -323px -7px;
+}
+.main-tags-javascript:before {
+  background-position: -408px -7px;
+}
+.main-tags-php:before {
+  background-position: -140px -7px;
+}
+.main-tags-jquery:before {
+  background-position: -463px -7px;
+}
+.main-tags-html:before {
+  background-position: -235px -7px;
+}
+.main-tags-sql:before {
+  background-position: -509px -7px;
+}
+.sprite {
+  background-repeat: no-repeat;
+  overflow: hidden;
+  text-indent: -999999em;
+}

@@ -1,0 +1,28 @@
+.hidden {
+  display: none;
+}
+.opaque {
+  opacity: 0.2;
+}
+.active {
+  display: block;
+}
+.bold-it {
+  font-weight: bold;
+}
+.pull-center {
+  text-align: center;
+}
+.grey-text {
+  color: #808080;
+}
+.ellipsis {
+  display: block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.highlight {
+  font-weight: bold;
+  text-transform: capitalize;
+}

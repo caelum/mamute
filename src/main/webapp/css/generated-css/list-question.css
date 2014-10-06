@@ -1,0 +1,129 @@
+.post-item,
+.question-information,
+.summary {
+  overflow: hidden;
+}
+.post-information,
+.summary {
+  float: left;
+}
+@media only screen and (max-width: 800px) {
+  .summary {
+    width: 80%;
+  }
+}
+.post-item {
+  border-bottom: 1px solid #EAEAEA;
+  padding-bottom: .8em;
+  padding-top: 2%;
+}
+.highlight-post {
+  background-color: #fce4b4;
+}
+.question-summary {
+  width: 85%;
+}
+@media only screen and (max-width: 1100px) {
+  .question-summary {
+    width: 80%;
+  }
+}
+.question-summary .tags {
+  width: auto;
+}
+.post-information {
+  padding-right: 1.5%;
+}
+.question-information {
+  width: 15%;
+}
+@media only screen and (max-width: 1100px) {
+  .question-information {
+    width: 20%;
+  }
+}
+@media only screen and (max-width: 800px) {
+  .question-information {
+    margin-left: auto;
+    margin-right: auto;
+    width: 20%;
+  }
+}
+.info {
+  float: left;
+  font-size: 1.4em;
+  padding: .4em 0;
+  text-align: center;
+}
+@media only screen and (max-width: 800px) {
+  .info {
+    width: 100%;
+  }
+  .info.views,
+  .info.votes {
+    display: none;
+  }
+}
+@media only screen and (max-width: 700px) {
+  .info {
+    padding: .15em 0;
+  }
+}
+.question-info {
+  width: 50%;
+}
+.answers {
+  color: #B60000;
+}
+.answers.solved {
+  border-bottom: 2px solid #008e43;
+}
+.answers.answered {
+  color: #008e43;
+}
+.votes {
+  color: #504355;
+}
+.post-simple-information {
+  display: inline-block;
+  padding: 2px 0;
+  margin-left: 1em;
+}
+.subtitle {
+  display: block;
+  font-size: .63em;
+  overflow: visible;
+  margin-top: 6%;
+}
+.tags-usage {
+  margin-bottom: 1.5em;
+}
+.tags-usage .tags-item {
+  margin-bottom: .45em;
+  display: inline-block;
+  width: 49%;
+  margin-right: 0;
+}
+.related-questions li {
+  padding-bottom: 0.7em;
+  font-size: 1.1em;
+  overflow: hidden;
+}
+.related-questions span {
+  background-color: #eaeaea;
+  padding: 0 0.5em;
+  font-size: 0.8em;
+  color: #555;
+  float: left;
+}
+.related-questions a {
+  float: right;
+  width: 87%;
+}
+#question-list-container {
+  float: left;
+  width: 70%;
+}
+#question-list-container .first-content.content {
+  width: 100%;
+}

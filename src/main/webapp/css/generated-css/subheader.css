@@ -1,0 +1,46 @@
+.subheader {
+  border-bottom: 1px solid #cccccc;
+  padding-bottom: .7em;
+  overflow: hidden;
+  margin-bottom: 2%;
+}
+.subheader .title {
+  display: inline-block;
+  vertical-align: middle;
+  float: left;
+}
+.subheader .main-tags {
+  padding: 0 0 0 0em;
+  font-size: 0.9em;
+}
+.subheader .tag-brutal {
+  font-size: .8em;
+  vertical-align: middle;
+}
+.subheader .icon-award:before {
+  vertical-align: middle;
+  font-size: 1.65em;
+  margin-right: .15em;
+}
+.subheader .icon-award {
+  vertical-align: middle;
+  color: #edd136;
+}
+.subheader .icon-trophy:hover {
+  color: #e0bf18;
+}
+.content .subheader {
+  margin-bottom: 0;
+}
+.subheader-with-tab {
+  padding-bottom: 38px;
+  overflow: visible;
+}
+.subheader-menu {
+  float: right;
+  line-height: 1.7em;
+}
+.subheader-menu a {
+  color: #999;
+  font-size: .9em;
+}
