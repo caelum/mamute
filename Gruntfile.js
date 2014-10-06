@@ -124,7 +124,7 @@ module.exports = function(grunt) {
 
 	//remaps the filerev data to match the prefixed filenames
 	grunt.registerTask('remapFilerev', function(){
-		var root = grunt.config().config.root;
+		var root = grunt.config().config.webapp;
 		var summary = grunt.filerev.summary;
 		var fixed = {};
 
