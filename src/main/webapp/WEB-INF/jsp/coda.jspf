@@ -6,7 +6,7 @@
 <tags:brutal-include value="footer"/>
 
 <!-- build:js /js/jquery.js -->	
-	<script src="/assets/js/deps/jquery.js"></script>
+	<script src="/js/deps/jquery.js"></script>
 <!-- endbuild -->
 
 <script type="text/javascript">
@@ -24,54 +24,54 @@
 </script>
 
 <!-- build:js /js/jquery-plugins.js -->	
-	<script src="/assets/js/deps/diff_match_patch.js"></script>
-	<script src="/assets/js/deps/pretty-text-diff.js"></script>
-	<script src="/assets/js/deps/jquery.validate.min.js"></script>
-	<script src="/assets/js/deps/jquery.joyride-2.0.3.js"></script>
+	<script src="/js/deps/diff_match_patch.js"></script>
+	<script src="/js/deps/pretty-text-diff.js"></script>
+	<script src="/js/deps/jquery.validate.min.js"></script>
+	<script src="/js/deps/jquery.joyride-2.0.3.js"></script>
 	
-	<script src="/assets/js/deps/picker.js"></script>
-	<script src="/assets/js/deps/picker.date.js"></script>
-	<script src="/assets/js/deps/translations/pt_BR.js"></script>
+	<script src="/js/deps/picker.js"></script>
+	<script src="/js/deps/picker.date.js"></script>
+	<script src="/js/deps/translations/pt_BR.js"></script>
 <!-- endbuild -->
 
 <!-- build:js /js/mamute.js -->
-	<script src="/assets/js/deps/prettify.js"></script>
-	<script src="/assets/js/deps/Markdown.Converter.js"></script>
-	<script src="/assets/js/deps/Markdown.Sanitizer.js"></script>
-	<script src="/assets/js/deps/Markdown.Editor.js"></script>
-	<script src="/assets/js/deps/marked.js"></script>
-	<script src="/assets/js/deps/filepicker.js"></script>
-	<script src="/assets/js/deps/feather.js"></script>
-	<script src="/assets/js/messages.js"></script>
-	<script src="/assets/js/tags-manager.js"></script>
-	<script src="/assets/js/form-validation.js"></script>
-	<script src="/assets/js/form-hints.js"></script>
-	<script src="/assets/js/form-helper.js"></script>
-	<script src="/assets/js/simple-ajax-form.js"></script>
-	<script src="/assets/js/mark-as-solution.js"></script>
-	<script src="/assets/js/watch.js"></script>
-	<script src="/assets/js/form-markdown.js"></script>
-	<script src="/assets/js/hide-next.js"></script>
-	<script src="/assets/js/modal.js"></script>
-	<script src="/assets/js/up-down-vote.js"></script>
-	<script src="/assets/js/links-behaviour.js"></script>
-	<script src="/assets/js/history-select-version.js"></script>
-	<script src="/assets/js/submenu.js"></script>
-	<script src="/assets/js/popup.js"></script>
-	<script src="/assets/js/dropdown.js"></script>
-	<script src="/assets/js/order-by.js"></script>
-	<script src="/assets/js/share.js"></script>
-	<script src="/assets/js/diff.js"></script>
-	<script src="/assets/js/flag-it.js"></script>
-	<script src="/assets/js/more-comments.js"></script>
-	<script src="/assets/js/button-hints.js"></script>
-	<script src="/assets/js/answer-form.js"></script>
-	<script src="/assets/js/form-fix.js"></script>
-	<script src="/assets/js/about-banner.js"></script>
-	<script src="/assets/js/question-warnings.js"></script>
-	<script src="/assets/js/approve-news.js"></script>
-	<script src="/assets/js/ban-user.js"></script>
-	<script src="/assets/js/question-suggestions.js"></script>
+	<script src="/js/deps/prettify.js"></script>
+	<script src="/js/deps/Markdown.Converter.js"></script>
+	<script src="/js/deps/Markdown.Sanitizer.js"></script>
+	<script src="/js/deps/Markdown.Editor.js"></script>
+	<script src="/js/deps/marked.js"></script>
+	<script src="/js/deps/filepicker.js"></script>
+	<script src="/js/deps/feather.js"></script>
+	<script src="/js/messages.js"></script>
+	<script src="/js/tags-manager.js"></script>
+	<script src="/js/form-validation.js"></script>
+	<script src="/js/form-hints.js"></script>
+	<script src="/js/form-helper.js"></script>
+	<script src="/js/simple-ajax-form.js"></script>
+	<script src="/js/mark-as-solution.js"></script>
+	<script src="/js/watch.js"></script>
+	<script src="/js/form-markdown.js"></script>
+	<script src="/js/hide-next.js"></script>
+	<script src="/js/modal.js"></script>
+	<script src="/js/up-down-vote.js"></script>
+	<script src="/js/links-behaviour.js"></script>
+	<script src="/js/history-select-version.js"></script>
+	<script src="/js/submenu.js"></script>
+	<script src="/js/popup.js"></script>
+	<script src="/js/dropdown.js"></script>
+	<script src="/js/order-by.js"></script>
+	<script src="/js/share.js"></script>
+	<script src="/js/diff.js"></script>
+	<script src="/js/flag-it.js"></script>
+	<script src="/js/more-comments.js"></script>
+	<script src="/js/button-hints.js"></script>
+	<script src="/js/answer-form.js"></script>
+	<script src="/js/form-fix.js"></script>
+	<script src="/js/about-banner.js"></script>
+	<script src="/js/question-warnings.js"></script>
+	<script src="/js/approve-news.js"></script>
+	<script src="/js/ban-user.js"></script>
+	<script src="/js/question-suggestions.js"></script>
 <!-- endbuild -->
 
 <c:if test="${environment.supports('feature.analytics')}" >
