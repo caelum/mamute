@@ -2,8 +2,8 @@
 /webapp/assets -> before build
      -> /js -> js at development (modify them freely)
      -> /less -> less (modify them freely)
-     -> /generated-css -> css processed from less + ignored css
-/webapp/{css/js/imgs/font}-> after all the build(production assets)
+     -> /generated-css -> css processed from less + ignored css (these are generated automatically, please don't touch them)
+/webapp/{css/js/imgs/font} -> after all the build, production assets (these are generated automatically, please don't touch them)
 */
 
 module.exports = function(grunt) {
