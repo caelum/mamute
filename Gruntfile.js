@@ -1,5 +1,6 @@
 /* 
 /webapp/assets -> before build
+	 -> /grunt-ignore -> assets that will just be copied to production without any modifications (modify them freely)
      -> /js -> js at development (modify them freely)
      -> /less -> less (modify them freely)
      -> /generated-css -> css processed from less + ignored css (these are generated automatically, please don't touch them)
