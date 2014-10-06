@@ -59,32 +59,6 @@ public class TagDAOTest extends DatabaseTestCase{
 	}
 	
 	@Test
-	public void should_load_tags_with_usage_with_provided_name() throws Exception {
-		questionWith(Arrays.asList(java));
-		questionWith(Arrays.asList(java));
-		questionWith(Arrays.asList(java));
-		questionWith(Arrays.asList(ruby));
-		List<Tag> tagsLike = tags.findTagsLike("ja");
-		
-		assertEquals(1, tagsLike.size());
- 		assertEquals(3l, tagsLike.get(0).getUsageCount().longValue());
-		assertEquals(java.getId(), tagsLike.get(0).getId());
-	}
-	
-	@Test
-	public void should_load_tags_with_usage_with_provided_name_even_if_its_in_a_different_case() throws Exception {
-		questionWith(Arrays.asList(java));
-		questionWith(Arrays.asList(java));
-		questionWith(Arrays.asList(java));
-		questionWith(Arrays.asList(ruby));
-		List<Tag> tagsLike = tags.findTagsLike("JA");
-		
-		assertEquals(1, tagsLike.size());
-		assertEquals(3l, tagsLike.get(0).getUsageCount().longValue());
-		assertEquals(java.getId(), tagsLike.get(0).getId());
-	}
-	
-	@Test
 	public void should_get_main_tags_of_the_provided_user() throws Exception {
 		Question javaQuestion = questionWith(Arrays.asList(java));
 		Answer javaAnswer = answer("just do this and that and you will be happy forever", javaQuestion, leo);

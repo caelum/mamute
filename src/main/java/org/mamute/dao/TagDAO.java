@@ -31,14 +31,6 @@ public class TagDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Tag> findTagsLike(String tagChunk) {
-		Query query = session.createQuery("select tag from Tag tag "+
-				"where lower(tag.name) like lower(:tagChunk) order by tag.usageCount desc");
-		query.setString("tagChunk", "%"+tagChunk+"%");
-		return query.list();
-	}
-
-	@SuppressWarnings("unchecked")
 	public List<TagUsage> getRecentTagsSince(DateTime since) {
 		Query query = session.createQuery("select new org.mamute.model.TagUsage(tag, count(question)) from Question question " +
 				"join question.information.tags tag " +
