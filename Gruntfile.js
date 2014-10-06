@@ -37,11 +37,19 @@ module.exports = function(grunt) {
 			html: ['<%= config.webapp %>/WEB-INF/{jsp,tags}/**/*.{jsp,jspf,tag}'],
 			options: {
 				dirs: ['<%= config.webapp %>'],
-				assetsDirs: ['<%= config.webapp %>']
+				assetsDirs: ['<%= config.webapp %>'],
+				blockReplacements: {
+					css: function (block) {
+						return '<link rel="stylesheet" href="${contextPath}' + block.dest + '"/>';
+					},
+					js: function (block) {
+						return '<script src="${contextPath}' + block.dest + '"></script>';
+					}
+				}
 			}
 		},
 
-		uglify: { 
+		uglify: {
 	      main: {
 	        expand: true,
 	        cwd: '<%= config.webapp %>/js/',
@@ -100,7 +108,7 @@ module.exports = function(grunt) {
 			}
 		}
     });
-	
+
 	['contrib-clean',
 	 'contrib-less',
 	 'contrib-watch',
@@ -114,9 +122,26 @@ module.exports = function(grunt) {
 		grunt.loadNpmTasks('grunt-' + plugin);
 	});
 
+	//remaps the filerev data to match the prefixed filenames
+	grunt.registerTask('remapFilerev', function(){
+		var root = grunt.config().config.root;
+		var summary = grunt.filerev.summary;
+		var fixed = {};
+
+		for(key in summary){
+			if(summary.hasOwnProperty(key)){
+				var orig = key.replace(root, root+'${contextPath}/');
+				var revved = summary[key].replace(root, root+'${contextPath}/');
+				fixed[orig] = revved;
+			}
+		}
+
+		grunt.filerev.summary = fixed;
+	});
+
 	grunt.registerTask('default', ['clean:before', 'less', 'copy']);
 	grunt.registerTask('build', ['default', 'useminPrepare', 'concat:generated', 'cssmin:generated', 
-									'uglify', 'filerev', 'usemin', 'clean:after']);
+									'uglify', 'filerev', 'remapFilerev', 'usemin', 'clean:after']);
 	grunt.registerTask('run', ['default', 'watch']);
 
 };

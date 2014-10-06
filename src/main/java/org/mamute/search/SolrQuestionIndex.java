@@ -1,8 +1,19 @@
 package org.mamute.search;
 
-import com.google.common.base.Function;
-import com.google.common.base.Joiner;
-import com.google.common.collect.Lists;
+
+import static org.apache.commons.lang.StringUtils.isEmpty;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import javax.annotation.Nullable;
+import javax.enterprise.inject.Vetoed;
+
+import org.apache.commons.lang.StringUtils;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -15,13 +26,8 @@ import org.mamute.model.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.Nullable;
-import javax.enterprise.inject.Vetoed;
-import javax.inject.Inject;
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import com.google.common.base.Function;
+import com.google.common.collect.Lists;
 
 @Vetoed
 public class SolrQuestionIndex implements QuestionIndex {
@@ -34,28 +40,32 @@ public class SolrQuestionIndex implements QuestionIndex {
 	}
 
 	@Override
-	public void indexQuestion(Question q) {
+	public void indexQuestion(Question question) {
 		try {
-			SolrInputDocument doc = toDoc(q);
+			SolrInputDocument doc = toDoc(question);
 			server.add(doc);
 			server.commit();
+			LOGGER.info("Question synced or updated: " + question);
 		} catch (IOException | SolrServerException e) {
-			throw new IndexException("Could not index Question [" + q.getId() + "]", e);
+			throw new IndexException("Could not index Question [" + question.getId() + "]", e);
 		}
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public void indexQuestionBatch(Collection<Question> questions) {
 		try {
 			List<SolrInputDocument> docs = new ArrayList<>();
-			for (Question q : questions) {
-				docs.add(toDoc(q));
+			for (Question question : questions) {
+				docs.add(toDoc(question));
+				LOGGER.info("Question synced or updated(trying to): " + question);
+				
 			}
 			server.add(docs);
 			server.commit();
+			LOGGER.info("Questions synced or updated with success");
+			
 		} catch (IOException | SolrServerException e) {
-			List<Long> ids = Lists.transform(new ArrayList(questions), new Function<Question, Long>() {
+			List<Long> ids = Lists.transform(new ArrayList<Question>(questions), new Function<Question, Long>() {
 				public Long apply(Question input) {
 					return input.getId();
 				}
@@ -65,32 +75,31 @@ public class SolrQuestionIndex implements QuestionIndex {
 	}
 
 	@Override
-	public List<Long> findQuestionsByTitle(String title, int maxResults) {
-		return query("title:" + title, maxResults);
-	}
-
-	@Override
-	public List<Long> findQuestionsByTitleAndTag(String title, List<Tag> tags, int maxResults) {
-		String tagQuery = Joiner.on(" OR ").join(Lists.transform(tags, new Function<Tag, Object>() {
-			public Object apply(Tag tag) {
-				return String.format("tags: %s^2", tag.getName());
-			}
-		}));
-
-		return query("title:" + title + " " + tagQuery, maxResults);
+	public List<Long> find(String query, int maxResults) {
+		try {
+			if(isEmpty(query)) return new ArrayList<>();
+			
+			query = URLEncoder.encode(query, "utf-8");
+			return query("description:" + query + " OR (title:" + query + ")^1.5 OR tags:" + query, maxResults);
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException("Could not encode query "+ query, e);
+		}
 	}
 
 	private SolrInputDocument toDoc(Question q) {
-		SolrInputDocument doc = new SolrInputDocument();
-		doc.addField("id", q.getId());
-		doc.addField("title", q.getTitle());
-		doc.addField("tags", Lists.transform(q.getTags(), new Function<Tag, String>() {
+		List<String> tagNames = Lists.transform(q.getTags(), new Function<Tag, String>() {
 			@Nullable
 			@Override
 			public String apply(@Nullable Tag tag) {
 				return tag.getName();
 			}
-		}));
+		});
+
+		SolrInputDocument doc = new SolrInputDocument();
+		doc.addField("id", q.getId());
+		doc.addField("title", q.getTitle());
+		doc.addField("description", q.getMarkedDescription());
+		doc.addField("tags", tagNames.toString().replace("[", "").replace("]", ""));
 		return doc;
 	}
 

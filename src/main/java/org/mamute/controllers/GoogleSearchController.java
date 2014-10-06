@@ -9,9 +9,11 @@ import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.environment.Environment;
+import br.com.caelum.vraptor.routes.annotation.Routed;
 
 @Controller
 @EnvironmentDependent(supports="feature.google_search")
+@Routed
 public class GoogleSearchController {
 
 	@Inject
@@ -21,7 +23,7 @@ public class GoogleSearchController {
 	@Inject
 	private HtmlSanitizer sanitizer;
 	
-	@Get("/search")
+	@Get
 	public void search(String query) {
 		result.include("query", sanitizer.sanitize(query));
 		result.include("customGoogleSearchKey", env.get("custom_google_search_key"));

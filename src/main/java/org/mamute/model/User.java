@@ -285,6 +285,11 @@ public class User implements Identifiable {
 		this.moderator = true;
 		return this;
 	}
+
+	public User removeModerator() {
+		this.moderator = false;
+		return this;
+	}
 	
 	public boolean canModerate() {
 		return isModerator() || this.karma >= PermissionRulesConstants.MODERATE_EDITS;
@@ -343,8 +348,12 @@ public class User implements Identifiable {
 		return id == votable.getAuthor().getId();
 	}
 	
-	public boolean hasKarmaToAnswerOwn(Question question) {
+	public boolean hasKarmaToAnswerOwnQuestion() {
 		return (this.karma >= PermissionRulesConstants.ANSWER_OWN_QUESTION) || isModerator(); 
+	}
+	
+	public boolean hasKarmaToAnswerInactiveQuestion() {
+		return (this.karma >= PermissionRulesConstants.INACTIVE_QUESTION) || isModerator(); 
 	}
 	
 	public List<LoginMethod> getLoginMethods() {

@@ -204,26 +204,26 @@ public class QuestionDAOTest extends DatabaseTestCase {
 	}
 
 	@Test
-	public void should_get_question_list(){
+	public void should_get_question_list_without_invisible_ones(){
 		Question q1 = question(author, java);
 		Question q2 = question(author, java);
 		Question q3 = question(author, java);
+		q3.remove();
 		session.save(q1);
 		session.save(q2);
 		session.save(q3);
 
-		List<Question> questions = questionsForAnyone.getByIds(ImmutableList.of(q2.getId(), q3.getId(), q1.getId()));
+		List<Question> questions = questionsForAnyone.allVisibleByIds(ImmutableList.of(q2.getId(), q3.getId(), q1.getId()));
 
 		assertNotNull(questions);
-		assertEquals(3, questions.size());
+		assertEquals(2, questions.size());
 		assertEquals(q2.getId(), questions.get(0).getId());
-		assertEquals(q3.getId(), questions.get(1).getId());
-		assertEquals(q1.getId(), questions.get(2).getId());
+		assertEquals(q1.getId(), questions.get(1).getId());
 	}
 
 	@Test
 	public void should_get_empty_list(){
-		List<Question> questions = questionsForAnyone.getByIds(Collections.<Long>emptyList());
+		List<Question> questions = questionsForAnyone.allVisibleByIds(Collections.<Long>emptyList());
 		assertNotNull(questions);
 		assertEquals(0, questions.size());
 	}

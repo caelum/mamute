@@ -4,12 +4,13 @@
 	<field name="_root_" type="string" indexed="true" stored="false"/>
 	<field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false"/>
 	<field name="title" type="text_general" indexed="true" stored="true"/>
-	<field name="tags" type="text_general" indexed="true" stored="true" required="false" multiValued="true"/>
+	<field name="tags" type="text_general" indexed="true" stored="true" multiValued="true"/>
+	<field name="description" type="text_general" indexed="true" stored="true"/>
 	<field name="text" type="text_general" indexed="true" stored="false" multiValued="true"/>
 
 	<uniqueKey>id</uniqueKey>
 
-	<copyField source="title" dest="text"/>
+	<copyField source="description" dest="text"/>
 
 	<fieldType name="string" class="solr.StrField" sortMissingLast="true"/>
 	<fieldType name="boolean" class="solr.BoolField" sortMissingLast="true"/>

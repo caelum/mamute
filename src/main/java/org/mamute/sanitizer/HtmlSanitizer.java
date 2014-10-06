@@ -29,6 +29,6 @@ public class HtmlSanitizer {
 	}
 	
 	public SanitizedText sanitize(String html){
-		return html == null ? null : fromTrustedText(policy.sanitize(html));
+		return fromTrustedText(policy.sanitize(html));
 	}
 }

@@ -221,6 +221,21 @@ public class HtmlSanitizerTest {
 		assertEquals(htmlSanitized, sanitized);
 	}
 	
+	@Test
+	public void should_return_empty_sanitized_text_if_null() {
+		String html = null;
+		String htmlSanitized = "";
+		String sanitized = htmlSanitizer.sanitize(html).getText();
+		assertEquals(htmlSanitized, sanitized);
+	}
+	
+	@Test
+	public void should_return_empty_sanitized_text_if_empty() {
+		String html = "";
+		String sanitized = htmlSanitizer.sanitize(html).getText();
+		assertEquals(html, sanitized);
+	}
+	
 	private void envReturns(String key, String answer) {
 		when(env.has(key)).thenReturn(true);
 		when(env.get(key)).thenReturn(answer);

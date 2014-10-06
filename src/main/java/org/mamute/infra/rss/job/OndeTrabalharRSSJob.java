@@ -30,6 +30,6 @@ public class OndeTrabalharRSSJob implements CronTask{
 
 	@Override
 	public String frequency() {
-		return "0 0/15 * * * ?";//fire every hour 
+		return "0 */15 * * * ?";//fire every 15 min
 	}
 }

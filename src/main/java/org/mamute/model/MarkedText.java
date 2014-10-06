@@ -28,7 +28,7 @@ public class MarkedText {
 
 	@Override
 	public String toString() {
-		return "MarkedText [pure=" + pure + ", marked=" + marked + "]";
+		return marked;
 	}
 
 

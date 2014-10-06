@@ -27,7 +27,7 @@
 		<tags:userProfileLink user="${comment.author}" htmlClass="${comment.author.id eq item.author.id ? 'same-author' : ''}" /> 
 		&nbsp;<tags:prettyTime time="${comment.lastUpdatedAt}"/>
 	
-		<fmt:message  key="edit_form.submit" var="submit"/>
+		<c:set  value="${t['edit_form.submit']}" var="submit"/>
 		<c:if test="${currentUser.current.isAuthorOf(comment)}">
 			<tags:simpleAjaxFormWith action="${linkTo[CommentController].edit(comment.id)}" 
 				field="comment" onCallback="replace" callbackTarget="comment-${comment.id}" 
