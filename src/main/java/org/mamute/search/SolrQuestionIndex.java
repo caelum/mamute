@@ -13,7 +13,6 @@ import java.util.List;
 import javax.annotation.Nullable;
 import javax.enterprise.inject.Vetoed;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -79,7 +78,7 @@ public class SolrQuestionIndex implements QuestionIndex {
 		try {
 			if(isEmpty(query)) return new ArrayList<>();
 			
-			query = URLEncoder.encode(query, "utf-8");
+			query = URLEncoder.encode(query.trim(), "utf-8");
 			return query("description:" + query + " OR (title:" + query + ")^1.5 OR tags:" + query, maxResults);
 		} catch (UnsupportedEncodingException e) {
 			throw new RuntimeException("Could not encode query "+ query, e);

@@ -69,7 +69,7 @@ public class SolrQuestionIndexTest extends SolrTestCase {
 	
 	@Test
 	public void should_escape_solr_special_characters() {
-		sut.find("[JAVA] Erro multipart/form-data usando primefaces JSF FileUpload", 1);
+		sut.find(" [JAVA] Erro multipart/form-data usando primefaces JSF FileUpload", 1);
 	}
 
 	private Question createQuestion(Long id, String title, String description, Tag...tags) {
