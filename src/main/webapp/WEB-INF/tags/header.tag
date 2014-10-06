@@ -18,56 +18,56 @@
 <tags:brutal-include value="metas" />
 
 <!-- build:css /css/mamute.css -->
-<link rel="stylesheet" href="/css/reset.css">
+<link rel="stylesheet" href="assets/generated-css/reset.css">
 
-<link rel="stylesheet" href="/css/deps/fontello.css">
-<link rel="stylesheet" href="/css/deps/fontello-codes.css">
-<link rel="stylesheet" href="/css/deps/fontello-embedded.css">
-<link rel="stylesheet" href="/css/deps/fontello-ie7-codes.css">
-<link rel="stylesheet" href="/css/deps/fontello-ie7.css">
-<link rel="stylesheet" href="/css/deps/pagedown.css">
-<link rel="stylesheet" href="/css/deps/prettify.css">
-<link rel="stylesheet" href="/css/deps/joyride-2.0.3.css">
+<link rel="stylesheet" href="css/deps/fontello.css">
+<link rel="stylesheet" href="css/deps/fontello-codes.css">
+<link rel="stylesheet" href="css/deps/fontello-embedded.css">
+<link rel="stylesheet" href="css/deps/fontello-ie7-codes.css">
+<link rel="stylesheet" href="css/deps/fontello-ie7.css">
+<link rel="stylesheet" href="css/deps/pagedown.css">
+<link rel="stylesheet" href="css/deps/prettify.css">
+<link rel="stylesheet" href="css/deps/joyride-2.0.3.css">
 
-<link rel="stylesheet" href="/css/404.css">
-<link rel="stylesheet" href="/css/about.css">
-<link rel="stylesheet" href="/css/ads.css">
-<link rel="stylesheet" href="/css/answer.css">
-<link rel="stylesheet" href="/css/button.css">
-<link rel="stylesheet" href="/css/comments.css">
-<link rel="stylesheet" href="/css/footer.css">
-<link rel="stylesheet" href="/css/form.css">
-<link rel="stylesheet" href="/css/generics.css">
-<link rel="stylesheet" href="/css/icons.css">
-<link rel="stylesheet" href="/css/list-question.css">
-<link rel="stylesheet" href="/css/main-header.css">
-<link rel="stylesheet" href="/css/main-menu.css">
-<link rel="stylesheet" href="/css/main-tags.css">
-<link rel="stylesheet" href="/css/mamute-joyride.css">
-<link rel="stylesheet" href="/css/markdown.css">
-<link rel="stylesheet" href="/css/messages.css">
-<link rel="stylesheet" href="/css/moderator.css">
-<link rel="stylesheet" href="/css/news.css">
-<link rel="stylesheet" href="/css/pagination.css">
-<link rel="stylesheet" href="/css/ranking.css">
-<link rel="stylesheet" href="/css/second-header.css">
-<link rel="stylesheet" href="/css/show-question.css">
-<link rel="stylesheet" href="/css/sidebar.css">
-<link rel="stylesheet" href="/css/subheader.css">
-<link rel="stylesheet" href="/css/tags.css">
-<link rel="stylesheet" href="/css/text.css">
-<link rel="stylesheet" href="/css/user.css">
-<link rel="stylesheet" href="/css/vote.css">
-<link rel="stylesheet" href="/css/default.css">
+<link rel="stylesheet" href="assets/generated-css/404.css">
+<link rel="stylesheet" href="assets/generated-css/about.css">
+<link rel="stylesheet" href="assets/generated-css/ads.css">
+<link rel="stylesheet" href="assets/generated-css/answer.css">
+<link rel="stylesheet" href="assets/generated-css/button.css">
+<link rel="stylesheet" href="assets/generated-css/comments.css">
+<link rel="stylesheet" href="assets/generated-css/footer.css">
+<link rel="stylesheet" href="assets/generated-css/form.css">
+<link rel="stylesheet" href="assets/generated-css/generics.css">
+<link rel="stylesheet" href="assets/generated-css/icons.css">
+<link rel="stylesheet" href="assets/generated-css/list-question.css">
+<link rel="stylesheet" href="assets/generated-css/main-header.css">
+<link rel="stylesheet" href="assets/generated-css/main-menu.css">
+<link rel="stylesheet" href="assets/generated-css/main-tags.css">
+<link rel="stylesheet" href="assets/generated-css/mamute-joyride.css">
+<link rel="stylesheet" href="assets/generated-css/markdown.css">
+<link rel="stylesheet" href="assets/generated-css/messages.css">
+<link rel="stylesheet" href="assets/generated-css/moderator.css">
+<link rel="stylesheet" href="assets/generated-css/news.css">
+<link rel="stylesheet" href="assets/generated-css/pagination.css">
+<link rel="stylesheet" href="assets/generated-css/ranking.css">
+<link rel="stylesheet" href="assets/generated-css/second-header.css">
+<link rel="stylesheet" href="assets/generated-css/show-question.css">
+<link rel="stylesheet" href="assets/generated-css/sidebar.css">
+<link rel="stylesheet" href="assets/generated-css/subheader.css">
+<link rel="stylesheet" href="assets/generated-css/tags.css">
+<link rel="stylesheet" href="assets/generated-css/text.css">
+<link rel="stylesheet" href="assets/generated-css/user.css">
+<link rel="stylesheet" href="assets/generated-css/vote.css">
+<link rel="stylesheet" href="assets/generated-css/default.css">
 
-<link rel="stylesheet" href="/css/deps/pickadate/classic.css">
-<link rel="stylesheet" href="/css/deps/pickadate/classic.date.css">
+<link rel="stylesheet" href="css/deps/pickadate/classic.css">
+<link rel="stylesheet" href="css/deps/pickadate/classic.date.css">
 <!-- endbuild -->
 
 <link rel="stylesheet" href="${contextPath}/css/deps/custom.css">
 
 <!--[if lt IE 9]>
-	<script src="<c:url value="/js/grunt-ignore/html5shiv.js"/>"></script>
+	<script src="<c:url value="/js/html5shiv.js"/>"></script>
 <![endif]-->
 
 <!--[if lte IE 8]>

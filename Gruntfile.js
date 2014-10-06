@@ -1,16 +1,26 @@
+/* 
+/webapp/assets -> before build
+     -> /js -> js at development (modify them freely)
+     -> /less -> less (modify them freely)
+     -> /generated-css -> css processed from less + ignored css
+/webapp/{css/js/imgs/font}-> after all the build(production assets)
+*/
+
 module.exports = function(grunt) {
 
 	var config = {
+		generatedCss: 'src/main/webapp/assets/generated-css/',
 		assets: 'src/main/webapp/assets/',
-		webapp: 'src/main/webapp/'
+		webapp: 'src/main/webapp/',
+		ignored: 'src/main/webapp/assets/grunt-ignore/'
 	};
 
 	grunt.initConfig({
 		config: config,
 
 		clean: {
-			before: ["<%= config.webapp %>/{css, js, imgs, font}/"],
-			after: ["<%= config.assets %>", "<%= config.webapp %>/css/generated-css/"]
+			before: ["<%= config.webapp %>/{css,js,imgs,font}/"],
+			after: ["<%= config.assets %>"]
 		},
 		
 		less: {
@@ -19,19 +29,71 @@ module.exports = function(grunt) {
 					expand: true,
 					cwd: '<%= config.assets %>/less',
 					src: ['**/*.less'],
-					dest: '<%= config.webapp %>/css/generated-css/',
+					dest: '<%= config.generatedCss %>',
 					ext: '.css'
 				}]
 			}
 		},
 
+	    copy: {
+	    	ignored: {
+			  files: [
+				  {
+				  	expand: true,
+				  	cwd: '<%= config.ignored %>/js/',
+				    src: ['**'],
+				    dest: '<%= config.webapp %>/js/'
+				  },
+				  {
+				  	expand: true,
+				  	cwd: '<%= config.generatedCss %>',
+				    src: ['**'],
+				    dest: '<%= config.webapp %>/css/'
+				  },
+				  {
+				  	expand: true,
+				  	cwd: '<%= config.ignored %>/css/',
+				    src: ['**'],
+				    dest: '<%= config.webapp %>/css/'
+				  },
+				  {
+				  	expand: true,
+				  	cwd: '<%= config.ignored %>/font/',
+				    src: ['**'],
+				    dest: '<%= config.webapp %>/font/'
+				  },
+				  {
+				  	expand: true,
+				  	cwd: '<%= config.ignored %>/imgs/',
+				    src: ['**'],
+				    dest: '<%= config.webapp %>/imgs/',
+				  }
+				]
+	    	}
+		},
+		
 		useminPrepare: {
 			html: '<%= config.webapp %>/WEB-INF/{jsp,tags}/**/*.{jsp,jspf,tag}',
 			options: {
-				dest: '<%= config.webapp %>',
-				root: '<%= config.webapp %>'
+				root: '<%= config.webapp %>',
+				dest: '<%= config.webapp %>'
 			}
 		},
+
+	    filerev: {
+	    	options: {
+		        encoding: 'utf8',
+		        algorithm: 'md5',
+		        length: 8
+		    },
+		    source: {
+		    	files: [
+			    	{src: ['<%= config.webapp %>/js/**/*.js']},
+			    	{src: ['<%= config.webapp %>/css/**/*.css']}
+		    	]
+		    }
+	    },
+
 
 		usemin: {
 			html: ['<%= config.webapp %>/WEB-INF/{jsp,tags}/**/*.{jsp,jspf,tag}'],
@@ -49,55 +111,6 @@ module.exports = function(grunt) {
 			}
 		},
 
-		uglify: {
-	      main: {
-	        expand: true,
-	        cwd: '<%= config.webapp %>/js/',
-	        src: ['**/*.js', '!**/*.min.js'],
-	        dest: '<%= config.webapp %>/js/'
-	      }
-	    },
-
-	    filerev: {
-	    	options: {
-		        encoding: 'utf8',
-		        algorithm: 'md5',
-		        length: 8
-		    },
-		    source: {
-		    	files: [{
-		    		src: ['<%= config.webapp %>/{js,css}/*.{js,css}']
-		    	}]
-		    }
-	    },
-
-	    copy: {
-		  js: {
-		  	expand: true,
-		  	cwd: '<%= config.assets %>/grunt-ignore/js/',
-		    src: '**',
-		    dest: '<%= config.webapp %>/js/grunt-ignore'
-		  },
-		  css: {
-		  	expand: true,
-		  	cwd: '<%= config.assets %>/grunt-ignore/css/',
-		    src: '**',
-		    dest: '<%= config.webapp %>/css/'
-		  },
-		  font: {
-		  	expand: true,
-		  	cwd: '<%= config.assets %>/grunt-ignore/font/',
-		    src: '**',
-		    dest: '<%= config.webapp %>/font/'
-		  },
-		  img: {
-		  	expand: true,
-		  	cwd: '<%= config.assets %>/grunt-ignore/imgs/',
-		    src: '**',
-		    dest: '<%= config.webapp %>/imgs/',
-		  }
-		},
-		
 		watch: {
 			less: {
 				files: ['<%= config.assets %>/less/**/*.less'],
@@ -108,19 +121,6 @@ module.exports = function(grunt) {
 			}
 		}
     });
-
-	['contrib-clean',
-	 'contrib-less',
-	 'contrib-watch',
-	 'contrib-concat',
-	 'contrib-cssmin',
-	 'contrib-uglify',
-	 'contrib-copy',
-	 'filerev',
-	 'usemin'
-	].forEach(function(plugin) {
-		grunt.loadNpmTasks('grunt-' + plugin);
-	});
 
 	//remaps the filerev data to match the prefixed filenames
 	grunt.registerTask('remapFilerev', function(){
@@ -138,8 +138,24 @@ module.exports = function(grunt) {
 
 		grunt.filerev.summary = fixed;
 	});
+	
 
-	grunt.registerTask('default', ['clean:before', 'less', 'copy']);
+
+	['contrib-clean',
+	 'contrib-less',
+	 'contrib-watch',
+	 'contrib-concat',
+	 'contrib-cssmin',
+	 'contrib-uglify',
+	 'contrib-copy',
+	 'filerev',
+	 'usemin'
+	].forEach(function(plugin) {
+		grunt.loadNpmTasks('grunt-' + plugin);
+	});
+
+
+	grunt.registerTask('default', ['clean:before', 'less', 'copy:ignored']);
 	grunt.registerTask('build', ['default', 'useminPrepare', 'concat:generated', 'cssmin:generated', 
 									'uglify', 'filerev', 'remapFilerev', 'usemin', 'clean:after']);
 	grunt.registerTask('run', ['default', 'watch']);
