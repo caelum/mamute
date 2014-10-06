@@ -137,6 +137,14 @@ public class TagDAOTest extends DatabaseTestCase{
 	}
 	
 	@Test
+	public void should_not_repeat_tags_even_if_different_case() throws Exception {
+		List<Tag> found = tags.findAllDistinct(asList("Java", "java", "ruBy", "ruby"));
+		assertEquals(2, found.size());
+		assertEquals("java", found.get(0).getName());
+		assertEquals("ruby", found.get(1).getName());
+	}
+	
+	@Test
 	public void should_not_save_repeated_tags() throws Exception {
 		int originalSize = tags.all().size();
 		Tag csharp = new Tag("csharp", "", leo);

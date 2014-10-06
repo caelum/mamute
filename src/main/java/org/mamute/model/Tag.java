@@ -47,7 +47,7 @@ public class Tag {
 	}
 	
 	public Tag(String name, String description, User author) {
-		this.name = name;
+		this.name = name.toLowerCase();
 		this.description = description;
 		this.author = author;
 	}
