@@ -139,8 +139,6 @@ module.exports = function(grunt) {
 		grunt.filerev.summary = fixed;
 	});
 	
-
-
 	['contrib-clean',
 	 'contrib-less',
 	 'contrib-watch',
