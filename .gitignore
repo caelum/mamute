@@ -26,17 +26,11 @@ vraptor-console.sh
 .vraptor-console/
 logs/
 target90*
-src/main/webapp/css/all.css
-src/main/webapp/js/all.js
-src/main/webapp/js/all-*.js
-src/main/webapp/font/
-src/main/webapp/js/jquery/jquery-plugins*.js
 versions.txt
 /target
 jsp-compilation
 tmp/
 node_modules/
-src/main/webapp/css/mamute
 target-grunt/
 .tmp/
 .mamute-build/
