@@ -32,9 +32,8 @@ public class TagDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<Tag> findTagsLike(String tagChunk) {
-		Query query = session.createQuery("select tag from Question question " +
-				"right join question.information.tags tag " +
-				"where tag.name ilike :tagChunk group by tag order by tag.usageCount desc");
+		Query query = session.createQuery("select tag from Tag tag "+
+				"where lower(tag.name) like lower(:tagChunk) order by tag.usageCount desc");
 		query.setString("tagChunk", "%"+tagChunk+"%");
 		return query.list();
 	}
