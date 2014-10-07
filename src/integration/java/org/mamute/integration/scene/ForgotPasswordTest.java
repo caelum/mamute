@@ -12,6 +12,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mamute.integration.pages.ResetPasswordPage;
 import org.mamute.integration.util.ServerInfo;
+import org.mamute.providers.MamuteDatabaseConfiguration;
 import org.mamute.providers.SessionFactoryCreator;
 
 public class ForgotPasswordTest extends AcceptanceTestBase implements ServerInfo.AcceptanceTest  {
@@ -21,7 +22,7 @@ public class ForgotPasswordTest extends AcceptanceTestBase implements ServerInfo
 
     @BeforeClass
     public static void setup() throws IOException {
-        SessionFactoryCreator sessionFactoryCreator = new SessionFactoryCreator(env, null);
+        SessionFactoryCreator sessionFactoryCreator = new SessionFactoryCreator(new MamuteDatabaseConfiguration(env, null, null));
         sessionFactoryCreator.init();
         SessionFactory sf = sessionFactoryCreator.getInstance();
         SESSION = sf.openSession();

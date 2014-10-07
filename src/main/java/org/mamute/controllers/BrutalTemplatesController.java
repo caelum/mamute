@@ -1,5 +1,7 @@
 package org.mamute.controllers;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.mamute.dao.PaginatableDAO;
@@ -12,8 +14,6 @@ import org.mamute.model.User;
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Result;
 
-import java.util.List;
-
 @Controller
 public class BrutalTemplatesController {
 
@@ -25,7 +25,7 @@ public class BrutalTemplatesController {
 	}
 
 	public void userProfilePagination(PaginatableDAO paginatable, User author, OrderType order, Integer page, String type) {
-		result.include("posts", paginatable.postsToPaginateBy(author, order, page));
+		result.include("posts", paginatable.ofUserPaginatedBy(author, order, page));
 		result.include("totalPages", paginatable.numberOfPagesTo(author));
 		result.include("currentPage", page);
 		result.include("order", order.toString());
