@@ -10,6 +10,8 @@ import javax.validation.ValidatorFactory;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.service.ServiceRegistryBuilder;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.hibernate.tool.hbm2ddl.SchemaUpdate;
 import org.mamute.meta.MamuteMetaInformation;
@@ -91,7 +93,8 @@ public class MamuteDatabaseConfiguration {
 	}
 
 	public SessionFactory buildSessionFactory() {
-		return cfg.buildSessionFactory();
+		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(cfg.getProperties()).buildServiceRegistry();
+		return cfg.buildSessionFactory(serviceRegistry);
 	}
 
 	public SchemaExport getSchema() {
