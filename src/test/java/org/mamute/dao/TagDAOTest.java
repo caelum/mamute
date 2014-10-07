@@ -59,19 +59,6 @@ public class TagDAOTest extends DatabaseTestCase{
 	}
 	
 	@Test
-	public void should_load_tags_with_usage_with_provided_name() throws Exception {
-		questionWith(Arrays.asList(java));
-		questionWith(Arrays.asList(java));
-		questionWith(Arrays.asList(java));
-		questionWith(Arrays.asList(ruby));
-		List<Tag> tagsLike = tags.findTagsLike("ja");
-		
-		assertEquals(1, tagsLike.size());
- 		assertEquals(3l, tagsLike.get(0).getUsageCount().longValue());
-		assertEquals(java.getId(), tagsLike.get(0).getId());
-	}
-	
-	@Test
 	public void should_get_main_tags_of_the_provided_user() throws Exception {
 		Question javaQuestion = questionWith(Arrays.asList(java));
 		Answer javaAnswer = answer("just do this and that and you will be happy forever", javaQuestion, leo);
@@ -131,6 +118,14 @@ public class TagDAOTest extends DatabaseTestCase{
 	@Test
 	public void should_not_repeat_tags() throws Exception {
 		List<Tag> found = tags.findAllDistinct(asList("java", "java", "ruby", "ruby"));
+		assertEquals(2, found.size());
+		assertEquals("java", found.get(0).getName());
+		assertEquals("ruby", found.get(1).getName());
+	}
+	
+	@Test
+	public void should_not_repeat_tags_even_if_different_case() throws Exception {
+		List<Tag> found = tags.findAllDistinct(asList("Java", "java", "ruBy", "ruby"));
 		assertEquals(2, found.size());
 		assertEquals("java", found.get(0).getName());
 		assertEquals("ruby", found.get(1).getName());

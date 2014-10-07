@@ -33,7 +33,7 @@
 		}
 
 		function getSuggestions(tagChunk, allTags){
-			var regex = new RegExp(".*"+tagChunk+".*");
+			var regex = new RegExp(".*"+tagChunk+".*", "i");
 			var suggestions = $(allTags).map(function(index, tag){
 				if(tag.name.match(regex)){
 					return tag;

@@ -31,15 +31,6 @@ public class TagDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Tag> findTagsLike(String tagChunk) {
-		Query query = session.createQuery("select tag from Question question " +
-				"right join question.information.tags tag " +
-				"where tag.name like :tagChunk group by tag order by tag.usageCount desc");
-		query.setString("tagChunk", "%"+tagChunk+"%");
-		return query.list();
-	}
-
-	@SuppressWarnings("unchecked")
 	public List<TagUsage> getRecentTagsSince(DateTime since) {
 		Query query = session.createQuery("select new org.mamute.model.TagUsage(tag, count(question)) from Question question " +
 				"join question.information.tags tag " +
@@ -66,14 +57,13 @@ public class TagDAO {
 	}
 
 	public List<Tag> findAllDistinct(List<String> names) {
-		if (names.isEmpty())
-			return new ArrayList<Tag>();
+		if (names.isEmpty()) return new ArrayList<Tag>();
 		
 		ArrayList<Tag> tags = new ArrayList<>();
 		for (String name : names) {
-			Tag tag = (Tag) session.createQuery("from Tag where name=:name")
-					.setParameter("name", name)
-					.uniqueResult();
+			Tag tag = (Tag) session.createQuery("from Tag where lower(name) like lower(:name)")
+									.setParameter("name", name)
+									.uniqueResult();
 			if (tag != null && !tags.contains(tag)) {
 				tags.add(tag);
 			}
