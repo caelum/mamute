@@ -1,8 +1,13 @@
 package org.mamute.search;
 
+import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
+import br.com.caelum.vraptor.Controller;
+import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.events.VRaptorInitialized;
+
 import org.hibernate.Session;
+import org.mamute.brutauth.auth.rules.ModeratorOnlyRule;
 import org.mamute.dao.InvisibleForUsersRule;
 import org.mamute.dao.QuestionDAO;
 import org.mamute.model.LoggedUser;
@@ -15,12 +20,13 @@ import org.slf4j.LoggerFactory;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
+
 import java.util.List;
 
 import static org.mamute.model.SanitizedText.fromTrustedText;
 
-
-@ApplicationScoped
+@Controller @ApplicationScoped
+@CustomBrutauthRules(ModeratorOnlyRule.class)
 public class IndexSyncJob {
 	public static final Logger LOGGER = LoggerFactory.getLogger(IndexSyncJob.class);
 
@@ -39,12 +45,7 @@ public class IndexSyncJob {
 		this.environment = environment;
 	}
 
-	private InvisibleForUsersRule generateUser() {
-		User user = new User(fromTrustedText("System"), "system");
-		LoggedUser loggedUser = new LoggedUser(user, null);
-		return new InvisibleForUsersRule(loggedUser);
-	}
-
+	@Post("/akwiqeojovndfasf0asf0s9ad8fas9d")
 	public void execute() {
 		Session session = factory.getInstance().openSession();
 		try {
@@ -64,9 +65,16 @@ public class IndexSyncJob {
 		}
 	}
 
+	@Post("/akwiqeojovndfasf0asf0s9ad8fas9d12io3nwo120")
 	public void onStartup(@Observes VRaptorInitialized init) {
 		if (environment.supports("solr.syncOnStartup") && environment.supports("feature.solr")) {
 			execute();
 		}
+	}
+
+	private InvisibleForUsersRule generateUser() {
+		User user = new User(fromTrustedText("System"), "system");
+		LoggedUser loggedUser = new LoggedUser(user, null);
+		return new InvisibleForUsersRule(loggedUser);
 	}
 }
