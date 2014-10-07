@@ -8,7 +8,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
 import org.mamute.ads.BrutalAds;
 import org.mamute.auth.BannedUserException;
 import org.mamute.controllers.AuthController;
@@ -25,7 +24,6 @@ import br.com.caelum.vraptor.environment.Environment;
 @RequestScoped
 public class DefaultViewObjects {
 
-	private static final Logger LOG = Logger.getLogger(DefaultViewObjects.class);
 	private static final String SLASH_AT_END = "/$";
 
 	@Inject private Environment env;
