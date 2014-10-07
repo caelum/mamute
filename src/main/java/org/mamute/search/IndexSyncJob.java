@@ -65,7 +65,7 @@ public class IndexSyncJob {
 	}
 
 	public void onStartup(@Observes VRaptorInitialized init) {
-		if (Boolean.parseBoolean(environment.get("solr.syncOnStartup"))) {
+		if (environment.supports("solr.syncOnStartup") && environment.supports("feature.solr")) {
 			execute();
 		}
 	}
