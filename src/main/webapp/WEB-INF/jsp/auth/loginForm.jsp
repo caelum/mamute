@@ -12,9 +12,7 @@
 	<div class="login">
 		<tags:loginForm redirectUrl="${redirectUrl}"/>
 	</div>
-	<c:if test="${env.supports('feature.signup')}">
-		<div class="signup">
-			<tags:signupForm/>
-		</div>
-	</c:if>
+	<div class="signup">
+		<tags:signupForm/>
+	</div>
 </div>

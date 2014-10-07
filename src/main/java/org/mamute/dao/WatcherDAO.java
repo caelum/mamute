@@ -90,7 +90,7 @@ public class WatcherDAO implements PaginatableDAO {
 		return findByWatchableAndUser(watchable, watcher.getWatcher()) != null;
 	}
 
-	public List<Question> postsToPaginateBy(User user, OrderType orderType, Integer page) {
+	public List<Question> ofUserPaginatedBy(User user, OrderType orderType, Integer page) {
 		Criteria criteria = defaultCriteria(user)
 				.setMaxResults(PAGE_SIZE)
 				.setFirstResult(PAGE_SIZE * (page-1));

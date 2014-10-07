@@ -1,7 +1,6 @@
 package org.mamute.dao;
 
 import static br.com.caelum.vraptor.environment.EnvironmentType.TEST;
-import static br.com.caelum.vraptor.environment.ServletBasedEnvironment.ENVIRONMENT_PROPERTY;
 
 import java.io.IOException;
 
@@ -13,6 +12,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.mamute.model.User;
 import org.mamute.model.interfaces.Identifiable;
+import org.mamute.providers.MamuteDatabaseConfiguration;
 import org.mamute.providers.SessionFactoryCreator;
 import org.mamute.testcase.CDITestCase;
 
@@ -30,7 +30,9 @@ public abstract class DatabaseTestCase extends CDITestCase{
 		try {
 			ValidatorFactory vf = cdiBasedContainer.instanceFor(ValidatorFactory.class);
 			Environment testing = new DefaultEnvironment(TEST);
-			creator = new SessionFactoryCreator(testing, vf);
+			MamuteDatabaseConfiguration configuration = new MamuteDatabaseConfiguration(testing, vf, null);
+			configuration.init();
+			creator = new SessionFactoryCreator(configuration);
 			creator.init();
 			factory = creator.getInstance();
 		} catch (IOException e) {

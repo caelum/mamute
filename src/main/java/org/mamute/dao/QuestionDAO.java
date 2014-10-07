@@ -11,14 +11,9 @@ import static org.hibernate.criterion.Restrictions.isNull;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import javax.annotation.Nullable;
 import javax.inject.Inject;
-
-import com.google.common.base.Predicate;
-import com.google.common.collect.Iterables;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -115,7 +110,7 @@ public class QuestionDAO implements PaginatableDAO {
 		return addInvisibleFilter(criteria).list();
 	}
 	
-	public List<Question> postsToPaginateBy(User user, OrderType orderByWhat, Integer page) {
+	public List<Question> ofUserPaginatedBy(User user, OrderType orderByWhat, Integer page) {
 		return withAuthor.by(user,orderByWhat, page);
 	}
 
@@ -275,6 +270,7 @@ public class QuestionDAO implements PaginatableDAO {
 		}
 		return questions;
 	}
+
 
 }
 

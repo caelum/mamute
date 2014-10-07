@@ -34,8 +34,8 @@ node_modules/
 target-grunt/
 .tmp/
 .mamute-build/
-src/main/webapp/css
-src/main/webapp/js
-src/main/webapp/imgs
-src/main/webapp/font
-src/main/webapp/assets/generated-css/
+src/main/webapp/css/**/*
+src/main/webapp/js/**/*
+src/main/webapp/imgs/**/*
+src/main/webapp/font/**/*
+src/main/webapp/assets/generated-css/**/*
