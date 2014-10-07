@@ -17,8 +17,19 @@ import com.google.common.base.Predicate;
 
 public class TagsSplitter {
 
+	private final String regex;
+
+	/**
+	 * @deprecated CDI eyes only
+	 */
+	public TagsSplitter() {
+		this("");
+	}
+	
 	@Inject
-	private @Property("tags.splitter.regex") String regex;
+	public TagsSplitter(@Property("tags.splitter.regex") String regex) {
+		this.regex = regex;
+	}
 	
 	public List<String> splitTags(String tagNames) {
 		List<String> tags = tagNames == null ? new ArrayList<String>() : asList(tagNames.split(regex));
