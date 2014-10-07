@@ -48,7 +48,7 @@ public class NewsDAO implements PaginatableDAO  {
 		return addApprovedFilter(defaultCriteria(size)).list();
 	}
 
-	public List<News> postsToPaginateBy(User user, OrderType orderByWhat, Integer page) {
+	public List<News> ofUserPaginatedBy(User user, OrderType orderByWhat, Integer page) {
 		return withAuthor.by(user,orderByWhat, page);
 	}
 	

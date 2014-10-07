@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import org.joda.time.DateTime;
 import org.mamute.brutauth.auth.rules.ModeratorOnlyRule;
 import org.mamute.dao.AnswerDAO;
+import org.mamute.dao.FlaggableDAO;
 import org.mamute.dao.PaginatableDAO;
 import org.mamute.dao.QuestionDAO;
 import org.mamute.dao.ReputationEventDAO;
@@ -49,6 +50,7 @@ public class UserProfileController extends BaseController{
 	@Inject private WatcherDAO watchers;
 	@Inject private ReputationEventDAO reputationEvents;
 	@Inject private MessageFactory messageFactory;
+	@Inject private FlaggableDAO flaggable;
 
 	@Get
 	public void showProfile(@Load User user, String sluggedName){
@@ -57,11 +59,11 @@ public class UserProfileController extends BaseController{
 		}
 		
 		result.include("isCurrentUser", currentUser.getCurrent().getId().equals(user.getId()));
-		result.include("questionsByVotes", questions.postsToPaginateBy(user, ByVotes, 1));
+		result.include("questionsByVotes", questions.ofUserPaginatedBy(user, ByVotes, 1));
 		result.include("questionsCount", questions.countWithAuthor(user));
-		result.include("answersByVotes", answers.postsToPaginateBy(user, ByVotes, 1));
+		result.include("answersByVotes", answers.ofUserPaginatedBy(user, ByVotes, 1));
 		result.include("answersCount", answers.countWithAuthor(user));
-		result.include("watchedQuestions", watchers.postsToPaginateBy(user, ByDate, 1));
+		result.include("watchedQuestions", watchers.ofUserPaginatedBy(user, ByDate, 1));
 		result.include("watchedQuestionsCount", watchers.countWithAuthor(user));
 		
 		result.include("reputationHistory", reputationEvents.karmaWonByQuestion(user, new DateTime().minusMonths(1), 5).getHistory());
@@ -169,6 +171,7 @@ public class UserProfileController extends BaseController{
 			user.undoBan();
 		}else{
 			user.ban();
+			flaggable.turnAllInvisibleWith(user);
 			users.clearSessionOf(user);
 		}
 		result.nothing();

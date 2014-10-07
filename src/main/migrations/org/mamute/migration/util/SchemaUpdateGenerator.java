@@ -4,9 +4,7 @@ import static br.com.caelum.vraptor.environment.EnvironmentType.DEVELOPMENT;
 
 import java.io.IOException;
 
-import org.hibernate.cfg.Configuration;
-import org.hibernate.tool.hbm2ddl.SchemaUpdate;
-import org.mamute.providers.SessionFactoryCreator;
+import org.mamute.providers.MamuteDatabaseConfiguration;
 
 import br.com.caelum.vraptor.environment.DefaultEnvironment;
 
@@ -14,11 +12,8 @@ import br.com.caelum.vraptor.environment.DefaultEnvironment;
 public class SchemaUpdateGenerator {
 
 	public static void main(String[] args) throws IOException {
-		SessionFactoryCreator sessionFactoryCreator = new SessionFactoryCreator(new DefaultEnvironment(DEVELOPMENT), null);
-		sessionFactoryCreator.init();
-		Configuration cfg = sessionFactoryCreator.getCfg();
-		
-		SchemaUpdate su = new SchemaUpdate(cfg);
-		su.execute(true, false);
+		MamuteDatabaseConfiguration mamuteConfiguration = new MamuteDatabaseConfiguration(new DefaultEnvironment(DEVELOPMENT), null, null);
+		mamuteConfiguration.init();
+		mamuteConfiguration.getSchemaUpdate().execute(true, false);
 	}
 }

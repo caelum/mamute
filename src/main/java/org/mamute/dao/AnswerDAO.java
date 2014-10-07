@@ -35,7 +35,7 @@ public class AnswerDAO implements PaginatableDAO{
 		this.session.save(answer);
 	}
 	
-	public List<Answer> postsToPaginateBy(User user, OrderType orderByWhat, Integer page) {
+	public List<Answer> ofUserPaginatedBy(User user, OrderType orderByWhat, Integer page) {
 		return withAuthor.by(user, orderByWhat, page);
 	}
 	

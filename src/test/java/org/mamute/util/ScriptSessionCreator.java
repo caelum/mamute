@@ -9,9 +9,8 @@ import java.io.IOException;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.mamute.providers.MamuteDatabaseConfiguration;
 import org.mamute.providers.SessionFactoryCreator;
-
-import com.google.common.base.Objects;
 
 import br.com.caelum.vraptor.environment.DefaultEnvironment;
 import br.com.caelum.vraptor.environment.Environment;
@@ -24,7 +23,8 @@ public class ScriptSessionCreator {
 
     public ScriptSessionCreator() {
     	Environment env = buildEnv();
-    	sessionFactoryCreator = new SessionFactoryCreator(env, null);
+    	MamuteDatabaseConfiguration mamuteDatabaseConfiguration = new MamuteDatabaseConfiguration(env, null, null);
+    	sessionFactoryCreator = new SessionFactoryCreator(mamuteDatabaseConfiguration);
     	sessionFactoryCreator.init();
 	}
     

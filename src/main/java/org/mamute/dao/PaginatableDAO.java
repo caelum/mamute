@@ -7,7 +7,7 @@ import org.mamute.model.User;
 
 public interface PaginatableDAO {
 
-	List<?> postsToPaginateBy(User author, OrderType order, Integer page);
+	List<?> ofUserPaginatedBy(User author, OrderType order, Integer page);
 	
 	Long countWithAuthor(User author);
 
