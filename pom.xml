@@ -26,7 +26,7 @@
 		<dependency>
 			<groupId>br.com.caelum</groupId>
 			<artifactId>vraptor</artifactId>
-			<version>4.1.0-RC2</version>
+			<version>4.1.2-SNAPSHOT</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.hamcrest</groupId>
@@ -113,7 +113,7 @@
 		<dependency>
 			<groupId>br.com.caelum.vraptor</groupId>
 			<artifactId>vraptor-brutauth</artifactId>
-			<version>4.0.0.Final</version>
+			<version>4.0.2.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>br.com.caelum.vraptor</groupId>
@@ -134,7 +134,7 @@
         <dependency>
             <groupId>br.com.caelum.vraptor</groupId>
             <artifactId>vraptor-action-cache</artifactId>
-            <version>4.0.1</version>
+            <version>4.0.2</version>
             <exclusions>
                 <exclusion>
                     <groupId>net.sf.ehcache</groupId>

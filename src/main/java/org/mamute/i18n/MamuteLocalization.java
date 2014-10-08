@@ -32,12 +32,13 @@ public class MamuteLocalization extends JstlLocalization{
 		this.request = request;
 	}
 	
+	
 	@Override @Produces
-	public ResourceBundle getBundle() {
+	public ResourceBundle getBundle(Locale locale) {
 		Config.set(request, Config.FMT_LOCALIZATION_CONTEXT, null);
-		ResourceBundle customBundle = super.getBundle();
+		ResourceBundle customBundle = super.getBundle(locale);
 		Config.set(request, Config.FMT_LOCALIZATION_CONTEXT, "mamute-messages");
-		ResourceBundle mamuteBundle = super.getBundle();
+		ResourceBundle mamuteBundle = super.getBundle(locale);
 		
 		return new MamuteResourceBundle(customBundle, mamuteBundle);
 	}
