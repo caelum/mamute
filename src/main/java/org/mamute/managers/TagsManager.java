@@ -5,9 +5,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import br.com.caelum.vraptor.validator.Validator;
 import org.mamute.dao.TagDAO;
-import org.mamute.factory.MessageFactory;
 import org.mamute.model.LoggedUser;
 import org.mamute.model.Tag;
 
@@ -18,16 +16,12 @@ public class TagsManager {
 	private Environment env;
 	private TagDAO tags;
 	private LoggedUser user;
-	private Validator validator;
-	private MessageFactory messageFactory;
 
 	@Inject
-	public TagsManager(Environment env, TagDAO tags, LoggedUser user, Validator validator, MessageFactory messageFactory) {
+	public TagsManager(Environment env, TagDAO tags, LoggedUser user) {
 		this.env = env;
 		this.tags = tags;
 		this.user = user;
-		this.validator = validator;
-		this.messageFactory = messageFactory;
 	}
 
 	public List<Tag> findOrCreate(List<String> splitedTags) {
@@ -43,17 +37,10 @@ public class TagsManager {
 	private List<Tag> createTags(List<String> splitedTags) {
 		ArrayList<Tag> savedTags = new ArrayList<>();
 		for (String newTag : splitedTags) {
-			String replace = newTag.replaceAll(env.get("tags.sanitizer.regex"), "");
-
-			if (replace.length() != 0) {
-				validator.add(messageFactory.build("error", "tag.errors.illegal_char", newTag, replace));
-			} else {
-				Tag tag = new Tag(newTag, "", user.getCurrent());
-				tag = tags.saveIfDoesntExists(tag);
-				savedTags.add(tag);
-			}
+			Tag tag = new Tag(newTag, "", user.getCurrent() );
+			tag = tags.saveIfDoesntExists(tag);
+			savedTags.add(tag);
 		}
 		return savedTags;
 	}
-
 }
