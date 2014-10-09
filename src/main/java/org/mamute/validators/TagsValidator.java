@@ -27,6 +27,11 @@ public class TagsValidator {
 	
 	
 	public boolean validate(List<Tag> found, List<String> wanted) {
+		//prevent misleading errors if tags were improper earlier
+		if(validator.hasErrors()){
+			return false;
+		}
+
 		for (String name : wanted) {
 			if (!isPresent(name, found)) {
 				validator.add(messageFactory.build("error", "tag.errors.doesnt_exist", name));
