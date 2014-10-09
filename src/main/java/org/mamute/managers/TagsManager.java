@@ -23,13 +23,13 @@ public class TagsManager {
 		this.tags = tags;
 		this.user = user;
 	}
-	
+
 	public List<Tag> findOrCreate(List<String> splitedTags) {
 		if (env.supports("feature.tags.add.anyone"))
 			return createTags(splitedTags);
 		return findTags(splitedTags);
 	}
-	
+
 	private List<Tag> findTags(List<String> splitedTags) {
 		return tags.findAllDistinct(splitedTags);
 	}
@@ -43,5 +43,4 @@ public class TagsManager {
 		}
 		return savedTags;
 	}
-
 }
