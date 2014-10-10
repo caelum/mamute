@@ -2,6 +2,8 @@ package org.mamute.model;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static com.google.common.base.Objects.firstNonNull;
+
 public class LoggedUser {
 	
 	private final User user;
@@ -17,7 +19,10 @@ public class LoggedUser {
 	}
 
 	public String getIp() {
-		return request == null ? null : request.getRemoteAddr();
+        if (request == null) {
+            return null;
+        }
+        return firstNonNull(request.getHeader("X-Real-IP"), request.getRemoteAddr());
 	}
 	
 	public boolean isModerator() {
