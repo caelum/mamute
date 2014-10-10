@@ -67,7 +67,7 @@ public class VoteController {
 	private void tryToVoteVotable(Long id, VoteType voteType, Class votableType) {
 		try {
 		    Votable votable = votes.loadVotable(votableType, id);
-		    Vote current = new Vote(currentUser.getCurrent(), voteType);
+		    Vote current = new Vote(currentUser, voteType);
 		    votingMachine.register(votable, current, votableType);
 		    votes.save(current);
 		    result.use(Results.json()).withoutRoot().from(votable.getVoteCount()).serialize();
@@ -81,9 +81,8 @@ public class VoteController {
 	private void tryToRemoveVoteVotable(Long id, VoteType voteType, Class votableType) {
 		try {
 		    Votable votable = votes.loadVotable(votableType, id);
-		    Vote current = new Vote(currentUser.getCurrent(), voteType);
+		    Vote current = new Vote(currentUser, voteType);
 		    votingMachine.unRegister(votable, current, votableType);
-//		    votes.save(current);
 		    result.use(Results.json()).withoutRoot().from(votable.getVoteCount()).serialize();
 		} catch (IllegalArgumentException e) {
 		    result.use(Results.http()).sendError(409);

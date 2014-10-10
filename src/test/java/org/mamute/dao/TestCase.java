@@ -1,6 +1,8 @@
 package org.mamute.dao;
 
 import static org.mamute.model.MarkedText.notMarked;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,6 +32,8 @@ import org.mamute.model.VoteType;
 
 import br.com.caelum.timemachine.Block;
 import br.com.caelum.timemachine.TimeMachine;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Constructor from this class should not be used anywhere beside tests.
@@ -67,8 +71,12 @@ public abstract class TestCase {
 	}
 	
 	protected LoggedUser loggedUser(String name, String email, Long id) {
-		return new LoggedUser(user(name, email, id), null);
+		return new LoggedUser(user(name, email, id), localRequest());
 	}
+
+    protected LoggedUser logged(User user) {
+        return new LoggedUser(user, localRequest());
+    }
 	
 	protected User userWithPassword(String name, String email) {
 		User user = user(name, email);
@@ -78,17 +86,24 @@ public abstract class TestCase {
 	}
 	
 	protected Vote vote(User author, VoteType type, Long id) {
-	    Vote v = new Vote(author, type);
+        HttpServletRequest request = localRequest();
+        Vote v = new Vote(new LoggedUser(author, request), type);
 	    setId(v, id);
 	    return v;
 	}
-	
-	protected User user(String name, String email, Long id) {
+
+    private HttpServletRequest localRequest() {
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        when(request.getHeader("X-Real-IP")).thenReturn("127.0.0.1");
+        return request;
+    }
+
+    protected User user(String name, String email, Long id) {
 	    User user = user(name, email);
 	    setId(user, id);
 	    return user;
 	}
-	
+
 	protected Flag flag(FlagType flagType, User author) {
 		return new Flag(flagType, author);
 	}
