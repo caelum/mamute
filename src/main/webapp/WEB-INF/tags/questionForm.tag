@@ -30,7 +30,7 @@
 		   <%--class="question-tags-input hintable autocomplete only-existent-tags text-input ${tagsRequired}"--%>
 		   <%--value="${question.getTagsAsString(environment.get('tags.splitter.char'))}" data-hint-id="question-tags-hint"--%>
 		   <%--data-autocomplete-id="newquestion-tags-autocomplete"/>--%>
-	<input multiple type="hidden" class="bigdrop" id="tags" name="tagNames" style="width:600px" value="${question.getTagsAsString(env.get('tags.splitter.char'))}"/>
+	<input multiple type="hidden" class="bigdrop" id="tags" name="tagNames" style="width:50%" value="${question.getTagsAsString(env.get('tags.splitter.char'))}"/>
 
 	<input class="post-submit big-submit" type="submit" value="${t['question.new_form.submit']}"/>
 

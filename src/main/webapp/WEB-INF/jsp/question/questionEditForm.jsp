@@ -24,7 +24,7 @@
 	<%--value="${question.getTagsAsString(env.get('tags.splitter.char'))}" data-hint-id="question-tags-hint" --%>
 	<%--data-autocomplete-id="question-tags-autocomplete"/>--%>
 
-	<input multiple type="hidden" class="bigdrop" id="tags" name="tagNames" style="width:600px" value="${question.getTagsAsString(env.get('tags.splitter.char'))}"/>
+	<input multiple type="hidden" class="bigdrop" id="tags" name="tagNames" style="width:100%" value="${question.getTagsAsString(env.get('tags.splitter.char'))}"/>
 
 	<label for="comment">${t['edit_form.comment.label']}</label>
 	<input type="text" name="comment"
