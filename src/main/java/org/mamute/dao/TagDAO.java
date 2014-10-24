@@ -32,7 +32,7 @@ public class TagDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<Tag> search(String term){
-		return session.createQuery("from Tag t where t.name like :name").setString("name", term+"%").list();
+		return session.createQuery("from Tag t where lower(t.name) like lower(:name)").setString("name", term+"%").list();
 	}
 
 	@SuppressWarnings("unchecked")

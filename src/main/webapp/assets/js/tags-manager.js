@@ -33,7 +33,7 @@
 				ajaxResults = {};
 				return {
 					results: $.map(data, function (item) {
-						ajaxResults[item.name] = true;
+						ajaxResults[item.name.toLowerCase()] = true;
 						if (!contains(item.name)) {
 							return {
 								text: item.name,
@@ -52,7 +52,7 @@
 				return this.text.localeCompare(term) === 0;
 			}).length;
 
-			if (ajaxResults[term] && remoteSearch == 0) {
+			if (ajaxResults[term.toLowerCase()] && remoteSearch == 0) {
 				return {};
 			} else if (remoteSearch === 0) {
 				return {
