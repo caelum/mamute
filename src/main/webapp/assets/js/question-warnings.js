@@ -4,7 +4,7 @@ $(function() {
 	var warnings = $("<div>");
 	warnings
 		.addClass("question-warnings")
-		.html("<h4 class='section-title hint-title'>Reveja o conteúdo da sua postagem:</h4><ul></ul>")
+		.html("<h4 class='section-title hint-title'>"+Messages.get('validation.bad_post')+"</h4><ul></ul>")
 		.hide();
 	
 	$(".validated-form").eq(0).before(warnings);
