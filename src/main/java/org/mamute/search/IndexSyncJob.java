@@ -6,9 +6,16 @@ import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.http.client.CookieStore;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.BasicCookieStore;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.cookie.BasicClientCookie;
 import org.mamute.brutauth.auth.rules.ModeratorOnlyRule;
 import org.mamute.dao.QuestionDAO;
 import org.mamute.model.Question;
@@ -23,7 +30,8 @@ import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.events.VRaptorInitialized;
 
-@Controller @ApplicationScoped
+@Controller
+@ApplicationScoped
 @CustomBrutauthRules(ModeratorOnlyRule.class)
 public class IndexSyncJob {
 	public static final Logger LOGGER = LoggerFactory.getLogger(IndexSyncJob.class);
@@ -33,6 +41,7 @@ public class IndexSyncJob {
 	private Linker linker;
 	private Result result;
 	private QuestionDAO questions;
+	private HttpServletRequest request;
 
 
 	@Deprecated
@@ -41,46 +50,59 @@ public class IndexSyncJob {
 
 	@Inject
 	public IndexSyncJob(QuestionIndex index, Environment environment,
-			Linker linker, Result result, QuestionDAO questions) {
+						Linker linker, Result result, QuestionDAO questions, HttpServletRequest request) {
 		this.index = index;
 		this.environment = environment;
 		this.linker = linker;
 		this.result = result;
 		this.questions = questions;
+		this.request = request;
 	}
-	
+
 	@Post("/msdf0fhq924pqpsdl")
 	public void indexSync() {
 		linker.linkTo(this).execute();
-		final PostMethod postMethod = new PostMethod(linker.get());
+		final HttpPost httpPost = new HttpPost(linker.get());
+		final Cookie[] cookies = request.getCookies();
 		LOGGER.info("Running thread to sync solr indexes");
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				LOGGER.info("Solr indexes thread started!");
-				HttpClient httpClient = new HttpClient();
-				try {
-					httpClient.executeMethod(postMethod);
+				CookieStore cookieStore = new BasicCookieStore();
+				for (Cookie c : cookies) {
+					BasicClientCookie bc = new BasicClientCookie(c.getName(), c.getValue());
+					bc.setDomain("localhost");
+					cookieStore.addCookie(bc);
+				}
+
+				try (
+						CloseableHttpClient httpClient = HttpClientBuilder.create()
+								.setDefaultCookieStore(cookieStore)
+								.build()
+				) {
+					CloseableHttpResponse response = httpClient.execute(httpPost);
+					LOGGER.info("Index sync received " + response.getStatusLine().getStatusCode());
 				} catch (IOException e) {
-					LOGGER.debug("Couldn't execute post "+postMethod);
+					LOGGER.info("Couldn't execute post " + httpPost);
 				}
 			}
 		}).start();
 		result.nothing();
 	}
-		
+
 	@Post("/akwiqeojovndfasf0asf0s9ad8fas9d")
 	public void execute() {
-			long pages = questions.numberOfPages();
-			long total = 0;
-			LOGGER.info("Syncing questions!");
-			for (int i = 0; i < pages; i++) {
-				List<Question> q = questions.allVisible(i);
-				index.indexQuestionBatch(q);
-				total += q.size();
-			}
-			LOGGER.info("Synced " + total + " questions");
-			result.nothing();
+		long pages = questions.numberOfPages();
+		long total = 0;
+		LOGGER.info("Syncing questions!");
+		for (int i = 0; i < pages; i++) {
+			List<Question> q = questions.allVisible(i);
+			index.indexQuestionBatch(q);
+			total += q.size();
+		}
+		LOGGER.info("Synced " + total + " questions");
+		result.nothing();
 	}
 
 	@Post("/akwiqeojovndfasf0asf0s9ad8fas9d12io3nwo120")
