@@ -19,12 +19,10 @@
 	<label for="tags">${t['question.tags.label']}</label>
 	<ul class="tags autocompleted-tags hidden" id="question-tags-autocomplete"></ul>
 
-	<%--<input id="tags" type="text" name="tagNames" autocomplete="off" --%>
-	<%--class="hintable autocomplete only-existent-tags text-input required" --%>
-	<%--value="${question.getTagsAsString(env.get('tags.splitter.char'))}" data-hint-id="question-tags-hint" --%>
-	<%--data-autocomplete-id="question-tags-autocomplete"/>--%>
-
-	<input multiple type="hidden" class="bigdrop" id="tags" name="tagNames" style="width:100%" value="${question.getTagsAsString(env.get('tags.splitter.char'))}"/>
+	<input id="tags" type="text" autocomplete="off" name="tagNames"
+		   class="question-tags-input hintable autocomplete only-existent-tags text-input ${tagsRequired}"
+		   value="${question.getTagsAsString(environment.get('tags.splitter.char'))}" data-hint-id="question-tags-hint"
+		   data-autocomplete-id="newquestion-tags-autocomplete"/>
 
 	<label for="comment">${t['edit_form.comment.label']}</label>
 	<input type="text" name="comment"

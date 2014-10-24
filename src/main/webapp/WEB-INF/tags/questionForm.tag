@@ -25,12 +25,10 @@
 	<label for="tags">${t['question.tags.label']}</label>
 	<ul class="tags autocompleted-tags complete-tags hidden" id="newquestion-tags-autocomplete"></ul>
 
-	<%--<input id="tags" type="text" autocomplete="off"--%>
-		   <%--name="tagNames"--%>
-		   <%--class="question-tags-input hintable autocomplete only-existent-tags text-input ${tagsRequired}"--%>
-		   <%--value="${question.getTagsAsString(environment.get('tags.splitter.char'))}" data-hint-id="question-tags-hint"--%>
-		   <%--data-autocomplete-id="newquestion-tags-autocomplete"/>--%>
-	<input multiple type="hidden" class="bigdrop" id="tags" name="tagNames" style="width:50%" value="${question.getTagsAsString(env.get('tags.splitter.char'))}"/>
+	<input id="tags" type="text" autocomplete="off" name="tagNames"
+		   class="question-tags-input hintable autocomplete only-existent-tags text-input ${tagsRequired}"
+		   value="${question.getTagsAsString(environment.get('tags.splitter.char'))}" data-hint-id="question-tags-hint"
+		   data-autocomplete-id="newquestion-tags-autocomplete"/>
 
 	<input class="post-submit big-submit" type="submit" value="${t['question.new_form.submit']}"/>
 

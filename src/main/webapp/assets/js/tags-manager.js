@@ -1,20 +1,23 @@
 (function () {
-	var element = $('#tags');
+	//replace the original textbox to allow for graceful javascript degredation
+	var id = '#tags'
+	$(id).replaceWith('<input multiple type="hidden" class="bigdrop" id="tags" name="tagNames" style="width:100%" value="' + $(id).val() + '"/>');
+
+	var element = $(id);
 	var escapeMarkup = function (m) {
 		return m;
 	};
-	var contains = function(val){
+	var contains = function (val) {
 		var found = false;
-		$.each(element.val().split(','), function(i,v){
-			if(v == val){
-				found =  true;
+		$.each(element.val().split(','), function (i, v) {
+			if (v == val) {
+				found = true;
 			}
 		});
 		return found;
 	};
 
-
-
+	var ajaxResults = {};
 	element.select2({
 		placeholder: "Enter a tag",
 		minimumInputLength: 3,
@@ -27,9 +30,11 @@
 				return CONTEXT_PATH + "/question/searchTags/" + term;
 			},
 			results: function (data) {
+				ajaxResults = {};
 				return {
 					results: $.map(data, function (item) {
-						if(!contains(item.name)) {
+						ajaxResults[item.name] = true;
+						if (!contains(item.name)) {
 							return {
 								text: item.name,
 								slug: item.name,
@@ -43,9 +48,13 @@
 			}
 		},
 		createSearchChoice: function (term, data) {
-			if ($(data).filter(function () {
+			var remoteSearch = $(data).filter(function () {
 				return this.text.localeCompare(term) === 0;
-			}).length === 0) {
+			}).length;
+
+			if (ajaxResults[term] && remoteSearch == 0) {
+				return {};
+			} else if (remoteSearch === 0) {
 				return {
 					text: '<div class="tag-new-list">' + term + ' <span class="tag-smalltext">(create new tag)</span></div>'
 						+ '<hr style="margin-top:15px;"/>',
@@ -90,4 +99,5 @@
 		}
 
 	});
-}());
+
+})();
