@@ -28,7 +28,8 @@
 	<script src="/assets/js/deps/pretty-text-diff.js"></script>
 	<script src="/assets/js/deps/jquery.validate.min.js"></script>
 	<script src="/assets/js/deps/jquery.joyride-2.0.3.js"></script>
-	
+	<script src="/assets/js/deps/select2.js"></script>
+
 	<script src="/assets/js/deps/picker.js"></script>
 	<script src="/assets/js/deps/picker.date.js"></script>
 	<script src="/assets/js/deps/translations/pt_BR.js"></script>

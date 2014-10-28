@@ -28,17 +28,22 @@ public class TagController {
 
 	@Post
 	@CustomBrutauthRules(ModeratorOnlyRule.class)
-	public void saveTags(String stringTags){
+	public void saveTags(String stringTags) {
 		List<String> tagList = splitter.splitTags(stringTags);
 		for (String tag : tagList) {
 			tags.saveIfDoesntExists(new Tag(tag, "", null));
 		}
 		result.nothing();
 	}
-	
+
 	@Get
-	public void jsonTags () {
+	public void jsonTags() {
 		result.use(json()).withoutRoot().from(tags.all()).serialize();
 	}
-	
+
+	@Get
+	public void searchTags(String name) {
+		result.use(json()).withoutRoot().from(tags.search(name)).serialize();
+	}
+
 }
