@@ -1,6 +1,5 @@
 package org.mamute.search;
 
-import static java.lang.Thread.sleep;
 import static org.junit.Assert.assertEquals;
 import static org.mamute.model.SanitizedText.fromTrustedText;
 
@@ -17,7 +16,6 @@ import org.mamute.model.Tag;
 import org.mamute.model.User;
 
 public class SolrQuestionIndexTest extends SolrTestCase {
-
 	private QuestionIndex sut = new SolrQuestionIndex(solrServer);
 	private QuestionBuilder questionBuilder = new QuestionBuilder();
 
@@ -42,44 +40,56 @@ public class SolrQuestionIndexTest extends SolrTestCase {
 		whyIsSkyBlue = createQuestion(1L, "Why is the sky blue?", "I wanna know why is sky blue", science, eli5);
 		whereDoBabiesComeFrom = createQuestion(2L, "Where do babies come from?", "My mom said I came from a bird", science, eli12);
 		howShipInBottle = createQuestion(3L, "How do they get the ship in the bottle?", "I wanna know this for my school work", hobby);
-		
-		sleep(300);
 	}
 
 	@Test
 	public void should_find_questions_by_title() {
 		List<Long> ids = sut.find("sky blue", 1);
 		assertEquals(1, ids.size());
-		assertEquals(whyIsSkyBlue.getId(), ids.get(0)) ;
+		assertEquals(whyIsSkyBlue.getId(), ids.get(0));
 	}
 
 	@Test
 	public void should_find_questions_by_tag() {
 		List<Long> ids = sut.find(eli12.getName(), 1);
 		assertEquals(1, ids.size());
-		assertEquals(whereDoBabiesComeFrom.getId(), ids.get(0)) ;
+		assertEquals(whereDoBabiesComeFrom.getId(), ids.get(0));
 	}
-	
+
 	@Test
 	public void should_find_questions_by_description() {
 		List<Long> ids = sut.find("school work", 1);
 		assertEquals(1, ids.size());
-		assertEquals(howShipInBottle.getId(), ids.get(0)) ;
+		assertEquals(howShipInBottle.getId(), ids.get(0));
 	}
-	
+
+	@Test
+	public void should_find_questions_with_different_tense() {
+		List<Long> ids = sut.find("working", 1);
+		assertEquals(1, ids.size());
+		assertEquals(howShipInBottle.getId(), ids.get(0));
+	}
+
+	@Test
+	public void should_find_questions_with_plural() {
+		List<Long> ids = sut.find("skies", 1);
+		assertEquals(1, ids.size());
+		assertEquals(whyIsSkyBlue.getId(), ids.get(0));
+	}
+
 	@Test
 	public void should_escape_solr_special_characters() {
 		sut.find(" [JAVA] Erro multipart/form-data usando primefaces JSF FileUpload", 1);
 	}
 
-	private Question createQuestion(Long id, String title, String description, Tag...tags) {
+	private Question createQuestion(Long id, String title, String description, Tag... tags) {
 		Question question = questionBuilder
-								.withId(id)
-								.withTitle(title)
-								.withDescription(description)
-								.withTags(Arrays.<Tag>asList(tags))
-								.withAuthor(author)
-								.build();
+				.withId(id)
+				.withTitle(title)
+				.withDescription(description)
+				.withTags(Arrays.<Tag>asList(tags))
+				.withAuthor(author)
+				.build();
 		sut.indexQuestion(question);
 		return question;
 	}
