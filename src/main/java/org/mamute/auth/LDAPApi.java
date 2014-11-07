@@ -224,21 +224,22 @@ public class LDAPApi {
 		}
 
 		private Entry lookupUser(String username) throws LdapException {
-
 			for (String lookupAttr : lookupAttrs) {
-				logger.debug("LDAP lookup user by " + lookupAttr);
-				EntryCursor responseCursor = connection.search(userDn, "(&(objectclass=user)(" + lookupAttr + "=" + username + "))", SearchScope.SUBTREE);
-				try {
+				String attrName = lookupAttr.trim();
+				if (!attrName.isEmpty()) {
+					EntryCursor responseCursor = connection.search(userDn, "(&(objectclass=user)(" + attrName + "=" + username + "))", SearchScope.SUBTREE);
 					try {
-						if (responseCursor != null && responseCursor.next()) {
-							return responseCursor.get();
+						try {
+							if (responseCursor != null && responseCursor.next()) {
+								return responseCursor.get();
+							}
+						} catch (CursorException e) {
+							logger.debug("LDAP search error", e);
+							return null;
 						}
-					} catch (CursorException e) {
-						logger.debug("LDAP search error", e);
-						return null;
+					} finally {
+						responseCursor.close();
 					}
-				} finally {
-					responseCursor.close();
 				}
 			}
 			return null;
