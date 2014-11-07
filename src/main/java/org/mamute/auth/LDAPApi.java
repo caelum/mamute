@@ -45,7 +45,7 @@ public class LDAPApi {
 	public static final String LDAP_NAME = "ldap.nameAttr";
 	public static final String LDAP_SURNAME = "ldap.surnameAttr";
 	public static final String LDAP_GROUP = "ldap.groupAttr";
-	public static final String LDAP_LOOKUP = "ldap.lookup";
+	public static final String LDAP_LOOKUP = "ldap.lookupAttr";
 	public static final String LDAP_MODERATOR_GROUP = "ldap.moderatorGroup";
 	public static final String PLACHOLDER_PASSWORD = "ldap-password-ignore-me";
 
