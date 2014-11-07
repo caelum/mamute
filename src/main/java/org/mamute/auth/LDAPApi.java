@@ -11,10 +11,13 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import org.apache.directory.api.ldap.model.cursor.CursorException;
+import org.apache.directory.api.ldap.model.cursor.EntryCursor;
 import org.apache.directory.api.ldap.model.entry.Entry;
 import org.apache.directory.api.ldap.model.entry.Value;
 import org.apache.directory.api.ldap.model.exception.LdapAuthenticationException;
 import org.apache.directory.api.ldap.model.exception.LdapException;
+import org.apache.directory.api.ldap.model.message.SearchScope;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.ldap.client.api.LdapNetworkConnection;
 import org.mamute.dao.LoginMethodDAO;
@@ -125,6 +128,19 @@ public class LDAPApi {
 	}
 
 	private String userCn(String username) {
+		if (username.contains("@")) {
+			// find user by email
+			try (LDAPResource ldap = new LDAPResource()) {
+				Entry user = ldap.findUserByEmail(username);
+				if (user != null) {
+					return user.getDn().getName();
+				}
+			} catch (LdapException | IOException e) {
+				logger.debug("LDAP connection error", e);
+				throw new AuthenticationException(LDAP_AUTH, "LDAP connection error", e);
+			}
+		}
+
 		String sanitizedUser = username.replaceAll("[,=]", "");
 		String cn = "cn=" + sanitizedUser + "," + userDn;
 		return cn;
@@ -202,6 +218,23 @@ public class LDAPApi {
 
 		private Entry getUser(String cn) throws LdapException {
 			return connection.lookup(cn);
+		}
+
+		private Entry findUserByEmail(String email) throws LdapException {
+			EntryCursor responseCursor = connection.search(userDn, "(&(objectclass=user)(" + emailAttr + "=" + email + "))", SearchScope.SUBTREE);
+			try {
+				try {
+					if (responseCursor != null && responseCursor.next()) {
+						return responseCursor.get();
+					}
+				} catch (CursorException e) {
+					logger.debug("LDAP search error", e);
+					return null;
+				}
+			} finally {
+				responseCursor.close();
+			}
+			return null;
 		}
 
 		private String getAttribute(Entry entry, String attribute) throws LdapException {
