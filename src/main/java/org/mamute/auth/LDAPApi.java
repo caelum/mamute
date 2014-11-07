@@ -45,6 +45,7 @@ public class LDAPApi {
 	public static final String LDAP_NAME = "ldap.nameAttr";
 	public static final String LDAP_SURNAME = "ldap.surnameAttr";
 	public static final String LDAP_GROUP = "ldap.groupAttr";
+	public static final String LDAP_LOOKUP = "ldap.lookup";
 	public static final String LDAP_MODERATOR_GROUP = "ldap.moderatorGroup";
 	public static final String PLACHOLDER_PASSWORD = "ldap-password-ignore-me";
 
@@ -61,6 +62,7 @@ public class LDAPApi {
 	private String nameAttr;
 	private String surnameAttr;
 	private String groupAttr;
+	private String[] lookupAttrs;
 	private String moderatorGroup;
 
 	/**
@@ -83,6 +85,7 @@ public class LDAPApi {
 			surnameAttr = env.get(LDAP_SURNAME, "");
 			groupAttr = env.get(LDAP_GROUP, "");
 			moderatorGroup = env.get(LDAP_MODERATOR_GROUP, "");
+			lookupAttrs = env.get(LDAP_LOOKUP, "").split(",");
 		}
 	}
 
@@ -128,10 +131,9 @@ public class LDAPApi {
 	}
 
 	private String userCn(String username) {
-		if (username.contains("@")) {
-			// find user by email
+		if (lookupAttrs.length > 0) {
 			try (LDAPResource ldap = new LDAPResource()) {
-				Entry user = ldap.findUserByEmail(username);
+				Entry user = ldap.lookupUser(username);
 				if (user != null) {
 					return user.getDn().getName();
 				}
@@ -141,6 +143,7 @@ public class LDAPApi {
 			}
 		}
 
+		// fallback: assume lookup by CN
 		String sanitizedUser = username.replaceAll("[,=]", "");
 		String cn = "cn=" + sanitizedUser + "," + userDn;
 		return cn;
@@ -220,19 +223,23 @@ public class LDAPApi {
 			return connection.lookup(cn);
 		}
 
-		private Entry findUserByEmail(String email) throws LdapException {
-			EntryCursor responseCursor = connection.search(userDn, "(&(objectclass=user)(" + emailAttr + "=" + email + "))", SearchScope.SUBTREE);
-			try {
+		private Entry lookupUser(String username) throws LdapException {
+
+			for (String lookupAttr : lookupAttrs) {
+				logger.debug("LDAP lookup user by " + lookupAttr);
+				EntryCursor responseCursor = connection.search(userDn, "(&(objectclass=user)(" + lookupAttr + "=" + username + "))", SearchScope.SUBTREE);
 				try {
-					if (responseCursor != null && responseCursor.next()) {
-						return responseCursor.get();
+					try {
+						if (responseCursor != null && responseCursor.next()) {
+							return responseCursor.get();
+						}
+					} catch (CursorException e) {
+						logger.debug("LDAP search error", e);
+						return null;
 					}
-				} catch (CursorException e) {
-					logger.debug("LDAP search error", e);
-					return null;
+				} finally {
+					responseCursor.close();
 				}
-			} finally {
-				responseCursor.close();
 			}
 			return null;
 		}
