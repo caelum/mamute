@@ -224,10 +224,26 @@ public class LDAPApi {
 		}
 
 		private Entry lookupUser(String username) throws LdapException {
+			StringBuilder userQuery = new StringBuilder();
+			userQuery.append("(&(objectclass=user)(|");
+			boolean hasCondition = false;
 			for (String lookupAttr : lookupAttrs) {
 				String attrName = lookupAttr.trim();
 				if (!attrName.isEmpty()) {
-					EntryCursor responseCursor = connection.search(userDn, "(&(objectclass=user)(" + attrName + "=" + username + "))", SearchScope.SUBTREE);
+					userQuery.append('(').append(attrName).append('=').append(username).append(')');
+					hasCondition = true;
+				}
+			}
+			userQuery.append("))");
+
+			if (!hasCondition) {
+				return null;
+			}
+
+			for (String lookupAttr : lookupAttrs) {
+				String attrName = lookupAttr.trim();
+				if (!attrName.isEmpty()) {
+					EntryCursor responseCursor = connection.search(userDn, userQuery.toString(), SearchScope.SUBTREE);
 					try {
 						try {
 							if (responseCursor != null && responseCursor.next()) {
