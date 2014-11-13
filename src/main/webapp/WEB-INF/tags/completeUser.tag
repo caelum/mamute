@@ -7,7 +7,7 @@
 <%@attribute name="edited" required="false" %>
 <div class="complete-user">
 	<jsp:doBody/>
-	<img class="user-image" src="${userMediumPhoto ? user.mediumPhoto : user.smallPhoto}"/>
+	<img class="user-image" src="${userMediumPhoto ? user.getMediumPhoto(t['gravatar.avatar.url']) : user.getSmallPhoto(t['gravatar.avatar.url'])}"/>
 	<div class="user-info" 
 		<c:if test="${microdata}">
 			itemscope itemtype="http://schema.org/Person" itemprop="${edited ? 'editor' : 'author'}"

@@ -124,14 +124,14 @@ public class UserTest extends TestCase {
 	@Test
 	public void should_avatar_when_null_photo() throws Exception {
 		User user = user("name", "name@brutal.com");
-		String photo = user.getPhoto(10, 10);
+		String photo = user.getPhoto(10, 10, "http://www.gravatar.com");
 		assertTrue(photo.startsWith("http://www.gravatar.com"));
 	}
 	
 	@Test
 	public void should_have_PG_gravatar_with_robotar_when_null_photo() throws Exception {
 		User user = user("name", "paulo@paulo.com.br");
-		String photo = user.getPhoto(64, 64);
+		String photo = user.getPhoto(64, 64, "http://www.gravatar.com");
 		assertEquals("http://www.gravatar.com/avatar/620ad6ac2c42fce964bbf2e01e87c04b.png?r=PG&size=64x64&d=http%3A%2F%2Frobohash.org%2Fsize_64x64%2Fset_set1%2Fbgset_any%2F620ad6ac2c42fce964bbf2e01e87c04b.png", photo);
 	}
 	
@@ -139,7 +139,7 @@ public class UserTest extends TestCase {
 	public void should_use_width_and_height_parameters_when_photo_uri_is_not_null() throws Exception {
 		User user = user("name", "paulo@paulo.com.br");
 		user.setPhotoUri(new URL("http://graph.facebook.com/shaverm/picture"));
-		String photo = user.getPhoto(200, 200);
+		String photo = user.getPhoto(200, 200, "http://www.gravatar.com");
 		assertEquals("http://graph.facebook.com/shaverm/picture?width=200&height=200", photo);
 	}
 
@@ -150,7 +150,7 @@ public class UserTest extends TestCase {
 		User user = user("name", "name@brutal.com");
 		String uri = "http://foo.com/bar.png";
 		user.setPhotoUri(new URL(uri));
-		String photo = user.getPhoto(10, 10);
+		String photo = user.getPhoto(10, 10, "http://www.gravatar.com");
 
 		assertEquals(uri + "?width=10&height=10", photo);
 	}

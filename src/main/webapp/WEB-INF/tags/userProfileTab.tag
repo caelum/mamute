@@ -23,7 +23,7 @@
 	</div>
 		
 	<div class="image-and-information">
-		<img class="user-image profile-image" src="${selectedUser.bigPhoto}"/>
+		<img class="user-image profile-image" src="${selectedUser.getBigPhoto(t['gravatar.avatar.url'])}"/>
 		<span class="karma">${selectedUser.karma}</span>
 		<span>${t['user_profile.reputation']}</span>
 	</div>

@@ -186,16 +186,16 @@ public class User implements Identifiable {
 		return this.id;
 	}
 	
-	public String getSmallPhoto() {
-	    return getPhoto(32, 32);
+	public String getSmallPhoto(String gravatarUrl) {
+	    return getPhoto(32, 32, gravatarUrl);
 	}
 	
-	public String getMediumPhoto() {
-		return getPhoto(48, 48);
+	public String getMediumPhoto(String gravatarUrl) {
+		return getPhoto(48, 48, gravatarUrl);
 	}
 	
-	public String getBigPhoto() {
-		return getPhoto(128, 128);
+	public String getBigPhoto(String gravatarUrl) {
+		return getPhoto(128, 128, gravatarUrl);
 	}
 
 	public String getName() {
@@ -247,12 +247,12 @@ public class User implements Identifiable {
 		throw new IllegalStateException("this guy dont have a brutal login method!");
 	}
 	
-	public String getPhoto(Integer width, Integer height) {
+	public String getPhoto(Integer width, Integer height, String gravatarUrl) {
 		String size = width + "x" + height;
 		if (photoUri == null) {
 			String digest = Digester.md5(email);
 			String robohash = "http://robohash.org/size_"+size+"/set_set1/bgset_any/"+digest+".png";
-			String gravatar = "http://www.gravatar.com/avatar/" + digest + ".png?r=PG&size=" + size;
+			String gravatar = gravatarUrl + "/avatar/" + digest + ".png?r=PG&size=" + size;
 			try {
 				return gravatar + "&d=" + java.net.URLEncoder.encode(robohash, "UTF-8");
 			} catch (UnsupportedEncodingException e) {

@@ -12,7 +12,7 @@
 	</ul>
 </div>
 <div class="image-and-information">
-	<img class="profile-image" src="${user.bigPhoto}"/>
+	<img class="profile-image" src="${user.getBigPhoto(t['gravatar.avatar.url'])}"/>
 	<a href="${t['gravatar.url']}">${t['user_profile.edit.photo']}</a>
 </div>
 
