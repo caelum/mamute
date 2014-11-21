@@ -13,6 +13,7 @@ import javax.inject.Inject;
 
 import org.apache.directory.api.ldap.model.cursor.CursorException;
 import org.apache.directory.api.ldap.model.cursor.EntryCursor;
+import org.apache.directory.api.ldap.model.entry.Attribute;
 import org.apache.directory.api.ldap.model.entry.Entry;
 import org.apache.directory.api.ldap.model.entry.Value;
 import org.apache.directory.api.ldap.model.exception.LdapAuthenticationException;
@@ -212,8 +213,11 @@ public class LDAPApi {
 		private List<String> getGroups(Entry user) {
 			List<String> groupCns = new ArrayList<>();
 			if (isNotEmpty(groupAttr)) {
-				for (Value grp : user.get(groupAttr)) {
-					groupCns.add(grp.getString());
+				Attribute grpEntry = user.get(groupAttr);
+				if (grpEntry != null) {
+					for (Value grp : grpEntry) {
+						groupCns.add(grp.getString());
+					}
 				}
 			}
 			return groupCns;
