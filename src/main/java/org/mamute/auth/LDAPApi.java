@@ -244,23 +244,22 @@ public class LDAPApi {
 				return null;
 			}
 
-			for (String lookupAttr : lookupAttrs) {
-				String attrName = lookupAttr.trim();
-				if (!attrName.isEmpty()) {
-					EntryCursor responseCursor = connection.search(userDn, userQuery.toString(), SearchScope.SUBTREE);
-					try {
-						try {
-							if (responseCursor != null && responseCursor.next()) {
-								return responseCursor.get();
-							}
-						} catch (CursorException e) {
-							logger.debug("LDAP search error", e);
-							return null;
-						}
-					} finally {
-						responseCursor.close();
+			logger.debug("LDAP user query " + userQuery.toString());
+
+			EntryCursor responseCursor = connection.search(userDn, userQuery.toString(), SearchScope.SUBTREE);
+			try {
+				try {
+					if (responseCursor != null && responseCursor.next()) {
+						Entry match = responseCursor.get();
+						logger.debug("LDAP user query result: " + match.getDn());
+						return match;
 					}
+				} catch (CursorException e) {
+					logger.debug("LDAP search error", e);
+					return null;
 				}
+			} finally {
+				responseCursor.close();
 			}
 			return null;
 		}
