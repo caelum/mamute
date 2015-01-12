@@ -105,7 +105,7 @@ public class DaoManager {
 	}
 
 	public Tag tag(String name) {
-		return tagDao.findByName(name);
+		return tagDao.findBySluggedName(name);
 	}
 
 	public User moderator() {

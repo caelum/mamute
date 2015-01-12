@@ -28,48 +28,48 @@ public class TagPageController {
 
 	@Get
 	@CustomBrutauthRules(ModeratorOnlyRule.class)
-	public void tagPageForm(String tagName){
-		if(validator.validateCreationWithTag(tagName)){
-			result.include("tag", tags.findByName(tagName));
+	public void tagPageForm(String tagUriName){
+		if(validator.validateCreationWithTag(tagUriName)){
+			result.include("tag", tags.findBySluggedName(tagUriName));
 		}
 	}
 
 	@Get
 	@CustomBrutauthRules(ModeratorOnlyRule.class)
-	public void editTagPageForm(String tagName){
-		TagPage tagPage = tagPages.findByTag(tagName);
+	public void editTagPageForm(String tagUriName){
+		TagPage tagPage = tagPages.findByTag(tagUriName);
 		result.include("tagPage", tagPage);
 	}
 	
 	@Post
 	@CustomBrutauthRules(ModeratorOnlyRule.class)
-	public void editTagPage(String tagName, MarkedText about){
-		TagPage tagPage = tagPages.findByTag(tagName);
+	public void editTagPage(String tagUriName, MarkedText about){
+		TagPage tagPage = tagPages.findByTag(tagUriName);
 		tagPage.setAbout(about);
 		if(!validator.validate(tagPage)){
-			validator.onErrorRedirectTo(TagPageController.class).editTagPageForm(tagPage.getTagName());
+			validator.onErrorRedirectTo(TagPageController.class).editTagPageForm(tagPage.getTag().getUriName());
 			return;
 		}
-		result.redirectTo(this).showTagPage(tagPage.getTagName());
+		result.redirectTo(this).showTagPage(tagPage.getTag().getUriName());
 	}
 	
 	@Post
 	@CustomBrutauthRules(ModeratorOnlyRule.class)
-	public void newTagPage(String tagName, MarkedText about){
-		if(!validator.validateCreationWithTag(tagName)) return;
-		Tag tag = tags.findByName(tagName);
+	public void newTagPage(String tagUriName, MarkedText about){
+		if(!validator.validateCreationWithTag(tagUriName)) return;
+		Tag tag = tags.findBySluggedName(tagUriName);
 		TagPage tagPage = new TagPage(tag, about);
 		if(!validator.validate(tagPage)){
-			validator.onErrorRedirectTo(TagPageController.class).tagPageForm(tagPage.getTagName());
+			validator.onErrorRedirectTo(TagPageController.class).tagPageForm(tagPage.getTag().getUriName());
 			return;
 		}
 		tagPages.save(tagPage);
-		result.redirectTo(this).showTagPage(tagPage.getTagName()); 
+		result.redirectTo(this).showTagPage(tagPage.getTag().getUriName());
 	}
 	
 	@Get
-	public void showTagPage(String tagName){
-		TagPage tagPage = tagPages.findByTag(tagName);
+	public void showTagPage(String tagUriName){
+		TagPage tagPage = tagPages.findByTag(tagUriName);
 		result.include(tagPage);
 		result.include("hasAbout", tags.hasAbout(tagPage.getTag()));
 	}

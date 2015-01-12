@@ -1,8 +1,7 @@
 package org.mamute.dao;
 
 import static java.util.Arrays.asList;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -25,7 +24,7 @@ public class TagDAOTest extends DatabaseTestCase{
 	private User leo;
 	private Tag java;
 	private Tag ruby;
-
+    private Tag weirdCharacters;
 
 	@Before
 	public void setup() {
@@ -33,9 +32,11 @@ public class TagDAOTest extends DatabaseTestCase{
 		leo = user("leonardo", "leo@leo");
 		java = new Tag("java", "", leo);
 		ruby = new Tag("ruby", "", leo);
+        weirdCharacters = new Tag("Čemaž {!weird!}#", "", leo);
 		session.save(leo);
 		session.save(java);
 		session.save(ruby);
+        session.save(weirdCharacters);
 	}
 
 	@Test
@@ -88,16 +89,24 @@ public class TagDAOTest extends DatabaseTestCase{
 	@Test
 	public void should_get_all_tag_names() throws Exception {
 		List<String> tagsNames = tags.allNames();
-		assertEquals(2, tagsNames.size());
-		assertEquals(java.getName(), tagsNames.get(0));
-		assertEquals(ruby.getName(), tagsNames.get(1));
-	}
+		assertEquals(3, tagsNames.size());
+        assertEquals(weirdCharacters.getName(), tagsNames.get(0));
+        assertEquals(java.getName(), tagsNames.get(1));
+        assertEquals(ruby.getName(), tagsNames.get(2));
+
+    }
 	
 	@Test
 	public void should_get_empty_list_for_nonexistant_names() throws Exception {
 		List<Tag> found = tags.findAllDistinct(asList("blabla", "lala"));
 		assertTrue(found.isEmpty());
 	}
+
+    @Test
+    public void should_get_existing_tags_with_different_name_same_slug() throws Exception {
+        List<Tag> found = tags.findAllDistinct(asList("cemaz weird"));
+        assertFalse(found.isEmpty());
+    }
 	
 	@Test
 	public void should_split_two_spaces() throws Exception {
@@ -122,8 +131,8 @@ public class TagDAOTest extends DatabaseTestCase{
 		assertEquals("java", found.get(0).getName());
 		assertEquals("ruby", found.get(1).getName());
 	}
-	
-	@Test
+
+    @Test
 	public void should_not_repeat_tags_even_if_different_case() throws Exception {
 		List<Tag> found = tags.findAllDistinct(asList("Java", "java", "ruBy", "ruby"));
 		assertEquals(2, found.size());
@@ -132,7 +141,7 @@ public class TagDAOTest extends DatabaseTestCase{
 	}
 	
 	@Test
-	public void should_not_save_repeated_tags() throws Exception {
+	public void should_not_save_tags_with_same_name() throws Exception {
 		int originalSize = tags.all().size();
 		Tag csharp = new Tag("csharp", "", leo);
 		tags.saveIfDoesntExists(csharp);
@@ -140,6 +149,25 @@ public class TagDAOTest extends DatabaseTestCase{
 
 		assertEquals(tags.all().size(), originalSize+1);
 	}
+
+    @Test
+    public void should_not_save_tags_with_unique_name_but_same_slug() throws Exception {
+        int originalSize = tags.all().size();
+        Tag cevapciciWithSpecialChar = new Tag("čevapčiči", "", leo);
+        Tag cevapciciWithoutSpecialChar = new Tag("cevapcici", "", leo);
+        tags.saveIfDoesntExists(cevapciciWithSpecialChar);
+        tags.saveIfDoesntExists(cevapciciWithoutSpecialChar);
+
+        assertEquals(tags.all().size(), originalSize+1);
+    }
+
+    @Test
+    public void should_define_correct_slugged_url()
+    {
+        assertNotNull(tags.findBySluggedName("java"));
+        assertNotNull(tags.findBySluggedName("ruby"));
+        assertNotNull(tags.findBySluggedName("cemaz-weird"));
+    }
 
 	private Question questionWith(List<Tag> tags) {
 		Question question = new QuestionBuilder().withAuthor(leo).withTags(tags).build();

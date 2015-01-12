@@ -159,9 +159,9 @@ public class ListController {
 	}
 	
 	@Get
-	public void withTag(String tagName, Integer p, boolean semRespostas) {
+	public void withTag(String tagUriName, Integer p, boolean semRespostas) {
 		Integer page = getPage(p);
-		Tag tag = tags.findByName(tagName);
+		Tag tag = tags.findBySluggedName(tagUriName);
 		if(tag == null){
 			result.notFound();
 			return;

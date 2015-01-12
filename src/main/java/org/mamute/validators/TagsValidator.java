@@ -10,6 +10,8 @@ import org.mamute.model.Tag;
 
 import br.com.caelum.vraptor.validator.Validator;
 
+import static org.mamute.infra.NormalizerBrutal.toSlug;
+
 public class TagsValidator {
 
 	private final Environment env;
@@ -36,10 +38,7 @@ public class TagsValidator {
 		}
 
 		for (String name : wanted) {
-			String replace = name.replaceAll(env.get("tags.sanitizer.regex"), "");
-			if (replace.length() != 0) {
-				validator.add(messageFactory.build("error", "tag.errors.illegal_char", name, replace));
-			} else if (!isPresent(name, found)) {
+            if (!isPresent(name, found)) {
 				validator.add(messageFactory.build("error", "tag.errors.doesnt_exist", name));
 			}
 		}
@@ -48,7 +47,8 @@ public class TagsValidator {
 
 	private boolean isPresent(String name, List<Tag> found) {
 		for (Tag tag : found) {
-			if (tag.getName().equals(name))
+            String sluggedName = toSlug(name);
+			if (tag.getUriName().equals(sluggedName))
 				return true;
 		}
 		return false;

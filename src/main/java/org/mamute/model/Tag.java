@@ -17,6 +17,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 import org.mamute.providers.SessionFactoryCreator;
 
+import static org.mamute.infra.NormalizerBrutal.toSlug;
+
 @Cacheable
 @Cache(usage=CacheConcurrencyStrategy.READ_ONLY, region="cache")
 @Entity
@@ -28,7 +30,11 @@ public class Tag {
 	@Column(unique = true, nullable = false)
 	@NotEmpty
 	private String name;
-	
+
+    @Type(type = "text")
+    @NotEmpty
+    private String sluggedName;
+
 	private String description;
 	
 	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
@@ -48,7 +54,8 @@ public class Tag {
 	
 	public Tag(String name, String description, User author) {
 		this.name = name.toLowerCase();
-		this.description = description;
+        this.sluggedName = toSlug(name);
+        this.description = description;
 		this.author = author;
 	}
 
@@ -57,12 +64,7 @@ public class Tag {
 	}
 	
 	public String getUriName() {
-		try {
-			return URLEncoder.encode(name, "utf-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		return null;
+		return this.sluggedName;
 	}
 
 	public String getDescription() {
