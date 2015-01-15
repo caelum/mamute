@@ -75,10 +75,8 @@ public class User implements Identifiable {
 	@Length(max = LOCATION_MAX_LENGTH, message = LOCATION_LENGTH_MESSAGE)
 	private String location;
 	
-	@Length(min = ABOUT_MIN_LENGTH, max = ABOUT_MAX_LENGTH ,  message = ABOUT_LENGTH_MESSAGE)
 	private String about;
 	
-	@Length(min = ABOUT_MIN_LENGTH, max = MARKED_ABOUT_MAX_LENGTH ,  message = ABOUT_LENGTH_MESSAGE)
 	private String markedAbout;
 	
 	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
