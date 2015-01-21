@@ -117,8 +117,10 @@ function intro(){
 }
 
 $(function() {
-	intro();
-	
+    <c:if test="${environment.supports('feature.intro')}" >
+	    intro();
+    </c:if>
+
 	prettyPrint();
 
 	$("#datepicker-age").pickadate({
