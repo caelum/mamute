@@ -16,8 +16,8 @@
 		</a>
 	</h1>
 	<div class="post-meta">
-		<tags:voteFor item="${news}" type="noticia" vote="${currentVote}"/>
-		<tags:watchFor watchable="${news}" type="noticia"/>
+		<tags:voteFor item="${news}" type="${t['news.type_name']}" vote="${currentVote}"/>
+		<tags:watchFor watchable="${news}" type="${t['news.type_name']}"/>
 	</div>
 	<div class="post-container">
 		<div class="post-text">${news.markedDescription}</div>
@@ -55,12 +55,12 @@
 							${t['flag']}
 						</a>
 					</c:if>
-					<tags:flagItFor type="noticia" modalId="news-flag-modal${news.id}" flaggable="${news}"/>
+					<tags:flagItFor type="${t['news.type_name']}" modalId="news-flag-modal${news.id}" flaggable="${news}"/>
 				</li>
 			</ul>
 			<tags:touchesFor touchable="${news}" microdata="true"/>
 		</div>
-		<tags:add-a-comment startFormHidden="false" groupComments="false" type="noticia" item="${news}" votes="${commentVotes}"/>
+		<tags:add-a-comment startFormHidden="false" groupComments="false" type="${t['news.type_name']}" item="${news}" votes="${commentVotes}"/>
 		<c:if test="${currentUser.moderator && news.hasPendingEdits()}">
 			<a class="message moderator-alert" href="#">${t['news.warns.has_edits']}</a>
 		</c:if>

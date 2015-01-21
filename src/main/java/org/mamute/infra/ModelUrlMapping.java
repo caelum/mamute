@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 
+import org.mamute.factory.MessageFactory;
 import org.mamute.model.Answer;
 import org.mamute.model.Comment;
 import org.mamute.model.News;
@@ -12,13 +14,18 @@ import org.mamute.model.Question;
 
 @ApplicationScoped
 public class ModelUrlMapping {
-	private Map<String, Class<?>> classForUrl = new HashMap<>();
-	
-	public ModelUrlMapping() {
-		classForUrl.put("pergunta", Question.class);
-		classForUrl.put("resposta", Answer.class);
-		classForUrl.put("comentario", Comment.class);
-		classForUrl.put("noticia", News.class);
+
+    private Map<String, Class<?>> classForUrl = new HashMap<>();
+
+    @Deprecated
+    public ModelUrlMapping() { }
+
+    @Inject
+    public ModelUrlMapping(MessageFactory messageFactory) {
+		classForUrl.put(messageFactory.build("question", "question.type_name").getMessage(), Question.class);
+		classForUrl.put(messageFactory.build("answer", "answer.type_name").getMessage(), Answer.class);
+		classForUrl.put(messageFactory.build("comment", "comment.type_name").getMessage(), Comment.class);
+		classForUrl.put(messageFactory.build("news", "news.type_name").getMessage(), News.class);
 	}
 	
 	public Class<?> getClassFor(String urlParam){

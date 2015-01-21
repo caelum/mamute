@@ -8,12 +8,12 @@
 <tags:userProfileTab  active="summary">
 	<section class="advanced-user-data user-data">
 		<div class="advanced-data-line-wrapper">
-			<tags:userProfileAdvancedPostData pages="${questionsPageTotal}" count="${questionsCount}" i18n="questions" list="${questionsByVotes}" type="perguntas" orderOptions="true" withPagination="true"/>
-			<tags:userProfileAdvancedPostData pages="${answersPageTotal}" count="${answersCount}" i18n="answers" list="${answersByVotes}" type="respostas" orderOptions="true" withPagination="true"/>
+			<tags:userProfileAdvancedPostData pages="${questionsPageTotal}" count="${questionsCount}" i18n="questions" list="${questionsByVotes}" type="${t['metas.questions_lowercase']}" orderOptions="true" withPagination="true"/>
+			<tags:userProfileAdvancedPostData pages="${answersPageTotal}" count="${answersCount}" i18n="answers" list="${answersByVotes}" type="${t['metas.answers_lowercase']}" orderOptions="true" withPagination="true"/>
 		</div>
 		
 		<div class="advanced-data-line-wrapper">
-			<tags:userProfileAdvancedPostData pages="${watchedQuestionsPageTotal}" count="${watchedQuestionsCount}" list="${watchedQuestions}" i18n="watched_questions" type="acompanhadas" orderOptions="false" withPagination="true"/>
+			<tags:userProfileAdvancedPostData pages="${watchedQuestionsPageTotal}" count="${watchedQuestionsCount}" list="${watchedQuestions}" i18n="watched_questions" type="${t['metas.watched_lowercase']}" orderOptions="false" withPagination="true"/>
 			
 			<tags:userProfileAdvancedData i18n="karma_history" list="${reputationHistory}" count="${selectedUser.karma}" type="historico-reputacao" orderOptions="false" withPagination="false">
 				<c:forEach var="historyItem" items="${reputationHistory}">

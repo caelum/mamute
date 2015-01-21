@@ -14,8 +14,7 @@
 <c:if test="${env.name == 'production'}">
 	<!-- ${stacktrace} -->
 	<div class="not-found">
-		<p>Um erro inesperado ocorreu enquanto você visitava o nosso site. Pedimos desculpa pelo incômodo.</p>
-		<p>Uma cópia deste erro foi enviada para nós e verificaremos o que ocorreu.</p>
+		${t['internal_error.text']}
 	</div>
 	<div class="error-code">
 		500

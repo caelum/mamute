@@ -35,7 +35,7 @@ import br.com.caelum.vraptor.view.Results;
 
 @Routed
 @Controller
-public class HistoryController {
+public class HistoryController extends BaseController {
 
 	@Inject private Result result;
     @Inject private LoggedUser currentUser;
@@ -67,7 +67,7 @@ public class HistoryController {
 	@AccessLevel(PermissionRulesConstants.MODERATE_EDITS)
 	@Get
 	public void similarAnswers(Long moderatableId) {
-		similar("resposta", moderatableId);
+		similar(i18n("answer", "answer.type_name").getMessage(), moderatableId);
 	}
 	
 	
@@ -75,7 +75,7 @@ public class HistoryController {
 	@AccessLevel(PermissionRulesConstants.MODERATE_EDITS)
 	@Get
 	public void similarQuestions(Long moderatableId) {
-		similar("pergunta", moderatableId);
+		similar(i18n("question", "question.type_name").getMessage(), moderatableId);
 	}
 	
 	@Get

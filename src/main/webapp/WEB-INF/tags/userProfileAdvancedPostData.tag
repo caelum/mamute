@@ -20,22 +20,22 @@
 		</c:if>
 	</div>
 	<ul id="user-${type}" class="fixed-height">
-	    <c:if test="${type == 'respostas'}">
+	    <c:if test="${type == t['metas.answers_lowercase']}">
 			<c:forEach var="answer" items="${list}">
 					<li class="ellipsis advanced-data-line"><span class="counter">${answer.voteCount}</span> <tags:questionLinkFor answer="${answer}"/></li>
 			</c:forEach>
 		</c:if>
-		<c:if test="${type != 'respostas'}">
+		<c:if test="${type != t['metas.answers_lowercase']}">
 			<c:forEach var="question" items="${list}">
 					<li class="ellipsis advanced-data-line"><span class="counter">${question.voteCount}</span> <tags:questionLinkFor question="${question}"/></li>
 			</c:forEach>
 		</c:if>
 	</ul>
 	<c:if test="${withPagination}">
-		<c:if test="${withPagination and type != 'acompanhadas'}">
+		<c:if test="${withPagination and type != t['metas.watched_lowercase']}">
 		    <tags:pagination url="${linkTo[UserProfileController].typeByVotesWith(user.id, user.sluggedName,null, 1, type)}" type="${type}" targetId="user-${type}" totalPages="${pages}" delta="2" currentPage="1"/>
 		</c:if>
-		<c:if test="${type == 'acompanhadas'}">
+		<c:if test="${type == t['metas.watched_lowercase']}">
 	    	<tags:pagination url="${linkTo[UserProfileController].watchersByDateWith(user.id, user.sluggedName, 1)}" type="${type}" targetId="user-${type}" totalPages="${pages}" delta="2" currentPage="1"/>
 	    </c:if>
 	</c:if>

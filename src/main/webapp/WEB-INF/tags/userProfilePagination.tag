@@ -13,7 +13,7 @@
 		<li class="ellipsis advanced-data-line">
 			<span class="counter">${post.voteCount}</span>
 			<c:choose>
-				<c:when test="${type eq 'respostas'}">
+				<c:when test="${type eq t['metas.answers_lowercase']}">
 					<tags:questionLinkFor answer="${post}"/>
 				</c:when>
 				<c:otherwise>

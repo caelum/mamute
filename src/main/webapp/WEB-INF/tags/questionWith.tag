@@ -11,8 +11,8 @@
 		<tags:brutal-include value="questionTopAd" />
 	</c:if>
 	<div class="post-meta">
-		<tags:voteFor item="${question}" type="pergunta" vote="${currentVote}"/>
-		<tags:watchFor watchable="${question}" type="pergunta"/>
+		<tags:voteFor item="${question}" type="${t['question.type_name']}" vote="${currentVote}"/>
+		<tags:watchFor watchable="${question}" type="${t['question.type_name']}"/>
 	</div>
 	<div class="post-container">
 	<c:if test="${currentUser.moderator}">
@@ -65,14 +65,14 @@
 							${t['flag']}
 						</a>
 					</c:if>
-					<tags:flagItFor type="pergunta" modalId="question-flag-modal${question.id}" flaggable="${question}"/>
+					<tags:flagItFor type="${t['question.type_name']}" modalId="question-flag-modal${question.id}" flaggable="${question}"/>
 				</li>
 				<c:if test="${env.supports('deletable.questions')}">
 					<c:if test="${currentUser.current.isAuthorOf(question) and not currentUser.moderator}">
 						<li class="nav-item">
 							<a href="#" class="delete-question">${t['question.delete']}</a>
 						</li>
-						<form class="hidden delete-question-form" method="post" action="/question/${question.id}">
+						<form class="hidden delete-question-form" method="post" action="${linkTo[QuestionController].deleteQuestion(question)}">
 							<input type="hidden" value="DELETE" name="_method">
 						</form>
 					</c:if>
@@ -82,7 +82,7 @@
 								${t['question.delete.fully']}
 							</a>
 						</li>
-						<form class="hidden delete-question-form" method="post" action="/question/${question.id}/fully">
+						<form class="hidden delete-question-form" method="post" action="${linkTo[QuestionController].deleteQuestionFully(question)}">
 							<input type="hidden" value="DELETE" name="_method">
 						</form>
 					</c:if>
@@ -90,7 +90,7 @@
 			</ul>
 			<tags:touchesFor touchable="${question}" microdata="true"/>
 		</div>
-		<tags:add-a-comment type="pergunta" item="${question}" votes="${commentVotes}"/>
+		<tags:add-a-comment type="${t['question.type_name']}" item="${question}" votes="${commentVotes}"/>
 		<c:if test="${currentUser.moderator && question.hasPendingEdits()}">
 			<a class="message moderator-alert" href="${linkTo[HistoryController].similarQuestions(question.id)}">${t['question.warns.has_edits']}</a>
 		</c:if>

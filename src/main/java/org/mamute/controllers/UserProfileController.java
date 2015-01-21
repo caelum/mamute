@@ -9,6 +9,7 @@ import static org.mamute.model.SanitizedText.fromTrustedText;
 import javax.inject.Inject;
 
 import br.com.caelum.vraptor.observer.upload.UploadedFile;
+import br.com.caelum.vraptor.environment.Environment;
 import org.joda.time.DateTime;
 import org.mamute.brutauth.auth.rules.LoggedRule;
 import org.mamute.brutauth.auth.rules.ModeratorOnlyRule;
@@ -49,6 +50,7 @@ public class UserProfileController extends BaseController{
 	@Inject private ClientIp clientIp;
 	@Inject private AttachmentDao attachments;
 	@Inject private AttachmentsFileStorage fileStorage;
+    @Inject private Environment environment;
 
 	@Get
 	public void showProfile(@Load User user, String sluggedName){
@@ -93,7 +95,7 @@ public class UserProfileController extends BaseController{
 		User author = users.findById(id);
 		order = order == null ? ByVotes : order;
 		Integer page = p == null ? 1 : p;
-		PaginatableDAO paginatableDAO = type.equals("perguntas") ? questions : answers;
+		PaginatableDAO paginatableDAO = type.equals(i18n("metas", "metas.questions_lowercase").getMessage()) ? questions : answers;
 		result.forwardTo(BrutalTemplatesController.class).userProfilePagination(paginatableDAO, author, order, page, type);		
 	}
 	
@@ -101,7 +103,7 @@ public class UserProfileController extends BaseController{
 	public void watchersByDateWith(Long id, String sluggedName, Integer p){
 		User user = users.findById(id);
 		Integer page = p == null ? 1 : p;
-		result.forwardTo(BrutalTemplatesController.class).userProfilePagination(watchers, user, ByDate, page, "acompanhadas");
+		result.forwardTo(BrutalTemplatesController.class).userProfilePagination(watchers, user, ByDate, page, i18n("metas", "metas.watched_lowercase").getMessage());
 	}
 		
 	@Get
