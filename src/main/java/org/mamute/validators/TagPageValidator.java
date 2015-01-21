@@ -26,11 +26,11 @@ public class TagPageValidator {
 		this.tagPages = tagPages;
 	}
 	
-	public boolean validateCreationWithTag(String tagUriName){
-		if(tagPages.existsOfTag(tagUriName)){
-			validator.add(messageFactory.build("error", "tag_page.errors.already_exists", tagUriName));
+	public boolean validateCreationWithTag(String tagName){
+		if(tagPages.existsOfTag(tagName)){
+			validator.add(messageFactory.build("error", "tag_page.errors.already_exists", tagName));
 		}
-		validator.onErrorRedirectTo(TagPageController.class).showTagPage(tagUriName);
+		validator.onErrorRedirectTo(TagPageController.class).showTagPage(tagName);
 		return !validator.hasErrors();
 	}
 

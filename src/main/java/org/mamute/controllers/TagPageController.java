@@ -28,23 +28,23 @@ public class TagPageController {
 
 	@Get
 	@CustomBrutauthRules(ModeratorOnlyRule.class)
-	public void tagPageForm(String tagUriName){
-		if(validator.validateCreationWithTag(tagUriName)){
-			result.include("tag", tags.findBySluggedName(tagUriName));
+	public void tagPageForm(String tagName){
+		if(validator.validateCreationWithTag(tagName)){
+			result.include("tag", tags.findBySluggedName(tagName));
 		}
 	}
 
 	@Get
 	@CustomBrutauthRules(ModeratorOnlyRule.class)
-	public void editTagPageForm(String tagUriName){
-		TagPage tagPage = tagPages.findByTag(tagUriName);
+	public void editTagPageForm(String tagName){
+		TagPage tagPage = tagPages.findByTag(tagName);
 		result.include("tagPage", tagPage);
 	}
 	
 	@Post
 	@CustomBrutauthRules(ModeratorOnlyRule.class)
-	public void editTagPage(String tagUriName, MarkedText about){
-		TagPage tagPage = tagPages.findByTag(tagUriName);
+	public void editTagPage(String tagName, MarkedText about){
+		TagPage tagPage = tagPages.findByTag(tagName);
 		tagPage.setAbout(about);
 		if(!validator.validate(tagPage)){
 			validator.onErrorRedirectTo(TagPageController.class).editTagPageForm(tagPage.getTag().getUriName());
@@ -55,9 +55,9 @@ public class TagPageController {
 	
 	@Post
 	@CustomBrutauthRules(ModeratorOnlyRule.class)
-	public void newTagPage(String tagUriName, MarkedText about){
-		if(!validator.validateCreationWithTag(tagUriName)) return;
-		Tag tag = tags.findBySluggedName(tagUriName);
+	public void newTagPage(String tagName, MarkedText about){
+		if(!validator.validateCreationWithTag(tagName)) return;
+		Tag tag = tags.findBySluggedName(tagName);
 		TagPage tagPage = new TagPage(tag, about);
 		if(!validator.validate(tagPage)){
 			validator.onErrorRedirectTo(TagPageController.class).tagPageForm(tagPage.getTag().getUriName());
@@ -68,8 +68,8 @@ public class TagPageController {
 	}
 	
 	@Get
-	public void showTagPage(String tagUriName){
-		TagPage tagPage = tagPages.findByTag(tagUriName);
+	public void showTagPage(String tagName){
+		TagPage tagPage = tagPages.findByTag(tagName);
 		result.include(tagPage);
 		result.include("hasAbout", tags.hasAbout(tagPage.getTag()));
 	}

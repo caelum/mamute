@@ -34,8 +34,8 @@ public class RankingController {
 	}
 	
 	@Get
-	public void tagRank(String tagUriName){
-		Tag tag = tags.findBySluggedName(tagUriName);
+	public void tagRank(String tagName){
+		Tag tag = tags.findBySluggedName(tagName);
 		if (tag == null){
 			result.notFound();
 		}

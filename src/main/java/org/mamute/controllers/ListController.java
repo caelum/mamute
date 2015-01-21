@@ -159,21 +159,21 @@ public class ListController {
 	}
 	
 	@Get
-	public void withTag(String tagUriName, Integer p, boolean semRespostas) {
+	public void withTag(String tagName, Integer p, boolean withReposts) {
 		Integer page = getPage(p);
-		Tag tag = tags.findBySluggedName(tagUriName);
+		Tag tag = tags.findBySluggedName(tagName);
 		if(tag == null){
 			result.notFound();
 			return;
 		}
-		List<Question> questionsWithTag = questions.withTagVisible(tag, page, semRespostas);
+		List<Question> questionsWithTag = questions.withTagVisible(tag, page, withReposts);
 		result.include("totalPages", questions.numberOfPages(tag));
 		result.include("tag", tag);
 		result.include("recentTags", recentTagsContainer.getRecentTagsUsage());
 		result.include("questions", questionsWithTag);
 		result.include("currentPage", page);
 		result.include("hasAbout", tags.hasAbout(tag));
-		if (semRespostas) {
+		if (withReposts) {
 			result.include("unansweredActive", true);
 			result.include("noDefaultActive", true);
 			result.include("unansweredTagLinks", true);
