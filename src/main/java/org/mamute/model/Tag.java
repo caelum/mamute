@@ -26,35 +26,36 @@ public class Tag {
 	@Id
 	@GeneratedValue
 	private Long id;
-	
+
 	@Column(unique = true, nullable = false)
 	@NotEmpty
 	private String name;
 
+    @Column(unique = true, nullable = false)
     @Type(type = "text")
     @NotEmpty
     private String sluggedName;
 
 	private String description;
-	
+
 	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
 	private final DateTime createdAt = new DateTime();
-	
+
 	@ManyToOne
 	private final User author;
 
 	private Long usageCount = 0l;
-	
+
 	/**
 	 * @deprecated hibernate eyes only
 	 */
 	public Tag() {
 		this("", "", null);
 	}
-	
+
 	public Tag(String name, String description, User author) {
 		this.name = name.toLowerCase();
-        this.sluggedName = toSlug(name);
+        this.sluggedName = toSlug(name, true);
         this.description = description;
 		this.author = author;
 	}
@@ -62,7 +63,7 @@ public class Tag {
 	public String getName() {
 		return name;
 	}
-	
+
 	public String getUriName() {
 		return this.sluggedName;
 	}
@@ -74,17 +75,17 @@ public class Tag {
 	public Long getId() {
 		return id;
 	}
-	
+
 	public Long getUsageCount() {
 		return usageCount;
 	}
-	
+
 	public void incrementUsage() {
 		this.usageCount ++;
 	}
-	
+
 	public void decrementUsage(){
 		this.usageCount --;
 	}
-	
+
 }

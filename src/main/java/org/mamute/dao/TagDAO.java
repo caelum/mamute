@@ -68,7 +68,7 @@ public class TagDAO {
 		
 		ArrayList<Tag> tags = new ArrayList<>();
 		for (String name : names) {
-            String sluggedName = toSlug(name);
+            String sluggedName = toSlug(name, true);
 			Tag tag = (Tag) session.createQuery("from Tag where lower(sluggedName) like lower(:sluggedName)")
 									.setParameter("sluggedName", sluggedName)
 									.uniqueResult();

@@ -3,7 +3,6 @@ package org.mamute.validators;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,7 +28,8 @@ public class TagsValidatorTest extends TestCase {
 	private Tag java;
 	private Tag rails;
 	private Tag ruby;
-	private Tag nonalpha;
+	private Tag cplus;
+	private Tag csharp;
     private Tag specialChars;
     private ResourceBundle bundle;
 
@@ -44,7 +44,8 @@ public class TagsValidatorTest extends TestCase {
 		ruby = new Tag("ruby", "", user);
 		rails = new Tag("rails", "", user);
         specialChars = new Tag("čćšđž!!#$#Đ}{", "", user);
-		nonalpha = new Tag("java,mysql", "", user);
+		cplus = new Tag("c++", "", user);
+	    csharp = new Tag("c#", "", user);
 	}
 
 	@Test
@@ -57,8 +58,8 @@ public class TagsValidatorTest extends TestCase {
 
 	@Test
 	public void should_validate_all_tags_found() throws Exception {
-		List<String> wanted = Arrays.asList("java", "ruby", "rails", "čćšđž!!#$#Đ}{");
-		List<Tag> found = Arrays.asList(rails, java, ruby, specialChars);
+		List<String> wanted = Arrays.asList("java", "ruby", "rails", "čćšđž!!#$#Đ}{", "c#", "c++");
+		List<Tag> found = Arrays.asList(rails, java, ruby, specialChars, cplus, csharp);
 		assertTrue(tagsValidator.validate(found, wanted));
 	}
 

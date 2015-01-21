@@ -13,6 +13,9 @@ public class NormalizerBrutalTest {
 		String text = "áéêõäũàÁÓõÒ";
 		String slug = NormalizerBrutal.toSlug(text);
 		assertEquals("aeeoauaaooo", slug);
+
+		String slugEncoded = NormalizerBrutal.toSlug(text, true);
+		assertEquals("aeeoauaaooo", slugEncoded);
 	}
 	
 	@Test
@@ -20,6 +23,9 @@ public class NormalizerBrutalTest {
 		String text = "como faz para normalizar uma string?";
 		String slug = NormalizerBrutal.toSlug(text);
 		assertEquals("como-faz-para-normalizar-uma-string", slug);
+
+		String slugEncoded = NormalizerBrutal.toSlug(text, true);
+		assertEquals("como-faz-para-normalizar-uma-string%3f", slugEncoded);
 	}
 	
 	@Test
@@ -27,6 +33,9 @@ public class NormalizerBrutalTest {
 		String text = "como faz para normalizar uma string?!";
 		String slug = NormalizerBrutal.toSlug(text);
 		assertEquals("como-faz-para-normalizar-uma-string", slug);
+
+		String slugEncoded = NormalizerBrutal.toSlug(text, true);
+		assertEquals("como-faz-para-normalizar-uma-string%3f%21", slugEncoded);
 	}
 	
 	@Test
@@ -34,6 +43,20 @@ public class NormalizerBrutalTest {
 		String text = "COMO FAZ PARA NORMALIZAR UMA STRING?!";
 		String slug = NormalizerBrutal.toSlug(text);
 		assertEquals("como-faz-para-normalizar-uma-string", slug);
+
+		String slugEncoded = NormalizerBrutal.toSlug(text, true);
+		assertEquals("como-faz-para-normalizar-uma-string%3f%21", slugEncoded);
 	}
 
+
+	@Test
+	public void should_url_encode_special_chars_if_requested() {
+		String text = "ČŽŠ#+";
+
+		String slug = NormalizerBrutal.toSlug(text);
+		assertEquals("czs", slug);
+
+		String slugEncoded = NormalizerBrutal.toSlug(text, true);
+		assertEquals("czs%23%2b", slugEncoded);
+	}
 }

@@ -47,7 +47,7 @@ public class TagsValidator {
 
 	private boolean isPresent(String name, List<Tag> found) {
 		for (Tag tag : found) {
-            String sluggedName = toSlug(name);
+            String sluggedName = toSlug(name, true);
 			if (tag.getUriName().equals(sluggedName))
 				return true;
 		}

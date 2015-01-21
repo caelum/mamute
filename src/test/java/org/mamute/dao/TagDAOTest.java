@@ -25,6 +25,8 @@ public class TagDAOTest extends DatabaseTestCase{
 	private Tag java;
 	private Tag ruby;
     private Tag weirdCharacters;
+	private Tag cplus;
+	private Tag csharp;
 
 	@Before
 	public void setup() {
@@ -32,11 +34,16 @@ public class TagDAOTest extends DatabaseTestCase{
 		leo = user("leonardo", "leo@leo");
 		java = new Tag("java", "", leo);
 		ruby = new Tag("ruby", "", leo);
-        weirdCharacters = new Tag("Čemaž {!weird!}#", "", leo);
+		cplus = new Tag("C++", "", leo);
+		csharp = new Tag("C#", "", leo);
+        weirdCharacters = new Tag("čemaž", "", leo);
+
 		session.save(leo);
 		session.save(java);
 		session.save(ruby);
-        session.save(weirdCharacters);
+		session.save(cplus);
+		session.save(csharp);
+		session.save(weirdCharacters);
 	}
 
 	@Test
@@ -89,11 +96,12 @@ public class TagDAOTest extends DatabaseTestCase{
 	@Test
 	public void should_get_all_tag_names() throws Exception {
 		List<String> tagsNames = tags.allNames();
-		assertEquals(3, tagsNames.size());
-        assertEquals(weirdCharacters.getName(), tagsNames.get(0));
-        assertEquals(java.getName(), tagsNames.get(1));
-        assertEquals(ruby.getName(), tagsNames.get(2));
-
+		assertEquals(5, tagsNames.size());
+		assertEquals(csharp.getName(), tagsNames.get(0));
+		assertEquals(cplus.getName(), tagsNames.get(1));
+		assertEquals(weirdCharacters.getName(), tagsNames.get(2));
+        assertEquals(java.getName(), tagsNames.get(3));
+        assertEquals(ruby.getName(), tagsNames.get(4));
     }
 	
 	@Test
@@ -104,10 +112,16 @@ public class TagDAOTest extends DatabaseTestCase{
 
     @Test
     public void should_get_existing_tags_with_different_name_same_slug() throws Exception {
-        List<Tag> found = tags.findAllDistinct(asList("cemaz weird"));
+        List<Tag> found = tags.findAllDistinct(asList("cemaz"));
         assertFalse(found.isEmpty());
     }
-	
+
+	@Test
+	public void should_get_existing_tags_with_different_name_different_slug() throws Exception {
+		List<Tag> found = tags.findAllDistinct(asList("C#", "C++"));
+		assertEquals(found.size(), 2);
+	}
+
 	@Test
 	public void should_split_two_spaces() throws Exception {
 		List<Tag> found = tags.findAllDistinct(asList("java", "ruby"));
@@ -139,7 +153,15 @@ public class TagDAOTest extends DatabaseTestCase{
 		assertEquals("java", found.get(0).getName());
 		assertEquals("ruby", found.get(1).getName());
 	}
-	
+
+	@Test
+	public void should_not_repeat_tags_with_similar_name() throws Exception {
+		List<Tag> found = tags.findAllDistinct(asList("C#", "C++"));
+		assertEquals(2, found.size());
+		assertEquals("c#", found.get(0).getName());
+		assertEquals("c++", found.get(1).getName());
+	}
+
 	@Test
 	public void should_not_save_tags_with_same_name() throws Exception {
 		int originalSize = tags.all().size();
@@ -162,11 +184,10 @@ public class TagDAOTest extends DatabaseTestCase{
     }
 
     @Test
-    public void should_define_correct_slugged_url()
-    {
+    public void should_define_correct_slugged_url() {
         assertNotNull(tags.findBySluggedName("java"));
         assertNotNull(tags.findBySluggedName("ruby"));
-        assertNotNull(tags.findBySluggedName("cemaz-weird"));
+        assertNotNull(tags.findBySluggedName("c%2b%2b"));
     }
 
 	private Question questionWith(List<Tag> tags) {
@@ -174,7 +195,5 @@ public class TagDAOTest extends DatabaseTestCase{
 		session.save(question);
 		return question;
 	}
-
-	
 }
 

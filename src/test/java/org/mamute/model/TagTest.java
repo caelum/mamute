@@ -14,8 +14,7 @@ public class TagTest {
     private String name;
 
     @Before
-    public void setup()
-    {
+    public void setup() {
         name = "Tag With spêcial!Chars";
         description = "Great desc";
         user = mock(User.class);
@@ -23,20 +22,17 @@ public class TagTest {
     }
 
     @Test
-    public void testGetName()
-    {
+    public void testGetName() {
         assertEquals(subject.getName(), name.toLowerCase());
     }
 
     @Test
-    public void testGetDescription()
-    {
+    public void testGetDescription() {
         assertEquals(subject.getDescription(), description);
     }
 
     @Test
-    public void testGetUriName()
-    {
-        assertEquals(subject.getUriName(), "tag-with-specialchars");
+    public void testGetUriName() {
+        assertEquals(subject.getUriName(), "tag-with-special%21chars");
     }
 }
