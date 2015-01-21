@@ -22,13 +22,13 @@ public class GoogleAuthController extends BaseController{
 	@Inject private LoginMethodManager loginManager;
 
 	@Get("/sign-up/google/")
-	public void signUpViaGoogle(String redirect, String code) {
+	public void signUpViaGoogle(String state, String code) {
 		Token token = service.getAccessToken(null, new Verifier(code));
 		SocialAPI googleAPI = new GoogleAPI(token, service);
 	    
 		loginManager.merge(MethodType.GOOGLE, googleAPI);
 		
-	    redirectToRightUrl(redirect);
+	    redirectToRightUrl(state);
 	}
 	
 	private void redirectToRightUrl(String state) {
