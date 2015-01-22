@@ -256,8 +256,9 @@ public class User implements Identifiable {
 			} catch (UnsupportedEncodingException e) {
 				return gravatar;
 			}
-		} else {
-			if(photoUri.contains("googleusercontent")) return photoUri; 
+		} else if (photoUri.contains("googleusercontent")) {
+            return photoUri.replaceAll("sz=(\\d+)", "sz="+width);
+        } else {
 			return photoUri + "?width=" + width + "&height=" + height;
 		}
 	}

@@ -134,15 +134,22 @@ public class UserTest extends TestCase {
 		String photo = user.getPhoto(64, 64, "http://www.gravatar.com");
 		assertEquals("http://www.gravatar.com/avatar/620ad6ac2c42fce964bbf2e01e87c04b.png?r=PG&size=64x64&d=http%3A%2F%2Frobohash.org%2Fsize_64x64%2Fset_set1%2Fbgset_any%2F620ad6ac2c42fce964bbf2e01e87c04b.png", photo);
 	}
-	
+
 	@Test
-	public void should_use_width_and_height_parameters_when_photo_uri_is_not_null() throws Exception {
+	public void should_use_width_and_height_parameters_when_photo_uri_is_from_facebook() throws Exception {
 		User user = user("name", "paulo@paulo.com.br");
 		user.setPhotoUri(new URL("http://graph.facebook.com/shaverm/picture"));
 		String photo = user.getPhoto(200, 200, "http://www.gravatar.com");
 		assertEquals("http://graph.facebook.com/shaverm/picture?width=200&height=200", photo);
 	}
 
+	@Test
+	public void should_use_width_and_height_parameters_when_photo_uri_is_from_google() throws Exception {
+		User user = user("name", "paulo@paulo.com.br");
+		user.setPhotoUri(new URL("https://lh3.googleusercontent.com/ksadajsdkasjd/photo.jpg?sz=50"));
+		String photo = user.getPhoto(200, 200, "http://www.gravatar.com");
+		assertEquals("https://lh3.googleusercontent.com/ksadajsdkasjd/photo.jpg?sz=200", photo);
+	}
 
 	@Test
 	public void should_not_use_gravatar_when_user_have_a_photo()
