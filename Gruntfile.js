@@ -64,7 +64,23 @@ module.exports = function(grunt) {
 				    dest: '<%= config.webapp %>/imgs/',
 				  }
 				]
-	    	}
+	    	},
+			special:{
+				files:[
+					{
+						expand: true,
+						cwd: '<%= config.webapp %>/imgs',
+						src: ['**'],
+						dest: '<%= config.webapp %>/css/imgs'
+					},
+					{
+						expand: true,
+						cwd: '<%= config.webapp %>/imgs',
+						src: ['**'],
+						dest: '<%= config.webapp %>/assets/imgs'
+					}
+				]
+			}
 		},
 		
 		useminPrepare: {
@@ -151,6 +167,6 @@ module.exports = function(grunt) {
 	grunt.registerTask('default', ['clean:before', 'less', 'copy:ignored']);
 	grunt.registerTask('build', ['default', 'useminPrepare', 'concat:generated', 'cssmin:generated', 
 									'uglify', 'filerev', 'remapFilerev', 'usemin', 'clean:after']);
-	grunt.registerTask('run', ['default', 'watch']);
+	grunt.registerTask('run', ['default', 'copy:special', 'watch']);
 
 };

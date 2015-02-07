@@ -4,7 +4,7 @@
 	float: left;
 
 	.tags-item {
-		float: left;		
+		float: left;
 	}
 }
 
@@ -21,7 +21,7 @@
 	padding: 0 0.4em;
 	line-height: 1.45em;
 	border-radius: 5px;
-	
+
 	&:hover {
 		background-color: #e0eaf1;
 	}
@@ -41,9 +41,9 @@
 	width: 45.5%;
 
 	@media only screen and (max-width: 700px) {
-		width:94%;
+		width: 94%;
 	}
-	
+
 	.complete-tag {
 		width: 33%;
 		color: #000;
@@ -59,27 +59,27 @@
 	width: 20%;
 
 	@media only screen and (max-width: 840px) {
-		width:25%;
+		width: 25%;
 	}
 
 	@media only screen and (max-width: 700px) {
-		font-size:1.2em;
+		font-size: 1.2em;
 	}
 
 	@media only screen and (max-width: 550px) {
-		width:33%;
+		width: 33%;
 	}
 
 	@media only screen and (max-width: 400px) {
-		width:50%;
+		width: 50%;
 	}
-	
+
 	.tag-brutal {
 		margin-bottom: 5%;
 	}
 }
 
-.autocompleted-tags .complete-tag:hover,.tag-selected {
+.autocompleted-tags .complete-tag:hover, .tag-selected {
 	background-color: #ffe6bf;
 }
 
@@ -92,8 +92,30 @@
 .about-tag {
 	text-align: justify;
 	padding-left: 10px;
-	padding-top:10px;
+	padding-top: 10px;
 	padding-right: 15px;
 	text-indent: 4%;
 	width: 100%;
+}
+
+.select2-result.tag-new {
+	display: block;
+}
+
+.select2-result.tag-found {
+	display: inline-block;
+	padding: 2px 15px 2px 2px;
+}
+
+.tag-new-star {
+	color: #21C542;
+}
+
+.tag-new-list {
+	padding: 5px;
+	font-size: 14px;
+}
+
+.tag-new-list:hover {
+	background-color: #eeeeee;
 }

@@ -12,8 +12,8 @@
 	</ul>
 </div>
 <div class="image-and-information">
-	<img class="profile-image" src="${user.bigPhoto}"/>
-	<a href="https://br.gravatar.com/">${t['user_profile.edit.photo']}</a>
+	<img class="profile-image" src="${user.getBigPhoto(env.get('gravatar.avatar.url'))}"/>
+	<a href="${t['gravatar.url']}">${t['user_profile.edit.photo']}</a>
 </div>
 
 <form class="validated-form profile-edit-form" action="${linkTo[UserProfileController].editProfile(user)}" method="POST">

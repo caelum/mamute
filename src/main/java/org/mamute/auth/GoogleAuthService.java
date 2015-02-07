@@ -15,6 +15,6 @@ public class GoogleAuthService {
 		if (redirect == null) {
 			return url;
 		}
-		return url + "&redirect=" + redirect;
+		return url + "&state=" + redirect;
 	}
 }

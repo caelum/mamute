@@ -31,6 +31,11 @@ public class TagDAO {
 	}
 
 	@SuppressWarnings("unchecked")
+	public List<Tag> search(String term){
+		return session.createQuery("from Tag t where lower(t.name) like lower(:name)").setString("name", term+"%").list();
+	}
+
+	@SuppressWarnings("unchecked")
 	public List<TagUsage> getRecentTagsSince(DateTime since) {
 		Query query = session.createQuery("select new org.mamute.model.TagUsage(tag, count(question)) from Question question " +
 				"join question.information.tags tag " +

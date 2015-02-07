@@ -11,10 +11,14 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import org.apache.directory.api.ldap.model.cursor.CursorException;
+import org.apache.directory.api.ldap.model.cursor.EntryCursor;
+import org.apache.directory.api.ldap.model.entry.Attribute;
 import org.apache.directory.api.ldap.model.entry.Entry;
 import org.apache.directory.api.ldap.model.entry.Value;
 import org.apache.directory.api.ldap.model.exception.LdapAuthenticationException;
 import org.apache.directory.api.ldap.model.exception.LdapException;
+import org.apache.directory.api.ldap.model.message.SearchScope;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.ldap.client.api.LdapNetworkConnection;
 import org.mamute.dao.LoginMethodDAO;
@@ -42,6 +46,7 @@ public class LDAPApi {
 	public static final String LDAP_NAME = "ldap.nameAttr";
 	public static final String LDAP_SURNAME = "ldap.surnameAttr";
 	public static final String LDAP_GROUP = "ldap.groupAttr";
+	public static final String LDAP_LOOKUP = "ldap.lookupAttr";
 	public static final String LDAP_MODERATOR_GROUP = "ldap.moderatorGroup";
 	public static final String PLACHOLDER_PASSWORD = "ldap-password-ignore-me";
 
@@ -58,6 +63,7 @@ public class LDAPApi {
 	private String nameAttr;
 	private String surnameAttr;
 	private String groupAttr;
+	private String[] lookupAttrs;
 	private String moderatorGroup;
 
 	/**
@@ -80,6 +86,7 @@ public class LDAPApi {
 			surnameAttr = env.get(LDAP_SURNAME, "");
 			groupAttr = env.get(LDAP_GROUP, "");
 			moderatorGroup = env.get(LDAP_MODERATOR_GROUP, "");
+			lookupAttrs = env.get(LDAP_LOOKUP, "").split(",");
 		}
 	}
 
@@ -125,6 +132,19 @@ public class LDAPApi {
 	}
 
 	private String userCn(String username) {
+		if (lookupAttrs.length > 0) {
+			try (LDAPResource ldap = new LDAPResource()) {
+				Entry user = ldap.lookupUser(username);
+				if (user != null) {
+					return user.getDn().getName();
+				}
+			} catch (LdapException | IOException e) {
+				logger.debug("LDAP connection error", e);
+				throw new AuthenticationException(LDAP_AUTH, "LDAP connection error", e);
+			}
+		}
+
+		// fallback: assume lookup by CN
 		String sanitizedUser = username.replaceAll("[,=]", "");
 		String cn = "cn=" + sanitizedUser + "," + userDn;
 		return cn;
@@ -193,8 +213,11 @@ public class LDAPApi {
 		private List<String> getGroups(Entry user) {
 			List<String> groupCns = new ArrayList<>();
 			if (isNotEmpty(groupAttr)) {
-				for (Value grp : user.get(groupAttr)) {
-					groupCns.add(grp.getString());
+				Attribute grpEntry = user.get(groupAttr);
+				if (grpEntry != null) {
+					for (Value grp : grpEntry) {
+						groupCns.add(grp.getString());
+					}
 				}
 			}
 			return groupCns;
@@ -202,6 +225,43 @@ public class LDAPApi {
 
 		private Entry getUser(String cn) throws LdapException {
 			return connection.lookup(cn);
+		}
+
+		private Entry lookupUser(String username) throws LdapException {
+			StringBuilder userQuery = new StringBuilder();
+			userQuery.append("(&(objectclass=user)(|");
+			boolean hasCondition = false;
+			for (String lookupAttr : lookupAttrs) {
+				String attrName = lookupAttr.trim();
+				if (!attrName.isEmpty()) {
+					userQuery.append('(').append(attrName).append('=').append(username).append(')');
+					hasCondition = true;
+				}
+			}
+			userQuery.append("))");
+
+			if (!hasCondition) {
+				return null;
+			}
+
+			logger.debug("LDAP user query " + userQuery.toString());
+
+			EntryCursor responseCursor = connection.search(userDn, userQuery.toString(), SearchScope.SUBTREE);
+			try {
+				try {
+					if (responseCursor != null && responseCursor.next()) {
+						Entry match = responseCursor.get();
+						logger.debug("LDAP user query result: " + match.getDn());
+						return match;
+					}
+				} catch (CursorException e) {
+					logger.debug("LDAP search error", e);
+					return null;
+				}
+			} finally {
+				responseCursor.close();
+			}
+			return null;
 		}
 
 		private String getAttribute(Entry entry, String attribute) throws LdapException {

@@ -66,7 +66,7 @@
 							<li class="nav-item user-item">
 								<tags:userProfileLink user="${currentUser.current}" htmlClass="user-name">
 									<jsp:attribute name="before">
-										<img class="user-image menu-user-image" src="${currentUser.current.smallPhoto}"/>
+										<img class="user-image menu-user-image" src="${currentUser.current.getSmallPhoto(env.get('gravatar.avatar.url'))}"/>
 									</jsp:attribute>
 									<jsp:attribute name="after">
 										<span class="reputation" >(${currentUser.current.karma})</span>
@@ -98,7 +98,7 @@
 								${t['about.link']}
 							</a>
 						</li>
-						<c:if test="${currentUser.loggedIn}">
+						<c:if test="${currentUser.loggedIn && env.supports('feature.intro')}">
 							<li class="nav-item">
 								<a class="intro ${currentUser.current.karma <= 12 ? 'new-users' : ''}" href="#">${t['metas.intro.title']}</a>
 							</li>

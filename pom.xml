@@ -26,7 +26,7 @@
 		<dependency>
 			<groupId>br.com.caelum</groupId>
 			<artifactId>vraptor</artifactId>
-			<version>4.1.2-SNAPSHOT</version>
+			<version>4.1.2</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.hamcrest</groupId>
@@ -97,7 +97,7 @@
 		<dependency>
 			<groupId>br.com.caelum.vraptor</groupId>
 			<artifactId>vraptor-quartzjob</artifactId>
-			<version>4.0.5</version>
+			<version>4.0.7-SNAPSHOT</version>
 			<exclusions>
 				<exclusion>
 					<groupId>c3p0</groupId>
@@ -617,7 +617,7 @@
 			<scope>test</scope>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
-			<version>2.41.0</version>
+			<version>2.43.0</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>guava</artifactId>
@@ -672,6 +672,25 @@
 	<build>
 		<outputDirectory>src/main/webapp/WEB-INF/classes/</outputDirectory>
 		<plugins>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.5.8.201207111220</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 			    <groupId>pl.allegro</groupId>
 			    <artifactId>grunt-maven-plugin</artifactId>

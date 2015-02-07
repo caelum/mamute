@@ -45,10 +45,8 @@ public class UserPersonalInfo {
 	
 	private DateTime birthDate;
 	
-	@Length(min = ABOUT_MIN_LENGTH, max = ABOUT_MAX_LENGTH ,  message = ABOUT_LENGTH_MESSAGE)
 	private String about;
 
-	@Length(min = ABOUT_MIN_LENGTH, max = MARKED_ABOUT_MAX_LENGTH ,  message = ABOUT_LENGTH_MESSAGE)
 	private String markedAbout;
 
 	private boolean isSubscribed;

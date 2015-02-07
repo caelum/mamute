@@ -11,6 +11,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <title><c:out value="${title}" escapeXml="true" /></title>
 
 <c:set var="metaDescription" value="${description}" scope="request" />
@@ -28,6 +29,7 @@
 <link rel="stylesheet" href="/css/deps/pagedown.css">
 <link rel="stylesheet" href="/css/deps/prettify.css">
 <link rel="stylesheet" href="/css/deps/joyride-2.0.3.css">
+<link rel="stylesheet" href="/css/deps/select2.css">
 
 <link rel="stylesheet" href="/assets/generated-css/404.css">
 <link rel="stylesheet" href="/assets/generated-css/about.css">

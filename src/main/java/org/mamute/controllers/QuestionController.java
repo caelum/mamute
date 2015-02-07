@@ -177,7 +177,7 @@ public class QuestionController {
 		User author = currentUser.getCurrent();
 		Question question = new Question(information, author);
 		result.include("question", question);
-		validator.onErrorRedirectTo(this).questionForm();
+		validator.onErrorUse(Results.page()).of(this.getClass()).questionForm();
 
 		questions.save(question);
 		index.indexQuestion(question);
