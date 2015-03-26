@@ -15,7 +15,9 @@ import org.hibernate.service.ServiceRegistryBuilder;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.hibernate.tool.hbm2ddl.SchemaUpdate;
 import org.mamute.meta.MamuteMetaInformation;
+import org.mamute.model.*;
 import org.mamute.model.interfaces.Flaggable;
+import org.mamute.model.watch.Watcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -77,8 +79,28 @@ public class MamuteDatabaseConfiguration {
 			cfg.setProperty("hibernate.connection.url", url);
 			cfg.setProperty("hibernate.connection.username", user);
 			cfg.setProperty("hibernate.connection.password", password);
+
 		}
-		
+
+		cfg.addAnnotatedClass(User.class);
+		cfg.addAnnotatedClass(Question.class);
+		cfg.addAnnotatedClass(AnswerInformation.class);
+		cfg.addAnnotatedClass(Answer.class);
+		cfg.addAnnotatedClass(Tag.class);
+		cfg.addAnnotatedClass(Vote.class);
+		cfg.addAnnotatedClass(Comment.class);
+		cfg.addAnnotatedClass(QuestionInformation.class);
+		cfg.addAnnotatedClass(Flag.class);
+		cfg.addAnnotatedClass(LoginMethod.class);
+		cfg.addAnnotatedClass(UserSession.class);
+		cfg.addAnnotatedClass(Watcher.class);
+		cfg.addAnnotatedClass(ReputationEvent.class);
+		cfg.addAnnotatedClass(News.class);
+		cfg.addAnnotatedClass(NewsInformation.class);
+		cfg.addAnnotatedClass(NewsletterSentLog.class);
+		cfg.addAnnotatedClass(TagPage.class);
+		cfg.addAnnotatedClass(Attachment.class);
+
 	}
 
 	public Map<Object, Object> getProperties() {

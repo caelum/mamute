@@ -17,22 +17,12 @@ import org.mamute.brutauth.auth.rules.EditQuestionRule;
 import org.mamute.brutauth.auth.rules.InputRule;
 import org.mamute.brutauth.auth.rules.LoggedRule;
 import org.mamute.brutauth.auth.rules.ModeratorOnlyRule;
-import org.mamute.dao.QuestionDAO;
-import org.mamute.dao.ReputationEventDAO;
-import org.mamute.dao.VoteDAO;
-import org.mamute.dao.WatcherDAO;
+import org.mamute.dao.*;
 import org.mamute.factory.MessageFactory;
+import org.mamute.filesystem.AttachmentsFileStorage;
 import org.mamute.interceptors.IncludeAllTags;
 import org.mamute.managers.TagsManager;
-import org.mamute.model.EventType;
-import org.mamute.model.LoggedUser;
-import org.mamute.model.MarkedText;
-import org.mamute.model.Question;
-import org.mamute.model.QuestionInformation;
-import org.mamute.model.ReputationEvent;
-import org.mamute.model.Tag;
-import org.mamute.model.UpdateStatus;
-import org.mamute.model.User;
+import org.mamute.model.*;
 import org.mamute.model.post.PostViewCounter;
 import org.mamute.model.watch.Watcher;
 import org.mamute.search.QuestionIndex;
@@ -69,6 +59,8 @@ public class QuestionController {
 	private BrutalValidator brutalValidator;
 	private TagsManager tagsManager;
 	private TagsSplitter splitter;
+	private AttachmentDao attachments;
+	private AttachmentsFileStorage fileStorage;
 	private QuestionIndex index;
 
 
@@ -84,7 +76,8 @@ public class QuestionController {
 			TagsValidator tagsValidator, MessageFactory messageFactory,
 			Validator validator, PostViewCounter viewCounter,
 			Linker linker, WatcherDAO watchers, ReputationEventDAO reputationEvents,
-			BrutalValidator brutalValidator, TagsManager tagsManager, TagsSplitter splitter) {
+			BrutalValidator brutalValidator, TagsManager tagsManager, TagsSplitter splitter,
+			AttachmentDao attachments, AttachmentsFileStorage fileStorage) {
 		this.result = result;
 		this.questions = questionDAO;
 		this.index = index;
@@ -101,6 +94,8 @@ public class QuestionController {
 		this.brutalValidator = brutalValidator;
 		this.tagsManager = tagsManager;
 		this.splitter = splitter;
+		this.attachments = attachments;
+		this.fileStorage = fileStorage;
 	}
 
 	@Get
@@ -207,7 +202,10 @@ public class QuestionController {
 	@CustomBrutauthRules(LoggedRule.class)
 	@Post
 	public void uploadAttachment(UploadedFile file) throws IOException {
-		IOUtils.copy(file.getFile(), new FileOutputStream("/tmp/file"));
+		Attachment attachment = new Attachment(file);
+		attachments.save(attachment);
+		fileStorage.save(attachment);
+
 		result.nothing();
 	}
 
