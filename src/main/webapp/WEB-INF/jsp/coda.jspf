@@ -33,6 +33,9 @@
 	<script src="/assets/js/deps/picker.js"></script>
 	<script src="/assets/js/deps/picker.date.js"></script>
 	<script src="/assets/js/deps/translations/pt_BR.js"></script>
+
+    <script>window.FileAPI = { staticPath: '/assets/js/deps/fileapi/' };</script>
+    <script src="/assets/js/deps/fileapi/FileAPI.min.js"></script>
 <!-- endbuild -->
 
 <!-- build:js /js/mamute.js -->

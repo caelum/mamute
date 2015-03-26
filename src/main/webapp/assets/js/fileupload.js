@@ -6,12 +6,24 @@ $(function() {
         var item = $("<li>");
         uploads.append(item);
 
-        var file = $("<input>")
+        var uploadInput = $("<input>")
             .attr("type", "file")
             .addClass("file-upload");
-        item.append(file);
+        item.append(uploadInput);
 
-        var $removeLink = $("<a href='#' class='remove-file'>Remove</a>");
+        uploadInput.on("change", function(e) {
+            var file = FileAPI.getFiles(e)[0];
+            FileAPI.upload({
+                url: '/questions/file',
+                files: { file: file },
+                complete: function (err, xhr) {
+                    console.log(err);
+                    console.log(xhr);
+                }
+            });
+        });
+
+        var $removeLink = $("<a href='#' class='remove-uploadInput'>Remove</a>");
         $removeLink.click(function(e){
             e.preventDefault();
             item.remove();
