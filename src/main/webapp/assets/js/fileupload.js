@@ -14,7 +14,7 @@ $(function() {
         uploadInput.on("change", function(e) {
             var file = FileAPI.getFiles(e)[0];
             FileAPI.upload({
-                url: '/questions/file',
+                url: '/question/attachments',
                 files: { file: file },
                 complete: function (err, xhr) {
                     console.log(err);

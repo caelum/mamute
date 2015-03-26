@@ -2,11 +2,16 @@ package org.mamute.controllers;
 
 import static java.util.Arrays.asList;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import br.com.caelum.vraptor.observer.upload.UploadedFile;
+import org.apache.commons.io.IOUtils;
 import org.mamute.auth.FacebookAuthService;
 import org.mamute.brutauth.auth.rules.EditQuestionRule;
 import org.mamute.brutauth.auth.rules.InputRule;
@@ -197,6 +202,13 @@ public class QuestionController {
 	public void showVoteInformation (@Load Question question, String sluggedTitle){
 		result.include("question", question);
 		redirectToRightUrl(question, sluggedTitle);
+	}
+
+	@CustomBrutauthRules(LoggedRule.class)
+	@Post
+	public void uploadAttachment(UploadedFile file) throws IOException {
+		IOUtils.copy(file.getFile(), new FileOutputStream("/tmp/file"));
+		result.nothing();
 	}
 
 	private boolean validate(List<Tag> foundTags, List<String> splitedTags) {
