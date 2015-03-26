@@ -73,6 +73,7 @@
 	<script src="/assets/js/approve-news.js"></script>
 	<script src="/assets/js/ban-user.js"></script>
 	<script src="/assets/js/question-suggestions.js"></script>
+	<script src="/assets/js/fileupload.js"></script>
 <!-- endbuild -->
 
 <c:if test="${environment.supports('feature.analytics')}" >

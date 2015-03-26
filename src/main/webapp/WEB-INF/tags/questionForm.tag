@@ -22,6 +22,13 @@
 	<tags:markDown placeholder="${descriptionPlaceholder}" value="${question.description}"
 				   hintId="question-description-hint" htmlClass="required description-input" minlength="30"/>
 
+    <div class="uploader">
+        Attachments:
+        <ul class="uploads"></ul>
+        <a class="add-file" href="#">New file</a>
+    </div>
+
+
 	<label for="tags">${t['question.tags.label']}</label>
 	<ul class="tags autocompleted-tags complete-tags hidden" id="newquestion-tags-autocomplete"></ul>
 
