@@ -56,4 +56,12 @@ public class Attachment {
 	public void setQuestion(Question question) {
 		this.question = question;
 	}
+
+	public String fileName() {
+		return id.toString();
+	}
+
+	public String getMime() {
+		return mime;
+	}
 }

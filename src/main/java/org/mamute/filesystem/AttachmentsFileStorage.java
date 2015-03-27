@@ -5,27 +5,37 @@ import br.com.caelum.vraptor.environment.Property;
 import org.apache.commons.io.IOUtils;
 import org.mamute.model.Attachment;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 public class AttachmentsFileStorage {
 
 	@Inject
 	private Environment environment;
+	private File attachmentsRoot;
+
+	@PostConstruct
+	public void setup() {
+		this.attachmentsRoot = new File(environment.get("attachments.root.fs.path"));
+	}
 
 	public void save(Attachment attachment) {
-		String attachmentsRoot = environment.get("attachments.root.fs.path");
 		try {
-			File destination = new File(attachmentsRoot, attachment.getId().toString());
-			IOUtils.copy(attachment.getUploadedFile().getFile(),
-					new FileOutputStream(destination));
+			File destination = new File(attachmentsRoot, attachment.fileName());
+			try (FileOutputStream output = new FileOutputStream(destination)) {
+				IOUtils.copy(attachment.getUploadedFile().getFile(),
+						output);
+			}
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException(e);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	public InputStream open(Attachment attachment) throws FileNotFoundException {
+		File file = new File(attachmentsRoot, attachment.fileName());
+		return new FileInputStream(file);
 	}
 }

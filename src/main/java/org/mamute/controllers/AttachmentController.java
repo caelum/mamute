@@ -10,6 +10,7 @@ import br.com.caelum.vraptor.observer.upload.UploadedFile;
 import br.com.caelum.vraptor.routes.annotation.Routed;
 import br.com.caelum.vraptor.validator.Validator;
 import br.com.caelum.vraptor.view.Results;
+import org.apache.commons.io.IOUtils;
 import org.mamute.auth.FacebookAuthService;
 import org.mamute.brutauth.auth.rules.EditQuestionRule;
 import org.mamute.brutauth.auth.rules.InputRule;
@@ -30,8 +31,12 @@ import org.mamute.validators.TagsValidator;
 import org.mamute.vraptor.Linker;
 
 import javax.inject.Inject;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 
@@ -52,6 +57,8 @@ public class AttachmentController {
 	private LoggedUser loggedUser;
 	@Inject
 	private ClientIp clientIp;
+	@Inject
+	private HttpServletResponse response;
 
 	@CustomBrutauthRules(LoggedRule.class)
 	@Post
@@ -62,5 +69,37 @@ public class AttachmentController {
 		fileStorage.save(attachment);
 
 		result.use(json()).withoutRoot().from(attachment).serialize();
+	}
+
+	@Get
+	public void getAttachment(@Load Attachment attachment) throws IOException {
+		InputStream is = null;
+		try {
+			is = fileStorage.open(attachment);
+			response.setHeader("Content-Type", attachment.getMime());
+			send(is);
+		} catch (FileNotFoundException e) {
+			result.notFound();
+		}
+	}
+
+	private void send(InputStream is) {
+		try {
+			ServletOutputStream os = response.getOutputStream();
+			IOUtils.copy(is, os);
+			os.close();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		} finally {
+			close(is);
+		}
+	}
+
+	private void close(InputStream is) {
+		try {
+			is.close();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }
