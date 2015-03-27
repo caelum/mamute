@@ -56,7 +56,8 @@ public class AttachmentController {
 	@CustomBrutauthRules(LoggedRule.class)
 	@Post
 	public void uploadAttachment(UploadedFile file) throws IOException {
-		Attachment attachment = new Attachment(file, loggedUser.getCurrent(), clientIp.get());
+		Attachment attachment = new Attachment(file, loggedUser.getCurrent(),
+				clientIp.get());
 		attachments.save(attachment);
 		fileStorage.save(attachment);
 

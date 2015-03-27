@@ -27,7 +27,10 @@ public class Attachment {
 
 	@ManyToOne
 	private User owner;
+
 	private String ip;
+
+	private String mime;
 
 	/**
 	 * @deprecated hibernate only
@@ -39,6 +42,7 @@ public class Attachment {
 		this.file = file;
 		this.owner = owner;
 		this.ip = ip;
+		this.mime = file.getContentType();
 	}
 
 	public UploadedFile getUploadedFile() {
