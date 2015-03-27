@@ -11,19 +11,31 @@ import java.util.List;
 public class M009CreateAttachmentsTable implements SchemaMigration {
 	@Override
 	public List<MigrationOperation> up() {
-		String createTable = "create table Attachment (\n" +
-				"        id bigint not null auto_increment,\n" +
-				"        path varchar(255),\n" +
-				"        question_id bigint,\n" +
-				"        primary key (id)\n" +
+		String createTable = "create table Attachment (" +
+				"id bigint not null auto_increment," +
+				"createdAt datetime," +
+				"ip varchar(255)," +
+				"path varchar(255)," +
+				"owner_id bigint," +
+				"question_id bigint," +
+				"primary key (id)" +
 				"    ) ENGINE=InnoDB";
-		String createFK = "alter table Attachment \n" +
-				"        add index FK_qvvi93082jthrtmhbly12kess (question_id), \n" +
-				"        add constraint FK_qvvi93082jthrtmhbly12kess \n" +
-				"        foreign key (question_id) \n" +
-				"        references Question (id)";
+		
 
-		return RawSQLOperation.forSqls(createTable, createFK);
+		String createUsersFK = "alter table Attachment " +
+				"add index FK_enrbut32jkvqv2ttop49nkcb4 (owner_id), " +
+				"add constraint FK_enrbut32jkvqv2ttop49nkcb4 " +
+				"foreign key (owner_id) " +
+				"references Users (id) ";
+
+		String createQuestionFK = "alter table Attachment " +
+				"add index FK_qvvi93082jthrtmhbly12kess (question_id), " +
+				"add constraint FK_qvvi93082jthrtmhbly12kess " +
+				"foreign key (question_id) " +
+				"references Question (id) ";
+		
+
+		return RawSQLOperation.forSqls(createTable, createUsersFK, createQuestionFK);
 	}
 
 	@Override

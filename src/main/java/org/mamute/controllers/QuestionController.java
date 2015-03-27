@@ -59,8 +59,6 @@ public class QuestionController {
 	private BrutalValidator brutalValidator;
 	private TagsManager tagsManager;
 	private TagsSplitter splitter;
-	private AttachmentDao attachments;
-	private AttachmentsFileStorage fileStorage;
 	private QuestionIndex index;
 
 
@@ -76,8 +74,7 @@ public class QuestionController {
 			TagsValidator tagsValidator, MessageFactory messageFactory,
 			Validator validator, PostViewCounter viewCounter,
 			Linker linker, WatcherDAO watchers, ReputationEventDAO reputationEvents,
-			BrutalValidator brutalValidator, TagsManager tagsManager, TagsSplitter splitter,
-			AttachmentDao attachments, AttachmentsFileStorage fileStorage) {
+			BrutalValidator brutalValidator, TagsManager tagsManager, TagsSplitter splitter) {
 		this.result = result;
 		this.questions = questionDAO;
 		this.index = index;
@@ -94,8 +91,6 @@ public class QuestionController {
 		this.brutalValidator = brutalValidator;
 		this.tagsManager = tagsManager;
 		this.splitter = splitter;
-		this.attachments = attachments;
-		this.fileStorage = fileStorage;
 	}
 
 	@Get
@@ -197,16 +192,6 @@ public class QuestionController {
 	public void showVoteInformation (@Load Question question, String sluggedTitle){
 		result.include("question", question);
 		redirectToRightUrl(question, sluggedTitle);
-	}
-
-	@CustomBrutauthRules(LoggedRule.class)
-	@Post
-	public void uploadAttachment(UploadedFile file) throws IOException {
-		Attachment attachment = new Attachment(file);
-		attachments.save(attachment);
-		fileStorage.save(attachment);
-
-		result.nothing();
 	}
 
 	private boolean validate(List<Tag> foundTags, List<String> splitedTags) {
