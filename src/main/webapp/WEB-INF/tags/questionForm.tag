@@ -23,7 +23,7 @@
 				   hintId="question-description-hint" htmlClass="required description-input" minlength="30"/>
 
     <div class="uploader">
-        Attachments:
+        <label>Attachments</label>
         <ul class="uploads"></ul>
         <a class="add-file" href="#">New file</a>
     </div>

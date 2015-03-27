@@ -35,6 +35,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import static br.com.caelum.vraptor.view.Results.json;
 import static java.util.Arrays.asList;
 
 @Routed
@@ -59,6 +60,6 @@ public class AttachmentController {
 		attachments.save(attachment);
 		fileStorage.save(attachment);
 
-		result.nothing();
+		result.use(json()).withoutRoot().from(attachment).serialize();
 	}
 }

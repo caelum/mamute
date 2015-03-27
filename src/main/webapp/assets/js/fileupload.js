@@ -17,7 +17,18 @@ $(function() {
                 url: '/question/attachments',
                 files: { file: file },
                 complete: function (err, xhr) {
-                    console.log(err);
+                    if (err) {
+                        uploadInput.remove();
+                        var error = $("<p>").text("An error occurred during upload");
+                        item.append(error);
+                    } else {
+                        var attachment = JSON.parse(xhr.response);
+                        var attachmentId = $("<input>")
+                            .attr("type" ,"hidden")
+                            .attr("name", "attachmentsIds[]")
+                            .attr("value", attachment.id);
+                        $(".question-form").append(attachmentId);
+                    }
                     console.log(xhr);
                 }
             });

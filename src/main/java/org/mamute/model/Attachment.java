@@ -48,4 +48,8 @@ public class Attachment {
 	public Long getId() {
 		return id;
 	}
+
+	public void setQuestion(Question question) {
+		this.question = question;
+	}
 }

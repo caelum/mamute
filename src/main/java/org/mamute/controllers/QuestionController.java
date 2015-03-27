@@ -59,6 +59,7 @@ public class QuestionController {
 	private BrutalValidator brutalValidator;
 	private TagsManager tagsManager;
 	private TagsSplitter splitter;
+	private AttachmentDao attachments;
 	private QuestionIndex index;
 
 
@@ -74,7 +75,7 @@ public class QuestionController {
 			TagsValidator tagsValidator, MessageFactory messageFactory,
 			Validator validator, PostViewCounter viewCounter,
 			Linker linker, WatcherDAO watchers, ReputationEventDAO reputationEvents,
-			BrutalValidator brutalValidator, TagsManager tagsManager, TagsSplitter splitter) {
+			BrutalValidator brutalValidator, TagsManager tagsManager, TagsSplitter splitter, AttachmentDao attachments) {
 		this.result = result;
 		this.questions = questionDAO;
 		this.index = index;
@@ -91,6 +92,7 @@ public class QuestionController {
 		this.brutalValidator = brutalValidator;
 		this.tagsManager = tagsManager;
 		this.splitter = splitter;
+		this.attachments = attachments;
 	}
 
 	@Get
@@ -161,7 +163,9 @@ public class QuestionController {
 
 	@Post
 	@CustomBrutauthRules({LoggedRule.class, InputRule.class})
-	public void newQuestion(String title, MarkedText description, String tagNames, boolean watching) {
+	public void newQuestion(String title, MarkedText description, String tagNames, boolean watching,
+							List<Long> attachmentsIds) {
+		List<Attachment> attachments = this.attachments.load(attachmentsIds);
 		List<String> splitedTags = splitter.splitTags(tagNames);
 
 		List<Tag> foundTags = tagsManager.findOrCreate(splitedTags);
@@ -176,6 +180,9 @@ public class QuestionController {
 
 		questions.save(question);
 		index.indexQuestion(question);
+		for (Attachment attachment : attachments) {
+			attachment.setQuestion(question);
+		}
 
 		ReputationEvent reputationEvent = new ReputationEvent(EventType.CREATED_QUESTION, question, author);
 		author.increaseKarma(reputationEvent.getKarmaReward());
