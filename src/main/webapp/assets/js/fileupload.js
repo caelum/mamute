@@ -53,17 +53,23 @@ $(function() {
 
             line.append($("<td>").text(attachment.name))
 
+            line.append($("<td>").append(removeLink()));
+
             var addToQuestion = $("<a>").text("Add to question")
                 .attr("data-attachment-id", attachment.id)
                 .click(putInQuestionContent);
             line.append($("<td>").append(addToQuestion));
 
             $(".uploaded-files").append(line);
+            $(".uploaded-files").removeClass("hidden");
+
+            function removeLink() {
+                return $("<a href='#'>").text("Remove").addClass("remove-attachment");
+            }
         }
     });
 
     function putInQuestionContent() {
         var link = $(this);
-        debugger
     }
 });

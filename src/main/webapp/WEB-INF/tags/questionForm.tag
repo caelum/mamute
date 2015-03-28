@@ -26,7 +26,7 @@
         <label>Attachments - <a class="add-file" href="#">New file</a></label>
 
 
-        <table class="uploaded-files">
+        <table class="uploaded-files hidden">
             <tr>
                 <th>${t['question.attachments.name']}</th>
                 <th></th>
