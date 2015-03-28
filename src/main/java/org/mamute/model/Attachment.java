@@ -14,8 +14,6 @@ public class Attachment {
 	@Id
 	private Long id;
 
-	private String path;
-
 	@ManyToOne
 	private Question question;
 
@@ -32,6 +30,8 @@ public class Attachment {
 
 	private String mime;
 
+	private String name;
+
 	/**
 	 * @deprecated hibernate only
 	 */
@@ -43,6 +43,7 @@ public class Attachment {
 		this.owner = owner;
 		this.ip = ip;
 		this.mime = file.getContentType();
+		this.name =file.getFileName();
 	}
 
 	public UploadedFile getUploadedFile() {

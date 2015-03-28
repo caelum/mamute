@@ -1,8 +1,28 @@
-.add-file {
-  margin-top: 2em;
-  display: block;
-}
+.attachment-uploader {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  background: rgba(0, 0, 0, 0.85);
+  top: 0;
+  left: 0;
 
-.uploads li {
-  margin-top: 1em;
+  @w: 40%;
+  @h: 30%;
+  .upload-content {
+    background-color: #F89948;
+    border: 5px solid #bc7437;
+    position: absolute;
+    width: @w;
+    height: @h;
+    top: 40% - @h/2;
+    left: 50% - @w/2;
+    color: #fff;
+    padding: 1.5em;
+    font-size: 1.5em;
+
+    a {
+      color: #4488d2;
+    }
+  }
 }

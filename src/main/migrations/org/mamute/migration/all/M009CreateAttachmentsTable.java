@@ -15,8 +15,8 @@ public class M009CreateAttachmentsTable implements SchemaMigration {
 				"id bigint not null auto_increment," +
 				"createdAt datetime," +
 				"ip varchar(255)," +
-				"path varchar(255)," +
 				"mime varchar(255)," +
+				"name varchar(255)," +
 				"owner_id bigint," +
 				"question_id bigint," +
 				"primary key (id)" +

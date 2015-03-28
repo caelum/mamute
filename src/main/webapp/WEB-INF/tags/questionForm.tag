@@ -23,9 +23,16 @@
 				   hintId="question-description-hint" htmlClass="required description-input" minlength="30"/>
 
     <div class="uploader">
-        <label>Attachments</label>
-        <ul class="uploads"></ul>
-        <a class="add-file" href="#">New file</a>
+        <label>Attachments - <a class="add-file" href="#">New file</a></label>
+
+
+        <table class="uploaded-files">
+            <tr>
+                <th>${t['question.attachments.name']}</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </table>
     </div>
 
 
