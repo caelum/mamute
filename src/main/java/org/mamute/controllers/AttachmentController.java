@@ -38,6 +38,7 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 
+import static br.com.caelum.vraptor.view.Results.http;
 import static br.com.caelum.vraptor.view.Results.json;
 import static java.util.Arrays.asList;
 
@@ -81,8 +82,13 @@ public class AttachmentController {
 		}
 	}
 
+	@CustomBrutauthRules(LoggedRule.class)
 	@Delete
 	public void deleteAttachment(@Load Attachment attachment) throws IOException {
+		if (!attachment.canDelete(loggedUser.getCurrent())) {
+			result.use(http()).sendError(403);
+			return;
+		}
 		attachments.delete(attachment);
 		fileStorage.delete(attachment);
 		result.nothing();

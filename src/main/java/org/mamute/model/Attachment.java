@@ -65,4 +65,12 @@ public class Attachment {
 	public String getMime() {
 		return mime;
 	}
+
+	private User getOwner() {
+		return owner;
+	}
+
+	public boolean canDelete(User user) {
+		return getOwner().equals(user);
+	}
 }
