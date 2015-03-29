@@ -24,7 +24,7 @@ $(function() {
         var uploadCompleted = function (err, xhr) {
             uploadInput.remove();
             if (err) {
-                var error = $("<p class='error'>").text("An error occurred during upload");
+                var error = $("<p class='error' style='margin:0'>").text("An error occurred during upload");
                 uploadContent.append(error);
             } else {
                 var attachment = JSON.parse(xhr.response);
@@ -60,26 +60,13 @@ $(function() {
 
             var addToQuestion = $("<a>").text("Add to question")
                 .attr("data-attachment-id", id)
+                .attr("href", "#")
                 .click(putInQuestionContent);
             line.append($("<td>").append(addToQuestion));
 
             $(".uploaded-files").append(line);
             $(".uploaded-files").removeClass("hidden");
 
-            function removeAttachment(e) {
-                e.preventDefault();
-                var link = $(this);
-                link.css("pointer-events", "none");
-                var id = link.data("attachment-id");
-                $.ajax({
-                    url: '/questions/attachments/' + id,
-                    type: 'DELETE',
-                    success: function(result) {
-                        $("#attachment-" + id).remove();
-                        $("#input-attachment-" + id).remove();
-                    }
-                });
-            }
 
             function removeLink(attachment) {
                 return $("<a href='#'>").text("Remove")
@@ -92,5 +79,29 @@ $(function() {
 
     function putInQuestionContent() {
         var link = $(this);
+        var id = link.data("attachment-id");
+        var fileMarkup = "![/questions/attachments/" + id + "][" + id + "]";
+
+        var fileRef = "[" + id+ "]: /questions/attachments/" + id;
+
+        var content = $(".description-input").text();
+        $(".description-input").text(content + " " + fileMarkup + "\n\n" + fileRef);
     }
+
+    function removeAttachment(e) {
+        e.preventDefault();
+        var link = $(this);
+        link.css("pointer-events", "none");
+        var id = link.data("attachment-id");
+        $.ajax({
+            url: '/questions/attachments/' + id,
+            type: 'DELETE',
+            success: function(result) {
+                $("#attachment-" + id).remove();
+                $("#input-attachment-" + id).remove();
+            }
+        });
+    }
+
+    $(".remove-attachment").on("click", removeAttachment);
 });
