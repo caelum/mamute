@@ -24,4 +24,8 @@ public class AttachmentDao {
 				.setParameterList("ids", attachmentsIds)
 				.list();
 	}
+
+	public void delete(Attachment attachment) {
+		session.delete(attachment);
+	}
 }

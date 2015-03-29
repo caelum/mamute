@@ -1,10 +1,8 @@
 package org.mamute.controllers;
 
 import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
-import br.com.caelum.vraptor.Controller;
-import br.com.caelum.vraptor.Get;
+import br.com.caelum.vraptor.*;
 import br.com.caelum.vraptor.Post;
-import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.hibernate.extra.Load;
 import br.com.caelum.vraptor.observer.upload.UploadedFile;
 import br.com.caelum.vraptor.routes.annotation.Routed;
@@ -81,6 +79,13 @@ public class AttachmentController {
 		} catch (FileNotFoundException e) {
 			result.notFound();
 		}
+	}
+
+	@Delete
+	public void deleteAttachment(@Load Attachment attachment) throws IOException {
+		attachments.delete(attachment);
+		fileStorage.delete(attachment);
+		result.nothing();
 	}
 
 	private void send(InputStream is) {

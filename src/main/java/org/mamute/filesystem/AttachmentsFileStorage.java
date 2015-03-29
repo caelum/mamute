@@ -22,7 +22,7 @@ public class AttachmentsFileStorage {
 
 	public void save(Attachment attachment) {
 		try {
-			File destination = new File(attachmentsRoot, attachment.fileName());
+			File destination = attachmentPath(attachment);
 			try (FileOutputStream output = new FileOutputStream(destination)) {
 				IOUtils.copy(attachment.getUploadedFile().getFile(),
 						output);
@@ -35,7 +35,16 @@ public class AttachmentsFileStorage {
 	}
 
 	public InputStream open(Attachment attachment) throws FileNotFoundException {
-		File file = new File(attachmentsRoot, attachment.fileName());
+		File file = attachmentPath(attachment);
 		return new FileInputStream(file);
+	}
+
+	private File attachmentPath(Attachment attachment) {
+		return new File(attachmentsRoot, attachment.fileName());
+	}
+
+	public void delete(Attachment attachment) {
+		File file = attachmentPath(attachment);
+		file.delete();
 	}
 }
