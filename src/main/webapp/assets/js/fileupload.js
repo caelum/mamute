@@ -1,80 +1,10 @@
+Globals = {};
+Globals.doimage = createUploader;
+
 $(function() {
     $(".add-file").click(function(e) {
         e.preventDefault();
-        var $link = $(this);
-        var uploadWidget = $("<div>").addClass("attachment-uploader");
-        var uploadContent = $("<div>").addClass("upload-content");
-        uploadWidget.append(uploadContent);
-        uploadContent.append($("<p>Choose your file to upload:</p>"))
-
-        var uploadInput = $("<input>")
-            .attr("type", "file")
-            .addClass("file-upload");
-        uploadContent.append(uploadInput);
-
-        var cancelUpload = $("<a href='#' class='cancel-upload'>Cancel</a>");
-        cancelUpload.click(function(e){
-            e.preventDefault();
-            uploadWidget.remove();
-        });
-
-        uploadContent.append(cancelUpload);
-        $(".question-form").append(uploadWidget);
-
-        var uploadCompleted = function (err, xhr) {
-            uploadInput.remove();
-            if (err) {
-                var error = $("<p class='error' style='margin:0'>").text("An error occurred during upload");
-                uploadContent.append(error);
-            } else {
-                var attachment = JSON.parse(xhr.response);
-                var attachmentId = $("<input>")
-                    .attr("type" ,"hidden")
-                    .attr("name", "attachmentsIds[]")
-                    .attr("value", attachment.id)
-                    .attr("id", "input-attachment-" + attachment.id);
-                $(".question-form").append(attachmentId);
-                addUploadedFile(attachment);
-                uploadWidget.remove();
-            }
-        };
-
-        var onUpload = function (e) {
-            var file = FileAPI.getFiles(e)[0];
-            FileAPI.upload({
-                url: '/questions/attachments',
-                files: {file: file},
-                complete: uploadCompleted
-            });
-        };
-        uploadInput.on("change", onUpload);
-
-        var addUploadedFile = function(attachment) {
-            var line = $("<tr>");
-            var id = attachment.id;
-            line.attr("id", "attachment-" + id);
-
-            line.append($("<td>").text(attachment.name))
-
-            line.append($("<td>").append(removeLink(attachment)));
-
-            var addToQuestion = $("<a>").text("Add to question")
-                .attr("data-attachment-id", id)
-                .attr("href", "#")
-                .click(putInQuestionContent);
-            line.append($("<td>").append(addToQuestion));
-
-            $(".uploaded-files").append(line);
-            $(".uploaded-files").removeClass("hidden");
-
-
-            function removeLink(attachment) {
-                return $("<a href='#'>").text("Remove")
-                    .attr("data-attachment-id", attachment.id)
-                    .click(removeAttachment)
-                    .addClass("remove-attachment");
-            }
-        }
+        createUploader();
     });
 
     function putInQuestionContent() {
@@ -103,5 +33,124 @@ $(function() {
         });
     }
 
+    Globals.removeAttachment = removeAttachment;
     $(".remove-attachment").on("click", removeAttachment);
 });
+
+function createUploader() {
+    var uploader = $(".attachment-uploader").show();
+    $(".cancel-upload").click(function(e){
+        e.preventDefault();
+        uploader.hide();
+    });
+
+    uploader.find("input").remove();
+    var uploaderContent = uploader.find(".upload-content");
+    var uploadInput = uploaderContent.append($("<input type='file'>"));
+    var uploadCompleted = function (err, xhr) {
+        if (err) {
+            var error = $("<p class='error' style='margin:0'>").text("An error occurred during upload");
+            uploaderContent.append(error);
+        } else {
+            var attachment = JSON.parse(xhr.response);
+            var attachmentId = $("<input>")
+                .attr("type" ,"hidden")
+                .attr("name", "attachmentsIds[]")
+                .attr("value", attachment.id)
+                .attr("id", "input-attachment-" + attachment.id);
+            $(".question-form").append(attachmentId);
+            addUploadedFile(attachment);
+            uploader.hide();
+        }
+    };
+
+    var onUpload = function (e) {
+        $(this).unbind(e);
+        var file = FileAPI.getFiles(e)[0];
+        FileAPI.upload({
+            url: '/questions/attachments',
+            files: {file: file},
+            complete: uploadCompleted
+        });
+    };
+    uploadInput.change(onUpload);
+
+    var addUploadedFile = function(attachment) {
+        var line = $("<tr>");
+        var id = attachment.id;
+        line.attr("id", "attachment-" + id);
+
+        line.append($("<td>").text(attachment.name));
+
+        line.append($("<td>").append(removeLink(attachment)));
+
+        //var addToQuestion = $("<a>").text("Add to question")
+        //    .attr("data-attachment-id", id)
+        //    .attr("href", "#")
+        //    .click(putInQuestionContent);
+        //line.append($("<td>").append(addToQuestion));
+
+        $(".uploaded-files").append(line);
+        $(".uploaded-files").removeClass("hidden");
+
+
+        function removeLink(attachment) {
+            return $("<a href='#'>").text("Remove")
+                .attr("data-attachment-id", attachment.id)
+                .click(Globals.removeAttachment)
+                .addClass("remove-attachment");
+        }
+    }
+}
+
+
+Globals.doimageFilePicker = function (chunk, postProcessing){
+    filepicker.setKey(INK_API_KEY);
+    var fp;
+    var featherEditor = new Aviary.Feather({
+        apiKey: AVIARY_API_KEY,
+        apiVersion: 2,
+        tools: 'crop,resize,draw,text',
+        fileFormat: 'jpg',
+        onClose: function(isDirty){
+            if(isDirty){
+                filepicker.remove(fp);
+            }
+        },
+        onSave: function(imageID, newURL) {
+            filepicker.storeUrl(
+                newURL,
+                function(FPFile){
+                    filepicker.remove(
+                        fp,
+                        function(){
+                            commandProto.doLinkOrImage(chunk, postProcessing, true, FPFile.url);
+                        }
+                    );
+                }
+            );
+
+            featherEditor.close();
+        },
+
+        language: 'pt_BR'
+    });
+
+    var preview = document.getElementById('image-editor-preview');
+
+    filepicker.pick({
+            mimetype: 'image/*',
+            container: 'modal',
+            maxSize: 400*1024,
+            services: ['COMPUTER', 'URL']
+        },
+
+        function(fpfile){
+            fp = fpfile;
+            preview.src = fpfile.url;
+            featherEditor.launch({
+                image: preview,
+                url: fpfile.url
+            });
+        });
+};

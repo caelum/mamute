@@ -33,6 +33,7 @@
 	<script src="/assets/js/deps/picker.js"></script>
 	<script src="/assets/js/deps/picker.date.js"></script>
 	<script src="/assets/js/deps/translations/pt_BR.js"></script>
+    <script src="/assets/js/fileupload.js"></script>
 
     <script>window.FileAPI = { staticPath: '/assets/js/deps/fileapi/' };</script>
     <script src="/assets/js/deps/fileapi/FileAPI.min.js"></script>
@@ -76,7 +77,6 @@
 	<script src="/assets/js/approve-news.js"></script>
 	<script src="/assets/js/ban-user.js"></script>
 	<script src="/assets/js/question-suggestions.js"></script>
-	<script src="/assets/js/fileupload.js"></script>
 <!-- endbuild -->
 
 <c:if test="${environment.supports('feature.analytics')}" >

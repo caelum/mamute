@@ -2,6 +2,8 @@
 
 (function () {
 
+    var doimage = Globals.doimage;
+
     var util = {},
         position = {},
         ui = {},
@@ -1530,6 +1532,7 @@
     }
 
     var commandProto = CommandManager.prototype;
+    Markdown.Editor.commandProto = commandProto;
 
     // The markdown symbols - 4 spaces = code, > = blockquote, etc.
     commandProto.prefixes = "(?:\\s{4,}|\\s*>|\\s*-\\s+|\\s*\\d+\\.|=|\\+|-|_|\\*|#|\\s*\\[[^\n]]+\\]:)";
@@ -1784,56 +1787,7 @@
         }
     };
     
-    commandProto.doImage = function (chunk, postProcessing){
-    	filepicker.setKey(INK_API_KEY);
-    	var fp;
-		var featherEditor = new Aviary.Feather({
-			apiKey: AVIARY_API_KEY,
-			apiVersion: 2,
-			tools: 'crop,resize,draw,text',
-			fileFormat: 'jpg',
-			onClose: function(isDirty){
-				if(isDirty){
-					filepicker.remove(fp);
-				}
-			},
-			onSave: function(imageID, newURL) {
-				filepicker.storeUrl(
-						newURL,
-						function(FPFile){
-							filepicker.remove(
-								fp,
-								function(){
-									commandProto.doLinkOrImage(chunk, postProcessing, true, FPFile.url);
-								}
-							);
-						}
-				);
-			
-				featherEditor.close();
-			},
-			
-			language: 'pt_BR'
-		});
-		
-    	var preview = document.getElementById('image-editor-preview');
-    	
-      	filepicker.pick({
-			 mimetype: 'image/*',
-			 container: 'modal',
-			 maxSize: 400*1024,
-			 services: ['COMPUTER', 'URL']
-			 },
-			 
-			 function(fpfile){
-				 fp = fpfile;
-				 preview.src = fpfile.url;
-				 featherEditor.launch({
-					 image: preview,
-					 url: fpfile.url
-				 });
-			 });
-    };
+    commandProto.doImage = doimage;
 
     // When making a list, hitting shift-enter will put your cursor on the next line
     // at the current indent level.
