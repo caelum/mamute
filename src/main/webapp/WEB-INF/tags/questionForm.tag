@@ -22,22 +22,7 @@
 	<tags:markDown placeholder="${descriptionPlaceholder}" value="${question.description}"
 				   hintId="question-description-hint" htmlClass="required description-input" minlength="30"/>
 
-    <div class="uploader">
-        <label>Attachments - <a class="add-file" href="#">New file</a></label>
-        <table class="uploaded-files hidden">
-            <tr>
-                <th>${t['question.attachments.name']}</th>
-                <th>Link</th>
-                <th></th>
-            </tr>
-        </table>
-        <div class="attachment-uploader hidden">
-            <div class="upload-content">
-                <p>Choose your file to upload:</p>
-                <a href="#" class="cancel-upload">Cancel</a></div>
-        </div>
-    </div>
-
+    <tags:fileUploader/>
 
 	<label for="tags">${t['question.tags.label']}</label>
 	<ul class="tags autocompleted-tags complete-tags hidden" id="newquestion-tags-autocomplete"></ul>
