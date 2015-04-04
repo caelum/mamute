@@ -58,9 +58,10 @@ if (Globals.inHouseUploading) {
                     .attr("id", "input-attachment-" + attachment.id);
                 $(".question-form").append(attachmentId);
                 addUploadedFile(attachment);
-                var commandProto = Globals.markdownCommandManager;
-                debugger;
-                commandProto.doLinkOrImage(chunk, postProcessing, true, "/questions/attachments/" + attachment.id);
+                if (chunk) {
+                    var commandProto = Globals.markdownCommandManager;
+                    commandProto.doLinkOrImage(chunk, postProcessing, true, "/questions/attachments/" + attachment.id);
+                }
                 uploader.hide();
             }
         };
@@ -82,7 +83,7 @@ if (Globals.inHouseUploading) {
             line.attr("id", "attachment-" + id);
 
             line.append($("<td>").text(attachment.name));
-
+            line.append($("<td>").append(attachmentLink()));
             line.append($("<td>").append(removeLink(attachment)));
 
             $(".uploaded-files").append(line);
@@ -95,6 +96,12 @@ if (Globals.inHouseUploading) {
                     .click(Globals.removeAttachment)
                     .addClass("remove-attachment");
             }
+            function attachmentLink() {
+                return $("<a>")
+                    .attr("href", '/questions/attachments/' + attachment.id)
+                    .text('/questions/attachments/' + attachment.id);
+            }
+
         }
     }
     Globals.doimage = createUploader;

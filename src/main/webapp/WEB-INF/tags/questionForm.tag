@@ -27,7 +27,7 @@
         <table class="uploaded-files hidden">
             <tr>
                 <th>${t['question.attachments.name']}</th>
-                <th></th>
+                <th>Link</th>
                 <th></th>
             </tr>
         </table>

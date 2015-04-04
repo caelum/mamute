@@ -2,8 +2,6 @@
 
 (function () {
 
-    var doimage = Globals.doimage;
-
     var util = {},
         position = {},
         ui = {},
@@ -1788,7 +1786,7 @@
         }
     };
     
-    commandProto.doImage = doimage;
+    commandProto.doImage = Globals.doimage;
 
     // When making a list, hitting shift-enter will put your cursor on the next line
     // at the current indent level.
