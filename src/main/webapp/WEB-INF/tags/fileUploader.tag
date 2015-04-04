@@ -4,7 +4,7 @@
 
 <c:if test="${env.get('feature.inhouse.upload')}">
     <div class="uploader">
-        <label>Attachments - <a class="add-file" href="#">New file</a></label>
+        <label>${t['question.attachments']} - <a class="add-file" href="#">${t['question.attachments.newfile']}</a></label>
         <table class="uploaded-files ${empty question.attachments ? 'hidden':'' }">
             <tr>
                 <th>${t['question.attachments.name']}</th>
@@ -21,7 +21,7 @@
                     </td>
                     <td>
                         <a class="remove-attachment" data-attachment-id="${attachment.id}" href="#">
-                            Remove
+                            ${t['question.attachments.remove']}
                         </a>
                     </td>
                 </tr>
@@ -32,8 +32,8 @@
         </table>
         <div class="attachment-uploader hidden">
             <div class="upload-content">
-                <p>Choose your file to upload:</p>
-                <a href="#" class="cancel-upload">Cancel</a></div>
+                <p>${t['question.attachments.choose']}</p>
+                <a href="#" class="cancel-upload">${t['cancel_button']}</a></div>
         </div>
     </div>
 </c:if>
