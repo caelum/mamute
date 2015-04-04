@@ -33,6 +33,7 @@
         <div class="attachment-uploader hidden">
             <div class="upload-content">
                 <p>${t['question.attachments.choose']}</p>
+                <div class="file-input"></div>
                 <a href="#" class="cancel-upload">${t['cancel_button']}</a></div>
         </div>
     </div>

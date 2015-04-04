@@ -44,11 +44,16 @@ if (Globals.inHouseUploading) {
 
         uploader.find("input").remove();
         var uploaderContent = uploader.find(".upload-content");
-        var uploadInput = uploaderContent.append($("<input type='file'>"));
+        var uploadInput = $("<input type='file'>");
+        uploaderContent.find(".file-input")
+            .append(uploadInput);
+        uploaderContent.find(".error").remove();
+        uploaderContent.find("img").remove();
         var uploadCompleted = function (err, xhr) {
             if (err) {
-                var error = $("<p class='error' style='margin:0'>").text("An error occurred during upload");
-                uploaderContent.append(error);
+                var error = $("<p class='error' style='margin:0'>")
+                    .text("An error occurred during upload");
+                uploaderContent.prepend(error);
             } else {
                 var attachment = JSON.parse(xhr.response);
                 var attachmentId = $("<input>")
@@ -74,6 +79,8 @@ if (Globals.inHouseUploading) {
                 files: {file: file},
                 complete: uploadCompleted
             });
+            uploadInput.remove();
+            uploaderContent.append($("<img>").attr("src", "/imgs/loading.gif"));
         };
         uploadInput.change(onUpload);
 
@@ -88,7 +95,6 @@ if (Globals.inHouseUploading) {
 
             $(".uploaded-files").append(line);
             $(".uploaded-files").removeClass("hidden");
-
 
             function removeLink(attachment) {
                 return $("<a href='#'>").text("Remove")

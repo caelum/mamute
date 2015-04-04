@@ -27,8 +27,6 @@ public class AttachmentsFileStorage {
 				IOUtils.copy(attachment.getUploadedFile().getFile(),
 						output);
 			}
-		} catch (FileNotFoundException e) {
-			throw new RuntimeException(e);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
