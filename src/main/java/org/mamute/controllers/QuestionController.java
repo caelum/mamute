@@ -111,7 +111,7 @@ public class QuestionController {
 	@Post
 	@CustomBrutauthRules(EditQuestionRule.class)
 	public void edit(@Load Question original, String title, MarkedText description, String tagNames,
-			String comment) {
+			String comment, List<Long> attachmentsIds) {
 
 		List<String> splitedTags = splitter.splitTags(tagNames);
 		List<Tag> loadedTags = tagsManager.findOrCreate(splitedTags);
@@ -127,6 +127,10 @@ public class QuestionController {
 		result.include("question", original);
 
 		questions.save(original);
+		List<Attachment> attachmentsLoaded = attachments.load(attachmentsIds);
+		for (Attachment attachment : attachmentsLoaded) {
+			attachment.setQuestion(original);
+		}
 		index.indexQuestion(original);
 
 		result.include("mamuteMessages",

@@ -2,6 +2,7 @@ package org.mamute.dao;
 
 import org.hibernate.Session;
 import org.mamute.model.Attachment;
+import org.mamute.model.Question;
 
 import javax.inject.Inject;
 import java.util.Collections;
@@ -28,4 +29,5 @@ public class AttachmentDao {
 	public void delete(Attachment attachment) {
 		session.delete(attachment);
 	}
+
 }

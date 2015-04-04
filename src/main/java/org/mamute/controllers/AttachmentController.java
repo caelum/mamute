@@ -85,7 +85,8 @@ public class AttachmentController {
 	@CustomBrutauthRules(LoggedRule.class)
 	@Delete
 	public void deleteAttachment(@Load Attachment attachment) throws IOException {
-		if (!attachment.canDelete(loggedUser.getCurrent())) {
+		User current = loggedUser.getCurrent();
+		if (!attachment.canDelete(current) && !current.isModerator()) {
 			result.use(http()).sendError(403);
 			return;
 		}
