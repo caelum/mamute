@@ -99,6 +99,7 @@ if (Globals.inHouseUploading) {
             function attachmentLink() {
                 return $("<a>")
                     .attr("href", '/questions/attachments/' + attachment.id)
+                    .attr("target", "_blank")
                     .text('/questions/attachments/' + attachment.id);
             }
 

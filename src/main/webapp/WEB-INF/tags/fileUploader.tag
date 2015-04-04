@@ -15,7 +15,7 @@
                 <tr id="attachment-${attachment.id}">
                     <td>${attachment.fileName()}</td>
                     <td>
-                        <a href="/question/attachments/${attachment.id}">
+                        <a href="/question/attachments/${attachment.id}" target="_blank">
                             /question/attachments/${attachment.id}
                         </a>
                     </td>
