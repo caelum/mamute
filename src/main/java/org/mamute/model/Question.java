@@ -103,8 +103,8 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 	@ManyToMany	
 	private final Set<User> userInteractions = new HashSet<>();
 
-	@OneToMany(mappedBy = "question")
-	private List<Attachment> attachments;
+	@OneToMany
+	private Set<Attachment> attachments = new HashSet<>();
 	
     public static final long SPAM_BOUNDARY = -5;
     
@@ -476,7 +476,19 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 		return !this.getTags().isEmpty();
 	}
 
-	public List<Attachment> getAttachments() {
+	public Set<Attachment> getAttachments() {
 		return attachments;
+	}
+
+	public void add(List<Attachment> attachments) {
+		this.attachments.addAll(attachments);
+	}
+
+	public void remove(Attachment attachment) {
+		this.attachments.remove(attachment);
+	}
+
+	public void removeAttachments() {
+		this.attachments.clear();
 	}
 }

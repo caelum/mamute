@@ -30,4 +30,7 @@ public class AttachmentDao {
 		session.delete(attachment);
 	}
 
+	public Attachment load(Long attachmentId) {
+		return (Attachment) session.load(Attachment.class, attachmentId);
+	}
 }

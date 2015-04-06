@@ -5,24 +5,13 @@ if (Globals.inHouseUploading) {
             createUploader();
         });
 
-        function putInQuestionContent() {
-            var link = $(this);
-            var id = link.data("attachment-id");
-            var fileMarkup = "![/questions/attachments/" + id + "][" + id + "]";
-
-            var fileRef = "[" + id+ "]: /questions/attachments/" + id;
-
-            var content = $(".description-input").text();
-            $(".description-input").text(content + " " + fileMarkup + "\n\n" + fileRef);
-        }
-
         function removeAttachment(e) {
             e.preventDefault();
             var link = $(this);
             link.css("pointer-events", "none");
             var id = link.data("attachment-id");
             $.ajax({
-                url: '/questions/attachments/' + id,
+                url: '/attachments/' + id,
                 type: 'DELETE',
                 success: function(result) {
                     $("#attachment-" + id).remove();
@@ -61,11 +50,11 @@ if (Globals.inHouseUploading) {
                     .attr("name", "attachmentsIds[]")
                     .attr("value", attachment.id)
                     .attr("id", "input-attachment-" + attachment.id);
-                $(".question-form").append(attachmentId);
+                $(".form-with-upload").append(attachmentId);
                 addUploadedFile(attachment);
                 if (chunk) {
                     var commandProto = Globals.markdownCommandManager;
-                    commandProto.doLinkOrImage(chunk, postProcessing, true, "/questions/attachments/" + attachment.id);
+                    commandProto.doLinkOrImage(chunk, postProcessing, true, "/attachments/" + attachment.id);
                 }
                 uploader.hide();
             }
@@ -75,7 +64,7 @@ if (Globals.inHouseUploading) {
             $(this).unbind(e);
             var file = FileAPI.getFiles(e)[0];
             FileAPI.upload({
-                url: '/questions/attachments',
+                url: '/attachments',
                 files: {file: file},
                 complete: uploadCompleted
             });
@@ -104,9 +93,9 @@ if (Globals.inHouseUploading) {
             }
             function attachmentLink() {
                 return $("<a>")
-                    .attr("href", '/questions/attachments/' + attachment.id)
+                    .attr("href", '/attachments/' + attachment.id)
                     .attr("target", "_blank")
-                    .text('/questions/attachments/' + attachment.id);
+                    .text('/attachments/' + attachment.id);
             }
 
         }

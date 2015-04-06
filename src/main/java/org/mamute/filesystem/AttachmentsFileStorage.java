@@ -38,7 +38,7 @@ public class AttachmentsFileStorage {
 	}
 
 	private File attachmentPath(Attachment attachment) {
-		return new File(attachmentsRoot, attachment.fileName());
+		return new File(attachmentsRoot, attachment.getId().toString());
 	}
 
 	public void delete(Attachment attachment) {

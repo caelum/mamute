@@ -1,22 +1,22 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@attribute name="question" type="org.mamute.model.Question" required="false"%>
+<%@attribute name="attachmentsTarget" type="org.mamute.model.Question" required="false"%>
 
 <c:if test="${env.get('feature.inhouse.upload')}">
     <div class="uploader">
         <label>${t['question.attachments']} - <a class="add-file" href="#">${t['question.attachments.newfile']}</a></label>
-        <table class="uploaded-files ${empty question.attachments ? 'hidden':'' }">
+        <table class="uploaded-files ${empty attachmentsTarget.attachments ? 'hidden':'' }">
             <tr>
                 <th>${t['question.attachments.name']}</th>
                 <th></th>
                 <th></th>
             </tr>
-            <c:forEach items="${question.attachments}" var="attachment">
+            <c:forEach items="${attachmentsTarget.attachments}" var="attachment">
                 <tr id="attachment-${attachment.id}">
                     <td>${attachment.fileName()}</td>
                     <td>
-                        <a href="/question/attachments/${attachment.id}" target="_blank">
-                            /question/attachments/${attachment.id}
+                        <a href="/attachments/${attachment.id}" target="_blank">
+                            /attachments/${attachment.id}
                         </a>
                     </td>
                     <td>

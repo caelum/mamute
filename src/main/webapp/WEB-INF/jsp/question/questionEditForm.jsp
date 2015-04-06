@@ -8,7 +8,7 @@
 
 <h2 class="title subheader page-title">${t['question.edit_form.title']}</h2>
 
-<form class="validated-form question-form hinted-form"
+<form class="validated-form question-form hinted-form form-with-upload"
 	  action='${linkTo[QuestionController].edit(question,null,null,null,null)}' method="post">
 	<label for="question-title">${t['question.title.label']}</label>
 	<input id="question-title" type="text" class="required hintable text-input"
@@ -17,7 +17,7 @@
 	<tags:markDown value="${question.description}" hintId="question-description-hint" htmlClass="required"
 				   minlength="30"/>
 
-    <tags:fileUploader question="${question}"/>
+    <tags:fileUploader attachmentsTarget="${question}"/>
 
 	<label for="tags">${t['question.tags.label']}</label>
 	<ul class="tags autocompleted-tags hidden" id="question-tags-autocomplete"></ul>

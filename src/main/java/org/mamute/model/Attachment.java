@@ -14,9 +14,6 @@ public class Attachment {
 	@Id
 	private Long id;
 
-	@ManyToOne
-	private Question question;
-
 	@Transient
 	private UploadedFile file;
 
@@ -54,12 +51,8 @@ public class Attachment {
 		return id;
 	}
 
-	public void setQuestion(Question question) {
-		this.question = question;
-	}
-
 	public String fileName() {
-		return id.toString();
+		return name;
 	}
 
 	public String getMime() {

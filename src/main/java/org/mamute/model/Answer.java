@@ -73,7 +73,7 @@ public class Answer extends Moderatable implements Post, Notifiable {
 	
 	@Embedded
 	private final ModerationOptions moderationOptions = new ModerationOptions();
-	
+
 	public Answer(AnswerInformation information, Question question, User author) {
 		this.question = question;
 		this.author = author;

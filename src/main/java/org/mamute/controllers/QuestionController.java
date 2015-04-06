@@ -128,9 +128,8 @@ public class QuestionController {
 
 		questions.save(original);
 		List<Attachment> attachmentsLoaded = attachments.load(attachmentsIds);
-		for (Attachment attachment : attachmentsLoaded) {
-			attachment.setQuestion(original);
-		}
+		original.removeAttachments();
+		original.add(attachmentsLoaded);
 		index.indexQuestion(original);
 
 		result.include("mamuteMessages",
@@ -184,9 +183,7 @@ public class QuestionController {
 
 		questions.save(question);
 		index.indexQuestion(question);
-		for (Attachment attachment : attachments) {
-			attachment.setQuestion(question);
-		}
+		question.add(attachments);
 
 		ReputationEvent reputationEvent = new ReputationEvent(EventType.CREATED_QUESTION, question, author);
 		author.increaseKarma(reputationEvent.getKarmaReward());

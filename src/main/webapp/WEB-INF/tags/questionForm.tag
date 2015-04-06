@@ -5,7 +5,7 @@
 
 <c:set var="tagsRequired" value="${env.supports('feature.tags.mandatory') ? 'required' : ''}"/>
 
-<form class="validated-form question-form hinted-form" action='${uri}' method="post" autocomplete="off">
+<form class="validated-form question-form form-with-upload  hinted-form" action='${uri}' method="post" autocomplete="off">
 	<label for="question-title">${t['question.title.label']}</label>
 	<input id="question-title" type="text" class="required hintable text-input question-title-input"
 		   value="${question.title}" data-hint-id="question-title-hint" minlength="15" maxlength="150"

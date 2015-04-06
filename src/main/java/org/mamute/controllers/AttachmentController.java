@@ -51,6 +51,8 @@ public class AttachmentController {
 	@Inject
 	private AttachmentDao attachments;
 	@Inject
+	private QuestionDAO questions;
+	@Inject
 	private AttachmentsFileStorage fileStorage;
 	@Inject
 	private LoggedUser loggedUser;
@@ -71,10 +73,14 @@ public class AttachmentController {
 	}
 
 	@Get
-	public void getAttachment(@Load Attachment attachment) throws IOException {
-		InputStream is = null;
+	public void getAttachment(Long attachmentId) throws IOException {
+		Attachment attachment = attachments.load(attachmentId);
+		if (attachment == null) {
+			result.notFound();
+			return;
+		}
 		try {
-			is = fileStorage.open(attachment);
+			InputStream is = fileStorage.open(attachment);
 			response.setHeader("Content-Type", attachment.getMime());
 			send(is);
 		} catch (FileNotFoundException e) {
@@ -84,8 +90,17 @@ public class AttachmentController {
 
 	@CustomBrutauthRules(LoggedRule.class)
 	@Delete
-	public void deleteAttachment(@Load Attachment attachment) throws IOException {
+	public void deleteAttachment(Long attachmentId) throws IOException {
+		Attachment attachment = attachments.load(attachmentId);
+		if (attachment == null) {
+			result.notFound();
+			return;
+		}
 		User current = loggedUser.getCurrent();
+		Question question = questions.questionWith(attachment);
+		if (question != null){
+			question.remove(attachment);
+		}
 		if (!attachment.canDelete(current) && !current.isModerator()) {
 			result.use(http()).sendError(403);
 			return;
