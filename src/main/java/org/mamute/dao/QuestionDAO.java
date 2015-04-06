@@ -278,5 +278,14 @@ public class QuestionDAO implements PaginatableDAO {
 				.setParameter("a", attachment)
 				.uniqueResult();
 	}
+
+	public void delete(Question question) {
+		session.createQuery("delete QuestionInformation qi where qi.question.id=:id")
+				.setParameter("id", question.getId())
+				.executeUpdate();
+		session.createQuery("delete Question q where q.id=:id")
+				.setParameter("id", question.getId())
+				.executeUpdate();
+	}
 }
 

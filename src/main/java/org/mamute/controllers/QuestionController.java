@@ -10,8 +10,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.observer.upload.UploadedFile;
 import org.apache.commons.io.IOUtils;
+import br.com.caelum.vraptor.*;
 import org.mamute.auth.FacebookAuthService;
 import org.mamute.brutauth.auth.rules.EditQuestionRule;
 import org.mamute.brutauth.auth.rules.InputRule;
@@ -32,10 +34,6 @@ import org.mamute.validators.TagsValidator;
 import org.mamute.vraptor.Linker;
 
 import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
-import br.com.caelum.vraptor.Controller;
-import br.com.caelum.vraptor.Get;
-import br.com.caelum.vraptor.Post;
-import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.hibernate.extra.Load;
 import br.com.caelum.vraptor.routes.annotation.Routed;
 import br.com.caelum.vraptor.validator.Validator;
@@ -205,6 +203,13 @@ public class QuestionController {
 	public void showVoteInformation (@Load Question question, String sluggedTitle){
 		result.include("question", question);
 		redirectToRightUrl(question, sluggedTitle);
+	}
+
+	@Delete
+	public void deleteQuestion(@Load Question question) {
+		questions.delete(question);
+
+		result.redirectTo(ListController.class).home(null);
 	}
 
 	private boolean validate(List<Tag> foundTags, List<String> splitedTags) {

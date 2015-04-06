@@ -67,6 +67,9 @@
 					</c:if>
 					<tags:flagItFor type="pergunta" modalId="question-flag-modal${question.id}" flaggable="${question}"/>
 				</li>
+				<li class="nav-item">
+                    <a href="#" class="delete-question" data-question-id="${question.id}">Delete</a>
+				</li>
 			</ul>
 			<tags:touchesFor touchable="${question}" microdata="true"/>
 		</div>
