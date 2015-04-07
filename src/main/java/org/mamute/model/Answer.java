@@ -4,7 +4,9 @@ import static javax.persistence.FetchType.EAGER;
 import static org.hibernate.annotations.CascadeType.SAVE_UPDATE;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Embedded;
@@ -73,6 +75,9 @@ public class Answer extends Moderatable implements Post, Notifiable {
 	
 	@Embedded
 	private final ModerationOptions moderationOptions = new ModerationOptions();
+
+	@OneToMany
+	private Set<Attachment> attachments = new HashSet<>();
 
 	public Answer(AnswerInformation information, Question question, User author) {
 		this.question = question;
@@ -307,5 +312,21 @@ public class Answer extends Moderatable implements Post, Notifiable {
 	
 	public List<Flag> getFlags() {
 		return flags;
+	}
+
+	public void add(List<Attachment> attachments) {
+		this.attachments.addAll(attachments);
+	}
+
+	public void removeAttachments() {
+		this.attachments.clear();
+	}
+
+	public Set<Attachment> getAttachments() {
+		return attachments;
+	}
+
+	public void remove(Attachment attachment) {
+		this.attachments.remove(attachment);
 	}
 }

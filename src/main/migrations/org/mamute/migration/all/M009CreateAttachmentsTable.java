@@ -7,18 +7,6 @@ import org.mamute.migration.SchemaMigration;
 import javax.enterprise.context.ApplicationScoped;
 import java.util.List;
 
-/**
-
-
-
-
-
- alter table Question_Attachment
- add index FK_ib0aqkj0a4a4l9ku9oai3lw9w (Question_id),
- add constraint FK_ib0aqkj0a4a4l9ku9oai3lw9w
- foreign key (Question_id)
- references Question (id)
- */
 @ApplicationScoped
 public class M009CreateAttachmentsTable implements SchemaMigration {
 	@Override

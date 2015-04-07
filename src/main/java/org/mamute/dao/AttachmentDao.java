@@ -31,6 +31,6 @@ public class AttachmentDao {
 	}
 
 	public Attachment load(Long attachmentId) {
-		return (Attachment) session.load(Attachment.class, attachmentId);
+		return (Attachment) session.get(Attachment.class, attachmentId);
 	}
 }

@@ -1,6 +1,6 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@attribute name="attachmentsTarget" type="org.mamute.model.Question" required="false"%>
+<%@attribute name="attachmentsTarget" type="org.mamute.model.Post" required="false"%>
 
 <c:if test="${env.get('feature.inhouse.upload')}">
     <div class="uploader">

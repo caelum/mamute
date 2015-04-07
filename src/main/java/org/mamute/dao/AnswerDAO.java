@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import org.mamute.dao.WithUserPaginatedDAO.OrderType;
 import org.mamute.dao.WithUserPaginatedDAO.UserRole;
 import org.mamute.model.Answer;
+import org.mamute.model.Attachment;
 import org.mamute.model.User;
 
 @SuppressWarnings("unchecked")
@@ -60,6 +61,11 @@ public class AnswerDAO implements PaginatableDAO{
 		return null;
 	}
 
+	public Answer answerWith(Attachment attachment) {
+		return (Answer) session.createQuery("from Answer where :a in elements(attachments)")
+				.setParameter("a", attachment)
+				.uniqueResult();
+	}
 }
 
 

@@ -53,6 +53,8 @@ public class AttachmentController {
 	@Inject
 	private QuestionDAO questions;
 	@Inject
+	private AnswerDAO answers;
+	@Inject
 	private AttachmentsFileStorage fileStorage;
 	@Inject
 	private LoggedUser loggedUser;
@@ -97,10 +99,8 @@ public class AttachmentController {
 			return;
 		}
 		User current = loggedUser.getCurrent();
-		Question question = questions.questionWith(attachment);
-		if (question != null){
-			question.remove(attachment);
-		}
+		detachFromQuestion(attachment);
+		detachFromAnswer(attachment);
 		if (!attachment.canDelete(current) && !current.isModerator()) {
 			result.use(http()).sendError(403);
 			return;
@@ -108,6 +108,20 @@ public class AttachmentController {
 		attachments.delete(attachment);
 		fileStorage.delete(attachment);
 		result.nothing();
+	}
+
+	private void detachFromAnswer(Attachment attachment) {
+		Answer answer = answers.answerWith(attachment);
+		if (answer != null){
+			answer.remove(attachment);
+		}
+	}
+
+	private void detachFromQuestion(Attachment attachment) {
+		Question question = questions.questionWith(attachment);
+		if (question != null){
+			question.remove(attachment);
+		}
 	}
 
 	private void send(InputStream is) {
