@@ -89,7 +89,7 @@ public class LDAPApi {
 			groupAttr = env.get(LDAP_GROUP, "");
 			moderatorGroup = env.get(LDAP_MODERATOR_GROUP, "");
 			lookupAttrs = env.get(LDAP_LOOKUP, "").split(",");
-			useSsl = env.get(LDAP_USE_SSL, false);
+			useSsl = Boolean.parseBoolean(env.get(LDAP_USE_SSL, "false"));
 		}
 	}
 
