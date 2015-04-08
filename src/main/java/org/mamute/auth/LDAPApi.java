@@ -49,6 +49,7 @@ public class LDAPApi {
 	public static final String LDAP_LOOKUP = "ldap.lookupAttr";
 	public static final String LDAP_MODERATOR_GROUP = "ldap.moderatorGroup";
 	public static final String PLACHOLDER_PASSWORD = "ldap-password-ignore-me";
+	public static final String LDAP_USE_SSL = "ldap.useSSL";
 
 	@Inject private Environment env;
 	@Inject private UserDAO users;
@@ -65,6 +66,7 @@ public class LDAPApi {
 	private String groupAttr;
 	private String[] lookupAttrs;
 	private String moderatorGroup;
+	private Boolean useSsl;
 
 	/**
 	 * Ensure that required variables are set if LDAP auth
@@ -87,6 +89,7 @@ public class LDAPApi {
 			groupAttr = env.get(LDAP_GROUP, "");
 			moderatorGroup = env.get(LDAP_MODERATOR_GROUP, "");
 			lookupAttrs = env.get(LDAP_LOOKUP, "").split(",");
+			useSsl = env.get(LDAP_USE_SSL, false);
 		}
 	}
 
@@ -205,7 +208,7 @@ public class LDAPApi {
 		}
 
 		private LdapConnection connection(String username, String password) throws LdapException {
-			LdapNetworkConnection conn = new LdapNetworkConnection(host, port);
+			LdapNetworkConnection conn = new LdapNetworkConnection(host, port, useSsl);
 			conn.bind(username, password);
 			return conn;
 		}
