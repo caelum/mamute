@@ -280,12 +280,20 @@ public class QuestionDAO implements PaginatableDAO {
 	}
 
 	public void delete(Question question) {
-		session.createQuery("delete QuestionInformation qi where qi.question.id=:id")
+		session.createSQLQuery("SET foreign_key_checks = 0").executeUpdate();
+		session.createSQLQuery("delete from QuestionInformation_Tag where QuestionInformation_id=:id")
+				.setParameter("id", question.getInformation().getId())
+				.executeUpdate();
+		session.createSQLQuery("delete from Question_Watchers where Question_id=:id")
 				.setParameter("id", question.getId())
 				.executeUpdate();
-		session.createQuery("delete Question q where q.id=:id")
+		session.createQuery("delete from QuestionInformation where question.id=:id")
 				.setParameter("id", question.getId())
 				.executeUpdate();
+		session.createQuery("delete from Question where id=:id")
+				.setParameter("id", question.getId())
+				.executeUpdate();
+		session.createSQLQuery("SET foreign_key_checks = 1").executeUpdate();
 	}
 }
 
