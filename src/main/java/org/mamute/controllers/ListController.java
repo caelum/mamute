@@ -84,7 +84,6 @@ public class ListController {
 		result.include("totalPages", questions.numberOfPages());
 		result.include("currentPage", page);
 		result.forwardTo("/WEB-INF/jsp/list/questionListPagelet.jspf");
-		System.out.println("executing questionListPagelet");
 	}
 
 	@Cached(key="sideBarPagelet", duration = 30, idleTime = 30)

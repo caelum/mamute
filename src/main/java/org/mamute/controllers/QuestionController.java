@@ -209,6 +209,11 @@ public class QuestionController {
 
 	@Delete
 	public void deleteQuestion(@Load Question question) {
+		if (!currentUser.isModerator() && !question.hasAuthor(currentUser.getCurrent())) {
+			result.use(http()).sendError(403);
+			return;
+		}
+
 		I18nMessage errorMessage = messageFactory.build("error", "question.errors.deletion");
 		if (!question.isDeletable()) {
 			result.use(http())
