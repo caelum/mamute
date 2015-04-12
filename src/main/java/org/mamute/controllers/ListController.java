@@ -53,8 +53,7 @@ public class ListController {
 		result.include("currentPage", page);
 		result.include("currentUser", loggedUser);
 
-		if (message != null) {
-
+		if (message != null && !message.getText().isEmpty()) {
 			result.include("mamuteMessages",
 					asList(messageFactory.build("confirmation", message.getText())));
 		}
