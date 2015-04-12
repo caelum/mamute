@@ -11,7 +11,9 @@ import static org.hibernate.criterion.Restrictions.isNull;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -281,11 +283,10 @@ public class QuestionDAO implements PaginatableDAO {
 
 	public void delete(Question question) {
 		session.createSQLQuery("SET foreign_key_checks = 0").executeUpdate();
+		deleteRelationshipTables(question);
+		deleteAttachments(question);
 		session.createSQLQuery("delete from QuestionInformation_Tag where QuestionInformation_id=:id")
 				.setParameter("id", question.getInformation().getId())
-				.executeUpdate();
-		session.createSQLQuery("delete from Question_Watchers where Question_id=:id")
-				.setParameter("id", question.getId())
 				.executeUpdate();
 		session.createQuery("delete from QuestionInformation where question.id=:id")
 				.setParameter("id", question.getId())
@@ -294,6 +295,28 @@ public class QuestionDAO implements PaginatableDAO {
 				.setParameter("id", question.getId())
 				.executeUpdate();
 		session.createSQLQuery("SET foreign_key_checks = 1").executeUpdate();
+	}
+
+	private void deleteRelationshipTables(Question question) {
+		List<String> relationshipTables = Arrays.asList("Question_Watchers", "Question_Attachment", "Question_Interactions");
+		for (String table : relationshipTables) {
+			String query = "delete from %s where Question_id=:id";
+			session.createSQLQuery(String.format(query, table))
+				.setParameter("id", question.getId())
+				.executeUpdate();
+		}
+	}
+
+	private void deleteAttachments(Question question) {
+		ArrayList<Long> ids = new ArrayList<>();
+		for (Attachment attachment : question.getAttachments()) {
+			ids.add(attachment.getId());
+		}
+		if (!ids.isEmpty()) {
+			session.createQuery("delete from Attachment where id in :ids")
+				.setParameterList("ids", ids)
+				.executeUpdate();
+		}
 	}
 }
 

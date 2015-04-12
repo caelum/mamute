@@ -1,5 +1,6 @@
 package org.mamute.controllers;
 
+import static br.com.caelum.vraptor.view.Results.http;
 import static java.util.Arrays.asList;
 
 import java.io.FileNotFoundException;
@@ -12,6 +13,7 @@ import javax.inject.Inject;
 
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.observer.upload.UploadedFile;
+import br.com.caelum.vraptor.validator.I18nMessage;
 import org.apache.commons.io.IOUtils;
 import br.com.caelum.vraptor.*;
 import org.mamute.auth.FacebookAuthService;
@@ -207,9 +209,16 @@ public class QuestionController {
 
 	@Delete
 	public void deleteQuestion(@Load Question question) {
+		I18nMessage errorMessage = messageFactory.build("error", "question.errors.deletion");
+		if (!question.isDeletable()) {
+			result.use(http())
+				.body(errorMessage.getMessage())
+				.setStatusCode(400);
+			return;
+		}
 		questions.delete(question);
 
-		result.redirectTo(ListController.class).home(null);
+		result.nothing();
 	}
 
 	private boolean validate(List<Tag> foundTags, List<String> splitedTags) {

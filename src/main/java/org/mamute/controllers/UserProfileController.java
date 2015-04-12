@@ -109,7 +109,7 @@ public class UserProfileController extends BaseController{
 	@Get
 	public void editProfile(@Load User user){
 		if (!user.getId().equals(currentUser.getCurrent().getId())){
-			result.redirectTo(ListController.class).home(null);
+			result.redirectTo(ListController.class).home(null, null);
 			return;
 		}
 		result.include("user", user);
@@ -121,7 +121,7 @@ public class UserProfileController extends BaseController{
 	public void editProfile(@Load User user, SanitizedText name, String email, 
 			SanitizedText website, SanitizedText location, DateTime birthDate, MarkedText description, boolean isSubscribed) {
 		if (!user.getId().equals(currentUser.getCurrent().getId())){
-			result.redirectTo(ListController.class).home(null);
+			result.redirectTo(ListController.class).home(null, null);
 			return;
 		}
 		
@@ -156,12 +156,12 @@ public class UserProfileController extends BaseController{
 		
 		if (!correctHash.equals(hash)) {
 			result.include("mamuteMessages", asList(messageFactory.build("errors", "newsletter.unsubscribe_page.invalid")));
-			result.redirectTo(ListController.class).home(null);
+			result.redirectTo(ListController.class).home(null, null);
 			return;
 		}
 		result.include("mamuteMessages", asList(messageFactory.build("messages", "newsletter.unsubscribe_page.valid")));
 		user.setSubscribed(false);
-		result.redirectTo(ListController.class).home(null);
+		result.redirectTo(ListController.class).home(null, null);
 	}
 	
 	@CustomBrutauthRules(ModeratorOnlyRule.class)

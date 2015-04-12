@@ -11,10 +11,8 @@ import org.mamute.components.RecentTagsContainer;
 import org.mamute.dao.NewsDAO;
 import org.mamute.dao.QuestionDAO;
 import org.mamute.dao.TagDAO;
-import org.mamute.model.LoggedUser;
-import org.mamute.model.News;
-import org.mamute.model.Question;
-import org.mamute.model.Tag;
+import org.mamute.factory.MessageFactory;
+import org.mamute.model.*;
 import org.mamute.stream.Streamed;
 
 import br.com.caelum.vraptor.Controller;
@@ -22,6 +20,8 @@ import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.actioncache.Cached;
 import br.com.caelum.vraptor.routes.annotation.Routed;
+
+import static java.util.Arrays.asList;
 
 @Routed
 @Controller
@@ -35,27 +35,34 @@ public class ListController {
 	@Inject private NewsDAO newses;
 	@Inject private RecentTagsContainer tagsContainer;
 	@Inject private HttpServletResponse response;
+	@Inject private MessageFactory messageFactory;
 	
 	@Get
-	public void home(Integer p) {
+	public void home(Integer p, SanitizedText message) {
 		Integer page = getPage(p);
 		List<Question> visible = questions.allVisible(page);
 		if (visible.isEmpty() && page != 1) {
 			result.notFound();
 			return;
 		}
-		List<String> tabs = Arrays.asList("voted", "answered", "viewed");
+		List<String> tabs = asList("voted", "answered", "viewed");
 		result.include("tabs", tabs);
 
 		result.include("questions", visible);
 		result.include("totalPages", questions.numberOfPages());
 		result.include("currentPage", page);
 		result.include("currentUser", loggedUser);
+
+		if (message != null) {
+
+			result.include("mamuteMessages",
+					asList(messageFactory.build("confirmation", message.getText())));
+		}
 	}
 
 	@Streamed
 	public void streamedHome(Integer p) {
-		List<String> tabs = Arrays.asList("voted", "answered", "viewed");
+		List<String> tabs = asList("voted", "answered", "viewed");
 		result.include("tabs", tabs);
 		result.include("currentUser", loggedUser);
 	}
@@ -63,7 +70,7 @@ public class ListController {
 	@Cached(key="questionListPagelet", duration = 30, idleTime = 30)
 	@Streamed
 	public void questionListPagelet(Integer p) {
-		List<String> tabs = Arrays.asList("voted", "answered", "viewed");
+		List<String> tabs = asList("voted", "answered", "viewed");
 		result.include("tabs", tabs);
 		result.include("currentUser", loggedUser);
 		Integer page = getPage(p);
@@ -98,7 +105,7 @@ public class ListController {
 	public void top(String section) {
 		Integer count = 35;
 		
-		List<String> tabs = Arrays.asList("voted", "answered", "viewed");
+		List<String> tabs = asList("voted", "answered", "viewed");
 		if (!tabs.contains(section)) {
 			section = tabs.get(0);
 			result.redirectTo(this).top(section);
@@ -120,7 +127,7 @@ public class ListController {
 	
 	@Get
 	public void hackedIndex() {
-		result.redirectTo(this).home(1);
+		result.redirectTo(this).home(1, null);
 	}
 
 	@Get

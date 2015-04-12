@@ -491,4 +491,8 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 	public void removeAttachments() {
 		this.attachments.clear();
 	}
+
+	public boolean isDeletable() {
+		return answerCount == 0 && flags.isEmpty() && comments.isEmpty();
+	}
 }
