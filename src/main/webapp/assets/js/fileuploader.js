@@ -16,6 +16,7 @@ if (Globals.inHouseUploading) {
                 success: function(result) {
                     $("#attachment-" + id).remove();
                     $("#input-attachment-" + id).remove();
+                    Globals.markdownEditor.refreshPreview();
                 }
             });
         }
@@ -54,9 +55,12 @@ if (Globals.inHouseUploading) {
                 addUploadedFile(attachment);
                 if (chunk) {
                     var commandProto = Globals.markdownCommandManager;
-                    commandProto.doLinkOrImage(chunk, postProcessing, true, "/attachments/" + attachment.id);
+                    commandProto.doCustomImage(chunk, postProcessing, true,
+                        "/attachments/" + attachment.id, null, attachment.name);
                 }
                 uploader.hide();
+                Globals.markdownEditor.refreshPreview();
+                $("#wmd-preview").removeClass("hidden");
             }
         };
 

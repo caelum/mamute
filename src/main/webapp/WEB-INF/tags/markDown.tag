@@ -26,5 +26,5 @@
 			maxlength="${maxlength}"
 			name="${name}"><c:out value="${value}" escapeXml="true"/></textarea>
 	</div>
-	<div class="md-panel md-preview hidden"></div>
+	<div id="wmd-preview" class="md-panel md-preview hidden"></div>
 </div>

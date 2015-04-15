@@ -143,7 +143,9 @@
             uiManager = new UIManager(idPostfix, panels, undoManager, previewManager, commandManager, options.helpButton, getString);
             uiManager.setUndoRedoButtonStates();
 
-            var forceRefresh = that.refreshPreview = function () { previewManager.refresh(true); };
+            var forceRefresh = that.refreshPreview = function () {
+                previewManager.refresh(true);
+            };
 
             forceRefresh();
         };
@@ -1627,7 +1629,7 @@
         return text;
     };
 
-    commandProto.addLinkDef = function (chunk, linkDef) {
+    commandProto.addLinkDef = function (chunk, linkDef, linkRef) {
 
         var refNumber = 0; // The current reference number
         var defsToAdd = {}; //
@@ -1641,7 +1643,8 @@
 
         var addDefNumber = function (def) {
             refNumber++;
-            def = def.replace(/^[ ]{0,3}\[(\d+)\]:/, "  [" + refNumber + "]:");
+            linkRef = linkRef? linkRef : refNumber;
+            def = def.replace(/^[ ]{0,3}\[(\d+)\]:/, "  [" + linkRef + "]:");
             defs += "\n" + def;
         };
 
@@ -1668,7 +1671,7 @@
             chunk.selection = chunk.selection.replace(regex, getLink);
         }
 
-        var refOut = refNumber;
+        var refOut = linkRef;
 
         chunk.after = chunk.after.replace(regex, getLink);
 
@@ -1704,7 +1707,7 @@
         });
     }
     
-    commandProto.doLinkOrImage = function (chunk, postProcessing, isImage, link) {
+    commandProto.doLinkOrImage = function (chunk, postProcessing, isImage, link, linkRef, linkAlt) {
         chunk.trimWhitespace();
         chunk.findTags(/\s*!?\[/, /\][ ]?(?:\n[ ]*)?(\[.*?\])?/);
         var background;
@@ -1758,13 +1761,14 @@
                     
                     var linkDef = " [999]: " + properlyEncoded(link);
 
-                    var num = that.addLinkDef(chunk, linkDef);
+                    var num = that.addLinkDef(chunk, linkDef, linkRef);
                     chunk.startTag = isImage ? "![" : "[";
                     chunk.endTag = "][" + num + "]";
 
+                    var selection = linkAlt ? linkAlt : link;
                     if (!chunk.selection) {
                         if (isImage) {
-                            chunk.selection = link;
+                            chunk.selection = selection;
                         }
                         else {
                             chunk.selection = that.getString("linkdescription");
@@ -1778,6 +1782,64 @@
 
             if (isImage) {
             	linkEnteredCallback(link);
+            }
+            else {
+                ui.prompt(this.getString("linkdialog"), linkDefaultText, linkEnteredCallback);
+            }
+            return true;
+        }
+    };
+
+    commandProto.doCustomImage = function (chunk, postProcessing, isImage, link, linkRef, linkAlt) {
+        chunk.trimWhitespace();
+        chunk.findTags(/\s*!?\[/, /\][ ]?(?:\n[ ]*)?(\[.*?\])?/);
+        var background;
+
+        if (chunk.endTag.length > 1 && chunk.startTag.length > 0) {
+
+            chunk.startTag = chunk.startTag.replace(/!?\[/, "");
+            chunk.endTag = "";
+            this.addLinkDef(chunk, null);
+
+        }
+        else {
+            chunk.selection = chunk.startTag + chunk.selection + chunk.endTag;
+            chunk.startTag = chunk.endTag = "";
+
+            if (/\n\n/.test(chunk.selection)) {
+                this.addLinkDef(chunk, null);
+                return;
+            }
+            var that = this;
+            var linkEnteredCallback = function (link) {
+
+                background.parentNode.removeChild(background);
+
+                if (link !== null) {
+                    chunk.selection = (" " + chunk.selection).replace(/([^\\](?:\\\\)*)(?=[[\]])/g, "$1\\").substr(1);
+
+                    var linkDef = " [999]: " + properlyEncoded(link);
+
+                    chunk.startTag = isImage ? "![" : "[";
+                    chunk.endTag = "](" + link + ") ";
+
+                    var selection = linkAlt ? linkAlt : link;
+                    if (!chunk.selection) {
+                        if (isImage) {
+                            chunk.selection = selection;
+                        }
+                        else {
+                            chunk.selection = that.getString("linkdescription");
+                        }
+                    }
+                }
+                postProcessing();
+            };
+
+            background = ui.createBackground();
+
+            if (isImage) {
+                linkEnteredCallback(link);
             }
             else {
                 ui.prompt(this.getString("linkdialog"), linkDefaultText, linkEnteredCallback);
