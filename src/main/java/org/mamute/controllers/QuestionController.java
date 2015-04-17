@@ -27,6 +27,7 @@ import org.mamute.model.post.PostViewCounter;
 import org.mamute.model.watch.Watcher;
 import org.mamute.search.QuestionIndex;
 import org.mamute.util.TagsSplitter;
+import org.mamute.validators.AttachmentsValidator;
 import org.mamute.validators.TagsValidator;
 import org.mamute.vraptor.Linker;
 
@@ -60,6 +61,7 @@ public class QuestionController {
 	private TagsManager tagsManager;
 	private TagsSplitter splitter;
 	private AttachmentDao attachments;
+	private AttachmentsValidator attachmentsValidator;
 	private QuestionIndex index;
 
 
@@ -75,7 +77,8 @@ public class QuestionController {
 			TagsValidator tagsValidator, MessageFactory messageFactory,
 			Validator validator, PostViewCounter viewCounter,
 			Linker linker, WatcherDAO watchers, ReputationEventDAO reputationEvents,
-			BrutalValidator brutalValidator, TagsManager tagsManager, TagsSplitter splitter, AttachmentDao attachments) {
+			BrutalValidator brutalValidator, TagsManager tagsManager, TagsSplitter splitter,
+			AttachmentDao attachments, AttachmentsValidator attachmentsValidator) {
 		this.result = result;
 		this.questions = questionDAO;
 		this.index = index;
@@ -93,6 +96,7 @@ public class QuestionController {
 		this.tagsManager = tagsManager;
 		this.splitter = splitter;
 		this.attachments = attachments;
+		this.attachmentsValidator = attachmentsValidator;
 	}
 
 	@Get
@@ -169,6 +173,7 @@ public class QuestionController {
 	public void newQuestion(String title, MarkedText description, String tagNames, boolean watching,
 							List<Long> attachmentsIds) {
 		List<Attachment> attachments = this.attachments.load(attachmentsIds);
+		attachmentsValidator.validate(attachments);
 		List<String> splitedTags = splitter.splitTags(tagNames);
 
 		List<Tag> foundTags = tagsManager.findOrCreate(splitedTags);

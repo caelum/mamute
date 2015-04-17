@@ -67,6 +67,18 @@ if (Globals.inHouseUploading) {
         var onUpload = function (e) {
             $(this).unbind(e);
             var file = FileAPI.getFiles(e)[0];
+
+            var filenames = $.map($('.attachment-name'), function( val, i ) {
+                return val.innerText;
+            });
+
+            debugger;
+            if (filenames.indexOf(file.name) >= 0) {
+                var error = $("<p class='error' style='margin:0'>").text("File names must be unique");
+                uploaderContent.prepend(error);
+                return;
+            }
+
             FileAPI.upload({
                 url: '/attachments',
                 files: {file: file},
@@ -82,7 +94,7 @@ if (Globals.inHouseUploading) {
             var id = attachment.id;
             line.attr("id", "attachment-" + id);
 
-            line.append($("<td>").text(attachment.name));
+            line.append($("<td class='attachment-name'>").text(attachment.name));
             line.append($("<td>").append(attachmentLink()));
             line.append($("<td>").append(removeLink(attachment)));
 

@@ -66,4 +66,12 @@ public class Attachment {
 	public boolean canDelete(User user) {
 		return getOwner().equals(user);
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 }
