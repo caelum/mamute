@@ -65,14 +65,12 @@ if (Globals.inHouseUploading) {
         };
 
         var onUpload = function (e) {
-            $(this).unbind(e);
             var file = FileAPI.getFiles(e)[0];
 
             var filenames = $.map($('.attachment-name'), function( val, i ) {
                 return val.innerText;
             });
 
-            debugger;
             if (filenames.indexOf(file.name) >= 0) {
                 var error = $("<p class='error' style='margin:0'>").text("File names must be unique");
                 uploaderContent.prepend(error);
@@ -84,6 +82,7 @@ if (Globals.inHouseUploading) {
                 files: {file: file},
                 complete: uploadCompleted
             });
+            $(this).unbind(e);
             uploadInput.remove();
             uploaderContent.append($("<img>").attr("src", "/imgs/loading.gif"));
         };
