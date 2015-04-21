@@ -1,9 +1,9 @@
 $(function() {
     $(".delete-question").click(function(e) {
         e.preventDefault();
-        var id = $(this).data("question-id");
+        var url = $(this).attr("href");
         $.ajax({
-            url: "/question/" + id,
+            url: url,
             method: "DELETE",
             complete: function(xhr, status) {
                 if (xhr.status == 200) {

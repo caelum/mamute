@@ -67,9 +67,16 @@
 					</c:if>
 					<tags:flagItFor type="pergunta" modalId="question-flag-modal${question.id}" flaggable="${question}"/>
 				</li>
-                <c:if test="${currentUser.current.isAuthorOf(question) or currentUser.moderator}">
+                <c:if test="${currentUser.current.isAuthorOf(question) and not currentUser.moderator}">
                     <li class="nav-item">
-                        <a href="#" class="delete-question" data-question-id="${question.id}">Delete</a>
+                        <a href="/question/${question.id}" class="delete-question">Delete</a>
+                    </li>
+                </c:if>
+                <c:if test="${currentUser.moderator}">
+                    <li class="nav-item">
+                        <a href="/question/${question.id}/fully" class="delete-question">
+                            Delete whole thread
+                        </a>
                     </li>
                 </c:if>
 			</ul>

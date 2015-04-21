@@ -26,10 +26,7 @@ import org.hibernate.sql.JoinType;
 import org.joda.time.DateTime;
 import org.mamute.dao.WithUserPaginatedDAO.OrderType;
 import org.mamute.dao.WithUserPaginatedDAO.UserRole;
-import org.mamute.model.Attachment;
-import org.mamute.model.Question;
-import org.mamute.model.Tag;
-import org.mamute.model.User;
+import org.mamute.model.*;
 import org.mamute.model.interfaces.RssContent;
 
 @SuppressWarnings("unchecked")
@@ -283,22 +280,29 @@ public class QuestionDAO implements PaginatableDAO {
 
 	public void delete(Question question) {
 		session.createSQLQuery("SET foreign_key_checks = 0").executeUpdate();
-		deleteRelationshipTables(question);
+		QuestionQuery query = new QuestionQuery(question);
+
+		query.execute("delete f,qf from Question q" +
+				" join Question_Flags qf on qf.Question_id=q.id" +
+				" join Flag f on f.id=qf.flags_id" +
+				" where q.id=:id");
+		query.execute("delete w,qw from Question q" +
+				" join Question_Watchers qw on qw.Question_id=q.id" +
+				" join Watcher w on w.id=qw.watchers_id" +
+				" where q.id=:id");
+
 		deleteAttachments(question);
+		deleteRelationshipTables(question);
 		session.createSQLQuery("delete from QuestionInformation_Tag where QuestionInformation_id=:id")
 				.setParameter("id", question.getInformation().getId())
 				.executeUpdate();
-		session.createQuery("delete from QuestionInformation where question.id=:id")
-				.setParameter("id", question.getId())
-				.executeUpdate();
-		session.createQuery("delete from Question where id=:id")
-				.setParameter("id", question.getId())
-				.executeUpdate();
+		query.execute("delete from QuestionInformation where question_id=:id");
+		query.execute("delete from Question where id=:id");
 		session.createSQLQuery("SET foreign_key_checks = 1").executeUpdate();
 	}
 
 	private void deleteRelationshipTables(Question question) {
-		List<String> relationshipTables = Arrays.asList("Question_Watchers", "Question_Attachment", "Question_Interactions");
+		List<String> relationshipTables = Arrays.asList("Question_Interactions");
 		for (String table : relationshipTables) {
 			String query = "delete from %s where Question_id=:id";
 			session.createSQLQuery(String.format(query, table))
@@ -318,5 +322,73 @@ public class QuestionDAO implements PaginatableDAO {
 				.executeUpdate();
 		}
 	}
-}
 
+	public void deleteFully(Question question) {
+		session.createSQLQuery("SET foreign_key_checks = 0").executeUpdate();
+
+		QuestionQuery query = new QuestionQuery(question);
+		query.execute("delete av, v from Answer a" +
+				" join Answer_Votes av on a.id=av.Answer_id" +
+				" join Vote v on av.votes_id=v.id" +
+				" where a.question_id=:id");
+		query.execute("delete av, v from Answer a" +
+				" join Answer_Votes av on a.id=av.Answer_id" +
+				" join Vote v on av.votes_id=v.id" +
+				" where a.question_id=:id");
+		query.execute(" delete c from Comment c" +
+				" join Answer_Comments ac on c.id=ac.comments_id" +
+				" join Answer a on ac.Answer_id=a.id" +
+				" where a.question_id=:id");
+		query.execute("delete at,aa from Answer a" +
+				" join Answer_Attachment aa on aa.Answer_id=a.id" +
+				" join Attachment at on at.id=aa.attachments_id" +
+				" where a.question_id=:id");
+		query.execute("delete f,af from Answer a" +
+				" join Answer_Flags af on af.Answer_id=a.id" +
+				" join Flag f on f.id=af.flags_id" +
+				" where a.question_id=:id");
+
+		query.execute("delete ai,a from Answer a" +
+				" join AnswerInformation ai on a.id=ai.answer_id" +
+				" where a.question_id=:id");
+
+		query.execute("delete f,cf from Comment c" +
+				" join Question_Comments qc on c.id=qc.comments_id" +
+				" join Comment_Flags cf on cf.Comment_id=c.id" +
+				" join Flag f on f.id=cf.flags_id" +
+				" where qc.Question_id=:id");
+		query.execute("delete v,cv from Comment c" +
+				" join Question_Comments qc on c.id=qc.comments_id" +
+				" join Comment_Votes cv on cv.Comment_id=c.id" +
+				" join Vote v on v.id=cv.votes_id" +
+				" where qc.Question_id=:id");
+		query.execute("delete c,qc from Comment c" +
+				" join Question_Comments qc on c.id=qc.comments_id" +
+				" where qc.Question_id=:id");
+
+		this.delete(question);
+
+		session.createSQLQuery("SET foreign_key_checks = 1").executeUpdate();
+	}
+
+	private class QuestionQuery {
+		private final Question question;
+
+		public QuestionQuery(Question question) {
+			this.question = question;
+		}
+
+		public void runFor(String query) {
+			session.createQuery(query).setParameter("id", question.getId())
+				.executeUpdate();
+		}
+
+		public void execute(String query) {
+			System.out.println(query);
+
+			session.createSQLQuery(query)
+					.setParameter("id", question.getId())
+					.executeUpdate();
+		}
+	}
+}

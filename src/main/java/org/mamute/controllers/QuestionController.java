@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import br.com.caelum.brutauth.auth.annotations.SimpleBrutauthRules;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.observer.upload.UploadedFile;
 import br.com.caelum.vraptor.validator.I18nMessage;
@@ -222,6 +223,14 @@ public class QuestionController {
 			return;
 		}
 		questions.delete(question);
+
+		result.nothing();
+	}
+
+	@CustomBrutauthRules({ModeratorOnlyRule.class})
+	@Delete
+	public void deleteQuestionFully(@Load Question question) {
+		questions.deleteFully(question);
 
 		result.nothing();
 	}
