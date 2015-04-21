@@ -290,6 +290,7 @@ public class QuestionDAO implements PaginatableDAO {
 				" join Question_Watchers qw on qw.Question_id=q.id" +
 				" join Watcher w on w.id=qw.watchers_id" +
 				" where q.id=:id");
+		query.execute("delete from ReputationEvent where context_id=:id and context_type='QUESTION'");
 
 		deleteAttachments(question);
 		deleteRelationshipTables(question);
@@ -366,7 +367,14 @@ public class QuestionDAO implements PaginatableDAO {
 				" join Question_Comments qc on c.id=qc.comments_id" +
 				" where qc.Question_id=:id");
 
+		query.execute("delete re from Answer a " +
+				" join Question q on q.id=a.question_id " +
+				" join ReputationEvent re on re.context_id=a.id " +
+				" and context_type='ANSWER'" +
+				" and q.id=:id");
+
 		this.delete(question);
+
 
 		session.createSQLQuery("SET foreign_key_checks = 1").executeUpdate();
 	}
