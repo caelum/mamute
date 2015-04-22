@@ -13,7 +13,13 @@
 </div>
 <div class="image-and-information">
 	<img class="profile-image" src="${user.getBigPhoto(env.get('gravatar.avatar.url'))}"/>
-	<a href="${t['gravatar.url']}">${t['user_profile.edit.photo']}</a>
+    <c:if test="${!env.supports('feature.inhouse.upload')}">
+	    <a href="${t['gravatar.url']}">${t['user_profile.edit.photo']}</a>
+    </c:if>
+    <c:if test="${env.supports('feature.inhouse.upload')}">
+	    <p>${t['user_profile.upload.photo']}</p>
+        <input class="profile-photo-upload" data-user-id="${user.id}" type="file">
+    </c:if>
 </div>
 
 <form class="validated-form profile-edit-form" action="${linkTo[UserProfileController].editProfile(user)}" method="POST">

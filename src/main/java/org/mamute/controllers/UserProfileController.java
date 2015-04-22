@@ -1,5 +1,6 @@
 package org.mamute.controllers;
 
+import static br.com.caelum.vraptor.view.Results.json;
 import static java.util.Arrays.asList;
 import static org.mamute.dao.WithUserPaginatedDAO.OrderType.ByDate;
 import static org.mamute.dao.WithUserPaginatedDAO.OrderType.ByVotes;
@@ -7,23 +8,16 @@ import static org.mamute.model.SanitizedText.fromTrustedText;
 
 import javax.inject.Inject;
 
+import br.com.caelum.vraptor.observer.upload.UploadedFile;
 import org.joda.time.DateTime;
+import org.mamute.brutauth.auth.rules.LoggedRule;
 import org.mamute.brutauth.auth.rules.ModeratorOnlyRule;
-import org.mamute.dao.AnswerDAO;
-import org.mamute.dao.FlaggableDAO;
-import org.mamute.dao.PaginatableDAO;
-import org.mamute.dao.QuestionDAO;
-import org.mamute.dao.ReputationEventDAO;
-import org.mamute.dao.TagDAO;
-import org.mamute.dao.UserDAO;
-import org.mamute.dao.WatcherDAO;
+import org.mamute.dao.*;
 import org.mamute.dao.WithUserPaginatedDAO.OrderType;
 import org.mamute.dto.UserPersonalInfo;
 import org.mamute.factory.MessageFactory;
-import org.mamute.model.LoggedUser;
-import org.mamute.model.MarkedText;
-import org.mamute.model.SanitizedText;
-import org.mamute.model.User;
+import org.mamute.infra.ClientIp;
+import org.mamute.model.*;
 import org.mamute.validators.UserPersonalInfoValidator;
 
 import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
@@ -51,6 +45,8 @@ public class UserProfileController extends BaseController{
 	@Inject private ReputationEventDAO reputationEvents;
 	@Inject private MessageFactory messageFactory;
 	@Inject private FlaggableDAO flaggable;
+	@Inject private ClientIp clientIp;
+	@Inject private AttachmentDao attachments;
 
 	@Get
 	public void showProfile(@Load User user, String sluggedName){
@@ -175,6 +171,15 @@ public class UserProfileController extends BaseController{
 			users.clearSessionOf(user);
 		}
 		result.nothing();
+	}
+
+	@CustomBrutauthRules(LoggedRule.class)
+	@Post
+	public void uploadAvatar(UploadedFile avatar, @Load User user) {
+		Attachment attachment = new Attachment(avatar, user, clientIp.get());
+		attachments.save(attachment);
+		user.setAvatar(attachment);
+		result.use(json()).withoutRoot().from(attachment).serialize();
 	}
 
 	private SanitizedText correctWebsite(SanitizedText website) {

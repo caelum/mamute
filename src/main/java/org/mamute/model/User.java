@@ -27,12 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.inject.Vetoed;
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -117,8 +112,10 @@ public class User implements Identifiable {
 	
 	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
 	private DateTime lastUpvote = new DateTime();
-	
-	
+
+	@ManyToOne
+	private Attachment avatarImage;
+
 	static {
 		GHOST = new User(fromTrustedText("GHOST"), "");
 		GHOST.setId(1000l);
@@ -410,5 +407,9 @@ public class User implements Identifiable {
 
 	public boolean hasKarma() {
 		return (this.karma >= 0);
+	}
+
+	public void setAvatar(Attachment attachment) {
+		this.avatarImage = attachment;
 	}
 }
