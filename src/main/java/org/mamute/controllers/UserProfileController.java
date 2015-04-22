@@ -16,6 +16,7 @@ import org.mamute.dao.*;
 import org.mamute.dao.WithUserPaginatedDAO.OrderType;
 import org.mamute.dto.UserPersonalInfo;
 import org.mamute.factory.MessageFactory;
+import org.mamute.filesystem.AttachmentsFileStorage;
 import org.mamute.infra.ClientIp;
 import org.mamute.model.*;
 import org.mamute.validators.UserPersonalInfoValidator;
@@ -47,6 +48,7 @@ public class UserProfileController extends BaseController{
 	@Inject private FlaggableDAO flaggable;
 	@Inject private ClientIp clientIp;
 	@Inject private AttachmentDao attachments;
+	@Inject private AttachmentsFileStorage fileStorage;
 
 	@Get
 	public void showProfile(@Load User user, String sluggedName){
@@ -178,6 +180,14 @@ public class UserProfileController extends BaseController{
 	public void uploadAvatar(UploadedFile avatar, @Load User user) {
 		Attachment attachment = new Attachment(avatar, user, clientIp.get());
 		attachments.save(attachment);
+		fileStorage.save(attachment);
+
+		Attachment old = user.getAvatar();
+		if (old != null) {
+			attachments.delete(old);
+			fileStorage.delete(old);
+		}
+
 		user.setAvatar(attachment);
 		result.use(json()).withoutRoot().from(attachment).serialize();
 	}

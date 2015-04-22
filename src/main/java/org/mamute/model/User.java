@@ -39,6 +39,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Years;
 import org.mamute.auth.rules.PermissionRulesConstants;
 import org.mamute.dto.UserPersonalInfo;
+import org.mamute.filesystem.AttachmentsFileStorage;
 import org.mamute.infra.Digester;
 import org.mamute.model.interfaces.Identifiable;
 import org.mamute.model.interfaces.Moderatable;
@@ -243,6 +244,9 @@ public class User implements Identifiable {
 	}
 	
 	public String getPhoto(Integer width, Integer height, String gravatarUrl) {
+		if (this.avatarImage != null) {
+			return localAvatarPhoto(width, height);
+		}
 		String size = width + "x" + height;
 		if (photoUri == null) {
 			String digest = Digester.md5(email);
@@ -259,7 +263,13 @@ public class User implements Identifiable {
 			return photoUri + "?width=" + width + "&height=" + height;
 		}
 	}
-	
+
+	private String localAvatarPhoto(Integer width, Integer height) {
+		String format = "/attachments/%d?w=%d&h=%d";
+		String url = String.format(format, avatarImage.getId(), width, height);
+		return url;
+	}
+
 	public String getAbout() {
 		return about;
 	}
@@ -411,5 +421,9 @@ public class User implements Identifiable {
 
 	public void setAvatar(Attachment attachment) {
 		this.avatarImage = attachment;
+	}
+
+	public Attachment getAvatar() {
+		return avatarImage;
 	}
 }

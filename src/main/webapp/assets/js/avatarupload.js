@@ -1,8 +1,8 @@
 if (Globals.inHouseUploading) {
 
-
     $(".profile-photo-upload").on("change", function(e) {
         var input = $(this);
+        input.hide();
         var file = FileAPI.getFiles(e)[0];
         var uploading = $("<img>").attr("src", "/imgs/loading.gif");
 
@@ -11,13 +11,12 @@ if (Globals.inHouseUploading) {
             files: {avatar: file},
             complete:  function (err, xhr) {
                 var attachment = JSON.parse(xhr.response);
-                console.log(attachment);
+                input.show();
                 uploading.remove();
+                $(".profile-image").attr("src", "/attachments/" + attachment.id + "?w=128&h=128")
             }
         });
-        $(this).unbind(e);
         input.parent().append(uploading);
-        input.remove();
     });
 
 
