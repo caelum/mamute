@@ -74,7 +74,7 @@
                 </c:if>
                 <c:if test="${currentUser.moderator}">
                     <li class="nav-item">
-                        <a href="/question/${question.id}/fully" class="delete-question">
+                        <a href="/question/${question.id}/fully" class="delete-question" data-confirm-deletion="true">
                             Delete whole thread
                         </a>
                     </li>
