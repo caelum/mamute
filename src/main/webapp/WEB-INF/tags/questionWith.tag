@@ -69,13 +69,13 @@
 				</li>
                 <c:if test="${currentUser.current.isAuthorOf(question) and not currentUser.moderator}">
                     <li class="nav-item">
-                        <a href="/question/${question.id}" class="delete-question">Delete</a>
+                        <a href="/question/${question.id}" class="delete-question">${t['question.delete']}</a>
                     </li>
                 </c:if>
                 <c:if test="${currentUser.moderator}">
                     <li class="nav-item">
                         <a href="/question/${question.id}/fully" class="delete-question" data-confirm-deletion="true">
-                            Delete whole thread
+                            ${t['question.delete.fully']}
                         </a>
                     </li>
                 </c:if>
