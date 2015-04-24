@@ -56,3 +56,5 @@ First of all, you need to setup an MySQL database. The default database name is
 ##Questions?
 
 Send your questions to [mamute meta](http://meta.mamute.org).
+
+Or to our mail-list: mamute-qa-dev@googlegroups.com
