@@ -329,4 +329,9 @@ public class Answer extends Moderatable implements Post, Notifiable {
 	public void remove(Attachment attachment) {
 		this.attachments.remove(attachment);
 	}
+
+	public void replace(List<Attachment> attachmentsLoaded) {
+		this.removeAttachments();
+		this.add(attachmentsLoaded);
+	}
 }

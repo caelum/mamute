@@ -66,8 +66,8 @@ public class AnswerController {
 		UpdateStatus status = original.updateWith(information);
 		answers.save(original);
 		List<Attachment> attachmentsLoaded = attachments.load(attachmentsIds);
-		original.removeAttachments();
-		original.add(attachmentsLoaded);
+
+		original.replace(attachmentsLoaded);
 
 		result.include("mamuteMessages", Arrays.asList(messageFactory.build("confirmation", status.getMessage())));
 		Question originalQuestion = original.getMainThread();
@@ -82,13 +82,15 @@ public class AnswerController {
 		boolean isUserWithKarma = current.hasKarma();
 		AnswerInformation information = new AnswerInformation(description, currentUser, "new answer");
 		Answer answer  = new Answer(information, question, current);
+		List<Attachment> attachmentsLoaded = attachments.load(attachmentsIds);
+		answer.add(attachmentsLoaded);
 		if (canAnswer) {
-    		question.touchedBy(current);
-        	answers.save(answer);
-        	ReputationEvent reputationEvent = new ReputationEvent(EventType.CREATED_ANSWER, question, current);
-        	reputationEvents.save(reputationEvent);
+			question.touchedBy(current);
+			answers.save(answer);
+			ReputationEvent reputationEvent = new ReputationEvent(EventType.CREATED_ANSWER, question, current);
+			reputationEvents.save(reputationEvent);
 
-    		if (isUserWithKarma) {
+			if (isUserWithKarma) {
 				current.increaseKarma(reputationEvent.getKarmaReward());
 			}
 
@@ -97,12 +99,10 @@ public class AnswerController {
 			if (watching) {
 				watchers.add(question, new Watcher(current));
 			}
-			List<Attachment> attachmentsLoaded = attachments.load(attachmentsIds);
-			answer.add(attachmentsLoaded);
-        } else {
-        	result.include("answer", answer);
-        	answeredByValidator.onErrorRedirectTo(QuestionController.class).showQuestion(question, question.getSluggedTitle());
-        }
+		} else {
+			result.include("answer", answer);
+			answeredByValidator.onErrorRedirectTo(QuestionController.class).showQuestion(question, question.getSluggedTitle());
+		}
 		
 	}
 	

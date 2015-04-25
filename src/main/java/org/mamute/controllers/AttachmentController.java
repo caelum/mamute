@@ -4,6 +4,7 @@ import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
 import br.com.caelum.vraptor.*;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.hibernate.extra.Load;
+import br.com.caelum.vraptor.observer.download.InputStreamDownload;
 import br.com.caelum.vraptor.observer.upload.UploadedFile;
 import br.com.caelum.vraptor.routes.annotation.Routed;
 import br.com.caelum.vraptor.validator.Validator;
@@ -16,6 +17,7 @@ import org.mamute.brutauth.auth.rules.LoggedRule;
 import org.mamute.brutauth.auth.rules.ModeratorOnlyRule;
 import org.mamute.dao.*;
 import org.mamute.factory.MessageFactory;
+import org.mamute.filesystem.AttachmentRepository;
 import org.mamute.filesystem.AttachmentsFileStorage;
 import org.mamute.infra.ClientIp;
 import org.mamute.interceptors.IncludeAllTags;
@@ -49,19 +51,21 @@ public class AttachmentController {
 	@Inject
 	private Result result;
 	@Inject
-	private AttachmentDao attachments;
-	@Inject
 	private QuestionDAO questions;
 	@Inject
 	private AnswerDAO answers;
-	@Inject
-	private AttachmentsFileStorage fileStorage;
 	@Inject
 	private LoggedUser loggedUser;
 	@Inject
 	private ClientIp clientIp;
 	@Inject
 	private HttpServletResponse response;
+	@Inject
+	private AttachmentRepository attachments;
+	@Inject
+	private Validator validator;
+	@Inject
+	private MessageFactory messageFactory;
 
 	@CustomBrutauthRules(LoggedRule.class)
 	@Post
@@ -69,78 +73,30 @@ public class AttachmentController {
 		Attachment attachment = new Attachment(file, loggedUser.getCurrent(),
 				clientIp.get());
 		attachments.save(attachment);
-		fileStorage.save(attachment);
 
 		result.use(json()).withoutRoot().from(attachment).serialize();
 	}
 
 	@Get
-	public void getAttachment(Long attachmentId) throws IOException {
+	public InputStreamDownload getAttachment(Long attachmentId) throws IOException {
 		Attachment attachment = attachments.load(attachmentId);
-		if (attachment == null) {
-			result.notFound();
-			return;
-		}
-		try {
-			InputStream is = fileStorage.open(attachment);
-			response.setHeader("Content-Type", attachment.getMime());
-			send(is);
-		} catch (FileNotFoundException e) {
-			result.notFound();
-		}
+		InputStream is = attachments.open(attachment);
+
+		return new InputStreamDownload(is, attachment.getMime(), attachment.getName());
 	}
 
 	@CustomBrutauthRules(LoggedRule.class)
 	@Delete
 	public void deleteAttachment(Long attachmentId) throws IOException {
 		Attachment attachment = attachments.load(attachmentId);
-		if (attachment == null) {
-			result.notFound();
-			return;
-		}
 		User current = loggedUser.getCurrent();
-		detachFromQuestion(attachment);
-		detachFromAnswer(attachment);
 		if (!attachment.canDelete(current) && !current.isModerator()) {
+			validator.add(messageFactory.build("error", "unauthorized.title"));
 			result.use(http()).sendError(403);
 			return;
 		}
 		attachments.delete(attachment);
-		fileStorage.delete(attachment);
 		result.nothing();
 	}
 
-	private void detachFromAnswer(Attachment attachment) {
-		Answer answer = answers.answerWith(attachment);
-		if (answer != null){
-			answer.remove(attachment);
-		}
-	}
-
-	private void detachFromQuestion(Attachment attachment) {
-		Question question = questions.questionWith(attachment);
-		if (question != null){
-			question.remove(attachment);
-		}
-	}
-
-	private void send(InputStream is) {
-		try {
-			ServletOutputStream os = response.getOutputStream();
-			IOUtils.copy(is, os);
-			os.close();
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		} finally {
-			close(is);
-		}
-	}
-
-	private void close(InputStream is) {
-		try {
-			is.close();
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
 }
