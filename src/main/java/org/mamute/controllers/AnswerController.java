@@ -1,6 +1,7 @@
 package org.mamute.controllers;
 
 import java.util.Arrays;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -9,19 +10,12 @@ import org.mamute.brutauth.auth.rules.InactiveQuestionRequiresMoreKarmaRule;
 import org.mamute.brutauth.auth.rules.InputRule;
 import org.mamute.brutauth.auth.rules.LoggedRule;
 import org.mamute.dao.AnswerDAO;
+import org.mamute.dao.AttachmentDao;
 import org.mamute.dao.ReputationEventDAO;
 import org.mamute.dao.WatcherDAO;
 import org.mamute.factory.MessageFactory;
 import org.mamute.mail.action.EmailAction;
-import org.mamute.model.Answer;
-import org.mamute.model.AnswerInformation;
-import org.mamute.model.EventType;
-import org.mamute.model.LoggedUser;
-import org.mamute.model.MarkedText;
-import org.mamute.model.Question;
-import org.mamute.model.ReputationEvent;
-import org.mamute.model.UpdateStatus;
-import org.mamute.model.User;
+import org.mamute.model.*;
 import org.mamute.model.watch.Watcher;
 import org.mamute.notification.NotificationManager;
 import org.mamute.reputation.rules.KarmaCalculator;
@@ -53,7 +47,8 @@ public class AnswerController {
 	@Inject private ReputationEventDAO reputationEvents;
 	@Inject private BundleFormatter bundle;
 	@Inject private BrutalValidator brutalValidator;
-	
+	@Inject private AttachmentDao attachments;
+
 	@Get
 	@CustomBrutauthRules(EditAnswerRule.class)
 	public void answerEditForm(@Load Answer answer) {
@@ -62,7 +57,7 @@ public class AnswerController {
 
 	@Post
 	@CustomBrutauthRules(EditAnswerRule.class)
-	public void edit(@Load Answer original, MarkedText description, String comment) {
+	public void edit(@Load Answer original, MarkedText description, String comment, List<Long> attachmentsIds) {
 		AnswerInformation information = new AnswerInformation(description, currentUser, comment);
 		brutalValidator.validate(information);
 		
@@ -70,6 +65,9 @@ public class AnswerController {
 		
 		UpdateStatus status = original.updateWith(information);
 		answers.save(original);
+		List<Attachment> attachmentsLoaded = attachments.load(attachmentsIds);
+
+		original.replace(attachmentsLoaded);
 
 		result.include("mamuteMessages", Arrays.asList(messageFactory.build("confirmation", status.getMessage())));
 		Question originalQuestion = original.getMainThread();
@@ -78,27 +76,33 @@ public class AnswerController {
 	
 	@Post
 	@CustomBrutauthRules({LoggedRule.class, InputRule.class, InactiveQuestionRequiresMoreKarmaRule.class})
-	public void newAnswer(@Load Question question, MarkedText description, boolean watching) {
+	public void newAnswer(@Load Question question, MarkedText description, boolean watching, List<Long> attachmentsIds) {
 		User current = currentUser.getCurrent();
 		boolean canAnswer = answeredByValidator.validate(question);
 		boolean isUserWithKarma = current.hasKarma();
 		AnswerInformation information = new AnswerInformation(description, currentUser, "new answer");
 		Answer answer  = new Answer(information, question, current);
+		List<Attachment> attachmentsLoaded = attachments.load(attachmentsIds);
+		answer.add(attachmentsLoaded);
 		if (canAnswer) {
-    		question.touchedBy(current);
-        	answers.save(answer);
-        	ReputationEvent reputationEvent = new ReputationEvent(EventType.CREATED_ANSWER, question, current);
-        	reputationEvents.save(reputationEvent);
-    		if (isUserWithKarma) current.increaseKarma(reputationEvent.getKarmaReward());
-        	result.redirectTo(QuestionController.class).showQuestion(question, question.getSluggedTitle());
+			question.touchedBy(current);
+			answers.save(answer);
+			ReputationEvent reputationEvent = new ReputationEvent(EventType.CREATED_ANSWER, question, current);
+			reputationEvents.save(reputationEvent);
+
+			if (isUserWithKarma) {
+				current.increaseKarma(reputationEvent.getKarmaReward());
+			}
+
+			result.redirectTo(QuestionController.class).showQuestion(question, question.getSluggedTitle());
 			notificationManager.sendEmailsAndInactivate(new EmailAction(answer, question));
 			if (watching) {
 				watchers.add(question, new Watcher(current));
 			}
-        } else {
-        	result.include("answer", answer);
-        	answeredByValidator.onErrorRedirectTo(QuestionController.class).showQuestion(question, question.getSluggedTitle());
-        }
+		} else {
+			result.include("answer", answer);
+			answeredByValidator.onErrorRedirectTo(QuestionController.class).showQuestion(question, question.getSluggedTitle());
+		}
 		
 	}
 	

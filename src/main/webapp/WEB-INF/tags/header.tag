@@ -61,6 +61,7 @@
 <link rel="stylesheet" href="/assets/generated-css/user.css">
 <link rel="stylesheet" href="/assets/generated-css/vote.css">
 <link rel="stylesheet" href="/assets/generated-css/default.css">
+<link rel="stylesheet" href="/assets/generated-css/uploader.css">
 
 <link rel="stylesheet" href="/css/deps/pickadate/classic.css">
 <link rel="stylesheet" href="/css/deps/pickadate/classic.date.css">

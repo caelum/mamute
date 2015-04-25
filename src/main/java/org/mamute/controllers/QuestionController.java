@@ -2,36 +2,32 @@ package org.mamute.controllers;
 
 import static java.util.Arrays.asList;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import br.com.caelum.vraptor.observer.upload.UploadedFile;
+import org.apache.commons.io.IOUtils;
 import org.mamute.auth.FacebookAuthService;
 import org.mamute.brutauth.auth.rules.EditQuestionRule;
 import org.mamute.brutauth.auth.rules.InputRule;
 import org.mamute.brutauth.auth.rules.LoggedRule;
 import org.mamute.brutauth.auth.rules.ModeratorOnlyRule;
-import org.mamute.dao.QuestionDAO;
-import org.mamute.dao.ReputationEventDAO;
-import org.mamute.dao.VoteDAO;
-import org.mamute.dao.WatcherDAO;
+import org.mamute.dao.*;
 import org.mamute.factory.MessageFactory;
+import org.mamute.filesystem.AttachmentsFileStorage;
 import org.mamute.interceptors.IncludeAllTags;
 import org.mamute.managers.TagsManager;
-import org.mamute.model.EventType;
-import org.mamute.model.LoggedUser;
-import org.mamute.model.MarkedText;
-import org.mamute.model.Question;
-import org.mamute.model.QuestionInformation;
-import org.mamute.model.ReputationEvent;
-import org.mamute.model.Tag;
-import org.mamute.model.UpdateStatus;
-import org.mamute.model.User;
+import org.mamute.model.*;
 import org.mamute.model.post.PostViewCounter;
 import org.mamute.model.watch.Watcher;
 import org.mamute.search.QuestionIndex;
 import org.mamute.util.TagsSplitter;
+import org.mamute.validators.AttachmentsValidator;
 import org.mamute.validators.TagsValidator;
 import org.mamute.vraptor.Linker;
 
@@ -64,6 +60,8 @@ public class QuestionController {
 	private BrutalValidator brutalValidator;
 	private TagsManager tagsManager;
 	private TagsSplitter splitter;
+	private AttachmentDao attachments;
+	private AttachmentsValidator attachmentsValidator;
 	private QuestionIndex index;
 
 
@@ -79,7 +77,8 @@ public class QuestionController {
 			TagsValidator tagsValidator, MessageFactory messageFactory,
 			Validator validator, PostViewCounter viewCounter,
 			Linker linker, WatcherDAO watchers, ReputationEventDAO reputationEvents,
-			BrutalValidator brutalValidator, TagsManager tagsManager, TagsSplitter splitter) {
+			BrutalValidator brutalValidator, TagsManager tagsManager, TagsSplitter splitter,
+			AttachmentDao attachments, AttachmentsValidator attachmentsValidator) {
 		this.result = result;
 		this.questions = questionDAO;
 		this.index = index;
@@ -96,6 +95,8 @@ public class QuestionController {
 		this.brutalValidator = brutalValidator;
 		this.tagsManager = tagsManager;
 		this.splitter = splitter;
+		this.attachments = attachments;
+		this.attachmentsValidator = attachmentsValidator;
 	}
 
 	@Get
@@ -114,7 +115,7 @@ public class QuestionController {
 	@Post
 	@CustomBrutauthRules(EditQuestionRule.class)
 	public void edit(@Load Question original, String title, MarkedText description, String tagNames,
-			String comment) {
+			String comment, List<Long> attachmentsIds) {
 
 		List<String> splitedTags = splitter.splitTags(tagNames);
 		List<Tag> loadedTags = tagsManager.findOrCreate(splitedTags);
@@ -130,6 +131,9 @@ public class QuestionController {
 		result.include("question", original);
 
 		questions.save(original);
+		List<Attachment> attachmentsLoaded = attachments.load(attachmentsIds);
+		original.removeAttachments();
+		original.add(attachmentsLoaded);
 		index.indexQuestion(original);
 
 		result.include("mamuteMessages",
@@ -166,7 +170,10 @@ public class QuestionController {
 
 	@Post
 	@CustomBrutauthRules({LoggedRule.class, InputRule.class})
-	public void newQuestion(String title, MarkedText description, String tagNames, boolean watching) {
+	public void newQuestion(String title, MarkedText description, String tagNames, boolean watching,
+							List<Long> attachmentsIds) {
+		List<Attachment> attachments = this.attachments.load(attachmentsIds);
+		attachmentsValidator.validate(attachments);
 		List<String> splitedTags = splitter.splitTags(tagNames);
 
 		List<Tag> foundTags = tagsManager.findOrCreate(splitedTags);
@@ -181,6 +188,7 @@ public class QuestionController {
 
 		questions.save(question);
 		index.indexQuestion(question);
+		question.add(attachments);
 
 		ReputationEvent reputationEvent = new ReputationEvent(EventType.CREATED_QUESTION, question, author);
 		author.increaseKarma(reputationEvent.getKarmaReward());

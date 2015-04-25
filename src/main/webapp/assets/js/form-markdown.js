@@ -1,6 +1,6 @@
 $(function() {
 	marked.setOptions({
-	  sanitize: true,
+	  sanitize: true
 	});
 	$(".wmd-input").on('keyup', function(){
 		var self = $(this),
@@ -17,6 +17,7 @@ $(function() {
 		var converter1 = Markdown.getSanitizingConverter();
 		var editor1 = new Markdown.Editor(converter1);
 		editor1.run();
+        Globals.markdownEditor = editor1;
 	}
 	
 });

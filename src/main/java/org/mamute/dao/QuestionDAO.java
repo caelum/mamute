@@ -24,6 +24,7 @@ import org.hibernate.sql.JoinType;
 import org.joda.time.DateTime;
 import org.mamute.dao.WithUserPaginatedDAO.OrderType;
 import org.mamute.dao.WithUserPaginatedDAO.UserRole;
+import org.mamute.model.Attachment;
 import org.mamute.model.Question;
 import org.mamute.model.Tag;
 import org.mamute.model.User;
@@ -272,5 +273,10 @@ public class QuestionDAO implements PaginatableDAO {
 	}
 
 
+	public Question questionWith(Attachment attachment) {
+		return (Question) session.createQuery("from Question where :a in elements(attachments)")
+				.setParameter("a", attachment)
+				.uniqueResult();
+	}
 }
 

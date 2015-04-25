@@ -8,7 +8,7 @@
 
 <h2 class="title subheader page-title">${t['question.edit_form.title']}</h2>
 
-<form class="validated-form question-form hinted-form"
+<form class="validated-form question-form hinted-form form-with-upload"
 	  action='${linkTo[QuestionController].edit(question,null,null,null,null)}' method="post">
 	<label for="question-title">${t['question.title.label']}</label>
 	<input id="question-title" type="text" class="required hintable text-input"
@@ -16,13 +16,20 @@
 		   maxlength="150" name="title">
 	<tags:markDown value="${question.description}" hintId="question-description-hint" htmlClass="required"
 				   minlength="30"/>
+
+    <c:if test="${env.supports('feature.inhouse.upload')}">
+        <tags:fileUploader attachmentsTarget="${question}"/>
+    </c:if>
+
 	<label for="tags">${t['question.tags.label']}</label>
 	<ul class="tags autocompleted-tags hidden" id="question-tags-autocomplete"></ul>
+
 
 	<input id="tags" type="text" autocomplete="off" name="tagNames"
 		   class="question-tags-input hintable autocomplete only-existent-tags text-input ${tagsRequired}"
 		   value="${question.getTagsAsString(environment.get('tags.splitter.char'))}" data-hint-id="question-tags-hint"
 		   data-autocomplete-id="newquestion-tags-autocomplete"/>
+
 
 	<label for="comment">${t['edit_form.comment.label']}</label>
 	<input type="text" name="comment"

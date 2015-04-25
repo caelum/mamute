@@ -15,8 +15,12 @@
 	</div>
 </c:if>
 
-<form action="${uri}" method="post" class="validated-form ${not empty edit ? 'hinted-form' : '' } answer-form" data-same-author="${sameAuthor}">
+<form action="${uri}" method="post" class="validated-form form-with-upload ${not empty edit ? 'hinted-form' : '' } answer-form" data-same-author="${sameAuthor}">
 	<tags:markDown placeholder="${placeholder}" value="${answer.description}" hintId="newanswer-answer-hint" htmlClass="required description-input" minlength="30"/>
+
+    <c:if test="${env.supports('feature.inhouse.upload')}">
+        <tags:fileUploader attachmentsTarget="${answer}"/>
+    </c:if>
 	
 	<c:if test='${not empty edit}'>
 		<label for="comment">${t['edit_form.comment.label']}</label>
