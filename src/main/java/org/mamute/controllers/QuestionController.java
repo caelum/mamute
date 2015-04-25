@@ -13,6 +13,7 @@ import javax.inject.Inject;
 
 import br.com.caelum.brutauth.auth.annotations.SimpleBrutauthRules;
 import br.com.caelum.vraptor.Post;
+import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.observer.upload.UploadedFile;
 import br.com.caelum.vraptor.validator.I18nMessage;
 import org.apache.commons.io.IOUtils;
@@ -63,6 +64,7 @@ public class QuestionController {
 	private TagsSplitter splitter;
 	private AttachmentDao attachments;
 	private AttachmentsValidator attachmentsValidator;
+	private Environment environment;
 	private QuestionIndex index;
 
 
@@ -79,7 +81,7 @@ public class QuestionController {
 			Validator validator, PostViewCounter viewCounter,
 			Linker linker, WatcherDAO watchers, ReputationEventDAO reputationEvents,
 			BrutalValidator brutalValidator, TagsManager tagsManager, TagsSplitter splitter,
-			AttachmentDao attachments, AttachmentsValidator attachmentsValidator) {
+			AttachmentDao attachments, AttachmentsValidator attachmentsValidator, Environment environment) {
 		this.result = result;
 		this.questions = questionDAO;
 		this.index = index;
@@ -98,6 +100,7 @@ public class QuestionController {
 		this.splitter = splitter;
 		this.attachments = attachments;
 		this.attachmentsValidator = attachmentsValidator;
+		this.environment = environment;
 	}
 
 	@Get
@@ -210,6 +213,10 @@ public class QuestionController {
 
 	@Delete
 	public void deleteQuestion(@Load Question question) {
+		if (!environment.supports("deletable.questions")) {
+			result.notFound();
+			return;
+		}
 		if (!currentUser.isModerator() && !question.hasAuthor(currentUser.getCurrent())) {
 			result.use(http()).sendError(403);
 			return;
@@ -230,6 +237,11 @@ public class QuestionController {
 	@CustomBrutauthRules({ModeratorOnlyRule.class})
 	@Delete
 	public void deleteQuestionFully(@Load Question question) {
+		if (!environment.supports("deletable.questions")) {
+			result.notFound();
+			return;
+		}
+
 		questions.deleteFully(question);
 
 		result.nothing();

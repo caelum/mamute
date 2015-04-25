@@ -67,18 +67,20 @@
 					</c:if>
 					<tags:flagItFor type="pergunta" modalId="question-flag-modal${question.id}" flaggable="${question}"/>
 				</li>
-                <c:if test="${currentUser.current.isAuthorOf(question) and not currentUser.moderator}">
-                    <li class="nav-item">
-                        <a href="/question/${question.id}" class="delete-question">${t['question.delete']}</a>
-                    </li>
-                </c:if>
-                <c:if test="${currentUser.moderator}">
-                    <li class="nav-item">
-                        <a href="/question/${question.id}/fully" class="delete-question" data-confirm-deletion="true">
-                            ${t['question.delete.fully']}
-                        </a>
-                    </li>
-                </c:if>
+				<c:if test="${env.supports('deletable.questions')}">
+					<c:if test="${currentUser.current.isAuthorOf(question) and not currentUser.moderator}">
+						<li class="nav-item">
+							<a href="/question/${question.id}" class="delete-question">${t['question.delete']}</a>
+						</li>
+					</c:if>
+					<c:if test="${currentUser.moderator}">
+						<li class="nav-item">
+							<a href="/question/${question.id}/fully" class="delete-question" data-confirm-deletion="true">
+								${t['question.delete.fully']}
+							</a>
+						</li>
+					</c:if>
+				</c:if>
 			</ul>
 			<tags:touchesFor touchable="${question}" microdata="true"/>
 		</div>
