@@ -22,7 +22,9 @@
 	<tags:markDown placeholder="${descriptionPlaceholder}" value="${question.description}"
 				   hintId="question-description-hint" htmlClass="required description-input" minlength="30"/>
 
-    <tags:fileUploader/>
+	<c:if test="${env.supports('feature.inhouse.upload')}">
+		<tags:fileUploader/>
+	</c:if>
 
 	<label for="tags">${t['question.tags.label']}</label>
 	<ul class="tags autocompleted-tags complete-tags hidden" id="newquestion-tags-autocomplete"></ul>

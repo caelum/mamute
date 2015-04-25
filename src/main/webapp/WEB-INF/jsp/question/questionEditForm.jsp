@@ -17,7 +17,9 @@
 	<tags:markDown value="${question.description}" hintId="question-description-hint" htmlClass="required"
 				   minlength="30"/>
 
-    <tags:fileUploader attachmentsTarget="${question}"/>
+    <c:if test="${env.supports('feature.inhouse.upload')}">
+        <tags:fileUploader attachmentsTarget="${question}"/>
+    </c:if>
 
 	<label for="tags">${t['question.tags.label']}</label>
 	<ul class="tags autocompleted-tags hidden" id="question-tags-autocomplete"></ul>

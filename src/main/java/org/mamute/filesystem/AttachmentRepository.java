@@ -37,10 +37,10 @@ public class AttachmentRepository {
 	}
 
 	public void delete(Attachment attachment) {
-		attachments.delete(attachment);
-		fileStorage.delete(attachment);
 		detachFromQuestion(attachment);
 		detachFromAnswer(attachment);
+		attachments.delete(attachment);
+		fileStorage.delete(attachment);
 	}
 
 	private void detachFromAnswer(Attachment attachment) {

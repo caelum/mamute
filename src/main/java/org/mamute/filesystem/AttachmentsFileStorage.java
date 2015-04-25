@@ -13,11 +13,16 @@ public class AttachmentsFileStorage {
 
 	@Inject
 	private Environment environment;
+
+	@Inject
+	@Property("attachments.root.fs.path")
+	private String fsPath;
+
 	private File attachmentsRoot;
 
 	@PostConstruct
 	public void setup() {
-		this.attachmentsRoot = new File(environment.get("attachments.root.fs.path"));
+		this.attachmentsRoot = new File(fsPath);
 	}
 
 	public void save(Attachment attachment) {
