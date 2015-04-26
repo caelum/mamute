@@ -85,7 +85,7 @@ public class ForgotPasswordController {
 		result.include("mamuteMessages", Arrays.asList(
 					messageFactory.build("confirmation", "forgot_password.password_changed")
 				));
-		linker.linkTo(ListController.class).home(null, null);
+		linker.linkTo(ListController.class).home(null);
 	    result.forwardTo(AuthController.class).login(user.getEmail(), password, linker.get());
 	}
 	

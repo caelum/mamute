@@ -1,23 +1,14 @@
 package org.mamute.controllers;
 
-import static br.com.caelum.vraptor.view.Results.http;
-import static java.util.Arrays.asList;
-
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-
-import javax.inject.Inject;
-
-import br.com.caelum.brutauth.auth.annotations.SimpleBrutauthRules;
+import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
+import br.com.caelum.vraptor.*;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.environment.Environment;
-import br.com.caelum.vraptor.observer.upload.UploadedFile;
+import br.com.caelum.vraptor.hibernate.extra.Load;
+import br.com.caelum.vraptor.routes.annotation.Routed;
 import br.com.caelum.vraptor.validator.I18nMessage;
-import org.apache.commons.io.IOUtils;
-import br.com.caelum.vraptor.*;
+import br.com.caelum.vraptor.validator.Validator;
+import br.com.caelum.vraptor.view.Results;
 import org.mamute.auth.FacebookAuthService;
 import org.mamute.brutauth.auth.rules.EditQuestionRule;
 import org.mamute.brutauth.auth.rules.InputRule;
@@ -25,7 +16,6 @@ import org.mamute.brutauth.auth.rules.LoggedRule;
 import org.mamute.brutauth.auth.rules.ModeratorOnlyRule;
 import org.mamute.dao.*;
 import org.mamute.factory.MessageFactory;
-import org.mamute.filesystem.AttachmentsFileStorage;
 import org.mamute.interceptors.IncludeAllTags;
 import org.mamute.managers.TagsManager;
 import org.mamute.model.*;
@@ -37,11 +27,12 @@ import org.mamute.validators.AttachmentsValidator;
 import org.mamute.validators.TagsValidator;
 import org.mamute.vraptor.Linker;
 
-import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
-import br.com.caelum.vraptor.hibernate.extra.Load;
-import br.com.caelum.vraptor.routes.annotation.Routed;
-import br.com.caelum.vraptor.validator.Validator;
-import br.com.caelum.vraptor.view.Results;
+import javax.inject.Inject;
+import java.util.Arrays;
+import java.util.List;
+
+import static br.com.caelum.vraptor.view.Results.http;
+import static java.util.Arrays.asList;
 
 @Routed
 @Controller
@@ -229,9 +220,10 @@ public class QuestionController {
 				.setStatusCode(400);
 			return;
 		}
+		result.include("mamuteMessages", asList(messageFactory.build("confirmation", "question.delete.confirmation")));
 		questions.delete(question);
 
-		result.nothing();
+		result.redirectTo(ListController.class).home(null);
 	}
 
 	@CustomBrutauthRules({ModeratorOnlyRule.class})
@@ -244,7 +236,8 @@ public class QuestionController {
 
 		questions.deleteFully(question);
 
-		result.nothing();
+		result.include("mamuteMessages", asList(messageFactory.build("confirmation", "question.delete.confirmation")));
+		result.redirectTo(ListController.class).home(null);
 	}
 
 	private boolean validate(List<Tag> foundTags, List<String> splitedTags) {

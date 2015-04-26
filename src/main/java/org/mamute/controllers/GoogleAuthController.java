@@ -39,7 +39,7 @@ public class GoogleAuthController extends BaseController{
         if (state != null && !state.isEmpty() && valid) {
             redirectTo(state);
         } else {
-            redirectTo(ListController.class).home(null, null);
+            redirectTo(ListController.class).home(null);
         }
 	}
 }

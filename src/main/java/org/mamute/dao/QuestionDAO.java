@@ -13,7 +13,6 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -293,7 +292,9 @@ public class QuestionDAO implements PaginatableDAO {
 		query.execute("delete from ReputationEvent where context_id=:id and context_type='QUESTION'");
 
 		deleteAttachments(question);
-		deleteRelationshipTables(question);
+		session.createSQLQuery("delete from Question_Interactions where Question_id=:id")
+				.setParameter("id", question.getId())
+				.executeUpdate();
 		session.createSQLQuery("delete from QuestionInformation_Tag where QuestionInformation_id=:id")
 				.setParameter("id", question.getInformation().getId())
 				.executeUpdate();
@@ -302,15 +303,6 @@ public class QuestionDAO implements PaginatableDAO {
 		session.createSQLQuery("SET foreign_key_checks = 1").executeUpdate();
 	}
 
-	private void deleteRelationshipTables(Question question) {
-		List<String> relationshipTables = Arrays.asList("Question_Interactions");
-		for (String table : relationshipTables) {
-			String query = "delete from %s where Question_id=:id";
-			session.createSQLQuery(String.format(query, table))
-				.setParameter("id", question.getId())
-				.executeUpdate();
-		}
-	}
 
 	private void deleteAttachments(Question question) {
 		ArrayList<Long> ids = new ArrayList<>();
@@ -392,8 +384,6 @@ public class QuestionDAO implements PaginatableDAO {
 		}
 
 		public void execute(String query) {
-			System.out.println(query);
-
 			session.createSQLQuery(query)
 					.setParameter("id", question.getId())
 					.executeUpdate();

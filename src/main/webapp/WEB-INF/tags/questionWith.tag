@@ -70,15 +70,21 @@
 				<c:if test="${env.supports('deletable.questions')}">
 					<c:if test="${currentUser.current.isAuthorOf(question) and not currentUser.moderator}">
 						<li class="nav-item">
-							<a href="/question/${question.id}" class="delete-question">${t['question.delete']}</a>
+							<a href="#" class="delete-question">${t['question.delete']}</a>
 						</li>
+						<form class="hidden delete-question-form" method="post" action="/question/${question.id}">
+							<input type="hidden" value="DELETE" name="_method">
+						</form>
 					</c:if>
 					<c:if test="${currentUser.moderator}">
 						<li class="nav-item">
-							<a href="/question/${question.id}/fully" class="delete-question" data-confirm-deletion="true">
+							<a href="#" class="delete-question" data-confirm-deletion="true">
 								${t['question.delete.fully']}
 							</a>
 						</li>
+						<form class="hidden delete-question-form" method="post" action="/question/${question.id}/fully">
+							<input type="hidden" value="DELETE" name="_method">
+						</form>
 					</c:if>
 				</c:if>
 			</ul>

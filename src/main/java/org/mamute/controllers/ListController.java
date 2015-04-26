@@ -1,25 +1,25 @@
 package org.mamute.controllers;
 
-import java.util.Arrays;
-import java.util.List;
-
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletResponse;
-
+import br.com.caelum.vraptor.Controller;
+import br.com.caelum.vraptor.Get;
+import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.actioncache.Cached;
+import br.com.caelum.vraptor.routes.annotation.Routed;
 import org.joda.time.DateTime;
 import org.mamute.components.RecentTagsContainer;
 import org.mamute.dao.NewsDAO;
 import org.mamute.dao.QuestionDAO;
 import org.mamute.dao.TagDAO;
 import org.mamute.factory.MessageFactory;
-import org.mamute.model.*;
+import org.mamute.model.LoggedUser;
+import org.mamute.model.News;
+import org.mamute.model.Question;
+import org.mamute.model.Tag;
 import org.mamute.stream.Streamed;
 
-import br.com.caelum.vraptor.Controller;
-import br.com.caelum.vraptor.Get;
-import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.actioncache.Cached;
-import br.com.caelum.vraptor.routes.annotation.Routed;
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 import static java.util.Arrays.asList;
 
@@ -38,7 +38,7 @@ public class ListController {
 	@Inject private MessageFactory messageFactory;
 	
 	@Get
-	public void home(Integer p, SanitizedText message) {
+	public void home(Integer p) {
 		Integer page = getPage(p);
 		List<Question> visible = questions.allVisible(page);
 		if (visible.isEmpty() && page != 1) {
@@ -53,10 +53,6 @@ public class ListController {
 		result.include("currentPage", page);
 		result.include("currentUser", loggedUser);
 
-		if (message != null && !message.getText().isEmpty()) {
-			result.include("mamuteMessages",
-					asList(messageFactory.build("confirmation", message.getText())));
-		}
 	}
 
 	@Streamed
@@ -125,7 +121,7 @@ public class ListController {
 	
 	@Get
 	public void hackedIndex() {
-		result.redirectTo(this).home(1, null);
+		result.redirectTo(this).home(1);
 	}
 
 	@Get
