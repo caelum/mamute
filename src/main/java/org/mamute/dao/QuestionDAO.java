@@ -278,29 +278,7 @@ public class QuestionDAO implements PaginatableDAO {
 	}
 
 	public void delete(Question question) {
-		session.createSQLQuery("SET foreign_key_checks = 0").executeUpdate();
-		QuestionQuery query = new QuestionQuery(question);
-
-		query.execute("delete f,qf from Question q" +
-				" join Question_Flags qf on qf.Question_id=q.id" +
-				" join Flag f on f.id=qf.flags_id" +
-				" where q.id=:id");
-		query.execute("delete w,qw from Question q" +
-				" join Question_Watchers qw on qw.Question_id=q.id" +
-				" join Watcher w on w.id=qw.watchers_id" +
-				" where q.id=:id");
-		query.execute("delete from ReputationEvent where context_id=:id and context_type='QUESTION'");
-
-		deleteAttachments(question);
-		session.createSQLQuery("delete from Question_Interactions where Question_id=:id")
-				.setParameter("id", question.getId())
-				.executeUpdate();
-		session.createSQLQuery("delete from QuestionInformation_Tag where QuestionInformation_id=:id")
-				.setParameter("id", question.getInformation().getId())
-				.executeUpdate();
-		query.execute("delete from QuestionInformation where question_id=:id");
-		query.execute("delete from Question where id=:id");
-		session.createSQLQuery("SET foreign_key_checks = 1").executeUpdate();
+		session.delete(question);
 	}
 
 
@@ -316,59 +294,25 @@ public class QuestionDAO implements PaginatableDAO {
 		}
 	}
 
-	public void deleteFully(Question question) {
-		session.createSQLQuery("SET foreign_key_checks = 0").executeUpdate();
-
-		QuestionQuery query = new QuestionQuery(question);
-		query.execute("delete av, v from Answer a" +
-				" join Answer_Votes av on a.id=av.Answer_id" +
-				" join Vote v on av.votes_id=v.id" +
-				" where a.question_id=:id");
-		query.execute("delete av, v from Answer a" +
-				" join Answer_Votes av on a.id=av.Answer_id" +
-				" join Vote v on av.votes_id=v.id" +
-				" where a.question_id=:id");
-		query.execute(" delete c from Comment c" +
-				" join Answer_Comments ac on c.id=ac.comments_id" +
-				" join Answer a on ac.Answer_id=a.id" +
-				" where a.question_id=:id");
-		query.execute("delete at,aa from Answer a" +
-				" join Answer_Attachment aa on aa.Answer_id=a.id" +
-				" join Attachment at on at.id=aa.attachments_id" +
-				" where a.question_id=:id");
-		query.execute("delete f,af from Answer a" +
-				" join Answer_Flags af on af.Answer_id=a.id" +
-				" join Flag f on f.id=af.flags_id" +
-				" where a.question_id=:id");
-
-		query.execute("delete ai,a from Answer a" +
-				" join AnswerInformation ai on a.id=ai.answer_id" +
-				" where a.question_id=:id");
-
-		query.execute("delete f,cf from Comment c" +
-				" join Question_Comments qc on c.id=qc.comments_id" +
-				" join Comment_Flags cf on cf.Comment_id=c.id" +
-				" join Flag f on f.id=cf.flags_id" +
-				" where qc.Question_id=:id");
-		query.execute("delete v,cv from Comment c" +
-				" join Question_Comments qc on c.id=qc.comments_id" +
-				" join Comment_Votes cv on cv.Comment_id=c.id" +
-				" join Vote v on v.id=cv.votes_id" +
-				" where qc.Question_id=:id");
-		query.execute("delete c,qc from Comment c" +
-				" join Question_Comments qc on c.id=qc.comments_id" +
-				" where qc.Question_id=:id");
-
-		query.execute("delete re from Answer a " +
-				" join Question q on q.id=a.question_id " +
-				" join ReputationEvent re on re.context_id=a.id " +
-				" and context_type='ANSWER'" +
-				" and q.id=:id");
+	public void deleteFully(Question question, User user) {
 
 		this.delete(question);
+		List<Answer> answers = question.getAnswers();
+		for (Answer answer : answers) {
+			session.delete(answer);
+		}
+		List<Flag> flags = question.getFlags();
+		for (Flag flag : flags) {
+			session.delete(flag);
+		}
+		List<Comment> comments = question.getVisibleCommentsFor(user);
+		for (Comment comment : comments) {
+			session.delete(comment);
+		}
 
+		session.createSQLQuery("update ReputationEvent set deleted=1 where context_id=:id and context_type='QUESTION'")
+				.setParameter("id", question.getId()).executeUpdate();
 
-		session.createSQLQuery("SET foreign_key_checks = 1").executeUpdate();
 	}
 
 	private class QuestionQuery {

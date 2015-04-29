@@ -10,13 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import org.hibernate.annotations.Any;
-import org.hibernate.annotations.AnyMetaDef;
-import org.hibernate.annotations.MetaValue;
-import org.hibernate.annotations.Type;
+import org.hibernate.annotations.*;
 import org.joda.time.DateTime;
 import org.mamute.providers.SessionFactoryCreator;
 
+@SQLDelete(sql = "update ReputationEvent set deleted = true where id = ?")
+@Where(clause = "deleted = 0")
 @Entity
 public class ReputationEvent {
 

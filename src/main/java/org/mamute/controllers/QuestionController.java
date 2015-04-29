@@ -234,7 +234,7 @@ public class QuestionController {
 			return;
 		}
 
-		questions.deleteFully(question);
+		questions.deleteFully(question, currentUser.getCurrent());
 
 		result.include("mamuteMessages", asList(messageFactory.build("confirmation", "question.delete.confirmation")));
 		result.redirectTo(ListController.class).home(null);

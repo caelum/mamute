@@ -18,10 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.Type;
+import org.hibernate.annotations.*;
 import org.joda.time.DateTime;
 import org.mamute.model.interfaces.Moderatable;
 import org.mamute.model.interfaces.Notifiable;
@@ -30,6 +27,8 @@ import org.mamute.providers.SessionFactoryCreator;
 
 @Cacheable
 @Cache(usage=CacheConcurrencyStrategy.READ_WRITE, region="cache")
+@SQLDelete(sql = "update Question set deleted = true where id = ?")
+@Where(clause = "deleted = 0")
 @Entity
 public class Answer extends Moderatable implements Post, Notifiable {
 	@Id
