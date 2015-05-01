@@ -8,7 +8,7 @@ import javax.enterprise.context.ApplicationScoped;
 import java.util.List;
 
 @ApplicationScoped
-public class M011AddUserAvatar implements SchemaMigration {
+public class M012AddUserAvatar implements SchemaMigration {
 	@Override
 	public List<MigrationOperation> up() {
 		String q1 = "alter table Users " +
