@@ -50,8 +50,10 @@ public class UserPersonalInfo {
 	private String markedAbout;
 
 	private boolean isSubscribed;
-
 	
+	private boolean receiveAllUpdates;
+
+
 	public UserPersonalInfo(User user) {
 		this.user = user;
 	}
@@ -126,5 +128,14 @@ public class UserPersonalInfo {
 
 	public boolean isSubscribed() {
 		return isSubscribed;
+	}
+
+	public UserPersonalInfo withReceiveAllUpdates(boolean receiveAllUpdates) {
+		this.receiveAllUpdates = receiveAllUpdates;
+		return this;
+	}
+
+	public boolean getReceiveAllUpdates() {
+		return receiveAllUpdates;
 	}
 }

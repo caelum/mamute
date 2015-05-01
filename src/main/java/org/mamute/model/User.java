@@ -117,6 +117,8 @@ public class User implements Identifiable {
 	@ManyToOne
 	private Attachment avatarImage;
 
+	private boolean receiveAllUpdates = false;
+
 	static {
 		GHOST = new User(fromTrustedText("GHOST"), "");
 		GHOST.setId(1000l);
@@ -168,6 +170,7 @@ public class User implements Identifiable {
 		this.about = info.getAbout();
 		this.markedAbout = info.getMarkedAbout();
 		this.isSubscribed = info.isSubscribed();
+		this.receiveAllUpdates = info.getReceiveAllUpdates();
 	}
 
 	void setKarma(long karma) {
@@ -425,5 +428,9 @@ public class User implements Identifiable {
 
 	public Attachment getAvatar() {
 		return avatarImage;
+	}
+
+	public boolean receiveAllUpdates() {
+		return receiveAllUpdates;
 	}
 }
