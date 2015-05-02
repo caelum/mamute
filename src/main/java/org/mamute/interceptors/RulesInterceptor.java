@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.mamute.auth.rules.PermissionRulesConstants;
+import org.mamute.brutauth.auth.rules.EnvironmentKarma;
 import org.mamute.reputation.rules.KarmaCalculator;
 
 import net.vidageek.mirror.dsl.ClassController;
@@ -22,6 +23,7 @@ import br.com.caelum.vraptor.interceptor.Interceptor;
 public class RulesInterceptor implements Interceptor {
 
 	@Inject private Result result;
+	@Inject private EnvironmentKarma environmentKarma;
 	
 	@Override
 	public boolean accepts(ControllerMethod method) {
@@ -42,7 +44,9 @@ public class RulesInterceptor implements Interceptor {
 		List<Field> permissionFields = mirrorOnPermissions.reflectAll().fields();
 		
 		for (Field field : permissionFields) {
-			result.include(field.getName(), mirrorOnPermissions.get().field(field));
+			String value = (String) mirrorOnPermissions.get().field(field);
+			long karma = environmentKarma.get(value);
+			result.include(field.getName(), karma);
 		}
 		
 		stack.next(method, obj);

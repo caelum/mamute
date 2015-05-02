@@ -5,7 +5,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.mamute.auth.rules.PermissionRulesConstants;
-import org.mamute.brutauth.auth.rules.ModeratorOrKarmaRule;
+import org.mamute.brutauth.auth.rules.EnvironmentKarma;
+import org.mamute.brutauth.auth.rules.EnvironmentKarmaRule;
 import org.mamute.dao.InformationDAO;
 import org.mamute.dao.ModeratableDao;
 import org.mamute.dao.ReputationEventDAO;
@@ -24,7 +25,6 @@ import org.mamute.model.User;
 import org.mamute.model.interfaces.Moderatable;
 import org.mamute.reputation.rules.KarmaCalculator;
 
-import br.com.caelum.brutauth.auth.annotations.AccessLevel;
 import br.com.caelum.brutauth.auth.annotations.SimpleBrutauthRules;
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
@@ -44,9 +44,10 @@ public class HistoryController extends BaseController {
     @Inject private KarmaCalculator calculator;
 	@Inject private ModelUrlMapping urlMapping;
 	@Inject private ReputationEventDAO reputationEvents;
+	@Inject private EnvironmentKarma environmentKarma;
 
-	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
-	@AccessLevel(PermissionRulesConstants.MODERATE_EDITS)
+	@SimpleBrutauthRules({EnvironmentKarmaRule.class})
+	@EnvironmentAccessLevel(PermissionRulesConstants.MODERATE_EDITS)
 	@Get
 	public void history() {
 		ModeratableAndPendingHistory pendingQuestions = informations.pendingByUpdatables(Question.class);			
@@ -56,23 +57,23 @@ public class HistoryController extends BaseController {
 		result.include("answers", pendingAnswers);
 	}
 
-	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
-	@AccessLevel(PermissionRulesConstants.MODERATE_EDITS)
+	@SimpleBrutauthRules({EnvironmentKarmaRule.class})
+	@EnvironmentAccessLevel(PermissionRulesConstants.MODERATE_EDITS)
 	@Get
 	public void unmoderated(String moderatableType) {
 		result.redirectTo(this).history();
 	}
 	
-	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
-	@AccessLevel(PermissionRulesConstants.MODERATE_EDITS)
+	@SimpleBrutauthRules({EnvironmentKarmaRule.class})
+	@EnvironmentAccessLevel(PermissionRulesConstants.MODERATE_EDITS)
 	@Get
 	public void similarAnswers(Long moderatableId) {
 		similar(i18n("answer", "answer.type_name").getMessage(), moderatableId);
 	}
 	
 	
-	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
-	@AccessLevel(PermissionRulesConstants.MODERATE_EDITS)
+	@SimpleBrutauthRules({EnvironmentKarmaRule.class})
+	@EnvironmentAccessLevel(PermissionRulesConstants.MODERATE_EDITS)
 	@Get
 	public void similarQuestions(Long moderatableId) {
 		similar(i18n("question", "question.type_name").getMessage(), moderatableId);
@@ -86,8 +87,8 @@ public class HistoryController extends BaseController {
 		result.include("isHistoryQuestion", true);
 	}
 
-	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
-	@AccessLevel(PermissionRulesConstants.MODERATE_EDITS)
+	@SimpleBrutauthRules({EnvironmentKarmaRule.class})
+	@EnvironmentAccessLevel(PermissionRulesConstants.MODERATE_EDITS)
     @Post
     public void publish(Long moderatableId, String moderatableType, Long aprovedInformationId,  String aprovedInformationType) {
     	Class<?> moderatableClass = urlMapping.getClassFor(moderatableType);
@@ -103,7 +104,7 @@ public class HistoryController extends BaseController {
         
         User approvedAuthor = approved.getAuthor();
         refusePending(aprovedInformationId, pending);
-        currentUser.getCurrent().approve(moderatable, approved);
+        currentUser.getCurrent().approve(moderatable, approved, environmentKarma);
         ReputationEvent editAppoved = new ReputationEvent(EventType.EDIT_APPROVED, moderatable.getQuestion(), approvedAuthor);
         int karma = calculator.karmaFor(editAppoved);
         approvedAuthor.increaseKarma(karma);
