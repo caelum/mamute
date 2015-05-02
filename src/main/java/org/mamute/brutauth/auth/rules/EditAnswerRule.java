@@ -16,18 +16,20 @@ import br.com.caelum.brutauth.auth.rules.CustomBrutauthRule;
 
 public class EditAnswerRule implements CustomBrutauthRule {
 	private User user;
+	private EnvironmentKarma environmentKarma;
 
 	@Deprecated
 	public EditAnswerRule() {
 	}
 	
 	@Inject
-	public EditAnswerRule(LoggedUser user) {
+	public EditAnswerRule(LoggedUser user, EnvironmentKarma environmentKarma) {
+		this.environmentKarma = environmentKarma;
 		this.user = user.getCurrent();
 	}
 
 	public boolean isAllowed(Answer answer) {
-		int karma = PermissionRulesConstants.EDIT_ANSWER;
+		long karma = environmentKarma.get(PermissionRulesConstants.EDIT_ANSWER);
 		return composedRule(isAuthor()).or(hasKarma(karma)).or(isModerator()).isAllowed(user, answer);
 	}
 }

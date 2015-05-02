@@ -4,35 +4,35 @@ public class PermissionRulesConstants {
 	/**
 	 * to vote up anything
 	 */
-	public final static int VOTE_UP = 10;
-	
+	public final static String VOTE_UP = "vote_up";
+
 	/**
 	 * to vote down anything
 	 */
-	public static final int VOTE_DOWN = 100;
+	public final static String VOTE_DOWN = "vote_down";
 	
 	/**
 	 * to answer own question
 	 */
-	public static final int ANSWER_OWN_QUESTION = 0;
+	public final static String ANSWER_OWN_QUESTION = "answer_own_question";
 	
 	/**
 	 * to flag anything
 	 */
-	public static final int CREATE_FLAG = 10;
+	public final static String CREATE_FLAG = "create_flag";
 	
-	public static final int EDIT_QUESTION = 20;
-	public static final int EDIT_ANSWER = 20;
+	public final static String EDIT_QUESTION = "edit_question";
+	public final static String EDIT_ANSWER = "edit_answer";
 
 	/**
 	 * to comment anything
 	 */
-	public static final int CREATE_COMMENT = 0;
+	public static final String CREATE_COMMENT = "create_comment";
 
-	public static final long MODERATE_EDITS = 2000;
+	public final static String MODERATE_EDITS = "moderate_edits";
 
 	/**
 	 * to interact with an inactive question 
 	 */
-	public static final long INACTIVE_QUESTION = 100;
+	public final static String INACTIVATE_QUESTION = "inactivate_question";
 }
