@@ -3,7 +3,9 @@ package org.mamute.brutauth.auth.rules;
 import br.com.caelum.vraptor.environment.Environment;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
+@Named("environmentKarma")
 public class EnvironmentKarma {
 
 	private Environment environment;
