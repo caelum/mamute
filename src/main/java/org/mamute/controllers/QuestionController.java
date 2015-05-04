@@ -1,17 +1,14 @@
 package org.mamute.controllers;
 
-import static java.util.Arrays.asList;
-
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-
-import javax.inject.Inject;
-
-import br.com.caelum.vraptor.observer.upload.UploadedFile;
-import org.apache.commons.io.IOUtils;
+import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
+import br.com.caelum.vraptor.*;
+import br.com.caelum.vraptor.Post;
+import br.com.caelum.vraptor.environment.Environment;
+import br.com.caelum.vraptor.hibernate.extra.Load;
+import br.com.caelum.vraptor.routes.annotation.Routed;
+import br.com.caelum.vraptor.validator.I18nMessage;
+import br.com.caelum.vraptor.validator.Validator;
+import br.com.caelum.vraptor.view.Results;
 import org.mamute.auth.FacebookAuthService;
 import org.mamute.brutauth.auth.rules.EditQuestionRule;
 import org.mamute.brutauth.auth.rules.InputRule;
@@ -19,7 +16,6 @@ import org.mamute.brutauth.auth.rules.LoggedRule;
 import org.mamute.brutauth.auth.rules.ModeratorOnlyRule;
 import org.mamute.dao.*;
 import org.mamute.factory.MessageFactory;
-import org.mamute.filesystem.AttachmentsFileStorage;
 import org.mamute.interceptors.IncludeAllTags;
 import org.mamute.managers.TagsManager;
 import org.mamute.model.*;
@@ -31,15 +27,12 @@ import org.mamute.validators.AttachmentsValidator;
 import org.mamute.validators.TagsValidator;
 import org.mamute.vraptor.Linker;
 
-import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
-import br.com.caelum.vraptor.Controller;
-import br.com.caelum.vraptor.Get;
-import br.com.caelum.vraptor.Post;
-import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.hibernate.extra.Load;
-import br.com.caelum.vraptor.routes.annotation.Routed;
-import br.com.caelum.vraptor.validator.Validator;
-import br.com.caelum.vraptor.view.Results;
+import javax.inject.Inject;
+import java.util.Arrays;
+import java.util.List;
+
+import static br.com.caelum.vraptor.view.Results.http;
+import static java.util.Arrays.asList;
 
 @Routed
 @Controller
@@ -62,6 +55,7 @@ public class QuestionController {
 	private TagsSplitter splitter;
 	private AttachmentDao attachments;
 	private AttachmentsValidator attachmentsValidator;
+	private Environment environment;
 	private QuestionIndex index;
 
 
@@ -78,7 +72,7 @@ public class QuestionController {
 			Validator validator, PostViewCounter viewCounter,
 			Linker linker, WatcherDAO watchers, ReputationEventDAO reputationEvents,
 			BrutalValidator brutalValidator, TagsManager tagsManager, TagsSplitter splitter,
-			AttachmentDao attachments, AttachmentsValidator attachmentsValidator) {
+			AttachmentDao attachments, AttachmentsValidator attachmentsValidator, Environment environment) {
 		this.result = result;
 		this.questions = questionDAO;
 		this.index = index;
@@ -97,6 +91,7 @@ public class QuestionController {
 		this.splitter = splitter;
 		this.attachments = attachments;
 		this.attachmentsValidator = attachmentsValidator;
+		this.environment = environment;
 	}
 
 	@Get
@@ -205,6 +200,44 @@ public class QuestionController {
 	public void showVoteInformation (@Load Question question, String sluggedTitle){
 		result.include("question", question);
 		redirectToRightUrl(question, sluggedTitle);
+	}
+
+	@Delete
+	public void deleteQuestion(@Load Question question) {
+		if (!environment.supports("deletable.questions")) {
+			result.notFound();
+			return;
+		}
+		if (!currentUser.isModerator() && !question.hasAuthor(currentUser.getCurrent())) {
+			result.use(http()).sendError(403);
+			return;
+		}
+
+		I18nMessage errorMessage = messageFactory.build("error", "question.errors.deletion");
+		if (!question.isDeletable()) {
+			result.use(http())
+				.body(errorMessage.getMessage())
+				.setStatusCode(400);
+			return;
+		}
+		result.include("mamuteMessages", asList(messageFactory.build("confirmation", "question.delete.confirmation")));
+		questions.delete(question);
+
+		result.redirectTo(ListController.class).home(null);
+	}
+
+	@CustomBrutauthRules({ModeratorOnlyRule.class})
+	@Delete
+	public void deleteQuestionFully(@Load Question question) {
+		if (!environment.supports("deletable.questions")) {
+			result.notFound();
+			return;
+		}
+
+		questions.deleteFully(question, currentUser.getCurrent());
+
+		result.include("mamuteMessages", asList(messageFactory.build("confirmation", "question.delete.confirmation")));
+		result.redirectTo(ListController.class).home(null);
 	}
 
 	private boolean validate(List<Tag> foundTags, List<String> splitedTags) {

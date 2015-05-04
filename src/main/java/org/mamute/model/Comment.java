@@ -13,7 +13,9 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.Where;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
@@ -22,6 +24,8 @@ import org.mamute.model.interfaces.Notifiable;
 import org.mamute.model.interfaces.Votable;
 import org.mamute.providers.SessionFactoryCreator;
 
+@SQLDelete(sql = "update Comment set deleted = true where id = ?")
+@Where(clause = "deleted = 0")
 @Entity
 public class Comment implements Notifiable, Votable, Flaggable {
     
@@ -64,8 +68,10 @@ public class Comment implements Notifiable, Votable, Flaggable {
 	
 	@Embedded
 	private final ModerationOptions moderationOptions = new ModerationOptions();
-	
-    /**
+
+	private boolean deleted;
+
+	/**
      * @deprecated hibernate eyes
      */
     Comment() {

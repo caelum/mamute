@@ -7,8 +7,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.Where;
 
+@SQLDelete(sql = "update Flag set deleted = true where id = ?")
+@Where(clause = "deleted = 0")
 @Entity
 public class Flag {
 
@@ -24,6 +28,8 @@ public class Flag {
 	
 	@Enumerated(EnumType.STRING)
 	private FlagType type;
+
+	private boolean deleted;
 
 	/**
 	 * @deprecated

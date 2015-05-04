@@ -11,6 +11,7 @@ import static org.hibernate.criterion.Restrictions.isNull;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -24,10 +25,7 @@ import org.hibernate.sql.JoinType;
 import org.joda.time.DateTime;
 import org.mamute.dao.WithUserPaginatedDAO.OrderType;
 import org.mamute.dao.WithUserPaginatedDAO.UserRole;
-import org.mamute.model.Attachment;
-import org.mamute.model.Question;
-import org.mamute.model.Tag;
-import org.mamute.model.User;
+import org.mamute.model.*;
 import org.mamute.model.interfaces.RssContent;
 
 @SuppressWarnings("unchecked")
@@ -278,5 +276,61 @@ public class QuestionDAO implements PaginatableDAO {
 				.setParameter("a", attachment)
 				.uniqueResult();
 	}
-}
 
+	public void delete(Question question) {
+		session.delete(question);
+	}
+
+
+	private void deleteAttachments(Question question) {
+		ArrayList<Long> ids = new ArrayList<>();
+		for (Attachment attachment : question.getAttachments()) {
+			ids.add(attachment.getId());
+		}
+		if (!ids.isEmpty()) {
+			session.createQuery("delete from Attachment where id in :ids")
+				.setParameterList("ids", ids)
+				.executeUpdate();
+		}
+	}
+
+	public void deleteFully(Question question, User user) {
+
+		this.delete(question);
+		List<Answer> answers = question.getAnswers();
+		for (Answer answer : answers) {
+			session.delete(answer);
+		}
+		List<Flag> flags = question.getFlags();
+		for (Flag flag : flags) {
+			session.delete(flag);
+		}
+		List<Comment> comments = question.getVisibleCommentsFor(user);
+		for (Comment comment : comments) {
+			session.delete(comment);
+		}
+
+		session.createSQLQuery("update ReputationEvent set deleted=1 where context_id=:id and context_type='QUESTION'")
+				.setParameter("id", question.getId()).executeUpdate();
+
+	}
+
+	private class QuestionQuery {
+		private final Question question;
+
+		public QuestionQuery(Question question) {
+			this.question = question;
+		}
+
+		public void runFor(String query) {
+			session.createQuery(query).setParameter("id", question.getId())
+				.executeUpdate();
+		}
+
+		public void execute(String query) {
+			session.createSQLQuery(query)
+					.setParameter("id", question.getId())
+					.executeUpdate();
+		}
+	}
+}

@@ -12,8 +12,6 @@
 		<property name="show_sql">false</property>
 		<property name="format_sql">false</property>
 		<property name="hibernate.hbm2ddl.auto">create-drop</property>
-		<property name="hibernate.hbm2ddl.import_files">import_test.sql</property>
-		
 
 		<property name="hibernate.cache.use_query_cache">false</property>
 		<property name="hibernate.cache.use_second_level_cache">false</property>
