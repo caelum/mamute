@@ -27,12 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.inject.Vetoed;
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -44,6 +39,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Years;
 import org.mamute.auth.rules.PermissionRulesConstants;
 import org.mamute.dto.UserPersonalInfo;
+import org.mamute.filesystem.AttachmentsFileStorage;
 import org.mamute.infra.Digester;
 import org.mamute.model.interfaces.Identifiable;
 import org.mamute.model.interfaces.Moderatable;
@@ -117,8 +113,10 @@ public class User implements Identifiable {
 	
 	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
 	private DateTime lastUpvote = new DateTime();
-	
-	
+
+	@ManyToOne
+	private Attachment avatarImage;
+
 	static {
 		GHOST = new User(fromTrustedText("GHOST"), "");
 		GHOST.setId(1000l);
@@ -246,6 +244,9 @@ public class User implements Identifiable {
 	}
 	
 	public String getPhoto(Integer width, Integer height, String gravatarUrl) {
+		if (this.avatarImage != null) {
+			return localAvatarPhoto(width, height);
+		}
 		String size = width + "x" + height;
 		if (photoUri == null) {
 			String digest = Digester.md5(email);
@@ -262,7 +263,13 @@ public class User implements Identifiable {
 			return photoUri + "?width=" + width + "&height=" + height;
 		}
 	}
-	
+
+	private String localAvatarPhoto(Integer width, Integer height) {
+		String format = "/attachments/%d?w=%d&h=%d";
+		String url = String.format(format, avatarImage.getId(), width, height);
+		return url;
+	}
+
 	public String getAbout() {
 		return about;
 	}
@@ -410,5 +417,13 @@ public class User implements Identifiable {
 
 	public boolean hasKarma() {
 		return (this.karma >= 0);
+	}
+
+	public void setAvatar(Attachment attachment) {
+		this.avatarImage = attachment;
+	}
+
+	public Attachment getAvatar() {
+		return avatarImage;
 	}
 }
