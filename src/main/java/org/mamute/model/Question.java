@@ -105,6 +105,8 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 	private Set<Attachment> attachments = new HashSet<>();
 	
     public static final long SPAM_BOUNDARY = -5;
+
+	private boolean deleted;
     
 	/**
 	 * @deprecated hibernate eyes only

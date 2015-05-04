@@ -68,8 +68,10 @@ public class Comment implements Notifiable, Votable, Flaggable {
 	
 	@Embedded
 	private final ModerationOptions moderationOptions = new ModerationOptions();
-	
-    /**
+
+	private boolean deleted;
+
+	/**
      * @deprecated hibernate eyes
      */
     Comment() {

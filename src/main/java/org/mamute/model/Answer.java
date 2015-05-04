@@ -78,6 +78,8 @@ public class Answer extends Moderatable implements Post, Notifiable {
 	@OneToMany
 	private Set<Attachment> attachments = new HashSet<>();
 
+	private boolean deleted;
+
 	public Answer(AnswerInformation information, Question question, User author) {
 		this.question = question;
 		this.author = author;

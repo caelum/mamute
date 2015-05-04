@@ -29,6 +29,8 @@ public class Flag {
 	@Enumerated(EnumType.STRING)
 	private FlagType type;
 
+	private boolean deleted;
+
 	/**
 	 * @deprecated
 	 */

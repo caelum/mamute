@@ -43,6 +43,8 @@ public class ReputationEvent {
 	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
 	private DateTime date = new DateTime();
 
+	private boolean deleted;
+
 	@Deprecated
 	ReputationEvent() {
 	}

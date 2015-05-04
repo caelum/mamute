@@ -6,6 +6,7 @@ import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+import br.com.caelum.vraptor.environment.Environment;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.StatelessSession;
@@ -14,6 +15,7 @@ import org.hibernate.StatelessSession;
 public class MigrationExecutor {
 
 	private SessionFactory sf;
+	private Environment env;
 	private int currentMigration = -1;
 	private Session session;
 	private StatelessSession statelessSession;
@@ -24,8 +26,9 @@ public class MigrationExecutor {
 	}
 
 	@Inject
-	public MigrationExecutor(SessionFactory sf) {
+	public MigrationExecutor(SessionFactory sf, Environment env) {
 		this.sf = sf;
+		this.env = env;
 	}
 
 	public void begin() {
@@ -71,7 +74,9 @@ public class MigrationExecutor {
 	}
 
 	public void run(SchemaMigration m) {
-		executeQueries(m.up());
+		if (!env.isTest()) {
+			executeQueries(m.up());
+		}
 	}
 
 	public void prepareTables() {
