@@ -18,7 +18,7 @@ if [ ! -z "$WAR_PATH" ]; then
 	fi 
 else
 	REPO_PATH=${REPO_PATH:-"$MAMUTE_DIR"} #if no REPO_PATH specified, try to use MAMUTE_DIR
-	REPO_PATH=${REPO_PATH:-`readlink -f "$APPLICATION_DIR/../mamute"`} #if no MAMUTE_DIR specified, use default value
+	REPO_PATH=${REPO_PATH:-`dirname "$APPLICATION_DIR/../mamute"`} #if no MAMUTE_DIR specified, use default value
 
 	if [ ! -d $REPO_PATH ]; then
 		echo "the folder $REPO_PATH doesn't exists!"
@@ -52,14 +52,21 @@ customFiles=("WEB-INF/classes/messages*.properties"
 cd "$APPLICATION_DIR/mamute"
 
 echo 'Copying custom files'
-for ((i=0; i<${#customFiles[@]} ; i++))
-do
-	echo "Copying ${customFiles[i]}"
-	cp -R --parents ${customFiles[i]} "$APPLICATION_DIR/overrides"
-done
+for ((i=0; i<${#customFiles[@]} ; i++)); do
+    if [ -d ${customFiles[i]} ]; then
+        mkdir -p $APPLICATION_DIR/overrides/${customFiles[i]}
+        cp -R $APPLICATION_DIR/mamute/${customFiles[i]}/* $APPLICATION_DIR/overrides/${customFiles[i]}/
+    else
+        for F in `ls ${customFiles[i]}`; do
+            DIR=`dirname ${F}` 
+            FILENAME=`basename $F`
+            mkdir -p $APPLICATION_DIR/overrides/$DIR
+            cp -v $APPLICATION_DIR/mamute/$DIR/$FILENAME $APPLICATION_DIR/overrides/$DIR
+        done
+    fi 
+done 
 
 echo  'Removing old version of mamute' 
-
 mv "$APPLICATION_DIR/mamute" "${APPLICATION_DIR}/mamute-old_`date +%s`"
 mkdir "$APPLICATION_DIR/mamute"
 
