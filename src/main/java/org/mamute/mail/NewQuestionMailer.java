@@ -20,17 +20,26 @@ import java.util.List;
 
 public class NewQuestionMailer {
 
-	@Inject
 	private AsyncMailer mailer;
-	@Inject
 	private TemplateMailer templates;
-	@Inject
 	private BundleFormatter bundle;
-	@Inject
-	@Property("mail_logo_url")
 	private String emailLogo;
-	@Inject
 	private Linker linker;
+
+	@Deprecated
+	NewQuestionMailer() {
+	}
+
+	@Inject
+	public NewQuestionMailer(AsyncMailer mailer, TemplateMailer templates,
+							 BundleFormatter bundle, Linker linker,
+							 @Property("mail_logo_url") String emailLogo) {
+		this.mailer = mailer;
+		this.templates = templates;
+		this.bundle = bundle;
+		this.linker = linker;
+		this.emailLogo = emailLogo;
+	}
 
 	public void send(List<User> subscribed, Question question) {
 		linker.linkTo(QuestionController.class).showQuestion(question, question.getSluggedTitle());
