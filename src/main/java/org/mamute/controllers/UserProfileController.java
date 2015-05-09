@@ -117,7 +117,8 @@ public class UserProfileController extends BaseController{
 	
 	@Post
 	public void editProfile(@Load User user, SanitizedText name, String email, 
-			SanitizedText website, SanitizedText location, DateTime birthDate, MarkedText description, boolean isSubscribed) {
+			SanitizedText website, SanitizedText location, DateTime birthDate, MarkedText description,
+			boolean isSubscribed, boolean receiveAllUpdates) {
 		if (!user.getId().equals(currentUser.getCurrent().getId())){
 			result.redirectTo(ListController.class).home(null);
 			return;
@@ -134,6 +135,7 @@ public class UserProfileController extends BaseController{
 			.withLocation(location)
 			.withBirthDate(birthDate)
 			.withAbout(description)
+			.withReceiveAllUpdates(receiveAllUpdates)
 			.withIsSubscribed(isSubscribed);
 		
 		if (!infoValidator.validate(info)) {

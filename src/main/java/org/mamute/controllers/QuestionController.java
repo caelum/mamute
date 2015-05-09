@@ -15,6 +15,7 @@ import org.mamute.brutauth.auth.rules.InputRule;
 import org.mamute.brutauth.auth.rules.LoggedRule;
 import org.mamute.brutauth.auth.rules.ModeratorOnlyRule;
 import org.mamute.dao.*;
+import org.mamute.event.QuestionCreated;
 import org.mamute.factory.MessageFactory;
 import org.mamute.interceptors.IncludeAllTags;
 import org.mamute.managers.TagsManager;
@@ -27,6 +28,7 @@ import org.mamute.validators.AttachmentsValidator;
 import org.mamute.validators.TagsValidator;
 import org.mamute.vraptor.Linker;
 
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.List;
@@ -38,61 +40,46 @@ import static java.util.Arrays.asList;
 @Controller
 public class QuestionController {
 
-	private Result result;
-	private QuestionDAO questions;
-	private VoteDAO votes;
-	private LoggedUser currentUser;
-	private TagsValidator tagsValidator;
-	private MessageFactory messageFactory;
-	private Validator validator;
-	private FacebookAuthService facebook;
-	private PostViewCounter viewCounter;
-	private Linker linker;
-	private WatcherDAO watchers;
-	private ReputationEventDAO reputationEvents;
-	private BrutalValidator brutalValidator;
-	private TagsManager tagsManager;
-	private TagsSplitter splitter;
-	private AttachmentDao attachments;
-	private AttachmentsValidator attachmentsValidator;
-	private Environment environment;
-	private QuestionIndex index;
-
-
-	/**
-	 * @deprecated CDI eyes only
-	 */
-	public QuestionController() {
-	}
-
 	@Inject
-	public QuestionController(Result result, QuestionDAO questionDAO, QuestionIndex index,
-			VoteDAO votes, LoggedUser currentUser, FacebookAuthService facebook,
-			TagsValidator tagsValidator, MessageFactory messageFactory,
-			Validator validator, PostViewCounter viewCounter,
-			Linker linker, WatcherDAO watchers, ReputationEventDAO reputationEvents,
-			BrutalValidator brutalValidator, TagsManager tagsManager, TagsSplitter splitter,
-			AttachmentDao attachments, AttachmentsValidator attachmentsValidator, Environment environment) {
-		this.result = result;
-		this.questions = questionDAO;
-		this.index = index;
-		this.votes = votes;
-		this.currentUser = currentUser;
-		this.facebook = facebook;
-		this.tagsValidator = tagsValidator;
-		this.messageFactory = messageFactory;
-		this.validator = validator;
-		this.viewCounter = viewCounter;
-		this.linker = linker;
-		this.watchers = watchers;
-		this.reputationEvents = reputationEvents;
-		this.brutalValidator = brutalValidator;
-		this.tagsManager = tagsManager;
-		this.splitter = splitter;
-		this.attachments = attachments;
-		this.attachmentsValidator = attachmentsValidator;
-		this.environment = environment;
-	}
+	private Result result;
+	@Inject
+	private QuestionDAO questions;
+	@Inject
+	private VoteDAO votes;
+	@Inject
+	private LoggedUser currentUser;
+	@Inject
+	private TagsValidator tagsValidator;
+	@Inject
+	private MessageFactory messageFactory;
+	@Inject
+	private Validator validator;
+	@Inject
+	private FacebookAuthService facebook;
+	@Inject
+	private PostViewCounter viewCounter;
+	@Inject
+	private Linker linker;
+	@Inject
+	private WatcherDAO watchers;
+	@Inject
+	private ReputationEventDAO reputationEvents;
+	@Inject
+	private BrutalValidator brutalValidator;
+	@Inject
+	private TagsManager tagsManager;
+	@Inject
+	private TagsSplitter splitter;
+	@Inject
+	private AttachmentDao attachments;
+	@Inject
+	private AttachmentsValidator attachmentsValidator;
+	@Inject
+	private Environment environment;
+	@Inject
+	private QuestionIndex index;
+	@Inject
+	private Event<QuestionCreated> questionCreated;
 
 	@Get
 	@IncludeAllTags
@@ -191,6 +178,8 @@ public class QuestionController {
 		if (watching) {
 			watchers.add(question, new Watcher(author));
 		}
+
+		questionCreated.fire(new QuestionCreated(question));
 		result.include("mamuteMessages", asList(messageFactory.build("alert", "question.quality_reminder")));
 		result.redirectTo(this).showQuestion(question, question.getSluggedTitle());
 	}

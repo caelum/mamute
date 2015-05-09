@@ -41,8 +41,12 @@
 	<label for="description" class="form-label">${t['user_profile.edit.form.about.label']}</label>
 	<tags:markDown value="${user.about}" hintId="user-about-hint" minlength="6" maxlength="500" />
 
-	<input type="checkbox" name="isSubscribed" class="text-input inline-box" maxlength="100" ${user.subscribedToNewsletter? 'checked':''} />
+	<input type="checkbox" name="isSubscribed" class="text-input inline-box" ${user.subscribedToNewsletter? 'checked':''} />
 	<label for="isSubscribed" class="form-label inline-label">${t['user_profile.edit.form.subscribe.label']}</label>
+
+	<input type="checkbox" name="receiveAllUpdates" class="text-input inline-box" ${user.receiveAllUpdates()? 'checked':''} />
+	<label for="receiveAllUpdates" class="form-label inline-label">${t['user_profile.edit.form.receiveAllUpdates.label']}</label>
+
 	<input type="submit" class="post-submit big-submit submit" value="${t['user_profile.edit.form.submit']}"/>
 	<tags:userProfileLink user="${user}" value="user_profile.edit.cancel"/>
 </form>

@@ -190,4 +190,9 @@ public class UserDAO {
 			.setParameter("brutal", MethodType.BRUTAL)
 			.executeUpdate();
 	}
+
+	public List<User> findUsersSubscribedToAllQuestions() {
+		return session.createQuery("from User where receiveAllUpdates=true")
+				.list();
+	}
 }
