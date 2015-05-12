@@ -45,7 +45,7 @@
 	<label for="isSubscribed" class="form-label inline-label">${t['user_profile.edit.form.subscribe.label']}</label>
 
 	<input type="checkbox" name="receiveAllUpdates" class="text-input inline-box" ${user.receiveAllUpdates()? 'checked':''} />
-	<label for="receiveAllUpdates" class="form-label inline-label">${t['user_profile.edit.form.receiveAllUpdates.label']}</label>
+	<label for="receiveAllUpdates" class="form-label inline-label">${t['user_profile.edit.form.receive_all_updates.label']}</label>
 
 	<input type="submit" class="post-submit big-submit submit" value="${t['user_profile.edit.form.submit']}"/>
 	<tags:userProfileLink user="${user}" value="user_profile.edit.cancel"/>
