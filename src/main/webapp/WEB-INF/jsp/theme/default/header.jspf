@@ -6,7 +6,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <header class="header clear">
-<c:set var="mainTags" value="" scope="request"/>
+<c:set var="mainTags" value="${t['tags.featured']}" scope="request"/>
 	<section class="first-header">
 		<div class="container header-container">
 			<a class="logo big-logo sprite"
