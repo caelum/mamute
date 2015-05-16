@@ -88,4 +88,10 @@ public class Tag {
 		this.usageCount --;
 	}
 
+	public boolean equals(Object aThat){
+		if ( this == aThat ) return true;
+		if ( !(aThat instanceof Tag) ) return false;
+		Tag that = (Tag)aThat;
+		return that.id.equals(this.id);
+	}
 }

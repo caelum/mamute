@@ -8,7 +8,7 @@ import javax.enterprise.context.ApplicationScoped;
 import java.util.List;
 
 @ApplicationScoped
-public class M009AddSluggedNameToTags implements SchemaMigration {
+public class M014AddSluggedNameToTags implements SchemaMigration {
 	@Override
 	public List<MigrationOperation> up() {
 		return RawSQLOperation.forSqls(
