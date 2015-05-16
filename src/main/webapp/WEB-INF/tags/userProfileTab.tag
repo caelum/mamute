@@ -11,6 +11,10 @@
 			<ul class="subheader-menu">
 		<c:if test="${isCurrentUser}">
 				<li><a href="${linkTo[UserProfileController].editProfile(selectedUser)}">${t['user_profile.edit']}</a></li>
+				<c:if test="${env.supports('feature.logout_concealed')}">
+					<li><a href="${linkTo[AuthController].logout}">${t['auth.logout_link']}</a></li>
+				</c:if>
+
 		</c:if>
 				<c:if test="${currentUser.current.isModerator()}">
 					<li>
