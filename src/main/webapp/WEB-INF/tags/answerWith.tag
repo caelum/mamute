@@ -7,7 +7,7 @@
 <%@attribute name="commentVotes" type="org.mamute.model.CommentsAndVotes" required="true" %>
 <section class="post-area ${answer.isVisibleForModeratorAndNotAuthor(currentUser.current) ? 'highlight-post' : '' }">
 	<div class="post-meta">
-		<tags:voteFor item="${answer}" type="resposta" vote="${vote}"/>
+		<tags:voteFor item="${answer}" type="${t['answer.type_name']}" vote="${vote}"/>
 		<tags:solutionMarkFor answer="${answer}"/>
 	</div>
 	<div class="post-container">
@@ -28,12 +28,12 @@
 							${t['flag']}
 						</a>
 					</c:if>
-					<tags:flagItFor type="resposta" modalId="answer-flag-modal${answer.id}" flaggable="${answer}"/>
+					<tags:flagItFor type="${t['answer.type_name']}" modalId="answer-flag-modal${answer.id}" flaggable="${answer}"/>
 				</li>
 			</ul>
 			<tags:touchesFor touchable="${answer}" />
 		</div>
-		<tags:add-a-comment type="resposta" item="${answer}" votes="${commentVotes}"/>
+		<tags:add-a-comment type="${t['answer.type_name']}" item="${answer}" votes="${commentVotes}"/>
 		<c:if test="${currentUser.moderator && answer.hasPendingEdits()}">
 			<a class="message moderator-alert" href="${linkTo[HistoryController].similarAnswers(answer.id)}">${t['answer.warns.has_edits']}</a>
 		</c:if>

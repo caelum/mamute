@@ -12,14 +12,14 @@
 		
 		<li class="pending">
 			<h3 class="title item-title">
-				<c:if test="${type eq 'pergunta'}">
+				<c:if test="${type eq t['question.type_name']}">
 					<tags:similarQuestionsLinkFor question="${entry.key}"/>
-					<p class="moderator-text">Quantidade de edições : ${entry.value.size()}</p>
+					<p class="moderator-text">${t['moderation.number_of_editions']} : ${entry.value.size()}</p>
 					<tags:tagsFor taggable="${entry.key}"></tags:tagsFor>
 				</c:if>
-				<c:if test="${type eq 'resposta'}">
+				<c:if test="${type eq '{t['answer.type_name']}'}">
 					<tags:similarQuestionsLinkFor answer="${entry.key}"/>
-					<p class="moderator-text">Quantidade de edições : ${entry.value.size()}</p>
+					<p class="moderator-text">${t['moderation.number_of_editions']} : ${entry.value.size()}</p>
 					<tags:tagsFor taggable="${entry.key.question}"></tags:tagsFor>
 				</c:if>
 			</h3>
@@ -27,7 +27,7 @@
 			<div class="stats">
 				<c:set var="information" value="${entry.value[fn:length(entry.value)-1]}"/>
 				<span class="last-updated-at"><tags:prettyTime time="${information.createdAt}" /></span>
-				<span>- último usuário a editar :</span>
+				<span>- ${t['moderation.last_user_to_edit']} :</span>
 				<tags:userProfileLink user="${information.author}"/>
 			</div>
 		</li>

@@ -11,7 +11,7 @@
 		<a title="${t['comment.list.upvote']}"  class="comment-meta-hidden container comment-option author-cant requires-login vote-option icon-up-open 
 			${(not empty currentUserVote) ? 'voted' : '' }" 
 			data-value="positivo" data-author="${currentUser.current.isAuthorOf(comment)}" 
-			data-type="comentario" data-id="${comment.id}">
+			data-type="${t['comment.type_name']}" data-id="${comment.id}">
 		</a>
 		<c:if test="${currentUser.loggedIn && !comment.alreadyFlaggedBy(currentUser.current) && !currentUser.current.isAuthorOf(comment)}">
 			<a title="${t['flag']}" href="#" data-author="${currentUser.current.isAuthorOf(comment)}"
@@ -39,7 +39,7 @@
 		</c:if>
 	</div>	
 </li>
-<tags:flagItFor type="comentario" modalId="comment-flag-modal${comment.id}" flaggable="${comment}"/>
+<tags:flagItFor type="${t['comment.type_name']}" modalId="comment-flag-modal${comment.id}" flaggable="${comment}"/>
 
 
 

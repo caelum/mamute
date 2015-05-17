@@ -105,7 +105,7 @@
 						</c:if>
 						<li class="nav-item">
 							<a href="#"	class="search-dropdown dropdown-trigger"
-							data-target-id="dropdown-search-form">Procurar</a>
+							data-target-id="dropdown-search-form">${t['metas.search.title']}</a>
 						</li>
 					</ul>
 				</nav>
