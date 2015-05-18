@@ -25,6 +25,7 @@ import org.hibernate.sql.JoinType;
 import org.joda.time.DateTime;
 import org.mamute.dao.WithUserPaginatedDAO.OrderType;
 import org.mamute.dao.WithUserPaginatedDAO.UserRole;
+import org.mamute.list.Tab;
 import org.mamute.model.*;
 import org.mamute.model.interfaces.RssContent;
 
@@ -152,17 +153,15 @@ public class QuestionDAO implements PaginatableDAO {
 				.list();
 	}
 	
-	public List<Question> top(String section, int count, DateTime since) {
+	public List<Question> top(Tab tab, int count, DateTime since) {
 		Order order;
-		if (section.equals("viewed")) {
-			order = Order.desc("q.views");
+
+		switch (tab.getType()) {
+			case VIEWED:    order = Order.desc("q.views");          break;
+			case ANSWERED:  order = Order.desc("q.answerCount");    break;
+			default:        order = Order.desc("q.voteCount");      break;
 		}
-		else if (section.equals("answered")) {
-			order = Order.desc("q.answerCount");
-		}
-		else /*if (section.equals("voted"))*/ {
-			order = Order.desc("q.voteCount");
-		}
+
 		return session.createCriteria(Question.class, "q")
 				.add(and(Restrictions.eq("q.moderationOptions.invisible", false)))
 				.add(gt("q.createdAt", since))
