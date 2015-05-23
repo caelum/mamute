@@ -1,14 +1,14 @@
 package org.mamute.model;
 
+import static com.google.common.collect.Collections2.transform;
+import static com.google.common.collect.Iterables.concat;
 import static javax.persistence.FetchType.EAGER;
 import static org.hibernate.annotations.CascadeType.SAVE_UPDATE;
 import static org.mamute.sanitizer.QuotesSanitizer.sanitize;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
+import javax.annotation.Nullable;
 import javax.persistence.Cacheable;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -21,6 +21,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 import org.hibernate.annotations.*;
 import org.joda.time.DateTime;
 import org.mamute.model.interfaces.Moderatable;
@@ -494,5 +498,22 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 
 	public boolean isDeletable() {
 		return answerCount == 0 && flags.isEmpty() && comments.isEmpty();
+	}
+
+	public Iterable<Attachment> getAllAttachments() {
+		Iterable<Attachment> answersAttachments = concat(transform(this.getAnswers(), getAnswerAttachments()));
+		ArrayList<Attachment> allAttachments = Lists.newArrayList(answersAttachments);
+		allAttachments.addAll(this.getAttachments());
+		return allAttachments;
+	}
+
+	private Function<Answer, Set<Attachment>> getAnswerAttachments() {
+		return new Function<Answer, Set<Attachment>>() {
+			@Nullable
+			@Override
+			public Set<Attachment> apply(Answer input) {
+				return input.getAttachments();
+			}
+		};
 	}
 }
