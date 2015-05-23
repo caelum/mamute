@@ -31,10 +31,10 @@ public class Tag {
 	@NotEmpty
 	private String name;
 
-    @Column(unique = true, nullable = false)
-    @Type(type = "text")
-    @NotEmpty
-    private String sluggedName;
+	@Column(unique = true, nullable = false)
+	@Type(type = "text")
+	@NotEmpty
+	private String sluggedName;
 
 	private String description;
 
@@ -55,8 +55,8 @@ public class Tag {
 
 	public Tag(String name, String description, User author) {
 		this.name = name.toLowerCase();
-        this.sluggedName = toSlug(name, true);
-        this.description = description;
+		this.sluggedName = toSlug(name, true);
+		this.description = description;
 		this.author = author;
 	}
 
