@@ -9,6 +9,8 @@ import br.com.caelum.vraptor.routes.annotation.Routed;
 import br.com.caelum.vraptor.validator.I18nMessage;
 import br.com.caelum.vraptor.validator.Validator;
 import br.com.caelum.vraptor.view.Results;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Lists;
 import org.mamute.auth.FacebookAuthService;
 import org.mamute.brutauth.auth.rules.EditQuestionRule;
 import org.mamute.brutauth.auth.rules.InputRule;
@@ -17,6 +19,7 @@ import org.mamute.brutauth.auth.rules.ModeratorOnlyRule;
 import org.mamute.dao.*;
 import org.mamute.event.QuestionCreated;
 import org.mamute.factory.MessageFactory;
+import org.mamute.filesystem.AttachmentRepository;
 import org.mamute.interceptors.IncludeAllTags;
 import org.mamute.managers.TagsManager;
 import org.mamute.model.*;
@@ -30,8 +33,10 @@ import org.mamute.vraptor.Linker;
 
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import static br.com.caelum.vraptor.view.Results.http;
 import static java.util.Arrays.asList;
@@ -80,6 +85,8 @@ public class QuestionController {
 	private QuestionIndex index;
 	@Inject
 	private Event<QuestionCreated> questionCreated;
+	@Inject
+	private AttachmentRepository attachmentRepository;
 
 	@Get
 	@IncludeAllTags
@@ -210,6 +217,8 @@ public class QuestionController {
 			return;
 		}
 		result.include("mamuteMessages", asList(messageFactory.build("confirmation", "question.delete.confirmation")));
+		attachmentRepository.delete(question.getAttachments());
+
 		questions.delete(question);
 
 		result.redirectTo(ListController.class).home(null);
@@ -222,7 +231,8 @@ public class QuestionController {
 			result.notFound();
 			return;
 		}
-
+		Iterable<Attachment> attachments = question.getAllAttachments();
+		this.attachmentRepository.delete(attachments);
 		questions.deleteFully(question, currentUser.getCurrent());
 
 		result.include("mamuteMessages", asList(messageFactory.build("confirmation", "question.delete.confirmation")));

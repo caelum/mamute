@@ -11,6 +11,7 @@ import org.mamute.model.Question;
 import javax.inject.Inject;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Set;
 
 public class AttachmentRepository {
 
@@ -62,6 +63,12 @@ public class AttachmentRepository {
 			return fileStorage.open(attachment);
 		} catch (FileNotFoundException e) {
 			throw new NotFoundException(e);
+		}
+	}
+
+	public void delete(Iterable<Attachment> attachments) {
+		for (Attachment attachment : attachments) {
+			this.delete(attachment);
 		}
 	}
 }
