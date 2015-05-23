@@ -185,9 +185,9 @@ public class TagDAOTest extends DatabaseTestCase{
 
     @Test
     public void should_define_correct_slugged_url() {
-        assertNotNull(tags.findBySluggedName("java"));
-        assertNotNull(tags.findBySluggedName("ruby"));
-        assertNotNull(tags.findBySluggedName("c%2b%2b"));
+        assertNotNull(tags.findByUriName("java"));
+        assertNotNull(tags.findByUriName("ruby"));
+        assertNotNull(tags.findByUriName("c%2b%2b"));
     }
 
 	private Question questionWith(List<Tag> tags) {

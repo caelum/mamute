@@ -30,7 +30,7 @@ public class TagPageController {
 	@CustomBrutauthRules(ModeratorOnlyRule.class)
 	public void tagPageForm(String tagName){
 		if(validator.validateCreationWithTag(tagName)){
-			result.include("tag", tags.findBySluggedName(tagName));
+			result.include("tag", tags.findByUriName(tagName));
 		}
 	}
 
@@ -57,7 +57,7 @@ public class TagPageController {
 	@CustomBrutauthRules(ModeratorOnlyRule.class)
 	public void newTagPage(String tagName, MarkedText about){
 		if(!validator.validateCreationWithTag(tagName)) return;
-		Tag tag = tags.findBySluggedName(tagName);
+		Tag tag = tags.findByUriName(tagName);
 		TagPage tagPage = new TagPage(tag, about);
 		if(!validator.validate(tagPage)){
 			validator.onErrorRedirectTo(TagPageController.class).tagPageForm(tagPage.getTagUriName());

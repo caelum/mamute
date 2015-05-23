@@ -161,7 +161,7 @@ public class ListController {
 	@Get
 	public void withTag(String tagName, Integer p, boolean withReposts) {
 		Integer page = getPage(p);
-		Tag tag = tags.findBySluggedName(tagName);
+		Tag tag = tags.findByUriName(tagName);
 		if(tag == null){
 			result.notFound();
 			return;

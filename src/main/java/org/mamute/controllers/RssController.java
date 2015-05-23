@@ -42,7 +42,7 @@ public class RssController {
 	
 	@Get
 	public void rssByTag(String tagName) throws IOException {
-		Tag tag = tags.findBySluggedName(tagName);
+		Tag tag = tags.findByUriName(tagName);
 		if (tag == null) {
 			result.notFound();
 			return;

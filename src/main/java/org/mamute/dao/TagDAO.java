@@ -27,7 +27,7 @@ public class TagDAO {
 		this.session = session;
 	}
 	
-	public Tag findBySluggedName(String sluggedName) {
+	public Tag findByUriName(String sluggedName) {
 		Tag tag = (Tag) session.createQuery("from Tag t where t.sluggedName=:sluggedName").setString("sluggedName", sluggedName).uniqueResult();
 		return tag;
 	}
@@ -91,7 +91,7 @@ public class TagDAO {
 	}
 
 	public Tag saveIfDoesntExists(Tag newTag) {
-		Tag existingTag = findBySluggedName(newTag.getUriName());
+		Tag existingTag = findByUriName(newTag.getUriName());
 		if (existingTag == null){
 			session.save(newTag);
 			return newTag;
