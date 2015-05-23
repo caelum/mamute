@@ -11,7 +11,7 @@ if (Globals.inHouseUploading) {
             link.css("pointer-events", "none");
             var id = link.data("attachment-id");
             $.ajax({
-                url: '/attachments/' + id,
+                url: Globals.linkTo.getAttachment + id,
                 type: 'DELETE',
                 success: function(result) {
                     $("#attachment-" + id).remove();
@@ -56,7 +56,7 @@ if (Globals.inHouseUploading) {
                 if (chunk) {
                     var commandProto = Globals.markdownCommandManager;
                     commandProto.doCustomImage(chunk, postProcessing, true,
-                        "/attachments/" + attachment.id, null, attachment.name);
+                        Globals.linkTo.getAttachment + attachment.id, null, attachment.name);
                 }
                 uploader.hide();
                 Globals.markdownEditor.refreshPreview();
@@ -108,9 +108,9 @@ if (Globals.inHouseUploading) {
             }
             function attachmentLink() {
                 return $("<a>")
-                    .attr("href", '/attachments/' + attachment.id)
+                    .attr("href", Globals.linkTo.getAttachment + attachment.id)
                     .attr("target", "_blank")
-                    .text('/attachments/' + attachment.id);
+                    .text(Globals.linkTo.getAttachment + attachment.id);
             }
 
         }
