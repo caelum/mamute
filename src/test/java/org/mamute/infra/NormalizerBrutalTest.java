@@ -7,7 +7,6 @@ import org.mamute.infra.NormalizerBrutal;
 
 public class NormalizerBrutalTest {
 
-
 	@Test
 	public void should_remove_signs_from_any_string() {
 		String text = "áéêõäũàÁÓõÒ";

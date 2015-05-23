@@ -22,7 +22,9 @@ public class NormalizerBrutal {
 		if (urlEncodeNonNormalizableCharacter) {
 			try {
 				slug = URLEncoder.encode(slug, "UTF-8");
-			} catch (UnsupportedEncodingException e) {	}
+			} catch (UnsupportedEncodingException e) {
+				throw new IllegalArgumentException(e);
+			}
 		}
 
 		return slug.toLowerCase(Locale.ENGLISH);
