@@ -57,5 +57,6 @@ public class TagPage {
 	public Tag getTag() {
 		return tag;
 	}
-	
+
+	public String getTagUriName() { return tag.getUriName(); }
 }

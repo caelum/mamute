@@ -47,10 +47,10 @@ public class TagPageController {
 		TagPage tagPage = tagPages.findByTag(tagName);
 		tagPage.setAbout(about);
 		if(!validator.validate(tagPage)){
-			validator.onErrorRedirectTo(TagPageController.class).editTagPageForm(tagPage.getTag().getUriName());
+			validator.onErrorRedirectTo(TagPageController.class).editTagPageForm(tagPage.getTagUriName());
 			return;
 		}
-		result.redirectTo(this).showTagPage(tagPage.getTag().getUriName());
+		result.redirectTo(this).showTagPage(tagPage.getTagUriName());
 	}
 	
 	@Post
@@ -60,11 +60,11 @@ public class TagPageController {
 		Tag tag = tags.findBySluggedName(tagName);
 		TagPage tagPage = new TagPage(tag, about);
 		if(!validator.validate(tagPage)){
-			validator.onErrorRedirectTo(TagPageController.class).tagPageForm(tagPage.getTag().getUriName());
+			validator.onErrorRedirectTo(TagPageController.class).tagPageForm(tagPage.getTagUriName());
 			return;
 		}
 		tagPages.save(tagPage);
-		result.redirectTo(this).showTagPage(tagPage.getTag().getUriName());
+		result.redirectTo(this).showTagPage(tagPage.getTagUriName());
 	}
 	
 	@Get

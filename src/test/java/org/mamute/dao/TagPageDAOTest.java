@@ -21,7 +21,7 @@ public class TagPageDAOTest extends DatabaseTestCase{
 		tagPages.save(new TagPage(java, notMarked("aboutaboutaboutaboutaboutaboutaboutaboutaboutaboutaboutaboutaboutaboutaboutaboutaboutaboutaboutabout")));
 		
 		TagPage javaPage = tagPages.findByTag(java.getUriName());
-		assertEquals(java.getName(), javaPage.getTag().getUriName());
+		assertEquals(java.getName(), javaPage.getTagUriName());
 	}
 
     @Test
