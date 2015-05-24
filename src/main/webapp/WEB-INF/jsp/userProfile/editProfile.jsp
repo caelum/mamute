@@ -7,10 +7,8 @@
 
 <div class="subheader">
 	<tags:userProfileLink user="${user}" htmlClass="title page-title"/>
-	<ul class="subheader-menu">
-		<a href="${linkTo[UserProfileController].editProfile(user)}">${t['user_profile.edit']}</a>
-	</ul>
 </div>
+
 <div class="image-and-information">
 	<img class="profile-image" src="${user.getBigPhoto(env.get('gravatar.avatar.url'))}"/>
     <c:if test="${!env.supports('feature.inhouse.upload')}">
