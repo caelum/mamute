@@ -86,6 +86,7 @@
 <link rel="canonical" href="${currentUrl}"/>
 </head>
 <body>
+	<tags:brutal-include value="bodyTopJavascripts" />
 
 	<tags:brutal-include value="header" />
 
