@@ -14,7 +14,7 @@
     var Globals = {};
     Globals.inHouseUploading = ${env.supports('feature.inhouse.upload')};
 	Globals.linkTo = {};
-	Globals.linkTo.getAttachment = "${linkTo[AttachmentController].getAttachment}";
+	Globals.linkTo.getAttachment = "${linkTo[AttachmentController].downloadAttachment}";
 
 	var ANYONE_CAN_CREATE_TAGS = ${env.supports('feature.tags.add.anyone')};
 	var TAGS_SPLITTER_CHAR = "${env.get('tags.splitter.char')}";
