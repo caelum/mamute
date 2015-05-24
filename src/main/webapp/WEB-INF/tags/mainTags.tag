@@ -11,14 +11,15 @@
 </c:if>
 
 <c:set value="${unansweredTagLinks ? '?semRespostas=true' : ''}" var="append" />
+<c:set value="${mainTags.toString()}" var="mainTagsTokens" />
 
-<c:if test="${not empty mainTags}">
+<c:if test="${not empty mainTagsTokens and !mainTagsTokens.isEmpty()}">
 	<ol class="main-tags ${tagClass}">
-		<c:forTokens items="${mainTags}" delims=", " var="tagName">
+		<c:forTokens items="${mainTagsTokens}" delims=", " var="tagName">
 			<li>
 				<c:set value="${tag.name == tagName || currentQuestion.mostImportantTag.name == tagName  && useSprite ? 'main-tags-current' : ''}" var="currentTag"/>
 				<c:set value="${useSprite ? 'main-tags-sprite main-tags-'.concat(fn:replace(fn:replace(tagName, '.', ''), '#', '')) : '' }" var="className"/>
-				
+
 				<a class="${currentTag} ${tagClassLi} ${className}"  href="${linkTo[ListController].withTag(tagName, 1, false)}${append}"> ${tagName} </a>
 			</li>
 		</c:forTokens>
