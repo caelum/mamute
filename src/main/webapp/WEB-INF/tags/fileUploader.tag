@@ -15,7 +15,7 @@
                 <tr id="attachment-${attachment.id}">
                     <td>${attachment.fileName()}</td>
                     <td>
-						<c:set var="attachmentLink" value="${linkTo[AttachmentController].getAttachment(attachment.id)}"/>
+						<c:set var="attachmentLink" value="${linkTo[AttachmentController].downloadAttachment(attachment.id)}"/>
                         <a href="${attachmentLink}" target="_blank">
 							${attachmentLink}
                         </a>

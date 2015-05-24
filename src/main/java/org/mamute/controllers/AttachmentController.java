@@ -78,7 +78,7 @@ public class AttachmentController {
 	}
 
 	@Get
-	public InputStreamDownload getAttachment(Long attachmentId) throws IOException {
+	public InputStreamDownload downloadAttachment(Long attachmentId) throws IOException {
 		Attachment attachment = attachments.load(attachmentId);
 		InputStream is = attachments.open(attachment);
 
