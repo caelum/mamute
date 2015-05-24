@@ -27,7 +27,12 @@ public class VRaptorServer {
 
 	private void reloadContexts(String webappDirLocation, String webXmlLocation) {
 		WebAppContext context = loadContext(webappDirLocation, webXmlLocation);
-		contexts.setHandlers(new Handler[] { context, systemRestart() });
+		if ("development".equals(getEnv())) {
+			contexts.setHandlers(new Handler[]{context, systemRestart()});
+		} else {
+			contexts.setHandlers(new Handler[]{context});
+		}
+
 	}
 
 	public void start() throws Exception {
@@ -68,6 +73,12 @@ public class VRaptorServer {
 		context.setClassLoader(Thread.currentThread().getContextClassLoader());
 		context.setHandler(system);
 		return context;
+	}
+
+	private String getEnv() {
+		String envVar = System.getenv("VRAPTOR_ENV");
+		String environment = envVar != null? envVar : System.getProperty("br.com.caelum.vraptor.environment", "development");
+		return environment;
 	}
 
 	void restartContexts() {
