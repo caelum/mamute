@@ -2,8 +2,8 @@ package org.mamute.controllers;
 
 import javax.inject.Inject;
 
-import org.mamute.auth.rules.PermissionRulesConstants;
-import org.mamute.brutauth.auth.rules.ModeratorOrKarmaRule;
+import org.mamute.auth.rules.PermissionRules;
+import org.mamute.brutauth.auth.rules.EnvironmentKarmaRule;
 import org.mamute.dao.VoteDAO;
 import org.mamute.infra.ModelUrlMapping;
 import org.mamute.model.LoggedUser;
@@ -12,7 +12,6 @@ import org.mamute.model.VoteType;
 import org.mamute.model.interfaces.Votable;
 import org.mamute.model.vote.VotingMachine;
 
-import br.com.caelum.brutauth.auth.annotations.AccessLevel;
 import br.com.caelum.brutauth.auth.annotations.SimpleBrutauthRules;
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Post;
@@ -32,32 +31,32 @@ public class VoteController {
 	@Inject private LoggedUser loggedUser;
 	
 	@Post
-	@AccessLevel(PermissionRulesConstants.VOTE_UP)
-	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
+	@EnvironmentAccessLevel(PermissionRules.VOTE_UP)
+	@SimpleBrutauthRules({EnvironmentKarmaRule.class})
 	public void voteUp(Long id, String type) {
 		tryToVoteVotable(id, VoteType.UP, mapping.getClassFor(type));
 		loggedUser.getCurrent().votedUp();
 	}
 
 	@Post
-	@AccessLevel(PermissionRulesConstants.VOTE_DOWN)
-	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
+	@EnvironmentAccessLevel(PermissionRules.VOTE_DOWN)
+	@SimpleBrutauthRules({EnvironmentKarmaRule.class})
 	public void voteDown(Long id, String type) {
 		tryToVoteVotable(id, VoteType.DOWN, mapping.getClassFor(type));
 		
 	}
 	
 	@Post
-	@AccessLevel(PermissionRulesConstants.VOTE_UP)
-	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
+	@EnvironmentAccessLevel(PermissionRules.VOTE_UP)
+	@SimpleBrutauthRules({EnvironmentKarmaRule.class})
 	public void voteUpRemoval(Long id, String type) {
 		tryToRemoveVoteVotable(id, VoteType.UP, mapping.getClassFor(type));
 		loggedUser.getCurrent().votedUp();
 	}
 
 	@Post
-	@AccessLevel(PermissionRulesConstants.VOTE_DOWN)
-	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
+	@EnvironmentAccessLevel(PermissionRules.VOTE_DOWN)
+	@SimpleBrutauthRules({EnvironmentKarmaRule.class})
 	public void voteDownRemoval(Long id, String type) {
 		tryToRemoveVoteVotable(id, VoteType.DOWN, mapping.getClassFor(type));
 		

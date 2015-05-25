@@ -3,16 +3,12 @@ package org.mamute.model;
 import static org.mamute.infra.Digester.hashFor;
 import static org.mamute.infra.NormalizerBrutal.toSlug;
 import static org.mamute.model.SanitizedText.fromTrustedText;
-import static org.mamute.validators.UserPersonalInfoValidator.ABOUT_LENGTH_MESSAGE;
-import static org.mamute.validators.UserPersonalInfoValidator.ABOUT_MAX_LENGTH;
-import static org.mamute.validators.UserPersonalInfoValidator.ABOUT_MIN_LENGTH;
 import static org.mamute.validators.UserPersonalInfoValidator.EMAIL_LENGTH_MESSAGE;
 import static org.mamute.validators.UserPersonalInfoValidator.EMAIL_MAX_LENGTH;
 import static org.mamute.validators.UserPersonalInfoValidator.EMAIL_MIN_LENGTH;
 import static org.mamute.validators.UserPersonalInfoValidator.EMAIL_NOT_VALID;
 import static org.mamute.validators.UserPersonalInfoValidator.LOCATION_LENGTH_MESSAGE;
 import static org.mamute.validators.UserPersonalInfoValidator.LOCATION_MAX_LENGTH;
-import static org.mamute.validators.UserPersonalInfoValidator.MARKED_ABOUT_MAX_LENGTH;
 import static org.mamute.validators.UserPersonalInfoValidator.NAME_LENGTH_MESSAGE;
 import static org.mamute.validators.UserPersonalInfoValidator.NAME_MAX_LENGTH;
 import static org.mamute.validators.UserPersonalInfoValidator.NAME_MIN_LENGTH;
@@ -37,9 +33,9 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 import org.joda.time.Years;
-import org.mamute.auth.rules.PermissionRulesConstants;
+import org.mamute.auth.rules.PermissionRules;
+import org.mamute.brutauth.auth.rules.EnvironmentKarma;
 import org.mamute.dto.UserPersonalInfo;
-import org.mamute.filesystem.AttachmentsFileStorage;
 import org.mamute.infra.Digester;
 import org.mamute.model.interfaces.Identifiable;
 import org.mamute.model.interfaces.Moderatable;
@@ -300,8 +296,9 @@ public class User implements Identifiable {
 		return this;
 	}
 	
-	public boolean canModerate() {
-		return isModerator() || this.karma >= PermissionRulesConstants.MODERATE_EDITS;
+	public boolean canModerate(EnvironmentKarma environmentKarma) {
+		long karma = environmentKarma.get(PermissionRules.MODERATE_EDITS);
+		return isModerator() || this.karma >= karma;
 	}
 	
 	public void setSubscribed(boolean isSubscribed){
@@ -329,8 +326,8 @@ public class User implements Identifiable {
 		return true;
 	}
 
-	public UpdateStatus approve(Moderatable moderatable, Information approvedInfo) {
-	    if (this.canModerate()) {
+	public UpdateStatus approve(Moderatable moderatable, Information approvedInfo, EnvironmentKarma environmentKarma) {
+	    if (this.canModerate(environmentKarma)) {
 	        moderatable.approve(approvedInfo);
 	        approvedInfo.moderate(this, UpdateStatus.APPROVED);
 	    }
@@ -357,12 +354,14 @@ public class User implements Identifiable {
 		return id == votable.getAuthor().getId();
 	}
 	
-	public boolean hasKarmaToAnswerOwnQuestion() {
-		return (this.karma >= PermissionRulesConstants.ANSWER_OWN_QUESTION) || isModerator(); 
+	public boolean hasKarmaToAnswerOwnQuestion(EnvironmentKarma environmentKarma) {
+		long answerOwnQuestion = environmentKarma.get(PermissionRules.ANSWER_OWN_QUESTION);
+		return (this.karma >= answerOwnQuestion) || isModerator();
 	}
 	
-	public boolean hasKarmaToAnswerInactiveQuestion() {
-		return (this.karma >= PermissionRulesConstants.INACTIVE_QUESTION) || isModerator(); 
+	public boolean hasKarmaToAnswerInactiveQuestion(EnvironmentKarma environmentKarma) {
+		long answerInactiveQuestion = environmentKarma.get(PermissionRules.INACTIVATE_QUESTION);
+		return (this.karma >= answerInactiveQuestion) || isModerator();
 	}
 	
 	public List<LoginMethod> getLoginMethods() {

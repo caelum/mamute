@@ -73,7 +73,7 @@
 									</jsp:attribute>
 								</tags:userProfileLink>
 							</li>
-							<c:if test="${currentUser.canModerate()}">
+							<c:if test="${currentUser.canModerate(environmentKarma)}">
 								<li class="nav-item">
 									<a href="${linkTo[HistoryController].history}">
 										${t['moderation.link']} (${pendingForModeratorCount})

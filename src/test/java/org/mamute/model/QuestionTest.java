@@ -4,10 +4,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mamute.model.UpdateStatus.PENDING;
+import static org.mockito.Mockito.mock;
 
 import org.joda.time.DateTime;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+import org.mamute.brutauth.auth.rules.EnvironmentKarma;
 import org.mamute.builder.QuestionBuilder;
 import org.mamute.dao.TestCase;
 import org.mamute.model.Answer;
@@ -23,9 +26,21 @@ import org.mamute.model.VoteType;
 
 import br.com.caelum.timemachine.Block;
 import br.com.caelum.timemachine.TimeMachine;
+import org.mamute.vraptor.environment.MamuteEnvironment;
+
+import javax.servlet.ServletContext;
+import java.io.IOException;
 
 public class QuestionTest  extends TestCase{
 	private QuestionBuilder question = new QuestionBuilder();
+	private Updater updater;
+
+	@Before
+	public void setup() throws IOException {
+		ServletContext ctx = mock(ServletContext.class);
+		EnvironmentKarma env = new EnvironmentKarma(new MamuteEnvironment(ctx));
+		this.updater = new Updater(env);
+	}
 
 	@Test(expected = RuntimeException.class)
 	public void can_not_be_marked_as_solved_by_the_an_answer_that_is_not_mine() {
@@ -78,7 +93,8 @@ public class QuestionTest  extends TestCase{
 		Question comoFaz = question.withTitle("titulo").withDescription("descricao").withAuthor(artur).build();
 		User leo = user("leo", "leo@x.com");
 		leo.setId(2l);
-		comoFaz.updateWith(new QuestionInformationBuilder().with(leo).build());
+		QuestionInformation info = new QuestionInformationBuilder().with(leo).build();
+		comoFaz.updateWith(info, updater);
 		assertEquals(comoFaz.getLastTouchedBy().getId(), artur.getId());
 	}
 	
@@ -91,7 +107,7 @@ public class QuestionTest  extends TestCase{
 		
 		Question comoFaz = question.withTitle("titulo").withDescription("descricao").withAuthor(artur).build();
 		QuestionInformation comoFazEditedInformation = new QuestionInformationBuilder().with(leo).build();
-		comoFaz.updateWith(comoFazEditedInformation);
+		comoFaz.updateWith(comoFazEditedInformation, updater);
 		comoFaz.approve(comoFazEditedInformation);
 		
 		assertEquals(comoFaz.getLastTouchedBy().getId(), leo.getId());

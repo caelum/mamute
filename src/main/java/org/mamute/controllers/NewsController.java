@@ -2,10 +2,7 @@ package org.mamute.controllers;
 
 import javax.inject.Inject;
 
-import org.mamute.brutauth.auth.rules.EditNewsRule;
-import org.mamute.brutauth.auth.rules.InputRule;
-import org.mamute.brutauth.auth.rules.LoggedRule;
-import org.mamute.brutauth.auth.rules.ModeratorOnlyRule;
+import org.mamute.brutauth.auth.rules.*;
 import org.mamute.dao.NewsDAO;
 import org.mamute.dao.VoteDAO;
 import org.mamute.dao.WatcherDAO;

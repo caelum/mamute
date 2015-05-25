@@ -1,30 +1,22 @@
 package org.mamute.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.mamute.model.MarkedText.notMarked;
-
-import java.net.URL;
-import java.util.ArrayList;
-
+import br.com.caelum.timemachine.Block;
+import br.com.caelum.timemachine.TimeMachine;
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
-import org.mamute.auth.rules.PermissionRulesConstants;
+import org.mamute.brutauth.auth.rules.EnvironmentKarma;
 import org.mamute.builder.QuestionBuilder;
 import org.mamute.dao.TestCase;
-import org.mamute.model.Answer;
-import org.mamute.model.AnswerInformation;
-import org.mamute.model.Information;
-import org.mamute.model.LoggedUser;
-import org.mamute.model.Question;
-import org.mamute.model.QuestionInformation;
-import org.mamute.model.Tag;
-import org.mamute.model.User;
+import org.mamute.vraptor.environment.MamuteEnvironment;
 
-import br.com.caelum.timemachine.Block;
-import br.com.caelum.timemachine.TimeMachine;
+import javax.servlet.ServletContext;
+import java.net.URL;
+import java.util.ArrayList;
+
+import static org.junit.Assert.*;
+import static org.mamute.model.MarkedText.notMarked;
+import static org.mockito.Mockito.mock;
 
 public class UserTest extends TestCase {
 
@@ -51,7 +43,7 @@ public class UserTest extends TestCase {
 				.build();
 
 		moderatorWannabe = user("juaum", "ju@aum.com");
-		moderatorWannabe.setKarma(PermissionRulesConstants.MODERATE_EDITS);
+		moderatorWannabe.setKarma(2000);
 		
 		moderator = user("yeah", "email").asModerator();
 		moderator.setId(3l);
@@ -64,7 +56,9 @@ public class UserTest extends TestCase {
 				notMarked("edited desc"), new LoggedUser(otherUser, null),
 				new ArrayList<Tag>(), "comment");
 
-		moderator.approve(myQuestion, approvedInfo);
+		ServletContext ctx = mock(ServletContext.class);
+		EnvironmentKarma env = new EnvironmentKarma(new MamuteEnvironment(ctx));
+		moderator.approve(myQuestion, approvedInfo, env);
 
 		assertEquals(approvedInfo, myQuestion.getInformation());
 		assertTrue(myQuestion.getInformation().isModerated());
@@ -76,8 +70,10 @@ public class UserTest extends TestCase {
 		Information approvedInfo = new QuestionInformation("edited title",
 				notMarked("edited desc"), new LoggedUser(otherUser, null),
 				new ArrayList<Tag>(), "comment");
-		
-		moderatorWannabe.approve(myQuestion, approvedInfo);
+
+		ServletContext ctx = mock(ServletContext.class);
+		EnvironmentKarma env = new EnvironmentKarma(new MamuteEnvironment(ctx));
+		moderatorWannabe.approve(myQuestion, approvedInfo, env);
 		
 		assertEquals(approvedInfo, myQuestion.getInformation());
 		assertTrue(myQuestion.getInformation().isModerated());
@@ -89,7 +85,9 @@ public class UserTest extends TestCase {
 		AnswerInformation approvedInfo = answerInformation("new description",
 				otherUser, answer);
 
-		moderator.approve(answer, approvedInfo);
+		ServletContext ctx = mock(ServletContext.class);
+		EnvironmentKarma env = new EnvironmentKarma(new MamuteEnvironment(ctx));
+		moderator.approve(answer, approvedInfo, env);
 
 		assertEquals(approvedInfo, answer.getInformation());
 		assertTrue(answer.getInformation().isModerated());
@@ -100,8 +98,10 @@ public class UserTest extends TestCase {
 		Answer answer = answer("answer description", myQuestion, author);
 		AnswerInformation approvedInfo = answerInformation("new description",
 				otherUser, answer);
-		
-		moderatorWannabe.approve(answer, approvedInfo);
+
+		ServletContext ctx = mock(ServletContext.class);
+		EnvironmentKarma env = new EnvironmentKarma(new MamuteEnvironment(ctx));
+		moderatorWannabe.approve(answer, approvedInfo, env);
 		
 		assertEquals(approvedInfo, answer.getInformation());
 		assertTrue(answer.getInformation().isModerated());

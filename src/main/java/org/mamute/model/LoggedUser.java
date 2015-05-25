@@ -1,5 +1,7 @@
 package org.mamute.model;
 
+import org.mamute.brutauth.auth.rules.EnvironmentKarma;
+
 import javax.servlet.http.HttpServletRequest;
 
 import static com.google.common.base.Objects.firstNonNull;
@@ -29,8 +31,8 @@ public class LoggedUser {
 		return isLoggedIn() ? user.isModerator() : false;
 	}
 
-	public boolean canModerate() {
-		return isLoggedIn() ? user.canModerate() : false;
+	public boolean canModerate(EnvironmentKarma environmentKarma) {
+		return isLoggedIn() ? user.canModerate(environmentKarma) : false;
 	}
 
 	public boolean isLoggedIn() {

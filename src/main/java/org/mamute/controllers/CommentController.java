@@ -2,10 +2,10 @@ package org.mamute.controllers;
 
 import javax.inject.Inject;
 
-import org.mamute.auth.rules.PermissionRulesConstants;
+import org.mamute.auth.rules.PermissionRules;
+import org.mamute.brutauth.auth.rules.EnvironmentKarmaRule;
 import org.mamute.brutauth.auth.rules.InactiveQuestionRequiresMoreKarmaRule;
 import org.mamute.brutauth.auth.rules.InputRule;
-import org.mamute.brutauth.auth.rules.ModeratorOrKarmaRule;
 import org.mamute.dao.CommentDAO;
 import org.mamute.dao.WatcherDAO;
 import org.mamute.infra.ModelUrlMapping;
@@ -20,7 +20,6 @@ import org.mamute.model.watch.Watcher;
 import org.mamute.notification.NotificationManager;
 import org.mamute.validators.CommentValidator;
 
-import br.com.caelum.brutauth.auth.annotations.AccessLevel;
 import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
 import br.com.caelum.brutauth.auth.annotations.SimpleBrutauthRules;
 import br.com.caelum.vraptor.Controller;
@@ -41,8 +40,8 @@ public class CommentController {
 	@Inject private NotificationManager notificationManager;
 	@Inject private WatcherDAO watchers;
 
-	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
-	@AccessLevel(PermissionRulesConstants.CREATE_COMMENT)
+	@SimpleBrutauthRules({EnvironmentKarmaRule.class})
+	@EnvironmentAccessLevel(PermissionRules.CREATE_COMMENT)
 	@CustomBrutauthRules({InputRule.class, InactiveQuestionRequiresMoreKarmaRule.class})
 	@Post
 	public void comment(Long id, String onWhat, MarkedText comment, boolean watching) {

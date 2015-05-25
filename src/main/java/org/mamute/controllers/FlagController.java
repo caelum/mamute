@@ -7,9 +7,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.mamute.auth.rules.PermissionRulesConstants;
+import org.mamute.auth.rules.PermissionRules;
+import org.mamute.brutauth.auth.rules.EnvironmentKarmaRule;
 import org.mamute.brutauth.auth.rules.ModeratorOnlyRule;
-import org.mamute.brutauth.auth.rules.ModeratorOrKarmaRule;
 import org.mamute.dao.AnswerDAO;
 import org.mamute.dao.FlagDao;
 import org.mamute.dao.FlaggableDAO;
@@ -25,7 +25,6 @@ import org.mamute.model.Question;
 import org.mamute.model.flag.FlagTrigger;
 import org.mamute.model.interfaces.Flaggable;
 
-import br.com.caelum.brutauth.auth.annotations.AccessLevel;
 import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
 import br.com.caelum.brutauth.auth.annotations.SimpleBrutauthRules;
 import br.com.caelum.vraptor.Controller;
@@ -47,8 +46,8 @@ public class FlagController {
 	@Inject private ModelUrlMapping urlMapping;
 	@Inject private FlagTrigger flagTrigger;
 
-	@SimpleBrutauthRules({ModeratorOrKarmaRule.class})
-	@AccessLevel(PermissionRulesConstants.CREATE_FLAG)
+	@SimpleBrutauthRules({EnvironmentKarmaRule.class})
+	@EnvironmentAccessLevel(PermissionRules.CREATE_FLAG)
 	@Post
 	public void addFlag(String flaggableType, Long flaggableId, FlagType flagType, String reason) {
 		Class<?> clazz = urlMapping.getClassFor(flaggableType);

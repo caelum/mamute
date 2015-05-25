@@ -292,8 +292,8 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 		return tags.get(0);
 	}
 
-	public UpdateStatus updateWith(QuestionInformation information) {
-	    return new Updater().update(this, information);
+	public UpdateStatus updateWith(QuestionInformation information, Updater updater) {
+	    return updater.update(this, information);
 	}
 	
 	protected void addHistory(Information newInformation) {

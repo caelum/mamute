@@ -28,7 +28,7 @@ public class MamuteEnvironment extends ServletBasedEnvironment {
 	/**
 	 * @deprecated 
 	 */
-	public  MamuteEnvironment() throws IOException {
+	public MamuteEnvironment() throws IOException {
 	}
 	
 	@Override
