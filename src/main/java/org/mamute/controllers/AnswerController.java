@@ -5,10 +5,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.mamute.brutauth.auth.rules.EditAnswerRule;
-import org.mamute.brutauth.auth.rules.InactiveQuestionRequiresMoreKarmaRule;
-import org.mamute.brutauth.auth.rules.InputRule;
-import org.mamute.brutauth.auth.rules.LoggedRule;
+import org.mamute.brutauth.auth.rules.*;
 import org.mamute.dao.AnswerDAO;
 import org.mamute.dao.AttachmentDao;
 import org.mamute.dao.ReputationEventDAO;
@@ -48,6 +45,7 @@ public class AnswerController {
 	@Inject private BundleFormatter bundle;
 	@Inject private BrutalValidator brutalValidator;
 	@Inject private AttachmentDao attachments;
+	@Inject private EnvironmentKarma environmentKarma;
 
 	@Get
 	@CustomBrutauthRules(EditAnswerRule.class)
@@ -63,7 +61,7 @@ public class AnswerController {
 		
 		validator.onErrorRedirectTo(this).answerEditForm(original);
 		
-		UpdateStatus status = original.updateWith(information);
+		UpdateStatus status = original.updateWith(information, new Updater(environmentKarma));
 		answers.save(original);
 		List<Attachment> attachmentsLoaded = attachments.load(attachmentsIds);
 

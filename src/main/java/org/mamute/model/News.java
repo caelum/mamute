@@ -232,8 +232,8 @@ public class News extends Moderatable implements Post, ViewCountable, Watchable,
 		return information.getTitle();
 	}
 
-	public UpdateStatus updateWith(NewsInformation information) {
-	    return new Updater().update(this, information);
+	public UpdateStatus updateWith(NewsInformation information, Updater updater) {
+	    return updater.update(this, information);
 	}
 
 	public List<NewsInformation> getHistory() {

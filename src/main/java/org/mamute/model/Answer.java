@@ -192,8 +192,8 @@ public class Answer extends Moderatable implements Post, Notifiable {
         return "Answer [id=" + id + "]";
     }
 
-	public UpdateStatus updateWith(AnswerInformation information) {
-		return new Updater().update(this, information);
+	public UpdateStatus updateWith(AnswerInformation information, Updater updater) {
+		return updater.update(this, information);
 	}
 
 	public void touchedBy(User author) {

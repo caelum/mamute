@@ -12,10 +12,7 @@ import br.com.caelum.vraptor.view.Results;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
 import org.mamute.auth.FacebookAuthService;
-import org.mamute.brutauth.auth.rules.EditQuestionRule;
-import org.mamute.brutauth.auth.rules.InputRule;
-import org.mamute.brutauth.auth.rules.LoggedRule;
-import org.mamute.brutauth.auth.rules.ModeratorOnlyRule;
+import org.mamute.brutauth.auth.rules.*;
 import org.mamute.dao.*;
 import org.mamute.event.QuestionCreated;
 import org.mamute.factory.MessageFactory;
@@ -88,7 +85,7 @@ public class QuestionController {
 	@Inject
 	private AttachmentRepository attachmentRepository;
 	@Inject
-	private Updater updater;
+	private EnvironmentKarma environmentKarma;
 
 	@Get
 	@IncludeAllTags
@@ -114,7 +111,7 @@ public class QuestionController {
 
 		QuestionInformation information = new QuestionInformation(title, description, this.currentUser, loadedTags, comment);
 		brutalValidator.validate(information);
-		UpdateStatus status = original.updateWith(information, updater);
+		UpdateStatus status = original.updateWith(information, new Updater(environmentKarma));
 
 		validator.onErrorUse(Results.page()).of(this.getClass()).questionEditForm(original);
 

@@ -9,11 +9,6 @@ public class Updater {
 
 	private EnvironmentKarma environmentKarma;
 
-	@Deprecated
-	Updater() {
-	}
-
-	@Inject
 	public Updater(EnvironmentKarma environmentKarma) {
 		this.environmentKarma = environmentKarma;
 	}
