@@ -1,16 +1,21 @@
 package org.mamute.controllers;
 
-import java.util.Arrays;
-import java.util.List;
-
-import javax.inject.Inject;
-
+import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
+import br.com.caelum.vraptor.*;
+import br.com.caelum.vraptor.Post;
+import br.com.caelum.vraptor.environment.Environment;
+import br.com.caelum.vraptor.hibernate.extra.Load;
+import br.com.caelum.vraptor.routes.annotation.Routed;
+import br.com.caelum.vraptor.simplemail.template.BundleFormatter;
+import br.com.caelum.vraptor.validator.Validator;
+import br.com.caelum.vraptor.view.Results;
 import org.mamute.brutauth.auth.rules.*;
 import org.mamute.dao.AnswerDAO;
 import org.mamute.dao.AttachmentDao;
 import org.mamute.dao.ReputationEventDAO;
 import org.mamute.dao.WatcherDAO;
 import org.mamute.factory.MessageFactory;
+import org.mamute.filesystem.AttachmentRepository;
 import org.mamute.mail.action.EmailAction;
 import org.mamute.model.*;
 import org.mamute.model.watch.Watcher;
@@ -18,16 +23,11 @@ import org.mamute.notification.NotificationManager;
 import org.mamute.reputation.rules.KarmaCalculator;
 import org.mamute.validators.AnsweredByValidator;
 
-import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
-import br.com.caelum.vraptor.Controller;
-import br.com.caelum.vraptor.Get;
-import br.com.caelum.vraptor.Post;
-import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.hibernate.extra.Load;
-import br.com.caelum.vraptor.routes.annotation.Routed;
-import br.com.caelum.vraptor.simplemail.template.BundleFormatter;
-import br.com.caelum.vraptor.validator.Validator;
-import br.com.caelum.vraptor.view.Results;
+import javax.inject.Inject;
+import java.util.Arrays;
+import java.util.List;
+
+import static br.com.caelum.vraptor.view.Results.http;
 
 @Routed
 @Controller
@@ -46,6 +46,8 @@ public class AnswerController {
 	@Inject private BrutalValidator brutalValidator;
 	@Inject private AttachmentDao attachments;
 	@Inject private EnvironmentKarma environmentKarma;
+	@Inject private AttachmentRepository attachmentRepository;
+	@Inject private Environment environment;
 
 	@Get
 	@CustomBrutauthRules(EditAnswerRule.class)
@@ -116,6 +118,28 @@ public class AnswerController {
 		} 
         markOrRemoveSolution(solution);
         result.nothing();
+	}
+
+	@Delete
+	public void delete(@Load Answer answer) {
+		if (!environment.supports("deletable.answers")) {
+			result.notFound();
+			return;
+		}
+		if (!currentUser.isModerator() && !answer.hasAuthor(currentUser.getCurrent())) {
+			result.use(http()).sendError(403);
+			return;
+		}
+		if (!answer.isDeletable()) {
+			result.use(http())
+				.setStatusCode(400);
+			return;
+		}
+		answers.delete(answer);
+		attachmentRepository.delete(answer.getAttachments());
+		Question question = answer.getQuestion();
+		question.subtractAnswer();
+		result.redirectTo(QuestionController.class).showQuestion(question, question.getSluggedTitle());
 	}
 
     private void markOrRemoveSolution(Answer answer) {

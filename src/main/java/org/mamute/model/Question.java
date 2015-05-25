@@ -429,7 +429,6 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
     
     public boolean hasAuthor(User user) {
 		return user.getId().equals(author.getId());
-    	
     }
 
 	@Override

@@ -37,5 +37,11 @@
 		<c:if test="${currentUser.moderator && answer.hasPendingEdits()}">
 			<a class="message moderator-alert" href="${linkTo[HistoryController].similarAnswers(answer.id)}">${t['answer.warns.has_edits']}</a>
 		</c:if>
+		<c:if test="${env.supports('deletable.answers') and currentUser.current.isAuthorOf(answer) and answer.deletable}">
+			<a class="post-action delete-post" data-confirm-deletion="true" data-delete-form="delete-answer-form" href="#">Delete</a>
+			<form class="hidden delete-answer-form" method="post" action="${linkTo[AnswerController].delete(answer)}">
+				<input type="hidden" value="DELETE" name="_method">
+			</form>
+		</c:if>
 	</div>
 </section>
