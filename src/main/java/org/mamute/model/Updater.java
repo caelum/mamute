@@ -7,8 +7,16 @@ import javax.inject.Inject;
 
 public class Updater {
 
-	@Inject
 	private EnvironmentKarma environmentKarma;
+
+	@Deprecated
+	Updater() {
+	}
+
+	@Inject
+	public Updater(EnvironmentKarma environmentKarma) {
+		this.environmentKarma = environmentKarma;
+	}
 
 	public UpdateStatus update(Moderatable moderatable, Information information) {
 		UpdateStatus status = canUpdate(moderatable, information);

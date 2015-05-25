@@ -87,6 +87,8 @@ public class QuestionController {
 	private Event<QuestionCreated> questionCreated;
 	@Inject
 	private AttachmentRepository attachmentRepository;
+	@Inject
+	private Updater updater;
 
 	@Get
 	@IncludeAllTags
@@ -112,7 +114,7 @@ public class QuestionController {
 
 		QuestionInformation information = new QuestionInformation(title, description, this.currentUser, loadedTags, comment);
 		brutalValidator.validate(information);
-		UpdateStatus status = original.updateWith(information);
+		UpdateStatus status = original.updateWith(information, updater);
 
 		validator.onErrorUse(Results.page()).of(this.getClass()).questionEditForm(original);
 
