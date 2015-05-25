@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.mamute.auth.rules.PermissionRulesConstants;
+import org.mamute.auth.rules.PermissionRules;
 import org.mamute.brutauth.auth.rules.EnvironmentKarma;
 import org.mamute.reputation.rules.KarmaCalculator;
 
@@ -40,15 +40,12 @@ public class RulesInterceptor implements Interceptor {
 			result.include(field.getName(), mirrorOnKarma.get().field(field));
 		}
 		
-		ClassController<PermissionRulesConstants> mirrorOnPermissions = new Mirror().on(PermissionRulesConstants.class);
-		List<Field> permissionFields = mirrorOnPermissions.reflectAll().fields();
-		
-		for (Field field : permissionFields) {
-			String value = (String) mirrorOnPermissions.get().field(field);
-			long karma = environmentKarma.get(value);
-			result.include(field.getName(), karma);
+		PermissionRules[] rules = PermissionRules.values();
+		for (PermissionRules rule : rules) {
+			long karma = environmentKarma.get(rule);
+			result.include(rule.name(), karma);
 		}
-		
+
 		stack.next(method, obj);
 	}
 	

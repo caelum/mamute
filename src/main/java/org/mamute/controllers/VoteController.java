@@ -2,7 +2,7 @@ package org.mamute.controllers;
 
 import javax.inject.Inject;
 
-import org.mamute.auth.rules.PermissionRulesConstants;
+import org.mamute.auth.rules.PermissionRules;
 import org.mamute.brutauth.auth.rules.EnvironmentKarmaRule;
 import org.mamute.dao.VoteDAO;
 import org.mamute.infra.ModelUrlMapping;
@@ -31,7 +31,7 @@ public class VoteController {
 	@Inject private LoggedUser loggedUser;
 	
 	@Post
-	@EnvironmentAccessLevel(PermissionRulesConstants.VOTE_UP)
+	@EnvironmentAccessLevel(PermissionRules.VOTE_UP)
 	@SimpleBrutauthRules({EnvironmentKarmaRule.class})
 	public void voteUp(Long id, String type) {
 		tryToVoteVotable(id, VoteType.UP, mapping.getClassFor(type));
@@ -39,7 +39,7 @@ public class VoteController {
 	}
 
 	@Post
-	@EnvironmentAccessLevel(PermissionRulesConstants.VOTE_DOWN)
+	@EnvironmentAccessLevel(PermissionRules.VOTE_DOWN)
 	@SimpleBrutauthRules({EnvironmentKarmaRule.class})
 	public void voteDown(Long id, String type) {
 		tryToVoteVotable(id, VoteType.DOWN, mapping.getClassFor(type));
@@ -47,7 +47,7 @@ public class VoteController {
 	}
 	
 	@Post
-	@EnvironmentAccessLevel(PermissionRulesConstants.VOTE_UP)
+	@EnvironmentAccessLevel(PermissionRules.VOTE_UP)
 	@SimpleBrutauthRules({EnvironmentKarmaRule.class})
 	public void voteUpRemoval(Long id, String type) {
 		tryToRemoveVoteVotable(id, VoteType.UP, mapping.getClassFor(type));
@@ -55,7 +55,7 @@ public class VoteController {
 	}
 
 	@Post
-	@EnvironmentAccessLevel(PermissionRulesConstants.VOTE_DOWN)
+	@EnvironmentAccessLevel(PermissionRules.VOTE_DOWN)
 	@SimpleBrutauthRules({EnvironmentKarmaRule.class})
 	public void voteDownRemoval(Long id, String type) {
 		tryToRemoveVoteVotable(id, VoteType.DOWN, mapping.getClassFor(type));

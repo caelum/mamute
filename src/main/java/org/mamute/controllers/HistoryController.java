@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.mamute.auth.rules.PermissionRulesConstants;
+import org.mamute.auth.rules.PermissionRules;
 import org.mamute.brutauth.auth.rules.EnvironmentKarma;
 import org.mamute.brutauth.auth.rules.EnvironmentKarmaRule;
 import org.mamute.dao.InformationDAO;
@@ -47,7 +47,7 @@ public class HistoryController extends BaseController {
 	@Inject private EnvironmentKarma environmentKarma;
 
 	@SimpleBrutauthRules({EnvironmentKarmaRule.class})
-	@EnvironmentAccessLevel(PermissionRulesConstants.MODERATE_EDITS)
+	@EnvironmentAccessLevel(PermissionRules.MODERATE_EDITS)
 	@Get
 	public void history() {
 		ModeratableAndPendingHistory pendingQuestions = informations.pendingByUpdatables(Question.class);			
@@ -58,14 +58,14 @@ public class HistoryController extends BaseController {
 	}
 
 	@SimpleBrutauthRules({EnvironmentKarmaRule.class})
-	@EnvironmentAccessLevel(PermissionRulesConstants.MODERATE_EDITS)
+	@EnvironmentAccessLevel(PermissionRules.MODERATE_EDITS)
 	@Get
 	public void unmoderated(String moderatableType) {
 		result.redirectTo(this).history();
 	}
 	
 	@SimpleBrutauthRules({EnvironmentKarmaRule.class})
-	@EnvironmentAccessLevel(PermissionRulesConstants.MODERATE_EDITS)
+	@EnvironmentAccessLevel(PermissionRules.MODERATE_EDITS)
 	@Get
 	public void similarAnswers(Long moderatableId) {
 		similar(i18n("answer", "answer.type_name").getMessage(), moderatableId);
@@ -73,7 +73,7 @@ public class HistoryController extends BaseController {
 	
 	
 	@SimpleBrutauthRules({EnvironmentKarmaRule.class})
-	@EnvironmentAccessLevel(PermissionRulesConstants.MODERATE_EDITS)
+	@EnvironmentAccessLevel(PermissionRules.MODERATE_EDITS)
 	@Get
 	public void similarQuestions(Long moderatableId) {
 		similar(i18n("question", "question.type_name").getMessage(), moderatableId);
@@ -88,7 +88,7 @@ public class HistoryController extends BaseController {
 	}
 
 	@SimpleBrutauthRules({EnvironmentKarmaRule.class})
-	@EnvironmentAccessLevel(PermissionRulesConstants.MODERATE_EDITS)
+	@EnvironmentAccessLevel(PermissionRules.MODERATE_EDITS)
     @Post
     public void publish(Long moderatableId, String moderatableType, Long aprovedInformationId,  String aprovedInformationType) {
     	Class<?> moderatableClass = urlMapping.getClassFor(moderatableType);

@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.mamute.auth.rules.PermissionRulesConstants;
+import org.mamute.auth.rules.PermissionRules;
 import org.mamute.brutauth.auth.rules.EnvironmentKarmaRule;
 import org.mamute.brutauth.auth.rules.ModeratorOnlyRule;
 import org.mamute.dao.AnswerDAO;
@@ -47,7 +47,7 @@ public class FlagController {
 	@Inject private FlagTrigger flagTrigger;
 
 	@SimpleBrutauthRules({EnvironmentKarmaRule.class})
-	@EnvironmentAccessLevel(PermissionRulesConstants.CREATE_FLAG)
+	@EnvironmentAccessLevel(PermissionRules.CREATE_FLAG)
 	@Post
 	public void addFlag(String flaggableType, Long flaggableId, FlagType flagType, String reason) {
 		Class<?> clazz = urlMapping.getClassFor(flaggableType);

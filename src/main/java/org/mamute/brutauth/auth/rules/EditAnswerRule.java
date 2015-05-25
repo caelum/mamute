@@ -7,7 +7,7 @@ import static org.mamute.auth.rules.Rules.isModerator;
 
 import javax.inject.Inject;
 
-import org.mamute.auth.rules.PermissionRulesConstants;
+import org.mamute.auth.rules.PermissionRules;
 import org.mamute.model.Answer;
 import org.mamute.model.LoggedUser;
 import org.mamute.model.User;
@@ -29,7 +29,7 @@ public class EditAnswerRule implements CustomBrutauthRule {
 	}
 
 	public boolean isAllowed(Answer answer) {
-		long karma = environmentKarma.get(PermissionRulesConstants.EDIT_ANSWER);
+		long karma = environmentKarma.get(PermissionRules.EDIT_ANSWER);
 		return composedRule(isAuthor()).or(hasKarma(karma)).or(isModerator()).isAllowed(user, answer);
 	}
 }

@@ -4,7 +4,7 @@ import static org.mamute.auth.rules.Rules.hasKarma;
 
 import javax.inject.Inject;
 
-import org.mamute.auth.rules.PermissionRulesConstants;
+import org.mamute.auth.rules.PermissionRules;
 import org.mamute.dao.QuestionDAO;
 import org.mamute.infra.ModelUrlMapping;
 import org.mamute.model.LoggedUser;
@@ -26,7 +26,7 @@ public class InactiveQuestionRequiresMoreKarmaRule implements CustomBrutauthRule
 		}
 		
 		if(question != null && question.isInactiveForOneMonth()) {
-			long karmaRequired = environmentKarma.get(PermissionRulesConstants.INACTIVATE_QUESTION);
+			long karmaRequired = environmentKarma.get(PermissionRules.INACTIVATE_QUESTION);
 			return hasKarma(karmaRequired).isAllowed(user.getCurrent(), question);
 		}
 		return true;

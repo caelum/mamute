@@ -1,6 +1,7 @@
 package org.mamute.brutauth.auth.rules;
 
 import br.com.caelum.vraptor.environment.Environment;
+import org.mamute.auth.rules.PermissionRules;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -19,8 +20,8 @@ public class EnvironmentKarma {
 		this.environment = environment;
 	}
 
-	public long get(String key) {
-		String accessLevelString = environment.get("permission.rule." + key);
+	public long get(PermissionRules rule) {
+		String accessLevelString = environment.get("permission.rule." + rule.getPermissionName());
 		long karma = Long.parseLong(accessLevelString);
 		return karma;
 	}

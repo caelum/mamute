@@ -2,7 +2,7 @@ package org.mamute.controllers;
 
 import javax.inject.Inject;
 
-import org.mamute.auth.rules.PermissionRulesConstants;
+import org.mamute.auth.rules.PermissionRules;
 import org.mamute.brutauth.auth.rules.EnvironmentKarmaRule;
 import org.mamute.brutauth.auth.rules.InactiveQuestionRequiresMoreKarmaRule;
 import org.mamute.brutauth.auth.rules.InputRule;
@@ -41,7 +41,7 @@ public class CommentController {
 	@Inject private WatcherDAO watchers;
 
 	@SimpleBrutauthRules({EnvironmentKarmaRule.class})
-	@EnvironmentAccessLevel(PermissionRulesConstants.CREATE_COMMENT)
+	@EnvironmentAccessLevel(PermissionRules.CREATE_COMMENT)
 	@CustomBrutauthRules({InputRule.class, InactiveQuestionRequiresMoreKarmaRule.class})
 	@Post
 	public void comment(Long id, String onWhat, MarkedText comment, boolean watching) {

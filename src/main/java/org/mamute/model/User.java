@@ -33,7 +33,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 import org.joda.time.Years;
-import org.mamute.auth.rules.PermissionRulesConstants;
+import org.mamute.auth.rules.PermissionRules;
 import org.mamute.brutauth.auth.rules.EnvironmentKarma;
 import org.mamute.dto.UserPersonalInfo;
 import org.mamute.infra.Digester;
@@ -297,7 +297,7 @@ public class User implements Identifiable {
 	}
 	
 	public boolean canModerate(EnvironmentKarma environmentKarma) {
-		long karma = environmentKarma.get(PermissionRulesConstants.MODERATE_EDITS);
+		long karma = environmentKarma.get(PermissionRules.MODERATE_EDITS);
 		return isModerator() || this.karma >= karma;
 	}
 	
@@ -354,12 +354,14 @@ public class User implements Identifiable {
 		return id == votable.getAuthor().getId();
 	}
 	
-	public boolean hasKarmaToAnswerOwnQuestion(long answerOwnQuestion) {
+	public boolean hasKarmaToAnswerOwnQuestion(EnvironmentKarma environmentKarma) {
+		long answerOwnQuestion = environmentKarma.get(PermissionRules.ANSWER_OWN_QUESTION);
 		return (this.karma >= answerOwnQuestion) || isModerator();
 	}
 	
-	public boolean hasKarmaToAnswerInactiveQuestion(long inactivateQuestion) {
-		return (this.karma >= inactivateQuestion) || isModerator();
+	public boolean hasKarmaToAnswerInactiveQuestion(EnvironmentKarma environmentKarma) {
+		long answerInactiveQuestion = environmentKarma.get(PermissionRules.INACTIVATE_QUESTION);
+		return (this.karma >= answerInactiveQuestion) || isModerator();
 	}
 	
 	public List<LoginMethod> getLoginMethods() {

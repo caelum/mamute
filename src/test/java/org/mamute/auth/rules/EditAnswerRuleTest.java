@@ -6,7 +6,6 @@ import static org.mockito.Mockito.mock;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mamute.auth.rules.PermissionRulesConstants;
 import org.mamute.brutauth.auth.rules.EditAnswerRule;
 import org.mamute.brutauth.auth.rules.EnvironmentKarma;
 import org.mamute.dao.TestCase;

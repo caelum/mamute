@@ -2,7 +2,6 @@ package org.mamute.validators;
 
 import javax.inject.Inject;
 
-import org.mamute.auth.rules.PermissionRulesConstants;
 import org.mamute.brutauth.auth.rules.EnvironmentKarma;
 import org.mamute.factory.MessageFactory;
 import org.mamute.model.LoggedUser;
@@ -30,8 +29,7 @@ public class AnsweredByValidator {
 	
 	public boolean validate(Question question){
 		if(question.getAuthor().equals(user.getCurrent())) {
-			long required = environmentKarma.get(PermissionRulesConstants.ANSWER_OWN_QUESTION);
-			if(!user.getCurrent().hasKarmaToAnswerOwnQuestion(required)) {
+			if(!user.getCurrent().hasKarmaToAnswerOwnQuestion(environmentKarma)) {
 				validator.add(factory.build("error", "answer.validation.errors.not_enough_karma"));	
 			}
 		} 

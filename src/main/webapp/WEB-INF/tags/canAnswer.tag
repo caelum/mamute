@@ -7,8 +7,8 @@
 
 <c:set var="user" value="${currentUser.current}"/>
 <c:set var="isAuthor" value="${question.author eq user}"/>
-<c:set var="canAnswerIfOwnQuestion" value="${!isAuthor || user.hasKarmaToAnswerOwnQuestion(ANSWER_OWN_QUESTION)}"/>
-<c:set var="canAnswerIfQuestionIsInactive" value="${!question.isInactiveForOneMonth() || user.hasKarmaToAnswerInactiveQuestion()}"/>
+<c:set var="canAnswerIfOwnQuestion" value="${!isAuthor || user.hasKarmaToAnswerOwnQuestion(environmentKarma)}"/>
+<c:set var="canAnswerIfQuestionIsInactive" value="${!question.isInactiveForOneMonth() || user.hasKarmaToAnswerInactiveQuestion(environmentKarma)}"/>
 <c:set var="hasKarmaToAnswer" value="${canAnswerIfOwnQuestion && canAnswerIfQuestionIsInactive}"/>
 
 <c:if test="${currentUser.loggedIn}">
