@@ -2,6 +2,7 @@ package org.mamute.util;
 
 import static java.util.Arrays.asList;
 import static org.mamute.model.MarkedText.notMarked;
+import static org.mockito.Mockito.mock;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,27 +18,18 @@ import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.mamute.brutauth.auth.rules.EnvironmentKarma;
 import org.mamute.builder.QuestionBuilder;
 import org.mamute.dao.QuestionDAO;
 import org.mamute.dao.TestCase;
-import org.mamute.model.Answer;
-import org.mamute.model.AnswerInformation;
-import org.mamute.model.Comment;
-import org.mamute.model.Flag;
-import org.mamute.model.FlagType;
-import org.mamute.model.Information;
-import org.mamute.model.LoggedUser;
-import org.mamute.model.MarkedText;
-import org.mamute.model.News;
-import org.mamute.model.NewsInformation;
-import org.mamute.model.Question;
-import org.mamute.model.QuestionInformation;
-import org.mamute.model.SanitizedText;
-import org.mamute.model.Tag;
-import org.mamute.model.User;
+import org.mamute.model.*;
+import org.mamute.vraptor.environment.MamuteEnvironment;
+
+import javax.servlet.ServletContext;
 
 public class DataImport extends TestCase {
-    private Session session;
+	private Updater updater;
+	private Session session;
     private List<Question> questions;
     private List<Answer> answers;
     private List<User> users;
@@ -63,6 +55,14 @@ public class DataImport extends TestCase {
         sessionProvider.dropAndCreate();
         session = sessionProvider.getSession();
         random = new Random();
+		ServletContext ctx = mock(ServletContext.class);
+		EnvironmentKarma env = null;
+		try {
+			env = new EnvironmentKarma(new MamuteEnvironment(ctx));
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		this.updater = new Updater(env);
     }
 
     public static void main(String[] args) throws IOException {
@@ -205,7 +205,7 @@ public class DataImport extends TestCase {
 		QuestionInformation information = new QuestionInformation("question question question question question", 
 				notMarked("edit edit edit edit edit edit edit edit edit edit edit"), new LoggedUser(editor, null), tagsEdited, "blablablab");
 		edits.add(information);
-		question.updateWith(information);
+		question.updateWith(information, updater);
 		setId(question.getAuthor(), null);
 		setId(editor, null);
 	}
@@ -217,7 +217,7 @@ public class DataImport extends TestCase {
 		AnswerInformation information = new AnswerInformation(notMarked("edited edited edited edited edited edited"), new LoggedUser(editor, null),
 				answer, "bla bla bla blabla");
 		edits.add(information);
-		answer.updateWith(information);
+		answer.updateWith(information, updater);
 		setId(answer.getAuthor(), null);
 		setId(editor, null);
 	}
