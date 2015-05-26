@@ -66,6 +66,10 @@ public class AnswerDAO implements PaginatableDAO{
 				.setParameter("a", attachment)
 				.uniqueResult();
 	}
+
+	public void delete(Answer answer) {
+		session.delete(answer);
+	}
 }
 
 

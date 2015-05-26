@@ -68,9 +68,9 @@
 					<tags:flagItFor type="${t['question.type_name']}" modalId="question-flag-modal${question.id}" flaggable="${question}"/>
 				</li>
 				<c:if test="${env.supports('deletable.questions')}">
-					<c:if test="${currentUser.current.isAuthorOf(question) and not currentUser.moderator}">
+					<c:if test="${currentUser.current.isAuthorOf(question) and not currentUser.moderator and question.deletable}">
 						<li class="nav-item">
-							<a href="#" class="delete-question">${t['question.delete']}</a>
+							<a href="#" class="delete-post" data-confirm-deletion="true" data-delete-form="delete-question-form">${t['question.delete']}</a>
 						</li>
 						<form class="hidden delete-question-form" method="post" action="${linkTo[QuestionController].deleteQuestion(question)}">
 							<input type="hidden" value="DELETE" name="_method">
@@ -78,11 +78,11 @@
 					</c:if>
 					<c:if test="${currentUser.moderator}">
 						<li class="nav-item">
-							<a href="#" class="delete-question" data-confirm-deletion="true">
+							<a href="#" class="delete-post" data-delete-form="delete-question-fully-form" data-confirm-deletion="true">
 								${t['question.delete.fully']}
 							</a>
 						</li>
-						<form class="hidden delete-question-form" method="post" action="${linkTo[QuestionController].deleteQuestionFully(question)}">
+						<form class="hidden delete-question-fully-form" method="post" action="${linkTo[QuestionController].deleteQuestionFully(question)}">
 							<input type="hidden" value="DELETE" name="_method">
 						</form>
 					</c:if>

@@ -22,4 +22,7 @@ public class AnswerCommentList extends VisibleCommentList{
 		return getVisibleCommentsFor(user, comments);
 	}
 
+	public boolean isEmpty() {
+		return comments.isEmpty();
+	}
 }

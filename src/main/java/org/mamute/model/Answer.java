@@ -27,7 +27,7 @@ import org.mamute.providers.SessionFactoryCreator;
 
 @Cacheable
 @Cache(usage=CacheConcurrencyStrategy.READ_WRITE, region="cache")
-@SQLDelete(sql = "update Question set deleted = true where id = ?")
+@SQLDelete(sql = "update Answer set deleted = true, question_id=NULL where id = ?")
 @Where(clause = "deleted = 0")
 @Entity
 public class Answer extends Moderatable implements Post, Notifiable {
@@ -334,5 +334,13 @@ public class Answer extends Moderatable implements Post, Notifiable {
 	public void replace(List<Attachment> attachmentsLoaded) {
 		this.removeAttachments();
 		this.add(attachmentsLoaded);
+	}
+
+	public boolean hasAuthor(User user) {
+		return user.getId().equals(author.getId());
+	}
+
+	public boolean isDeletable() {
+		return voteCount == 0 && comments.isEmpty();
 	}
 }
