@@ -219,7 +219,12 @@ public class Answer extends Moderatable implements Post, Notifiable {
         return "answer.type_name";
     }
 
-    @Override
+	@Override
+	public void deleteComment(Comment comment) {
+		this.comments.delete(comment);
+	}
+
+	@Override
     public DateTime getLastUpdatedAt() {
     	return lastUpdatedAt;
     }

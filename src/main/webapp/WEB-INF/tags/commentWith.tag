@@ -5,6 +5,9 @@
 <%@attribute name="comment" type="org.mamute.model.Comment" required="true" %>
 <%@attribute name="collapsed" type="java.lang.Boolean" required="true" %>
 <%@attribute name="currentUserVote" type="org.mamute.model.Vote" required="false" %>
+<%@attribute name="type" type="java.lang.String" required="true" %>
+<%@attribute name="item" type="org.mamute.model.Post" required="true" %>
+
 <li class="comment ${collapsed ? 'collapsed hidden' : ''} ${comment.isVisibleForModeratorAndNotAuthor(currentUser.current) ? 'highlight-post' : '' }" id="comment-${comment.id}">
 	<div class="post-meta comment-meta vote-container">
 		<span class="vote-count comment-vote-count ${comment.voteCount == 0 ? 'comment-meta-hidden' : '' }">${comment.voteCount}</span>
@@ -36,6 +39,14 @@
 					${t['edit.link']}
 				</a>
 			</tags:simpleAjaxFormWith>
+		</c:if>
+		<c:if test="${env.supports('deletable.comments') and currentUser.current.isAuthorOf(comment)}">
+			<a class="delete-post" data-confirm-deletion="true" data-delete-form="delete-comment-form" href="#">Delete</a>
+			<form class="hidden delete-comment-form" method="post" action="${linkTo[CommentController].delete(comment.id)}">
+				<input type="hidden" value="DELETE" name="_method">
+				<input type="hidden" value="${type}" name="onWhat">
+				<input type="hidden" value="${item.id}" name="postId">
+			</form>
 		</c:if>
 	</div>	
 </li>

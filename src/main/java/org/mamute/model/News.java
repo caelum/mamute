@@ -323,5 +323,10 @@ public class News extends Moderatable implements Post, ViewCountable, Watchable,
 	public List<Vote> getVotes() {
 		return votes;
 	}
+
+	@Override
+	public void deleteComment(Comment comment) {
+		this.comments.delete(comment);
+	}
 }
 

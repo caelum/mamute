@@ -18,7 +18,7 @@
 <c:set var="ajaxResultName" value="new-comment-for-${type}-new-comment-${item.id}"/>
 <ul class="comment-list ${empty item.getVisibleCommentsFor(currentUser.current) ? 'hidden' : ''}" id="${ajaxResultName }">
 	<c:forEach var="comment" items="${item.getVisibleCommentsFor(currentUser.current)}" varStatus="status">
-		<tags:commentWith comment="${comment}" collapsed="${status.count > 5 && groupComments}" currentUserVote="${votes.getVotes(comment)}"/>
+		<tags:commentWith type="${type}" item="${item}" comment="${comment}" collapsed="${status.count > 5 && groupComments}" currentUserVote="${votes.getVotes(comment)}"/>
 	</c:forEach>
 </ul>
 

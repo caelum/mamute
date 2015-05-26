@@ -194,4 +194,8 @@ public class Comment implements Notifiable, Votable, Flaggable {
 	public Question getQuestion() {
 		throw new UnsupportedOperationException();
 	}
+
+	public boolean hasAuthor(User user) {
+		return user.getId().equals(author.getId());
+	}
 }

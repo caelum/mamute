@@ -2,7 +2,7 @@ $(function() {
     function executeDelete(form) {
         $("." + form).submit();
     }
-    $(".delete-post").click(function(e) {
+    $(document).on('click', '.delete-post', function(e) {
         e.preventDefault();
         var confirmation = true;
         var $link = $(this);
@@ -14,5 +14,5 @@ $(function() {
         if (confirmation) {
             executeDelete(form);
         }
-    })
+    });
 });

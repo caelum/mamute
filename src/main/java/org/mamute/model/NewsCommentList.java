@@ -23,4 +23,7 @@ public class NewsCommentList extends VisibleCommentList{
 		return getVisibleCommentsFor(user, comments);
 	}
 
+	public void delete(Comment comment) {
+		comments.remove(comment);
+	}
 }
