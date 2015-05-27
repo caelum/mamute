@@ -10,9 +10,15 @@ if (Globals.inHouseUploading) {
             url: '/users/' + $(this).data('user-id') + '/avatar',
             files: {avatar: file},
             complete:  function (err, xhr) {
-                var attachment = JSON.parse(xhr.response);
                 input.show();
                 uploading.remove();
+                if (xhr.status == 400) {
+                    errorPopup(Messages.get('user_profile.edit.form.error.upload.image'), input, "center-popup");
+                    return;
+                } else if (xhr.status != 200) {
+                    errorPopup(Messages.get('user_profile.edit.form.error.upload.unknown'), input, "center-popup");
+                }
+                var attachment = JSON.parse(xhr.response);
                 $(".profile-image").attr("src", "/attachments/" + attachment.id + "?w=128&h=128")
             }
         });

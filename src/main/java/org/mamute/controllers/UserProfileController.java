@@ -1,15 +1,18 @@
 package org.mamute.controllers;
 
+import static br.com.caelum.vraptor.view.Results.http;
 import static br.com.caelum.vraptor.view.Results.json;
 import static java.util.Arrays.asList;
 import static org.mamute.dao.WithUserPaginatedDAO.OrderType.ByDate;
 import static org.mamute.dao.WithUserPaginatedDAO.OrderType.ByVotes;
 import static org.mamute.model.SanitizedText.fromTrustedText;
 
+import javax.imageio.ImageIO;
 import javax.inject.Inject;
 
 import br.com.caelum.vraptor.observer.upload.UploadedFile;
 import br.com.caelum.vraptor.environment.Environment;
+import org.imgscalr.Scalr;
 import org.joda.time.DateTime;
 import org.mamute.brutauth.auth.rules.LoggedRule;
 import org.mamute.brutauth.auth.rules.ModeratorOnlyRule;
@@ -30,6 +33,9 @@ import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.hibernate.extra.Load;
 import br.com.caelum.vraptor.routes.annotation.Routed;
+
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 @Routed
 @Controller
@@ -182,9 +188,16 @@ public class UserProfileController extends BaseController{
 	@CustomBrutauthRules(LoggedRule.class)
 	@Post
 	public void uploadAvatar(UploadedFile avatar, @Load User user) {
-		Attachment attachment = new Attachment(avatar, user, clientIp.get());
+		BufferedImage resized = null;
+		try {
+			resized = processImage(avatar);
+		} catch (IOException e) {
+			result.use(http()).sendError(400);
+			return;
+		}
+		Attachment attachment = new Attachment(resized, user, clientIp.get(), avatar.getFileName());
 		attachments.save(attachment);
-		fileStorage.save(attachment);
+		fileStorage.saveImage(attachment);
 
 		Attachment old = user.getAvatar();
 		if (old != null) {
@@ -194,6 +207,16 @@ public class UserProfileController extends BaseController{
 
 		user.setAvatar(attachment);
 		result.use(json()).withoutRoot().from(attachment).serialize();
+	}
+
+	private BufferedImage processImage(UploadedFile avatar) throws IOException {
+		BufferedImage image = ImageIO.read(avatar.getFile());
+		if (image == null) {
+			throw new IOException();
+		}
+		int min = Math.min(image.getHeight(), image.getWidth());
+		BufferedImage cropped = Scalr.crop(image, min, min);
+		return Scalr.resize(cropped, Scalr.Method.ULTRA_QUALITY, 150);
 	}
 
 	private SanitizedText correctWebsite(SanitizedText website) {

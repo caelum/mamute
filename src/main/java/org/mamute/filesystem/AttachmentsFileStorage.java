@@ -6,7 +6,9 @@ import org.apache.commons.io.IOUtils;
 import org.mamute.model.Attachment;
 
 import javax.annotation.PostConstruct;
+import javax.imageio.ImageIO;
 import javax.inject.Inject;
+import java.awt.image.BufferedImage;
 import java.io.*;
 
 public class AttachmentsFileStorage {
@@ -49,5 +51,16 @@ public class AttachmentsFileStorage {
 	public void delete(Attachment attachment) {
 		File file = attachmentPath(attachment);
 		file.delete();
+	}
+
+	public void saveImage(Attachment attachment) {
+		try {
+			BufferedImage image = attachment.getImage();
+			File destination = attachmentPath(attachment);
+			ImageIO.write(image, "png", new FileOutputStream(destination));
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+
 	}
 }
