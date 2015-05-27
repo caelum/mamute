@@ -6,6 +6,7 @@ import org.joda.time.DateTime;
 import org.mamute.providers.SessionFactoryCreator;
 
 import javax.persistence.*;
+import java.awt.image.BufferedImage;
 
 @Entity
 public class Attachment {
@@ -16,6 +17,8 @@ public class Attachment {
 
 	@Transient
 	private UploadedFile file;
+	@Transient
+	private BufferedImage image;
 
 	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
 	private final DateTime createdAt = new DateTime();
@@ -41,6 +44,14 @@ public class Attachment {
 		this.ip = ip;
 		this.mime = file.getContentType();
 		this.name =file.getFileName();
+	}
+
+	public Attachment(BufferedImage image, User owner, String ip, String name) {
+		this.image = image;
+		this.owner = owner;
+		this.ip = ip;
+		this.mime = "image/png";
+		this.name = name;
 	}
 
 	public UploadedFile getUploadedFile() {
@@ -73,5 +84,9 @@ public class Attachment {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public BufferedImage getImage() {
+		return image;
 	}
 }
