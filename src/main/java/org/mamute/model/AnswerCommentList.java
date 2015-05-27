@@ -25,4 +25,8 @@ public class AnswerCommentList extends VisibleCommentList{
 	public boolean isEmpty() {
 		return comments.isEmpty();
 	}
+
+	public void delete(Comment comment) {
+		this.comments.remove(comment);
+	}
 }

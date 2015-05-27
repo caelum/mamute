@@ -1,2 +1,2 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
-<tags:commentWith collapsed="${collapsed}" comment="${comment}"/>
+<tags:commentWith item="${post}" collapsed="${collapsed}" type="${type}" comment="${comment}"/>

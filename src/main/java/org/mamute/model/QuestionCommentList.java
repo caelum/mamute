@@ -27,4 +27,7 @@ public class QuestionCommentList extends VisibleCommentList{
 		return comments.isEmpty();
 	}
 
+	public void delete(Comment comment) {
+		this.comments.remove(comment);
+	}
 }

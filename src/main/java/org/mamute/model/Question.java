@@ -419,8 +419,13 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 	public String getTypeNameKey() {
 		return "question.type_name";
 	}
-	
-    public String getTrimmedContent() {
+
+	@Override
+	public void deleteComment(Comment comment) {
+		this.comments.delete(comment);
+	}
+
+	public String getTrimmedContent() {
         String markedDescription = getMarkedDescription();
         if (markedDescription.length() < 200)
             return markedDescription;

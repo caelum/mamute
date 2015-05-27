@@ -41,4 +41,7 @@ public class CommentDAO {
 		return query.setParameter("min", minFlagCount).list();
 	}
 
+	public void delete(Comment comment) {
+		session.delete(comment);
+	}
 }

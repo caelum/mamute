@@ -8,5 +8,6 @@ import org.mamute.model.interfaces.Votable;
 public interface Post extends Votable, Commentable, Touchable, Flaggable {
 	
 	String getTypeNameKey();
-	
+
+	void deleteComment(Comment comment);
 }

@@ -2,6 +2,9 @@ package org.mamute.controllers;
 
 import javax.inject.Inject;
 
+import br.com.caelum.vraptor.Delete;
+import br.com.caelum.vraptor.environment.Environment;
+import br.com.caelum.vraptor.hibernate.extra.Load;
 import org.mamute.auth.rules.PermissionRules;
 import org.mamute.brutauth.auth.rules.EnvironmentKarmaRule;
 import org.mamute.brutauth.auth.rules.InactiveQuestionRequiresMoreKarmaRule;
@@ -11,10 +14,7 @@ import org.mamute.dao.WatcherDAO;
 import org.mamute.infra.ModelUrlMapping;
 import org.mamute.infra.NotFoundException;
 import org.mamute.mail.action.EmailAction;
-import org.mamute.model.Comment;
-import org.mamute.model.LoggedUser;
-import org.mamute.model.MarkedText;
-import org.mamute.model.User;
+import org.mamute.model.*;
 import org.mamute.model.interfaces.Watchable;
 import org.mamute.model.watch.Watcher;
 import org.mamute.notification.NotificationManager;
@@ -28,6 +28,8 @@ import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.routes.annotation.Routed;
 import br.com.caelum.vraptor.view.Results;
 
+import static br.com.caelum.vraptor.view.Results.http;
+
 @Routed
 @Controller
 public class CommentController {
@@ -39,6 +41,7 @@ public class CommentController {
 	@Inject private LoggedUser currentUser;
 	@Inject private NotificationManager notificationManager;
 	@Inject private WatcherDAO watchers;
+	@Inject private Environment environment;
 
 	@SimpleBrutauthRules({EnvironmentKarmaRule.class})
 	@EnvironmentAccessLevel(PermissionRules.CREATE_COMMENT)
@@ -62,7 +65,9 @@ public class CommentController {
 		} else {
 			watchers.removeIfWatching(watchable, new Watcher(current));
 		}
-    	
+
+		result.include("post", commentable);
+		result.include("type", onWhat);
     	result.forwardTo(BrutalTemplatesController.class).comment(newComment);
 	}
 
@@ -79,6 +84,24 @@ public class CommentController {
 			result.forwardTo(BrutalTemplatesController.class).comment(original);
 		}
 		validator.onErrorUse(Results.http()).setStatusCode(400);
+	}
+
+	@Delete
+	public void delete(Long commentId, String onWhat, Long postId) {
+		Comment comment = comments.getById(commentId);
+		if (!environment.supports("deletable.comments") || comment == null) {
+			result.notFound();
+			return;
+		}
+		if (!currentUser.isModerator() && !comment.hasAuthor(currentUser.getCurrent())) {
+			result.use(http()).sendError(403);
+			return;
+		}
+		Class<?> type = urlMapping.getClassFor(onWhat);
+		org.mamute.model.Post post = comments.loadCommentable(type, postId);
+		post.deleteComment(comment);
+		comments.delete(comment);
+		result.use(Results.referer()).redirect();
 	}
 	
 	private Class<?> getType(String name) {
