@@ -1,18 +1,12 @@
 package org.mamute.controllers;
 
-import static br.com.caelum.vraptor.view.Results.http;
-import static br.com.caelum.vraptor.view.Results.json;
-import static java.util.Arrays.asList;
-import static org.mamute.dao.WithUserPaginatedDAO.OrderType.ByDate;
-import static org.mamute.dao.WithUserPaginatedDAO.OrderType.ByVotes;
-import static org.mamute.model.SanitizedText.fromTrustedText;
-
-import javax.imageio.ImageIO;
-import javax.inject.Inject;
-
-import br.com.caelum.vraptor.observer.upload.UploadedFile;
+import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
+import br.com.caelum.vraptor.*;
+import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.environment.Environment;
-import org.imgscalr.Scalr;
+import br.com.caelum.vraptor.hibernate.extra.Load;
+import br.com.caelum.vraptor.observer.upload.UploadedFile;
+import br.com.caelum.vraptor.routes.annotation.Routed;
 import org.joda.time.DateTime;
 import org.mamute.brutauth.auth.rules.LoggedRule;
 import org.mamute.brutauth.auth.rules.ModeratorOnlyRule;
@@ -21,21 +15,20 @@ import org.mamute.dao.WithUserPaginatedDAO.OrderType;
 import org.mamute.dto.UserPersonalInfo;
 import org.mamute.factory.MessageFactory;
 import org.mamute.filesystem.AttachmentsFileStorage;
+import org.mamute.filesystem.ImageStore;
 import org.mamute.infra.ClientIp;
 import org.mamute.model.*;
 import org.mamute.validators.UserPersonalInfoValidator;
 
-import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
-import br.com.caelum.vraptor.Controller;
-import br.com.caelum.vraptor.Get;
-import br.com.caelum.vraptor.Path;
-import br.com.caelum.vraptor.Post;
-import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.hibernate.extra.Load;
-import br.com.caelum.vraptor.routes.annotation.Routed;
-
-import java.awt.image.BufferedImage;
+import javax.inject.Inject;
 import java.io.IOException;
+
+import static br.com.caelum.vraptor.view.Results.http;
+import static br.com.caelum.vraptor.view.Results.json;
+import static java.util.Arrays.asList;
+import static org.mamute.dao.WithUserPaginatedDAO.OrderType.ByDate;
+import static org.mamute.dao.WithUserPaginatedDAO.OrderType.ByVotes;
+import static org.mamute.model.SanitizedText.fromTrustedText;
 
 @Routed
 @Controller
@@ -56,6 +49,7 @@ public class UserProfileController extends BaseController{
 	@Inject private ClientIp clientIp;
 	@Inject private AttachmentDao attachments;
 	@Inject private AttachmentsFileStorage fileStorage;
+	@Inject private ImageStore imageStore;
     @Inject private Environment environment;
 
 	@Get
@@ -188,35 +182,21 @@ public class UserProfileController extends BaseController{
 	@CustomBrutauthRules(LoggedRule.class)
 	@Post
 	public void uploadAvatar(UploadedFile avatar, @Load User user) {
-		BufferedImage resized = null;
+		Attachment attachment = null;
 		try {
-			resized = processImage(avatar);
+			attachment = imageStore.processAndStore(avatar, user, clientIp);
 		} catch (IOException e) {
 			result.use(http()).sendError(400);
 			return;
 		}
-		Attachment attachment = new Attachment(resized, user, clientIp.get(), avatar.getFileName());
-		attachments.save(attachment);
-		fileStorage.saveImage(attachment);
 
 		Attachment old = user.getAvatar();
 		if (old != null) {
-			attachments.delete(old);
-			fileStorage.delete(old);
+			imageStore.delete(old);
 		}
 
 		user.setAvatar(attachment);
 		result.use(json()).withoutRoot().from(attachment).serialize();
-	}
-
-	private BufferedImage processImage(UploadedFile avatar) throws IOException {
-		BufferedImage image = ImageIO.read(avatar.getFile());
-		if (image == null) {
-			throw new IOException();
-		}
-		int min = Math.min(image.getHeight(), image.getWidth());
-		BufferedImage cropped = Scalr.crop(image, min, min);
-		return Scalr.resize(cropped, Scalr.Method.ULTRA_QUALITY, 150);
 	}
 
 	private SanitizedText correctWebsite(SanitizedText website) {
