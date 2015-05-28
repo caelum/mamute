@@ -24,4 +24,9 @@ public class NullQuestionIndex implements QuestionIndex {
 	public List<Long> find(String title, int maxResults) {
 		return null;
 	}
+
+	@Override
+	public void delete(Question question) {
+		//does nothing
+	}
 }
