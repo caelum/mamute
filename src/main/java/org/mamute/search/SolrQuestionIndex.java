@@ -87,6 +87,18 @@ public class SolrQuestionIndex implements QuestionIndex {
 		}
 	}
 
+	@Override
+	public void delete(Question question) {
+		try {
+			this.server.deleteById(question.getId().toString());
+			this.server.commit();
+		} catch (SolrServerException e) {
+			throw new RuntimeException(e);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 	private SolrInputDocument toDoc(Question q) {
 		List<String> tagNames = Lists.transform(q.getTags(), new Function<Tag, String>() {
 			@Nullable

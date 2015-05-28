@@ -15,4 +15,6 @@ public interface QuestionIndex {
 	void indexQuestionBatch(Collection<Question> questions);
 
 	List<Long> find(String query, int maxResults);
+
+	void delete(Question question);
 }

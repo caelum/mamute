@@ -218,6 +218,7 @@ public class QuestionController {
 		result.include("mamuteMessages", asList(messageFactory.build("confirmation", "question.delete.confirmation")));
 		attachmentRepository.delete(question.getAttachments());
 
+		index.delete(question);
 		questions.delete(question);
 
 		result.redirectTo(ListController.class).home(null);
@@ -233,6 +234,7 @@ public class QuestionController {
 		Iterable<Attachment> attachments = question.getAllAttachments();
 		this.attachmentRepository.delete(attachments);
 		questions.deleteFully(question, currentUser.getCurrent());
+		index.delete(question);
 
 		result.include("mamuteMessages", asList(messageFactory.build("confirmation", "question.delete.confirmation")));
 		result.redirectTo(ListController.class).home(null);
