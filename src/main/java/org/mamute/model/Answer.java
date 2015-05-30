@@ -346,6 +346,10 @@ public class Answer extends Moderatable implements Post, Notifiable {
 	}
 
 	public boolean isDeletable() {
-		return voteCount == 0 && comments.isEmpty();
+		return voteCount == 0 && !this.isSolution();
+	}
+
+	public List<Comment> getAllComments() {
+		return this.comments.getAll();
 	}
 }

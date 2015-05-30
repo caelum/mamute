@@ -11,6 +11,7 @@ import org.mamute.dao.WithUserPaginatedDAO.OrderType;
 import org.mamute.dao.WithUserPaginatedDAO.UserRole;
 import org.mamute.model.Answer;
 import org.mamute.model.Attachment;
+import org.mamute.model.Comment;
 import org.mamute.model.User;
 
 @SuppressWarnings("unchecked")
@@ -69,6 +70,9 @@ public class AnswerDAO implements PaginatableDAO{
 
 	public void delete(Answer answer) {
 		session.delete(answer);
+		for (Comment comment : answer.getAllComments()) {
+			session.delete(comment);
+		}
 	}
 }
 
