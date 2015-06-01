@@ -29,4 +29,8 @@ public class AnswerCommentList extends VisibleCommentList{
 	public void delete(Comment comment) {
 		this.comments.remove(comment);
 	}
+
+	public List<Comment> getAll() {
+		return comments;
+	}
 }
