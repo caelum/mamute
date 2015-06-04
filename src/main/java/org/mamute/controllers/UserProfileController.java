@@ -203,6 +203,10 @@ public class UserProfileController extends BaseController{
 	@CustomBrutauthRules(ModeratorOnlyRule.class)
 	@Delete
 	public void delete(Long userId) {
+		if (!this.environment.supports("deletable.users")) {
+			result.notFound();
+			return;
+		}
 		User user = users.findById(userId);
 		questions.deleteQuestionsOf(user);
 		answers.deleteAnswersOf(user);
