@@ -69,9 +69,19 @@ public class AnswerDAO implements PaginatableDAO{
 	}
 
 	public void delete(Answer answer) {
+		answer.getQuestion().subtractAnswer();
 		session.delete(answer);
 		for (Comment comment : answer.getAllComments()) {
 			session.delete(comment);
+		}
+	}
+
+	public void deleteAnswersOf(User user) {
+		List<Answer> answers = session.createQuery("from Answer a where a.author=:user")
+				.setParameter("user", user)
+				.list();
+		for (Answer answer : answers) {
+			delete(answer);
 		}
 	}
 }

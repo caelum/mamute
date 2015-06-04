@@ -12,16 +12,21 @@ import org.hibernate.Query;
 import org.hibernate.ScrollableResults;
 import org.hibernate.Session;
 import org.mamute.dto.UserAndSession;
+import org.mamute.filesystem.AttachmentRepository;
+import org.mamute.filesystem.AttachmentsFileStorage;
 import org.mamute.infra.Digester;
-import org.mamute.model.MethodType;
-import org.mamute.model.User;
-import org.mamute.model.UserSession;
+import org.mamute.model.*;
 
 @SuppressWarnings("unchecked")
 public class UserDAO {
 	private static final Integer PAGE_SIZE = 36;
 	
 	private Session session;
+
+	@Inject
+	private AttachmentDao attachments;
+	@Inject
+	private AttachmentsFileStorage fileStorage;
 
 	@Deprecated
 	public UserDAO() {
@@ -195,4 +200,10 @@ public class UserDAO {
 		return session.createQuery("from User where receiveAllUpdates=true")
 				.list();
 	}
+
+	public void delete(User user) {
+		clearSessionOf(user);
+		session.delete(user);
+	}
+
 }

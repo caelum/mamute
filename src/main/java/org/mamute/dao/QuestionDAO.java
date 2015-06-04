@@ -315,6 +315,15 @@ public class QuestionDAO implements PaginatableDAO {
 
 	}
 
+	public void deleteQuestionsOf(User user) {
+		List<Question> questions = session.createQuery("from Question q where q.author=:user")
+				.setParameter("user", user)
+				.list();
+		for (Question question : questions) {
+			deleteFully(question, user);
+		}
+	}
+
 	private class QuestionQuery {
 		private final Question question;
 

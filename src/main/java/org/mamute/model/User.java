@@ -24,10 +24,11 @@ import java.util.List;
 
 import javax.enterprise.inject.Vetoed;
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
+import org.hibernate.annotations.*;
 import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -46,6 +47,8 @@ import org.mamute.providers.SessionFactoryCreator;
 @Cacheable
 @Cache(usage=CacheConcurrencyStrategy.READ_WRITE, region="cache")
 @Table(name="Users")
+@SQLDelete(sql = "update Users set deleted = true where id = ?")
+@Where(clause = "deleted = 0")
 @Entity
 @Vetoed
 public class User implements Identifiable {

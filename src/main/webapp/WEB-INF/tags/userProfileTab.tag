@@ -22,6 +22,14 @@
 							${t[selectedUser.isBanned() ? 'user_profile.undo_ban' : 'user_profile.ban']}
 						</a>
 					</li>
+					<li class="nav-item">
+						<a href="#" class="delete-user" data-item-type="user" data-delete-form="delete-user-form" data-confirm-deletion="true">
+							${t['user.delete']}
+						</a>
+					</li>
+					<form class="hidden delete-user-form" method="post" action="${linkTo[UserProfileController].delete(selectedUser.id)}">
+						<input type="hidden" value="DELETE" name="_method">
+					</form>
 				</c:if>
 			</ul>
 	</div>

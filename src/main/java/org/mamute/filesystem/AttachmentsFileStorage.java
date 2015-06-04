@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 import javax.inject.Inject;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.Set;
 
 public class AttachmentsFileStorage {
 
@@ -62,5 +63,11 @@ public class AttachmentsFileStorage {
 			throw new RuntimeException(e);
 		}
 
+	}
+
+	public void delete(Iterable<Attachment> attachments) {
+		for (Attachment attachment : attachments) {
+			this.delete(attachment);
+		}
 	}
 }
