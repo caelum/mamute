@@ -16,13 +16,16 @@
 				</c:if>
 
 		</c:if>
+				<c:set value="${selectedUser.id == currentUser.current.id}" var="sameUser"/>
 				<c:if test="${currentUser.current.isModerator()}">
-					<li>
-						<a class="ban-user" title="${t['user_profile.ban.tootip']}" href="#" data-url="${linkTo[UserProfileController].toogleBanned(selectedUser)}">
-							${t[selectedUser.isBanned() ? 'user_profile.undo_ban' : 'user_profile.ban']}
-						</a>
-					</li>
-					<c:if test="${env.supports('deletable.users') && selectedUser.id != currentUser.current.id}">
+					<c:if test="${!sameUser}">
+						<li>
+							<a class="ban-user" title="${t['user_profile.ban.tootip']}" href="#" data-url="${linkTo[UserProfileController].toogleBanned(selectedUser)}">
+								${t[selectedUser.isBanned() ? 'user_profile.undo_ban' : 'user_profile.ban']}
+							</a>
+						</li>
+					</c:if>
+					<c:if test="${env.supports('deletable.users') && !sameUser}">
 						<li class="nav-item">
 							<a href="#" title="${t['user_profile.delete.tootip']}" class="delete-user" data-item-type="user" data-delete-form="delete-user-form" data-confirm-deletion="true">
 								${t['user.delete']}
