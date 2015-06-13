@@ -118,6 +118,8 @@ public class User implements Identifiable {
 
 	private boolean receiveAllUpdates = false;
 
+	private boolean deleted = false;
+
 	static {
 		GHOST = new User(fromTrustedText("GHOST"), "");
 		GHOST.setId(1000l);
