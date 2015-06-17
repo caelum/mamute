@@ -3,10 +3,13 @@ package org.mamute.controllers;
 import static br.com.caelum.vraptor.view.Results.http;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
 import org.mamute.auth.rules.PermissionRules;
 import org.mamute.brutauth.auth.rules.EnvironmentKarmaRule;
 import org.mamute.brutauth.auth.rules.ModeratorOnlyRule;
@@ -83,12 +86,24 @@ public class FlagController {
 		List<FlaggableAndFlagCount> flaggedComments = flaggables.flaggedButVisible(Comment.class);
 		
 		List<Question> commentQuestions = new ArrayList<>();
-		for (FlaggableAndFlagCount flaggable : flaggedComments) {
-			Comment comment = (Comment) flaggable.getFlaggable();
+
+		Iterator<FlaggableAndFlagCount> iterator = flaggedComments.iterator();
+		while (iterator.hasNext()) {
+			Comment comment = (Comment) iterator.next().getFlaggable();
 			Question q = questions.fromCommentId(comment.getId());
-			if (q == null) q = answers.fromCommentId(comment.getId()).getQuestion();
-			commentQuestions.add(q);
+			if (q != null) {
+				commentQuestions.add(q);
+				continue;
+			}
+			Answer answerFromComment = answers.fromCommentId(comment.getId());
+			if (answerFromComment != null) {
+				commentQuestions.add(answerFromComment.getQuestion());
+				continue;
+			}
+			// some flags may be related to news (not questions nor answers)
+			iterator.remove();
 		}
+
 
 		result.include("questions", flaggedQuestions);
 		result.include("answers", flaggedAnswers);

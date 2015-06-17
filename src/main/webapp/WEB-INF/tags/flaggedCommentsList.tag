@@ -17,18 +17,18 @@
 
 <ul>
 	<c:forEach var="flaggableComment" items="${list}" varStatus="i">
-	
+
 		<c:set var="comment" value="${flaggableComment.flaggable}"/>
 		<c:set var="question" value="${links.get(i.count-1)}"/>
-		
+
 		<li class="post-item flagged-moderator-item question-item ${comment.isVisibleForModeratorAndNotAuthor(currentUser.current) ? 'highlight-post' : '' }">
-			
+
 			<div class="post-information question-information">
 				<tags:postItemInformation key="post.list.vote"
 					count="${comment.voteCount}" information="votes"
 					htmlClass="question-info" />
 			</div>
-			
+
 			<div class="summary question-summary">
 				<div class="item-title-wrapper">
 					${t['moderation.flags'].args(comment.flags.size())}
@@ -41,18 +41,18 @@
 						${question.views}
 						<tags:pluralize key="post.list.view" count="${question.views}" />
 					</div>
-					
+
 				</div>
 				<div>
 					<tags:userProfileLink user="${comment.author}" htmlClass="user-name ellipsis"/>
 				</div>
 			</div>
-			
+
 			<div
 				class="${question.hasInteraction(currentUser.current) ? 'interaction' : ''}"
 				title="${t['user.interactions']}">
 			</div>
-			
+
 			<div
 				class="${comment.flags.size() >= 5 ? 'heavy-flagged' : ''}"
 				title="${t['moderation.flagged.lots']}">
