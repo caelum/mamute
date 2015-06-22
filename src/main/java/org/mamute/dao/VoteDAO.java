@@ -70,7 +70,7 @@ public class VoteDAO {
 	
 	@SuppressWarnings("unchecked")
 	public CommentsAndVotes previousVotesForComments(Question question, User currentUser) {
-		Query answerQuery = session.createQuery("select c,v from Question as q join q.answers as a join a.comments.comments as c join c.votes as v where v.author = :author and q = :question");
+		Query answerQuery = session.createQuery("select c,v from Question as q join q.answers as a join a.comments.comments as c join c.votes as v where v.author = :author and q = :question and c.deleted = false");
 		answerQuery.setParameter("author", currentUser);
 		answerQuery.setParameter("question", question);
 		List commentsAndVotesList = previousVotesForComments(Question.class, currentUser, question);
@@ -85,7 +85,7 @@ public class VoteDAO {
 	}
 	
 	private List previousVotesForComments(Class<? extends Commentable> clazz, User currentUser,	Commentable commentable) {
-		Query newsQuery = session.createQuery("select c,v from "+clazz.getSimpleName()+" as n join n.comments.comments as c join c.votes as v where v.author = :author and n = :commentable");
+		Query newsQuery = session.createQuery("select c,v from "+clazz.getSimpleName()+" as n join n.comments.comments as c join c.votes as v where v.author = :author and n = :commentable and c.deleted = false");
 		newsQuery.setParameter("author", currentUser);
 		newsQuery.setParameter("commentable", commentable);
 		return newsQuery.list();

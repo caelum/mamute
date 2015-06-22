@@ -51,6 +51,7 @@ public class UserProfileController extends BaseController{
 	@Inject private AttachmentsFileStorage fileStorage;
 	@Inject private ImageStore imageStore;
     @Inject private Environment environment;
+    @Inject private CommentDAO comments;
 
 	@Get
 	public void showProfile(@Load User user, String sluggedName){
@@ -197,6 +198,23 @@ public class UserProfileController extends BaseController{
 
 		user.setAvatar(attachment);
 		result.use(json()).withoutRoot().from(attachment).serialize();
+	}
+
+	@CustomBrutauthRules(ModeratorOnlyRule.class)
+	@Delete
+	public void delete(Long userId) {
+		if (!this.environment.supports("deletable.users")) {
+			result.notFound();
+			return;
+		}
+		User user = users.findById(userId);
+		questions.deleteQuestionsOf(user);
+		answers.deleteAnswersOf(user);
+		comments.deleteCommentsOf(user);
+		users.delete(user);
+
+		result.include("mamuteMessages", asList(messageFactory.build("confirmation", "user.delete.confirmation")));
+		result.redirectTo(ListController.class).home(null);
 	}
 
 	private SanitizedText correctWebsite(SanitizedText website) {

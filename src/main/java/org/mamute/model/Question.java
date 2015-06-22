@@ -520,4 +520,8 @@ public class Question extends Moderatable implements Post, Taggable, ViewCountab
 			}
 		};
 	}
+
+	public List<Comment> getAllComments() {
+		return comments.getAll();
+	}
 }

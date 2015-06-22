@@ -138,7 +138,6 @@ public class AnswerController {
 		answers.delete(answer);
 		attachmentRepository.delete(answer.getAttachments());
 		Question question = answer.getQuestion();
-		question.subtractAnswer();
 		result.redirectTo(QuestionController.class).showQuestion(question, question.getSluggedTitle());
 	}
 

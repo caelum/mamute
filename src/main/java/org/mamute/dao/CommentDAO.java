@@ -8,6 +8,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.mamute.model.Comment;
 import org.mamute.model.Post;
+import org.mamute.model.User;
 
 public class CommentDAO {
 
@@ -43,5 +44,14 @@ public class CommentDAO {
 
 	public void delete(Comment comment) {
 		session.delete(comment);
+	}
+
+	public void deleteCommentsOf(User user) {
+		List<Comment> comments = session.createQuery("from Comment c where c.author=:user")
+				.setParameter("user", user)
+				.list();
+		for (Comment comment : comments) {
+			delete(comment);
+		}
 	}
 }

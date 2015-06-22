@@ -7,6 +7,7 @@ import org.mamute.model.Question;
 import javax.inject.Inject;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 public class AttachmentDao {
 
@@ -32,5 +33,11 @@ public class AttachmentDao {
 
 	public Attachment load(Long attachmentId) {
 		return (Attachment) session.get(Attachment.class, attachmentId);
+	}
+
+	public void delete(Iterable<Attachment> attachments) {
+		for (Attachment attachment : attachments) {
+			this.delete(attachment);
+		}
 	}
 }
