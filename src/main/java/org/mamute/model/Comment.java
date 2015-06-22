@@ -170,7 +170,11 @@ public class Comment implements Notifiable, Votable, Flaggable {
 	public void remove() {
 		moderationOptions.remove();
 	}
-	
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
 	@Override
 	public boolean isVisible() {
 		return this.moderationOptions.isVisible();

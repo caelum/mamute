@@ -44,10 +44,6 @@ public class CommentDAO {
 
 	public void delete(Comment comment) {
 		session.delete(comment);
-		session.createSQLQuery("delete from Question_Comments where comments_id=:id")
-				.setParameter("id", comment.getId()).executeUpdate();
-		session.createSQLQuery("delete from Answer_Comments where comments_id=:id")
-				.setParameter("id", comment.getId()).executeUpdate();
 	}
 
 	public void deleteCommentsOf(User user) {
