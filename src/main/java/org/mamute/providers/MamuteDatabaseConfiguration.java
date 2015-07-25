@@ -16,6 +16,7 @@ import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.hibernate.tool.hbm2ddl.SchemaUpdate;
 import org.mamute.meta.MamuteMetaInformation;
 import org.mamute.model.*;
+import org.mamute.model.ban.BlockedIp;
 import org.mamute.model.interfaces.Flaggable;
 import org.mamute.model.watch.Watcher;
 import org.slf4j.Logger;
@@ -100,7 +101,7 @@ public class MamuteDatabaseConfiguration {
 		cfg.addAnnotatedClass(NewsletterSentLog.class);
 		cfg.addAnnotatedClass(TagPage.class);
 		cfg.addAnnotatedClass(Attachment.class);
-
+		cfg.addAnnotatedClass(BlockedIp.class);
 	}
 
 	public Map<Object, Object> getProperties() {

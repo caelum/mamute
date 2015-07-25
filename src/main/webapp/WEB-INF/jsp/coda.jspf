@@ -51,7 +51,7 @@
 	<script src="/assets/js/deps/Markdown.Sanitizer.js"></script>
 	<script src="/assets/js/deps/Markdown.Editor.js"></script>
 	<script src="/assets/js/deps/marked.js"></script>
-	<script src="/assets/js/deps/filepicker.js"></script>
+	<%--<script src="/assets/js/deps/filepicker.js"></script>--%>
 	<script src="/assets/js/deps/feather.js"></script>
 	<script src="/assets/js/messages.js"></script>
 	<script src="/assets/js/tags-manager.js"></script>
@@ -84,6 +84,7 @@
 	<script src="/assets/js/ban-user.js"></script>
 	<script src="/assets/js/question-suggestions.js"></script>
 	<script src="/assets/js/delete-question.js"></script>
+	<script src="/assets/js/ip-blocker.js"></script>
 <!-- endbuild -->
 
 <c:if test="${environment.supports('feature.analytics')}" >
