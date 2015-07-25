@@ -4,10 +4,12 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 import org.mamute.providers.SessionFactoryCreator;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+@Cacheable
 @Entity
 public class BlockedIp {
 

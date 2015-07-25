@@ -16,7 +16,8 @@ public class BlockedIpDao {
 	}
 
 	public List<BlockedIp> list() {
-		return session.createQuery("from BlockedIp").list();
+		return session.createQuery("from BlockedIp")
+				.setCacheable(true).list();
 	}
 
 	public BlockedIp find(Long id) {
