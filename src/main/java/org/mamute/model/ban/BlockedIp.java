@@ -2,12 +2,10 @@ package org.mamute.model.ban;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+import org.mamute.model.User;
 import org.mamute.providers.SessionFactoryCreator;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Cacheable
 @Entity
@@ -21,6 +19,9 @@ public class BlockedIp {
 
 	@Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
 	private final DateTime createdAt = new DateTime();
+
+	@ManyToOne
+	private User author;
 
 	/**
 	 * @deprecated hibernate only
@@ -38,5 +39,13 @@ public class BlockedIp {
 
 	public Long getId() {
 		return id;
+	}
+
+	public void setAuthor(User author) {
+		this.author = author;
+	}
+
+	public User getAuthor() {
+		return author;
 	}
 }

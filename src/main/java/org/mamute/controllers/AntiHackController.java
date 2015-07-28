@@ -10,6 +10,7 @@ import org.mamute.brutauth.auth.rules.ModeratorOnlyRule;
 import org.mamute.dao.BlockedIpDao;
 import org.mamute.dao.VoteDAO;
 import org.mamute.dto.SuspectMassiveVote;
+import org.mamute.model.LoggedUser;
 import org.mamute.model.VoteType;
 
 import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
@@ -23,6 +24,7 @@ public class AntiHackController {
 	@Inject private VoteDAO votes;
 	@Inject private BlockedIpDao blockedIps;
 	@Inject private Result result;
+	@Inject private LoggedUser loggedUser;
 	
 	@Get
 	@CustomBrutauthRules(ModeratorOnlyRule.class)
@@ -49,6 +51,7 @@ public class AntiHackController {
 	@CustomBrutauthRules(ModeratorOnlyRule.class)
 	public void newBlockedIp(BlockedIp blockedIp) {
 		blockedIps.save(blockedIp);
+		blockedIp.setAuthor(loggedUser.getCurrent());
 		result.redirectTo(this).ipBlockingForm();
 	}
 
