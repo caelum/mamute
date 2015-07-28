@@ -16,4 +16,5 @@ public class SchemaUpdateGenerator {
 		mamuteConfiguration.init();
 		mamuteConfiguration.getSchemaUpdate().execute(true, false);
 	}
+
 }
