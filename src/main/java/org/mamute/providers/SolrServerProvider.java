@@ -50,7 +50,9 @@ public class SolrServerProvider {
 			LOGGER.info("Starting embedded Solr");
 			String home = solrHome;
 			if (isEmpty(home)) {
-				home = env.getResource("/solr").getPath();
+				String locale = env.get("locale");
+				LOGGER.info("Using default home, with locale ["+locale+"]");
+				home = env.getResource("/solr/"+locale).getPath();
 			}
 
 			CoreContainer coreContainer = new CoreContainer(home);
