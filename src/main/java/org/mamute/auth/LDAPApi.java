@@ -4,12 +4,14 @@ import static org.apache.commons.lang.StringUtils.isEmpty;
 import static org.apache.commons.lang.StringUtils.isNotEmpty;
 import static org.mamute.model.SanitizedText.fromTrustedText;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import javax.naming.directory.InvalidAttributeValueException;
 
 import org.apache.directory.api.ldap.model.cursor.CursorException;
 import org.apache.directory.api.ldap.model.cursor.EntryCursor;
@@ -23,12 +25,16 @@ import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.ldap.client.api.LdapNetworkConnection;
 import org.mamute.dao.LoginMethodDAO;
 import org.mamute.dao.UserDAO;
+import org.mamute.filesystem.ImageStore;
+import org.mamute.infra.ClientIp;
+import org.mamute.model.Attachment;
 import org.mamute.model.LoginMethod;
 import org.mamute.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import br.com.caelum.vraptor.environment.Environment;
+import br.com.caelum.vraptor.observer.upload.DefaultUploadedFile;
 
 /**
  * LDAP authentication API
@@ -50,10 +56,14 @@ public class LDAPApi {
 	public static final String LDAP_MODERATOR_GROUP = "ldap.moderatorGroup";
 	public static final String PLACHOLDER_PASSWORD = "ldap-password-ignore-me";
 	public static final String LDAP_USE_SSL = "ldap.useSSL";
+	public static final String LDAP_AVATAR_IMAGE = "ldap.avatarImageAttr";
 
 	@Inject private Environment env;
 	@Inject private UserDAO users;
 	@Inject private LoginMethodDAO loginMethods;
+	@Inject private ImageStore imageStore;
+	@Inject private ClientIp clientIp;
+
 
 	private String host;
 	private Integer port;
@@ -67,6 +77,7 @@ public class LDAPApi {
 	private String[] lookupAttrs;
 	private String moderatorGroup;
 	private Boolean useSsl;
+	private String avatarImageAttr;
 
 	/**
 	 * Ensure that required variables are set if LDAP auth
@@ -90,6 +101,7 @@ public class LDAPApi {
 			moderatorGroup = env.get(LDAP_MODERATOR_GROUP, "");
 			lookupAttrs = env.get(LDAP_LOOKUP, "").split(",");
 			useSsl = env.supports(LDAP_USE_SSL);
+			avatarImageAttr = env.get(LDAP_AVATAR_IMAGE, "");
 		}
 	}
 
@@ -153,6 +165,36 @@ public class LDAPApi {
 		return cn;
 	}
 
+	private void updateAvatarImage(LDAPResource ldap, Entry entry, User user) {
+		try {
+			byte[] jpegBytes = getAvatarImage(ldap, entry);
+			if (jpegBytes != null) {
+				String fileName = user.getEmail() + ".jpg";
+				DefaultUploadedFile avatar = new DefaultUploadedFile(new ByteArrayInputStream(jpegBytes), fileName, "image/jpeg", jpegBytes.length);
+				Attachment attachment = imageStore.processAndStore(avatar, user, clientIp);
+				Attachment old = user.getAvatar();
+				if (old != null) {
+					imageStore.delete(old);
+				}
+				user.setAvatar(attachment);
+			}
+		} catch (LdapException | IOException e) {
+			// problems with avatar processing are non-fatal
+			logger.warn("Error updating user avatar from LDAP: " + user.getName(), e);
+		}
+	}
+
+	private byte[] getAvatarImage(LDAPResource ldap, Entry entry) throws LdapException {
+		if (avatarImageAttr != null && avatarImageAttr.length() > 0) {
+			try {
+				return ldap.getByteAttribute(entry, avatarImageAttr);
+			} catch (InvalidAttributeValueException ex) {
+				throw new LdapException("Invalid attribute value while looking up " + avatarImageAttr, ex);
+			}
+		}
+		return null;
+	}
+	
 	private void createUserIfNeeded(LDAPResource ldap, String cn) throws LdapException {
 		Entry ldapUser = ldap.getUser(cn);
 		String email = ldap.getAttribute(ldapUser, emailAttr);
@@ -179,6 +221,7 @@ public class LDAPApi {
 		} else {
 			user.removeModerator();
 		}
+		updateAvatarImage(ldap, ldapUser, user);
 
 		users.save(user);
 	}
@@ -269,6 +312,14 @@ public class LDAPApi {
 
 		private String getAttribute(Entry entry, String attribute) throws LdapException {
 			return entry.get(attribute).getString();
+		}
+
+		private byte[] getByteAttribute(Entry entry, String attribute) throws LdapException, InvalidAttributeValueException {
+			Attribute value = entry.get(attribute);
+			if (value != null) {
+				return value.getBytes();
+			}
+			return null;
 		}
 
 		@Override
