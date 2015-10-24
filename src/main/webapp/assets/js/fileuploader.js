@@ -78,7 +78,7 @@ if (Globals.inHouseUploading) {
             }
 
             FileAPI.upload({
-                url: '/attachments',
+                url: Globals.linkTo.uploadAttachment,
                 files: {file: file},
                 complete: uploadCompleted
             });
