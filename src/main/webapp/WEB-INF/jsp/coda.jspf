@@ -12,8 +12,9 @@
 <script type="text/javascript">
 	//UI flags (GLOBAL VARIABLES)
     var Globals = {};
-    Globals.inHouseUploading = ${env.supports('feature.inhouse.upload')};
+	Globals.inHouseUploading = ${env.supports('feature.inhouse.upload')};
 	Globals.linkTo = {};
+	Globals.linkTo.uploadAttachment = "${linkTo[AttachmentController].uploadAttachment}";
 	Globals.linkTo.getAttachment = "${linkTo[AttachmentController].downloadAttachment}";
 
 	var ANYONE_CAN_CREATE_TAGS = ${env.supports('feature.tags.add.anyone')};
