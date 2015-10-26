@@ -3,7 +3,6 @@ package org.mamute.validators;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,14 +28,14 @@ public class TagsValidatorTest extends TestCase {
 	private Tag java;
 	private Tag rails;
 	private Tag ruby;
-	private Tag nonalpha;
-	private ResourceBundle bundle;
+	private Tag cplus;
+	private Tag csharp;
+    private Tag specialChars;
+    private ResourceBundle bundle;
 
-	@Before
+
+    @Before
 	public void setup() {
-		environment = mock(Environment.class);
-		when(environment.get("tags.sanitizer.regex")).thenReturn("[a-zA-Z0-9-]");
-
 		messageFactory = new MessageFactory(bundle);
 		validator = new MockValidator();
 		tagsValidator = new TagsValidator(environment, validator, messageFactory);
@@ -44,7 +43,9 @@ public class TagsValidatorTest extends TestCase {
 		java = new Tag("java", "", user);
 		ruby = new Tag("ruby", "", user);
 		rails = new Tag("rails", "", user);
-		nonalpha = new Tag("java,mysql", "", user);
+        specialChars = new Tag("čćšđž!!#$#Đ}{", "", user);
+		cplus = new Tag("c++", "", user);
+	    csharp = new Tag("c#", "", user);
 	}
 
 	@Test
@@ -57,24 +58,15 @@ public class TagsValidatorTest extends TestCase {
 
 	@Test
 	public void should_validate_all_tags_found() throws Exception {
-		List<String> wanted = Arrays.asList("java", "ruby", "rails");
-		List<Tag> found = Arrays.asList(rails, java, ruby);
+		List<String> wanted = Arrays.asList("java", "ruby", "rails", "čćšđž!!#$#Đ}{", "c#", "c++");
+		List<Tag> found = Arrays.asList(rails, java, ruby, specialChars, cplus, csharp);
 		assertTrue(tagsValidator.validate(found, wanted));
 	}
 
 	@Test
-	public void should_prevent_creation_of_nonalpha_tag() {
-		List<String> wanted = Arrays.asList("java,mysql", "ruby", "rails");
-		List<Tag> found = Arrays.asList(nonalpha, ruby, rails);
-
-		tagsValidator.validate(found, wanted);
-		assertEquals(1, validator.getErrors().size());
-	}
-
-	@Test
-	public void should_allow_creation_of_alpha_tag() {
-		List<String> wanted = Arrays.asList("java", "ruby", "rails");
-		List<Tag> found = Arrays.asList(rails, java, ruby);
+	public void should_allow_creation_of_tag_with_any_char() {
+		List<String> wanted = Arrays.asList("java", "ruby", "rails", "čćšđž!!#$#Đ}{");
+		List<Tag> found = Arrays.asList(rails, java, ruby, specialChars);
 
 		tagsValidator.validate(found, wanted);
 		assertEquals(0, validator.getErrors().size());

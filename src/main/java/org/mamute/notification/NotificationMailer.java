@@ -95,7 +95,7 @@ public class NotificationMailer {
         }
         
 		public String tagLink(Tag t) {
-			return urlFor(ListController.class, "withTag", t.getName(),1 , false);
+			return urlFor(ListController.class, "withTag", t.getUriName(),1 , false);
         }
         
 		public String newsLink(News n) {

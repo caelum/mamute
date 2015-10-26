@@ -30,7 +30,7 @@ public class TagPageController {
 	@CustomBrutauthRules(ModeratorOnlyRule.class)
 	public void tagPageForm(String tagName){
 		if(validator.validateCreationWithTag(tagName)){
-			result.include("tag", tags.findByName(tagName));
+			result.include("tag", tags.findByUriName(tagName));
 		}
 	}
 
@@ -47,24 +47,24 @@ public class TagPageController {
 		TagPage tagPage = tagPages.findByTag(tagName);
 		tagPage.setAbout(about);
 		if(!validator.validate(tagPage)){
-			validator.onErrorRedirectTo(TagPageController.class).editTagPageForm(tagPage.getTagName());
+			validator.onErrorRedirectTo(TagPageController.class).editTagPageForm(tagPage.getTagUriName());
 			return;
 		}
-		result.redirectTo(this).showTagPage(tagPage.getTagName());
+		result.redirectTo(this).showTagPage(tagPage.getTagUriName());
 	}
 	
 	@Post
 	@CustomBrutauthRules(ModeratorOnlyRule.class)
 	public void newTagPage(String tagName, MarkedText about){
 		if(!validator.validateCreationWithTag(tagName)) return;
-		Tag tag = tags.findByName(tagName);
+		Tag tag = tags.findByUriName(tagName);
 		TagPage tagPage = new TagPage(tag, about);
 		if(!validator.validate(tagPage)){
-			validator.onErrorRedirectTo(TagPageController.class).tagPageForm(tagPage.getTagName());
+			validator.onErrorRedirectTo(TagPageController.class).tagPageForm(tagPage.getTagUriName());
 			return;
 		}
 		tagPages.save(tagPage);
-		result.redirectTo(this).showTagPage(tagPage.getTagName()); 
+		result.redirectTo(this).showTagPage(tagPage.getTagUriName());
 	}
 	
 	@Get

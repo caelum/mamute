@@ -1,7 +1,6 @@
 package org.mamute.managers;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import javax.inject.Inject;
 
@@ -25,9 +24,16 @@ public class TagsManager {
 	}
 
 	public List<Tag> findOrCreate(List<String> splitedTags) {
-		if (env.supports("feature.tags.add.anyone"))
-			return createTags(splitedTags);
-		return findTags(splitedTags);
+		List<Tag> tags;
+		if (env.supports("feature.tags.add.anyone")) {
+			tags = createTags(splitedTags);
+		}
+		else {
+			tags = findTags(splitedTags);
+		}
+
+		Set<Tag> dedupedTags = new HashSet<>(tags);
+		return new ArrayList<>(dedupedTags);
 	}
 
 	private List<Tag> findTags(List<String> splitedTags) {

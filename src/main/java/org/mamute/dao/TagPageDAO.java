@@ -23,18 +23,18 @@ public class TagPageDAO {
 		session.save(tagPage);
 	}
 
-	public TagPage findByTag(String tagName) {
-		TagPage tagPage = (TagPage) byTag(tagName).uniqueResult();
+	public TagPage findByTag(String tagSluggedName) {
+		TagPage tagPage = (TagPage) byTag(tagSluggedName).uniqueResult();
 		if(tagPage == null) throw new NotFoundException();
 		return tagPage;
 	}
 
-	public boolean existsOfTag(String tagName) {
-		return !byTag(tagName).list().isEmpty();
+	public boolean existsOfTag(String tagSluggedName) {
+		return !byTag(tagSluggedName).list().isEmpty();
 	}
 
 	private Query byTag(String tagName) {
-		return session.createQuery("from TagPage where tag.name = :tag")
+		return session.createQuery("from TagPage where tag.sluggedName = :tag")
 				.setParameter("tag", tagName);
 	}
 

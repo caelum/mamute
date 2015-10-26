@@ -12,6 +12,8 @@ import org.mamute.model.Tag;
 import org.mamute.model.TagUsage;
 import org.mamute.model.User;
 
+import static org.mamute.infra.NormalizerBrutal.toSlug;
+
 public class TagDAO {
 
 	private Session session;
@@ -25,8 +27,8 @@ public class TagDAO {
 		this.session = session;
 	}
 	
-	public Tag findByName(String name) {
-		Tag tag = (Tag) session.createQuery("from Tag t where t.name=:name").setString("name", name).uniqueResult();
+	public Tag findByUriName(String sluggedName) {
+		Tag tag = (Tag) session.createQuery("from Tag t where t.sluggedName=:sluggedName").setString("sluggedName", sluggedName).uniqueResult();
 		return tag;
 	}
 
@@ -66,8 +68,9 @@ public class TagDAO {
 		
 		ArrayList<Tag> tags = new ArrayList<>();
 		for (String name : names) {
-			Tag tag = (Tag) session.createQuery("from Tag where lower(name) like lower(:name)")
-									.setParameter("name", name)
+            String sluggedName = toSlug(name, true);
+			Tag tag = (Tag) session.createQuery("from Tag where lower(sluggedName) like lower(:sluggedName)")
+									.setParameter("sluggedName", sluggedName)
 									.uniqueResult();
 			if (tag != null && !tags.contains(tag)) {
 				tags.add(tag);
@@ -88,11 +91,13 @@ public class TagDAO {
 	}
 
 	public Tag saveIfDoesntExists(Tag newTag) {
-		Tag existingTag = findByName(newTag.getName());
+		Tag existingTag = findByUriName(newTag.getUriName());
 		if (existingTag == null){
 			session.save(newTag);
 			return newTag;
 		}
 		return existingTag;
 	}
+
+
 }

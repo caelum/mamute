@@ -46,10 +46,6 @@ public class TagPage {
 		this.markedAbout = about.getMarked();
 	}
 
-	public String getTagName() {
-		return tag.getName();
-	}
-	
 	public String getMarkedAbout() {
 		return markedAbout;
 	}
@@ -58,12 +54,9 @@ public class TagPage {
 		return about;
 	}
 
-	public String getTagUriName() {
-		return tag.getUriName();
-	}
-	
 	public Tag getTag() {
 		return tag;
 	}
-	
+
+	public String getTagUriName() { return tag.getUriName(); }
 }
