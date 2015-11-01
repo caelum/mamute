@@ -1,15 +1,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@attribute name="type" required="true" type="java.lang.String" %>
 <%@attribute name="item" type="org.mamute.model.interfaces.Votable" required="true" %>
 <%@attribute type="org.mamute.model.Vote" name="vote" required="true" %>
+<c:set var="dataType" value="${fn:toLowerCase(type)}.data_type"/>
 <div class="vote-container post-vote">
 	<c:set var="titleUp" value="${type}.upvote"/>
 	<a rel="nofollow" class="container requires-login requires-karma author-cant
 		      up-vote up-arrow arrow vote-option 
 		       ${(not empty vote and vote.countValue == 1) ? 'voted' : '' }"
 		      data-value="positivo" data-author="${currentUser.current.isAuthorOf(item)}"
-		      data-type="${type}"
+		      data-type="${t[dataType]}"
 		      data-karma="${VOTE_UP}"
 		      data-id="${item.id}"
 		      title="${t[titleUp]}">
@@ -22,7 +24,7 @@
 	 		  ${(not empty vote and vote.countValue == -1) ? 'voted' : '' }" 
 	 		  data-value="negativo"  
 	 		  data-author="${currentUser.current.isAuthorOf(item)}"
-	 		  data-type="${type}" 
+			  data-type="${t[dataType]}"
 		      data-karma="${VOTE_DOWN}" 
 	 		  data-id="${item.id}"
 	 		  title="${t[titleDown].args(MY_ANSWER_VOTED_DOWN, DOWNVOTED_QUESTION_OR_ANSWER)}">
