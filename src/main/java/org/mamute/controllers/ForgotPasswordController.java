@@ -11,6 +11,7 @@ import org.mamute.factory.MessageFactory;
 import org.mamute.model.User;
 import org.mamute.vraptor.DefaultLinker;
 
+import br.com.caelum.brutauth.auth.annotations.Public;
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
@@ -21,6 +22,7 @@ import br.com.caelum.vraptor.simplemail.template.BundleFormatter;
 import br.com.caelum.vraptor.simplemail.template.TemplateMailer;
 import br.com.caelum.vraptor.validator.Validator;
 
+@Public
 @Routed
 @Controller
 public class ForgotPasswordController {
@@ -69,7 +71,7 @@ public class ForgotPasswordController {
 		result.include("id", id);
 		result.include("token", token);
 	}
-	
+
 	@Post
 	public void changePassword(Long id, String token, String password, String passwordConfirmation) {
 		User user = validateTokenAndGetUser(id, token);

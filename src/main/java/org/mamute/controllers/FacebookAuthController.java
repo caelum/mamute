@@ -11,10 +11,12 @@ import org.scribe.model.Token;
 import org.scribe.model.Verifier;
 import org.scribe.oauth.OAuthService;
 
+import br.com.caelum.brutauth.auth.annotations.Public;
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Result;
 
+@Public
 @Controller
 public class FacebookAuthController extends BaseController {
 	
@@ -22,8 +24,7 @@ public class FacebookAuthController extends BaseController {
 	@Inject private LoginMethodManager loginManager;
 	@Inject private Result result;
 	@Inject @Facebook private OAuthService service;
-	
-	
+
 	@Get("/sign-up/facebook/")
 	public void signupViaFacebook(String code, String state) {
 		if (code == null) {

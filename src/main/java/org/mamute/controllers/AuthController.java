@@ -11,6 +11,7 @@ import org.mamute.brutauth.auth.rules.LoggedRule;
 import org.mamute.validators.LoginValidator;
 import org.mamute.validators.UrlValidator;
 
+import br.com.caelum.brutauth.auth.annotations.Public;
 import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
@@ -29,6 +30,7 @@ public class AuthController extends BaseController {
 	@Inject	private UrlValidator urlValidator;
 	@Inject	private LoginValidator validator;
 
+	@Public
 	@Get
 	public void loginForm(String redirectUrl) {
 		String facebookUrl = facebook.getOauthUrl(redirectUrl);
@@ -40,6 +42,7 @@ public class AuthController extends BaseController {
 		result.include("googleUrl", googleUrl);
 	}
 
+	@Public
 	@Post
 	public void login(String email, String password, String redirectUrl) {
 		try {
