@@ -38,13 +38,28 @@
 
 	<script src="/assets/js/deps/picker.js"></script>
 	<script src="/assets/js/deps/picker.date.js"></script>
-	<script src="/assets/js/deps/translations/pt_BR.js"></script>
     <script src="/assets/js/fileuploader.js"></script>
     <script src="/assets/js/avatarupload.js"></script>
 
     <script>window.FileAPI = { staticPath: '/assets/js/deps/fileapi/' };</script>
     <script src="/assets/js/deps/fileapi/FileAPI.min.js"></script>
 <!-- endbuild -->
+
+<c:set var="locale" value="${env.get('locale')}" />
+<c:choose>
+	<c:when test="${locale eq 'de'}">
+		<!-- build:js /js/jquery-plugin-translations-de.js -->
+			<script src="/assets/js/deps/translations/select2_locale_de.js"></script>
+			<script src="/assets/js/deps/translations/pickadate-de_DE.js"></script>
+		<!-- endbuild -->
+	</c:when>
+	<c:when test="${locale eq 'pt-BR'}">
+		<!-- build:js /js/jquery-plugin-translations-pt_BR.js -->
+			<script src="/assets/js/deps/translations/select2_locale_pt-BR.js"></script>
+			<script src="/assets/js/deps/translations/pickadate-pt_BR.js"></script>
+		<!-- endbuild -->
+	</c:when>
+</c:choose>
 
 <!-- build:js /js/mamute.js -->
 	<script src="/assets/js/deps/prettify.js"></script>
