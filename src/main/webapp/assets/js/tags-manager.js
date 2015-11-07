@@ -19,7 +19,7 @@
 
 	var ajaxResults = {};
 	element.select2({
-		placeholder: "Enter a tag",
+		placeholder: Messages.get("tagmanager.search.placeholder"),
 		minimumInputLength: 3,
 		multiple: true,
 		ajax: {
@@ -56,8 +56,9 @@
 				return {};
 			} else if (remoteSearch === 0) {
 				return {
-					text: '<div class="tag-new-list">' + term + ' <span class="tag-smalltext">(create new tag)</span></div>'
-						+ '<hr style="margin-top:15px;"/>',
+					text: '<div class="tag-new-list">' + term
+						+ ' <span class="tag-smalltext">(' + Messages.get("tagmanager.create.new") + ')</span>'
+						+ '</div><hr style="margin-top:15px;"/>',
 					slug: term,
 					id: term,
 					newVal: true
