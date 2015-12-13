@@ -88,6 +88,12 @@ public class ReputationEventDAO {
 			Long contextId = (Long) row[1];
 			
 			ReputationEventContext context = (ReputationEventContext) session.createQuery("from "+contextClass+" where id = :id").setParameter("id", contextId).uniqueResult();
+
+			// Skip invalid context entries (because the related item can have been deleted).
+			if (context == null) {
+				continue;
+			}
+
 			organizedData.add(new Object[]{
 					context,
 					row[2],
