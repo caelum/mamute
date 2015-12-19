@@ -1,30 +1,25 @@
 package org.mamute.filesystem;
 
-import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.environment.Property;
+
 import org.apache.commons.io.IOUtils;
 import org.mamute.model.Attachment;
 
-import javax.annotation.PostConstruct;
 import javax.imageio.ImageIO;
 import javax.inject.Inject;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.Set;
 
 public class AttachmentsFileStorage {
 
-	@Inject
-	private Environment environment;
-
-	@Inject
-	@Property("attachments.root.fs.path")
-	private String fsPath;
-
 	private File attachmentsRoot;
 
-	@PostConstruct
-	public void setup() {
+	@Deprecated
+	public AttachmentsFileStorage() {
+	}
+
+	@Inject
+	public AttachmentsFileStorage(@Property("attachments.root.fs.path") String fsPath) {
 		this.attachmentsRoot = new File(fsPath);
 	}
 
