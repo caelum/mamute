@@ -29,10 +29,11 @@
 	
 	<label for="website" class="form-label">${t['user_profile.edit.form.website.label']}</label>
 	<input type="text" name="website" class="text-input brutal-url" maxlength="200" value="<c:out value="${user.website}" escapeXml="true"/>"/>
-	
+
+	<c:set var="dateFormat" value="${fn:toLowerCase(t['date.joda.simple.pattern'])}" />
 	<label for="birthDate" class="form-label">${t['user_profile.edit.form.birth_date.label']}</label>
-	<input type="text" name="birthDate" id="datepicker-age" class="text-input date" maxlength="10" value="<tags:jodaTime pattern="dd/MM/YYYY" time="${user.birthDate}"/>" placeholder="dd/mm/yyyy"/>
-	
+	<input type="text" name="birthDate" id="datepicker-age" class="text-input date" maxlength="10" value="<tags:jodaTime pattern="${dateFormat}" time="${user.birthDate}"/>" placeholder="${dateFormat}"/>
+
 	<label for="location" class="form-label">${t['user_profile.edit.form.location.label']}</label>
 	<input type="text" name="location" class="text-input" maxlength="100" value="<c:out value="${user.location}" escapeXml="true"/>"/>
 	
