@@ -27,7 +27,7 @@ import java.io.IOException;
 import static br.com.caelum.vraptor.view.Results.http;
 import static br.com.caelum.vraptor.view.Results.json;
 import static java.util.Arrays.asList;
-import static org.apache.commons.lang3.StringUtils.isBlank;
+import static org.apache.commons.lang.StringUtils.isBlank;
 import static org.mamute.dao.WithUserPaginatedDAO.OrderType.ByDate;
 import static org.mamute.dao.WithUserPaginatedDAO.OrderType.ByVotes;
 import static org.mamute.model.SanitizedText.fromTrustedText;
