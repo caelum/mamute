@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeUtils;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mamute.builder.QuestionBuilder;
@@ -152,5 +153,10 @@ public class WithUserPaginatedDAOTest extends DatabaseTestCase{
 				.build();
 		session.save(q);
 		return q;
+	}
+
+	@After
+	public void tearDown() {
+		DateTimeUtils.setCurrentMillisSystem();
 	}
 }

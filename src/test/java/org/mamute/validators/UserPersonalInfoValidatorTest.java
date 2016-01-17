@@ -12,6 +12,7 @@ import javax.validation.Validation;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeUtils;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mamute.controllers.BrutalValidator;
@@ -94,7 +95,6 @@ public class UserPersonalInfoValidatorTest extends TestCase{
 		
 		when(bundle.getMessage("date.joda.simple.pattern")).thenReturn("dd/MM/YYYY");
 		assertTrue(infoValidator.validate(info));
-		DateTimeUtils.setCurrentMillisSystem();
 	}
 	
 	@Test
@@ -111,5 +111,10 @@ public class UserPersonalInfoValidatorTest extends TestCase{
 				.withEmail("invalidEmail");
 		
 		assertFalse(infoValidator.validate(info));
+	}
+
+	@After
+	public void tearDown() {
+		DateTimeUtils.setCurrentMillisSystem();
 	}
 }
