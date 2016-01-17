@@ -54,6 +54,7 @@ public class LDAPApi {
 	public static final String LDAP_GROUP = "ldap.groupAttr";
 	public static final String LDAP_LOOKUP = "ldap.lookupAttr";
 	public static final String LDAP_MODERATOR_GROUP = "ldap.moderatorGroup";
+	public static final String LDAP_SSO = "ldap.sso";
 	public static final String PLACHOLDER_PASSWORD = "ldap-password-ignore-me";
 	public static final String LDAP_USE_SSL = "ldap.useSSL";
 	public static final String LDAP_AVATAR_IMAGE = "ldap.avatarImageAttr";
@@ -124,6 +125,34 @@ public class LDAPApi {
 		} catch (LdapAuthenticationException e) {
 			logger.debug("LDAP auth attempt failed");
 			return false;
+		} catch (LdapException | IOException e) {
+			logger.debug("LDAP connection error", e);
+			throw new AuthenticationException(LDAP_AUTH, "LDAP connection error", e);
+		}
+	}
+
+	/**
+	 * Authenticates a user WITHOUT a password presented. The user name must
+	 * come from a trusted SSO source, e.g. the <code>getRemoteUser()</code>
+	 * from the HTTP Servlet Request.
+	 * 
+	 * @param username
+	 *            User name to authenticate in any case. If no matching user
+	 *            account exists, it is created.
+	 * 
+	 * @return <code>true</code> if the user could be found in LDAP and the User
+	 *         object was initialized, <code>false</code> otherwise.
+	 */
+	public boolean authenticateSSO(String username) {
+
+		try (LDAPResource ldap = new LDAPResource()) {
+			if (ldap.lookupUser(username) == null) {
+				return false;
+			}
+			String cn = userCn(username);
+			createUserIfNeeded(ldap, cn);
+
+			return true;
 		} catch (LdapException | IOException e) {
 			logger.debug("LDAP connection error", e);
 			throw new AuthenticationException(LDAP_AUTH, "LDAP connection error", e);
@@ -311,7 +340,8 @@ public class LDAPApi {
 		}
 
 		private String getAttribute(Entry entry, String attribute) throws LdapException {
-			return entry.get(attribute).getString();
+			Attribute attr = entry.get(attribute);
+			return attr == null ? null : attr.getString();
 		}
 
 		private byte[] getByteAttribute(Entry entry, String attribute) throws LdapException, InvalidAttributeValueException {
