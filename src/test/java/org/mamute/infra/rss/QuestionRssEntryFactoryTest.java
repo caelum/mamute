@@ -6,6 +6,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import org.joda.time.DateTimeUtils;
+import org.junit.After;
 import org.junit.Test;
 import org.mamute.builder.QuestionBuilder;
 import org.mamute.dao.TestCase;
@@ -39,6 +40,11 @@ public class QuestionRssEntryFactoryTest extends TestCase {
 		assertTrue(xml.contains("<link>http://localhost:8080/1-question-title</link>"));
 		assertTrue(xml.contains("<title><![CDATA[question title]]></title>"));
 		assertTrue(xml.contains("<author><![CDATA[author]]></author>"));
+	}
+
+	@After
+	public void tearDown() {
+		DateTimeUtils.setCurrentMillisSystem();
 	}
 
 }

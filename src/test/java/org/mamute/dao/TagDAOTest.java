@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeUtils;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mamute.builder.QuestionBuilder;
@@ -145,6 +146,11 @@ public class TagDAOTest extends DatabaseTestCase{
 		Question question = new QuestionBuilder().withAuthor(leo).withTags(tags).build();
 		session.save(question);
 		return question;
+	}
+
+	@After
+	public void tearDown() {
+		DateTimeUtils.setCurrentMillisSystem();
 	}
 
 	
