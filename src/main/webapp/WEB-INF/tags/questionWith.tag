@@ -11,7 +11,7 @@
 		<tags:brutal-include value="questionTopAd" />
 	</c:if>
 	<div class="post-meta">
-		<tags:voteFor item="${question}" type="${t['question.type_name']}" vote="${currentVote}"/>
+		<tags:voteFor item="${question}" type="${question.typeName}" vote="${currentVote}"/>
 		<tags:watchFor watchable="${question}" type="${t['question.type_name']}"/>
 	</div>
 	<div class="post-container">

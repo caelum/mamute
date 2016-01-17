@@ -16,7 +16,7 @@
 		</a>
 	</h1>
 	<div class="post-meta">
-		<tags:voteFor item="${news}" type="${t['news.type_name']}" vote="${currentVote}"/>
+		<tags:voteFor item="${news}" type="${news.typeName}" vote="${currentVote}"/>
 		<tags:watchFor watchable="${news}" type="${t['news.type_name']}"/>
 	</div>
 	<div class="post-container">

@@ -7,7 +7,7 @@
 <%@attribute name="commentVotes" type="org.mamute.model.CommentsAndVotes" required="true" %>
 <section class="post-area ${answer.isVisibleForModeratorAndNotAuthor(currentUser.current) ? 'highlight-post' : '' }">
 	<div class="post-meta">
-		<tags:voteFor item="${answer}" type="${t['answer.type_name']}" vote="${vote}"/>
+		<tags:voteFor item="${answer}" type="${answer.typeName}" vote="${vote}"/>
 		<tags:solutionMarkFor answer="${answer}"/>
 	</div>
 	<div class="post-container">
