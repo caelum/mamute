@@ -5,7 +5,7 @@
 
 <%@attribute name="votable" type="org.mamute.model.interfaces.Votable" required="true" %>
 
-<c:set var="isQuestion" value="${votable.class.name == 'org.mamute.model.Question'}" />
+<c:set var="isQuestion" value="${votable['class'].name == 'org.mamute.model.Question'}" />
 
 <h2 class="title page-title ellipsis">
 	${isQuestion ? votable.title : votable.description}

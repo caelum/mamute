@@ -13,7 +13,7 @@
 			<c:when test="${(touchable.information.author.id == touchable.author.id)}">
 				<li class="touch edited-touch">
 					<div class="complete-user">
-					<c:set var="nameClass" value="${touchable.class.simpleName eq 'Question'}"/>
+					<c:set var="nameClass" value="${touchable['class'].simpleName eq 'Question'}"/>
 					<c:if test="${nameClass && editedLink}"> <a href="${linkTo[HistoryController].questionHistory(touchable.id)}"> </c:if>
 						<time class="when" ${microdata ? 'itemprop="dateModified"' : ""} datetime="${touchable.information.createdAt}">
 							${t['touch.edited']} 
