@@ -3,19 +3,19 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
       version="3.0"> 
-  <display-name>mamute</display-name>
-  <filter>
-    <filter-name>vraptor</filter-name>
-    <filter-class>br.com.caelum.vraptor.VRaptor</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>vraptor</filter-name>
-    <url-pattern>/*</url-pattern>
-    <dispatcher>FORWARD</dispatcher>
-    <dispatcher>REQUEST</dispatcher>
-  </filter-mapping>
-  
-  	<context-param>
+	<display-name>mamute</display-name>
+	<filter>
+		<filter-name>vraptor</filter-name>
+		<filter-class>br.com.caelum.vraptor.VRaptor</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>vraptor</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
+
+	<context-param>
 		<param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
 		<param-value>messages</param-value>
 	</context-param>
@@ -33,7 +33,7 @@
 		<url-pattern>/error500</url-pattern>
 	</servlet-mapping>
 
-  	<error-page>
+	<error-page>
 		<error-code>500</error-code>
 		<location>/error500</location>
 	</error-page>
