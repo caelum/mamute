@@ -60,6 +60,10 @@
 			<include-prelude>/WEB-INF/jsp/prelude.jspf</include-prelude>
 			<include-coda>/WEB-INF/jsp/coda.jspf</include-coda>
 		</jsp-property-group>
+		<jsp-property-group>
+			<display-name>view-segments</display-name>
+			<url-pattern>*.jspf</url-pattern>
+		</jsp-property-group>
 	</jsp-config>
 
 	<context-param>
