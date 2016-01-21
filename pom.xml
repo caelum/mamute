@@ -14,7 +14,8 @@
 		<jetty.jsp.version>8.1.4.v20120524</jetty.jsp.version>
 		<mamute.database>mysql</mamute.database>
 		<mamute.grunt.task>build</mamute.grunt.task>
-		<solr.version>4.9.0</solr.version>
+		<solr.version>4.10.0</solr.version>
+		<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
 	</properties>
 
 	<scm>
@@ -705,23 +706,7 @@
 			        </execution>
 			    </executions>
 			</plugin>
-			
-			<plugin>
-				<groupId>com.keyboardsamurais.maven</groupId>
-				<artifactId>maven-timestamp-plugin</artifactId>
-				<version>1.0</version>
-				<configuration>
-					<propertyName>timestamp</propertyName>
-					<timestampPattern>yyyyMMddHHmmss</timestampPattern>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>create</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
@@ -750,9 +735,14 @@
 						<configuration>
 							<executable>scripts/post-build.sh</executable>
 							<arguments>
-								<argument>${timestamp}</argument>
+								<argument>${maven.build.timestamp}</argument>
 							</arguments>
 						</configuration>
+					</execution>
+					<execution>
+						<goals>
+							<goal>java</goal>
+						</goals>
 					</execution>
 				</executions>
 			</plugin>
@@ -791,13 +781,13 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.6.2.201302030002</version>
+				<version>0.7.5.201505241946</version>
 				<configuration>
 					<destfile>${basedir}/target/coverage-reports/jacoco-unit.exec</destfile>
 					<datafile>${basedir}/target/coverage-reports/jacoco-unit.exec</datafile>
 				</configuration>
-
 			</plugin>
+			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
@@ -847,7 +837,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.0</version>
+				<version>3.3</version>
 				<configuration>
 					<source>1.7</source>
 					<target>1.7</target>
@@ -858,23 +848,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
 				<version>2.3.1</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>2.1.1</version>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.2.1</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>java</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 			<plugin>
 				<artifactId>maven-dependency-plugin</artifactId>
@@ -893,6 +866,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
+				<version>3.0.0</version>
 				<configuration>
 					<verbose>true</verbose>
 					<filesets>
