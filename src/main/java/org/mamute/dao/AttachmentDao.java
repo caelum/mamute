@@ -2,17 +2,23 @@ package org.mamute.dao;
 
 import org.hibernate.Session;
 import org.mamute.model.Attachment;
-import org.mamute.model.Question;
 
 import javax.inject.Inject;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 public class AttachmentDao {
 
-	@Inject
 	private Session session;
+
+	@Deprecated
+	public AttachmentDao() {
+	}
+
+	@Inject
+    public AttachmentDao(Session session) {
+        this.session = session;;
+    }
 
 	public void save(Attachment attachment) {
 		session.save(attachment);

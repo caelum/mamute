@@ -1,8 +1,12 @@
 package org.mamute.filesystem;
 
+import org.hibernate.Session;
 import org.mamute.dao.AnswerDAO;
 import org.mamute.dao.AttachmentDao;
+import org.mamute.dao.InvisibleForUsersRule;
 import org.mamute.dao.QuestionDAO;
+import org.mamute.dao.WithUserPaginatedDAO;
+import org.mamute.dao.WithUserPaginatedDAO.UserRole;
 import org.mamute.infra.NotFoundException;
 import org.mamute.model.Answer;
 import org.mamute.model.Attachment;
@@ -15,14 +19,22 @@ import java.util.Set;
 
 public class AttachmentRepository {
 
-	@Inject
 	private AttachmentDao attachments;
-	@Inject
 	private AttachmentsFileStorage fileStorage;
-	@Inject
 	private QuestionDAO questions;
-	@Inject
 	private AnswerDAO answers;
+
+	@Deprecated
+	public AttachmentRepository() {
+	}
+
+	@Inject
+    public AttachmentRepository(AttachmentDao attachments, AttachmentsFileStorage fileStorage, QuestionDAO questions, AnswerDAO answers) {
+        this.attachments = attachments;
+		this.fileStorage = fileStorage;
+		this.questions = questions;
+		this.answers = answers;
+    }
 
 	public void save(Attachment attachment) {
 		attachments.save(attachment);
