@@ -8,7 +8,7 @@
 <%@attribute name="facebookMetas" type="java.lang.Boolean" required="false"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="${env.get('locale')}">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
