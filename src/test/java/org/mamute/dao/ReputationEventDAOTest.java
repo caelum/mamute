@@ -240,4 +240,17 @@ public class ReputationEventDAOTest extends DatabaseTestCase {
 		assertEquals(question3Author, summaryForTag.get(1).getUser());
 		assertEquals(1l, summaryForTag.get(1).getCount().longValue());
 	}
+
+	@Test
+	public void should_ignore_events_of_deleted_questions() {
+		session.save(new ReputationEvent(EventType.QUESTION_UPVOTE, questionInvolved1, author));
+
+		session.delete(questionInvolved1);
+
+		KarmaByContextHistory karmaByQuestion = reputationEvents.karmaWonByQuestion(author, new DateTime(0));
+
+		assertNotNull(karmaByQuestion);
+		assertNotNull(karmaByQuestion.getHistory());
+		assertTrue(karmaByQuestion.getHistory().isEmpty());
+	}
 }
