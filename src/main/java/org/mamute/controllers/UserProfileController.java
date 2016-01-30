@@ -7,6 +7,7 @@ import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.hibernate.extra.Load;
 import br.com.caelum.vraptor.observer.upload.UploadedFile;
 import br.com.caelum.vraptor.routes.annotation.Routed;
+
 import org.joda.time.DateTime;
 import org.mamute.brutauth.auth.rules.LoggedRule;
 import org.mamute.brutauth.auth.rules.ModeratorOnlyRule;
@@ -26,6 +27,7 @@ import java.io.IOException;
 import static br.com.caelum.vraptor.view.Results.http;
 import static br.com.caelum.vraptor.view.Results.json;
 import static java.util.Arrays.asList;
+import static org.apache.commons.lang.StringUtils.isBlank;
 import static org.mamute.dao.WithUserPaginatedDAO.OrderType.ByDate;
 import static org.mamute.dao.WithUserPaginatedDAO.OrderType.ByVotes;
 import static org.mamute.model.SanitizedText.fromTrustedText;
@@ -219,9 +221,11 @@ public class UserProfileController extends BaseController{
 
 	private SanitizedText correctWebsite(SanitizedText website) {
 		String text = website.getText();
-		if(text.startsWith(HTTP))
+		if (isBlank(text))
+			return fromTrustedText("");
+		if (text.startsWith(HTTP))
 			return website;
-		return fromTrustedText(HTTP+text); 
+		return fromTrustedText(HTTP + text);
 	}
 	
 	private boolean redirectToRightSluggedName(User user, String sluggedName) {

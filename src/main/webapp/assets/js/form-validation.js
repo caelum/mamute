@@ -23,10 +23,28 @@ $(function(){
 	$.validator.addMethod(
 	    "date",
 	    function(value, element) {
-	    	if(value.length == 0){
-	    		return true;	
-	    	}
-	        return value.match(/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(19[1-9][0-9]|20[01][0-3])$/);
+		if(value.trim().length == 0){
+			return true;
+		}
+
+		var dateFormat = $(element).data('dateformat');
+		if(dateFormat.length == 0){
+			return true;
+		}
+
+		var dayPattern = '(0[1-9]|[12][0-9]|3[01])';
+		var monthPattern = '(0[1-9]|1[0-2])';
+		var yearPattern = '(19[1-9][0-9]|20[012][0-9])';
+
+		/* first escape characters which have a special meaning in regex (= make them literals): */
+		var datePattern = '^' + dateFormat.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&") + '$';
+
+		/* then convert the joda date format into regex: */
+		datePattern = datePattern.replace(/dd/i, dayPattern);
+		datePattern = datePattern.replace(/mm/i, monthPattern);
+		datePattern = datePattern.replace(/yyyy/i, yearPattern);
+
+		return value.match(new RegExp(datePattern));
 	    },
 	    Messages.get('validator.invalid.date')
 	);
