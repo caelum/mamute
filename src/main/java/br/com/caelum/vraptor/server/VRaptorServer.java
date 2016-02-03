@@ -96,12 +96,23 @@ public class VRaptorServer {
 			webPort = System.getProperty("server.port", "8080");
 		}
 		Server server = new Server(Integer.valueOf(webPort));
+		String webHost = getHost();
+		if (webHost == null || webHost.isEmpty()) {
+			webHost = System.getProperty("server.host", "0.0.0.0");
+		}
+		server.getConnectors()[0].setHost(webHost);
+		server.setAttribute("jetty.host", webHost);
 		return server;
 	}
 
 	private static String getPort() {
 		String port = System.getenv("PORT");
 		return port;
+	}
+	
+	private static String getHost() {
+		String host = System.getenv("HOST");
+		return host;
 	}
 
 	public void stop() {
