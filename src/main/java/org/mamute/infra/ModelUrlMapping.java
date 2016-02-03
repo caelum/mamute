@@ -23,9 +23,13 @@ public class ModelUrlMapping {
     @Inject
     public ModelUrlMapping(MessageFactory messageFactory) {
 		classForUrl.put(messageFactory.build("question", "question.type_name").getMessage(), Question.class);
+		classForUrl.put(Question.class.getSimpleName(), Question.class);
 		classForUrl.put(messageFactory.build("answer", "answer.type_name").getMessage(), Answer.class);
+		classForUrl.put(Answer.class.getSimpleName(), Answer.class);
 		classForUrl.put(messageFactory.build("comment", "comment.type_name").getMessage(), Comment.class);
+		classForUrl.put(Comment.class.getSimpleName(), Comment.class);
 		classForUrl.put(messageFactory.build("news", "news.type_name").getMessage(), News.class);
+		classForUrl.put(News.class.getSimpleName(), News.class);
 	}
 	
 	public Class<?> getClassFor(String urlParam){
