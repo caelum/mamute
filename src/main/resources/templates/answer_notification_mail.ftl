@@ -18,8 +18,7 @@
 	
 	<#if emailAction.getMainThread().hasAuthor(watcher)>
 		<p>
-			Caso a resposta tenha resolvido sua pergunta, não esqueça de marcá-la como correta. 
-			Caso não tenha resolvido sua dúvida, edite sua pergunta ou adicione comentários para dar mais informações.
+			${bundle.getMessage("notification_mail.mark_solution_and_comment_reminder")}
 		</p>
 	</#if>
 	
