@@ -11,9 +11,11 @@ import org.scribe.model.Token;
 import org.scribe.model.Verifier;
 import org.scribe.oauth.OAuthService;
 
+import br.com.caelum.brutauth.auth.annotations.Public;
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 
+@Public
 @Controller
 public class GoogleAuthController extends BaseController{
 	

@@ -6,11 +6,13 @@ import javax.inject.Inject;
 
 import org.mamute.i18n.MessagesLoader;
 
+import br.com.caelum.brutauth.auth.annotations.Public;
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.view.Results;
 
+@Public
 @Controller
 public class MessagesController {
 

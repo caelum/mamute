@@ -15,6 +15,7 @@ import org.mamute.model.User;
 import org.mamute.validators.SignupValidator;
 import org.mamute.vraptor.Linker;
 
+import br.com.caelum.brutauth.auth.annotations.Public;
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
@@ -22,6 +23,7 @@ import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.routes.annotation.Routed;
 
+@Public
 @Routed
 @Controller
 public class SignupController {
@@ -63,11 +65,11 @@ public class SignupController {
 	    linker.linkTo(ListController.class).home(null);
 	    result.forwardTo(AuthController.class).login(email, password, linker.get());
 	}
-	
+
 	@Get
 	public void showUsageTerms(){
 	}
-	
+
 	@Get
 	public void privacyPolicy(){
 	}
