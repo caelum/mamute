@@ -1,6 +1,5 @@
 package org.mamute.notification;
 
-import static java.text.MessageFormat.format;
 import static org.joda.time.format.DateTimeFormat.forPattern;
 
 import java.lang.reflect.Method;
@@ -61,7 +60,7 @@ public class NotificationMailer {
 		DateTimeFormatter dateFormat = forPattern("MMM, dd").withLocale(new Locale("pt", "br"));
 		EmailAction action = notificationMail.getAction();
 		User to = notificationMail.getTo();
-		Email email = templates.template(notificationMail.getEmailTemplate())
+		Email email = templates.template(notificationMail.getEmailTemplate(), bundle.getMessage("site.name"), action.getMainThread().getTitle())
 				.with("emailAction", action)
 				.with("dateFormat", dateFormat)
 				.with("sanitizer", POLICY)
@@ -69,8 +68,7 @@ public class NotificationMailer {
 				.with("watcher", to)
 				.with("linkerHelper", new LinkToHelper(router, brutalEnv))
 				.with("logoUrl", env.get("mail_logo_url"))
-				.to(to.getName(), to.getEmail())
-				.setSubject(format(bundle.getMessage("answer_notification_mail"), bundle.getMessage("site.name"), action.getMainThread().getTitle()));
+				.to(to.getName(), to.getEmail());
 		return email;
 	}
     
