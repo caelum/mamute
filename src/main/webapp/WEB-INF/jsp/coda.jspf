@@ -61,14 +61,19 @@
 	</c:when>
 </c:choose>
 
+<c:if test="${not env.supports('feature.inhouse.upload')}">
+	<!-- build:js /js/filepicker.js -->
+		<script src="/assets/js/deps/filepicker.js"></script>
+		<script src="/assets/js/deps/feather.js"></script>
+	<!-- endbuild -->
+</c:if>
+
 <!-- build:js /js/mamute.js -->
 	<script src="/assets/js/deps/prettify.js"></script>
 	<script src="/assets/js/deps/Markdown.Converter.js"></script>
 	<script src="/assets/js/deps/Markdown.Sanitizer.js"></script>
 	<script src="/assets/js/deps/Markdown.Editor.js"></script>
 	<script src="/assets/js/deps/marked.js"></script>
-	<script src="/assets/js/deps/filepicker.js"></script>
-	<script src="/assets/js/deps/feather.js"></script>
 	<script src="/assets/js/messages.js"></script>
 	<script src="/assets/js/tags-manager.js"></script>
 	<script src="/assets/js/form-validation.js"></script>
