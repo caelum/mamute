@@ -1,0 +1,115 @@
+.message {
+	margin-bottom: 1%;
+	font-size: 1.1em;
+}
+
+.error {
+	color: #8e0000;
+}
+
+.confirmation {
+	color: #008e43;
+}
+
+.alert {
+	color: #d3a402;
+	font-weight: bold;
+}
+
+.validated-form {
+	.error {
+		color: #8e0000;
+		margin: -13px 0 0 0;
+	}
+
+	.text-input, .wmd-input {
+		margin: 0 0 16px 0;
+	}
+}
+
+.popup-error-message {
+	margin-bottom: 2%;
+}
+
+.popup {
+	display: none;
+	position: absolute;
+	padding: 0 1.3em;
+	margin-top: 5px;
+
+	&.validation-error {
+		background-color: #ad0000;
+		font-weight: bold;
+		color: #fff;
+		border: 1px solid #8e0000;
+		border-radius: 3px;
+		cursor: pointer;
+		padding: 1.3em;
+		text-align: center;
+		z-index: 1;
+	}
+
+	&.share {
+		background-color: #EAEAEA;
+		-webkit-box-shadow: 2px 2px 4px #999;
+		box-shadow: 2px 2px 4px #999;
+		width: 320px;
+		padding: .4em .8em;
+
+		@media only screen and (max-width: 700px) {
+			width:180px
+		}
+		
+		label {
+			margin: 0;
+		}
+
+		.share-button {
+			height: 2.5em;
+		}
+	}
+}
+
+.center-popup {
+	z-index: 9999;
+	margin: 4em 5em;
+
+	@media only screen and (max-width: 840px) {
+		margin: 4em 4.8em;
+	}
+
+	@media only screen and (max-width: 700px) {
+		margin: 4em 6em;
+	}
+
+	@media only screen and (max-width: 550px) {
+		margin: 4em 8em;
+	}
+}
+
+.close-popup {
+	cursor: pointer;
+	padding-top: 1em;
+}
+
+.share-button {
+	float: left;
+	margin-right: 0;
+	cursor: pointer;
+}
+
+.icon-twitter-squared {
+	color: #00aced;
+}
+
+.icon-facebook-squared {
+	color: #2b5998;
+}
+
+.icon-gplus-squared {
+	color: #ba331e;
+}
+
+.share .close-popup {
+	float: right;
+}

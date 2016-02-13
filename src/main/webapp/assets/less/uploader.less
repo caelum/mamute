@@ -1,0 +1,43 @@
+.attachment-uploader {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  background: rgba(0, 0, 0, 0.85);
+  top: 0;
+  left: 0;
+  z-index: 2;
+
+  @w: 40%;
+  @h: 30%;
+  .upload-content {
+    background-color: #F89948;
+    border: 5px solid #bc7437;
+    position: absolute;
+    width: @w;
+    height: @h;
+    top: 40% - @h/2;
+    left: 50% - @w/2;
+    color: #fff;
+    padding: 1.5em;
+    font-size: 1.5em;
+
+    a {
+      color: #B51E24;
+    }
+  }
+}
+
+.uploaded-files {
+  color: #000;
+
+  th, td {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #c4c4c4;
+  }
+  th {
+    border-bottom: 1px solid #000;
+    padding-bottom: 0.5em;
+  }
+}

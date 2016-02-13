@@ -1,0 +1,23 @@
+#mailer.implementation = br.com.caelum.vraptor.simplemail.aws.AmazonSESMailer
+vraptor.simplemail.main.server = your_smtp_server
+vraptor.simplemail.main.port = your_port
+vraptor.simplemail.main.tls = use_tls?
+vraptor.simplemail.main.username = your_username
+vraptor.simplemail.main.password = your_password
+vraptor.errorcontrol.error.subject = Production error at Mamute
+
+### this url really can't have a trailing slash, or quartzjob wont work properly
+host=http://www.mamute.org
+### 
+home.url=/
+use.routes.parser.hack=false
+
+facebook.redirect_uri= your_production_fb_redirect_uri
+facebook.app_id= your_production_fb_app_id
+facebook.app_secret= your_production_fb_app_secret
+mail_logo_url=http://www.mamute.org/imgs/logo-mail.png
+
+feature.newsletter = true
+feature.schedule_jobs = true
+feature.analytics = true
+feature.input.rule = true

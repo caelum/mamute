@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema name="example" version="1.5">
+	<field name="_version_" type="long" indexed="true" stored="true"/>
+	<field name="_root_" type="string" indexed="true" stored="false"/>
+	<field name="text" type="text_general" indexed="true" stored="false" multiValued="true"/>
+	<field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false"/>
+	<field name="title" type="text_general" indexed="true" stored="true"/>
+	<field name="tags" type="text_general" indexed="true" stored="true" multiValued="true"/>
+	<field name="description" type="text_general" indexed="true" stored="true"/>
+	<field name="solution" type="text_general" indexed="true" stored="true"/>
+	<field name="answers" type="text_general" indexed="true" stored="true" multiValued="true"/>
+
+	<uniqueKey>id</uniqueKey>
+
+	<copyField source="description" dest="text"/>
+
+	<fieldType name="string" class="solr.StrField" sortMissingLast="true"/>
+	<fieldType name="boolean" class="solr.BoolField" sortMissingLast="true"/>
+	<fieldType name="int" class="solr.TrieIntField" precisionStep="0" positionIncrementGap="0"/>
+	<fieldType name="float" class="solr.TrieFloatField" precisionStep="0" positionIncrementGap="0"/>
+	<fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0"/>
+	<fieldType name="double" class="solr.TrieDoubleField" precisionStep="0" positionIncrementGap="0"/>
+	<fieldType name="tint" class="solr.TrieIntField" precisionStep="8" positionIncrementGap="0"/>
+	<fieldType name="tfloat" class="solr.TrieFloatField" precisionStep="8" positionIncrementGap="0"/>
+	<fieldType name="tlong" class="solr.TrieLongField" precisionStep="8" positionIncrementGap="0"/>
+	<fieldType name="tdouble" class="solr.TrieDoubleField" precisionStep="8" positionIncrementGap="0"/>
+	<fieldType name="date" class="solr.TrieDateField" precisionStep="0" positionIncrementGap="0"/>
+	<fieldType name="tdate" class="solr.TrieDateField" precisionStep="6" positionIncrementGap="0"/>
+	<fieldtype name="binary" class="solr.BinaryField"/>
+	<fieldType name="random" class="solr.RandomSortField" indexed="true"/>
+	<fieldType name="text_general" class="solr.TextField" positionIncrementGap="100">
+		<analyzer>
+			<tokenizer class="solr.StandardTokenizerFactory"/>
+			<filter class="solr.LowerCaseFilterFactory"/>
+			<filter class="solr.SnowballPorterFilterFactory" language="English"/>
+			<filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
+			<filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt"/>
+		</analyzer>
+	</fieldType>
+
+</schema>

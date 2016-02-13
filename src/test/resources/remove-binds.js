@@ -1,0 +1,1 @@
+$(arguments[0]).off();

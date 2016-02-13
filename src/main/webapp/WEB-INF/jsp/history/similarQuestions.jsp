@@ -1,0 +1,1 @@
+<tags:compareVersion isHistoryQuestion="${isHistoryQuestion}"/>

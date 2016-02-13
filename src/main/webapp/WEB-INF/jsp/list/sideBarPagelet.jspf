@@ -1,0 +1,10 @@
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags/" %>
+
+<noscript id="side-bar-pagelet">
+    <tags:sideBar recentTags="${recentTags}" />
+</noscript>
+
+<script>
+    var pagelet = document.getElementById("side-bar-pagelet");
+    document.getElementById("side-bar-container").innerHTML = pagelet.textContent||pagelet.innerHTML;
+</script>

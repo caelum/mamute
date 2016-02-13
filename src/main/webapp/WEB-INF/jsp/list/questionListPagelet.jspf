@@ -1,0 +1,15 @@
+<%@taglib prefix="tags" tagdir="/WEB-INF/tags/" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<c:set var="title" value="${t['metas.home.title']}"/>
+
+<noscript id="question-list-pagelet">
+    <section class="first-content content">
+        <tags:questionList recentTags="${recentTags}" questions="${questions}" title="${title}" tabs="${tabs}"/>
+    </section>
+</noscript>
+
+<script>
+    var pagelet = document.getElementById("question-list-pagelet");
+    document.getElementById("question-list-container").innerHTML = pagelet.textContent||pagelet.innerHTML;
+</script>

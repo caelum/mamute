@@ -1,0 +1,24 @@
+<%@ page language="java" pageEncoding="UTF-8"
+	contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<c:set var="siteName" value="${t['site.name']}"/>
+<footer class="footer dark-footer">
+	<div class="container">
+		<div class="footer-muted-message">
+			${siteName}
+		</div>
+		<span class="footer-menu">
+			<a href="${linkTo[ListController].unsolved}" class="unsolved-link">${t['menu.unsolved']}</a>
+			<a href="${linkTo[ListController].unanswered}">${t['menu.unanswered']}</a>
+		</span>
+		<span class="footer-vraptor">
+			Powered by: <a href="http://www.vraptor.org/">${t['footer.vraptor']}</a>
+			and <a href="http://www.mamute.org/">${t['footer.mamute']}</a>
+		</span>
+		<span class="footer-muted-message">
+		</span>
+	</div>
+</footer>

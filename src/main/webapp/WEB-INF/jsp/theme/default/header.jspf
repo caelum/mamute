@@ -1,0 +1,121 @@
+<%@ page language="java" pageEncoding="UTF-8"
+	contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+<header class="header clear">
+<c:set var="mainTags" value="${t['tags.featured']}" scope="request"/>
+	<section class="first-header">
+		<div class="container header-container">
+			<a class="logo big-logo sprite"
+				href="${linkTo[ListController].home}">${t['site.name']}</a>
+			<nav class="nav main-nav piped-nav">
+				<ul class="nav-items">
+					<li class="nav-item">
+						<a class="button ${empty noDefaultActive ? 'current' : ''}" href="${linkTo[ListController].home}">
+							${t['menu.questions']}
+						</a>
+					</li>
+					<li class="nav-item menu-unanswered">
+						<a class="button unanswered ${not empty unansweredActive ? 'current' : ''}" href="${linkTo[ListController].unanswered}">
+							${t['menu.unanswered']}
+						</a>
+					</li>
+					<li class="nav-item menu-rank">
+						<a class="button ${not empty usersActive ? 'current' : ''}" href="${linkTo[RankingController].rank}">
+							${t['menu.users']}
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="button ${not empty newsActive ? 'current' : ''}" href="${linkTo[ListController].news}">
+							${t['menu.news']}
+						</a>
+					</li>
+					<li class="ask nav-item">
+						<a class="button ask-a-question" href='${linkTo[QuestionController].newQuestion}'>
+							${t['menu.question.ask']}
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</section>
+
+	<section class="second-header">
+		<div class="container">
+			<section class="user-area">
+				<nav class="nav">
+					<ul class="nav-items">
+						<c:if test="${!currentUser.loggedIn}">
+							<li class="nav-item user-item">
+								<a class="login" href="${linkTo[AuthController].loginForm(currentUrl)}">
+									${t['auth.login_form_link']}
+								</a>
+							</li>
+							<c:if test="${env.supports('feature.signup')}">
+								<li class="nav-item">
+									<a class="signup" href="${linkTo[SignupController].signupForm}">
+										${t['signup.link']}
+									</a>
+								</li>
+							</c:if>
+						</c:if>
+						<c:if test="${currentUser.loggedIn}">
+							<li class="nav-item user-item">
+								<tags:userProfileLink user="${currentUser.current}" htmlClass="user-name">
+									<jsp:attribute name="before">
+										<img class="user-image menu-user-image" src="${currentUser.current.getSmallPhoto(env.get('gravatar.avatar.url'))}"/>
+									</jsp:attribute>
+									<jsp:attribute name="after">
+										<span class="reputation" >(${currentUser.current.karma})</span>
+									</jsp:attribute>
+								</tags:userProfileLink>
+							</li>
+							<c:if test="${currentUser.canModerate(environmentKarma)}">
+								<li class="nav-item">
+									<a href="${linkTo[HistoryController].history}">
+										${t['moderation.link']} (${pendingForModeratorCount})
+									</a>
+								</li>
+							</c:if>
+							<c:if test="${currentUser.isModerator()}">
+								<li class="nav-item">
+									<a href="${linkTo[ModeratorsNewsletterJob].execute}">
+										${t['moderation.newsletterJob']}
+									</a>
+								</li>
+							</c:if>
+							<c:if test="${!env.supports('feature.logout_concealed')}">
+								<li class="nav-item">
+									<a class="logout" href="${linkTo[AuthController].logout}">
+										${t['auth.logout_link']}
+									</a>
+								</li>
+							</c:if>
+						</c:if>
+						<li class="nav-item">
+							<a class="about" href="${linkTo[NavigationController].about}">
+								${t['about.link']}
+							</a>
+						</li>
+						<c:if test="${currentUser.loggedIn && env.supports('feature.intro')}">
+							<li class="nav-item">
+								<a class="intro ${currentUser.current.karma <= 12 ? 'new-users' : ''}" href="#">${t['metas.intro.title']}</a>
+							</li>
+						</c:if>
+						<li class="nav-item">
+							<a href="#"	class="search-dropdown dropdown-trigger"
+							data-target-id="dropdown-search-form">${t['metas.search.title']}</a>
+						</li>
+					</ul>
+				</nav>
+				<tags:searchForm/>
+			</section>
+		</div>
+		<div class="container dropdown-target" id="dropdown-search-form">
+			<tags:searchForm/>
+		</div>
+	</section>
+</header>

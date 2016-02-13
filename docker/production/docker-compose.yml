@@ -1,0 +1,36 @@
+webserver:
+  image: nginx:1.9
+  ports:
+    - "80:80"
+    - "443:443"
+  restart: always
+  mem_limit: 500MB
+  volumes:
+    - ./Nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    - ./Nginx/ssl/:/etc/nginx/ssl/:ro
+    - ./Nginx/conf.d/:/etc/nginx/conf.d/:ro
+  links:
+    # This name is used inside ./Nginx/conf.d/test.conf
+    - mamute:mamute
+
+mamute:
+  # You'll find the Mamute version in ./Mamute/Dockerfile
+  build: ./Mamute/
+  restart: always
+  mem_limit: 1G
+  links:
+    - db
+
+db:
+  # MySQL 5.7.5 and above produces exceptions in Mamute
+  image: mysql:5.7.4
+  restart: always
+  volumes:
+    # Used to save the database locally
+    - ./MySQL/database:/var/lib/mysql:rw
+  # On change remember to edit these variables also in file ./Mamute/Dockerfile
+  environment:
+    - MYSQL_ROOT_PASSWORD=keeph0Yu
+    - MYSQL_DATABASE=mamute_db
+    - MYSQL_USER=mamute
+    - MYSQL_PASSWORD=Shei6cea

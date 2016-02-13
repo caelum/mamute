@@ -1,0 +1,19 @@
+{
+  "id": "100001959511194", 
+  "name": "Francisco Sokol", 
+  "first_name": "Francisco", 
+  "last_name": "Sokol", 
+  "link": "http://www.facebook.com/francisco.sokol", 
+  "username": "francisco.sokol", 
+  "birthday": "02/07/1989", 
+  "location": {
+    "id": "112047398814697", 
+    "name": "São Paulo, Brazil"
+  }, 
+  "gender": "male", 
+  "email": "chico@brutal.com", 
+  "timezone": -3, 
+  "locale": "en_US", 
+  "verified": true, 
+  "updated_time": "2013-01-13T13:51:25+0000"
+}

@@ -1,0 +1,88 @@
+.ranking {
+	display: inline-block;
+	width: 100%;
+}
+
+.ranking-item {
+	float: left;
+	width: 15%;
+	margin: .75em;
+
+	@media only screen and (max-width: 1330px) {
+		width: 18%;
+	}
+
+	@media only screen and (max-width: 1100px) {
+		width: 22%;
+	}
+
+	@media only screen and (max-width: 620px) {
+		width: 30%;
+	}
+
+	@media only screen and (max-width: 400px) {
+		width: 45%;
+	}
+
+	@media only screen and (max-width: 340px) {
+		width:100;
+	}	
+}
+
+.ranking-user {
+	width: 100%;
+	
+	>* {
+		display: inline-block;
+	}
+	
+	.user-image {
+		width: 48px;
+		height: 48px;
+	}
+	
+	.user-info {
+		width: 70%;
+
+		@media only screen and (max-width: 1330px) {
+			width:50%;
+		}
+	}
+}
+
+.tag-ranking-section {
+	display: inline-block;
+	width: 49%;
+	margin-bottom: 5em;
+	vertical-align: top;
+
+	@media only screen and (max-width: 700px) {
+		width: 100%;
+	}
+	
+	> * {
+		margin-bottom: 1em;
+		text-align: center;
+	}
+	
+	> .ranking-user {
+		display: inline-block;
+		width: 49%;
+		vertical-align: middle;
+	}
+	
+	> .ranking-user .user-image {
+		width: 32px;
+		height: 32px;
+	}
+}
+
+.tag-ranking-count,.tag-ranking-karma {
+	display: inline-block;
+	width: 24.5%;
+	vertical-align: middle;
+}
+
+.tag-ranking-karma {
+	color: #595959
+}

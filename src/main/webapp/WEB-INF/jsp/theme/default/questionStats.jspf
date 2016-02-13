@@ -1,0 +1,12 @@
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%-- this template is used in question lists stats --%>
+<%-- question is of type org.mamute.model.Question --%>
+<tags:postItemInformation key="post.list.vote"
+	  count="${currentQuestion.voteCount}" information="votes"
+	  htmlClass="question-info"/>
+<tags:postItemInformation key="question.list.answer"
+	  count="${currentQuestion.answersCount}"
+	  information="answers ${currentQuestion.solved ? 'solved' : ''} ${currentQuestion.answersCount >= 1 ? 'answered' : ''}"  htmlClass="question-info"/>
