@@ -12,8 +12,8 @@
 	
 	<ul>
 		<li>${t['not_found.recent_questions'].args(linkTo[ListController].home)}</li>
-		<li>${t['not_found.search'].args(linkTo[SearchController].search)}</li>
 		<li>${t['not_found.new_question'].args(linkTo[QuestionController].questionForm)}</li>
+		<li>${t['not_found.search']}</li>
 	</ul>
 </div>
 <div class="error-code">
