@@ -13,11 +13,15 @@ import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.mamute.model.User;
 
+import org.mamute.brutauth.auth.rules.ModeratorOnlyRule;
+import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
+
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
 
 @Controller
+@CustomBrutauthRules(ModeratorOnlyRule.class)
 public class VerifyUsersController {
 	
 	private Logger LOG = Logger.getLogger(VerifyUsersController.class);
