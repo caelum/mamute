@@ -1,9 +1,7 @@
 package org.mamute.security;
 
 import br.com.caelum.vraptor.Controller;
-import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Options;
-import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.controller.HttpMethod;
 import br.com.caelum.vraptor.http.MutableRequest;
@@ -35,7 +33,7 @@ public class CORSController {
 		this.request = request;
 	}
 
-	@Path("/*")
+	@Options("/*")
 	public void options() {
 		Set<HttpMethod> allowed = router.allowedMethodsFor(request.getRequestedUri());
 		String allowMethods = allowed.toString().replaceAll("\\[|\\]", "");
