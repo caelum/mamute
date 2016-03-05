@@ -35,10 +35,9 @@ public class MamutePolicyProducer {
 			htmlElement.configure(policyBuilder);
 		}
 		policy = policyBuilder
-			.allowUrlProtocols("https", "http")
-		    .requireRelNofollowOnLinks()
-		    .toFactory();
-	
+				.allowUrlProtocols("https", "http")
+				.requireRelNofollowOnLinks()
+				.toFactory();
 	}
 
 	@Produces
