@@ -31,7 +31,9 @@ public class HtmlSanitizerTest {
 		envReturns(ALLOWED_ATTRIBUTES_KEY_PREFIX+"iframe", "src, width, height, scrolling, frameborder");
 		envReturns(ALLOWED_ATTRIBUTES_KEY_PREFIX+"iframe"+ALLOWED_ATTRIBUTES_WHITELIST_KEY_SUFIX+"href", ".*soundcloud.com\\/tracks\\/.*|.*youtube.com\\/embed\\/.*|.*//player.vimeo.com\\/video\\/.*");
 
-		MamutePolicyProducer mamutePolicyProducer = new MamutePolicyProducer(new HtmlElementsBuilder(env, new HtmlAttributesBuilder(env)));
+		final HtmlElementsBuilder htmlElementsBuilder = new HtmlElementsBuilder(env, new HtmlAttributesBuilder(env));
+		htmlElementsBuilder.setUp();
+		MamutePolicyProducer mamutePolicyProducer = new MamutePolicyProducer(htmlElementsBuilder);
 		mamutePolicyProducer.setUp();
 		PolicyFactory policy = mamutePolicyProducer.getInstance();
 
@@ -66,7 +68,23 @@ public class HtmlSanitizerTest {
 	@Test
 	public void shouldAddNoFollowIntoLinks() {
 		String html = "<a href=\"http://www.teste.com.br\">teste</a>";
-		String expected = "<a href=\"http://www.teste.com.br\" rel=\"nofollow\">teste</a>";
+		String expected = "<a href=\"http://www.teste.com.br\" target=\"_blank\" rel=\"nofollow\">teste</a>";
+		String sanitized = htmlSanitizer.sanitize(html).getText();
+		assertEquals(expected, sanitized);
+	}
+
+	@Test
+	public void shouldAddTargetBlankIntoLinks() {
+		String html = "<a href=\"http://www.teste.com.br\" rel=\"nofollow\">teste</a>";
+		String expected = "<a href=\"http://www.teste.com.br\" target=\"_blank\" rel=\"nofollow\">teste</a>";
+		String sanitized = htmlSanitizer.sanitize(html).getText();
+		assertEquals(expected, sanitized);
+	}
+
+	@Test
+	public void shouldChangeTargetToBlankInLinks() {
+		String html = "<a href=\"http://www.teste.com.br\" rel=\"nofollow\" target=\"_self\">teste</a>";
+		String expected = "<a href=\"http://www.teste.com.br\" target=\"_blank\" rel=\"nofollow\">teste</a>";
 		String sanitized = htmlSanitizer.sanitize(html).getText();
 		assertEquals(expected, sanitized);
 	}
@@ -88,8 +106,8 @@ public class HtmlSanitizerTest {
 	
 	@Test
 	public void shouldRemoveInvalidAttributesOfALink() {
-		String html = "<a class=\"my-class\" href=\"http://www.teste.com.br\">teste</a>";
-		String expected = "<a href=\"http://www.teste.com.br\" rel=\"nofollow\">teste</a>";
+		String html = "<a class=\"my-class\" href=\"http://www.teste.com.br\" target=\"_blank\">teste</a>";
+		String expected = "<a href=\"http://www.teste.com.br\" target=\"_blank\" rel=\"nofollow\">teste</a>";
 		String sanitized = htmlSanitizer.sanitize(html).getText();
 		assertEquals(expected, sanitized);
 	}
