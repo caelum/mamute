@@ -718,7 +718,7 @@
 			        </execution>
 			    </executions>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>com.keyboardsamurais.maven</groupId>
 				<artifactId>maven-timestamp-plugin</artifactId>
@@ -926,7 +926,38 @@
 					</filesets>
 				</configuration>
 			</plugin>
-
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>native2ascii-maven-plugin</artifactId>
+                <version>1.0-alpha-1</version>
+                <configuration>
+                    <encoding>UTF8</encoding>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>native2ascii-utf8-properties</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>native2ascii</goal>
+                        </goals>
+                        <configuration>
+                            <src>src/main/resources/utf8-bundles</src>
+                            <dest>src/main/resources</dest>
+                            <includes>*.properties</includes>
+                            <encoding>UTF8</encoding>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.sun</groupId>
+                        <artifactId>tools</artifactId>
+                        <version>1.8.0</version>
+                        <scope>system</scope>
+                        <systemPath>${java.home}/../lib/tools.jar</systemPath>
+                    </dependency>
+                </dependencies>
+            </plugin>
 		</plugins>
 		<pluginManagement>
 			<plugins>
