@@ -787,7 +787,7 @@
 					<dataFile>${basedir}/target/coverage-reports/jacoco-unit.exec</dataFile>
 				</configuration>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
@@ -842,6 +842,7 @@
 					<source>1.7</source>
 					<target>1.7</target>
 					<encoding>UTF-8</encoding>
+					<generatedTestSourcesDirectory>src/integration/java</generatedTestSourcesDirectory>
 				</configuration>
 			</plugin>
 			<plugin>
