@@ -26,6 +26,8 @@ public class TagDAOTest extends DatabaseTestCase{
 	private User leo;
 	private Tag java;
 	private Tag ruby;
+	private Tag scala;
+	private Tag groovy;
 
 
 	@Before
@@ -34,7 +36,11 @@ public class TagDAOTest extends DatabaseTestCase{
 		leo = user("leonardo", "leo@leo");
 		java = new Tag("java", "", leo);
 		ruby = new Tag("ruby", "", leo);
+		scala = new Tag("scala", "", leo);
+		groovy = new Tag("groovy", "", leo);
 		session.save(leo);
+		session.save(scala);
+		session.save(groovy);
 		session.save(java);
 		session.save(ruby);
 	}
@@ -44,19 +50,18 @@ public class TagDAOTest extends DatabaseTestCase{
         DateTimeUtils.setCurrentMillisFixed(new DateTime().minusMonths(3).getMillis());
         questionWith(Arrays.asList(java));
         DateTimeUtils.setCurrentMillisSystem();
-        
         questionWith(Arrays.asList(java));
-        questionWith(Arrays.asList(java));
-        questionWith(Arrays.asList(ruby));
+		questionWith(Arrays.asList(java));
+		questionWith(Arrays.asList(ruby));
+		questionWith(Arrays.asList(scala));
 
-		List<TagUsage> recentTagsUsage = tags.getRecentTagsSince(new DateTime().minusMonths(2));
+		List<TagUsage> recentTagsUsage = tags.getRecentTagsSince(new DateTime().minusMonths(2), 2);
 		
 		assertEquals(2, recentTagsUsage.size());
-		assertEquals(2l, recentTagsUsage.get(0).getUsage().longValue());
-		assertEquals(1l, recentTagsUsage.get(1).getUsage().longValue());
+		assertEquals(2L, recentTagsUsage.get(0).getUsage().longValue());
+		assertEquals(1L, recentTagsUsage.get(1).getUsage().longValue());
 		assertEquals(java.getId(), recentTagsUsage.get(0).getTag().getId());
 		assertEquals(ruby.getId(), recentTagsUsage.get(1).getTag().getId());
-		
 	}
 	
 	@Test
@@ -82,16 +87,15 @@ public class TagDAOTest extends DatabaseTestCase{
 		List<TagUsage> mainTags = tags.findMainTagsOfUser(leo);
 		
 		assertEquals(2, mainTags.size());
-		assertEquals(2l, mainTags.get(0).getUsage().longValue());
-		assertEquals(1l, mainTags.get(1).getUsage().longValue());
+		assertEquals(2L, mainTags.get(0).getUsage().longValue());
+		assertEquals(1L, mainTags.get(1).getUsage().longValue());
 	}
 	
 	@Test
 	public void should_get_all_tag_names() throws Exception {
 		List<String> tagsNames = tags.allNames();
-		assertEquals(2, tagsNames.size());
-		assertEquals(java.getName(), tagsNames.get(0));
-		assertEquals(ruby.getName(), tagsNames.get(1));
+		assertEquals(4, tagsNames.size());
+		assertTrue(tagsNames.containsAll(Arrays.asList("java", "groovy", "ruby", "scala")));
 	}
 	
 	@Test

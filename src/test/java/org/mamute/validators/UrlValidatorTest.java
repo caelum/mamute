@@ -35,4 +35,6 @@ public class UrlValidatorTest {
 		assertTrue(urlValidator.isValid("http://localhost:8080/facebook"));
 	}
 
+
+
 }
