@@ -5,6 +5,7 @@ import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+import br.com.caelum.vraptor.environment.Environment;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.exception.SQLGrammarException;
@@ -21,7 +22,7 @@ public class RecentTagsContainer {
 
 	private List<TagUsage> recentTagsUsage;
 	@Inject private SessionFactory sf;
-	
+	@Inject private Environment env;
 
 	public List<TagUsage> getRecentTagsUsage() {
 		return recentTagsUsage;
@@ -52,7 +53,8 @@ public class RecentTagsContainer {
 	
 	public void update(Session session) {
 	    TagDAO tags = new TagDAO(session);
-	    this.recentTagsUsage = tags.getRecentTagsSince(new DateTime().minusMonths(3));
+		int maxRecentTags = env.has("max_recent_tags") ? Integer.parseInt(env.get("max_recent_tags")) : 10;
+	    this.recentTagsUsage = tags.getRecentTagsSince(new DateTime().minusMonths(3), maxRecentTags);
 	}
 	
 	public void destroy() {
