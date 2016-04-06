@@ -59,12 +59,12 @@ public class DefaultViewObjects {
 	}
 
 	private String getCurrentUrl() {
-		String host = req.getHeader("Host");
+		String host = env.get("host");
 		String url;
 		if (host == null) {
 			url = req.getRequestURL().toString();
 		} else {
-			url = "http://" + host + req.getRequestURI();
+			url = host + "/" + req.getRequestURI();
 		}
 		if(url.endsWith("/")) url = url.split(SLASH_AT_END)[0];
 		return url;
