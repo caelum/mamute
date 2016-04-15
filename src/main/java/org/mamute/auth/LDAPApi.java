@@ -227,7 +227,7 @@ public class LDAPApi {
 	private void createUserIfNeeded(LDAPResource ldap, String cn) throws LdapException {
 		Entry ldapUser = ldap.getUser(cn);
 		String email = ldap.getAttribute(ldapUser, emailAttr);
-		User user = users.findByEmail(email);
+		User user = email != null ? users.findByEmail(email) : null;
 		if (user == null) {
 			String fullName = ldap.getAttribute(ldapUser, nameAttr);
 			if (isNotEmpty(surnameAttr)) {
