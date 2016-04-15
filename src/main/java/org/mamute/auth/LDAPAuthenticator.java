@@ -5,7 +5,12 @@ import org.mamute.model.User;
 
 import javax.inject.Inject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class LDAPAuthenticator implements Authenticator{
+	private static final Logger logger = LoggerFactory.getLogger(LDAPApi.class);
+
 	@Inject private UserDAO users;
 	@Inject private Access system;
 	@Inject private LDAPApi ldap;
@@ -22,6 +27,7 @@ public class LDAPAuthenticator implements Authenticator{
 			retrieved = users.findByMailAndLegacyPasswordAndUpdatePassword(email, password);
 		}
 		if (retrieved == null) {
+			logger.warn("unable to find user by email in the database: " + email);
 			return false;
 		}
 
