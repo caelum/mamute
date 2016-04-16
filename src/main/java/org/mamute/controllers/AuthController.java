@@ -1,8 +1,9 @@
 package org.mamute.controllers;
 
+import java.util.Collections;
+
 import javax.inject.Inject;
 
-import br.com.caelum.vraptor.environment.Environment;
 import org.mamute.auth.AuthenticationException;
 import org.mamute.auth.Authenticator;
 import org.mamute.auth.FacebookAuthService;
@@ -27,7 +28,6 @@ public class AuthController extends BaseController {
 	@Inject	private FacebookAuthService facebook;
 	@Inject	private GoogleAuthService google;
 	@Inject	private Result result;
-	@Inject	private Environment env;
 	@Inject	private UrlValidator urlValidator;
 	@Inject	private LoginValidator validator;
 	@Inject private LoggedUser loggedUser;
@@ -36,6 +36,7 @@ public class AuthController extends BaseController {
 	@Get
 	public void loginForm(String redirectUrl) {
 		if (loggedUser.isLoggedIn()) {
+			result.include("loginRequiredMessages", Collections.emptyList());
 			redirectToRightUrl(redirectUrl);
 		} else {
 			String facebookUrl = facebook.getOauthUrl(redirectUrl);
