@@ -53,6 +53,7 @@ public class LDAPApi {
 	public static final String LDAP_SURNAME = "ldap.surnameAttr";
 	public static final String LDAP_GROUP = "ldap.groupAttr";
 	public static final String LDAP_LOOKUP = "ldap.lookupAttr";
+	public static final String LDAP_LOOKUP_CLASS = "ldap.lookupClass";
 	public static final String LDAP_MODERATOR_GROUP = "ldap.moderatorGroup";
 	public static final String LDAP_SSO = "ldap.sso";
 	public static final String PLACHOLDER_PASSWORD = "ldap-password-ignore-me";
@@ -76,6 +77,7 @@ public class LDAPApi {
 	private String surnameAttr;
 	private String groupAttr;
 	private String[] lookupAttrs;
+	private String lookupClass;
 	private String moderatorGroup;
 	private Boolean useSsl;
 	private String avatarImageAttr;
@@ -101,6 +103,7 @@ public class LDAPApi {
 			groupAttr = env.get(LDAP_GROUP, "");
 			moderatorGroup = env.get(LDAP_MODERATOR_GROUP, "");
 			lookupAttrs = env.get(LDAP_LOOKUP, "").split(",");
+			lookupClass = env.get(LDAP_LOOKUP_CLASS, "user");
 			useSsl = env.supports(LDAP_USE_SSL);
 			avatarImageAttr = env.get(LDAP_AVATAR_IMAGE, "");
 		}
@@ -280,9 +283,30 @@ public class LDAPApi {
 		}
 
 		private LdapConnection connection(String username, String password) throws LdapException {
-			LdapNetworkConnection conn = new LdapNetworkConnection(host, port, useSsl);
-			conn.bind(username, password);
-			return conn;
+			final String[] hostnames = host.split(";");
+
+			LdapException lastException = null;
+
+			for (final String currentHostname : hostnames) {
+				try {
+					LdapNetworkConnection conn = new LdapNetworkConnection(currentHostname, port, useSsl);
+
+					if ("<ANONYMOUS>".equals(username)) {
+						conn.anonymousBind();
+					} else {
+						conn.bind(username, password);
+					}
+
+					logger.info("LDAP connection successful: " + conn.getRootDse().toString());
+
+					return conn;
+				} catch (final LdapException e) {
+
+					lastException = e;
+				}
+			}
+
+			throw lastException;
 		}
 
 		private List<String> getGroups(Entry user) {
@@ -304,7 +328,7 @@ public class LDAPApi {
 
 		private Entry lookupUser(String username) throws LdapException {
 			StringBuilder userQuery = new StringBuilder();
-			userQuery.append("(&(objectclass=user)(|");
+			userQuery.append("(&(objectclass=" + lookupClass + ")(|");
 			boolean hasCondition = false;
 			for (String lookupAttr : lookupAttrs) {
 				String attrName = lookupAttr.trim();
