@@ -7,6 +7,7 @@ import org.mamute.event.BadgeEvent;
 import org.mamute.model.Badge;
 import org.mamute.model.BadgeType;
 import org.mamute.model.EventType;
+import org.mamute.model.ReputationEvent;
 
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
@@ -36,10 +37,13 @@ public class BadgeEventObserver {
                 break;
         }
 
-        evaluators.stream()
-                .map(f -> f.apply(badgeEvent))
-                .filter(b -> b != null)
-                .forEach(b -> badgeDAO.awardBadge(b));
+        for (final Function<BadgeEvent, Badge> fn : evaluators) {
+            final Badge badge = fn.apply(badgeEvent);
+
+            if (badge != null) {
+                badgeDAO.awardBadge(badge);
+            }
+        }
     }
 
     public Badge considerFirstQuestionBadge(final BadgeEvent event) {
@@ -57,13 +61,13 @@ public class BadgeEventObserver {
     public Badge considerTenthQuestionBadge(final BadgeEvent event) {
         final Badge badge;
 
-        List<KarmaEvent> events = reputationDAO.karmaEvents(event.getUser());
+        List<ReputationEvent> events = reputationDAO.karmaEvents(event.getUser());
 
         final long count = events.stream()
-                .filter(e -> EventType.CREATED_QUESTION.toString().equals(e.getContext().getTypeName()))
+                .filter(e -> EventType.CREATED_QUESTION.toString().equals(e.getType().name()))
                 .count();
 
-        if (count == 9) {
+        if (count >= 9 && badgeDAO.userBadgeCount(event.getUser(), BadgeType.TENTH_QUESTION) == 0) {
            badge = new Badge(event.getUser(), BadgeType.TENTH_QUESTION);
         } else {
             badge = null;

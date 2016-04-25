@@ -5,27 +5,25 @@ import org.mamute.model.User;
 
 public class BadgeEvent {
 
-   // private EventType eventType;
+    private EventType eventType;
 
-    //private User user;
+    private User user;
 
     public BadgeEvent() {
-    //    this.eventType = null;
-     //   this.user = null;
+        this.eventType = null;
+        this.user = null;
     }
 
     public BadgeEvent(final EventType eventType, final User user) {
-      //  this.eventType = eventType;
-       // this.user = user;
+        this.eventType = eventType;
+        this.user = user;
     }
 
     public EventType getEventType() {
-        return null;
-        //return eventType;
+        return eventType;
     }
 
     public User getUser() {
-        return null;
-        //return user;
+        return user;
     }
 }

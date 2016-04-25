@@ -80,15 +80,17 @@ public class ReputationEventDAO {
 	    return new KarmaByContextHistory(fetchContextData(query.list()));
 	}
 
-	public List<KarmaEvent> karmaEvents(User user) {
-		String hql = "select e.type from ReputationEvent e where e.user = :user " +
+	public List<ReputationEvent> karmaEvents(User user) {
+		String hql = "select e from ReputationEvent e where e.user = :user " +
 				"order by year(e.date), month(e.date), day(e.date) asc";
 
 		Query query = session.createQuery(hql).setParameter("user", user);
 
-		final List<KarmaEvent> events = new ArrayList<>();
+		final List<ReputationEvent> events = new ArrayList<>();
 
-		fetchContextData(query.list());
+		List list = query.list();
+
+		events.addAll(list);
 
 		return events;
 	}
