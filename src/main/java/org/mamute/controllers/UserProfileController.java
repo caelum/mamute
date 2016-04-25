@@ -54,6 +54,7 @@ public class UserProfileController extends BaseController{
 	@Inject private ImageStore imageStore;
     @Inject private Environment environment;
     @Inject private CommentDAO comments;
+	@Inject private BadgeDAO badges;
 
 	@Get
 	public void showProfile(@Load User user, String sluggedName){
@@ -74,8 +75,9 @@ public class UserProfileController extends BaseController{
 		result.include("questionsPageTotal", questions.numberOfPagesTo(user));
 		result.include("answersPageTotal", answers.numberOfPagesTo(user));
 		result.include("watchedQuestionsPageTotal", watchers.numberOfPagesTo(user));
-		
+
 		result.include("userProfileMainTags", tags.findMainTagsOfUser(user));
+		result.include("userProfileMainBadges", badges.userBadgeCounts(user));
 		result.include("selectedUser", user);
 		result.include("usersActive", true);
 		result.include("noDefaultActive", true);
