@@ -2,12 +2,8 @@ package org.mamute.observer;
 
 import org.mamute.dao.BadgeDAO;
 import org.mamute.dao.ReputationEventDAO;
-import org.mamute.dto.KarmaEvent;
 import org.mamute.event.BadgeEvent;
-import org.mamute.model.Badge;
-import org.mamute.model.BadgeType;
-import org.mamute.model.EventType;
-import org.mamute.model.ReputationEvent;
+import org.mamute.model.*;
 
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
@@ -32,6 +28,10 @@ public class BadgeEventObserver {
                 break;
             case CREATED_ANSWER:
                 evaluators.add(this::considerFirstAnswerBadge);
+                evaluators.add(this::considerQuestionWithTenAnswers);
+                break;
+            case QUESTION_UPVOTE:
+                evaluators.add(this::considerTenPointQuestion);
                 break;
             default:
                 break;
@@ -83,6 +83,42 @@ public class BadgeEventObserver {
             badge = new Badge(event.getUser(), BadgeType.FIRST_ANSWER);
         } else {
             badge = null;
+        }
+
+        return badge;
+    }
+
+    public Badge considerQuestionWithTenAnswers(final BadgeEvent event) {
+        Badge badge = null;
+
+        if (event.getContext() != null) {
+            final ReputationEventContext context = event.getContext();
+
+            if (context instanceof Question) {
+                final Question question = (Question) context;
+
+                final long count = question.getAnswers().stream().filter(a -> !a.isTheSameAuthorOfQuestion()).count();
+
+                if (count >= 10) {
+                    badge = new Badge(event.getUser(), BadgeType.TENTH_QUESTION);
+                }
+            }
+        }
+
+        return badge;
+    }
+
+    public Badge considerTenPointQuestion(final BadgeEvent event) {
+        Badge badge = null;
+
+        if (event.getContext() != null) {
+            if (event.getContext() instanceof Question) {
+                final Question question = (Question) event.getContext();
+
+                if (question.getVoteCount() >= 10) {
+                    badge = new Badge(event.getUser(), BadgeType.TEN_POINT_QUESTION);
+                }
+            }
         }
 
         return badge;

@@ -99,7 +99,7 @@ public class AnswerController {
 
 			result.redirectTo(QuestionController.class).showQuestion(question, question.getSluggedTitle());
 			notificationManager.sendEmailsAndInactivate(new EmailAction(answer, question));
-			badgeEvent.fire(new BadgeEvent(EventType.CREATED_ANSWER, current));
+			badgeEvent.fire(new BadgeEvent(EventType.CREATED_ANSWER, current, question));
 
 			if (watching) {
 				watchers.add(question, new Watcher(current));
@@ -122,7 +122,7 @@ public class AnswerController {
 			return;
 		} 
         markOrRemoveSolution(solution);
-		badgeEvent.fire(new BadgeEvent(EventType.MARKED_SOLUTION, solution.getAuthor()));
+		badgeEvent.fire(new BadgeEvent(EventType.MARKED_SOLUTION, solution.getAuthor(), question));
         result.nothing();
 	}
 

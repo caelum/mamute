@@ -189,7 +189,7 @@ public class QuestionController {
 		}
 
 		questionCreated.fire(new QuestionCreated(question));
-		badgeEvent.fire(new BadgeEvent(EventType.CREATED_QUESTION, author));
+		badgeEvent.fire(new BadgeEvent(EventType.CREATED_QUESTION, author, question));
 		result.include("mamuteMessages", asList(messageFactory.build("alert", "question.quality_reminder")));
 		result.redirectTo(this).showQuestion(question, question.getSluggedTitle());
 	}

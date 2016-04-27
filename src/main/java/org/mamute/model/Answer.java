@@ -30,7 +30,7 @@ import org.mamute.providers.SessionFactoryCreator;
 @SQLDelete(sql = "update Answer set deleted = true, question_id=NULL where id = ?")
 @Where(clause = "deleted = 0")
 @Entity
-public class Answer extends Moderatable implements Post, Notifiable {
+public class Answer extends Moderatable implements Post, Notifiable, ReputationEventContext {
 	@Id
 	@GeneratedValue
 	private Long id;
