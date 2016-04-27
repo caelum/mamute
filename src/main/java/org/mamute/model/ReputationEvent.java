@@ -31,6 +31,7 @@ public class ReputationEvent {
 
 	@Any(metaColumn= @Column(name = "context_type"))
 	@AnyMetaDef(idType = "long", metaType="string", metaValues = {
+			@MetaValue(value = "ANSWER", targetEntity = Answer.class),
 			@MetaValue(value = "QUESTION", targetEntity = Question.class),
 			@MetaValue(value = "NEWS", targetEntity = News.class) 
 	})

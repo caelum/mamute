@@ -14,6 +14,7 @@ import com.google.common.collect.Lists;
 import org.mamute.auth.FacebookAuthService;
 import org.mamute.brutauth.auth.rules.*;
 import org.mamute.dao.*;
+import org.mamute.event.BadgeEvent;
 import org.mamute.event.QuestionCreated;
 import org.mamute.factory.MessageFactory;
 import org.mamute.filesystem.AttachmentRepository;
@@ -82,6 +83,8 @@ public class QuestionController {
 	private QuestionIndex index;
 	@Inject
 	private Event<QuestionCreated> questionCreated;
+	@Inject
+	private Event<BadgeEvent> badgeEvent;
 	@Inject
 	private AttachmentRepository attachmentRepository;
 	@Inject
@@ -186,6 +189,7 @@ public class QuestionController {
 		}
 
 		questionCreated.fire(new QuestionCreated(question));
+		badgeEvent.fire(new BadgeEvent(EventType.CREATED_QUESTION, author, question));
 		result.include("mamuteMessages", asList(messageFactory.build("alert", "question.quality_reminder")));
 		result.redirectTo(this).showQuestion(question, question.getSluggedTitle());
 	}

@@ -15,6 +15,7 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.mamute.dto.KarmaByContextHistory;
+import org.mamute.dto.KarmaEvent;
 import org.mamute.dto.UserSummaryForTag;
 import org.mamute.model.ReputationEvent;
 import org.mamute.model.ReputationEventContext;
@@ -78,6 +79,22 @@ public class ReputationEventDAO {
 		}
 	    return new KarmaByContextHistory(fetchContextData(query.list()));
 	}
+
+	public List<ReputationEvent> karmaEvents(User user) {
+		String hql = "select e from ReputationEvent e where e.user = :user " +
+				"order by year(e.date), month(e.date), day(e.date) asc";
+
+		Query query = session.createQuery(hql).setParameter("user", user);
+
+		final List<ReputationEvent> events = new ArrayList<>();
+
+		List list = query.list();
+
+		events.addAll(list);
+
+		return events;
+	}
+
 
 	@SuppressWarnings("unchecked")
 	private List<Object[]> fetchContextData(List<Object[]> rows){

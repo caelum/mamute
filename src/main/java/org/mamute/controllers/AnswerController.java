@@ -14,6 +14,7 @@ import org.mamute.dao.AnswerDAO;
 import org.mamute.dao.AttachmentDao;
 import org.mamute.dao.ReputationEventDAO;
 import org.mamute.dao.WatcherDAO;
+import org.mamute.event.BadgeEvent;
 import org.mamute.factory.MessageFactory;
 import org.mamute.filesystem.AttachmentRepository;
 import org.mamute.mail.action.EmailAction;
@@ -23,6 +24,7 @@ import org.mamute.notification.NotificationManager;
 import org.mamute.reputation.rules.KarmaCalculator;
 import org.mamute.validators.AnsweredByValidator;
 
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.List;
@@ -48,6 +50,7 @@ public class AnswerController {
 	@Inject private EnvironmentKarma environmentKarma;
 	@Inject private AttachmentRepository attachmentRepository;
 	@Inject private Environment environment;
+	@Inject private Event<BadgeEvent> badgeEvent;
 
 	@Get
 	@CustomBrutauthRules(EditAnswerRule.class)
@@ -96,6 +99,8 @@ public class AnswerController {
 
 			result.redirectTo(QuestionController.class).showQuestion(question, question.getSluggedTitle());
 			notificationManager.sendEmailsAndInactivate(new EmailAction(answer, question));
+			badgeEvent.fire(new BadgeEvent(EventType.CREATED_ANSWER, current, question));
+
 			if (watching) {
 				watchers.add(question, new Watcher(current));
 			}
@@ -117,6 +122,7 @@ public class AnswerController {
 			return;
 		} 
         markOrRemoveSolution(solution);
+		badgeEvent.fire(new BadgeEvent(EventType.MARKED_SOLUTION, solution.getAuthor(), question));
         result.nothing();
 	}
 

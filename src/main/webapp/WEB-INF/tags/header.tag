@@ -35,6 +35,7 @@
 <link rel="stylesheet" href="/assets/generated-css/about.css">
 <link rel="stylesheet" href="/assets/generated-css/ads.css">
 <link rel="stylesheet" href="/assets/generated-css/answer.css">
+<link rel="stylesheet" href="/assets/generated-css/badge.css">
 <link rel="stylesheet" href="/assets/generated-css/button.css">
 <link rel="stylesheet" href="/assets/generated-css/comments.css">
 <link rel="stylesheet" href="/assets/generated-css/footer.css">

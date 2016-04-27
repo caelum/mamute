@@ -1,14 +1,16 @@
 package org.mamute.controllers;
 
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
 import org.mamute.auth.rules.PermissionRules;
 import org.mamute.brutauth.auth.rules.EnvironmentKarmaRule;
+import org.mamute.dao.AnswerDAO;
+import org.mamute.dao.QuestionDAO;
 import org.mamute.dao.VoteDAO;
+import org.mamute.event.BadgeEvent;
 import org.mamute.infra.ModelUrlMapping;
-import org.mamute.model.LoggedUser;
-import org.mamute.model.Vote;
-import org.mamute.model.VoteType;
+import org.mamute.model.*;
 import org.mamute.model.interfaces.Votable;
 import org.mamute.model.vote.VotingMachine;
 
@@ -26,9 +28,12 @@ public class VoteController {
 	@Inject private Result result;
 	@Inject private LoggedUser currentUser;
 	@Inject private VoteDAO votes;
+	@Inject private QuestionDAO questions;
+	@Inject private AnswerDAO answers;
 	@Inject private VotingMachine votingMachine;
 	@Inject private ModelUrlMapping mapping;
 	@Inject private LoggedUser loggedUser;
+	@Inject private Event<BadgeEvent> badgeEvent;
 	
 	@Post
 	@EnvironmentAccessLevel(PermissionRules.VOTE_UP)
@@ -70,6 +75,25 @@ public class VoteController {
 		    votingMachine.register(votable, current, votableType);
 		    votes.save(current);
 		    result.use(Results.json()).withoutRoot().from(votable.getVoteCount()).serialize();
+
+			if (votableType.isAssignableFrom(Question.class)) {
+				Question question = questions.getById(id);
+
+				if (voteType == VoteType.UP) {
+					badgeEvent.fire(new BadgeEvent(EventType.QUESTION_UPVOTE, currentUser.getCurrent(), question));
+				} else {
+					badgeEvent.fire(new BadgeEvent(EventType.QUESTION_DOWNVOTE, currentUser.getCurrent(), question));
+				}
+			} else if (votableType.isAssignableFrom(Answer.class)) {
+				Answer answer = answers.getById(id);
+
+				if (voteType == VoteType.UP) {
+					badgeEvent.fire(new BadgeEvent(EventType.ANSWER_UPVOTE, currentUser.getCurrent(), answer));
+				} else {
+					badgeEvent.fire(new BadgeEvent(EventType.ANSWER_DOWNVOTE, currentUser.getCurrent(), answer));
+				}
+			}
+
 		} catch (IllegalArgumentException e) {
 		    result.use(Results.http()).sendError(409);
 		    return;

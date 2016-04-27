@@ -28,6 +28,11 @@
 					<li class="ellipsis advanced-data-line tag-line"><span class="counter tag-usage">${tagUsage.usage}</span> <tags:tag tag="${tagUsage.tag}"/></li>
 				</c:forEach>
 			</tags:userProfileAdvancedData>
+			<tags:userProfileAdvancedData i18n="badges" list="${userProfileMainBadges}" type="badges" orderOptions="false" withPagination="false">
+				<c:forEach var="badgeUsage" items="${userProfileMainBadges}">
+					<li class="ellipsis advanced-data-line tag-line"><span class="counter tag-usage">${badgeUsage.count}</span> <tags:badge badge="${badgeUsage}"/></li>
+				</c:forEach>
+			</tags:userProfileAdvancedData>
 		</div>
 	</section>
 </tags:userProfileTab>

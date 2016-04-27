@@ -20,10 +20,15 @@ import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.routes.annotation.Routed;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Routed
 @Controller
 public class AuthController extends BaseController {
+
+	private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
+
 	@Inject	private Authenticator auth;
 	@Inject	private FacebookAuthService facebook;
 	@Inject	private GoogleAuthService google;
@@ -31,6 +36,7 @@ public class AuthController extends BaseController {
 	@Inject	private UrlValidator urlValidator;
 	@Inject	private LoginValidator validator;
 	@Inject private LoggedUser loggedUser;
+
 
 	@Public
 	@Get
