@@ -59,6 +59,7 @@ public class LDAPApi {
 	public static final String PLACHOLDER_PASSWORD = "ldap-password-ignore-me";
 	public static final String LDAP_USE_SSL = "ldap.useSSL";
 	public static final String LDAP_AVATAR_IMAGE = "ldap.avatarImageAttr";
+	public static final String DEFAULT_LOOKUP_CLASS = "user";
 
 	@Inject private Environment env;
 	@Inject private UserDAO users;
@@ -103,7 +104,7 @@ public class LDAPApi {
 			groupAttr = env.get(LDAP_GROUP, "");
 			moderatorGroup = env.get(LDAP_MODERATOR_GROUP, "");
 			lookupAttrs = env.get(LDAP_LOOKUP, "").split(",");
-			lookupClass = env.get(LDAP_LOOKUP_CLASS, "user");
+			lookupClass = env.get(LDAP_LOOKUP_CLASS, DEFAULT_LOOKUP_CLASS);
 			useSsl = env.supports(LDAP_USE_SSL);
 			avatarImageAttr = env.get(LDAP_AVATAR_IMAGE, "");
 		}
