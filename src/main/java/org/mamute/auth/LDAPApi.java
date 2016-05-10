@@ -124,7 +124,7 @@ public class LDAPApi {
 			logger.info("Successful LDAP login: " + username);
 			return true;
 		} catch (LdapAuthenticationException e) {
-			logger.info("LDAP auth attempt failed");
+			logger.info("LDAP auth attempt failed for user " + username + ": " + e.getMessage());
 			return false;
 		} catch (LdapException | IOException e) {
 			logger.warn("LDAP connection error", e);

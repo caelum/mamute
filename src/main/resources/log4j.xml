@@ -85,7 +85,7 @@
     </category>
     
     <category name="org.mamute.auth">
-        <priority value="DEBUG"/>
+        <priority value="INFO"/>
         <appender-ref ref="auth"/>
     </category>
 
