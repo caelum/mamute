@@ -12,7 +12,7 @@
 <c:set var="hasKarmaToAnswer" value="${canAnswerIfOwnQuestion && canAnswerIfQuestionIsInactive}"/>
 
 <c:if test="${currentUser.loggedIn}">
-		<c:if test="${!question.alreadyAnsweredBy(user) && hasKarmaToAnswer}">
+		<c:if test="${!question.alreadyAnsweredBy(user)}">
 			<tags:answerForm uri="${uri}" />
 		</c:if>
 		<c:if test="${question.alreadyAnsweredBy(user)}">
