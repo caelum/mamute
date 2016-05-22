@@ -1,11 +1,31 @@
+<?xml version="1.0" ?>
+<!-- http://blog.jhades.org/setup-and-gotchas-of-the-hibernate-second-level-and-query-caches/ -->
 <ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="true"
-	monitoring="autodetect" dynamicConfig="true">
-	
+		 updateCheck="false"
+		 xsi:noNamespaceSchemaLocation="ehcache.xsd" name="mamuteCacheManager">
+
+	<diskStore path="java.io.tmpdir"/>
+
+	<cache name="mamuteEntityCache"
+		   maxEntriesLocalHeap="10000"
+		   eternal="false"
+		   overflowToDisk="false"
+		   timeToLiveSeconds="86400" />
+
+	<cache name="org.hibernate.cache.internal.StandardQueryCache"
+		   maxElementsInMemory="10000"
+		   eternal="false"
+		   timeToLiveSeconds="86400"
+		   overflowToDisk="false"
+		   memoryStoreEvictionPolicy="LRU" />
+
 	<defaultCache eternal="false"
-		timeToIdleSeconds="240" timeToLiveSeconds="240" diskSpoolBufferSizeMB="30"
-		diskExpiryThreadIntervalSeconds="120" memoryStoreEvictionPolicy="LRU" statistics="false"
-		maxElementsInMemory="10000">
+				  timeToIdleSeconds="240"
+				  timeToLiveSeconds="240"
+				  diskSpoolBufferSizeMB="30"
+				  diskExpiryThreadIntervalSeconds="120"
+				  memoryStoreEvictionPolicy="LRU"
+				  statistics="false"
+				  maxElementsInMemory="10000">
 	</defaultCache>
-	
 </ehcache>
