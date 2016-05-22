@@ -13,9 +13,11 @@ import org.eclipse.jetty.server.handler.AbstractHandler;
 import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.eclipse.jetty.webapp.WebAppContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class VRaptorServer {
-
+	private static final Logger LOG = LoggerFactory.getLogger(VRaptorServer.class);
 	private final Server server;
 	private final ContextHandlerCollection contexts;
 
@@ -91,28 +93,26 @@ public class VRaptorServer {
 	}
 
 	private static Server createServer() {
-		String webPort = getPort();
-		if (webPort == null || webPort.isEmpty()) {
-			webPort = System.getProperty("server.port", "8080");
+		// - System.getProperty returns value of a java property that is set by using the -D
+		//   option when running the JVM e.g. -DskipTests=true
+		// - System.getenv returns value of an environment variable
+		// - the java property should override the environment variable because it is more specific to this process
+		//   environment variables are shared by many processes
+		String webPort = System.getProperty("server.port", System.getenv("PORT"));
+		if (webPort == null || webPort.isEmpty())
+		{
+			webPort = "8080";
+		}
+		String webHost = System.getProperty("server.host", System.getenv("HOST"));
+		if (webHost == null || webHost.isEmpty())
+		{
+			webHost = "localhost";
 		}
 		Server server = new Server(Integer.valueOf(webPort));
-		String webHost = getHost();
-		if (webHost == null || webHost.isEmpty()) {
-			webHost = System.getProperty("server.host", "0.0.0.0");
-		}
 		server.getConnectors()[0].setHost(webHost);
 		server.setAttribute("jetty.host", webHost);
+		LOG.info("starting http server at {}:{}", webHost, webPort);
 		return server;
-	}
-
-	private static String getPort() {
-		String port = System.getenv("PORT");
-		return port;
-	}
-	
-	private static String getHost() {
-		String host = System.getenv("HOST");
-		return host;
 	}
 
 	public void stop() {
