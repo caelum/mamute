@@ -9,8 +9,6 @@ import br.com.caelum.vraptor.routes.annotation.Routed;
 import br.com.caelum.vraptor.validator.I18nMessage;
 import br.com.caelum.vraptor.validator.Validator;
 import br.com.caelum.vraptor.view.Results;
-import com.google.common.collect.Collections2;
-import com.google.common.collect.Lists;
 import org.mamute.auth.FacebookAuthService;
 import org.mamute.brutauth.auth.rules.*;
 import org.mamute.dao.*;
@@ -30,10 +28,8 @@ import org.mamute.vraptor.Linker;
 
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 import static br.com.caelum.vraptor.view.Results.http;
 import static java.util.Arrays.asList;
