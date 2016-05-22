@@ -7,8 +7,8 @@
 		<property name="connection.url">jdbc:mysql://localhost/mamute_development?autoReconnect=true&amp;useUnicode=true&amp;createDatabaseIfNotExist=true&amp;characterEncoding=utf-8</property>
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 		<property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
-		<property name="connection.username">root</property>
-		<property name="connection.password"></property>
+		<property name="connection.username">mamute</property>
+		<property name="connection.password">seattle</property>
 		<property name="show_sql">true</property>
 		<property name="format_sql">false</property>
 

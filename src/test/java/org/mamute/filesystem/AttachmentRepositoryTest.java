@@ -1,36 +1,26 @@
 package org.mamute.filesystem;
 
-import java.io.IOException;
-
+import br.com.caelum.vraptor.observer.upload.DefaultUploadedFile;
+import br.com.caelum.vraptor.observer.upload.UploadedFile;
 import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import org.mamute.dao.AnswerDAO;
-import org.mamute.dao.AttachmentDao;
-import org.mamute.dao.DatabaseTestCase;
-import org.mamute.dao.InvisibleForUsersRule;
-import org.mamute.dao.QuestionDAO;
-import org.mamute.model.Answer;
-import org.mamute.model.Attachment;
-import org.mamute.model.Question;
-import org.mamute.model.Tag;
-import org.mamute.model.User;
+import org.mamute.dao.*;
+import org.mamute.interfaces.IAttachmentStorage;
+import org.mamute.model.*;
 import org.mockito.Mockito;
 
-import br.com.caelum.vraptor.observer.upload.DefaultUploadedFile;
-import br.com.caelum.vraptor.observer.upload.UploadedFile;
+import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 public class AttachmentRepositoryTest extends DatabaseTestCase {
 
 	private AttachmentRepository attachmentRepository;
 	private AttachmentDao attachments;
-	private AttachmentsFileStorage fileStorage;
+	private IAttachmentStorage fileStorage;
 	private QuestionDAO questions;
 	private AnswerDAO answers;
 

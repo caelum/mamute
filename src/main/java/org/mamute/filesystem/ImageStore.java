@@ -5,6 +5,7 @@ import br.com.caelum.vraptor.observer.upload.UploadedFile;
 import org.imgscalr.Scalr;
 import org.mamute.dao.AttachmentDao;
 import org.mamute.infra.ClientIp;
+import org.mamute.interfaces.IAttachmentStorage;
 import org.mamute.model.Attachment;
 import org.mamute.model.User;
 
@@ -15,15 +16,17 @@ import java.io.IOException;
 
 public class ImageStore {
 
-	@Inject private AttachmentsFileStorage fileStorage;
+	@Inject private IAttachmentStorage fileStorage;
 	@Inject private Environment environment;
 	@Inject private AttachmentDao attachments;
 
 	public Attachment processAndStore(UploadedFile avatar, User user, ClientIp clientIp) throws IOException {
 		BufferedImage resized = processImage(avatar);
 		Attachment attachment = new Attachment(resized, user, clientIp.get(), avatar.getFileName());
-		attachments.save(attachment);
+		// order of statements is very important. first image needs to be saved to S3 so that we obtain
+		// the key before saving to db
 		fileStorage.saveImage(attachment);
+		attachments.save(attachment);
 		return attachment;
 	}
 

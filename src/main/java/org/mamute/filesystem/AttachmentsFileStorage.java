@@ -3,14 +3,18 @@ package org.mamute.filesystem;
 import br.com.caelum.vraptor.environment.Property;
 
 import org.apache.commons.io.IOUtils;
+import org.mamute.interfaces.IAttachmentStorage;
 import org.mamute.model.Attachment;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.imageio.ImageIO;
 import javax.inject.Inject;
 import java.awt.image.BufferedImage;
 import java.io.*;
 
-public class AttachmentsFileStorage {
+@ApplicationScoped
+public class AttachmentsFileStorage implements IAttachmentStorage
+{
 
 	private File attachmentsRoot;
 
@@ -35,7 +39,7 @@ public class AttachmentsFileStorage {
 		}
 	}
 
-	public InputStream open(Attachment attachment) throws FileNotFoundException {
+	public InputStream open(Attachment attachment) throws IOException {
 		File file = attachmentPath(attachment);
 		return new FileInputStream(file);
 	}

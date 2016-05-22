@@ -10,7 +10,21 @@ import java.awt.image.BufferedImage;
 
 @Entity
 public class Attachment {
-
+	/**
+	 * describe Attachment;
+	 +-----------+--------------+------+-----+---------+----------------+
+	 | Field     | Type         | Null | Key | Default | Extra          |
+	 +-----------+--------------+------+-----+---------+----------------+
+	 | id        | bigint(20)   | NO   | PRI | NULL    | auto_increment |
+	 | createdAt | datetime     | YES  |     | NULL    |                |
+	 | ip        | varchar(255) | YES  |     | NULL    |                |
+	 | mime      | varchar(255) | YES  |     | NULL    |                |
+	 | name      | varchar(255) | YES  |     | NULL    |                |
+	 | owner_id  | bigint(20)   | YES  | MUL | NULL    |                |
+	 | s3Key     | varchar(255) | YES  |     | NULL    |                |
+	 | url       | varchar(320) | YES  |     | NULL    |                |
+	 +-----------+--------------+------+-----+---------+----------------+
+	 */
 	@GeneratedValue
 	@Id
 	private Long id;
@@ -31,6 +45,12 @@ public class Attachment {
 	private String mime;
 
 	private String name;
+
+	private String s3Key;
+
+	// url from where to obtain the attachment (the attachment itself will be stored in S3)
+	// a random client cannot get the file using this URL; they will get access denied
+	private String url;
 
 	/**
 	 * @deprecated hibernate only
@@ -88,5 +108,20 @@ public class Attachment {
 
 	public BufferedImage getImage() {
 		return image;
+	}
+
+	public void setUrl(String url)
+	{
+		this.url = url;
+	}
+
+	public String getS3Key()
+	{
+		return this.s3Key;
+	}
+
+	public void setS3Key(String s3Key)
+	{
+		this.s3Key = s3Key;
 	}
 }

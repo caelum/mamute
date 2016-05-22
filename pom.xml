@@ -24,6 +24,18 @@
 		<developerConnection>scm:git:git@github.com:caelum/mamute.git</developerConnection>
 	</scm>
 	<dependencies>
+		<!-- http://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient for SSL connection -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.2</version>
+		</dependency>
+		<!-- http://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk for uploading images to S3 -->
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk</artifactId>
+			<version>1.11.2</version>
+		</dependency>
 		<dependency>
 			<groupId>br.com.caelum</groupId>
 			<artifactId>vraptor</artifactId>
