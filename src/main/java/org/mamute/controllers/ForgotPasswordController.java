@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import javax.inject.Inject;
 
+import br.com.caelum.vraptor.simplemail.AsyncMailer;
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
 import org.mamute.dao.UserDAO;
@@ -27,7 +28,7 @@ import br.com.caelum.vraptor.validator.Validator;
 @Controller
 public class ForgotPasswordController {
 	
-	@Inject private Mailer mailer;
+	@Inject private AsyncMailer mailer;
 	@Inject private TemplateMailer templates;
 	@Inject private Result result;
 	@Inject private UserDAO users;
@@ -51,17 +52,20 @@ public class ForgotPasswordController {
 		}
 
 		Email forgotPasswordEmail = emailWithTokenFor(user);
-		try {
-			mailer.send(forgotPasswordEmail);
+		try
+		{
+			mailer.asyncSend(forgotPasswordEmail);
 			result.include("mamuteMessages", Arrays.asList(
-						messageFactory.build("confirmation", "forgot_password.sent_mail", user.getEmail()),
-						messageFactory.build("confirmation", "forgot_password.sent_mail.warn")
-					));
+					messageFactory.build("confirmation", "forgot_password.sent_mail", user.getEmail()),
+					messageFactory.build("confirmation", "forgot_password.sent_mail.warn")
+			));
 			result.redirectTo(this).forgotPasswordForm();
-		} catch (EmailException e) {
+		}
+		catch (Exception e)
+		{
 			validator.add(messageFactory.build("error", "forgot_password.send_mail.error"));
 			validator.onErrorRedirectTo(this).forgotPasswordForm();
-		}	
+		}
 	}
 
 	@Get
