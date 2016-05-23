@@ -75,7 +75,7 @@ public class AnswerController {
 	}
 	
 	@Post
-	@CustomBrutauthRules({LoggedRule.class, InputRule.class, InactiveQuestionRequiresMoreKarmaRule.class})
+	@CustomBrutauthRules({LoggedRule.class, InputRule.class})
 	public void newAnswer(@Load Question question, MarkedText description, boolean watching, List<Long> attachmentsIds) {
 		User current = currentUser.getCurrent();
 		boolean canAnswer = answeredByValidator.validate(question);
