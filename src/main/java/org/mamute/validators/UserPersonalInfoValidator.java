@@ -13,7 +13,7 @@ import br.com.caelum.vraptor.validator.Validator;
 
 public class UserPersonalInfoValidator {
 	
-	public static final int NAME_MIN_LENGTH = 4;
+	public static final int NAME_MIN_LENGTH = 1;
 	public static final int NAME_MAX_LENGTH = 100;
 	public static final int WEBSITE_MIN_LENGTH = 0;
 	public static final int WEBSITE_MAX_LENGHT = 200;

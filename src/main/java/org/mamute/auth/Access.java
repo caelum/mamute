@@ -59,7 +59,8 @@ public class Access {
 				sb.append(ch);
 			}
 		}
-		throw new IllegalArgumentException(email + " is not a valid email");
+		LOG.error("unable to get username from " + email);
+		return null;
 	}
 
 	// for debugging
@@ -93,17 +94,17 @@ public class Access {
 		User user = userAndSession == null ? null : userAndSession.getUser();
 		if (user == null)
 		{
-			try
+			String email = request.getHeader("X-Auth-Params-Email");
+			if (email != null && !email.isEmpty())
 			{
-				String email = request.getHeader("X-Auth-Params-Email");
-				if (email != null && !email.isEmpty())
+				user = users.findByEmail(email);
+				if (user == null)
 				{
-					user = users.findByEmail(email);
-					if (user == null)
+					// auto register, create entry for this user in the db with random password.
+					//  The code here parallels the code in SignUpController
+					String username = getUsername(email);
+					if (username != null && !username.isEmpty())
 					{
-						// auto register, create entry for this user in the db with random password.
-						//  The code here parallels the code in SignUpController
-						String username = getUsername(email);
 						String password = RandomString.generate(8);
 						user = new User(SanitizedText.fromTrustedText(username), email);
 						LoginMethod brutalLogin = LoginMethod.brutalLogin(user, email, password);
@@ -112,12 +113,11 @@ public class Access {
 						loginMethods.save(brutalLogin);
 						LOG.info(String.format("successfully registered %s", username));
 					}
+				}
+				if (user != null)
+				{
 					this.login(user);
 				}
-			}
-			catch (Exception e)
-			{
-				LOG.error(e.getMessage(), e);
 			}
 		}
 		return new LoggedUser(user, request);
