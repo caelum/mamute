@@ -106,7 +106,7 @@ public class VRaptorServer {
 		String webHost = System.getProperty("server.host", System.getenv("HOST"));
 		if (webHost == null || webHost.isEmpty())
 		{
-			webHost = "localhost";
+			webHost = "0.0.0.0";
 		}
 		Server server = new Server(Integer.valueOf(webPort));
 		server.getConnectors()[0].setHost(webHost);
