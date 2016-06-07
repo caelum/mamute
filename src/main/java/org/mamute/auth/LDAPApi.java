@@ -52,6 +52,7 @@ public class LDAPApi {
 	public static final String LDAP_NAME = "ldap.nameAttr";
 	public static final String LDAP_SURNAME = "ldap.surnameAttr";
 	public static final String LDAP_GROUP = "ldap.groupAttr";
+	public static final String LDAP_USER_OBJECTCLASS = "ldap.userObjectClass";
 	public static final String LDAP_LOOKUP = "ldap.lookupAttr";
 	public static final String LDAP_MODERATOR_GROUP = "ldap.moderatorGroup";
 	public static final String LDAP_SSO = "ldap.sso";
@@ -76,6 +77,7 @@ public class LDAPApi {
 	private String surnameAttr;
 	private String groupAttr;
 	private String[] lookupAttrs;
+	private String userObjectClass;
 	private String moderatorGroup;
 	private Boolean useSsl;
 	private String avatarImageAttr;
@@ -101,6 +103,7 @@ public class LDAPApi {
 			groupAttr = env.get(LDAP_GROUP, "");
 			moderatorGroup = env.get(LDAP_MODERATOR_GROUP, "");
 			lookupAttrs = env.get(LDAP_LOOKUP, "").split(",");
+			userObjectClass = env.get(LDAP_USER_OBJECTCLASS, "user");
 			useSsl = env.supports(LDAP_USE_SSL);
 			avatarImageAttr = env.get(LDAP_AVATAR_IMAGE, "");
 		}
@@ -304,7 +307,9 @@ public class LDAPApi {
 
 		private Entry lookupUser(String username) throws LdapException {
 			StringBuilder userQuery = new StringBuilder();
-			userQuery.append("(&(objectclass=user)(|");
+			userQuery.append("(&(objectclass=");
+			userQuery.append(userObjectClass);
+			userQuery.append(")(|");
 			boolean hasCondition = false;
 			for (String lookupAttr : lookupAttrs) {
 				String attrName = lookupAttr.trim();
