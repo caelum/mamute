@@ -645,7 +645,7 @@ DROP TABLE IF EXISTS `brutalmigration`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `brutalmigration` (
   `number` int(11) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

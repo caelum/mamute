@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import br.com.caelum.vraptor.simplemail.AsyncMailer;
 import org.apache.commons.mail.Email;
 import org.apache.log4j.Logger;
 import org.hibernate.ScrollableResults;
@@ -31,7 +32,7 @@ public class NewsletterMailer {
 	private static final PolicyFactory POLICY = new HtmlPolicyBuilder().toFactory();
 	private static final Logger LOG = Logger.getLogger(ModeratorsNewsletterJob.class);
 	@Inject private QuestionDAO questions;
-	@Inject private Mailer mailer;
+	@Inject private AsyncMailer mailer;
 	@Inject private TemplateMailer templates;
 	@Inject private Router router;
 	@Inject private NewsDAO news;
@@ -68,7 +69,7 @@ public class NewsletterMailer {
 						.with("logoUrl", env.get("mail_logo_url"))
 						.to(user.getName(), user.getEmail());
 				email.setCharset("utf-8");
-				mailer.send(email);
+				mailer.asyncSend(email);
 			} catch (Exception e) {
 				LOG.error("could not send email", e);
 			}

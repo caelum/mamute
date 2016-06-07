@@ -7,6 +7,7 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
+import br.com.caelum.vraptor.simplemail.AsyncMailer;
 import net.vidageek.mirror.dsl.Mirror;
 
 import org.apache.commons.mail.Email;
@@ -37,7 +38,7 @@ public class NotificationMailer {
 	private static final Logger LOG = Logger.getLogger(NotificationMailer.class);
 	private static final PolicyFactory POLICY = new HtmlPolicyBuilder().toFactory();
     
-    @Inject private Mailer mailer;
+    @Inject private AsyncMailer mailer;
     @Inject private TemplateMailer templates;
     @Inject private Locale locale;
 	@Inject private Environment env;
@@ -45,13 +46,17 @@ public class NotificationMailer {
 	@Inject private Router router;
 	@Inject private BundleFormatter bundle;
 
-	public void send(NotificationMail notificationMail) {
+	public void send(NotificationMail notificationMail)
+	{
 		User to = notificationMail.getTo();
 		Email email = buildEmail(notificationMail);
 		email.setCharset("utf-8");
-		try {
-			mailer.send(email);
-		} catch (EmailException e) {
+		try
+		{
+			mailer.asyncSend(email);
+		}
+		catch (Exception e)
+		{
 			LOG.error("Could not send notifications mail to: " + to.getEmail(), e);
 		}
 	}

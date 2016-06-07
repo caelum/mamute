@@ -1,26 +1,22 @@
 package org.mamute.filesystem;
 
-import org.hibernate.Session;
 import org.mamute.dao.AnswerDAO;
 import org.mamute.dao.AttachmentDao;
-import org.mamute.dao.InvisibleForUsersRule;
 import org.mamute.dao.QuestionDAO;
-import org.mamute.dao.WithUserPaginatedDAO;
-import org.mamute.dao.WithUserPaginatedDAO.UserRole;
 import org.mamute.infra.NotFoundException;
+import org.mamute.interfaces.IAttachmentStorage;
 import org.mamute.model.Answer;
 import org.mamute.model.Attachment;
 import org.mamute.model.Question;
 
 import javax.inject.Inject;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
-import java.util.Set;
 
 public class AttachmentRepository {
 
 	private AttachmentDao attachments;
-	private AttachmentsFileStorage fileStorage;
+	private IAttachmentStorage fileStorage;
 	private QuestionDAO questions;
 	private AnswerDAO answers;
 
@@ -29,7 +25,7 @@ public class AttachmentRepository {
 	}
 
 	@Inject
-    public AttachmentRepository(AttachmentDao attachments, AttachmentsFileStorage fileStorage, QuestionDAO questions, AnswerDAO answers) {
+    public AttachmentRepository(AttachmentDao attachments, IAttachmentStorage fileStorage, QuestionDAO questions, AnswerDAO answers) {
         this.attachments = attachments;
 		this.fileStorage = fileStorage;
 		this.questions = questions;
@@ -37,8 +33,11 @@ public class AttachmentRepository {
     }
 
 	public void save(Attachment attachment) {
-		attachments.save(attachment);
+		// order of statements here is very important
+		// first we need to save the attachment to S3
+		// then to db since we need the s3key to be stored in db
 		fileStorage.save(attachment);
+		attachments.save(attachment);
 	}
 
 	public Attachment load(Long attachmentId) {
@@ -70,12 +69,9 @@ public class AttachmentRepository {
 		}
 	}
 
-	public InputStream open(Attachment attachment) {
-		try {
-			return fileStorage.open(attachment);
-		} catch (FileNotFoundException e) {
-			throw new NotFoundException(e);
-		}
+	public InputStream open(Attachment attachment) throws IOException
+	{
+		return fileStorage.open(attachment);
 	}
 
 	public void delete(Iterable<Attachment> attachments) {

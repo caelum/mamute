@@ -49,8 +49,6 @@ public class UserProfileController extends BaseController{
 	@Inject private MessageFactory messageFactory;
 	@Inject private FlaggableDAO flaggable;
 	@Inject private ClientIp clientIp;
-	@Inject private AttachmentDao attachments;
-	@Inject private AttachmentsFileStorage fileStorage;
 	@Inject private ImageStore imageStore;
     @Inject private Environment environment;
     @Inject private CommentDAO comments;

@@ -63,13 +63,34 @@ public class ReputationEventDAO {
 	}
 
 	@SuppressWarnings("unchecked")
+	public KarmaByContextHistory karmaWonByQuestion(User user) {
+		/* This is hql (hibernate query language) not sql. it will get converted into following sql by hibernate:
+			select 	reputation0_.context_type as col_0_0_,
+					reputation0_.context_id as col_1_0_,
+					sum(reputation0_.karmaReward) as col_2_0_,
+					reputation0_.date as col_3_0_
+			from 	ReputationEvent reputation0_
+			where 	( reputation0_.deleted = 0) and reputation0_.user_id=?
+			group by reputation0_.context_type , reputation0_.context_id , reputation0_.date
+			order by reputation0_.date desc
+		*/
+		String hql = "select e.context.class, e.context.id, sum(e.karmaReward), e.date " +
+				"from ReputationEvent e " +
+				"where e.user = :user " +
+				"group by e.context.class, e.context.id, e.date " +
+				"order by e.date desc";
+
+		Query query = session.createQuery(hql).setParameter("user", user);
+		return new KarmaByContextHistory(fetchContextData(query.list()));
+	}
+
+	@SuppressWarnings("unchecked")
 	private KarmaByContextHistory karmaByContext(User user, DateTime after, Integer maxResult) {
-		String hql = "select e.context.class, e.context.id, sum(e.karmaReward), " +
-				    "concat(concat(year(e.date), '/', month(e.date)), '/', day(e.date)) " +
+		String hql = "select e.context.class, e.context.id, sum(e.karmaReward), e.date " +
 				    "from ReputationEvent e "+
 			        "where e.user = :user and e.date > :after " +
-			        "group by e.context.class, e.context.id, concat(concat(year(e.date), '/', month(e.date)), '/', day(e.date)) " +
-			        "order by year(e.date), month(e.date), day(e.date) desc";
+			        "group by e.context.class, e.context.id, e.date " +
+			        "order by e.date desc";
 
 		//get aggregate list
 	    Query query = session.createQuery(hql).setParameter("user", user).setParameter("after", after);
@@ -86,7 +107,6 @@ public class ReputationEventDAO {
 		for(Object[] row : rows){
 			String contextClass = (String) row[0];
 			Long contextId = (Long) row[1];
-			
 			ReputationEventContext context = (ReputationEventContext) session.createQuery("from "+contextClass+" where id = :id").setParameter("id", contextId).uniqueResult();
 
 			// Skip invalid context entries (because the related item can have been deleted).
@@ -96,24 +116,12 @@ public class ReputationEventDAO {
 
 			organizedData.add(new Object[]{
 					context,
-					row[2],
-					DATE_FMT.parseDateTime((String) row[3])
+					row[2], // is long (the reputation)
+					row[3] 	// is a joda DateTime object
 			});
 		}
 
 		return organizedData;
-	}
-
-
-	@SuppressWarnings("unchecked")
-	public KarmaByContextHistory karmaWonByQuestion(User user) {
-		String hql = "select e.context, sum(e.karmaReward), e.date from ReputationEvent e " +
-				"where e.user=:user " +
-				"group by e.context, day(e.date) " +
-				"order by e.date desc";
-
-		Query query = session.createQuery(hql).setParameter("user", user);
-		return new KarmaByContextHistory(query.list());
 	}
 
 	@SuppressWarnings("unchecked")

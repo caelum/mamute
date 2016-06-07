@@ -7,16 +7,19 @@
 		<property name="connection.url">jdbc:mysql://localhost/mamute_development?autoReconnect=true&amp;useUnicode=true&amp;createDatabaseIfNotExist=true&amp;characterEncoding=utf-8</property>
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 		<property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
-		<property name="connection.username">root</property>
-		<property name="connection.password"></property>
+		<property name="connection.username">mamute</property>
+		<property name="connection.password">seattle</property>
 		<property name="show_sql">true</property>
 		<property name="format_sql">false</property>
-
+		<!-- http://blog.jhades.org/setup-and-gotchas-of-the-hibernate-second-level-and-query-caches/
+				     need to write config file and set net.sf.ehcache.configurationResourceName
+				     before using the caches. -->
         <property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
 		<property name="hibernate.cache.use_query_cache">false</property>
 		<property name="hibernate.cache.use_second_level_cache">false</property>
 		<property name="hibernate.generate_statistics">false</property>
-		
+		<!-- http://www.ehcache.org/documentation/2.8/integrations/hibernate.html -->
+		<property name="net.sf.ehcache.configurationResourceName">/ehcache.xml</property>
 		<property name="connection.provider_class">org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider</property>
 		<property name="c3p0.acquire_increment">1</property>
 		<property name="c3p0.idle_test_period">100</property>

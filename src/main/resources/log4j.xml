@@ -46,12 +46,7 @@
         <priority value="DEBUG"/>
         <appender-ref ref="main"/>
     </category>
-
-    <category name="org.eclipse">
-        <priority value="INFO"/>
-        <appender-ref ref="tagsFile"/>
-    </category>
-
+    
     <category name="org.eclipse">
         <priority value="INFO"/>
         <appender-ref ref="main"/>
@@ -73,7 +68,7 @@
     </category>
 
     <category name="org.mamute">
-        <priority value="INFO"/>
+        <priority value="DEBUG"/>
         <appender-ref ref="main"/>
     </category>
     

@@ -23,11 +23,6 @@ public class UserDAO {
 	
 	private Session session;
 
-	@Inject
-	private AttachmentDao attachments;
-	@Inject
-	private AttachmentsFileStorage fileStorage;
-
 	@Deprecated
 	public UserDAO() {
 	}

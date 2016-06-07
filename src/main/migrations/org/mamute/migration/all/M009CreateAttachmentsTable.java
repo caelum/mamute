@@ -18,6 +18,8 @@ public class M009CreateAttachmentsTable implements SchemaMigration {
 				" mime varchar(255)," +
 				" name varchar(255)," +
 				" owner_id bigint," +
+				" s3Key varchar(200)," +
+				" url varchar(255)," +
 				" primary key (id)" +
 				" ) ENGINE=InnoDB";
 
