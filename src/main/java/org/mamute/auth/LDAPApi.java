@@ -81,6 +81,13 @@ public class LDAPApi {
 	private String[] lookupAttrs;
 	private String userObjectClass;
 	private String moderatorGroup;
+	
+	/**
+	 * If set to true, then all attributes are pulled for the LDAP entry associated with the user.
+	 * This uses the <code>SchemaConstants.ALL_ATTRIBUTES_ARRAY</code> constant. If false, the 
+	 * normal lookup is performed, which will bring back user attributes but not necessarily
+	 * operational attributes from the LDAP server.
+	 */
 	private Boolean lookupAllAttr;
 	private Boolean useSsl;
 	private String avatarImageAttr;
