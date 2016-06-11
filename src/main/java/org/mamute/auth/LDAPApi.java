@@ -13,6 +13,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.naming.directory.InvalidAttributeValueException;
 
+import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
 import org.apache.directory.api.ldap.model.cursor.EntryCursor;
 import org.apache.directory.api.ldap.model.entry.Attribute;
@@ -55,6 +56,7 @@ public class LDAPApi {
 	public static final String LDAP_USER_OBJECTCLASS = "ldap.userObjectClass";
 	public static final String LDAP_LOOKUP = "ldap.lookupAttr";
 	public static final String LDAP_MODERATOR_GROUP = "ldap.moderatorGroup";
+	public static final String LDAP_LOOKUP_ALL_ATTR = "ldap.lookupAllAttr";
 	public static final String LDAP_SSO = "ldap.sso";
 	public static final String PLACHOLDER_PASSWORD = "ldap-password-ignore-me";
 	public static final String LDAP_USE_SSL = "ldap.useSSL";
@@ -79,6 +81,14 @@ public class LDAPApi {
 	private String[] lookupAttrs;
 	private String userObjectClass;
 	private String moderatorGroup;
+	
+	/**
+	 * If set to true, then all attributes are pulled for the LDAP entry associated with the user.
+	 * This uses the <code>SchemaConstants.ALL_ATTRIBUTES_ARRAY</code> constant. If false, the 
+	 * normal lookup is performed, which will bring back user attributes but not necessarily
+	 * operational attributes from the LDAP server.
+	 */
+	private Boolean lookupAllAttr;
 	private Boolean useSsl;
 	private String avatarImageAttr;
 
@@ -102,6 +112,7 @@ public class LDAPApi {
 			surnameAttr = env.get(LDAP_SURNAME, "");
 			groupAttr = env.get(LDAP_GROUP, "");
 			moderatorGroup = env.get(LDAP_MODERATOR_GROUP, "");
+			lookupAllAttr = env.supports(LDAP_LOOKUP_ALL_ATTR);
 			lookupAttrs = env.get(LDAP_LOOKUP, "").split(",");
 			userObjectClass = env.get(LDAP_USER_OBJECTCLASS, "user");
 			useSsl = env.supports(LDAP_USE_SSL);
@@ -302,7 +313,11 @@ public class LDAPApi {
 		}
 
 		private Entry getUser(String cn) throws LdapException {
-			return connection.lookup(cn);
+			if (lookupAllAttr) {
+				return connection.lookup(cn, SchemaConstants.ALL_ATTRIBUTES_ARRAY);
+			} else {
+				return connection.lookup(cn);
+			}
 		}
 
 		private Entry lookupUser(String username) throws LdapException {
