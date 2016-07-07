@@ -28,7 +28,7 @@
 							${t['menu.users']}
 						</a>
 					</li>
-					<c:if test="${env.supports('feature.navigation.show_news')}">
+					<c:if test="${not env.supports('feature.navigation.hide_news')}">
 						<li class="nav-item">
 							<a class="button ${not empty newsActive ? 'current' : ''}" href="${linkTo[ListController].news}">
 								${t['menu.news']}
