@@ -64,7 +64,7 @@ public class DefaultViewObjects {
 		if (host == null) {
 			url = req.getRequestURL().toString();
 		} else {
-			url = host + "/" + req.getRequestURI();
+			url = host + req.getRequestURI();
 		}
 		if(url.endsWith("/")) url = url.split(SLASH_AT_END)[0];
 		return url;
