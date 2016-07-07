@@ -254,7 +254,7 @@ public class User implements Identifiable {
 		String size = width + "x" + height;
 		if (photoUri == null) {
 			String digest = Digester.md5(email);
-			String robohash = "http://robohash.org/size_"+size+"/set_set1/bgset_any/"+digest+".png";
+			String robohash = "https://robohash.org/size_"+size+"/set_set1/bgset_any/"+digest+".png";
 			String gravatar = gravatarUrl + "/avatar/" + digest + ".png?r=PG&size=" + size;
 			try {
 				return gravatar + "&d=" + java.net.URLEncoder.encode(robohash, "UTF-8");
