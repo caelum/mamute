@@ -321,7 +321,7 @@ public class LDAPApi {
 			if (isNotEmpty(groupAttr)) {
 				Attribute grpEntry = user.get(groupAttr);
 				if (grpEntry != null) {
-					for (Value grp : grpEntry) {
+					for (Value<?> grp : grpEntry) {
 						groupCns.add(grp.getString());
 					}
 				}
