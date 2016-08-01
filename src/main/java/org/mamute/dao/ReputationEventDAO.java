@@ -65,11 +65,11 @@ public class ReputationEventDAO {
 	@SuppressWarnings("unchecked")
 	private KarmaByContextHistory karmaByContext(User user, DateTime after, Integer maxResult) {
 		String hql = "select e.context.class, e.context.id, sum(e.karmaReward), " +
-				    "concat(concat(year(e.date), '/', month(e.date)), '/', day(e.date)) " +
+				    "e.date " +
 				    "from ReputationEvent e "+
 			        "where e.user = :user and e.date > :after " +
-			        "group by e.context.class, e.context.id, concat(concat(year(e.date), '/', month(e.date)), '/', day(e.date)) " +
-			        "order by year(e.date), month(e.date), day(e.date) desc";
+			        "group by e.context.class, e.context.id, e.date " +
+			        "order by e.date desc";
 
 		//get aggregate list
 	    Query query = session.createQuery(hql).setParameter("user", user).setParameter("after", after);
@@ -97,7 +97,7 @@ public class ReputationEventDAO {
 			organizedData.add(new Object[]{
 					context,
 					row[2],
-					DATE_FMT.parseDateTime((String) row[3])
+					row[3]
 			});
 		}
 
