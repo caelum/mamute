@@ -4,7 +4,7 @@
 
 	<groupId>br.com.caelum</groupId>
 	<artifactId>mamute</artifactId>
-	<version>1.4.0</version>
+	<version>1.4.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
 	<properties>
