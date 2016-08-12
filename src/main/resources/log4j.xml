@@ -9,7 +9,14 @@
         </layout>
     </appender>
 
-    <appender name="errorFile" class="org.apache.log4j.FileAppender">
+    <appender name="auth" class="org.apache.log4j.FileAppender">
+        <param name="File" value="logs/auth.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{HH:mm:ss} %5p [%-20c{1}] %m%n"/>
+        </layout>
+    </appender>
+
+     <appender name="errorFile" class="org.apache.log4j.FileAppender">
         <param name="File" value="logs/errors.log"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d{HH:mm:ss} %5p [%-20c{1}] %m%n"/>
@@ -77,7 +84,12 @@
         <appender-ref ref="main"/>
     </category>
     
-    <category name="br.com.caelum.vraptor.simplemail.aws">
+    <category name="org.mamute.auth">
+        <priority value="INFO"/>
+        <appender-ref ref="auth"/>
+    </category>
+
+     <category name="br.com.caelum.vraptor.simplemail.aws">
         <priority value="INFO"/>
         <appender-ref ref="main"/>
     </category>
