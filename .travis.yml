@@ -8,15 +8,3 @@ jdk:
 before_script:
   - mysql -e 'create database mamute_test;'
 install: ""
-notifications:
-    email:
-        recipients:
-            - chico.sokol@gmail.com
-            - artur.adam@caelum.com.br
-            - felipe.gtorres@gmail.com
-            - leonardo.wolter@caelum.com.br
-            - fernanda.bernardo@caelum.com.br
-            - marco.salles@caelum.com.br
-            - paulo.alves@caelum.com.br
-        on_success: change
-        on_failure: always
