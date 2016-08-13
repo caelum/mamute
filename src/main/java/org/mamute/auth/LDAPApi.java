@@ -23,6 +23,7 @@ import org.apache.directory.api.ldap.model.exception.LdapAuthenticationException
 import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.api.ldap.model.message.SearchScope;
 import org.apache.directory.ldap.client.api.LdapConnection;
+import org.apache.directory.ldap.client.api.LdapConnectionConfig;
 import org.apache.directory.ldap.client.api.LdapNetworkConnection;
 import org.mamute.dao.LoginMethodDAO;
 import org.mamute.dao.UserDAO;
@@ -60,6 +61,7 @@ public class LDAPApi {
 	public static final String LDAP_SSO = "ldap.sso";
 	public static final String PLACHOLDER_PASSWORD = "ldap-password-ignore-me";
 	public static final String LDAP_USE_SSL = "ldap.useSSL";
+	public static final String LDAP_USE_TLS = "ldap.useTLS";
 	public static final String LDAP_AVATAR_IMAGE = "ldap.avatarImageAttr";
 
 	@Inject private Environment env;
@@ -90,6 +92,12 @@ public class LDAPApi {
 	 */
 	private Boolean lookupAllAttr;
 	private Boolean useSsl;
+	
+	/**
+	 * Note that TLS (STARTTLS) is different from SSL for LDAP authentication. TLS is the 
+	 * preferred method of securing communucation with an LDAP server, rather than SSL (ldaps://)
+	 */
+	private Boolean useTls;
 	private String avatarImageAttr;
 
 	/**
@@ -116,6 +124,7 @@ public class LDAPApi {
 			lookupAttrs = env.get(LDAP_LOOKUP, "").split(",");
 			userObjectClass = env.get(LDAP_USER_OBJECTCLASS, "user");
 			useSsl = env.supports(LDAP_USE_SSL);
+			useTls = env.supports(LDAP_USE_TLS);
 			avatarImageAttr = env.get(LDAP_AVATAR_IMAGE, "");
 		}
 	}
@@ -294,7 +303,15 @@ public class LDAPApi {
 		}
 
 		private LdapConnection connection(String username, String password) throws LdapException {
-			LdapNetworkConnection conn = new LdapNetworkConnection(host, port, useSsl);
+			// Manually build the configuration since the convenience constructor in 
+			// the LdapNetworkConnection doesn't let us specify a TLS setting			
+			LdapConnectionConfig config = new LdapConnectionConfig();
+			config.setLdapHost(host);
+			config.setLdapPort(port);
+			config.setUseTls(useTls);
+			config.setUseSsl(useSsl);
+	        LdapNetworkConnection conn = new LdapNetworkConnection(config);
+			
 			conn.bind(username, password);
 			return conn;
 		}
@@ -304,7 +321,7 @@ public class LDAPApi {
 			if (isNotEmpty(groupAttr)) {
 				Attribute grpEntry = user.get(groupAttr);
 				if (grpEntry != null) {
-					for (Value grp : grpEntry) {
+					for (Value<?> grp : grpEntry) {
 						groupCns.add(grp.getString());
 					}
 				}
