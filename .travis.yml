@@ -18,5 +18,6 @@ notifications:
             - fernanda.bernardo@caelum.com.br
             - marco.salles@caelum.com.br
             - paulo.alves@caelum.com.br
+            - felipeweb.programador@gmail.com
         on_success: change
         on_failure: always
