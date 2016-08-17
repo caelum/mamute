@@ -20,7 +20,7 @@ PagPag.pem
 *.iws
 *.ipr
 *.ids
-mamute.iml
+*.iml
 *.swp
 vraptor-console.sh
 .vraptor-console/
