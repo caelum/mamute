@@ -19,7 +19,7 @@ public class MarkedTextConverter implements Converter<MarkedText> {
 	private final HtmlSanitizer sanitizer;
 
 	/**
-	 * @CDI eyes only
+	 * @deprecated CDI eyes only
 	 */
 	protected MarkedTextConverter() {
 		this(null);

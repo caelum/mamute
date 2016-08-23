@@ -16,7 +16,7 @@ public class SanitizedTextConverter implements Converter<SanitizedText> {
 	private final HtmlSanitizer sanitizer;
 
 	/**
-	 * @CDI eyes only
+	 * @deprecated CDI eyes only
 	 */
 	protected SanitizedTextConverter() {
 		this(null);
