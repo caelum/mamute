@@ -30,10 +30,11 @@ public class WithUserPaginatedDAOTest extends DatabaseTestCase{
 	private WithUserPaginatedDAO<Question> questionsWithUser;
 	private WithUserPaginatedDAO<Answer> answersWithUser;
 	private QuestionBuilder question = new QuestionBuilder();
-	
-	private Vote upVote = new Vote(author, VoteType.UP);
-	private Vote upVote2 = new Vote(author, VoteType.UP);
-	private Vote upVote3 = new Vote(author, VoteType.UP);
+
+    LoggedUser logged = logged(author);
+	private Vote upVote = new Vote(logged, VoteType.UP);
+	private Vote upVote2 = new Vote(logged, VoteType.UP);
+	private Vote upVote3 = new Vote(logged, VoteType.UP);
 	private Tag defaultTag = tag("defaultTag");
 
 	@Before

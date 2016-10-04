@@ -30,6 +30,8 @@ public class Vote {
     
     @Type(type = SessionFactoryCreator.JODA_TIME_TYPE)
     private DateTime lastUpdatedAt = new DateTime();
+
+    private String ip;
     
     public DateTime getLastUpdatedAt() {
 		return lastUpdatedAt;
@@ -42,9 +44,10 @@ public class Vote {
     	this(null, null);
     }
     
-    public Vote(User author, VoteType type) {
-        this.author = author;
+    public Vote(LoggedUser author, VoteType type) {
+        this.author = author.getCurrent();
         this.type = type;
+        this.ip = author.getIp();
     }
 
 	public int getCountValue() {

@@ -156,7 +156,7 @@ public class VoteDAOTest extends DatabaseTestCase{
 	
 
 	private Vote upvote(Votable votable, User user) {
-		Vote vote = new Vote(user, VoteType.UP);
+		Vote vote = new Vote(logged(user), VoteType.UP);
 		session.save(votable);
 		session.save(vote);
 		votingMachine.register(votable, vote, Comment.class);

@@ -42,7 +42,7 @@ public class VotingMachineTest extends TestCase {
 
     @Test
     public void should_add_vote() {
-        votingMachine.register(votable, new Vote(voter, VoteType.UP), Question.class);
+        votingMachine.register(votable, new Vote(logged(voter), VoteType.UP), Question.class);
         
         assertEquals(1, votable.getVoteCount()); 
     }
@@ -53,7 +53,7 @@ public class VotingMachineTest extends TestCase {
         votingMachine.register(votable, previousVote, Question.class);
         when(votes.previousVoteFor(votable.getId(), voter, Question.class)).thenReturn(previousVote);
         
-        Vote newVote = new Vote(voter, VoteType.UP);
+        Vote newVote = new Vote(logged(voter), VoteType.UP);
         votingMachine.register(votable, newVote, Question.class);
         
         assertEquals(1, votable.getVoteCount()); 
@@ -65,7 +65,7 @@ public class VotingMachineTest extends TestCase {
         votingMachine.register(votable, previousVote, Question.class);
         when(votes.previousVoteFor(votable.getId(), voter, Question.class)).thenReturn(previousVote);
         
-        Vote newVote = new Vote(voter, VoteType.DOWN);
+        Vote newVote = new Vote(logged(voter), VoteType.DOWN);
         votingMachine.register(votable, newVote, Question.class);
         
         assertEquals(-1, votable.getVoteCount()); 
@@ -73,25 +73,25 @@ public class VotingMachineTest extends TestCase {
     
     @Test(expected=IllegalArgumentException.class)
     public void should_disallow_author_to_vote() throws Exception {
-        Vote newVote = new Vote(author, VoteType.DOWN);
+        Vote newVote = new Vote(logged(author), VoteType.DOWN);
         votingMachine.register(votable, newVote, Question.class);
         fail("should throw illegal argument exception");
     }
     
     @Test
 	public void should_decrese_karma_of_downvoter() throws Exception {
-    	Vote newVote = new Vote(voter, VoteType.DOWN);
+    	Vote newVote = new Vote(logged(voter), VoteType.DOWN);
     	votingMachine.register(votable, newVote, Question.class);
     	assertEquals(-2l, voter.getKarma());
 	}
     
     @Test
     public void should_recalculate_karma_of_downvoter() throws Exception {
-    	Vote previousVote = new Vote(voter, VoteType.DOWN);
+    	Vote previousVote = new Vote(logged(voter), VoteType.DOWN);
 		votingMachine.register(votable, previousVote, Question.class);
     	when(votes.previousVoteFor(votable.getId(), voter, Question.class)).thenReturn(previousVote);
     	assertEquals(-2l, voter.getKarma());
-    	votingMachine.register(votable, new Vote(voter, VoteType.UP), Question.class);
+    	votingMachine.register(votable, new Vote(logged(voter), VoteType.UP), Question.class);
     	assertEquals(0l, voter.getKarma());
     }
 
