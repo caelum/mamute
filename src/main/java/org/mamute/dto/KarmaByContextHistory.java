@@ -14,6 +14,7 @@ public class KarmaByContextHistory {
 	public KarmaByContextHistory(Collection<Object[]> results) {
 		for (Object[] entry : results) {
 			ReputationEventContext context = (ReputationEventContext) entry[0];
+			if (context == null) continue;
 			Long karma = (Long) entry[1];
 			DateTime date = (DateTime) entry[2];
 			if(context.isVisible())
