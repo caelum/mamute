@@ -41,7 +41,7 @@
 				${t['about.reputation.moderate'].args(MODERATE_EDITS)}
 			</li>
 			<li>
-				${t['about.reputation.interact_inactive_question'].args(INACTIVE_QUESTION)}
+				${t['about.reputation.interact_inactive_question'].args(INACTIVATE_QUESTION)}
 			</li>
 		</ul>
 	</div><!-- big-text -->
