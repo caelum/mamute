@@ -169,7 +169,7 @@
 		<dependency>
 			<groupId>br.com.caelum.vraptor</groupId>
 			<artifactId>vraptor-hibernate</artifactId>
-			<version>4.0.0-RC2</version>
+			<version>4.0.0.Final</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.hibernate</groupId>
@@ -185,7 +185,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>4.2.3.Final</version>
+			<version>4.2.21.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -201,12 +201,12 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-c3p0</artifactId>
-			<version>4.2.3.Final</version>
+			<version>5.2.10.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-ehcache</artifactId>
-			<version>4.0.0.Final</version>
+			<version>5.2.10.Final</version>
 		</dependency>
 		<!-- joda time hibernate support -->
 		<dependency>
@@ -837,10 +837,10 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.3</version>
+				<version>3.6.1</version>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>1.8</source>
+					<target>1.8</target>
 					<encoding>UTF-8</encoding>
 					<generatedTestSourcesDirectory>src/integration/java</generatedTestSourcesDirectory>
 				</configuration>
