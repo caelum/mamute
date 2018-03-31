@@ -3,9 +3,8 @@ before_install:
   sudo pip install codecov
 after_success:
     codecov
-jdk:
-  - oraclejdk7
 before_script:
+  - jdk_switcher use oraclejdk8
   - mysql -e 'create database mamute_test;'
 install: ""
 notifications:
@@ -21,3 +20,5 @@ notifications:
             - felipeweb.programador@gmail.com
         on_success: change
         on_failure: always
+after_script:
+  - cat target/surefire-reports/org.mamute.dao.TagDAOTest.txt

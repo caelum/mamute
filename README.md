@@ -6,6 +6,14 @@ Mamute QA [![Build Status](https://secure.travis-ci.org/caelum/mamute.png)](http
 First of all, you need to setup an MySQL database. The default database name is 
 `mamute_development`, the username is `root` and the password must be blank.
 
+You may also use Docker Compose to run your MySQL database:
+
+```
+docker-compose -f docker-compose-it.yml up -d
+```
+
+This is useful for running the tests.
+
 ## To use mamute
 
 ### Using a compiled war file:
