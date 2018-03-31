@@ -4,7 +4,7 @@ before_install:
 after_success:
     codecov
 before_script:
-  - jdk_switcher use oraclejdk7
+  - jdk_switcher use oraclejdk8
   - mysql -e 'create database mamute_test;'
 install: ""
 notifications:
