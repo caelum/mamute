@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.Arrays;
 import java.util.List;
 
+import org.hibernate.Session;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeUtils;
 import org.junit.After;
@@ -30,19 +31,31 @@ public class TagDAOTest extends DatabaseTestCase{
 	private Tag groovy;
 
 
+	private Tag createTag(String name, String description, User author, Session session) {
+		Tag tag = new Tag(name, description, author);
+		session.save(tag);
+		return tag;
+	}
+
 	@Before
 	public void setup() {
 		this.tags = new TagDAO(session);
 		leo = user("leonardo", "leo@leo");
-		java = new Tag("java", "", leo);
-		ruby = new Tag("ruby", "", leo);
-		scala = new Tag("scala", "", leo);
-		groovy = new Tag("groovy", "", leo);
-		session.save(leo);
-		session.save(scala);
-		session.save(groovy);
-		session.save(java);
-		session.save(ruby);
+		if(java == null) {
+			java = createTag("java", "", leo, session);
+		}
+
+		if(ruby == null) {
+			ruby = createTag("ruby", "", leo, session);
+		}
+
+		if(scala == null) {
+			scala = createTag("scala", "", leo, session);
+		}
+
+		if(groovy == null) {
+			groovy = createTag("groovy", "", leo, session);
+		}
 	}
 
 	@Test
