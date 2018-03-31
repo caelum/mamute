@@ -3,9 +3,8 @@ before_install:
   sudo pip install codecov
 after_success:
     codecov
-jdk:
-  - oraclejdk7
 before_script:
+  - jdk_switcher use oraclejdk7
   - mysql -e 'create database mamute_test;'
 install: ""
 notifications:
