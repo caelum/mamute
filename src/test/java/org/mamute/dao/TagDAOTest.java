@@ -40,7 +40,10 @@ public class TagDAOTest extends DatabaseTestCase{
 	@Before
 	public void setup() {
 		this.tags = new TagDAO(session);
-		leo = user("leonardo", "leo@leo");
+		if(leo != null) {
+			leo = user("leonardo", "leo@leo");
+		}
+
 		if(java == null) {
 			java = createTag("java", "", leo, session);
 		}
