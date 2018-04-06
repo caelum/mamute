@@ -40,7 +40,7 @@ public class TagDAO {
 	public List<TagUsage> getRecentTagsSince(DateTime since, int maxResult) {
 		Query query = session.createQuery("select new org.mamute.model.TagUsage(tag, count(question)) from Question question " +
 				"join question.information.tags tag " +
-				"where question.lastUpdatedAt > :since  group by tag order by count(question) desc");
+				"where question.lastUpdatedAt > :since  group by tag order by count(question) desc, name");
 		query.setParameter("since", since);
 		return query.setMaxResults(maxResult).list();
 	}
