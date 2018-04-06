@@ -20,5 +20,3 @@ notifications:
             - felipeweb.programador@gmail.com
         on_success: change
         on_failure: always
-after_script:
-  - cat target/surefire-reports/org.mamute.dao.TagDAOTest.txt
