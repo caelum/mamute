@@ -1,7 +1,16 @@
 Mamute QA [![Build Status](https://secure.travis-ci.org/caelum/mamute.png)](http://travis-ci.org/caelum/mamute)
 ======
 
-## How to set up an instance of mamute
+## Requirements
+
+This project makes use of the following technologies to simplify setup:
+
+* [Node.js](https://nodejs.org)
+* [npm](https://www.npmjs.com)
+* [Docker CE](https://docs.docker.com/install/)
+* [Docker Compose](https://docs.docker.com/compose/install/)
+
+## How to set up an instance of Mamute
 
 First of all, you need to setup an MySQL database. The default database name is 
 `mamute_development`, the username is `root` and the password must be blank.
@@ -14,7 +23,18 @@ docker-compose -f docker-compose-it.yml up -d
 
 This is useful for running the tests.
 
-## To use mamute
+## To use Mamute
+
+### Using docker-compose:
+
+To start an instance of the latest Mamute release and its dependencies:
+
+```
+cd docker
+docker-compose up --build
+```
+
+Then you can access Mamute on [http://localhost:80](http://localhost:80).
 
 ### Using a compiled war file:
 
