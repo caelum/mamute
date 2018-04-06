@@ -46,8 +46,8 @@ public class TagDAOTest extends DatabaseTestCase{
 		assertEquals(2, recentTagsUsage.size());
 		assertEquals(2L, recentTagsUsage.get(0).getUsage().longValue());
 		assertEquals(1L, recentTagsUsage.get(1).getUsage().longValue());
-		assertEquals(java.getId(), recentTagsUsage.get(0).getTag().getId());
-		assertEquals(ruby.getId(), recentTagsUsage.get(1).getTag().getId());
+		assertEquals("java tag should be the most used", java.getId(), recentTagsUsage.get(0).getTag().getId());
+		assertEquals("ruby tag should be the second-most used", ruby.getId(), recentTagsUsage.get(1).getTag().getId());
 	}
 	
 	@Test

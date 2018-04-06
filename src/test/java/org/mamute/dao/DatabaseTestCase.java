@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import javax.validation.ValidatorFactory;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.After;
@@ -21,6 +22,7 @@ import br.com.caelum.vraptor.environment.Environment;
 
 @SuppressWarnings("unchecked")
 public abstract class DatabaseTestCase extends CDITestCase{
+	private static Logger LOG = Logger.getLogger(DatabaseTestCase.class);
 	protected static final SessionFactory factory;
 	private static final SessionFactoryCreator creator;
 	protected Session session;
@@ -33,8 +35,10 @@ public abstract class DatabaseTestCase extends CDITestCase{
 			MamuteDatabaseConfiguration configuration = new MamuteDatabaseConfiguration(testing, vf, null);
 			configuration.init();
 			creator = new SessionFactoryCreator(configuration);
+			LOG.info("Initializing database (SessionFactoryCreator) ...");
 			creator.init();
 			factory = creator.getInstance();
+			LOG.info("Database initialized.");
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
