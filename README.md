@@ -1,4 +1,4 @@
-Mamute QA [![Build Status](https://secure.travis-ci.org/caelum/mamute.png)](http://travis-ci.org/caelum/mamute)
+Mamute QA [![Build Status](https://travis-ci.org/mamutehq/mamute.svg?branch=master)](https://travis-ci.org/mamutehq/mamute)
 ======
 
 ## Requirements
