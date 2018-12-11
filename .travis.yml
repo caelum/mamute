@@ -15,7 +15,6 @@ notifications:
             - felipe.gtorres@gmail.com
             - leonardo.wolter@caelum.com.br
             - fernanda.bernardo@caelum.com.br
-            - marco.salles@caelum.com.br
             - paulo.alves@caelum.com.br
             - felipeweb.programador@gmail.com
         on_success: change
