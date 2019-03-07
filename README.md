@@ -88,3 +88,5 @@ Then you can access Mamute on [http://localhost:80](http://localhost:80).
 Send your questions to [mamute meta](http://meta.mamute.org).
 
 Or to our mail-list: mamute-qa-dev@googlegroups.com
+
+Mamute was developed by www.caelum.com.br and www.alura.com.br developers
