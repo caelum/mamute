@@ -1,0 +1,228 @@
+.md-preview,
+.big-text,
+.question-warnings,
+.title,
+.post-text,
+.page-title,
+.message,
+.notice,
+#question-title,
+#wmd-input,
+.form-hints,
+input,
+label {
+  direction: rtl;
+}
+
+.subheader .title {
+  float: right;
+  text-align: right;
+  direction: rtl;
+}
+
+.notice {
+  float: right;
+  margin: 1em 0;
+  font-size: 1.4em;
+}
+
+.hinted-form {
+  float: right;
+  width: 63%;
+}
+
+.first-content, .sidebar {
+  float: right;
+}
+
+.sidebar {
+  width: 29%;
+  padding-right: 3.5em;
+  clear: left;
+}
+
+.item-title-wrapper {
+  float: right;
+}
+
+.item-title a {
+  float: right;
+  margin-right: 6%;
+}
+.big-text {
+  direction: rtl;
+}
+
+.image-and-information {
+  float: right;
+}
+
+.data-list {
+  float: right;
+}
+
+.about-me {
+  float: left;
+}
+
+.data-description {
+  direction: rtl;
+  text-align: right;
+  padding-right: 5%;
+  float: left;
+}
+
+.data-title {
+  text-align: left;
+  direction: rtl;
+  width: 32% !important;
+  float: right !important;
+}
+
+.data-line * {
+  display: block;
+}
+
+ul.data-list {
+  padding-right: 5%;
+}
+
+.data-section-title {
+  display: block;
+  float: right;
+}
+
+dt.data-title.ellipsis {
+  width: 30%;
+}
+
+.about-me {
+  float: right;
+  direction: rtl;
+}
+
+.user-area .nav {
+  float: right;
+}
+
+.search-form {
+  float: left;
+}
+
+li.nav-item.user-item {
+  float: right;
+}
+
+li.nav-item {
+  float: right;
+}
+
+li.message.alert {
+  text-align: right;
+}
+
+.post-meta {
+  float: right;
+}
+
+.post-action-nav {
+  float: right;
+}
+
+.simple-ajax-form {
+  text-align: right;
+}
+
+.post-touchs {
+  float: left;
+  width: 52%;
+}
+
+li.touch.author-touch {
+  float: left;
+}
+
+li.touch.edited-touch {
+  float: right;
+}
+
+li.message.confirmation {
+  text-align: right;
+}
+
+textarea.comment-textarea {
+  text-align: right;
+  direction: rtl;
+}
+
+.big-logo {
+  float: right;
+}
+
+.piped-nav .nav-item.ask {
+  position: absolute;
+  left: 0;
+  right: auto;
+}
+
+nav.nav.main-nav.piped-nav {
+  margin-left: 29%;
+  margin-top: 2%;
+}
+
+time.when {
+  direction: rtl;
+  text-align: right;
+}
+
+img.user-image {
+  float: right;
+}
+
+.complete-user .user-info * {
+  text-align: right;
+  direction: rtl;
+}
+
+.post-simple-information {
+  direction: rtl;
+  text-align: right;
+  margin-right: 2em;
+  margin-top: -1em;
+  display: block;
+}
+
+span.reputation {
+  float: left;
+  margin-right: 0.5em;
+}
+
+a.user-name {
+  margin-right: .5em;
+}
+
+.ranking {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.user-info {
+  text-align: right;
+  direction: rtl;
+}
+
+.message.error {
+  direction: rtl;
+  text-align: right;
+}
+
+.related-questions span {
+  padding: 0.3em 0.5em;
+  float: right;
+}
+
+.related-questions a {
+  float: right;
+  width: 80%;
+  margin-right: 0.5em;
+}
