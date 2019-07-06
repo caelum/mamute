@@ -11,6 +11,8 @@ import org.mamute.dao.NewsDAO;
 import org.mamute.dao.QuestionDAO;
 import org.mamute.dao.TagDAO;
 import org.mamute.factory.MessageFactory;
+import org.mamute.list.Tab;
+import org.mamute.list.TabsHelper;
 import org.mamute.model.LoggedUser;
 import org.mamute.model.News;
 import org.mamute.model.Question;
@@ -20,8 +22,6 @@ import org.mamute.stream.Streamed;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-
-import static java.util.Arrays.asList;
 
 @Routed
 @Controller
@@ -36,7 +36,8 @@ public class ListController {
 	@Inject private RecentTagsContainer tagsContainer;
 	@Inject private HttpServletResponse response;
 	@Inject private MessageFactory messageFactory;
-	
+	@Inject private TabsHelper tabsHelper;
+
 	@Get
 	public void home(Integer p) {
 		Integer page = getPage(p);
@@ -45,8 +46,7 @@ public class ListController {
 			result.notFound();
 			return;
 		}
-		List<String> tabs = asList("voted", "answered", "viewed");
-		result.include("tabs", tabs);
+		result.include("tabs", this.tabsHelper.getTabs());
 
 		result.include("questions", visible);
 		result.include("totalPages", questions.numberOfPages());
@@ -57,16 +57,14 @@ public class ListController {
 
 	@Streamed
 	public void streamedHome(Integer p) {
-		List<String> tabs = asList("voted", "answered", "viewed");
-		result.include("tabs", tabs);
+		result.include("tabs", this.tabsHelper.getTabs());
 		result.include("currentUser", loggedUser);
 	}
 
 	@Cached(key="questionListPagelet", duration = 30, idleTime = 30)
 	@Streamed
 	public void questionListPagelet(Integer p) {
-		List<String> tabs = asList("voted", "answered", "viewed");
-		result.include("tabs", tabs);
+		result.include("tabs", this.tabsHelper.getTabs());
 		result.include("currentUser", loggedUser);
 		Integer page = getPage(p);
 		List<Question> visible = questions.allVisible(page);
@@ -92,33 +90,24 @@ public class ListController {
 
 	@Get
 	public void topRaw() {
-		result.redirectTo(this).top("voted");
+		result.redirectTo(this).topVoted();
 	}
 
 	@Get
-	public void top(String section) {
-		Integer count = 35;
-		
-		List<String> tabs = asList("voted", "answered", "viewed");
-		if (!tabs.contains(section)) {
-			section = tabs.get(0);
-			result.redirectTo(this).top(section);
-			return;
-		}
-
-		DateTime since = DateTime.now().minusMonths(2);
-		List<Question> top = questions.top(section, count, since);
-		
-		if (top.isEmpty()) {
-			result.notFound();
-			return;
-		}
-		result.include("tabs", tabs);
-		result.include("section", section);
-		result.include("questions", top);
-		result.include("currentUser", loggedUser);
+	public void topVoted() {
+		top(this.tabsHelper.tabForType(Tab.Type.VOTED));
 	}
-	
+
+	@Get
+	public void topAnswered() {
+		top(this.tabsHelper.tabForType(Tab.Type.ANSWERED));
+	}
+
+	@Get
+	public void topViewed() {
+		top(this.tabsHelper.tabForType(Tab.Type.VIEWED));
+	}
+
 	@Get
 	public void hackedIndex() {
 		result.redirectTo(this).home(1);
@@ -189,6 +178,18 @@ public class ListController {
 	private Integer getPage(Integer p) {
 		Integer page = p == null ? 1 : p;
 		return page;
+	}
+
+	private void top(Tab tab) {
+		Integer count = 35;
+		DateTime since = DateTime.now().minusMonths(2);
+
+		List<Question> top = this.questions.top(tab, count, since);
+
+		result.include("tabs", this.tabsHelper.getTabs());
+		result.include("questions", top);
+		result.include("currentUser", loggedUser);
+		result.forwardTo("/WEB-INF/jsp/list/top.jsp");
 	}
 
 }
