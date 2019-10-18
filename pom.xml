@@ -14,7 +14,7 @@
 		<jetty.jsp.version>8.1.4.v20120524</jetty.jsp.version>
 		<mamute.database>mysql</mamute.database>
 		<mamute.grunt.task>build</mamute.grunt.task>
-		<solr.version>4.10.0</solr.version>
+		<solr.version>8.2.0</solr.version>
 		<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
 	</properties>
 
